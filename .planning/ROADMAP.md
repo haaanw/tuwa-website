@@ -29,7 +29,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Dark mode and light mode both render correctly with system preference auto-detection and a manual toggle that persists across page loads
   4. Responsive navigation header works on mobile (hamburger menu) and desktop, with footer visible on every page
   5. Pages built on the base layout have correct title, description, OG tags, and canonical URL in their HTML source
-**Plans**: TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Install deps, configure Astro + Tailwind + Fonts API, create design token system
+- [ ] 01-02-PLAN.md — Create SEO, Header, MobileMenu, and Footer components
+- [ ] 01-03-PLAN.md — Create BaseLayout, wire index page, visual verification checkpoint
+
 **UI hint**: yes
 
 ### Phase 2: Landing Page
@@ -77,7 +83,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/3 | Planning complete | - |
 | 2. Landing Page | 0/TBD | Not started | - |
 | 3. Content Pages | 0/TBD | Not started | - |
 | 4. Blog + Polish | 0/TBD | Not started | - |
