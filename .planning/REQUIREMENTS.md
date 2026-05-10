@@ -19,11 +19,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Landing Page
 
-- [ ] **LAND-01**: Hero section with outcome-led headline, app screenshot in device mockup, and App Store download badge
+- [x] **LAND-01**: Hero section with outcome-led headline, app screenshot in device mockup, and App Store download badge
 - [ ] **LAND-02**: Feature overview grid with 5 cards linking to deep-dive pages
-- [ ] **LAND-03**: Scroll-triggered fade-in animations on sections (CSS + IntersectionObserver, no JS framework)
+- [x] **LAND-03**: Scroll-triggered fade-in animations on sections (CSS + IntersectionObserver, no JS framework)
 - [ ] **LAND-04**: Final CTA section with App Store badge and reinforcing copy
-- [ ] **LAND-05**: Desktop-aware App Store CTA (QR code or "Available on iPhone" messaging for non-mobile visitors)
+- [x] **LAND-05**: Desktop-aware App Store CTA (QR code or "Available on iPhone" messaging for non-mobile visitors)
 
 ### Feature Deep-Dives
 
@@ -103,11 +103,11 @@ Updated during roadmap creation.
 | FOUND-05 | Phase 1 | Complete |
 | FOUND-06 | Phase 1 | Complete |
 | FOUND-07 | Phase 1 | Complete |
-| LAND-01 | Phase 2 | Pending |
+| LAND-01 | Phase 2 | Complete |
 | LAND-02 | Phase 2 | Pending |
-| LAND-03 | Phase 2 | Pending |
+| LAND-03 | Phase 2 | Complete |
 | LAND-04 | Phase 2 | Pending |
-| LAND-05 | Phase 2 | Pending |
+| LAND-05 | Phase 2 | Complete |
 | FEAT-01 | Phase 3 | Pending |
 | FEAT-02 | Phase 3 | Pending |
 | FEAT-03 | Phase 3 | Pending |

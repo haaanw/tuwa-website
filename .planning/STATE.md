@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 2 UI-SPEC approved
-last_updated: "2026-05-10T14:00:50.833Z"
-last_activity: 2026-05-10 -- Phase 2 planning complete
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-05-10T14:24:31.587Z"
+last_activity: 2026-05-10
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 5
-  completed_plans: 3
-  percent: 60
+  completed_plans: 4
+  percent: 80
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-10)
 
 **Core value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing
-**Current focus:** Phase 01 — foundation
+**Current focus:** Phase 02 — landing-page
 
 ## Current Position
 
-Phase: 2
-Plan: Not started
+Phase: 02 (landing-page) — EXECUTING
+Plan: 2 of 2
 Status: Ready to execute
-Last activity: 2026-05-10 -- Phase 2 planning complete
+Last activity: 2026-05-10
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -55,6 +55,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-foundation P01 | 270 | 2 tasks | 4 files |
 | Phase 01-foundation P02 | 174 | 2 tasks | 4 files |
 | Phase 01-foundation P03 | 25 | 2 tasks | 4 files |
+| Phase 02-landing-page P01 | 938 | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -75,6 +76,9 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: Pinned vite to ^6.4.2 — vite 8/rolldown auto-install broke @tailwindcss/vite when importing global.css from BaseLayout during production build
 - [Phase 01-foundation]: BaseLayout.astro delegates SEO, font, header, and footer — pages provide only their content slot
 - [Phase 01-foundation]: Font preload placed before viewport meta in BaseLayout head per Pitfall 6 from RESEARCH.md
+- [Phase 02-landing-page]: Used Dashboard_framed.png directly without CSS border frame to avoid doubled frame visual (RESEARCH.md Pitfall 1 option 2)
+- [Phase 02-landing-page]: App Store badge placeholder SVG in place — replace with official Apple badge from developer.apple.com before go-live
+- [Phase 02-landing-page]: APP_STORE_URL defined as constant in src/config.ts — single source of truth for Hero and future LandingCTA
 
 ### Pending Todos
 
@@ -96,6 +100,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-10T13:19:57.448Z
-Stopped at: Phase 2 UI-SPEC approved
-Resume file: .planning/phases/02-landing-page/02-UI-SPEC.md
+Last session: 2026-05-10T14:24:31.584Z
+Stopped at: Completed 02-01-PLAN.md
+Resume file: None

@@ -50,7 +50,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md -- Setup assets, config, scroll CSS, and Hero component
+- [x] 02-01-PLAN.md -- Setup assets, config, scroll CSS, and Hero component
 - [ ] 02-02-PLAN.md -- FeatureGrid, LandingCTA, wire index.astro, visual checkpoint
 **UI hint**: yes
 
