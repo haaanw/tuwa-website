@@ -15,17 +15,19 @@ const {
 
 const siteName = "Tuwa";
 const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
+const siteOrigin = Astro.site?.origin ?? "https://tuwa.app";
+const resolvedOgImage = ogImage.startsWith("http") ? ogImage : `${siteOrigin}${ogImage}`;
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={ogImage} />
+<meta property="og:image" content={resolvedOgImage} />
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content={siteName} />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image" content={resolvedOgImage} />

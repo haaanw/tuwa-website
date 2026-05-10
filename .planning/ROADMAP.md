@@ -22,13 +22,12 @@ Decimal phases appear between their surrounding integers in numeric order.
 ### Phase 1: Foundation
 **Goal**: A deployed, functional Astro site with design system and base layout ready for content pages
 **Depends on**: Nothing (first phase)
-**Requirements**: FOUND-01, FOUND-02, FOUND-03, FOUND-04, FOUND-05, FOUND-06, FOUND-07
+**Requirements**: FOUND-01, FOUND-02, FOUND-03, FOUND-05, FOUND-06, FOUND-07
 **Success Criteria** (what must be TRUE):
   1. Site builds with Astro 6 + Tailwind v4 and deploys to Cloudflare Pages at tuwa.app with no errors
   2. Alpino font loads on first visit with no flash of unstyled text and no Cumulative Layout Shift
-  3. Dark mode and light mode both render correctly with system preference auto-detection and a manual toggle that persists across page loads
-  4. Responsive navigation header works on mobile (hamburger menu) and desktop, with footer visible on every page
-  5. Pages built on the base layout have correct title, description, OG tags, and canonical URL in their HTML source
+  3. Responsive navigation header works on mobile (hamburger menu) and desktop, with footer visible on every page
+  4. Pages built on the base layout have correct title, description, OG tags, and canonical URL in their HTML source
 **Plans:** 3/3 plans complete
 
 Plans:
