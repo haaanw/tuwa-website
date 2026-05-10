@@ -1,17 +1,17 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Tuwa"
+  description="Precision training load and recovery management for serious athletes and coaches."
+>
+  <!-- Phase 2 landing page content goes here -->
+  <section class="mx-auto max-w-6xl px-6" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl); min-height: 60vh;">
+    <h1 style="font-size: var(--text-heading); font-weight: 600; letter-spacing: var(--tracking-heading); color: var(--color-text-1);">
+      Tuwa
+    </h1>
+    <p style="margin-top: var(--space-md); color: var(--color-text-2); max-width: 48ch;">
+      Precision training load and recovery management for serious athletes and coaches.
+    </p>
+  </section>
+</BaseLayout>
