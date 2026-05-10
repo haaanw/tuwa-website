@@ -1,6 +1,23 @@
 <!-- Feature Grid section — 5 cards linking to Phase 3 feature deep-dive pages -->
 <!-- Feature page links activate in Phase 3 -->
 
+<style>
+  .feature-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .feature-card:hover,
+  .feature-card:focus-visible {
+    background-color: var(--color-surface-el);
+  }
+</style>
+
 <section
   data-animate
   style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);"
@@ -29,19 +46,7 @@
       <li>
         <a
           href="/features/recovery-scoring"
-          class="block transition-colors duration-150"
-          style="
-            background-color: var(--color-surface);
-            border: 1px solid var(--color-divider);
-            border-radius: var(--radius-lg);
-            padding: var(--space-md);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-sm);
-          "
-          onmouseover="this.style.backgroundColor='var(--color-surface-el)'"
-          onmouseout="this.style.backgroundColor='var(--color-surface)'"
+          class="feature-card block transition-colors duration-150"
         >
           <!-- Heart / Recovery icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--color-accent)" aria-hidden="true">
@@ -57,19 +62,7 @@
       <li>
         <a
           href="/features/workload-tracking"
-          class="block transition-colors duration-150"
-          style="
-            background-color: var(--color-surface);
-            border: 1px solid var(--color-divider);
-            border-radius: var(--radius-lg);
-            padding: var(--space-md);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-sm);
-          "
-          onmouseover="this.style.backgroundColor='var(--color-surface-el)'"
-          onmouseout="this.style.backgroundColor='var(--color-surface)'"
+          class="feature-card block transition-colors duration-150"
         >
           <!-- Bar chart / Load icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--color-accent)" aria-hidden="true">
@@ -87,19 +80,7 @@
       <li>
         <a
           href="/features/smart-templates"
-          class="block transition-colors duration-150"
-          style="
-            background-color: var(--color-surface);
-            border: 1px solid var(--color-divider);
-            border-radius: var(--radius-lg);
-            padding: var(--space-md);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-sm);
-          "
-          onmouseover="this.style.backgroundColor='var(--color-surface-el)'"
-          onmouseout="this.style.backgroundColor='var(--color-surface)'"
+          class="feature-card block transition-colors duration-150"
         >
           <!-- Clipboard / Templates icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--color-accent)" aria-hidden="true">
@@ -115,19 +96,7 @@
       <li>
         <a
           href="/features/cold-start"
-          class="block transition-colors duration-150"
-          style="
-            background-color: var(--color-surface);
-            border: 1px solid var(--color-divider);
-            border-radius: var(--radius-lg);
-            padding: var(--space-md);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-sm);
-          "
-          onmouseover="this.style.backgroundColor='var(--color-surface-el)'"
-          onmouseout="this.style.backgroundColor='var(--color-surface)'"
+          class="feature-card block transition-colors duration-150"
         >
           <!-- Lightning bolt / Cold-start icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--color-accent)" aria-hidden="true">
@@ -143,19 +112,7 @@
       <li class="md:col-start-2">
         <a
           href="/features/coaching"
-          class="block transition-colors duration-150"
-          style="
-            background-color: var(--color-surface);
-            border: 1px solid var(--color-divider);
-            border-radius: var(--radius-lg);
-            padding: var(--space-md);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-sm);
-          "
-          onmouseover="this.style.backgroundColor='var(--color-surface-el)'"
-          onmouseout="this.style.backgroundColor='var(--color-surface)'"
+          class="feature-card block transition-colors duration-150"
         >
           <!-- Two people / Coaching icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--color-accent)" aria-hidden="true">
