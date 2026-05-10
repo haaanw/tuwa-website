@@ -2,15 +2,15 @@
 import { APP_STORE_URL } from '../config';
 import QRCode from 'qrcode';
 
-const qrSvg = await QRCode.toString(APP_STORE_URL, {
+const qrSvg = (await QRCode.toString(APP_STORE_URL, {
   type: 'svg',
   width: 120,
   margin: 0,
   color: {
-    dark: '#1C1915',
+    dark: '#000000',
     light: '#00000000'
   }
-});
+})).replace(/fill="#000000"/g, 'fill="currentColor"');
 ---
 
 <!-- Final CTA section — surface background for visual break from page bg -->
@@ -65,7 +65,7 @@ const qrSvg = await QRCode.toString(APP_STORE_URL, {
         </a>
 
         <!-- QR code block — desktop only (D-07, hidden on mobile) -->
-        <div class="hidden md:flex flex-col items-center gap-1">
+        <div class="hidden md:flex flex-col items-center gap-1" style="color: var(--color-text-1);">
           <div
             set:html={qrSvg}
             style="width: 120px; height: 120px; border: 1px solid var(--color-accent); border-radius: var(--radius-sm); padding: 4px;"
