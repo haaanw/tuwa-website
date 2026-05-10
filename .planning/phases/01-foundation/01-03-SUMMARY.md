@@ -35,7 +35,7 @@ decisions:
   - "Font API (fontProviders.fontshare()) confirmed working — using <Font cssVariable='--font-alpino' preload /> in BaseLayout"
 metrics:
   completed_date: "2026-05-10"
-  tasks_completed: 1
+  tasks_completed: 2
   tasks_total: 2
   files_created: 1
   files_modified: 3
@@ -90,9 +90,9 @@ metrics:
 
 ## Checkpoint Status
 
-**Task 2: Visual and functional verification** — AWAITING HUMAN VERIFICATION
+**Task 2: Visual and functional verification** — APPROVED BY USER
 
-The dev server is running at http://localhost:4321. The user needs to verify the complete foundation visually before this plan is marked complete.
+User confirmed all desktop and mobile checks passed: sticky header with backdrop blur, responsive mobile hamburger menu with accessible focus trap, multi-column footer, warm off-white brand background, deep forest green CTA button, Alpino font rendering, and SEO tags present in page source.
 
 ## Known Stubs
 

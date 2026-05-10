@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: "Checkpoint: Task 2 visual verification of 01-foundation/01-03-PLAN.md"
-last_updated: "2026-05-10T10:07:08.262Z"
+status: verifying
+stopped_at: Completed 01-foundation/01-03-PLAN.md
+last_updated: "2026-05-10T10:26:41.209Z"
 last_activity: 2026-05-10
 progress:
   total_phases: 4
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 
 Phase: 01 (foundation) — EXECUTING
 Plan: 3 of 3
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-05-10
 
 Progress: [░░░░░░░░░░] 0%
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01-foundation P01 | 270 | 2 tasks | 4 files |
 | Phase 01-foundation P02 | 174 | 2 tasks | 4 files |
+| Phase 01-foundation P03 | 25 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,8 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: MobileMenu uses bundled script tag (not is:inline) for deduplication across pages
 - [Phase 01-foundation]: Logo rendered as <a> not <h1> — h1 stays in main page content (accessibility contract)
 - [Phase 01-foundation]: Pinned vite to ^6.4.2 — vite 8/rolldown auto-install broke @tailwindcss/vite when importing global.css from BaseLayout during production build
+- [Phase 01-foundation]: BaseLayout.astro delegates SEO, font, header, and footer — pages provide only their content slot
+- [Phase 01-foundation]: Font preload placed before viewport meta in BaseLayout head per Pitfall 6 from RESEARCH.md
 
 ### Pending Todos
 
@@ -93,6 +96,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-10T10:07:02.837Z
-Stopped at: Checkpoint: Task 2 visual verification of 01-foundation/01-03-PLAN.md
+Last session: 2026-05-10T10:26:41.206Z
+Stopped at: Completed 01-foundation/01-03-PLAN.md
 Resume file: None
