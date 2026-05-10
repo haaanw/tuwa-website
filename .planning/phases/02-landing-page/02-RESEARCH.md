@@ -570,22 +570,25 @@ const qrSvg = await QRCode.toString(APP_STORE_URL, { type: 'svg', width: 120, ma
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **App Store URL**
    - What we know: Header.astro uses `https://apps.apple.com/app/tuwa` as placeholder
    - What's unclear: Is the Tuwa app live on the App Store? What is the real App Store ID?
    - Recommendation: Define `APP_STORE_URL` in `src/config.ts`. Use placeholder during development. The planner should create a task to confirm/update this value before the page goes live.
+   - RESOLVED: Plan 02-01 Task 1 creates `src/config.ts` with `APP_STORE_URL = 'https://apps.apple.com/app/tuwa'` as placeholder. Update before go-live.
 
 2. **Hero screenshot: framed vs unframed**
    - What we know: Only `_framed.png` files exist at `~/Desktop/Tonus/appstore screenshots/`
    - What's unclear: Are unframed screenshots available or exportable from the simulator?
    - Recommendation: Planner should include a task to export an unframed screenshot from Xcode Simulator. If unavailable by implementation time, use `Dashboard_framed.png` directly as a plain `<img>` without the CSS border frame (fallback path).
+   - RESOLVED: Plan 02-01 Task 1 uses `Dashboard_framed.png` with no CSS border frame (Pitfall 1 fallback path). Unframed export deferred.
 
 3. **Apple App Store badge SVG availability**
    - What we know: Apple hosts the official badge at their marketing guidelines page
    - What's unclear: Whether the badge needs to be downloaded manually or can be referenced directly
    - Recommendation: Download the badge SVG to `public/badges/app-store-badge.svg` in Wave 0 / setup task. Do not hotlink from Apple's servers.
+   - RESOLVED: Plan 02-01 Task 1 downloads badge SVG to `public/badges/app-store-badge.svg` with fallback placeholder.
 
 ---
 
