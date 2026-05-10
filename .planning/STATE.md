@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-foundation/01-02-PLAN.md
-last_updated: "2026-05-10T10:01:32.331Z"
+stopped_at: "Checkpoint: Task 2 visual verification of 01-foundation/01-03-PLAN.md"
+last_updated: "2026-05-10T10:07:08.262Z"
 last_activity: 2026-05-10
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
-  percent: 67
+  completed_plans: 3
+  percent: 100
 ---
 
 # Project State
@@ -71,6 +71,7 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: OG default image is 1x1 PNG placeholder; proper branded 1200x630 deferred to Phase 4
 - [Phase 01-foundation]: MobileMenu uses bundled script tag (not is:inline) for deduplication across pages
 - [Phase 01-foundation]: Logo rendered as <a> not <h1> — h1 stays in main page content (accessibility contract)
+- [Phase 01-foundation]: Pinned vite to ^6.4.2 — vite 8/rolldown auto-install broke @tailwindcss/vite when importing global.css from BaseLayout during production build
 
 ### Pending Todos
 
@@ -92,6 +93,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-10T10:01:32.328Z
-Stopped at: Completed 01-foundation/01-02-PLAN.md
+Last session: 2026-05-10T10:07:02.837Z
+Stopped at: Checkpoint: Task 2 visual verification of 01-foundation/01-03-PLAN.md
 Resume file: None
