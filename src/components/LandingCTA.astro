@@ -1,0 +1,105 @@
+---
+import { APP_STORE_URL } from '../config';
+import QRCode from 'qrcode';
+
+const qrSvg = await QRCode.toString(APP_STORE_URL, {
+  type: 'svg',
+  width: 120,
+  margin: 0,
+  color: {
+    dark: '#1C1915',
+    light: '#00000000'
+  }
+});
+---
+
+<!-- Final CTA section — surface background for visual break from page bg -->
+<section
+  data-animate
+  style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider);"
+>
+  <div class="mx-auto max-w-6xl px-6" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
+    <div class="mx-auto text-center" style="max-width: 640px;">
+
+      <!-- Closing headline -->
+      <h2
+        style="
+          font-size: var(--text-heading);
+          font-weight: 600;
+          line-height: var(--leading-heading);
+          letter-spacing: var(--tracking-heading);
+          color: var(--color-text-1);
+        "
+      >
+        Built for athletes who take training seriously.
+      </h2>
+
+      <!-- Supporting copy -->
+      <p
+        style="
+          margin-top: var(--space-lg);
+          color: var(--color-text-2);
+        "
+      >
+        Evidence-based workload management. No vanity metrics. No noise.
+      </p>
+
+      <!-- Badge + QR block — same layout as Hero -->
+      <div
+        class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6"
+        style="margin-top: var(--space-xl);"
+      >
+        <!-- App Store badge — always visible -->
+        <a
+          href={APP_STORE_URL}
+          rel="noopener noreferrer"
+          aria-label="Download Tuwa on the App Store"
+        >
+          <img
+            src="/badges/app-store-badge.svg"
+            alt="Download on the App Store"
+            height="44"
+            width="148"
+            loading="lazy"
+          />
+        </a>
+
+        <!-- QR code block — desktop only (D-07, hidden on mobile) -->
+        <div class="hidden md:flex flex-col items-center gap-1">
+          <div
+            set:html={qrSvg}
+            style="width: 120px; height: 120px; border: 1px solid var(--color-accent); border-radius: var(--radius-sm); padding: 4px;"
+            aria-hidden="true"
+          />
+          <span
+            style="font-size: var(--text-label); color: var(--color-text-2); letter-spacing: var(--tracking-label);"
+          >
+            SCAN TO DOWNLOAD
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- IntersectionObserver — triggers scroll fade-in for all [data-animate] elements on the page -->
+<!-- Follows is:inline IIFE pattern established in Header.astro scroll shadow script -->
+<script is:inline>
+  (function () {
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll('[data-animate]').forEach(function (el) {
+      observer.observe(el);
+    });
+  })();
+</script>
