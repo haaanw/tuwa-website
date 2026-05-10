@@ -10,7 +10,7 @@ const qrSvg = (await QRCode.toString(APP_STORE_URL, {
     dark: '#000000',
     light: '#00000000'
   }
-})).replace(/fill="#000000"/g, 'fill="currentColor"');
+})).replace(/stroke="#000000"/g, 'stroke="currentColor"');
 ---
 
 <!-- Final CTA section — surface background for visual break from page bg -->
