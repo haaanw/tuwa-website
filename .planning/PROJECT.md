@@ -23,7 +23,7 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 - [ ] Terms of service page (migrated from existing HTML/MD)
 - [ ] Blog infrastructure (MDX-ready, no initial posts required)
 - [ ] Responsive design (mobile-first, works on all breakpoints)
-- [ ] Dark/light mode support matching app's dual-mode palette
+- ~~Dark/light mode~~ — Descoped (light mode only)
 - [ ] App Store download badge as primary CTA
 - [ ] SEO fundamentals (meta tags, OG images, semantic HTML)
 - [ ] Cloudflare Pages deployment configuration
