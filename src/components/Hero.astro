@@ -1,0 +1,103 @@
+---
+import { Image } from 'astro:assets';
+import { APP_STORE_URL } from '../config';
+import QRCode from 'qrcode';
+import dashboardScreenshot from '../assets/screenshots/dashboard.png';
+
+const qrSvg = await QRCode.toString(APP_STORE_URL, {
+  type: 'svg',
+  width: 120,
+  margin: 0,
+  color: {
+    dark: '#1C1915',
+    light: '#00000000'
+  }
+});
+---
+
+<section
+  class="px-6"
+  style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);"
+>
+  <div class="mx-auto text-center" style="max-width: 768px;">
+
+    <!-- Headline — h1 (one per page, per accessibility contract) -->
+    <h1
+      style="
+        font-size: var(--text-display);
+        font-weight: 600;
+        line-height: var(--leading-display);
+        letter-spacing: var(--tracking-display);
+        color: var(--color-text-1);
+      "
+    >
+      Train smarter. Recover with precision.
+    </h1>
+
+    <!-- Subtitle -->
+    <p
+      class="mx-auto"
+      style="
+        margin-top: var(--space-lg);
+        max-width: 560px;
+        font-size: var(--text-body);
+        line-height: var(--leading-body);
+        color: var(--color-text-2);
+      "
+    >
+      Tuwa synthesizes your HRV, sleep, and training load into a single daily readiness score — so you know exactly how hard to push today.
+    </p>
+
+    <!-- App Store badge + QR code block -->
+    <div
+      class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6"
+      style="margin-top: var(--space-xl);"
+    >
+      <!-- App Store badge — always visible -->
+      <a
+        href={APP_STORE_URL}
+        rel="noopener noreferrer"
+        aria-label="Download Tuwa on the App Store"
+      >
+        <img
+          src="/badges/app-store-badge.svg"
+          alt="Download on the App Store"
+          height="44"
+          width="148"
+          loading="eager"
+        />
+      </a>
+
+      <!-- QR code block — desktop only (D-07) -->
+      <div class="hidden md:flex flex-col items-center gap-1">
+        <div
+          set:html={qrSvg}
+          style="width: 120px; height: 120px; border: 1px solid var(--color-accent); border-radius: var(--radius-sm); padding: 4px;"
+          aria-hidden="true"
+        />
+        <span
+          style="font-size: var(--text-label); color: var(--color-text-2); letter-spacing: var(--tracking-label);"
+        >
+          SCAN TO DOWNLOAD
+        </span>
+      </div>
+    </div>
+
+    <!-- Device mockup — Dashboard_framed.png used as-is (no CSS border frame per RESEARCH.md Pitfall 1 option 2) -->
+    <div
+      class="relative mx-auto"
+      style="margin-top: var(--space-2xl); max-width: 320px;"
+    >
+      <Image
+        src={dashboardScreenshot}
+        alt="Tuwa app showing today's recovery score of 82 — HRV in green zone, sleep 7.5 hours."
+        width={320}
+        quality={90}
+        format="webp"
+        loading="eager"
+        class="rounded-[44px]"
+      />
+    </div>
+
+  </div>
+</section>
