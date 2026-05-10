@@ -1,0 +1,110 @@
+---
+import MobileMenu from "./MobileMenu.astro";
+---
+<header
+  class="sticky top-0 z-50 border-b"
+  style="
+    height: 64px;
+    background-color: color-mix(in srgb, var(--color-surface) 95%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-color: var(--color-divider);
+  "
+>
+  <nav
+    class="mx-auto flex h-full max-w-6xl items-center justify-between px-6"
+    aria-label="Main navigation"
+  >
+    <!-- Logo — use <a>, NOT <h1> (accessibility: h1 is in main content) -->
+    <a
+      href="/"
+      aria-label="Tuwa home"
+      style="font-size: var(--text-heading); font-weight: 600; color: var(--color-text-1); letter-spacing: var(--tracking-heading); text-decoration: none;"
+    >
+      Tuwa
+    </a>
+
+    <!-- Desktop nav links (hidden on mobile) -->
+    <ul class="hidden items-center gap-8 md:flex" role="list">
+      <li>
+        <a href="/features" class="transition-colors duration-100" style="color: var(--color-text-1); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-1)'">
+          Features
+        </a>
+      </li>
+      <li>
+        <a href="/coaching" class="transition-colors duration-100" style="color: var(--color-text-1); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-1)'">
+          Coaching
+        </a>
+      </li>
+      <li>
+        <a href="/blog" class="transition-colors duration-100" style="color: var(--color-text-1); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-1)'">
+          Blog
+        </a>
+      </li>
+      <li>
+        <a href="/support" class="transition-colors duration-100" style="color: var(--color-text-1); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-1)'">
+          Support
+        </a>
+      </li>
+    </ul>
+
+    <!-- CTA button — accent color (D-02), hidden on mobile -->
+    <a
+      href="https://apps.apple.com/app/tuwa"
+      rel="noopener noreferrer"
+      class="hidden md:inline-flex items-center transition-colors duration-100"
+      style="
+        background-color: var(--color-accent);
+        color: var(--color-accent-fg);
+        border-radius: var(--radius-md);
+        padding: var(--space-sm) var(--space-md);
+        font-weight: 600;
+        text-decoration: none;
+        font-size: var(--text-body);
+      "
+      onmouseover="this.style.backgroundColor='var(--color-accent-hover)';this.style.boxShadow='0 2px 8px rgba(43,82,64,0.20)'"
+      onmouseout="this.style.backgroundColor='var(--color-accent)';this.style.boxShadow='none'"
+    >
+      Get the App
+    </a>
+
+    <!-- Mobile hamburger button (visible below md breakpoint) -->
+    <button
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open navigation menu"
+      class="flex items-center justify-center md:hidden"
+      style="width: 44px; height: 44px; background: none; border: none; cursor: pointer; color: var(--color-text-1);"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<MobileMenu />
+
+<!-- Scroll shadow: subtle box-shadow when scrolled past top -->
+<script is:inline>
+  (function() {
+    const header = document.querySelector("header");
+    const sentinel = document.createElement("div");
+    sentinel.style.height = "1px";
+    sentinel.style.position = "absolute";
+    sentinel.style.top = "0";
+    document.body.prepend(sentinel);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        header.style.boxShadow = entry.isIntersecting
+          ? "none"
+          : "0 1px 0 var(--color-divider)";
+      },
+      { threshold: 1 }
+    );
+    observer.observe(sentinel);
+  })();
+</script>

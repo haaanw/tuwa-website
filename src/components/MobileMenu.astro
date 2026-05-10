@@ -1,0 +1,152 @@
+---
+// src/components/MobileMenu.astro
+// Interactive menu overlay. JS handles open/close, focus trap, Escape key.
+// Rendered inline (not as island) — uses <script> tag for browser JS.
+---
+<div
+  id="mobile-menu"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Mobile navigation"
+  aria-hidden="true"
+  class="fixed inset-0 z-[60] md:hidden"
+  style="
+    display: none;
+    background-color: var(--color-surface-el);
+  "
+>
+  <!-- Close button -->
+  <div class="flex items-center justify-end px-6" style="height: 64px;">
+    <button
+      id="menu-close"
+      aria-label="Close navigation menu"
+      class="flex items-center justify-center"
+      style="width: 44px; height: 44px; background: none; border: none; cursor: pointer; color: var(--color-text-1);"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="6" y1="6" x2="18" y2="18" />
+        <line x1="6" y1="18" x2="18" y2="6" />
+      </svg>
+    </button>
+  </div>
+
+  <nav style="padding: var(--space-lg) var(--space-lg);">
+    <ul role="list" class="space-y-1">
+      <li>
+        <a
+          href="/features"
+          class="block"
+          style="padding: var(--space-sm) var(--space-md); color: var(--color-text-1); text-decoration: none; font-size: var(--text-heading); font-weight: 600; border-radius: var(--radius-md); min-height: 44px; display: flex; align-items: center;"
+        >
+          Features
+        </a>
+      </li>
+      <li>
+        <a
+          href="/coaching"
+          class="block"
+          style="padding: var(--space-sm) var(--space-md); color: var(--color-text-1); text-decoration: none; font-size: var(--text-heading); font-weight: 600; border-radius: var(--radius-md); min-height: 44px; display: flex; align-items: center;"
+        >
+          Coaching
+        </a>
+      </li>
+      <li>
+        <a
+          href="/blog"
+          class="block"
+          style="padding: var(--space-sm) var(--space-md); color: var(--color-text-1); text-decoration: none; font-size: var(--text-heading); font-weight: 600; border-radius: var(--radius-md); min-height: 44px; display: flex; align-items: center;"
+        >
+          Blog
+        </a>
+      </li>
+      <li>
+        <a
+          href="/support"
+          class="block"
+          style="padding: var(--space-sm) var(--space-md); color: var(--color-text-1); text-decoration: none; font-size: var(--text-heading); font-weight: 600; border-radius: var(--radius-md); min-height: 44px; display: flex; align-items: center;"
+        >
+          Support
+        </a>
+      </li>
+    </ul>
+
+    <!-- CTA in mobile menu -->
+    <div style="margin-top: var(--space-xl); padding: 0 var(--space-md);">
+      <a
+        href="https://apps.apple.com/app/tuwa"
+        rel="noopener noreferrer"
+        class="flex items-center justify-center"
+        style="
+          background-color: var(--color-accent);
+          color: var(--color-accent-fg);
+          border-radius: var(--radius-md);
+          padding: var(--space-md);
+          font-weight: 600;
+          text-decoration: none;
+          font-size: var(--text-body);
+          width: 100%;
+          min-height: 44px;
+        "
+      >
+        Get the App
+      </a>
+    </div>
+  </nav>
+</div>
+
+<script>
+  const menu = document.getElementById("mobile-menu");
+  const toggle = document.getElementById("menu-toggle");
+  const closeBtn = document.getElementById("menu-close");
+
+  function openMenu() {
+    if (!menu || !toggle) return;
+    menu.style.display = "block";
+    menu.setAttribute("aria-hidden", "false");
+    toggle.setAttribute("aria-expanded", "true");
+    // Prevent body scroll
+    document.body.style.overflow = "hidden";
+    // Focus close button
+    closeBtn?.focus();
+    document.addEventListener("keydown", handleKeydown);
+  }
+
+  function closeMenu() {
+    if (!menu || !toggle) return;
+    menu.style.display = "none";
+    menu.setAttribute("aria-hidden", "true");
+    toggle.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+    toggle.focus();
+    document.removeEventListener("keydown", handleKeydown);
+  }
+
+  function handleKeydown(e: KeyboardEvent) {
+    if (e.key === "Escape") {
+      closeMenu();
+      return;
+    }
+    // Focus trap: keep Tab within menu
+    if (e.key === "Tab" && menu) {
+      const focusable = Array.from(
+        menu.querySelectorAll<HTMLElement>("a, button")
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  closeBtn?.addEventListener("click", closeMenu);
+</script>
