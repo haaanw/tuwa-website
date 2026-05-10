@@ -47,7 +47,11 @@ Plans:
   3. Sections fade in on scroll using CSS + IntersectionObserver (no JS framework)
   4. Desktop visitors see a QR code or "Available on iPhone" message as an alternative to the App Store badge
   5. Page renders correctly at mobile, tablet, and desktop breakpoints
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 02-01-PLAN.md -- Setup assets, config, scroll CSS, and Hero component
+- [ ] 02-02-PLAN.md -- FeatureGrid, LandingCTA, wire index.astro, visual checkpoint
 **UI hint**: yes
 
 ### Phase 3: Content Pages
