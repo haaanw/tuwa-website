@@ -9,13 +9,13 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Foundation
 
-- [ ] **FOUND-01**: Site builds with Astro 6 + Tailwind v4 and deploys to Cloudflare Pages at tuwa.app
-- [ ] **FOUND-02**: Alpino font self-hosted with preload hints, no FOUT or CLS regression
-- [ ] **FOUND-03**: Design token system (colors, spacing, typography) in Tailwind config matching app palette with web-appropriate extensions
+- [x] **FOUND-01**: Site builds with Astro 6 + Tailwind v4 and deploys to Cloudflare Pages at tuwa.app
+- [x] **FOUND-02**: Alpino font self-hosted with preload hints, no FOUT or CLS regression
+- [x] **FOUND-03**: Design token system (colors, spacing, typography) in Tailwind config matching app palette with web-appropriate extensions
 - [ ] **FOUND-04**: Dark/light mode with system preference detection + manual toggle, no flash on load
-- [ ] **FOUND-05**: Base layout with SEO meta component (title, description, OG tags, canonical URL)
-- [ ] **FOUND-06**: Responsive navigation header with mobile menu
-- [ ] **FOUND-07**: Footer with nav links, legal links, and App Store badge
+- [x] **FOUND-05**: Base layout with SEO meta component (title, description, OG tags, canonical URL)
+- [x] **FOUND-06**: Responsive navigation header with mobile menu
+- [x] **FOUND-07**: Footer with nav links, legal links, and App Store badge
 
 ### Landing Page
 
@@ -96,13 +96,13 @@ Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Pending |
-| FOUND-02 | Phase 1 | Pending |
-| FOUND-03 | Phase 1 | Pending |
+| FOUND-01 | Phase 1 | Complete |
+| FOUND-02 | Phase 1 | Complete |
+| FOUND-03 | Phase 1 | Complete |
 | FOUND-04 | Phase 1 | Pending |
-| FOUND-05 | Phase 1 | Pending |
-| FOUND-06 | Phase 1 | Pending |
-| FOUND-07 | Phase 1 | Pending |
+| FOUND-05 | Phase 1 | Complete |
+| FOUND-06 | Phase 1 | Complete |
+| FOUND-07 | Phase 1 | Complete |
 | LAND-01 | Phase 2 | Pending |
 | LAND-02 | Phase 2 | Pending |
 | LAND-03 | Phase 2 | Pending |

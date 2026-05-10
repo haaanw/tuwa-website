@@ -33,7 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Install deps, configure Astro + Tailwind + Fonts API, create design token system
-- [ ] 01-02-PLAN.md — Create SEO, Header, MobileMenu, and Footer components
+- [x] 01-02-PLAN.md — Create SEO, Header, MobileMenu, and Footer components
 - [ ] 01-03-PLAN.md — Create BaseLayout, wire index page, visual verification checkpoint
 
 **UI hint**: yes
