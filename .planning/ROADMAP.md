@@ -51,7 +51,7 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md -- Setup assets, config, scroll CSS, and Hero component
-- [ ] 02-02-PLAN.md -- FeatureGrid, LandingCTA, wire index.astro, visual checkpoint
+- [x] 02-02-PLAN.md -- FeatureGrid, LandingCTA, wire index.astro, visual checkpoint
 **UI hint**: yes
 
 ### Phase 3: Content Pages
