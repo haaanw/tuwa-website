@@ -82,13 +82,13 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Scroll-triggered reveal animations (Phase 2 — LAND-03) */
+/* Scroll-triggered reveal animations -- JS-gated (D-02) + strict reduced-motion (D-03) */
 @media (prefers-reduced-motion: no-preference) {
-  [data-animate] {
+  .js-enabled [data-animate] {
     opacity: 0;
     transform: translateY(16px);
   }
-  [data-animate].is-visible {
+  .js-enabled [data-animate].is-visible {
     animation: fade-up 400ms ease-out forwards;
   }
   @keyframes fade-up {
@@ -99,11 +99,5 @@ body {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  [data-animate] {
-    opacity: 0;
-    transition: opacity 200ms ease-out;
-  }
-  [data-animate].is-visible {
-    opacity: 1;
-  }
+  /* Intentionally empty -- [data-animate] elements render at full opacity with no transform */
 }
