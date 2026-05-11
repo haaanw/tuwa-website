@@ -36,8 +36,9 @@
   2. A user with `prefers-reduced-motion: reduce` set in their OS sees zero motion on the site
   3. Users with JavaScript disabled still see all page content (no invisible elements from animation CSS classes applied in base styles)
   4. The AnimationController is injected once by BaseLayout and does not appear as duplicate script tags in page source
-**Plans**: TBD
-**UI hint**: yes
+**Plans:** 1 plan
+Plans:
+- [ ] 05-01-PLAN.md — CSS animation refactor + AnimationController consolidation
 
 ### Phase 6: Screenshot Presentation
 **Goal**: Every app screenshot on the site is crisp, Retina-ready, and displayed inside a professional CSS iPhone device frame
@@ -97,7 +98,7 @@
 | 2. Landing Page | v1.0 | 2/2 | Complete | 2026-05-10 |
 | 3. Content Pages | v1.0 | 4/4 | Complete | 2026-05-11 |
 | 4. Blog + Polish | v1.0 | 3/3 | Complete | 2026-05-11 |
-| 5. Animation Infrastructure | v2.0 | 0/? | Not started | - |
+| 5. Animation Infrastructure | v2.0 | 0/1 | Not started | - |
 | 6. Screenshot Presentation | v2.0 | 0/? | Not started | - |
 | 7. Animation Polish | v2.0 | 0/? | Not started | - |
 | 8. UI/UX Visual Depth | v2.0 | 0/? | Not started | - |
