@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import dashboardScreenshot from '../assets/screenshots/dashboard.png';
+import DeviceFrame from './DeviceFrame.astro';
 ---
 
 <section
@@ -36,19 +36,21 @@ import dashboardScreenshot from '../assets/screenshots/dashboard.png';
       Tuwa combines HRV, sleep, training load, and six fatigue dimensions into a single readiness score — so you know exactly how hard to push today.
     </p>
 
-    <!-- Device mockup — Dashboard_framed.png used as-is (no CSS border frame per RESEARCH.md Pitfall 1 option 2) -->
+    <!-- Device mockup — CSS iPhone frame with subtle perspective tilt (D-05) -->
     <div
       class="relative mx-auto"
-      style="margin-top: var(--space-2xl); max-width: 320px;"
+      style="
+        margin-top: var(--space-2xl);
+        max-width: 320px;
+        transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);
+      "
     >
-      <Image
+      <DeviceFrame
         src={dashboardScreenshot}
         alt="Tuwa app showing today's recovery score of 82 — HRV in green zone, sleep 7.5 hours."
-        width={320}
-        quality={90}
-        format="webp"
         loading="eager"
-        class="rounded-[44px]"
+        fetchpriority="high"
+        widths={[320, 640, 960]}
       />
     </div>
 
