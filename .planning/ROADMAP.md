@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation** - Astro scaffold, design system, base layout, and Cloudflare Pages deployment (completed 2026-05-10)
 - [ ] **Phase 2: Landing Page** - Hero, feature grid, animations, and App Store CTAs
 - [x] **Phase 3: Content Pages** - Feature deep-dives (5 pages) and legal/support pages (3 pages) (completed 2026-05-11)
-- [ ] **Phase 4: Blog + Polish** - Blog infrastructure, performance audit, and SEO completeness
+- [x] **Phase 4: Blog + Polish** - Blog infrastructure, performance audit, and SEO completeness (completed 2026-05-11)
 
 ## Phase Details
 
@@ -84,12 +84,12 @@ Plans:
   3. XML sitemap is generated at build time and accessible at /sitemap.xml
   4. robots.txt allows crawling and is accessible at /robots.txt
   5. All pages use semantic HTML with proper heading hierarchy, landmarks, and alt text on images
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 
 Plans:
 - [x] 04-01-PLAN.md — Font switch (Alpino to General Sans), SEO og:type prop, remark reading time plugin, dependency install
 - [x] 04-02-PLAN.md — Blog content collection schema, listing page, post layout, dynamic post route
-- [ ] 04-03-PLAN.md — robots.txt, branded OG image, semantic HTML audit, Lighthouse performance, canonical URL verification
+- [x] 04-03-PLAN.md — robots.txt, branded OG image, semantic HTML audit, Lighthouse performance, canonical URL verification
 
 ## Progress
 
@@ -101,4 +101,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Foundation | 3/3 | Complete   | 2026-05-10 |
 | 2. Landing Page | 2/2 | Complete | 2026-05-10 |
 | 3. Content Pages | 4/4 | Complete   | 2026-05-11 |
-| 4. Blog + Polish | 2/3 | In Progress|  |
+| 4. Blog + Polish | 3/3 | Complete   | 2026-05-11 |

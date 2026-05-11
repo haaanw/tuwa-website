@@ -52,11 +52,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Performance & SEO
 
-- [ ] **PERF-01**: Lighthouse performance score >= 95 on landing page
-- [ ] **PERF-02**: Semantic HTML throughout (proper heading hierarchy, landmarks, alt text)
-- [ ] **PERF-03**: XML sitemap generated at build time
-- [ ] **PERF-04**: robots.txt configured for crawling
-- [ ] **PERF-05**: Proper canonical URLs on all pages
+- [x] **PERF-01**: Lighthouse performance score >= 95 on landing page
+- [x] **PERF-02**: Semantic HTML throughout (proper heading hierarchy, landmarks, alt text)
+- [x] **PERF-03**: XML sitemap generated at build time
+- [x] **PERF-04**: robots.txt configured for crawling
+- [x] **PERF-05**: Proper canonical URLs on all pages
 
 ## v2 Requirements
 
@@ -124,11 +124,11 @@ Updated during roadmap creation.
 | BLOG-02 | Phase 4 | Complete |
 | BLOG-03 | Phase 4 | Complete |
 | BLOG-04 | Phase 4 | Complete |
-| PERF-01 | Phase 4 | Pending |
-| PERF-02 | Phase 4 | Pending |
-| PERF-03 | Phase 4 | Pending |
-| PERF-04 | Phase 4 | Pending |
-| PERF-05 | Phase 4 | Pending |
+| PERF-01 | Phase 4 | Complete |
+| PERF-02 | Phase 4 | Complete |
+| PERF-03 | Phase 4 | Complete |
+| PERF-04 | Phase 4 | Complete |
+| PERF-05 | Phase 4 | Complete |
 
 **Coverage:**
 - v1 requirements: 25 total
