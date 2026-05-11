@@ -1,0 +1,27 @@
+---
+import { getCollection, render } from 'astro:content';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) =>
+    !import.meta.env.PROD || !data.draft
+  );
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+const minutesRead = remarkPluginFrontmatter.minutesRead;
+---
+<BlogPostLayout
+  title={post.data.title}
+  description={post.data.description}
+  ogImage={post.data.coverImage ?? '/og-default.png'}
+  date={post.data.date}
+  minutesRead={minutesRead}
+>
+  <Content />
+</BlogPostLayout>

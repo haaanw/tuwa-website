@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog', ({ data }) =>
+  !import.meta.env.PROD || !data.draft
+)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<BaseLayout
+  title="Blog"
+  description="Training science, recovery insights, and coaching notes from Tuwa."
+>
+  <div style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
+    <div class="mx-auto px-6" style="max-width: 680px;">
+      <h1
+        style="
+          font-size: var(--text-heading);
+          font-weight: 600;
+          line-height: var(--leading-heading);
+          letter-spacing: var(--tracking-heading);
+          color: var(--color-text-1);
+        "
+      >
+        Blog
+      </h1>
+      {posts.length === 0 ? (
+        <p
+          style="
+            color: var(--color-text-2);
+            margin-top: var(--space-2xl);
+          "
+        >
+          Posts coming soon.
+        </p>
+      ) : (
+        <ul style="list-style: none; padding: 0; margin-top: var(--space-2xl);">
+          {posts.map(post => (
+            <li style="border-top: 1px solid var(--color-divider); padding: var(--space-lg) 0;">
+              <a href={`/blog/${post.id}`} style="text-decoration: none; display: block;">
+                <time
+                  datetime={post.data.date.toISOString()}
+                  style="font-size: var(--text-label); color: var(--color-text-3);"
+                >
+                  {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                <h2
+                  style="
+                    font-size: var(--text-body);
+                    font-weight: 600;
+                    color: var(--color-text-1);
+                    margin-top: var(--space-xs);
+                  "
+                >
+                  {post.data.title}
+                </h2>
+                <p
+                  style="
+                    font-size: var(--text-body);
+                    color: var(--color-text-2);
+                    margin-top: var(--space-xs);
+                  "
+                >
+                  {post.data.description}
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </div>
+</BaseLayout>
