@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  src?: ImageMetadata;
+  alt: string;
+  placeholderLabel?: string;
+  isFramed?: boolean;
+}
+
+const { src, alt, placeholderLabel = 'Screenshot coming soon', isFramed = true } = Astro.props;
+---
+<div class="mx-auto" style="max-width: 320px;">
+  {src ? (
+    <Image
+      src={src}
+      alt={alt}
+      width={320}
+      quality={90}
+      format="webp"
+      style={isFramed
+        ? "box-shadow: 0 4px 24px rgba(28,25,21,0.10); display: block;"
+        : "border-radius: var(--radius-lg); box-shadow: 0 4px 24px rgba(28,25,21,0.10); display: block;"}
+    />
+  ) : (
+    <div
+      role="img"
+      aria-label={alt}
+      style="
+        background-color: var(--color-surface);
+        border-radius: var(--radius-lg);
+        aspect-ratio: 9/19.5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-text-3);
+        font-size: var(--text-label);
+        text-align: center;
+        padding: var(--space-md);
+      "
+    >
+      {placeholderLabel}
+    </div>
+  )}
+</div>
