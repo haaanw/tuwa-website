@@ -20,7 +20,7 @@
 ### v2.0 Visual Overhaul & Polish
 
 - [ ] **Phase 5: Animation Infrastructure** — Fix the duplicated IntersectionObserver bug and establish a single reliable animation system with accessibility guards
-- [ ] **Phase 6: Screenshot Presentation** — Re-export all screenshots at 3x and build the CSS iPhone device frame component that all visual work depends on
+- [x] **Phase 6: Screenshot Presentation** — Re-export all screenshots at 3x and build the CSS iPhone device frame component that all visual work depends on (completed 2026-05-11)
 - [ ] **Phase 7: Animation Polish** — Layer stagger timing, hero entrance choreography, and animated counters on the now-stable animation system
 - [ ] **Phase 8: UI/UX Visual Depth** — Apply spacing/typography consistency, hover micro-interactions, noise texture, glass morphism, and bento grid layout
 - [ ] **Phase 9: Deployment & Responsive** — Configure Cloudflare Pages, replace App Store badge, test all breakpoints, verify Lighthouse >= 95
@@ -50,10 +50,10 @@ Plans:
   3. The hero section displays a polished mockup image (Screenhance-generated or equivalent) inside a device frame
   4. The Astro Image component is used throughout with correct `widths` prop — browser DevTools shows WebP/AVIF variants in network requests
   5. The hero device frame has `loading="eager" fetchpriority="high"` — Lighthouse LCP element is not lazy-loaded
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 Plans:
 - [x] 06-01-PLAN.md — Build CSS-only DeviceFrame.astro component + side button CSS
-- [ ] 06-02-PLAN.md — Swap ScreenshotBlock to DeviceFrame across layouts + Hero perspective tilt
+- [x] 06-02-PLAN.md — Swap ScreenshotBlock to DeviceFrame across layouts + Hero perspective tilt
 **UI hint**: yes
 
 ### Phase 7: Animation Polish
@@ -102,7 +102,7 @@ Plans:
 | 3. Content Pages | v1.0 | 4/4 | Complete | 2026-05-11 |
 | 4. Blog + Polish | v1.0 | 3/3 | Complete | 2026-05-11 |
 | 5. Animation Infrastructure | v2.0 | 0/1 | Not started | - |
-| 6. Screenshot Presentation | v2.0 | 1/2 | In Progress|  |
+| 6. Screenshot Presentation | v2.0 | 2/2 | Complete   | 2026-05-11 |
 | 7. Animation Polish | v2.0 | 0/? | Not started | - |
 | 8. UI/UX Visual Depth | v2.0 | 0/? | Not started | - |
 | 9. Deployment & Responsive | v2.0 | 0/? | Not started | - |

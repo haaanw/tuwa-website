@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Visual Overhaul & Polish
-status: executing
-stopped_at: Completed 06-01-PLAN.md
-last_updated: "2026-05-11T15:43:48.300Z"
+status: verifying
+stopped_at: Completed 06-02-PLAN.md
+last_updated: "2026-05-11T15:54:55.020Z"
 last_activity: 2026-05-11
 progress:
   total_phases: 5
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 3
-  completed_plans: 2
-  percent: 67
+  completed_plans: 3
+  percent: 100
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-05-11)
 
 Phase: 06 (screenshot-presentation) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-05-11
 
 Progress: [░░░░░░░░░░] 0%
@@ -67,6 +67,7 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 | Phase 06 P01 | 2 minutes | 2 tasks | 2 files |
+| Phase 06-screenshot-presentation P02 | 30 | 3 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -112,6 +113,9 @@ Recent decisions affecting current work:
 - [v2.0 roadmap]: tailwind-animations 1.0.1 (CSS View Timeline) preferred over motion library; motion 12.38.0 reserved as conditional for hero choreography only if CSS insufficient
 - [Phase 06]: Device frame chrome uses hardcoded #1A1A1A (not a design token) — hardware color per D-02 spec
 - [Phase 06]: widths prop drives srcset on Image component in DeviceFrame; no format=webp (Astro 6 auto-generates WebP per D-08)
+- [Phase 06-02]: Perspective transform (1600px/-2deg/1deg) applied on wrapper div around DeviceFrame, not inside component — keeps DeviceFrame flat and reusable for feature pages
+- [Phase 06-02]: Navigation links fixed in Header/Footer/MobileMenu: /features -> /features/recovery-scoring, /coaching -> /features/coaching
+- [Phase 06-02]: iPhone frame proportions refined to 393:852 aspect ratio with 50px border-radius after visual verification pass
 
 ### Pending Todos
 
@@ -138,6 +142,6 @@ Items acknowledged and carried forward:
 
 ## Session Continuity
 
-Last session: 2026-05-11T15:43:48.297Z
-Stopped at: Completed 06-01-PLAN.md
+Last session: 2026-05-11T15:54:55.016Z
+Stopped at: Completed 06-02-PLAN.md
 Resume file: None
