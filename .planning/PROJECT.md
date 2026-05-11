@@ -19,12 +19,14 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 - [x] Terms of service page (migrated from existing HTML/MD) — Validated in Phase 3: Content Pages
 
 ### Active
-- [ ] Blog infrastructure (MDX-ready, no initial posts required)
 - [ ] Responsive design (mobile-first, works on all breakpoints)
 - ~~Dark/light mode~~ — Descoped (light mode only)
 - [ ] App Store download badge as primary CTA
-- [ ] SEO fundamentals (meta tags, OG images, semantic HTML)
 - [ ] Cloudflare Pages deployment configuration
+
+### Recently Validated
+- [x] Blog infrastructure (MDX content collection, listing page, post layout, reading time) — Validated in Phase 4: Blog & Polish
+- [x] SEO fundamentals (meta tags, OG images, semantic HTML, robots.txt, sitemap) — Validated in Phase 4: Blog & Polish
 
 ### Out of Scope
 
