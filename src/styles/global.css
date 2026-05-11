@@ -1,6 +1,7 @@
 /* src/styles/global.css */
 /* Tailwind v4 — uses @import directive, not @tailwind directives */
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* ===== Design Tokens ===== */
 /* Derived from app DESIGN.md light mode, web-tuned per D-01 */
