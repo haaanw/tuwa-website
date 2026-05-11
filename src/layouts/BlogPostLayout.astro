@@ -1,0 +1,73 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  date: Date;
+  minutesRead?: string;
+}
+
+const { title, description, ogImage, date, minutesRead } = Astro.props;
+---
+<BaseLayout title={title} description={description} ogImage={ogImage} type="article">
+  <div style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
+    <div class="mx-auto px-6" style="max-width: 680px;">
+      <a
+        href="/blog"
+        style="
+          color: var(--color-text-2);
+          font-size: var(--text-label);
+          text-decoration: none;
+          letter-spacing: var(--tracking-label);
+          text-transform: uppercase;
+        "
+      >
+        &larr; Blog
+      </a>
+      <h1
+        style="
+          font-size: var(--text-heading);
+          font-weight: 600;
+          line-height: var(--leading-heading);
+          letter-spacing: var(--tracking-heading);
+          color: var(--color-text-1);
+          margin-top: var(--space-lg);
+        "
+      >
+        {title}
+      </h1>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          gap: var(--space-sm);
+          margin-top: var(--space-sm);
+          font-size: var(--text-label);
+          color: var(--color-text-3);
+        "
+      >
+        <time datetime={date.toISOString()}>
+          {date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        {minutesRead && (
+          <>
+            <span aria-hidden="true">&middot;</span>
+            <span>{minutesRead}</span>
+          </>
+        )}
+      </div>
+      <hr
+        style="
+          border: none;
+          border-top: 1px solid var(--color-divider);
+          margin: var(--space-2xl) 0;
+        "
+      />
+      <div class="prose prose-neutral max-w-none">
+        <slot />
+      </div>
+    </div>
+  </div>
+</BaseLayout>
