@@ -12,15 +12,13 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Landing page with hero, feature overview, and App Store CTA — Validated in Phase 2: Landing Page
+- [x] 5 feature deep-dive pages (recovery scoring, workload tracking, smart templates, cold-start onboarding, coaching) — Validated in Phase 3: Content Pages
+- [x] Support page (migrated from existing HTML) — Validated in Phase 3: Content Pages
+- [x] Privacy policy page (migrated from existing HTML/MD) — Validated in Phase 3: Content Pages
+- [x] Terms of service page (migrated from existing HTML/MD) — Validated in Phase 3: Content Pages
 
 ### Active
-
-- [ ] Landing page with hero, feature overview, and App Store CTA
-- [ ] 5 feature deep-dive pages (recovery scoring, workload tracking, smart templates, cold-start onboarding, coaching)
-- [ ] Support page (migrated from existing HTML)
-- [ ] Privacy policy page (migrated from existing HTML/MD)
-- [ ] Terms of service page (migrated from existing HTML/MD)
 - [ ] Blog infrastructure (MDX-ready, no initial posts required)
 - [ ] Responsive design (mobile-first, works on all breakpoints)
 - ~~Dark/light mode~~ — Descoped (light mode only)
