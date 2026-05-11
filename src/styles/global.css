@@ -101,3 +101,31 @@ body {
 @media (prefers-reduced-motion: reduce) {
   /* Intentionally empty -- [data-animate] elements render at full opacity with no transform */
 }
+
+/* CSS-only iPhone 15 Pro device frame — DeviceFrame.astro (Phase 6, D-01) */
+/* Side buttons: volume (left) via ::before, power (right) via ::after */
+.device-frame {
+  position: relative;
+}
+.device-frame::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 80px;
+  width: 4px;
+  height: 28px;
+  background: #1A1A1A;
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 34px 0 #1A1A1A; /* second volume button, 6px gap */
+}
+.device-frame::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 100px;
+  width: 4px;
+  height: 42px;
+  background: #1A1A1A;
+  border-right: 2px solid #2A2A2A; /* depth suggestion */
+  border-radius: 0 2px 2px 0;
+}
