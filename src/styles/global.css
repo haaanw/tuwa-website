@@ -110,22 +110,21 @@ body {
 .device-frame::before {
   content: '';
   position: absolute;
-  left: -4px;
-  top: 80px;
-  width: 4px;
-  height: 28px;
-  background: #1A1A1A;
+  left: -3px;
+  top: 18%;
+  width: 3px;
+  height: 8%;
+  background: #2A2A2A;
   border-radius: 2px 0 0 2px;
-  box-shadow: 0 34px 0 #1A1A1A; /* second volume button, 6px gap */
+  box-shadow: 0 44px 0 #2A2A2A;
 }
 .device-frame::after {
   content: '';
   position: absolute;
-  right: -4px;
-  top: 100px;
-  width: 4px;
-  height: 42px;
-  background: #1A1A1A;
-  border-right: 2px solid #2A2A2A; /* depth suggestion */
+  right: -3px;
+  top: 22%;
+  width: 3px;
+  height: 10%;
+  background: #2A2A2A;
   border-radius: 0 2px 2px 0;
 }
