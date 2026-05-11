@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 3 UI-SPEC approved
-last_updated: "2026-05-10T16:55:11.106Z"
-last_activity: 2026-05-10
+stopped_at: Completed 03-content-pages-03-01-PLAN.md
+last_updated: "2026-05-11T04:05:16.103Z"
+last_activity: 2026-05-11
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 5
-  completed_plans: 5
-  percent: 100
+  total_plans: 9
+  completed_plans: 6
+  percent: 67
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-10)
 
 **Core value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing
-**Current focus:** Phase 02 — landing-page
+**Current focus:** Phase 03 — content-pages
 
 ## Current Position
 
-Phase: 3
-Plan: Not started
+Phase: 03 (content-pages) — EXECUTING
+Plan: 2 of 4
 Status: Ready to execute
-Last activity: 2026-05-10
+Last activity: 2026-05-11
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -57,6 +57,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-foundation P02 | 174 | 2 tasks | 4 files |
 | Phase 01-foundation P03 | 25 | 2 tasks | 4 files |
 | Phase 02-landing-page P01 | 938 | 2 tasks | 7 files |
+| Phase 03-content-pages P01 | 15 | 2 tasks | 14 files |
 
 ## Accumulated Context
 
@@ -80,6 +81,9 @@ Recent decisions affecting current work:
 - [Phase 02-landing-page]: Used Dashboard_framed.png directly without CSS border frame to avoid doubled frame visual (RESEARCH.md Pitfall 1 option 2)
 - [Phase 02-landing-page]: App Store badge placeholder SVG in place — replace with official Apple badge from developer.apple.com before go-live
 - [Phase 02-landing-page]: APP_STORE_URL defined as constant in src/config.ts — single source of truth for Hero and future LandingCTA
+- [Phase 03-content-pages]: FeatureCTA owns IntersectionObserver — not FeaturePageLayout — matches LandingCTA pattern
+- [Phase 03-content-pages]: isFramed defaults true in ScreenshotBlock — all screenshots are _framed.png with baked-in device bezels
+- [Phase 03-content-pages]: OG images generated via temp sharp+SVG script then deleted — no generator committed to repo
 
 ### Pending Todos
 
@@ -101,6 +105,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-10T16:55:11.100Z
-Stopped at: Phase 3 UI-SPEC approved
-Resume file: .planning/phases/03-content-pages/03-UI-SPEC.md
+Last session: 2026-05-11T04:05:16.099Z
+Stopped at: Completed 03-content-pages-03-01-PLAN.md
+Resume file: None

@@ -32,8 +32,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **FEAT-03**: Smart Templates page — prescribed workouts with named exercise groups, target sets, weight/rep goals
 - [ ] **FEAT-04**: Cold-Start Onboarding page — how Tuwa bootstraps from zero data, manages baseline expectations honestly
 - [ ] **FEAT-05**: Coaching page — coach-athlete sync, real-time recovery visibility, prescribed workouts, invite via code/email/NFC
-- [ ] **FEAT-06**: Each feature page has unique OG meta tags and screenshot
-- [ ] **FEAT-07**: Consistent feature page layout component (hero, explanation, screenshot, CTA)
+- [x] **FEAT-06**: Each feature page has unique OG meta tags and screenshot
+- [x] **FEAT-07**: Consistent feature page layout component (hero, explanation, screenshot, CTA)
 - [ ] **FEAT-08**: Copy tone is accessible-credible — plain language backed by science, no jargon walls
 
 ### Legal & Support
@@ -113,8 +113,8 @@ Updated during roadmap creation.
 | FEAT-03 | Phase 3 | Pending |
 | FEAT-04 | Phase 3 | Pending |
 | FEAT-05 | Phase 3 | Pending |
-| FEAT-06 | Phase 3 | Pending |
-| FEAT-07 | Phase 3 | Pending |
+| FEAT-06 | Phase 3 | Complete |
+| FEAT-07 | Phase 3 | Complete |
 | FEAT-08 | Phase 3 | Pending |
 | LEGAL-01 | Phase 3 | Pending |
 | LEGAL-02 | Phase 3 | Pending |
