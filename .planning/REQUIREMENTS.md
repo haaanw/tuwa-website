@@ -38,9 +38,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Legal & Support
 
-- [ ] **LEGAL-01**: Privacy Policy page migrated from existing markdown (reference Bevel style for layout quality)
-- [ ] **LEGAL-02**: Terms of Service page migrated from existing markdown
-- [ ] **LEGAL-03**: Support page with FAQ and contact info
+- [x] **LEGAL-01**: Privacy Policy page migrated from existing markdown (reference Bevel style for layout quality)
+- [x] **LEGAL-02**: Terms of Service page migrated from existing markdown
+- [x] **LEGAL-03**: Support page with FAQ and contact info
 - [ ] **LEGAL-04**: URL redirects from old GitHub Pages URLs if applicable
 
 ### Blog Infrastructure
@@ -116,9 +116,9 @@ Updated during roadmap creation.
 | FEAT-06 | Phase 3 | Complete |
 | FEAT-07 | Phase 3 | Complete |
 | FEAT-08 | Phase 3 | Pending |
-| LEGAL-01 | Phase 3 | Pending |
-| LEGAL-02 | Phase 3 | Pending |
-| LEGAL-03 | Phase 3 | Pending |
+| LEGAL-01 | Phase 3 | Complete |
+| LEGAL-02 | Phase 3 | Complete |
+| LEGAL-03 | Phase 3 | Complete |
 | LEGAL-04 | Phase 3 | Pending |
 | BLOG-01 | Phase 4 | Pending |
 | BLOG-02 | Phase 4 | Pending |

@@ -64,11 +64,11 @@ Plans:
   3. Privacy Policy, Terms of Service, and Support pages are live and match the migrated content from existing source files
   4. Old GitHub Pages URLs redirect to the correct new routes without 404 errors
   5. All feature pages share the same reusable layout component (hero, explanation, screenshot, CTA)
-**Plans:** 1/4 plans executed
+**Plans:** 2/4 plans executed
 
 Plans:
 - [x] 03-01-PLAN.md — Install chart.js, activate typography plugin, copy screenshots, create ScreenshotBlock + FeatureCTA + FeaturePageLayout
-- [ ] 03-02-PLAN.md — Create CoachingPageLayout, LegalPageLayout, RecoveryChart, AcwrChart, FaqAccordion
+- [x] 03-02-PLAN.md — Create CoachingPageLayout, LegalPageLayout, RecoveryChart, AcwrChart, FaqAccordion
 - [ ] 03-03-PLAN.md — Create 4 standard feature pages (recovery-scoring, workload-tracking, smart-templates, cold-start)
 - [ ] 03-04-PLAN.md — Create coaching page, legal/support pages, redirects, visual checkpoint
 
@@ -95,5 +95,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-05-10 |
 | 2. Landing Page | 2/2 | Complete | 2026-05-10 |
-| 3. Content Pages | 1/4 | In Progress|  |
+| 3. Content Pages | 2/4 | In Progress|  |
 | 4. Blog + Polish | 0/TBD | Not started | - |
