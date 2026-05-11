@@ -40,8 +40,7 @@
   --radius-md: 6px;  /* CTA buttons, card containers */
   --radius-lg: 8px;
 
-  /* Typography -- General Sans */
-  --font-general-sans: "General Sans", system-ui, sans-serif;
+  /* Typography -- General Sans (variable set by Astro Font API, do not redeclare) */
 
   /* Type Scale */
   --text-display:  48px;  /* Phase 2 hero — token declared now */
