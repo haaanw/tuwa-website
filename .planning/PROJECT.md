@@ -2,7 +2,7 @@
 
 ## What This Is
 
-Marketing website for Tuwa — a precision training load and recovery management app for serious athletes and coaches. The site lives at tuwa.app, built with Astro + Tailwind + MDX on Cloudflare Pages. It communicates scientific credibility without jargon walls, driving App Store downloads.
+Marketing website for Tuwa — a precision training load and recovery management app for serious athletes and coaches. The site lives at tuwa.app, built with Astro 6 + Tailwind v4 + MDX on Cloudflare Pages. 10 pages: landing, 5 feature deep-dives, blog listing, privacy, terms, support. Communicates scientific credibility without jargon walls, driving App Store downloads.
 
 ## Core Value
 
@@ -12,21 +12,21 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 
 ### Validated
 
-- [x] Landing page with hero, feature overview, and App Store CTA — Validated in Phase 2: Landing Page
-- [x] 5 feature deep-dive pages (recovery scoring, workload tracking, smart templates, cold-start onboarding, coaching) — Validated in Phase 3: Content Pages
-- [x] Support page (migrated from existing HTML) — Validated in Phase 3: Content Pages
-- [x] Privacy policy page (migrated from existing HTML/MD) — Validated in Phase 3: Content Pages
-- [x] Terms of service page (migrated from existing HTML/MD) — Validated in Phase 3: Content Pages
+- ✓ Astro 6 + Tailwind v4 foundation with design tokens — v1.0
+- ✓ SEO component, Header, Footer, BaseLayout — v1.0
+- ✓ Landing page with hero, feature overview, and App Store CTA — v1.0
+- ✓ 5 feature deep-dive pages (recovery scoring, workload tracking, smart templates, cold-start, coaching) — v1.0
+- ✓ Support, Privacy, Terms pages migrated from existing source — v1.0
+- ✓ Blog infrastructure (MDX content collection, listing page, post layout, reading time) — v1.0
+- ✓ SEO fundamentals (meta tags, OG images, semantic HTML, robots.txt, sitemap) — v1.0
+- ✓ Lighthouse performance >= 95 — v1.0
+- ✓ General Sans font via Astro Font API — v1.0
 
 ### Active
-- [ ] Responsive design (mobile-first, works on all breakpoints)
-- ~~Dark/light mode~~ — Descoped (light mode only)
-- [ ] App Store download badge as primary CTA
-- [ ] Cloudflare Pages deployment configuration
 
-### Recently Validated
-- [x] Blog infrastructure (MDX content collection, listing page, post layout, reading time) — Validated in Phase 4: Blog & Polish
-- [x] SEO fundamentals (meta tags, OG images, semantic HTML, robots.txt, sitemap) — Validated in Phase 4: Blog & Polish
+- [ ] App Store download badge (replace placeholder SVG with official Apple asset once listing URL confirmed)
+- [ ] Cloudflare Pages deployment (connect GitHub repo, configure build)
+- [ ] Responsive design refinement (test all breakpoints on real devices)
 
 ### Out of Scope
 
@@ -36,68 +36,50 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 - Analytics dashboard or admin panel
 - Internationalization / multi-language — English only for v1
 - E-commerce or merchandise
+- Dark mode — Descoped (light mode only)
 
 ## Context
 
+**Current state (v1.0 shipped 2026-05-11):**
+- 2,399 LOC across Astro/CSS/TS/JS
+- 10 pages built, all with unique OG images
+- General Sans font (switched from Alpino during Phase 4)
+- Blog ready for posts (MDX collection, empty state, reading time plugin)
+- Cloudflare 301 redirects configured for old GitHub Pages URLs
+
 **The app (Tuwa):**
 - iOS native (SwiftUI + SwiftData + HealthKit), live on App Store
-- Features: EWMA-based ACWR monitoring, recovery scoring (HRV/RHR/sleep/wellness), coach-athlete sync, prescribed workouts, autoregulation recommendations
+- Features: EWMA-based ACWR monitoring, recovery scoring, coach-athlete sync, prescribed workouts
 - Subscription tiers: Free, Athlete Pro, Coach (via RevenueCat)
 - Backend: Supabase (AWS)
-- Competitors: Whoop, Garmin Connect, TrainingPeaks, Strava
 
-**Design direction:**
-- Inspired by the app's International Style Minimalism but looser for web
-- Alpino font (from Fontshare — free commercial license) replacing DM Sans
-- Warm travertine palette carried over but expanded for web CTAs/accents
-- Open to: subtle scroll animations, full-bleed device mockups, broader color range
-- App screenshots available for hero and feature pages
-
-**Existing assets:**
-- Legal pages (privacy, terms, support) exist as HTML in ~/Desktop/Tonus/docs/
-- App Store metadata and description in ~/Desktop/Tonus/AppStoreMetadata.md
-- Full design system spec in ~/Desktop/Tonus/DESIGN.md (color tokens, spacing, typography)
-- Privacy policy markdown in ~/Desktop/Tonus/PRIVACY.md
-- Terms markdown in ~/Desktop/Tonus/TERMS.md
-
-**Copy tone:** Accessible-credible — plain language backed by science. Explain why it matters, cite methodology without jargon walls. Not clinical, not casual.
+**Copy tone:** Accessible-credible — plain language backed by science.
 
 **Developer:** Hanwen Ma (hanwenma09@gmail.com)
 
 ## Constraints
 
-- **Stack**: Astro + Tailwind CSS + MDX, deployed to Cloudflare Pages
+- **Stack**: Astro 6 + Tailwind CSS v4 + MDX, deployed to Cloudflare Pages
 - **Domain**: tuwa.app
-- **Font**: Alpino (self-hosted from Fontshare files)
-- **Performance**: Static site, no client-side JS frameworks needed beyond Astro islands
-- **Design fidelity**: Website should feel related to the app but not pixel-identical — web-native flourishes are welcome
+- **Font**: General Sans (via Astro Font API, loaded from Fontshare CDN)
+- **Performance**: Static site, no client-side JS frameworks beyond Astro islands
+- **Design fidelity**: Website feels related to the app but not pixel-identical
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Alpino over DM Sans for web | User preference — wants to switch app font to Alpino too, website goes first | — Pending |
-| Inspired-but-looser design | Web needs larger imagery, scroll animations, broader color range than iOS constraints allow | — Pending |
-| Accessible-credible copy tone | Scientific credibility without jargon walls — balances trust and approachability | — Pending |
-| App Store link as primary CTA | App is live — direct download conversion, not waitlist | — Pending |
-| MDX for blog | Future blog posts with embedded components/charts — MDX gives flexibility without separate CMS | — Pending |
+| General Sans over Alpino | Font switched in Phase 4 per design direction D-07 | ✓ Good — clean, modern feel |
+| Astro Font API (CDN) over self-hosted | Astro 6 Font API handles preloading, hashing, fallbacks automatically | ✓ Good — zero FOUT |
+| Inspired-but-looser design | Web needs larger imagery, scroll animations, broader color range than iOS | ✓ Good |
+| Accessible-credible copy tone | Scientific credibility without jargon walls | ✓ Good |
+| MDX for blog | Future posts with embedded components/charts without separate CMS | ✓ Good |
+| No @astrojs/cloudflare adapter | Pure static output, adapter causes deployment failures with static mode | ✓ Good |
+| Chart.js for data visualizations | Lightweight, familiar, works in Astro islands | ✓ Good |
 
 ## Evolution
 
 This document evolves at phase transitions and milestone boundaries.
 
-**After each phase transition** (via `/gsd-transition`):
-1. Requirements invalidated? -> Move to Out of Scope with reason
-2. Requirements validated? -> Move to Validated with phase reference
-3. New requirements emerged? -> Add to Active
-4. Decisions to log? -> Add to Key Decisions
-5. "What This Is" still accurate? -> Update if drifted
-
-**After each milestone** (via `/gsd-complete-milestone`):
-1. Full review of all sections
-2. Core Value check — still the right priority?
-3. Audit Out of Scope — reasons still valid?
-4. Update Context with current state
-
 ---
-*Last updated: 2026-05-10 after initialization*
+*Last updated: 2026-05-11 after v1.0 milestone*
