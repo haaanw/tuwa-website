@@ -69,7 +69,7 @@ Plans:
 Plans:
 - [x] 03-01-PLAN.md — Install chart.js, activate typography plugin, copy screenshots, create ScreenshotBlock + FeatureCTA + FeaturePageLayout
 - [x] 03-02-PLAN.md — Create CoachingPageLayout, LegalPageLayout, RecoveryChart, AcwrChart, FaqAccordion
-- [ ] 03-03-PLAN.md — Create 4 standard feature pages (recovery-scoring, workload-tracking, smart-templates, cold-start)
+- [x] 03-03-PLAN.md — Create 4 standard feature pages (recovery-scoring, workload-tracking, smart-templates, cold-start)
 - [ ] 03-04-PLAN.md — Create coaching page, legal/support pages, redirects, visual checkpoint
 
 **UI hint**: yes

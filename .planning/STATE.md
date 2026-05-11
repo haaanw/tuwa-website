@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-content-pages-03-02-PLAN.md
-last_updated: "2026-05-11T04:10:01.792Z"
+stopped_at: Completed 03-content-pages-03-03-PLAN.md
+last_updated: "2026-05-11T04:15:26.197Z"
 last_activity: 2026-05-11
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 9
-  completed_plans: 7
-  percent: 78
+  completed_plans: 8
+  percent: 89
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 ## Current Position
 
 Phase: 03 (content-pages) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-05-11
 
@@ -59,6 +59,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-landing-page P01 | 938 | 2 tasks | 7 files |
 | Phase 03-content-pages P01 | 15 | 2 tasks | 14 files |
 | Phase 03-content-pages P02 | 3 | 2 tasks | 5 files |
+| Phase 03-content-pages P03 | 5 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -88,6 +89,8 @@ Recent decisions affecting current work:
 - [Phase 03-content-pages]: CoachingPageLayout wraps BaseLayout directly with 3 named slots (coach-athlete, team-features, invite-flow) for alternating surface/bg section backgrounds
 - [Phase 03-content-pages]: LegalPageLayout uses --text-heading (28px) not --text-display -- legal pages are not marketing hero pages
 - [Phase 03-content-pages]: Chart.js components use bundled script (not is:inline) so Vite resolves chart.js/auto npm import
+- [Phase 03-content-pages]: RecoveryChart and AcwrChart embedded in science sections of their respective feature pages, not in hero
+- [Phase 03-content-pages]: Cold-start page omits screenshot prop to trigger FeaturePageLayout placeholder — no screenshot asset exists yet
 
 ### Pending Todos
 
@@ -109,6 +112,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-11T04:10:01.789Z
-Stopped at: Completed 03-content-pages-03-02-PLAN.md
+Last session: 2026-05-11T04:15:26.194Z
+Stopped at: Completed 03-content-pages-03-03-PLAN.md
 Resume file: None
