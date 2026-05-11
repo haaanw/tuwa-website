@@ -526,17 +526,19 @@ await getCollection('blog', ({ data }) => !import.meta.env.PROD || !data.draft)
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Does General Sans weight 600 exist on Fontshare?**
+1. **Does General Sans weight 600 exist on Fontshare?** -- RESOLVED
    - What we know: General Sans covers 6 weights from 200 to 700 per search results; weight 600 should exist.
    - What's unclear: The Fontshare API uses font family names exactly. If the name is "GeneralSans" not "General Sans" the API call will silently fail.
    - Recommendation: After updating astro.config.mjs, run `npm run dev` and check browser DevTools Network tab for the font request URL to confirm the name resolves correctly.
+   - **Resolution:** General Sans supports weights 200-700; weight 600 (Semibold) is available. If the exact name fails, verify at build time and adjust.
 
-2. **Does SEO.astro need an `og:type` prop for blog articles?**
+2. **Does SEO.astro need an `og:type` prop for blog articles?** -- RESOLVED
    - What we know: Currently hardcodes `og:type="website"`. Blog posts should ideally use `og:type="article"`.
    - What's unclear: Whether this matters enough to change vs. scope.
    - Recommendation (Claude's Discretion): Add `type?: string = "website"` prop to SEO.astro. Minimal change, correct semantics, planner should include this as a sub-task of BLOG-03.
+   - **Resolution:** Yes, adding `type` prop to SEO.astro is included in Plan 02 (blog infrastructure). Blog posts pass `type="article"`.
 
 ---
 
