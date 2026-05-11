@@ -40,8 +40,8 @@
   --radius-md: 6px;  /* CTA buttons, card containers */
   --radius-lg: 8px;
 
-  /* Typography — Alpino */
-  --font-alpino: "Alpino", system-ui, sans-serif;
+  /* Typography -- General Sans */
+  --font-general-sans: "General Sans", system-ui, sans-serif;
 
   /* Type Scale */
   --text-display:  48px;  /* Phase 2 hero — token declared now */
@@ -63,7 +63,7 @@
 
 /* Base body styles */
 body {
-  font-family: var(--font-alpino);
+  font-family: var(--font-general-sans);
   font-size: var(--text-body);
   line-height: var(--leading-body);
   background-color: var(--color-bg);

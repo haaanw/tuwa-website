@@ -10,21 +10,22 @@ interface Props {
   description: string;
   ogImage?: string;
   canonical?: string;
+  type?: string;
 }
 
-const { title, description, ogImage, canonical } = Astro.props;
+const { title, description, ogImage, canonical, type } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <!-- Font preload FIRST — before stylesheets — per Pitfall 6 in RESEARCH.md -->
-    <Font cssVariable="--font-alpino" preload />
+    <Font cssVariable="--font-general-sans" preload />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <SEO title={title} description={description} ogImage={ogImage} canonical={canonical} />
+    <SEO title={title} description={description} ogImage={ogImage} canonical={canonical} type={type} />
   </head>
   <body>
     <Header />
