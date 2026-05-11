@@ -24,7 +24,11 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 
 ### Active
 
-- [ ] App Store download badge (replace placeholder SVG with official Apple asset once listing URL confirmed)
+- [ ] Competitor/inspiration research (fitness apps + broader category marketing sites)
+- [ ] Whole-site UI/UX refinement pass (spacing, layout, typography, color, experience)
+- [ ] Animation polish (scroll reveals, transitions, entrance effects)
+- [ ] Screenshot presentation overhaul (fix blurry desktop, iPhone device frames, possibly generated)
+- [ ] App Store download badge (replace placeholder SVG with official Apple asset)
 - [ ] Cloudflare Pages deployment (connect GitHub repo, configure build)
 - [ ] Responsive design refinement (test all breakpoints on real devices)
 
@@ -37,6 +41,19 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 - Internationalization / multi-language — English only for v1
 - E-commerce or merchandise
 - Dark mode — Descoped (light mode only)
+
+## Current Milestone: v2.0 Visual Overhaul & Polish
+
+**Goal:** Elevate the site from functional MVP to polished, professional marketing presence informed by competitor research.
+
+**Target features:**
+- Competitor/inspiration website research (fitness + broader category)
+- Whole-site UI/UX refinement pass
+- Animation polish (scroll reveals, transitions, entrance effects)
+- Screenshot presentation overhaul (HD, device frames, possibly generated)
+- App Store badge (official Apple asset)
+- Cloudflare Pages deployment
+- Responsive design refinement
 
 ## Context
 
@@ -82,4 +99,4 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026-05-11 after v1.0 milestone*
+*Last updated: 2026-05-11 after v2.0 milestone start*
