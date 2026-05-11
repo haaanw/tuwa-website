@@ -38,7 +38,7 @@
   4. The AnimationController is injected once by BaseLayout and does not appear as duplicate script tags in page source
 **Plans:** 1 plan
 Plans:
-- [ ] 05-01-PLAN.md — CSS animation refactor + AnimationController consolidation
+- [x] 05-01-PLAN.md — CSS animation refactor + AnimationController consolidation
 
 ### Phase 6: Screenshot Presentation
 **Goal**: Every app screenshot on the site is crisp, Retina-ready, and displayed inside a professional CSS iPhone device frame
