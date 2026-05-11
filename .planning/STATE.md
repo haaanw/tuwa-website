@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-blog-polish-01-PLAN.md
-last_updated: "2026-05-11T07:57:49.823Z"
+stopped_at: Completed 04-blog-polish-02-PLAN.md
+last_updated: "2026-05-11T08:01:14.086Z"
 last_activity: 2026-05-11
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 12
-  completed_plans: 10
-  percent: 83
+  completed_plans: 11
+  percent: 92
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-05-10)
 ## Current Position
 
 Phase: 04 (blog-polish) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-05-11
 
@@ -63,6 +63,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-content-pages P03 | 5 | 2 tasks | 4 files |
 | Phase 03-content-pages P04 | 8 | 2 tasks | 5 files |
 | Phase 04-blog-polish P01 | 600 | 2 tasks | 5 files |
+| Phase 04-blog-polish P02 | 300 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -98,6 +99,9 @@ Recent decisions affecting current work:
 - [Phase 03-content-pages]: _redirects placed in public/ not src/ — Astro copies public/ to dist/ at build time for Cloudflare Pages edge processing
 - [Phase 04-blog-polish]: Switch from Alpino to General Sans font via Astro Fonts API fontshare provider, cssVariable --font-general-sans
 - [Phase 04-blog-polish]: SEO og:type prop defaults to 'website'; blog post layout passes 'article'
+- [Phase 04-blog-polish]: draft filter uses !import.meta.env.PROD || !data.draft — drafts visible in dev, excluded in prod
+- [Phase 04-blog-polish]: blog listing uses post.id as route param (Astro v6 content loader provides id from filename)
+- [Phase 04-blog-polish]: BlogPostLayout passes type=article to BaseLayout for og:type article meta
 
 ### Pending Todos
 
@@ -119,6 +123,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-11T07:57:49.820Z
-Stopped at: Completed 04-blog-polish-01-PLAN.md
+Last session: 2026-05-11T08:01:14.083Z
+Stopped at: Completed 04-blog-polish-02-PLAN.md
 Resume file: None

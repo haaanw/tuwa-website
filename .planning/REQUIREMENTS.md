@@ -45,10 +45,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Blog Infrastructure
 
-- [ ] **BLOG-01**: MDX content collection with Zod schema (title, date, description, tags, draft flag)
-- [ ] **BLOG-02**: Blog listing page with post cards
-- [ ] **BLOG-03**: Individual blog post layout with reading time, date, back navigation
-- [ ] **BLOG-04**: No initial posts required — infrastructure only
+- [x] **BLOG-01**: MDX content collection with Zod schema (title, date, description, tags, draft flag)
+- [x] **BLOG-02**: Blog listing page with post cards
+- [x] **BLOG-03**: Individual blog post layout with reading time, date, back navigation
+- [x] **BLOG-04**: No initial posts required — infrastructure only
 
 ### Performance & SEO
 
@@ -120,10 +120,10 @@ Updated during roadmap creation.
 | LEGAL-02 | Phase 3 | Complete |
 | LEGAL-03 | Phase 3 | Complete |
 | LEGAL-04 | Phase 3 | Complete |
-| BLOG-01 | Phase 4 | Pending |
-| BLOG-02 | Phase 4 | Pending |
-| BLOG-03 | Phase 4 | Pending |
-| BLOG-04 | Phase 4 | Pending |
+| BLOG-01 | Phase 4 | Complete |
+| BLOG-02 | Phase 4 | Complete |
+| BLOG-03 | Phase 4 | Complete |
+| BLOG-04 | Phase 4 | Complete |
 | PERF-01 | Phase 4 | Pending |
 | PERF-02 | Phase 4 | Pending |
 | PERF-03 | Phase 4 | Pending |
