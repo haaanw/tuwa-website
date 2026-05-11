@@ -1,6 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import ScreenshotBlock from '../components/ScreenshotBlock.astro';
+import DeviceFrame from '../components/DeviceFrame.astro';
 import FeatureCTA from '../components/FeatureCTA.astro';
 import type { ImageMetadata } from 'astro';
 
@@ -48,7 +48,7 @@ const { title, description, ogImage, screenshot, screenshotAlt, outcomeStatement
 
   <!-- Screenshot -->
   <section data-animate style="padding-bottom: var(--space-3xl);">
-    <ScreenshotBlock src={screenshot} alt={screenshotAlt} placeholderLabel={`${title} Screenshot — coming soon`} />
+    <DeviceFrame src={screenshot} alt={screenshotAlt} placeholderLabel="Coming soon" />
   </section>
 
   <!-- Explanation + Science — page-specific content via slot -->
