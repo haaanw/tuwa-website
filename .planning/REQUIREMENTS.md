@@ -69,32 +69,32 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ANIM-01 | — | Pending |
-| ANIM-02 | — | Pending |
-| ANIM-03 | — | Pending |
-| ANIM-04 | — | Pending |
-| ANIM-05 | — | Pending |
-| SHOT-01 | — | Pending |
-| SHOT-02 | — | Pending |
-| SHOT-03 | — | Pending |
-| SHOT-04 | — | Pending |
-| SHOT-05 | — | Pending |
-| UIPX-01 | — | Pending |
-| UIPX-02 | — | Pending |
-| UIPX-03 | — | Pending |
-| UIPX-04 | — | Pending |
-| UIPX-05 | — | Pending |
-| UIPX-06 | — | Pending |
-| DEPL-01 | — | Pending |
-| DEPL-02 | — | Pending |
-| DEPL-03 | — | Pending |
-| DEPL-04 | — | Pending |
+| ANIM-01 | Phase 5 | Pending |
+| ANIM-02 | Phase 5 | Pending |
+| ANIM-03 | Phase 7 | Pending |
+| ANIM-04 | Phase 7 | Pending |
+| ANIM-05 | Phase 7 | Pending |
+| SHOT-01 | Phase 6 | Pending |
+| SHOT-02 | Phase 6 | Pending |
+| SHOT-03 | Phase 6 | Pending |
+| SHOT-04 | Phase 6 | Pending |
+| SHOT-05 | Phase 6 | Pending |
+| UIPX-01 | Phase 8 | Pending |
+| UIPX-02 | Phase 8 | Pending |
+| UIPX-03 | Phase 8 | Pending |
+| UIPX-04 | Phase 8 | Pending |
+| UIPX-05 | Phase 8 | Pending |
+| UIPX-06 | Phase 8 | Pending |
+| DEPL-01 | Phase 9 | Pending |
+| DEPL-02 | Phase 9 | Pending |
+| DEPL-03 | Phase 9 | Pending |
+| DEPL-04 | Phase 9 | Pending |
 
 **Coverage:**
 - v2.0 requirements: 20 total
-- Mapped to phases: 0
-- Unmapped: 20 ⚠️
+- Mapped to phases: 20
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-05-11*
-*Last updated: 2026-05-11 after initial definition*
+*Last updated: 2026-05-11 after roadmap v2.0 created*

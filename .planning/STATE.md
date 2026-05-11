@@ -7,7 +7,7 @@ stopped_at: null
 last_updated: "2026-05-11T12:00:00.000Z"
 last_activity: 2026-05-11
 progress:
-  total_phases: 0
+  total_phases: 5
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-11)
 
 **Core value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing
-**Current focus:** Defining requirements for v2.0
+**Current focus:** v2.0 Visual Overhaul — roadmap defined, ready to begin Phase 5
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: Phase 5 — Animation Infrastructure (not started)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-05-11 — Milestone v2.0 started
+Status: Roadmap defined, awaiting plan-phase
+Last activity: 2026-05-11 — Roadmap v2.0 created
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -36,11 +36,11 @@ Progress: [░░░░░░░░░░] 0%
 
 **Velocity:**
 
-- Total plans completed: 12
+- Total plans completed: 12 (v1.0)
 - Average duration: —
-- Total execution time: 0 hours
+- Total execution time: 0 hours (v2.0)
 
-**By Phase:**
+**By Phase (v1.0 history):**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
@@ -49,23 +49,22 @@ Progress: [░░░░░░░░░░] 0%
 | 03 | 4 | - | - |
 | 04 | 3 | - | - |
 
+**By Phase (v2.0):**
+
+| Phase | Plans | Total | Avg/Plan |
+|-------|-------|-------|----------|
+| 05 | TBD | - | - |
+| 06 | TBD | - | - |
+| 07 | TBD | - | - |
+| 08 | TBD | - | - |
+| 09 | TBD | - | - |
+
 **Recent Trend:**
 
 - Last 5 plans: —
 - Trend: —
 
 *Updated after each plan completion*
-| Phase 01-foundation P01 | 270 | 2 tasks | 4 files |
-| Phase 01-foundation P02 | 174 | 2 tasks | 4 files |
-| Phase 01-foundation P03 | 25 | 2 tasks | 4 files |
-| Phase 02-landing-page P01 | 938 | 2 tasks | 7 files |
-| Phase 03-content-pages P01 | 15 | 2 tasks | 14 files |
-| Phase 03-content-pages P02 | 3 | 2 tasks | 5 files |
-| Phase 03-content-pages P03 | 5 | 2 tasks | 4 files |
-| Phase 03-content-pages P04 | 8 | 2 tasks | 5 files |
-| Phase 04-blog-polish P01 | 600 | 2 tasks | 5 files |
-| Phase 04-blog-polish P02 | 300 | 2 tasks | 5 files |
-| Phase 04-blog-polish P03 | 15 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -106,27 +105,35 @@ Recent decisions affecting current work:
 - [Phase 04-blog-polish]: BlogPostLayout passes type=article to BaseLayout for og:type article meta
 - [Phase 04-blog-polish]: robots.txt references sitemap-index.xml (not sitemap.xml) — @astrojs/sitemap generates sitemap-index.xml as root file
 - [Phase 04-blog-polish]: Branded OG image generated via temp sharp+SVG script then deleted — PNG artifact committed, generator not tracked
+- [v2.0 roadmap]: 5 phases retained despite coarse granularity setting — hard dependency chain (animation fix -> device frame -> stagger -> visual depth -> deployment) makes collapsing below 5 phases incur rework
+- [v2.0 roadmap]: ANIM-05 (sticky scroll showcase) assigned to Phase 7 per research recommendation — high complexity, requires stable animation system and device frames before implementation
+- [v2.0 roadmap]: tailwind-animations 1.0.1 (CSS View Timeline) preferred over motion library; motion 12.38.0 reserved as conditional for hero choreography only if CSS insufficient
 
 ### Pending Todos
 
-None yet.
+- Replace placeholder App Store badge SVG with official Apple asset from developer.apple.com (DEPL-02, Phase 9)
+- Re-export all app screenshots at 3x from Xcode Simulator before Phase 6 begins (SHOT-01 precondition)
+- Evaluate Screenhance output quality for hero mockup before committing to pre-rendered approach (SHOT-05 risk note from research)
 
 ### Blockers/Concerns
 
-- [Phase 3 pre-condition]: App screenshots must show seeded representative data (not empty states) before feature pages can be built — prepare screenshots before Phase 3 begins
-- [Phase 3 pre-condition]: Feature page copy (accessible-credible, 800-1200 words each) should be drafted before implementation to avoid building placeholder shells
-- [Phase 4 risk]: Satori OG image generation with Alpino font is MEDIUM confidence — verify TTF/OTF support before committing; fallback is static PNG files
+- [Phase 6 pre-condition]: App screenshots must be re-exported at 3x from Xcode Simulator before DeviceFrame work can be completed — coordinate timing
+- [Phase 7 risk]: Hero entrance choreography (ANIM-04) may require motion library if CSS View Timeline proves insufficient — validate during Phase 7 planning
+- [Phase 7 risk]: ANIM-05 sticky scroll showcase is flagged HIGH complexity by research — may require content readiness (multiple screenshot states per feature) to implement properly
 
 ## Deferred Items
 
-Items acknowledged and carried forward from previous milestone close:
+Items acknowledged and carried forward:
 
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| *(none)* | | | |
+| Content | CONT-01: First blog post | Future milestone | v2.0 planning |
+| Content | CONT-02: Case study page | Future milestone | v2.0 planning |
+| Advanced Visual | ADVZ-01: Video hero background | Future milestone | v2.0 planning |
+| Advanced Visual | ADVZ-02: Dark mode support | Out of scope | PROJECT.md |
 
 ## Session Continuity
 
-Last session: 2026-05-11T08:08:13.960Z
-Stopped at: Completed 04-03-PLAN.md — Phase 04 complete
+Last session: 2026-05-11T12:00:00.000Z
+Stopped at: Roadmap v2.0 created — Phase 5 ready to plan
 Resume file: None
