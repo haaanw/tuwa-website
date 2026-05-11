@@ -26,7 +26,7 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 
 - [ ] Competitor/inspiration research (fitness apps + broader category marketing sites)
 - [ ] Whole-site UI/UX refinement pass (spacing, layout, typography, color, experience)
-- [ ] Animation polish (scroll reveals, transitions, entrance effects)
+- [~] Animation polish (scroll reveals, transitions, entrance effects) — Phase 5 complete: animation infrastructure consolidated, Phase 7 pending for polish
 - [ ] Screenshot presentation overhaul (fix blurry desktop, iPhone device frames, possibly generated)
 - [ ] App Store download badge (replace placeholder SVG with official Apple asset)
 - [ ] Cloudflare Pages deployment (connect GitHub repo, configure build)
@@ -99,4 +99,4 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026-05-11 after v2.0 milestone start*
+*Last updated: 2026-05-11 after Phase 5 (Animation Infrastructure) complete*
