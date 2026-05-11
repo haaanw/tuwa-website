@@ -1,0 +1,104 @@
+---
+// No frontmatter imports -- Chart.js loaded in bundled script tag
+---
+<div style="max-width: 600px; margin: 0 auto; padding: var(--space-lg) 0;">
+  <canvas
+    id="acwr-chart"
+    aria-label="Line chart showing 28-day training load trend with acute load in green and chronic load in grey, illustrating the ACWR ratio over time"
+    role="img"
+    style="width: 100%; height: auto;"
+  ></canvas>
+</div>
+
+<script>
+  import Chart from 'chart.js/auto';
+
+  const COLOR_ACCENT = '#2B5240';
+  const COLOR_TEXT_2 = '#696560';
+  const COLOR_TEXT_3 = '#AFABA5';
+  const COLOR_DIVIDER = '#CFCBC5';
+
+  // Representative 28-day ACWR data -- illustrates gradual load buildup with safe progression
+  const labels = Array.from({ length: 28 }, (_, i) => `Day ${i + 1}`);
+  const acuteLoad = [
+    120, 135, 90, 150, 140, 0, 130,
+    145, 160, 100, 155, 170, 0, 140,
+    165, 175, 110, 180, 165, 0, 155,
+    170, 185, 115, 190, 180, 0, 165,
+  ];
+  const chronicLoad = [
+    110, 112, 113, 115, 118, 118, 119,
+    121, 124, 124, 126, 129, 129, 130,
+    133, 136, 136, 139, 141, 141, 142,
+    145, 148, 148, 151, 153, 153, 154,
+  ];
+
+  const canvas = document.getElementById('acwr-chart') as HTMLCanvasElement;
+  if (canvas) {
+    new Chart(canvas, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Acute Load (7-day)',
+            data: acuteLoad,
+            borderColor: COLOR_ACCENT,
+            backgroundColor: 'transparent',
+            tension: 0.3,
+            pointRadius: 0,
+            borderWidth: 2,
+          },
+          {
+            label: 'Chronic Load (28-day)',
+            data: chronicLoad,
+            borderColor: COLOR_TEXT_3,
+            backgroundColor: 'transparent',
+            tension: 0.3,
+            pointRadius: 0,
+            borderWidth: 2,
+            borderDash: [6, 3],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              color: COLOR_TEXT_2,
+              font: { size: 12 },
+              usePointStyle: true,
+              pointStyle: 'line',
+            },
+          },
+        },
+        scales: {
+          y: {
+            grid: { color: COLOR_DIVIDER },
+            ticks: { color: COLOR_TEXT_3, font: { size: 12 } },
+            title: {
+              display: true,
+              text: 'Training Load (AU)',
+              color: COLOR_TEXT_2,
+              font: { size: 13 },
+            },
+          },
+          x: {
+            grid: { display: false },
+            ticks: {
+              color: COLOR_TEXT_3,
+              font: { size: 11 },
+              maxTicksLimit: 7,
+            },
+          },
+        },
+      },
+    });
+  }
+</script>

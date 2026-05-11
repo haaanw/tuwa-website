@@ -1,0 +1,70 @@
+---
+// No frontmatter imports -- Chart.js loaded in bundled script tag
+---
+<div style="max-width: 600px; margin: 0 auto; padding: var(--space-lg) 0;">
+  <canvas
+    id="recovery-chart"
+    aria-label="Bar chart showing recovery score components: HRV contribution, resting heart rate, sleep quality, and wellness check-in"
+    role="img"
+    style="width: 100%; height: auto;"
+  ></canvas>
+</div>
+
+<script>
+  import Chart from 'chart.js/auto';
+
+  const COLOR_ACCENT = '#2B5240';
+  const COLOR_TEXT_2 = '#696560';
+  const COLOR_TEXT_3 = '#AFABA5';
+  const COLOR_DIVIDER = '#CFCBC5';
+
+  const canvas = document.getElementById('recovery-chart') as HTMLCanvasElement;
+  if (canvas) {
+    new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels: ['HRV', 'Resting HR', 'Sleep', 'Wellness'],
+        datasets: [
+          {
+            label: 'Recovery Score Contribution',
+            data: [28, 22, 18, 10],
+            backgroundColor: [COLOR_ACCENT, COLOR_ACCENT, COLOR_ACCENT, COLOR_ACCENT],
+            borderRadius: 4,
+            barPercentage: 0.6,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                return context.parsed.y + ' points';
+              },
+            },
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 35,
+            grid: { color: COLOR_DIVIDER },
+            ticks: { color: COLOR_TEXT_3, font: { size: 12 } },
+            title: {
+              display: true,
+              text: 'Score Contribution',
+              color: COLOR_TEXT_2,
+              font: { size: 13 },
+            },
+          },
+          x: {
+            grid: { display: false },
+            ticks: { color: COLOR_TEXT_2, font: { size: 13 } },
+          },
+        },
+      },
+    });
+  }
+</script>
