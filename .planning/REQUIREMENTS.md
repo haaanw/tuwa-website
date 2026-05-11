@@ -17,9 +17,9 @@ Requirements for visual overhaul milestone. Each maps to roadmap phases.
 
 ### Screenshot Presentation
 
-- [ ] **SHOT-01**: Re-export all app screenshots at 3x resolution from Xcode Simulator
+- [x] **SHOT-01**: Re-export all app screenshots at 3x resolution from Xcode Simulator
 - [ ] **SHOT-02**: Implement proper srcset/DPR handling via Astro `<Image>` component
-- [ ] **SHOT-03**: Build CSS-only iPhone device frame component (DeviceFrame.astro)
+- [x] **SHOT-03**: Build CSS-only iPhone device frame component (DeviceFrame.astro)
 - [ ] **SHOT-04**: Replace ScreenshotBlock with DeviceFrame across all feature pages
 - [ ] **SHOT-05**: Generate polished hero mockup images via Screenhance or equivalent tool
 
@@ -74,9 +74,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ANIM-03 | Phase 7 | Pending |
 | ANIM-04 | Phase 7 | Pending |
 | ANIM-05 | Phase 7 | Pending |
-| SHOT-01 | Phase 6 | Pending |
+| SHOT-01 | Phase 6 | Complete |
 | SHOT-02 | Phase 6 | Pending |
-| SHOT-03 | Phase 6 | Pending |
+| SHOT-03 | Phase 6 | Complete |
 | SHOT-04 | Phase 6 | Pending |
 | SHOT-05 | Phase 6 | Pending |
 | UIPX-01 | Phase 8 | Pending |

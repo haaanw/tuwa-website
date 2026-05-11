@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Visual Overhaul & Polish
 status: executing
-stopped_at: Phase 6 UI-SPEC approved
-last_updated: "2026-05-11T14:58:01.389Z"
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-05-11T15:43:48.300Z"
 last_activity: 2026-05-11
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 1
-  completed_plans: 1
-  percent: 100
+  total_plans: 3
+  completed_plans: 2
+  percent: 67
 ---
 
 # Project State
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-11)
 
 **Core value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing
-**Current focus:** Phase 05 — animation-infrastructure
+**Current focus:** Phase 06 — screenshot-presentation
 
 ## Current Position
 
-Phase: 6
-Plan: Not started
-Status: Executing Phase 05
+Phase: 06 (screenshot-presentation) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
 Last activity: 2026-05-11
 
 Progress: [░░░░░░░░░░] 0%
@@ -66,6 +66,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 06 P01 | 2 minutes | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -109,6 +110,8 @@ Recent decisions affecting current work:
 - [v2.0 roadmap]: 5 phases retained despite coarse granularity setting — hard dependency chain (animation fix -> device frame -> stagger -> visual depth -> deployment) makes collapsing below 5 phases incur rework
 - [v2.0 roadmap]: ANIM-05 (sticky scroll showcase) assigned to Phase 7 per research recommendation — high complexity, requires stable animation system and device frames before implementation
 - [v2.0 roadmap]: tailwind-animations 1.0.1 (CSS View Timeline) preferred over motion library; motion 12.38.0 reserved as conditional for hero choreography only if CSS insufficient
+- [Phase 06]: Device frame chrome uses hardcoded #1A1A1A (not a design token) — hardware color per D-02 spec
+- [Phase 06]: widths prop drives srcset on Image component in DeviceFrame; no format=webp (Astro 6 auto-generates WebP per D-08)
 
 ### Pending Todos
 
@@ -135,6 +138,6 @@ Items acknowledged and carried forward:
 
 ## Session Continuity
 
-Last session: 2026-05-11T14:58:01.382Z
-Stopped at: Phase 6 UI-SPEC approved
-Resume file: .planning/phases/06-screenshot-presentation/06-UI-SPEC.md
+Last session: 2026-05-11T15:43:48.297Z
+Stopped at: Completed 06-01-PLAN.md
+Resume file: None

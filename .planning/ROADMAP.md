@@ -50,9 +50,9 @@ Plans:
   3. The hero section displays a polished mockup image (Screenhance-generated or equivalent) inside a device frame
   4. The Astro Image component is used throughout with correct `widths` prop — browser DevTools shows WebP/AVIF variants in network requests
   5. The hero device frame has `loading="eager" fetchpriority="high"` — Lighthouse LCP element is not lazy-loaded
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 Plans:
-- [ ] 06-01-PLAN.md — Build CSS-only DeviceFrame.astro component + side button CSS
+- [x] 06-01-PLAN.md — Build CSS-only DeviceFrame.astro component + side button CSS
 - [ ] 06-02-PLAN.md — Swap ScreenshotBlock to DeviceFrame across layouts + Hero perspective tilt
 **UI hint**: yes
 
@@ -102,7 +102,7 @@ Plans:
 | 3. Content Pages | v1.0 | 4/4 | Complete | 2026-05-11 |
 | 4. Blog + Polish | v1.0 | 3/3 | Complete | 2026-05-11 |
 | 5. Animation Infrastructure | v2.0 | 0/1 | Not started | - |
-| 6. Screenshot Presentation | v2.0 | 0/2 | Not started | - |
+| 6. Screenshot Presentation | v2.0 | 1/2 | In Progress|  |
 | 7. Animation Polish | v2.0 | 0/? | Not started | - |
 | 8. UI/UX Visual Depth | v2.0 | 0/? | Not started | - |
 | 9. Deployment & Responsive | v2.0 | 0/? | Not started | - |
