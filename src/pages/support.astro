@@ -1,0 +1,49 @@
+---
+import LegalPageLayout from '../layouts/LegalPageLayout.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+---
+<LegalPageLayout title="Support">
+
+  <FaqAccordion />
+
+  <!-- Contact section -->
+  <section style="margin-top: var(--space-2xl);">
+    <h2
+      style="
+        font-size: var(--text-heading);
+        font-weight: 600;
+        line-height: var(--leading-heading);
+        letter-spacing: var(--tracking-heading);
+        color: var(--color-text-1);
+      "
+    >
+      Contact us
+    </h2>
+    <p style="margin-top: var(--space-md); color: var(--color-text-2); line-height: var(--leading-body);">
+      Can't find what you're looking for? We're here to help.
+    </p>
+    <p style="margin-top: var(--space-md);">
+      <a
+        href="mailto:hanwenma09@gmail.com"
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: var(--space-sm);
+          padding: var(--space-sm) var(--space-md);
+          background-color: var(--color-accent);
+          color: var(--color-accent-fg);
+          border-radius: var(--radius-md);
+          text-decoration: none;
+          font-weight: 600;
+          min-height: 44px;
+        "
+      >
+        Contact Support
+      </a>
+    </p>
+    <p style="margin-top: var(--space-sm); font-size: var(--text-label); color: var(--color-text-3);">
+      We typically respond within 48 hours.
+    </p>
+  </section>
+
+</LegalPageLayout>
