@@ -1,213 +1,192 @@
 # Project Research Summary
 
-**Project:** Tuwa Marketing Website
-**Domain:** iOS fitness/athletic app marketing site (download-conversion focused)
-**Researched:** 2026-05-10
+**Project:** Tuwa Marketing Website — v2.0 Visual Overhaul
+**Domain:** iOS app marketing site — animations, device mockups, screenshot presentation, Cloudflare deployment
+**Researched:** 2026-05-11
 **Confidence:** HIGH
 
 ## Executive Summary
 
-Tuwa's marketing website is a conversion-optimized static marketing site with one primary goal: drive App Store downloads from serious athletes and coaches. Research confirms this is a well-understood product category (fitness app landing page) with clear patterns from direct competitor analysis of WHOOP, TrainingPeaks, and Strava. The right approach is a fully static Astro 6 site deployed to Cloudflare Pages — zero JavaScript by default, pre-rendered HTML, excellent Core Web Vitals baseline, and no runtime infrastructure. The site has 11 pages: one landing page, five feature deep-dive pages, a blog infrastructure (no posts at launch), and three migrated legal/support pages.
+The Tuwa v2.0 visual overhaul is a focused polish milestone on top of an already-functional Astro 6 + Tailwind v4 static site. The core task is bringing the site up to the visual standard of premium fitness brands (Oura, WHOOP, Arc) through three coordinated improvements: crisp device-framed screenshots, refined scroll-reveal animations, and UI depth through noise texture, gradients, and glass morphism. Research confirms all of these are achievable within the existing zero-JS-by-default architecture without adding client-side frameworks or eroding the Lighthouse 95+ performance baseline.
 
-The recommended stack is Astro 6.3.1 + Tailwind CSS v4 + MDX content collections, all verified against official documentation as of 2026-05-10. This combination produces a performant, type-safe, maintainable site that matches the design token system already defined for the app. Cloudflare Pages static hosting requires no server adapter — a common mistake to avoid. The architecture is deliberately minimal: only two Astro islands (ThemeToggle and MobileMenu), all other interactivity via CSS and native IntersectionObserver.
+The recommended approach is execution in a strict dependency order: fix the animation system bug first (duplicated IntersectionObserver scripts), then introduce the CSS iPhone device frame component (which all subsequent screenshot work depends on), then layer stagger animations and UI polish. This order avoids rework — every step is independently testable before the next begins. The total new dependencies are one Tailwind CSS plugin (`tailwind-animations` 1.0.1) and optionally the standalone `motion` library (12.38.0) for hero choreography only if CSS proves insufficient.
 
-The most significant risks are not technical — they are copy and positioning risks. Feature-first hero copy (leading with EWMA/ACWR acronyms instead of athlete outcomes), jargon walls on feature deep-dive pages, and promise-to-onboarding divergence (implying instant insight when the app requires a baseline period) are the pitfalls most likely to damage conversion and generate negative App Store reviews. These must be addressed in copy and design phases before any implementation begins. Technical risks are manageable: font FOUT from Alpino self-hosting, dark mode contrast failures on warm travertine palettes, and SEO content being accidentally hidden inside Astro islands.
+The most important risks are performance-related and easy to introduce accidentally: lazy-loading the hero/LCP image during device frame refactoring (Lighthouse drops from 95 to 72), animating layout properties instead of only `transform`/`opacity` (CLS penalty), and over-applying `will-change` to all animated elements (GPU memory exhaustion on mobile). All three have simple preventions that should be treated as coding rules rather than per-task checklist items.
+
+---
 
 ## Key Findings
 
 ### Recommended Stack
 
-Astro 6.3.1 is the correct framework choice: zero-JS-by-default output, content collections with Zod schema validation, and dev/prod parity with Cloudflare Workers runtime added in v6. Tailwind v4 integrates via the Vite plugin (`@tailwindcss/vite` in `vite.plugins`), not through the deprecated `@astrojs/tailwind` integration — this is a breaking change from v3 patterns. The `@astrojs/sitemap` and `@astrojs/mdx` integrations are first-party and zero-configuration. OG image generation uses satori at build time; Alpino font support in satori should be verified before committing this pattern.
+The v1.0 stack (Astro 6, Tailwind v4, MDX, Sharp, SEO component) is validated and unchanged. V2.0 adds one confirmed dependency and one conditional dependency.
 
-**Core technologies:**
-- **Astro 6.3.1**: Static site generator — zero-JS default, file-system routing, content collections, Cloudflare dev parity
-- **Tailwind CSS v4** (via `@tailwindcss/vite`): Utility CSS — CSS-variable config maps directly to app DESIGN.md design tokens; v3 is maintenance-only
-- **@astrojs/mdx**: Blog content rendering — first-party, enables component embedding in future posts
-- **Cloudflare Pages (static, no adapter)**: Hosting — do NOT install `@astrojs/cloudflare` for pure static output; it causes deployment failures
-- **@astrojs/sitemap**: SEO crawlability — required, not default; submit to Google Search Console at launch
-- **satori (@vercel/og)**: Per-page OG images at build time — verify Alpino TTF support before committing
-- **CSS + IntersectionObserver (native)**: Scroll animations — zero KB, covers all "subtle reveal" needs; Motion library only if hero requires sequenced timeline animations
-- **Alpino (self-hosted woff2)**: Typeface — Fontshare free commercial license, must be self-hosted from `public/fonts/`, use `font-display: swap` and `<link rel="preload">`
+`tailwind-animations` (1.0.1) is the right scroll animation choice: it is a pure CSS Tailwind plugin using the native CSS View Timeline API, adds zero runtime JS, and integrates via a single `@import` in `global.css`. Firefox requires progressive enhancement handling (animations must not hide content for non-supporting browsers). The `motion` library (12.38.0) is confirmed as the correct choice if JS-driven animation becomes necessary — its standalone non-React API works in Astro `<script>` tags without pulling in any framework runtime.
+
+The CSS-only iPhone device frame (Flowbite pattern) is confirmed as the correct device mockup approach: no SVG asset to maintain, resolution-independent, Tailwind v4 arbitrary value syntax compatible. Cloudflare Pages deployment requires `NODE_VERSION=22` in dashboard environment variables and no adapter — the `@astrojs/cloudflare` adapter causes deployment failures with `output: "static"`.
+
+**Core technologies (additive to v1.0):**
+- `tailwind-animations` 1.0.1: CSS View Timeline scroll reveals — zero JS, Tailwind v4 native
+- `motion` 12.38.0 (conditional): hero choreography only, standalone vanilla JS, no React
+- `DeviceFrame.astro` (custom): CSS iPhone bezel component — zero dependencies, infinite DPR sharpness
+- `AnimationController.astro` (custom): single global IntersectionObserver replacing duplicated `is:inline` scripts
+- Cloudflare Pages with `NODE_VERSION=22`: explicit setting required to avoid build failures
 
 ### Expected Features
 
-Research against WHOOP, TrainingPeaks, and Strava confirms the feature set is well-calibrated. Tuwa can meaningfully differentiate by being the only competitor with dark mode, the only one with science-depth feature pages (TrainingPeaks has pillars but not methodology depth), and explicit dual athlete/coach paths.
+Research covered 9 premium competitor sites (WHOOP, Oura, Strava, Apple Fitness+, Eight Sleep, Arc, Linear, Notion, Superhuman). Feature priorities emerge clearly from that analysis.
 
-**Must have (table stakes):**
-- Hero with clear value proposition and App Store download badge
-- Device mockup / app screenshot in hero (visual proof of real product)
-- Feature overview section (3-4 cards linking to deep-dives)
-- 5 feature deep-dive pages (recovery scoring, workload tracking, smart templates, cold-start onboarding, coaching)
-- Responsive + mobile-first layout (fitness audience is mobile-native)
-- SEO meta tags + unique OG images per page
-- Support, Privacy, Terms pages (migrated from existing HTML)
-- Footer with nav and legal links
-- Fast page load / excellent Core Web Vitals
+**Must have (table stakes for 2026 fitness app marketing sites):**
+- Crisp Retina-ready screenshots (3x export, Astro `<Image>` with `widths` prop) — blurry screenshots are a credibility failure signal
+- Scroll-triggered entrance animations — static pages read as unfinished; already partially implemented but needs refinement and consistent application
+- Hover micro-interactions on CTAs — `transform: scale(1.02)` on hover, `scale(0.97)` on active, 150ms ease
+- Consistent section spacing rhythm (120-160px desktop gaps, 64-80px mobile)
+- `text-wrap: balance` on all headings — eliminates orphaned words, used by Linear, Superhuman, Apple Fitness+
 
 **Should have (competitive differentiators):**
-- Dark/light mode (no competitor has this; signals polish and app-brand alignment)
-- Science methodology explanations in accessible-credible tone (not jargon walls)
-- Explicit dual audience targeting: athletes + coaches
-- Scroll-triggered reveal animations (expected by 2025 for consumer fitness products)
-- Athlete testimonials (even 2-3 attributed real quotes)
-- Blog infrastructure (MDX-ready, no posts at launch)
-- Stat/number callouts from validated science (do not fabricate)
-- "Who it's for" qualification in hero (name the audience; exclude casuals explicitly)
+- CSS iPhone device frame on screenshots — naked screenshots read as internal QA exports, not marketing
+- Noise/grain texture overlay on hero sections — removes flat design sterility (used by Arc, Linear)
+- Gradient brand accents replacing flat solid colors — removes template feel
+- Animated stat counters for ACWR/recovery methodology callouts — makes science claims land harder
+- Bento grid for feature overview — visual variety over 3-column card grid (Notion pattern)
+- Screenshot carousel on feature pages (CSS scroll-snap, no JS library)
+- Glass morphism on 1-2 key callout elements — use sparingly (`backdrop-filter: blur(8px)`)
 
-**Defer (v2+):**
-- Actual blog posts (infrastructure at launch is sufficient)
-- Testimonial quotes (placeholder App Store review CTA acceptable at launch if outreach is pending)
-- Stat callouts (only when validated outcome data is available)
-- Scroll animations (add after layout is stable; don't let animation block content shipping)
-- Pricing page (out of scope per PROJECT.md; one neutral line about plan tiers is sufficient)
-
-**Hard anti-features (do not build):**
-- App Store rating/review widget (dynamic, can go negative, adds JS weight)
-- User authentication or account portal
-- Video autoplay hero (kills Core Web Vitals on mobile)
-- Interactive in-browser demo
-- Internationalization (English-only for v1)
-- A/B testing infrastructure (premature optimization)
+**Defer to v3.0:**
+- Sticky scroll feature showcase (Oura-style 6-state carousel) — HIGH complexity, requires multiple screenshot states per feature
+- Parallax depth layers on hero — needs design time, risk of feeling overdone
+- Dark mode — explicitly descoped per PROJECT.md
+- Video autoplay hero — LCP killer, not justified without CDN infrastructure
 
 ### Architecture Approach
 
-The site is a static-first, file-system-routed Astro project with a strict layout hierarchy: `Base.astro` (HTML shell + theme init) → `Marketing.astro` (adds Header + Footer) → specialized sub-layouts (`FeaturePage`, `LegalPage`, `BlogPost`). All content is pre-rendered to plain HTML at build time. JavaScript exists only in two Astro islands: `ThemeToggle.astro` (`client:load`, reads/writes localStorage) and `MobileMenu.astro` (`client:load`, toggle event listeners). All animation uses CSS and native IntersectionObserver in inline `<script>` tags — no JS framework required. Blog posts live in MDX content collections under `src/content/blog/`, never in `src/pages/`. The `content.config.ts` file lives at `src/content.config.ts` (Astro v5/v6 location — not `src/content/config.ts`).
+The existing codebase has a correct foundation but a critical bug: `FeatureCTA.astro` and `LandingCTA.astro` each embed duplicate `is:inline` IntersectionObserver scripts that race to trigger all `[data-animate]` elements on any page where both components are present. This must be fixed before adding more animated elements. The fix is a single `AnimationController.astro` component injected once by `BaseLayout.astro` — Astro's module script deduplication ensures it runs exactly once per page regardless of how many components import it.
+
+The device frame replaces `ScreenshotBlock.astro` with `DeviceFrame.astro`, a self-contained Tailwind CSS component that accepts an Astro `ImageMetadata` prop. The layout change in `FeaturePageLayout.astro` propagates automatically to all 5 feature deep-dive pages. All animation keyframes stay in `global.css` (not component `<style>` blocks, which Astro scopes and prevents from applying to JS-added classes).
 
 **Major components:**
-1. `Base.astro` + `BaseHead.astro` — HTML shell, all `<meta>` / OG tags, font preloads, anti-FOUC theme init script
-2. `Marketing.astro` + `Header.astro` + `Footer.astro` — Site chrome used by every public page
-3. `Hero.astro` + `FeatureGrid.astro` + `SocialProof.astro` + `DownloadCTA.astro` — Landing page sections (one-time use on `index.astro`)
-4. `FeaturePage.astro` + `FeatureHero` + `FeatureDetail` + `FeatureCTABar` — Reusable layout for all 5 deep-dive pages
-5. `LegalPage.astro` — Prose wrapper for privacy, terms, support pages
-6. `BlogPost.astro` + content collections — Blog infrastructure; `getStaticPaths()` for pre-rendered post pages
-7. `ThemeToggle.astro` + `MobileMenu.astro` — The ONLY Astro islands; all other JS is inline `<script>` tags
+1. `AnimationController.astro` (NEW) — single IntersectionObserver injected by BaseLayout, supports `data-animate-delay` stagger
+2. `DeviceFrame.astro` (NEW) — CSS iPhone bezel, replaces ScreenshotBlock, accepts `ImageMetadata`, `showFrame` toggle, `loading` eager/lazy
+3. `AnimateIn.astro` (NEW, optional) — ergonomic wrapper applying `data-animate` + delay to child content
+4. `BaseLayout.astro` (MODIFY) — add `<AnimationController />` before `</body>`
+5. `FeatureCTA.astro` + `LandingCTA.astro` (MODIFY) — delete duplicated `is:inline` observer blocks
+6. `global.css` (MODIFY) — add delay tokens, `scale-up` animation variant, CSS View Timeline imports (additive only)
 
 ### Critical Pitfalls
 
-1. **Feature-first hero copy** — Lead with athlete transformation ("Know when to push. Know when to recover."), not with acronyms (ACWR, EWMA, HRV). Reserve technical terminology for feature deep-dive pages. Validate every above-the-fold sentence against a non-athlete reader.
+Research surfaced 11 v2.0-specific pitfalls and 11 preserved v1.0 pitfalls. The highest-impact v2.0 pitfalls:
 
-2. **Promise-to-onboarding divergence** — The app requires a baseline period before scores are meaningful. Copy must not imply instant insight. Reference cold-start onboarding honestly: "Tuwa learns your baseline in your first week." Show realistic (partially populated) screenshots, not empty states.
+1. **LCP image gets lazy-loaded after device frame refactor** — Astro `<Image>` defaults to `loading="lazy"`. During hero refactoring the explicit `loading="eager" fetchpriority="high"` must be set on the hero `DeviceFrame` instance. Recovery is one attribute change, but Lighthouse will drop from 95 to 72 if missed.
 
-3. **Dark mode contrast failures** — Warm travertine palette loses contrast headroom in dark mode. Define explicit dark-mode CSS tokens — do not auto-invert light-mode values. Target 4.5:1 WCAG AA for body text; one font weight step up for dark mode body text.
+2. **Animating layout properties causes CLS** — Using `margin-top`, `height`, `top`, `left` in scroll animations triggers Cumulative Layout Shift under Google's March 2026 Visual Stability Index update. Rule: animate only `transform` (translateY, scale) and `opacity`. Never `margin` or dimension properties.
 
-4. **Client-side islands hiding indexable content** — All product copy, feature descriptions, and CTAs must be in the static Astro template layer. Islands are for decorative/interactive UI only. Verify by viewing page source (not browser inspector) for every feature page.
+3. **Missing `prefers-reduced-motion` guard** — Lighthouse Accessibility penalty (score falls below 90) plus genuine harm to ~70M users with vestibular disorders. One `@media (prefers-reduced-motion: reduce)` block in `global.css` prevents this entirely. Add it before writing a single animation rule.
 
-5. **Self-hosted font FOUT/CLS** — Add `<link rel="preload" as="font" crossorigin>` in `<head>` for primary Alpino weights. Without preload, font loading causes Cumulative Layout Shift and degrades Core Web Vitals. Subset the font files to Latin characters.
+4. **FOIC — invisible content without JS** — Setting `opacity: 0` in base CSS hides content for users where JS fails or is blocked. The hidden state must be applied only via a JS-added class (`.will-animate`), not base CSS. Test by disabling JS in Chrome DevTools.
 
-6. **App Store badge as sole CTA** — Provide a secondary path for desktop visitors (QR code or "send to your phone" link). Feature pages must end with a contextual CTA, not just repeat the badge.
+5. **Cloudflare Pages Node.js version mismatch** — Astro 6 requires Node 22+. Cloudflare's default runtime is older. Set `NODE_VERSION=22` in dashboard environment variables plus add `.nvmrc` with `22` before the first deployment attempt.
 
-7. **OG tags missing or global on every page** — `BaseHead.astro` must accept per-page `ogImage` prop. All 5 feature pages need unique OG images. OG image URLs must be absolute (use `Astro.site`).
+6. **`will-change` overuse** — Applying `will-change: transform` globally to all `[data-animate]` elements exhausts GPU compositor layers on mobile. Cap at approximately 5-8 elements per page. Apply dynamically and remove after animation completes via the `animationend` event.
+
+---
 
 ## Implications for Roadmap
 
-Based on dependency analysis in ARCHITECTURE.md and pitfall timing in PITFALLS.md, research recommends 5 phases:
+Based on combined research, a 5-phase execution order is recommended. Each phase is independently testable and unblocks the next.
 
-### Phase 1: Foundation — Scaffold, Design System, Base Layout
+### Phase 1: Fix Animation Infrastructure
+**Rationale:** The duplicated `is:inline` IntersectionObserver scripts are a correctness bug that will cause unpredictable behavior as more animated elements are added. Building v2.0 polish on broken infrastructure masks real issues and creates debugging confusion. This phase has no external dependencies and no visual risk.
+**Delivers:** Single reliable `AnimationController.astro`, duplicated observer scripts removed from `FeatureCTA.astro` and `LandingCTA.astro`, `prefers-reduced-motion` guard in `global.css`, FOIC prevention pattern established site-wide.
+**Addresses:** All scroll animation features (existing and new)
+**Avoids:** Pitfall A2 (missing reduced-motion), Pitfall A3 (FOIC), Anti-Pattern 1 (duplicate observers)
 
-**Rationale:** Every subsequent phase depends on Astro config, Tailwind design tokens, font loading, and the `Base.astro` / `Marketing.astro` / `BaseHead.astro` components. Dark mode CSS tokens must be defined before any other component is built — retrofitting is painful. Font preload setup must happen here to avoid CLS pitfalls.
+### Phase 2: Screenshots and Device Frame
+**Rationale:** All visual work downstream depends on having crisp, properly framed screenshots. The `DeviceFrame.astro` component is shared across the hero and all 5 feature pages — getting it right before touching individual pages prevents repeated fixups.
+**Delivers:** `DeviceFrame.astro` (CSS iPhone bezel), `ScreenshotBlock.astro` replaced across all feature page layouts, hero screenshot wrapped in device frame, all screenshots re-exported at 3x from Xcode Simulator, Astro `<Image>` with proper `widths` prop applied throughout.
+**Addresses:** Crisp screenshots (P1), iPhone device frame (P1)
+**Avoids:** Pitfall A4 (lazy LCP — hero DeviceFrame must set `loading="eager" fetchpriority="high"`), Pitfall A5 (blurry screenshots), Pitfall A6 (device frame responsive breakage via `aspect-ratio: 9/19.5`)
 
-**Delivers:** Deployable scaffold with correct Astro config (no adapter, `output: static`), Tailwind v4 Vite plugin, Alpino self-hosted fonts with preload, CSS custom properties for design tokens, anti-FOUC theme init script, Header + Footer shell, Cloudflare Pages deployment verified (even if content is placeholder).
+### Phase 3: Stagger Animations and Motion Polish
+**Rationale:** Animation system must be stable (Phase 1) and device frames must exist (Phase 2) before layering stagger timing. Hero must be fully composed before its entrance sequence is timed.
+**Delivers:** Staggered entrance animations on hero, feature grid cards, and feature page sections. Optional `motion` library for hero choreography if CSS proves insufficient. Animated stat counters. CSS scroll-driven read progress bar on blog posts.
+**Uses:** `tailwind-animations` 1.0.1 (CSS View Timeline), optionally `motion` 12.38.0 (standalone in `<script>` tag — never as React island)
+**Avoids:** Pitfall A1 (CLS from layout properties), Pitfall A7 (will-change overuse), Pitfall A10 (Motion as React island), Anti-Pattern 5 (GSAP for scroll reveals)
 
-**Addresses:** Dark/light mode baseline (FEATURES.md differentiator), responsive foundation, SEO component infrastructure.
+### Phase 4: UI Depth and Visual Polish
+**Rationale:** Visual depth tokens (gradients, noise texture, glass morphism, typography refinements) are additive and non-breaking. Applying after structure and animation are locked avoids adjusting the same elements multiple times during development.
+**Delivers:** Noise texture overlay on hero/key sections, gradient brand accents replacing flat backgrounds, `text-wrap: balance` on all headings, hover micro-interactions on CTAs, bento grid for feature overview, glass morphism on 1-2 key callout elements, consistent spacing rhythm audit.
+**Addresses:** All P2 differentiator features from FEATURES.md
+**Avoids:** All anti-features (video autoplay, GSAP, Three.js, Lottie, dark mode toggle)
 
-**Avoids:** Pitfall 3 (dark mode contrast — tokens defined correctly from day 0), Pitfall 6 (font FOUT — preload in head from day 0), Pitfall 5 (Tailwind v4 integration error — use `@tailwindcss/vite`).
-
-### Phase 2: Landing Page
-
-**Rationale:** The landing page is the highest-impact page and the design direction validator. Building it second (after foundation) means the team can see the actual product before building 5 derivative pages. Copy and design decisions made here propagate to feature pages.
-
-**Delivers:** `index.astro` with Hero, FeatureGrid, SocialProof, DownloadCTA sections. Primary App Store CTA. Secondary desktop CTA (QR code). Device mockup. Responsive at all breakpoints.
-
-**Addresses:** Table stakes (hero, App Store badge, device mockup, feature overview cards, responsive layout), differentiators (dark/light mode, audience qualification, stat callouts if validated data available).
-
-**Avoids:** Pitfall 1 (feature-first hero copy — outcome-led copy), Pitfall 4 (single CTA — QR code for desktop), Pitfall 9 (OG tags — unique per-page meta from the start), Pitfall 12 (pricing ambiguity — one neutral line about plans).
-
-### Phase 3: Legal + Support Pages (Migration)
-
-**Rationale:** These pages are low-risk (content already written), block no other phases, and satisfy trust/legal obligations. Migrating them immediately after the landing page means the site is "complete enough to share" with real users during feature page development. Do not let legal migration block or delay feature pages.
-
-**Delivers:** `/privacy`, `/terms`, `/support` migrated from existing HTML into `LegalPage.astro` layout. `_redirects` file in `public/` mapping old URLs to new routes.
-
-**Addresses:** Table stakes (footer + legal links, support page), trust signals for health data app.
-
-**Avoids:** Pitfall 10 (redirect configuration — set up at launch for existing URLs, not after).
-
-### Phase 4: Feature Deep-Dive Pages (5 pages)
-
-**Rationale:** These are the second most important conversion surface after the landing page — they're the pages serious athletes and coaches reach from search ("ACWR tracking app," "HRV recovery iOS") or by clicking feature cards. All 5 pages share the same `FeaturePage.astro` layout, so the layout is built once and reused. Copy must be written BEFORE implementation begins (per FEATURES.md dependency note — do not build shells and fill later).
-
-**Delivers:** 5 feature pages (recovery scoring, workload tracking, smart templates, cold-start onboarding, coaching) with 800-1200 word accessible-credible methodology explanations, feature-specific app screenshots, unique OG images, and contextual CTAs. Coach page explicitly addresses coach workflow pain (athlete readiness visibility, not just "share data").
-
-**Addresses:** Differentiators (science methodology, dual audience, app screenshots, feature CTA bars).
-
-**Avoids:** Pitfall 2 (jargon walls — hierarchy: outcome → mechanism → methodology), Pitfall 5 (cold-start honesty on the onboarding page), Pitfall 8 (indexable content in static layer), Pitfall 9 (unique OG per feature page).
-
-### Phase 5: Blog Infrastructure + Polish
-
-**Rationale:** Blog infrastructure is low-effort in Astro (content collections are already set up) but should come after content pages are stable. Scroll animations should be added after layout is stable — not during, to avoid blocking content delivery. Testimonials can be added post-launch or as a polish pass.
-
-**Delivers:** `src/content.config.ts` schema (Zod validated frontmatter), `/blog/index.astro` listing page, `/blog/[...slug].astro` dynamic page, `BlogPost.astro` layout. No actual posts required. Scroll-triggered reveal animations on landing page sections. Sitemap submission to Google Search Console. Lighthouse audit + Core Web Vitals verification.
-
-**Addresses:** Blog infrastructure (FEATURES.md differentiator — high future payoff), scroll animations (FEATURES.md differentiator — add after layout stable), sitemap (Pitfall 13).
-
-**Avoids:** Pitfall 13 (missing sitemap — @astrojs/sitemap installed and submitted), Anti-Pattern 3 (blog content in pages/ — use content collections exclusively), Anti-Pattern 5 (content.config.ts in wrong Astro v4 location).
+### Phase 5: Responsive Refinement and Deployment
+**Rationale:** Responsive issues are typically exposed by visual changes in Phases 1-4. Testing after all visual work is complete avoids re-testing the same breakpoints multiple times. Deployment configuration verified once at the end.
+**Delivers:** Real-device breakpoint testing (375px, 390px, 768px, 1280px, 1440px), Cloudflare Pages deployment with `NODE_VERSION=22`, `.nvmrc` file committed, Lighthouse mobile score >= 95 verified, CDN cache strategy documented for future screenshot updates.
+**Avoids:** Pitfall A8 (Node version mismatch), Pitfall A9 (stale CDN cache), Pitfall A11 (responsive regression from animation classes), Anti-Pattern 3 (Cloudflare adapter with static output)
 
 ### Phase Ordering Rationale
 
-- Foundation before everything: Astro config, Tailwind tokens, and Base/Marketing layouts are shared dependencies — every page breaks without them.
-- Landing page before feature pages: The landing page validates design direction and establishes the copy tone that feature pages must match.
-- Legal migration is non-blocking: It can proceed in parallel with or immediately after landing page; it has no dependencies and unblocks trust.
-- Copy before shells: Feature page copy must be written before implementation (FEATURES.md explicitly flags this). Building placeholder shells and filling later produces worse outcomes.
-- Blog and polish last: These add value but are not conversion-critical. Deferring them to Phase 5 ensures the site can ship after Phase 4 if needed.
+- Phase 1 before Phase 2: The animation bug means any new `[data-animate]` elements added during the device frame work would fire incorrectly. Fix the foundation first.
+- Phase 2 before Phase 3: Hero stagger animations require the hero to be in its final composed state (with device frame in place). Staggering placeholder layout wastes iteration effort.
+- Phase 3 before Phase 4: UI depth elements (noise texture, gradients) interact visually with scroll-animated sections. Evaluating these interactions is cleaner when animations are stable.
+- Phase 4 before Phase 5: Responsive breakpoints should reflect the final design. Testing after visual changes avoids retesting breakpoints multiple times.
 
 ### Research Flags
 
-Phases likely needing deeper research during planning:
-- **Phase 4 (Feature deep-dive pages):** Copy research into ACWR/EWMA/HRV citations and methodology needs to be complete before planning begins. This is domain knowledge, not technical — the roadmapper should flag this as a copy/content task.
-- **Phase 5 (OG image generation with satori):** Alpino TTF/OTF support in satori is MEDIUM confidence. Verify before implementing per-page build-time OG generation. Fallback: static per-page PNG files.
+Phases needing deeper research during planning:
+- **Phase 3 (animations):** If `motion` library is needed for hero choreography, validate the specific animation sequence against the Astro `<script>` import pattern before writing hero animation code. The pattern is documented but the specific hero sequence is a judgment call.
 
-Phases with standard patterns (skip research-phase):
-- **Phase 1 (Foundation):** Astro + Tailwind v4 setup is fully documented by official sources; HIGH confidence.
-- **Phase 2 (Landing page):** Astro static component patterns are well-established; no novel integration needed.
-- **Phase 3 (Legal migration):** Straight HTML-to-Astro migration; no research needed.
+Phases with well-documented patterns (skip research-phase):
+- **Phase 1 (animation fix):** Architecture file provides exact implementation code including the full `AnimationController.astro` script. Standard Astro module script pattern.
+- **Phase 2 (device frame):** Flowbite pattern is verified. Architecture file provides the complete prop API and aspect-ratio formula.
+- **Phase 4 (visual polish):** All patterns (noise texture, glass morphism, bento grid) are standard CSS with no library dependencies.
+- **Phase 5 (deployment):** Astro + Cloudflare Pages is well-documented. All known gotchas are captured in PITFALLS.md with exact recovery steps.
+
+---
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | All technologies verified against official docs as of 2026-05-10; npm versions confirmed |
-| Features | HIGH | Competitor analysis performed on live sites (WHOOP, TrainingPeaks, Strava); Apple badge guidelines verified |
-| Architecture | HIGH | Component hierarchy verified against official Astro docs; Astro v5/v6 content.config.ts location confirmed |
-| Pitfalls | HIGH | Copy/conversion pitfalls from multiple 2025/2026 marketing guides; technical pitfalls from official docs |
+| Stack | HIGH | All primary dependencies verified on npm registry as of 2026-05-11. Version numbers confirmed. Firefox View Timeline caveat noted and mitigated with progressive enhancement pattern. |
+| Features | HIGH | Competitor analysis from 9 live sites fetched 2026-05-11. Browser support from MDN and caniuse. Feature prioritization reflects actual observed competitor patterns, not inference. |
+| Architecture | HIGH | Based on direct codebase inspection of actual Tuwa source files. The observer duplication bug is confirmed by reading component code, not assumed. All proposed components have concrete implementations in the research file. |
+| Pitfalls | HIGH | v2.0 pitfalls sourced from Astro official docs, web.dev performance guides, MDN, and 2026 production postmortems. All pitfalls include clear prevention steps and recovery cost estimates. |
 
-**Overall confidence:** HIGH
+**Overall confidence: HIGH**
 
 ### Gaps to Address
 
-- **Satori + Alpino TTF support**: Satori OG image generation is MEDIUM confidence. Verify Alpino font file format compatibility with satori before committing to build-time OG generation. If Alpino is WOFF2 only, convert to TTF/OTF or use a fallback system font for OG images.
-- **Validated outcome statistics**: FEATURES.md recommends including stat/number callouts (e.g., "X% reduction in injury risk with ACWR guidance") but notes these must be validated. This is a content gap, not a technical gap. Roadmap should include a task to source or commission these from published ACWR/HRV research before feature pages ship.
-- **Testimonial outreach**: Real athlete testimonials are recommended but require outreach to beta users. Roadmap should include this as a pre-launch task with an explicit fallback (placeholder "leave a review" CTA) if outreach is incomplete.
-- **App screenshot quality**: Screenshots must show a seeded account with representative data (not empty states). This is an asset preparation task that must be completed before feature pages can be built. Flag as a blocker for Phase 4.
-- **ARCHITECTURE.md config discrepancy**: ARCHITECTURE.md's `astro.config.mjs` sample includes `@astrojs/cloudflare` adapter with `output: 'static'`. STACK.md explicitly flags this combination as causing deployment failures — do not install the adapter for a pure static site. STACK.md takes precedence. The correct config is in STACK.md (no adapter).
+- **Screenhance output quality:** The tool is confirmed to exist and function, but output visual quality is template-dependent. Evaluate a test export before committing pre-rendered mockups to the hero. The CSS device frame is the correct fallback if Screenhance output doesn't meet quality standards.
+- **Hero animation sequence specifics:** Whether CSS View Timeline animations are sufficient for the hero entrance, or whether the `motion` library is needed, cannot be determined until the hero is in its final composed state after Phase 2. This is a design judgment call, not a technical uncertainty.
+- **Sticky scroll showcase (v3.0):** Research confirms high impact but high complexity. Content readiness (3-6 screenshot states per feature) is the primary blocker, not technical feasibility. Revisit when content is available.
+
+---
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- [Astro 6 official docs](https://docs.astro.build) — project structure, content collections, layouts, islands, deployment
-- [Tailwind CSS + Astro install guide](https://tailwindcss.com/docs/installation/framework-guides/astro) — Tailwind v4 Vite plugin setup
-- [Cloudflare Pages Astro deploy guide](https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/) — static deployment without adapter
-- [Apple App Store Marketing Guidelines](https://developer.apple.com/app-store/marketing/guidelines/) — badge assets and usage rules
-- WHOOP.com, TrainingPeaks.com, Strava.com — live competitor analysis (2026-05-10)
+- [tailwind-animations npm](https://www.npmjs.com/package/tailwind-animations) — v1.0.1 confirmed, Tailwind v4 native
+- [motion npm](https://www.npmjs.com/package/motion) — v12.38.0 confirmed, standalone vanilla JS API
+- [Astro deploy to Cloudflare Pages — official docs](https://docs.astro.build/en/guides/deploy/cloudflare/) — no-adapter pattern for static output
+- [Tailwind CSS + Astro install guide](https://tailwindcss.com/docs/installation/framework-guides/astro) — @tailwindcss/vite, not @astrojs/tailwind
+- [Flowbite device mockups](https://flowbite.com/docs/components/device-mockups/) — CSS iPhone frame Tailwind pattern
+- [MDN: CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations) — View Timeline browser support table
+- [web.dev: How to create high-performance CSS animations](https://web.dev/animations-guide/) — transform/opacity vs layout properties
+- [web.dev: Optimize Cumulative Layout Shift](https://web.dev/articles/optimize-cls) — VSI March 2026 update
+- [Astro scripts and event handling](https://docs.astro.build/en/guides/client-side-scripts/) — is:inline vs module script deduplication behavior
+- Direct codebase inspection: `/Users/hanwen/Desktop/tuwa-website/src/` (2026-05-11) — confirmed observer duplication bug in FeatureCTA.astro and LandingCTA.astro
 
 ### Secondary (MEDIUM confidence)
-- [Vercel satori](https://github.com/vercel/satori) — build-time OG image generation; Alpino TTF support unverified
-- [App Landing Pages for Mobile Products 2026](https://unicornplatform.com/blog/app-landing-pages-for-mobile-products-in-2026/) — conversion and copy pitfalls
-- [PMC — HRV in athlete monitoring (2025)](https://pmc.ncbi.nlm.nih.gov/articles/PMC12787763/) — HRV science citations
-- [PMC — ACWR scientific evidence review](https://pmc.ncbi.nlm.nih.gov/articles/PMC8138569/) — ACWR methodology backing
+- [BrightCoding: Tailwind Animations plugin 2026](https://www.blog.brightcoding.dev/2026/03/10/tailwind-animations-the-revolutionary-plugin-for-effortless-ui-motion) — production usage confirmed March 2026
+- [Motion + Astro guide (Netlify)](https://developers.netlify.com/guides/motion-animation-library-with-astro/) — inView, animate, stagger pattern in Astro script tags
+- [gmkennedy.com: Deploy Astro Cloudflare Pages pitfalls](https://www.gmkennedy.com/blog/deploy-astro-cloudflare-pages/) — *.pages.dev vs *.workers.dev gotcha, "Shift to Pages" fix
+- [Addy Osmani: fetchpriority=high for LCP](https://addyosmani.com/blog/fetch-priority/) — performance impact data
+- [Web Animation Performance Tier List — Motion.dev](https://motion.dev/magazine/web-animation-performance-tier-list) — compositor properties, will-change guidance
 
-### Tertiary (LOW confidence)
-- Motion library for complex hero animations — only if CSS timeline is insufficient; pattern unverified for this specific use case
+### Tertiary (competitor pattern analysis)
+- WHOOP, Oura Ring, Strava, Apple Fitness+, Eight Sleep, Arc, Linear, Notion, Superhuman — live site analysis fetched 2026-05-11
 
 ---
-*Research completed: 2026-05-10*
+
+*Research completed: 2026-05-11*
 *Ready for roadmap: yes*
