@@ -1,5 +1,6 @@
 ---
 import FeaturePageLayout from '../../layouts/FeaturePageLayout.astro';
+import DeviceFrame from '../../components/DeviceFrame.astro';
 import RecoveryChart from '../../components/charts/RecoveryChart.astro';
 import recoveryScreenshot from '../../assets/screenshots/recovery.png';
 ---
@@ -14,59 +15,76 @@ import recoveryScreenshot from '../../assets/screenshots/recovery.png';
   hookLine="One readiness number built from everything your body is telling you."
 >
 
-  <!-- Section 1: How it works -->
-  <section data-animate style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
-    <div class="mx-auto max-w-3xl px-6">
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: 600;
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        How it works
-      </h2>
+  <!-- Sticky scroll showcase — ANIM-05 (D-05, D-06, D-07) -->
+  <section style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
+    <div class="sticky-showcase">
 
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Every morning, before you pick up a barbell or lace up your shoes, Tuwa has already done the analysis. While you slept, it pulled physiological data from Apple HealthKit — your heart rate variability, resting heart rate, sleep duration, body temperature trend, and VO2 Max estimate — and combined that with your morning wellness check-in, where you rate your soreness, energy levels, and stress. These inputs feed a composite scoring algorithm that produces a single readiness number between 0 and 100.
-      </p>
+      <!-- Left column: sticky device frame -->
+      <div class="sticky-device-col">
+        <div class="device-sticky-wrapper">
+          <DeviceFrame
+            src={recoveryScreenshot}
+            alt="Tuwa recovery scoring screen showing daily readiness score with color-coded zones"
+            loading="lazy"
+            widths={[320, 640]}
+          />
+          <!-- Step indicator dots — purely decorative -->
+          <div aria-hidden="true" style="display: flex; justify-content: center; gap: var(--space-sm); margin-top: var(--space-lg);">
+            <div class="step-dot is-active"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+          </div>
+        </div>
+      </div>
 
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        That number is useful on its own, but it gets more valuable when paired with plain-language reasoning factors. Tuwa doesn't just tell you that your readiness is 62 — it tells you that your HRV is tracking 8% below your recent baseline, your sleep was cut short, but your resting heart rate is normal. You understand not just the score, but why.
-      </p>
+      <!-- Right column: scrolling step content -->
+      <div class="scroll-steps-col">
 
-      <h3 style="font-size: var(--text-body); font-weight: 600; color: var(--color-text-1); margin-top: var(--space-xl);">
-        Three zones, clear guidance
-      </h3>
+        <!-- Step 1: Overview + Zones -->
+        <div class="scroll-step is-active" data-step="1" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
+          <h2 style="font-size: var(--text-heading); font-weight: 600; line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
+            How it works
+          </h2>
+          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+            Every morning, before you pick up a barbell or lace up your shoes, Tuwa has already done the analysis. While you slept, it pulled physiological data from Apple HealthKit — your heart rate variability, resting heart rate, sleep duration, body temperature trend, and VO2 Max estimate — and combined that with your morning wellness check-in, where you rate your soreness, energy levels, and stress. These inputs feed a composite scoring algorithm that produces a single readiness number between 0 and 100.
+          </p>
+          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+            That number is useful on its own, but it gets more valuable when paired with plain-language reasoning factors. Tuwa doesn't just tell you that your readiness is 62 — it tells you that your HRV is tracking 8% below your recent baseline, your sleep was cut short, but your resting heart rate is normal. You understand not just the score, but why.
+          </p>
+          <h3 style="font-size: var(--text-body); font-weight: 600; color: var(--color-text-1); margin-top: var(--space-xl);">
+            Three zones, clear guidance
+          </h3>
+          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+            Recovery scores map to three zones, each with concrete training implications. Green means full capacity — go after your session as prescribed. Yellow means moderate recovery — train, but back off total volume by 10–20% and keep RPE capped. Red means your body is signaling genuine recovery need — light movement, mobility work, or rest. No guessing, no willpower battles with yourself. The data makes the call.
+          </p>
+        </div>
 
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Recovery scores map to three zones, each with concrete training implications. Green means full capacity — go after your session as prescribed. Yellow means moderate recovery — train, but back off total volume by 10–20% and keep RPE capped. Red means your body is signaling genuine recovery need — light movement, mobility work, or rest. No guessing, no willpower battles with yourself. The data makes the call.
-      </p>
+        <!-- Step 2: Device Compatibility -->
+        <div class="scroll-step" data-step="2" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
+          <h3 style="font-size: var(--text-heading); font-weight: 600; line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
+            Data from any device you already own
+          </h3>
+          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+            Tuwa works with whatever hardware you already wear. Apple Watch is the most common source, but Whoop, Oura, Garmin, and any other device that writes HRV and sleep data to Apple HealthKit feeds directly into the scoring pipeline. You're not locked into a new wearable ecosystem — Tuwa meets you where you are.
+          </p>
+        </div>
 
-      <h3 style="font-size: var(--text-body); font-weight: 600; color: var(--color-text-1); margin-top: var(--space-xl);">
-        Data from any device you already own
-      </h3>
+        <!-- Step 3: Personal Baseline -->
+        <div class="scroll-step" data-step="3" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
+          <h3 style="font-size: var(--text-heading); font-weight: 600; line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
+            A baseline that's yours, not the population's
+          </h3>
+          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+            HRV numbers vary enormously between individuals — an athlete with a resting HRV of 45 ms isn't worse than one with 80 ms, they're just different. What matters is whether your HRV is above or below your own recent trend. Tuwa calculates that trend using an averaging method that gives more weight to recent days than older ones. Instead of being thrown off by a single anomalous reading, your baseline evolves naturally as your fitness and recovery patterns shift over weeks and months.
+          </p>
+        </div>
 
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Tuwa works with whatever hardware you already wear. Apple Watch is the most common source, but Whoop, Oura, Garmin, and any other device that writes HRV and sleep data to Apple HealthKit feeds directly into the scoring pipeline. You're not locked into a new wearable ecosystem — Tuwa meets you where you are.
-      </p>
-
-      <h3 style="font-size: var(--text-body); font-weight: 600; color: var(--color-text-1); margin-top: var(--space-xl);">
-        A baseline that's yours, not the population's
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        HRV numbers vary enormously between individuals — an athlete with a resting HRV of 45 ms isn't worse than one with 80 ms, they're just different. What matters is whether your HRV is above or below your own recent trend. Tuwa calculates that trend using an averaging method that gives more weight to recent days than older ones. Instead of being thrown off by a single anomalous reading, your baseline evolves naturally as your fitness and recovery patterns shift over weeks and months.
-      </p>
+      </div>
     </div>
   </section>
 
   <!-- Section 2: The science behind it -->
   <section
-    data-animate
     style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
   >
     <div
@@ -103,3 +121,30 @@ import recoveryScreenshot from '../../assets/screenshots/recovery.png';
   </section>
 
 </FeaturePageLayout>
+
+<script is:inline>
+  /* StickyScrollController — scoped to recovery-scoring.astro only */
+  /* Separate observer from global AnimationController (different threshold, continuous observation) */
+  (function () {
+    var steps = document.querySelectorAll('.scroll-step');
+    var dots = document.querySelectorAll('.step-dot');
+    if (!steps.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var stepNum = entry.target.getAttribute('data-step');
+          /* Update active step */
+          steps.forEach(function (s) { s.classList.remove('is-active'); });
+          entry.target.classList.add('is-active');
+          /* Update indicator dots */
+          dots.forEach(function (d, i) {
+            d.classList.toggle('is-active', String(i + 1) === stepNum);
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    steps.forEach(function (el) { observer.observe(el); });
+  })();
+</script>
