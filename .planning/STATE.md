@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Visual Overhaul & Polish
 status: verifying
-stopped_at: "Checkpoint: 07-02 Task 3 human-verify pending"
-last_updated: "2026-05-12T14:20:10.587Z"
+stopped_at: Completed 07-animation-polish 07-02-PLAN.md
+last_updated: "2026-05-12T14:44:00.002Z"
 last_activity: 2026-05-12
 progress:
   total_phases: 5
@@ -125,6 +125,9 @@ Recent decisions affecting current work:
 - [Phase 07-animation-polish]: Sticky showcase CSS in global.css (not scoped) — available for future pages
 - [Phase 07-animation-polish]: StickyScrollController threshold 0.5 vs global 0.15 — step activates at visual midpoint
 - [Phase 07-animation-polish]: No unobserve() in StickyScrollController — continuous bi-directional scroll observation required
+- [Phase 07-animation-polish]: Sticky showcase CSS placed in global.css (not scoped) — available for future pages
+- [Phase 07-animation-polish]: StickyScrollController threshold 0.5 vs global 0.15 — step activates at visual midpoint
+- [Phase 07-animation-polish]: No unobserve() in StickyScrollController — continuous bi-directional scroll observation required
 
 ### Pending Todos
 
@@ -151,6 +154,6 @@ Items acknowledged and carried forward:
 
 ## Session Continuity
 
-Last session: 2026-05-12T14:20:10.584Z
-Stopped at: Checkpoint: 07-02 Task 3 human-verify pending
+Last session: 2026-05-12T14:43:53.449Z
+Stopped at: Completed 07-animation-polish 07-02-PLAN.md
 Resume file: None

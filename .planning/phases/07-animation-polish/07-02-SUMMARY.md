@@ -41,9 +41,9 @@ metrics:
 | 1 | Add sticky scroll CSS to global.css | 0589cd6 | src/styles/global.css |
 | 2 | Restructure recovery-scoring.astro into sticky scroll showcase | 4bbd34e | src/pages/features/recovery-scoring.astro |
 
-## Task 3 — Checkpoint (Human Verify: PENDING)
+## Task 3 — Checkpoint (Human Verify: APPROVED)
 
-Task 3 is a `checkpoint:human-verify` gate. Awaiting user visual confirmation of sticky scroll showcase layout, step indicators, mobile collapse, and science section.
+Task 3 was a `checkpoint:human-verify` gate. User approved the sticky scroll showcase layout, step indicators, mobile collapse, and science section on 2026-05-12.
 
 ## What Was Built
 
