@@ -48,6 +48,12 @@ const { title, description, ogImage, canonical, type } = Astro.props;
           { threshold: 0.15 }
         );
         document.querySelectorAll('[data-animate]').forEach(function (el) {
+          // ANIM-03 stagger: read data-animate-delay, set as inline animationDelay
+          // Required: CSS attr() with type hints not supported in Firefox/Safari as of May 2026
+          var delay = el.getAttribute('data-animate-delay');
+          if (delay) {
+            el.style.animationDelay = delay;
+          }
           observer.observe(el);
         });
       })();
