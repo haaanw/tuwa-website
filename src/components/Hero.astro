@@ -11,6 +11,7 @@ import DeviceFrame from './DeviceFrame.astro';
 
     <!-- Headline — h1 (one per page, per accessibility contract) -->
     <h1
+      class="hero-headline"
       style="
         font-size: var(--text-display);
         font-weight: 600;
@@ -24,7 +25,7 @@ import DeviceFrame from './DeviceFrame.astro';
 
     <!-- Subtitle -->
     <p
-      class="mx-auto"
+      class="hero-subtitle mx-auto"
       style="
         margin-top: var(--space-lg);
         max-width: 560px;
@@ -38,11 +39,10 @@ import DeviceFrame from './DeviceFrame.astro';
 
     <!-- Device mockup — CSS iPhone frame with subtle perspective tilt (D-05) -->
     <div
-      class="relative mx-auto"
+      class="hero-device relative mx-auto"
       style="
         margin-top: var(--space-2xl);
         max-width: 320px;
-        transform: perspective(1600px) rotateY(-2deg) rotateX(1deg);
       "
     >
       <DeviceFrame

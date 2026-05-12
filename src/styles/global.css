@@ -102,6 +102,33 @@ body {
   /* Intentionally empty -- [data-animate] elements render at full opacity with no transform */
 }
 
+/* Hero entrance animations — ANIM-04 */
+/* Fires immediately on page load. No IntersectionObserver. No .js-enabled gate. */
+/* fill-mode: both applies 'from' state before first paint — prevents FOUC */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-headline {
+    animation: fade-up 400ms ease-out 0ms both;
+  }
+  .hero-subtitle {
+    animation: fade-up 400ms ease-out 150ms both;
+  }
+  .hero-device {
+    animation: hero-device-enter 500ms ease-out 350ms both;
+  }
+
+  /* hero-device-enter: compound transform preserves perspective tilt + scale payoff */
+  @keyframes hero-device-enter {
+    from {
+      opacity: 0;
+      transform: perspective(1600px) rotateY(-2deg) rotateX(1deg) translateY(20px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: perspective(1600px) rotateY(-2deg) rotateX(1deg) translateY(0) scale(1);
+    }
+  }
+}
+
 /* CSS-only iPhone 15 Pro device frame — DeviceFrame.astro (Phase 6, D-01) */
 /* Side buttons: volume (left) via ::before, power (right) via ::after */
 .device-frame {
