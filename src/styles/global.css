@@ -155,3 +155,44 @@ body {
   background: #2A2A2A;
   border-radius: 0 2px 2px 0;
 }
+
+/* Sticky scroll step indicators — ANIM-05 */
+.step-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-text-3);
+  transition: background 200ms ease-out;
+}
+.step-dot.is-active {
+  background: var(--color-accent);
+}
+
+/* Sticky scroll showcase layout — ANIM-05 */
+.sticky-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: start;
+  padding: 0 var(--space-lg);
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+/* Desktop: sticky device column */
+@media (min-width: 768px) {
+  .device-sticky-wrapper {
+    position: sticky;
+    top: var(--space-lg);
+  }
+}
+
+/* Mobile: single column, no sticky */
+@media (max-width: 767px) {
+  .sticky-showcase {
+    grid-template-columns: 1fr;
+  }
+  .device-sticky-wrapper {
+    position: static;
+  }
+}
