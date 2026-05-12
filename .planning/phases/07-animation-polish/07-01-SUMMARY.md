@@ -41,9 +41,9 @@ metrics:
 | 1 | ANIM-03: Extend AnimationController + FeatureGrid stagger markup | 74b5d21 | BaseLayout.astro, FeatureGrid.astro |
 | 2 | ANIM-04: Hero entrance keyframes + animation classes | 2a0d8ea | global.css, Hero.astro |
 
-## Task 3 — Checkpoint (Pending Human Verify)
+## Task 3 — Checkpoint (Human Verify: APPROVED)
 
-Task 3 is a `checkpoint:human-verify` gate. Awaiting visual confirmation of stagger and hero entrance animations.
+Task 3 was a `checkpoint:human-verify` gate. User visually confirmed stagger and hero entrance animations are correct and approved.
 
 ## What Was Built
 

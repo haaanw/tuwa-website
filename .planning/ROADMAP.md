@@ -67,7 +67,7 @@ Plans:
   4. No animation uses margin, height, or top/left properties — DevTools Performance tab shows zero CLS from animation
 **Plans:** 2 plans
 Plans:
-- [ ] 07-01-PLAN.md — Stagger delays on FeatureGrid cards + hero entrance choreography
+- [x] 07-01-PLAN.md — Stagger delays on FeatureGrid cards + hero entrance choreography
 - [ ] 07-02-PLAN.md — Sticky scroll showcase on Recovery Scoring page
 **UI hint**: yes
 

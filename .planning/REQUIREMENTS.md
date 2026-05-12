@@ -11,8 +11,8 @@ Requirements for visual overhaul milestone. Each maps to roadmap phases.
 
 - [ ] **ANIM-01**: Fix duplicated IntersectionObserver bug — single AnimationController in BaseLayout
 - [ ] **ANIM-02**: Add `prefers-reduced-motion` guard in global.css animation section
-- [ ] **ANIM-03**: Stagger delays on card grids and feature lists via `data-animate-delay`
-- [ ] **ANIM-04**: Hero entrance choreography (sequenced device + text reveal)
+- [x] **ANIM-03**: Stagger delays on card grids and feature lists via `data-animate-delay`
+- [x] **ANIM-04**: Hero entrance choreography (sequenced device + text reveal)
 - [ ] **ANIM-05**: Sticky scroll showcase on at least one feature deep-dive page (Oura-style)
 
 ### Screenshot Presentation
@@ -71,8 +71,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | ANIM-01 | Phase 5 | Pending |
 | ANIM-02 | Phase 5 | Pending |
-| ANIM-03 | Phase 7 | Pending |
-| ANIM-04 | Phase 7 | Pending |
+| ANIM-03 | Phase 7 | Complete |
+| ANIM-04 | Phase 7 | Complete |
 | ANIM-05 | Phase 7 | Pending |
 | SHOT-01 | Phase 6 | Complete |
 | SHOT-02 | Phase 6 | Complete |
