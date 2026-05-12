@@ -26,15 +26,40 @@ import MobileMenu from "./MobileMenu.astro";
 
     <!-- Desktop nav links (hidden on mobile) -->
     <ul class="hidden items-center gap-8 md:flex" role="list">
-      <li>
-        <a href="/features/recovery-scoring" class="transition-colors duration-100" style="color: var(--color-text-1); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-1)'">
+      <li class="relative" id="features-dropdown">
+        <button
+          type="button"
+          class="flex items-center gap-1 transition-colors duration-100"
+          style="color: var(--color-text-1); background: none; border: none; cursor: pointer; font: inherit;"
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
           Features
-        </a>
-      </li>
-      <li>
-        <a href="/features/coaching" class="transition-colors duration-100" style="color: var(--color-text-1); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-1)'">
-          Coaching
-        </a>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="transition-transform duration-150" style="margin-top: 1px;">
+            <polyline points="2,4 6,8 10,4" />
+          </svg>
+        </button>
+        <ul
+          role="list"
+          class="absolute hidden"
+          style="
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 200px;
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-divider);
+            border-radius: var(--radius-md);
+            padding: var(--space-xs) 0;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+          "
+        >
+          <li><a href="/features/recovery-scoring" style="display: block; padding: var(--space-sm) var(--space-md); color: var(--color-text-2); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)';this.style.backgroundColor='var(--color-surface-2)'" onmouseout="this.style.color='var(--color-text-2)';this.style.backgroundColor='transparent'">Recovery Scoring</a></li>
+          <li><a href="/features/workload-tracking" style="display: block; padding: var(--space-sm) var(--space-md); color: var(--color-text-2); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)';this.style.backgroundColor='var(--color-surface-2)'" onmouseout="this.style.color='var(--color-text-2)';this.style.backgroundColor='transparent'">Workload Tracking</a></li>
+          <li><a href="/features/smart-templates" style="display: block; padding: var(--space-sm) var(--space-md); color: var(--color-text-2); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)';this.style.backgroundColor='var(--color-surface-2)'" onmouseout="this.style.color='var(--color-text-2)';this.style.backgroundColor='transparent'">Smart Templates</a></li>
+          <li><a href="/features/cold-start" style="display: block; padding: var(--space-sm) var(--space-md); color: var(--color-text-2); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)';this.style.backgroundColor='var(--color-surface-2)'" onmouseout="this.style.color='var(--color-text-2)';this.style.backgroundColor='transparent'">Cold Start Solution</a></li>
+          <li><a href="/features/coaching" style="display: block; padding: var(--space-sm) var(--space-md); color: var(--color-text-2); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)';this.style.backgroundColor='var(--color-surface-2)'" onmouseout="this.style.color='var(--color-text-2)';this.style.backgroundColor='transparent'">Coaching</a></li>
+        </ul>
       </li>
       <li>
         <a href="/blog" class="transition-colors duration-100" style="color: var(--color-text-1); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-1)'">
@@ -87,6 +112,31 @@ import MobileMenu from "./MobileMenu.astro";
 </header>
 
 <MobileMenu />
+
+<!-- Features dropdown toggle -->
+<script is:inline>
+  (function() {
+    var dropdown = document.getElementById('features-dropdown');
+    if (!dropdown) return;
+    var btn = dropdown.querySelector('button');
+    var menu = dropdown.querySelector('ul');
+    var chevron = btn.querySelector('svg');
+
+    btn.addEventListener('click', function() {
+      var open = menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', !open);
+      chevron.style.transform = open ? '' : 'rotate(180deg)';
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!dropdown.contains(e.target)) {
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+        chevron.style.transform = '';
+      }
+    });
+  })();
+</script>
 
 <!-- Scroll shadow: subtle box-shadow when scrolled past top -->
 <script is:inline>
