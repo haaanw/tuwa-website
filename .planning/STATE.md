@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Visual Overhaul & Polish
-status: executing
-stopped_at: Completed 07-animation-polish-01-PLAN.md
-last_updated: "2026-05-12T14:16:02.552Z"
+status: verifying
+stopped_at: "Checkpoint: 07-02 Task 3 human-verify pending"
+last_updated: "2026-05-12T14:20:10.587Z"
 last_activity: 2026-05-12
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 5
-  completed_plans: 4
-  percent: 80
+  completed_plans: 5
+  percent: 100
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-05-11)
 
 Phase: 07 (Animation Polish) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-05-12
 
 Progress: [░░░░░░░░░░] 0%
@@ -69,6 +69,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 06 P01 | 2 minutes | 2 tasks | 2 files |
 | Phase 06-screenshot-presentation P02 | 30 | 3 tasks | 8 files |
 | Phase 07-animation-polish P01 | 20 | 3 tasks | 4 files |
+| Phase 07-animation-polish P02 | 2 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -121,6 +122,9 @@ Recent decisions affecting current work:
 - [Phase 07-animation-polish]: fill-mode: both on hero classes — prevents FOUC before 350ms device delay fires by holding from state
 - [Phase 07-animation-polish]: Hero uses CSS-only animation without .js-enabled gate — fires on page load for all users, does not wait for scroll
 - [Phase 07-animation-polish]: data-animate-delay read via JS getAttribute and set as el.style.animationDelay — CSS attr() with type hints not cross-browser as of May 2026
+- [Phase 07-animation-polish]: Sticky showcase CSS in global.css (not scoped) — available for future pages
+- [Phase 07-animation-polish]: StickyScrollController threshold 0.5 vs global 0.15 — step activates at visual midpoint
+- [Phase 07-animation-polish]: No unobserve() in StickyScrollController — continuous bi-directional scroll observation required
 
 ### Pending Todos
 
@@ -147,6 +151,6 @@ Items acknowledged and carried forward:
 
 ## Session Continuity
 
-Last session: 2026-05-12T14:16:02.549Z
-Stopped at: Completed 07-animation-polish-01-PLAN.md
+Last session: 2026-05-12T14:20:10.584Z
+Stopped at: Checkpoint: 07-02 Task 3 human-verify pending
 Resume file: None

@@ -13,7 +13,7 @@ Requirements for visual overhaul milestone. Each maps to roadmap phases.
 - [ ] **ANIM-02**: Add `prefers-reduced-motion` guard in global.css animation section
 - [x] **ANIM-03**: Stagger delays on card grids and feature lists via `data-animate-delay`
 - [x] **ANIM-04**: Hero entrance choreography (sequenced device + text reveal)
-- [ ] **ANIM-05**: Sticky scroll showcase on at least one feature deep-dive page (Oura-style)
+- [x] **ANIM-05**: Sticky scroll showcase on at least one feature deep-dive page (Oura-style)
 
 ### Screenshot Presentation
 
@@ -73,7 +73,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ANIM-02 | Phase 5 | Pending |
 | ANIM-03 | Phase 7 | Complete |
 | ANIM-04 | Phase 7 | Complete |
-| ANIM-05 | Phase 7 | Pending |
+| ANIM-05 | Phase 7 | Complete |
 | SHOT-01 | Phase 6 | Complete |
 | SHOT-02 | Phase 6 | Complete |
 | SHOT-03 | Phase 6 | Complete |

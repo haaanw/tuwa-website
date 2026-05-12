@@ -21,7 +21,7 @@
 
 - [ ] **Phase 5: Animation Infrastructure** — Fix the duplicated IntersectionObserver bug and establish a single reliable animation system with accessibility guards
 - [x] **Phase 6: Screenshot Presentation** — Re-export all screenshots at 3x and build the CSS iPhone device frame component that all visual work depends on (completed 2026-05-11)
-- [ ] **Phase 7: Animation Polish** — Layer stagger timing, hero entrance choreography, and animated counters on the now-stable animation system
+- [x] **Phase 7: Animation Polish** — Layer stagger timing, hero entrance choreography, and animated counters on the now-stable animation system (completed 2026-05-12)
 - [ ] **Phase 8: UI/UX Visual Depth** — Apply spacing/typography consistency, hover micro-interactions, noise texture, glass morphism, and bento grid layout
 - [ ] **Phase 9: Deployment & Responsive** — Configure Cloudflare Pages, replace App Store badge, test all breakpoints, verify Lighthouse >= 95
 
@@ -65,10 +65,10 @@ Plans:
   2. The hero section has a sequenced entrance: device mockup and headline/subtext animate in as a coordinated sequence, not simultaneously
   3. At least one feature deep-dive page has a sticky scroll showcase where content updates as the user scrolls through the section
   4. No animation uses margin, height, or top/left properties — DevTools Performance tab shows zero CLS from animation
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 Plans:
 - [x] 07-01-PLAN.md — Stagger delays on FeatureGrid cards + hero entrance choreography
-- [ ] 07-02-PLAN.md — Sticky scroll showcase on Recovery Scoring page
+- [x] 07-02-PLAN.md — Sticky scroll showcase on Recovery Scoring page
 **UI hint**: yes
 
 ### Phase 8: UI/UX Visual Depth
@@ -106,6 +106,6 @@ Plans:
 | 4. Blog + Polish | v1.0 | 3/3 | Complete | 2026-05-11 |
 | 5. Animation Infrastructure | v2.0 | 0/1 | Not started | - |
 | 6. Screenshot Presentation | v2.0 | 2/2 | Complete   | 2026-05-11 |
-| 7. Animation Polish | v2.0 | 0/2 | Not started | - |
+| 7. Animation Polish | v2.0 | 2/2 | Complete   | 2026-05-12 |
 | 8. UI/UX Visual Depth | v2.0 | 0/? | Not started | - |
 | 9. Deployment & Responsive | v2.0 | 0/? | Not started | - |
