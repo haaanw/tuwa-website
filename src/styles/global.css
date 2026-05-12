@@ -107,10 +107,21 @@ body {
 /* fill-mode: both applies 'from' state before first paint — prevents FOUC */
 @media (prefers-reduced-motion: no-preference) {
   .hero-headline {
-    animation: fade-up 400ms ease-out 0ms both;
+    animation: hero-text-enter 400ms ease-out 0ms both;
   }
   .hero-subtitle {
-    animation: fade-up 400ms ease-out 150ms both;
+    animation: hero-text-enter 400ms ease-out 150ms both;
+  }
+
+  @keyframes hero-text-enter {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   .hero-device {
     animation: hero-device-enter 500ms ease-out 350ms both;
@@ -162,7 +173,11 @@ body {
   height: 6px;
   border-radius: 50%;
   background: var(--color-text-3);
-  transition: background 200ms ease-out;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .step-dot {
+    transition: background 200ms ease-out;
+  }
 }
 .step-dot.is-active {
   background: var(--color-accent);
@@ -183,7 +198,7 @@ body {
 @media (min-width: 768px) {
   .device-sticky-wrapper {
     position: sticky;
-    top: var(--space-lg);
+    top: calc(64px + var(--space-lg));
   }
 }
 
