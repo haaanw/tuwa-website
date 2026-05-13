@@ -87,7 +87,7 @@ Plans:
 - [x] 08-01-PLAN.md — CSS foundation (tokens, noise texture, bento grid, hover classes) + FeatureGrid bento restructure
 - [x] 08-02-PLAN.md — Spacing + micro-interaction classes on Hero, LandingCTA, FeatureCTA, Header, Footer
 - [x] 08-03-PLAN.md — StatsCounter animated counters + blog listing hover lift
-- [ ] 08-04-PLAN.md — Gap closure: apply .section-spaced to feature pages and blog listing
+- [x] 08-04-PLAN.md — Gap closure: apply .section-spaced to feature pages and blog listing
 **UI hint**: yes
 
 ### Phase 9: Deployment & Responsive
