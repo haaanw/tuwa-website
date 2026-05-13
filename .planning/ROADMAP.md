@@ -90,6 +90,16 @@ Plans:
 - [x] 08-04-PLAN.md — Gap closure: apply .section-spaced to feature pages and blog listing
 **UI hint**: yes
 
+### Phase 08.1: FeatureGrid Click Wheel (INSERTED)
+
+**Goal:** The feature overview section on the landing page uses an iPod-style circular click wheel instead of a bento grid, with drag-to-rotate, click-to-select, keyboard navigation, and momentum physics
+**Requirements**: D-01 through D-10 (from 08.1-CONTEXT.md)
+**Depends on:** Phase 8
+**Plans:** 1 plan
+
+Plans:
+- [ ] 08.1-01-PLAN.md — SVG click wheel structure + CSS + WheelController interaction script + visual verification
+
 ### Phase 9: Deployment & Responsive
 **Goal**: The site is live on tuwa.app via Cloudflare Pages, passes Lighthouse >= 95 on mobile and desktop, and renders correctly across all target breakpoints
 **Depends on**: Phase 8
@@ -113,4 +123,5 @@ Plans:
 | 6. Screenshot Presentation | v2.0 | 2/2 | Complete   | 2026-05-11 |
 | 7. Animation Polish | v2.0 | 2/2 | Complete   | 2026-05-12 |
 | 8. UI/UX Visual Depth | v2.0 | 3/4 | Gap closure | - |
+| 8.1 FeatureGrid Click Wheel | v2.0 | 0/1 | Planned | - |
 | 9. Deployment & Responsive | v2.0 | 0/? | Not started | - |
