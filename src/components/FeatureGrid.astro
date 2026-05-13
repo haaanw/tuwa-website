@@ -1,26 +1,7 @@
 <!-- Feature Grid section — 5 cards linking to Phase 3 feature deep-dive pages -->
 <!-- Feature page links activate in Phase 3 -->
 
-<style>
-  .feature-card {
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-divider);
-    border-radius: var(--radius-lg);
-    padding: var(--space-md);
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-  .feature-card:hover,
-  .feature-card:focus-visible {
-    background-color: var(--color-surface-el);
-  }
-</style>
-
-<section
-  style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);"
->
+<section class="section-spaced">
   <div class="mx-auto max-w-6xl px-6">
 
     <!-- Section title -->
@@ -38,14 +19,14 @@
       Everything you need to train without guessing
     </h2>
 
-    <!-- Feature card grid: 1-col mobile, 2-col tablet, 3-col desktop -->
-    <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" role="list">
+    <!-- Feature bento grid: hero (Recovery Scoring) spans 2col x 2row on desktop -->
+    <ul class="bento-grid" role="list">
 
-      <!-- Card 1: Recovery Scoring -->
-      <li data-animate data-animate-delay="0ms">
+      <!-- Card 1: Recovery Scoring — hero card spanning 2 columns x 2 rows -->
+      <li style="grid-area: recovery;" data-animate data-animate-delay="0ms">
         <a
           href="/features/recovery-scoring"
-          class="feature-card block transition-colors duration-150"
+          class="feature-card bento-hero-card block"
         >
           <!-- Heart / Recovery icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--color-accent)" aria-hidden="true">
@@ -58,10 +39,10 @@
       </li>
 
       <!-- Card 2: Workload Tracking -->
-      <li data-animate data-animate-delay="100ms">
+      <li style="grid-area: workload;" data-animate data-animate-delay="100ms">
         <a
           href="/features/workload-tracking"
-          class="feature-card block transition-colors duration-150"
+          class="feature-card block"
         >
           <!-- Bar chart / Load icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--color-accent)" aria-hidden="true">
@@ -76,10 +57,10 @@
       </li>
 
       <!-- Card 3: Smart Templates -->
-      <li data-animate data-animate-delay="200ms">
+      <li style="grid-area: templates;" data-animate data-animate-delay="200ms">
         <a
           href="/features/smart-templates"
-          class="feature-card block transition-colors duration-150"
+          class="feature-card block"
         >
           <!-- Clipboard / Templates icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--color-accent)" aria-hidden="true">
@@ -92,10 +73,10 @@
       </li>
 
       <!-- Card 4: Cold-Start Onboarding -->
-      <li data-animate data-animate-delay="300ms">
+      <li style="grid-area: cold-start;" data-animate data-animate-delay="300ms">
         <a
           href="/features/cold-start"
-          class="feature-card block transition-colors duration-150"
+          class="feature-card block"
         >
           <!-- Lightning bolt / Cold-start icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--color-accent)" aria-hidden="true">
@@ -107,11 +88,11 @@
         </a>
       </li>
 
-      <!-- Card 5: Coach + Athlete — centered in last row on desktop (md:col-start-2) -->
-      <li class="md:col-start-2" data-animate data-animate-delay="400ms">
+      <!-- Card 5: Coach + Athlete -->
+      <li style="grid-area: coaching;" data-animate data-animate-delay="400ms">
         <a
           href="/features/coaching"
-          class="feature-card block transition-colors duration-150"
+          class="feature-card block"
         >
           <!-- Two people / Coaching icon -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--color-accent)" aria-hidden="true">
