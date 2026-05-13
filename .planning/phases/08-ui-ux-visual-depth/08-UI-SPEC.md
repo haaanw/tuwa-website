@@ -45,8 +45,8 @@ Source: `src/styles/global.css` `:root` block (pre-existing tokens, do not re-de
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `--space-section-desktop` | 128px | Vertical padding on index.astro sections (desktop) — within D-03 range 120–160px |
-| `--space-section-mobile` | 72px | Vertical padding on index.astro sections (mobile) — within D-03 range 64–80px |
+| `--space-section-desktop` | 128px | Vertical padding on index.astro sections (desktop) — section-specific exception per D-03 (authorized range 120–160px) |
+| `--space-section-mobile` | 72px | Vertical padding on index.astro sections (mobile) — section-specific exception per D-03 (authorized range 64–80px) |
 
 **Exceptions:**
 - Bento grid gap: `var(--space-xl)` (32px) between cards, `var(--space-lg)` (24px) for tight pairings
@@ -58,12 +58,16 @@ Source: `src/styles/global.css` `:root` block (pre-existing tokens, do not re-de
 
 Source: `src/styles/global.css` `:root` block (pre-existing). Phase 8 adds no new type sizes.
 
+**Weights in use: exactly 2 — 700 (bold) for Display and Heading; 400 (regular) for Body and Label.**
+
 | Role | Token | Size | Weight | Line Height | Letter Spacing |
 |------|-------|------|--------|-------------|----------------|
 | Display | `--text-display` | 48px | 700 (bold) | 1.1 (`--leading-display`) | -0.02em (`--tracking-display`) |
-| Heading | `--text-heading` | 28px | 600 (semibold) | 1.2 (`--leading-heading`) | -0.01em (`--tracking-heading`) |
+| Heading | `--text-heading` | 28px | 700 (bold) | 1.2 (`--leading-heading`) | -0.01em (`--tracking-heading`) |
 | Body | `--text-body` | 16px | 400 (regular) | 1.6 (`--leading-body`) | 0 |
 | Label | `--text-label` | 13px | 400 (regular) | 1.4 (`--leading-label`) | 0.06em (`--tracking-label`) |
+
+Display and Heading remain visually distinct due to the 20px size differential (48px vs 28px) — no semibold weight is needed to separate them.
 
 **Counter metric numbers** (new Phase 8 element): 48px / weight 700 / line-height 1.1 / `font-variant-numeric: tabular-nums` — reuse `--text-display` token + `.tabular-nums` utility class already in global.css.
 
