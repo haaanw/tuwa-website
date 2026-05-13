@@ -66,8 +66,6 @@
   /* Phase 8 — Shadow Tokens (D-05) */
   --shadow-card: 0 1px 3px rgba(28,25,21,0.06), 0 1px 2px rgba(28,25,21,0.04);
   --shadow-card-hover: 0 8px 24px rgba(28,25,21,0.10), 0 2px 8px rgba(28,25,21,0.06);
-  --shadow-bento-hero: 0 12px 40px rgba(28,25,21,0.12), 0 4px 12px rgba(28,25,21,0.07);
-  --shadow-bento-hero-hover: 0 20px 60px rgba(28,25,21,0.14), 0 6px 18px rgba(28,25,21,0.09);
 }
 
 /* Base body styles */
@@ -142,18 +140,6 @@ body::after {
   .feature-card:hover,
   .feature-card:focus-visible {
     box-shadow: var(--shadow-card-hover);
-  }
-}
-
-/* Bento hero card (Recovery Scoring) — deeper shadow per D-07 */
-.bento-hero-card {
-  box-shadow: var(--shadow-bento-hero);
-  padding: var(--space-xl);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .bento-hero-card:hover,
-  .bento-hero-card:focus-visible {
-    box-shadow: var(--shadow-bento-hero-hover);
   }
 }
 
@@ -328,33 +314,188 @@ body::after {
   }
 }
 
-/* Phase 8 — Bento grid layout (D-07, D-08, D-09, UIPX-05) */
-.bento-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: var(--space-xl);
-  grid-template-areas:
-    "recovery  recovery  workload"
-    "recovery  recovery  templates"
-    "cold-start cold-start coaching";
+/* Phase 08.1 — Click wheel layout (D-01, D-02, D-03) */
+.wheel-container {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  margin: 0 auto;
 }
 @media (min-width: 480px) and (max-width: 767px) {
-  .bento-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "recovery  recovery"
-      "workload  templates"
-      "cold-start coaching";
+  .wheel-container {
+    width: 360px;
+    height: 360px;
   }
 }
 @media (max-width: 479px) {
-  .bento-grid {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "recovery"
-      "workload"
-      "templates"
-      "cold-start"
-      "coaching";
+  .wheel-container {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+.wheel-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Rim track — visible ring background */
+.wheel-rim-track {
+  fill: none;
+  stroke: var(--color-surface);
+  stroke-width: 40;
+}
+
+/* Arc segments — hit areas and visual segments */
+.wheel-arc {
+  fill: var(--color-surface);
+  stroke: var(--color-divider);
+  stroke-width: 1;
+  cursor: pointer;
+}
+.wheel-arc.is-active {
+  fill: var(--color-surface-el);
+  stroke: var(--color-accent);
+  filter: drop-shadow(0 2px 8px rgba(43,82,64,0.18));
+}
+
+/* Segment icon+label groups on the rim */
+.wheel-segment-icon {
+  fill: var(--color-text-3);
+}
+.wheel-segment-icon.is-active {
+  fill: var(--color-accent);
+}
+.wheel-segment-label {
+  fill: var(--color-text-2);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-anchor: middle;
+  dominant-baseline: hanging;
+  text-transform: uppercase;
+  font-family: var(--font-general-sans);
+}
+.wheel-segment-label.is-active {
+  fill: var(--color-accent);
+}
+
+/* Active segment scale — applied to icon+label <g> group */
+@media (prefers-reduced-motion: no-preference) {
+  .wheel-segment-group {
+    transition: transform 200ms ease-out;
+  }
+}
+.wheel-segment-group.is-active {
+  transform: scale(1.15);
+}
+
+/* Segment buttons — positioned over arc midpoints for accessibility */
+.wheel-segment-btn {
+  position: absolute;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 80px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+/* Center overlay — fixed position over wheel center, does NOT rotate */
+.wheel-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: var(--color-surface-el);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  pointer-events: auto;
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .wheel-center {
+    width: 150px;
+    height: 150px;
+  }
+}
+@media (max-width: 479px) {
+  .wheel-center {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* Center content — crossfade swap target */
+.wheel-center-content {
+  text-align: center;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  max-width: 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .wheel-center-content {
+    transition: opacity 75ms ease-out;
+  }
+}
+
+.wheel-center-title {
+  font-size: var(--text-body);
+  font-weight: 600;
+  color: var(--color-text-1);
+  line-height: var(--leading-heading);
+}
+@media (max-width: 479px) {
+  .wheel-center-title {
+    font-size: var(--text-label);
+  }
+}
+
+.wheel-center-desc {
+  font-size: var(--text-label);
+  color: var(--color-text-2);
+  line-height: var(--leading-label);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+@media (max-width: 479px) {
+  .wheel-center-desc {
+    display: none;
+  }
+}
+
+.wheel-center-link {
+  font-size: var(--text-label);
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  letter-spacing: var(--tracking-label);
+}
+.wheel-center-link:hover {
+  text-decoration: underline;
+}
+
+/* Rotating group transform-origin for CSS snap transitions */
+#wheel-segments-group {
+  transform-origin: 240px 240px;
+  transform-box: view-box;
+}
+
+/* Snap transition for rotating group — gated on motion preference */
+@media (prefers-reduced-motion: no-preference) {
+  .wheel-snap-transition {
+    transition: transform 200ms ease-out;
   }
 }
