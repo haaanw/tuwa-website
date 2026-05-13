@@ -18,7 +18,7 @@ const qrSvg = (await QRCode.toString(APP_STORE_URL, {
   data-animate
   style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider);"
 >
-  <div class="mx-auto max-w-6xl px-6" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
+  <div class="section-spaced mx-auto max-w-6xl px-6">
     <div class="mx-auto text-center" style="max-width: 640px;">
 
       <!-- Closing headline -->
@@ -55,6 +55,7 @@ const qrSvg = (await QRCode.toString(APP_STORE_URL, {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Download Tuwa on the App Store"
+          class="btn-cta inline-block"
         >
           <img
             src="/badges/app-store-badge.svg"
