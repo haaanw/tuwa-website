@@ -82,11 +82,12 @@ Plans:
   4. The hero and at least one key section have a noise texture or gradient accent that distinguishes the site from a default Tailwind template
   5. The feature overview section uses a bento grid layout (not a uniform 3-column card grid)
   6. At least two key metrics are displayed as animated counters that count up when scrolled into view
-**Plans:** 3/3 plans complete
+**Plans:** 4 plans
 Plans:
 - [x] 08-01-PLAN.md — CSS foundation (tokens, noise texture, bento grid, hover classes) + FeatureGrid bento restructure
 - [x] 08-02-PLAN.md — Spacing + micro-interaction classes on Hero, LandingCTA, FeatureCTA, Header, Footer
 - [x] 08-03-PLAN.md — StatsCounter animated counters + blog listing hover lift
+- [ ] 08-04-PLAN.md — Gap closure: apply .section-spaced to feature pages and blog listing
 **UI hint**: yes
 
 ### Phase 9: Deployment & Responsive
@@ -111,5 +112,5 @@ Plans:
 | 5. Animation Infrastructure | v2.0 | 0/1 | Not started | - |
 | 6. Screenshot Presentation | v2.0 | 2/2 | Complete   | 2026-05-11 |
 | 7. Animation Polish | v2.0 | 2/2 | Complete   | 2026-05-12 |
-| 8. UI/UX Visual Depth | v2.0 | 3/3 | Complete   | 2026-05-13 |
+| 8. UI/UX Visual Depth | v2.0 | 3/4 | Gap closure | - |
 | 9. Deployment & Responsive | v2.0 | 0/? | Not started | - |
