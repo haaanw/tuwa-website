@@ -22,7 +22,7 @@
 - [ ] **Phase 5: Animation Infrastructure** — Fix the duplicated IntersectionObserver bug and establish a single reliable animation system with accessibility guards
 - [x] **Phase 6: Screenshot Presentation** — Re-export all screenshots at 3x and build the CSS iPhone device frame component that all visual work depends on (completed 2026-05-11)
 - [x] **Phase 7: Animation Polish** — Layer stagger timing, hero entrance choreography, and animated counters on the now-stable animation system (completed 2026-05-12)
-- [ ] **Phase 8: UI/UX Visual Depth** — Apply spacing/typography consistency, hover micro-interactions, noise texture, glass morphism, and bento grid layout
+- [x] **Phase 8: UI/UX Visual Depth** — Apply spacing/typography consistency, hover micro-interactions, noise texture, glass morphism, and bento grid layout (completed 2026-05-13)
 - [ ] **Phase 9: Deployment & Responsive** — Configure Cloudflare Pages, replace App Store badge, test all breakpoints, verify Lighthouse >= 95
 
 ## Phase Details
@@ -82,11 +82,11 @@ Plans:
   4. The hero and at least one key section have a noise texture or gradient accent that distinguishes the site from a default Tailwind template
   5. The feature overview section uses a bento grid layout (not a uniform 3-column card grid)
   6. At least two key metrics are displayed as animated counters that count up when scrolled into view
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 Plans:
 - [x] 08-01-PLAN.md — CSS foundation (tokens, noise texture, bento grid, hover classes) + FeatureGrid bento restructure
 - [x] 08-02-PLAN.md — Spacing + micro-interaction classes on Hero, LandingCTA, FeatureCTA, Header, Footer
-- [ ] 08-03-PLAN.md — StatsCounter animated counters + blog listing hover lift
+- [x] 08-03-PLAN.md — StatsCounter animated counters + blog listing hover lift
 **UI hint**: yes
 
 ### Phase 9: Deployment & Responsive
@@ -111,5 +111,5 @@ Plans:
 | 5. Animation Infrastructure | v2.0 | 0/1 | Not started | - |
 | 6. Screenshot Presentation | v2.0 | 2/2 | Complete   | 2026-05-11 |
 | 7. Animation Polish | v2.0 | 2/2 | Complete   | 2026-05-12 |
-| 8. UI/UX Visual Depth | v2.0 | 2/3 | In Progress|  |
+| 8. UI/UX Visual Depth | v2.0 | 3/3 | Complete   | 2026-05-13 |
 | 9. Deployment & Responsive | v2.0 | 0/? | Not started | - |

@@ -30,7 +30,7 @@ Requirements for visual overhaul milestone. Each maps to roadmap phases.
 - [x] **UIPX-03**: Card hover lift effects on feature cards and blog listing
 - [x] **UIPX-04**: Noise texture and glass morphism accents on key sections
 - [x] **UIPX-05**: Bento grid layout for feature overview or equivalent high-impact section
-- [ ] **UIPX-06**: Animated counters for key metrics (athletes served, workouts tracked)
+- [x] **UIPX-06**: Animated counters for key metrics (athletes served, workouts tracked)
 
 ### Deployment & Responsive
 
@@ -84,7 +84,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UIPX-03 | Phase 8 | Complete |
 | UIPX-04 | Phase 8 | Complete |
 | UIPX-05 | Phase 8 | Complete |
-| UIPX-06 | Phase 8 | Pending |
+| UIPX-06 | Phase 8 | Complete |
 | DEPL-01 | Phase 9 | Pending |
 | DEPL-02 | Phase 9 | Pending |
 | DEPL-03 | Phase 9 | Pending |
