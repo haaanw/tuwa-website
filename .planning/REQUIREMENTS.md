@@ -26,7 +26,7 @@ Requirements for visual overhaul milestone. Each maps to roadmap phases.
 ### UI/UX Polish
 
 - [x] **UIPX-01**: Spacing and typography consistency pass across all pages
-- [ ] **UIPX-02**: Hover micro-interactions on buttons, links, and navigation
+- [x] **UIPX-02**: Hover micro-interactions on buttons, links, and navigation
 - [x] **UIPX-03**: Card hover lift effects on feature cards and blog listing
 - [x] **UIPX-04**: Noise texture and glass morphism accents on key sections
 - [x] **UIPX-05**: Bento grid layout for feature overview or equivalent high-impact section
@@ -80,7 +80,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SHOT-04 | Phase 6 | Complete |
 | SHOT-05 | Phase 6 | Complete |
 | UIPX-01 | Phase 8 | Complete |
-| UIPX-02 | Phase 8 | Pending |
+| UIPX-02 | Phase 8 | Complete |
 | UIPX-03 | Phase 8 | Complete |
 | UIPX-04 | Phase 8 | Complete |
 | UIPX-05 | Phase 8 | Complete |
