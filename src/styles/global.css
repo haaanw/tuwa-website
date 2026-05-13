@@ -316,6 +316,12 @@ body::after {
 
 /* Phase 08.1 — Click wheel layout (D-01, D-02, D-03) */
 .wheel-container {
+  --wheel-track: #D4CEC6;
+  --wheel-segment: #F8F6F2;
+  --wheel-segment-hover: #F1EEE8;
+  --wheel-segment-active: #D9E5DD;
+  --wheel-segment-stroke: #C7C1B9;
+  --wheel-active-stroke: var(--color-accent);
   position: relative;
   width: 480px;
   height: 480px;
@@ -343,35 +349,36 @@ body::after {
 /* Rim track — visible ring background */
 .wheel-rim-track {
   fill: none;
-  stroke: var(--color-surface);
-  stroke-width: 40;
+  stroke: var(--wheel-track);
+  stroke-width: 44;
 }
 
 /* Arc segments — hit areas and visual segments */
 .wheel-arc {
-  fill: var(--color-surface);
-  stroke: var(--color-divider);
-  stroke-width: 1;
+  fill: var(--wheel-segment);
+  stroke: var(--wheel-segment-stroke);
+  stroke-width: 1.5;
   cursor: pointer;
 }
 .wheel-arc.is-active {
-  fill: var(--color-surface-el);
-  stroke: var(--color-accent);
-  filter: drop-shadow(0 2px 8px rgba(43,82,64,0.18));
+  fill: var(--wheel-segment-active);
+  stroke: var(--wheel-active-stroke);
+  stroke-width: 3;
+  filter: drop-shadow(0 6px 14px rgba(43,82,64,0.22));
 }
 
-/* Segment icon+label groups on the rim */
+/* Segment icon+label groups on the rim — counter-rotated to stay upright */
 .wheel-segment-icon {
-  fill: var(--color-text-3);
+  fill: var(--color-text-2);
 }
 .wheel-segment-icon.is-active {
   fill: var(--color-accent);
 }
 .wheel-segment-label {
-  fill: var(--color-text-2);
+  fill: var(--color-text-1);
   font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   text-anchor: middle;
   dominant-baseline: hanging;
   text-transform: uppercase;
@@ -381,17 +388,16 @@ body::after {
   fill: var(--color-accent);
 }
 
-/* Active segment scale — applied to icon+label <g> group */
-@media (prefers-reduced-motion: no-preference) {
-  .wheel-segment-group {
-    transition: transform 200ms ease-out;
-  }
+/* Active segment content scale — on inner wrapper, not the billboard group */
+.wheel-segment-content {
+  transform-box: fill-box;
+  transform-origin: center;
 }
-.wheel-segment-group.is-active {
-  transform: scale(1.15);
+.wheel-segment-content.is-active {
+  transform: scale(1.12);
 }
 
-/* Segment buttons — positioned over arc midpoints for accessibility */
+/* Segment buttons — positioned over arc midpoints, repositioned on rotate */
 .wheel-segment-btn {
   position: absolute;
   background: transparent;
@@ -402,6 +408,7 @@ body::after {
   height: 44px;
   transform: translate(-50%, -50%);
   z-index: 2;
+  pointer-events: auto;
 }
 
 /* Center overlay — fixed position over wheel center, does NOT rotate */
@@ -487,15 +494,15 @@ body::after {
   text-decoration: underline;
 }
 
-/* Rotating group transform-origin for CSS snap transitions */
-#wheel-segments-group {
-  transform-origin: 240px 240px;
-  transform-box: view-box;
+/* Focus visibility */
+.wheel-container:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 8px;
+  border-radius: 50%;
 }
 
-/* Snap transition for rotating group — gated on motion preference */
-@media (prefers-reduced-motion: no-preference) {
-  .wheel-snap-transition {
-    transition: transform 200ms ease-out;
-  }
+/* Rotating arcs group — only arcs rotate */
+#wheel-arcs-group {
+  transform-origin: 240px 240px;
+  transform-box: view-box;
 }
