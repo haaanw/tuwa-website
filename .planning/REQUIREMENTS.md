@@ -76,36 +76,36 @@ Deferred to future milestones. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TYPO-01 | — | Pending |
-| TYPO-02 | — | Pending |
-| TYPO-03 | — | Pending |
-| TYPO-04 | — | Pending |
-| TYPO-05 | — | Pending |
-| DFRM-01 | — | Pending |
-| DFRM-02 | — | Pending |
-| DFRM-03 | — | Pending |
-| DFRM-04 | — | Pending |
-| DFRM-05 | — | Pending |
-| CTA-01 | — | Pending |
-| CTA-02 | — | Pending |
-| CTA-03 | — | Pending |
-| ART-01 | — | Pending |
-| ART-02 | — | Pending |
-| ART-03 | — | Pending |
-| ART-04 | — | Pending |
-| ART-05 | — | Pending |
-| ART-06 | — | Pending |
-| IXPN-01 | — | Pending |
-| IXPN-02 | — | Pending |
-| IXPN-03 | — | Pending |
-| IXPN-04 | — | Pending |
-| IXPN-05 | — | Pending |
+| TYPO-01 | Phase 11 | Pending |
+| TYPO-02 | Phase 11 | Pending |
+| TYPO-03 | Phase 14 | Pending |
+| TYPO-04 | Phase 14 | Pending |
+| TYPO-05 | Phase 14 | Pending |
+| DFRM-01 | Phase 12 | Pending |
+| DFRM-02 | Phase 12 | Pending |
+| DFRM-03 | Phase 12 | Pending |
+| DFRM-04 | Phase 12 | Pending |
+| DFRM-05 | Phase 12 | Pending |
+| CTA-01 | Phase 13 | Pending |
+| CTA-02 | Phase 13 | Pending |
+| CTA-03 | Phase 13 | Pending |
+| ART-01 | Phase 15 | Pending |
+| ART-02 | Phase 15 | Pending |
+| ART-03 | Phase 15 | Pending |
+| ART-04 | Phase 15 | Pending |
+| ART-05 | Phase 15 | Pending |
+| ART-06 | Phase 15 | Pending |
+| IXPN-01 | Phase 11 | Pending |
+| IXPN-02 | Phase 11 | Pending |
+| IXPN-03 | Phase 16 | Pending |
+| IXPN-04 | Phase 16 | Pending |
+| IXPN-05 | Phase 16 | Pending |
 
 **Coverage:**
 - v3.0 requirements: 24 total
-- Mapped to phases: 0
-- Unmapped: 24 ⚠️
+- Mapped to phases: 24
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-05-14*
-*Last updated: 2026-05-14 after initial definition*
+*Last updated: 2026-05-14 after v3.0 roadmap created*
