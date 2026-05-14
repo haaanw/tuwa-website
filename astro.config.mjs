@@ -5,8 +5,11 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import { remarkReadingTime } from './src/remark-reading-time.mjs';
 
+import cloudflare from "@astrojs/cloudflare";
+
 export default defineConfig({
   site: "https://tuwa.app",
+
   fonts: [
     {
       provider: fontProviders.fontshare(),
@@ -19,11 +22,16 @@ export default defineConfig({
       optimizedFallbacks: true,
     }
   ],
+
   markdown: {
     remarkPlugins: [remarkReadingTime],
   },
+
   integrations: [mdx(), sitemap()],
+
   vite: {
     plugins: [tailwindcss()],
   },
+
+  adapter: cloudflare(),
 });
