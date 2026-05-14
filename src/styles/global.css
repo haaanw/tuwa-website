@@ -215,32 +215,6 @@ body::after {
   }
 }
 
-/* Phase 8 — Feature card base + hover lift (D-05, UIPX-03) */
-.feature-card {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-divider);
-  border-radius: var(--radius-lg);
-  padding: var(--space-md);
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  box-shadow: var(--shadow-card);
-}
-.feature-card:hover,
-.feature-card:focus-visible {
-  background-color: var(--color-surface-el);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .feature-card {
-    transition: box-shadow 200ms ease-out;
-  }
-  .feature-card:hover,
-  .feature-card:focus-visible {
-    box-shadow: var(--shadow-card-hover);
-  }
-}
-
 /* Phase 8 — Nav link hover (D-06) */
 .nav-link {
   text-decoration: none;
@@ -300,6 +274,25 @@ body::after {
 }
 @media (prefers-reduced-motion: reduce) {
   /* Intentionally empty -- [data-animate] elements render at full opacity with no transform */
+}
+
+/* Phase 10 — Wheel arc stagger reveal (ANIM-03) */
+@media (prefers-reduced-motion: no-preference) {
+  .js-enabled [data-animate].wheel-arc {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(0.92);
+  }
+  .js-enabled [data-animate].wheel-arc.is-visible {
+    animation: wheel-arc-reveal 350ms ease-out forwards;
+  }
+  @keyframes wheel-arc-reveal {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }
 
 /* Hero headline fluid sizing — D-05/D-06: clamp from 32px (375px viewport) to 48px (686px+) */
