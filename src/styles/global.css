@@ -447,7 +447,7 @@ body::after {
 .wheel-rim-track {
   fill: none;
   stroke: var(--wheel-track);
-  stroke-width: 70;
+  stroke-width: 100;
 }
 
 /* Arc segments — hit areas and visual segments */
