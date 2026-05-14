@@ -24,7 +24,11 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 
 ### Active
 
-- (none — v2.0 complete)
+- [ ] Typography weight system — titles: large/light, body: smaller/heavier (General Sans recalibration)
+- [ ] iPhone frame realism — realistic bezels, notch, buttons; fix screenshot fit (extra border/text misalignment)
+- [ ] Remove QR code + adjacent App Store badge section (keep header, hero, footer CTAs)
+- [ ] Matisse Swimming Pool art direction — organic cut-out shapes as continuous frieze (条带), hero-focused
+- [ ] Interaction polish — smooth transitions, scroll feel, navigation flow (contralabs.com reference)
 
 ### Validated (v2.0)
 
@@ -48,6 +52,17 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 - E-commerce or merchandise
 - Dark mode — Descoped (light mode only)
 
+## Current Milestone: v3.0 Art Direction & Interaction Polish
+
+**Goal:** Transform site visual identity with Matisse-inspired art direction, refined typography system, and premium interaction feel.
+
+**Target features:**
+- Typography weight system (titles: large/light, body: smaller/heavier)
+- iPhone frame realism + screenshot fit fix
+- Remove QR + adjacent App Store badge section
+- Matisse Swimming Pool cut-out art direction (hero-focused frieze)
+- Interaction polish (contralabs.com-inspired flow)
+
 ## Current State
 
 **Shipped:** v2.0 Visual Overhaul & Polish (2026-05-14)
@@ -55,8 +70,6 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 **Lighthouse:** Mobile 98, Desktop 99
 
 Site is a polished marketing presence with CSS device frames, choreographed animations, iPod click wheel feature overview, sticky scroll showcase, and animated stat counters. All 10 pages responsive across 5 breakpoints.
-
-**Next milestone:** Not yet planned — run `/gsd-new-milestone` to start
 
 ## Context
 
@@ -111,4 +124,4 @@ Site is a polished marketing presence with CSS device frames, choreographed anim
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026-05-14 after v2.0 milestone complete*
+*Last updated: 2026-05-14 after v3.0 milestone started*

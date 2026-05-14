@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.0
-milestone_name: Visual Overhaul & Polish
-status: complete
+milestone: v3.0
+milestone_name: Art Direction & Interaction Polish
+status: active
 last_updated: "2026-05-14"
 last_activity: 2026-05-14
 progress:
-  total_phases: 7
-  completed_phases: 7
-  total_plans: 12
-  completed_plans: 12
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -20,13 +20,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-14)
 
 **Core value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing
-**Current focus:** v2.0 complete — planning next milestone
+**Current focus:** v3.0 Art Direction & Interaction Polish
 
 ## Current Position
 
-Milestone: v2.0 Visual Overhaul & Polish — SHIPPED
-Last activity: 2026-05-14
-Next step: `/gsd-new-milestone`
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-05-14 — Milestone v3.0 started
 
 ## Deferred Items
 
