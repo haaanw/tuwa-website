@@ -24,13 +24,18 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 
 ### Active
 
-- [ ] Competitor/inspiration research (fitness apps + broader category marketing sites)
-- [ ] Whole-site UI/UX refinement pass (spacing, layout, typography, color, experience)
-- [~] Animation polish (scroll reveals, transitions, entrance effects) — Phase 5 complete: animation infrastructure consolidated, Phase 7 pending for polish
-- [ ] Screenshot presentation overhaul (fix blurry desktop, iPhone device frames, possibly generated)
-- [ ] App Store download badge (replace placeholder SVG with official Apple asset)
-- [ ] Cloudflare Pages deployment (connect GitHub repo, configure build)
-- [ ] Responsive design refinement (test all breakpoints on real devices)
+- (none — v2.0 complete)
+
+### Validated (v2.0)
+
+- ✓ Screenshot presentation overhaul (3x Retina, CSS iPhone device frames) — Phase 6
+- ✓ Animation polish (stagger, hero choreography, sticky scroll) — Phase 7
+- ✓ UI/UX visual depth (spacing, micro-interactions, noise texture, bento grid) — Phase 8
+- ✓ FeatureGrid click wheel (iPod-style arc layout) — Phase 8.1
+- ✓ App Store download badge (official Apple SVG) — Phase 9
+- ✓ Cloudflare Pages deployment (GitHub integration, auto-deploy) — Phase 9
+- ✓ Responsive design (fluid, 5 breakpoints verified, 1440px cap) — Phase 9
+- ✓ Lighthouse >= 95 (Mobile 98, Desktop 99 on live tuwa.app) — Phase 9
 
 ### Out of Scope
 
@@ -42,9 +47,10 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 - E-commerce or merchandise
 - Dark mode — Descoped (light mode only)
 
-## Current Milestone: v2.0 Visual Overhaul & Polish
+## Current Milestone: v2.0 Visual Overhaul & Polish — COMPLETE (2026-05-14)
 
-**Goal:** Elevate the site from functional MVP to polished, professional marketing presence informed by competitor research.
+**Goal:** Elevate the site from functional MVP to polished, professional marketing presence.
+**Status:** All phases complete. Site live at tuwa.app.
 
 **Target features:**
 - Competitor/inspiration website research (fitness + broader category)
