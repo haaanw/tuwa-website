@@ -1,117 +1,21 @@
 # Feature Research
 
-**Domain:** App marketing website visual polish — scroll animations, device mockups, screenshot presentation
-**Project:** Tuwa v2.0 Visual Overhaul
-**Researched:** 2026-05-11
-**Confidence:** HIGH (competitor sites fetched live; animation/CSS patterns verified via MDN + caniuse)
+**Domain:** Art-direction, typography, device-frame realism, and interaction polish on an existing Astro 6 + Tailwind v4 marketing site
+**Researched:** 2026-05-14
+**Confidence:** HIGH (stack patterns verified via docs/Context7), MEDIUM (Matisse implementation patterns — no exact precedent found; derived from organic shape SVG/clip-path ecosystem)
 
 ---
 
-## Context: What Was Already Built (v1.0)
+## Milestone Scope
 
-Existing v1.0 features this research builds ON TOP OF:
-- Landing page: hero, 5 feature deep-dives, blog, legal pages (10 pages total)
-- Basic scroll animations via IntersectionObserver + CSS keyframes
-- Framed PNG screenshots (currently blurry on Retina/desktop displays)
-- General Sans font via Astro Font API
-- Design tokens via CSS custom properties
-- Dark mode descoped (light-mode only)
+This research covers ONLY new features for v3.0. The following already exist and are out of scope:
 
-This document focuses ONLY on the v2.0 scope: visual polish, motion design, device mockup presentation, and screenshot quality.
-
----
-
-## Competitor Research: Observed Patterns
-
-### WHOOP (whoop.com)
-**Positioning:** Premium health wearable, serious athletes
-- Full-width hero imagery with product + lifestyle context
-- App UI overlays on lifestyle photos (metrics displayed over real-world shots)
-- Color theming with vibrant brand blue (#4a53ff) against white
-- WebP format throughout with responsive srcset (640px to 3840px)
-- "ScrollTracker" and "PageView" components suggesting scroll-based interactions
-- Progressive content reveal as users scroll through sectioned blocks
-- Premium through restraint: no flashy transitions, instead clean image composition
-
-### Oura Ring (ouraring.com)
-**Positioning:** Holistic health, medical-grade data, Team USA
-- Alternating layouts: lifestyle photo + app UI mockup (side by side)
-- Real-life context images paired with screenshot of specific data view
-- Motion components with CSS `filter`, `opacity`, `transform` for scroll reveals
-- Light serif + ultralight sans combination (AkkuratLL, Editorial New)
-- Italic emphasis `_Made for you_` for hero headline rhythm
-- Section carousel (6 states: "Starting your day," "Taking a walk," etc.) — sticky scroll
-- Breathable spacing; generous whitespace as premium signal
-
-### Strava (strava.com)
-**Positioning:** Community, social motivation
-- Layered image assets: device frame PNG + background + static-layer-front (parallax depth)
-- "static-layer" and "static-layer-front" elements suggesting CSS parallax
-- Two-column hero: copy left, device mockup right (standard but executed cleanly)
-- SVG icons for feature cards
-- Multi-layer composition for pseudo-3D depth without heavy JS
-
-### TrainingPeaks (trainingpeaks.com)
-**Positioning:** Professional coaching platform, 25 years of innovation
-- Contextual lifestyle photography over app mockups (athletes in real training)
-- Trust signals as copy pattern: "87% of WorldTour Cycling teams," "40+ National Teams"
-- Brand blue (#3177FF) + brand pink (#FF5FA9) with gradient overlays
-- Shadow presets (natural, deep, sharp) for component depth
-- Dual hero CTA: athlete path vs coach path — immediate user segmentation
-- Less visual polish, more authority through copy and social proof
-
-### Apple Fitness+ (apple.com/apple-fitness-plus)
-**Positioning:** Ecosystem integration, premium fitness
-- Start-frame / end-frame image pairs → animated transitions between states
-- Hardware layers composited behind software UI screenshots ("hero_hw" + "hero_sw")
-- Shadow assets (hero_shadow) as separate layers for depth
-- Device mockups NOT isolated — integrated into lifestyle shots
-- Paired before/after UI states suggest CSS/JS animation between screenshots
-- 4K hero visuals establishing premium baseline
-
-### Eight Sleep (eightsleep.com)
-**Positioning:** Recovery science, high-performance sleep
-- "animateOnScroll" on headings and descriptions
-- "ScrollSequenceStatic" — frame-by-frame content sequences tied to scroll position
-- Noise texture overlay PNGs for warmth/depth (moire_1_vblw94.png)
-- Hard evidence copy: "50+ clinical studies," advisory board credentials
-- Celebrity/expert testimonials as primary trust mechanism
-- Lifestyle product photography, not sterile mockups
-
-### Arc Browser (arc.net)
-**Positioning:** Premium indie app, design-forward
-- Full-viewport video assets with gradient mask fade-to-transparent
-- Squiggle SVG borders with CSS `@keyframes` translate for section dividers
-- `backdrop-filter: blur(3.05px)` — frosted glass effect on overlaid elements
-- Noise overlay texture (`noise-light.png`) for depth
-- `transform: scale(1.05)` on hover, `scale(0.98)` on active — micro-interactions
-- Fixed hero with centered icon + large headline + layered background (solid + blur image + noise)
-- `will-change: transform` + `transition: 150ms ease` on all interactive elements
-
-### Linear (linear.app)
-**Positioning:** Premium productivity tool
-- Grid dot cascade animations (3200ms, step-based) for ambient motion
-- "upDown" keyframe waves (2800ms) for subtle life in background
-- `text-wrap: balance` + `text-wrap: pretty` for headline refinement
-- Typography color hierarchy: primary → secondary → tertiary → quaternary text
-- Custom monospace for code/data elements
-
-### Notion (notion.com)
-**Positioning:** All-in-one productivity
-- Bento-grid layout for feature cards (different sized cards in a masonry-style grid)
-- Layered card components: front image + back image (flip/reveal effect)
-- Carousel-based feature demonstrations with autoplay video
-- Eyebrow labels + heading + CTA link hierarchy within cards
-- Color-coded feature icons (#ff8a33, #ad6ded, #2a9d99) for visual differentiation
-
-### Superhuman (superhuman.com)
-**Positioning:** Premium email for power users
-- Three custom variable fonts (Super Sans, Super Serif, Super Mono) — brand through typography
-- `text-wrap: balance` throughout
-- Glassmorphic email preview panes (translucent + blur)
-- "Tonal flower" decorative element that moves on scroll
-- CSS layer system: `@layer reset, theme, base, components, atoms`
-- Premium NOT through animation — through typography restraint and purposeful whitespace
+- CSS iPhone device frames (DeviceFrame.astro, `.device-frame` CSS class)
+- Choreographed animations (hero entrance, stagger delays, sticky scroll, wheel arc reveal)
+- General Sans font loaded via Astro Font API
+- Noise texture overlay, micro-interactions, iPod click wheel
+- Animated stat counters, App Store badges
+- All 10 pages, responsive across 5 breakpoints
 
 ---
 
@@ -119,134 +23,104 @@ This document focuses ONLY on the v2.0 scope: visual polish, motion design, devi
 
 ### Table Stakes (Users Expect These)
 
-Features users assume exist. Missing = product feels incomplete or untrustworthy in 2026.
+These are the baseline for a premium marketing site in 2026. Missing any of these makes the site feel unfinished or cheap.
 
 | Feature | Why Expected | Complexity | Notes |
 |---------|--------------|------------|-------|
-| Crisp, Retina-ready screenshots | Every modern marketing site serves 2x/3x images. Blurry screenshots signal low quality. | LOW | Fix: export screenshots at 3x, use `srcset` with 2x descriptor, or use Astro `<Image>` with proper width. The current blurriness is a credibility issue. |
-| Scroll-triggered entrance animations | Standard by 2026 for consumer app marketing sites. Static pages feel unfinished. WHOOP, Oura, Eight Sleep all use this. | LOW-MED | Extend existing IntersectionObserver with staggered delays, fade+translateY pattern. Already started — needs refinement and consistent application across all sections. |
-| Hover micro-interactions on CTAs | Users expect buttons to respond visually. No hover state reads as broken. | LOW | `transform: scale(1.02)` on hover, `scale(0.97)` on active. `transition: 150ms ease`. Apply `will-change: transform` for GPU acceleration. |
-| Consistent spacing rhythm | Fitness audience is mobile-native; compressed content feels cluttered. | LOW | Audit section padding. Competitors use 120-160px vertical section gaps on desktop, 64-80px on mobile. |
-| Section-level visual hierarchy | Each section needs an eyebrow label, headline, and supporting copy — differentiated by size/weight/color. | LOW | Typography scale audit. Apply `text-wrap: balance` to all headings. |
-| Responsive breakpoints tested and polished | Not just "works" — actually looks designed at each breakpoint. | MED | Test at 375px (iPhone SE), 390px (iPhone 15), 768px (iPad), 1280px (laptop), 1920px (desktop). |
-| Readable screenshot context | Screenshots shown without explanation don't convert. Viewers need labels or callouts. | LOW-MED | Annotated screenshots with arrow/callout overlays, or caption text beneath each screenshot. |
+| Typography weight contrast: large/light headings + smaller/heavier body | Standard premium editorial pattern since 2022 (Apple, Linear, Vercel). Skipping a weight level — e.g. Light (300) headings + Semibold (600) body — reads as intentional. Same weight across sizes reads as amateur. | LOW | General Sans supports 300–700. Only CSS changes in `global.css`: recalibrate `--text-display`, `--text-heading`, `--text-body` weights. No new dependencies. |
+| Realistic device frame depth: proper shadow layering, screen inset | Marketing sites with device mockups that look flat reduce product credibility. A multi-layer `box-shadow` (natural penumbra, not crisp-edged) is now baseline for any app marketing site. | LOW | Existing `DeviceFrame.astro` has a basic 3-step shadow. Needs: (1) layered `box-shadow` with 4–5 steps doubling blur/halving opacity, (2) screen-inset shadow to embed screen in bezel, (3) action button visually distinct from volume buttons. All pure CSS. |
+| Screenshot fit correctness: no extra border, no text misalignment | Device mockup images that show UI out of alignment with frame corners instantly break the illusion. | LOW | Fix `object-fit` vs export dimensions. Verify screenshots exported at exactly 1179x2556px (3x Retina iPhone 15 Pro). Likely a one-line CSS fix or screenshot re-export. |
+| Smooth anchor navigation within a page | `scroll-behavior: smooth` on `html` is table stakes. Jarring jumps on in-page links feel unpolished. | LOW | Add `html { scroll-behavior: smooth; }` if not present. |
+| Remove deprecated QR code section | QR codes for App Store links are a 2021-era pattern. Contemporary marketing sites drive downloads via direct badge links. | LOW | Delete section from the relevant Astro page. No dependencies. |
 
 ### Differentiators (Competitive Advantage)
 
-Features that set the site apart from generic template-looking marketing pages.
+These set the site apart from generic app marketing templates.
 
 | Feature | Value Proposition | Complexity | Notes |
 |---------|-------------------|------------|-------|
-| iPhone device frame wrapping screenshots | Industry standard for iOS apps. Naked screenshots look like internal QA exports, not polished marketing. Every direct competitor (WHOOP, Oura, Strava) uses some form of device framing. | LOW-MED | Two approaches: (A) Pure CSS Tailwind mockup — no image dependency, scalable, crisp at all DPIs. (B) Pre-rendered PNG mockup frames from deviceshots.com or previewed.app. CSS approach preferred for crispness and zero image overhead. |
-| Sticky scroll feature showcase | Oura's "Starting your day → Taking a walk → Winding down" carousel is the gold standard: one sticky panel, content updates as user scrolls. Extremely effective for showing multiple app states in a single viewport. | HIGH | Requires JS: sticky container + scroll listener + content swap. Adds ~50-100 lines of vanilla JS. High impact on feature deep-dive pages. Consider for landing page "How it works" section. |
-| Layered parallax depth on hero | Strava uses static-layer + static-layer-front for parallax depth. Arc uses gradient masks on video. Creates 3D-like immersion without full video cost. | MED | CSS `transform: translateY()` on multiple background layers at different scroll speeds via IntersectionObserver or scroll event. Keep to 2 layers max for perf. |
-| Bento grid feature card layout | Notion, Linear, and high-end product sites use bento grids. Better than standard 3-column card grids: allows for varied card sizes and visual rhythm. | MED | CSS Grid with named areas. Large card for primary feature + 2-3 smaller cards. Works without JS. |
-| Noise/grain texture overlay | Arc, Eight Sleep, and Linear all use subtle noise texture over backgrounds. Removes the "flat design" sterility. Warms the design and creates perceived depth. | LOW | 150x150px noise PNG at 3-5% opacity as `::before` pseudo-element on hero/section backgrounds. Zero performance impact (tiny PNG, CSS pointer-events: none). |
-| Glass morphism on key UI elements | Frosted glass cards over screenshots or gradient backgrounds. Arc uses `backdrop-filter: blur(3px)`. Eight Sleep uses semi-transparent product imagery. | LOW-MED | `backdrop-filter: blur(8px)` + `background: rgba(255,255,255,0.7)` + `border: 1px solid rgba(255,255,255,0.3)`. Supported in all modern browsers. Use sparingly — 1-2 elements, not site-wide. |
-| Animated stat counters / number reveals | Eight Sleep uses "50+ clinical studies," WHOOP uses "91 more minutes weekly activity." Animating these numbers on scroll increases perceived significance. | LOW-MED | CountUp.js (3KB) or vanilla JS `requestAnimationFrame`. Trigger on IntersectionObserver. Apply to ACWR/training load methodology stats. |
-| CSS scroll-driven animations (native) | Chrome 115+ supports `animation-timeline: scroll()` for pure CSS scroll effects. ~85% browser support as of 2026. No JS required. | LOW-MED | Use for progress indicators, fade-ins, and parallax background movement. Provide `@supports` fallback for Firefox (which requires flag). Excellent for read progress bar on blog posts. |
-| Screenshot carousel on feature pages | Show multiple app states for a feature without overwhelming the layout. Oura does this with a 6-state carousel. | MED | Native CSS scroll-snap (`scroll-snap-type: x mandatory`) + optional prev/next buttons. No JS library needed. Swipeable on mobile automatically. |
-| `text-wrap: balance` on all headings | Eliminates awkward single-word orphans in headlines. Free, zero-cost refinement. Linear and Superhuman both use this. | LOW | One line of CSS: `h1, h2, h3 { text-wrap: balance; }`. Add to global.css. |
-| Gradient brand accents | Pure flat color backgrounds read as templates. Subtle gradients (15-degree angle, primary color to slightly shifted hue) suggest depth. | LOW | Replace solid `bg-brand` with `background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)`. |
-| `will-change: transform` on animated elements | GPU compositing hint. Prevents scroll jank on IntersectionObserver animations. | LOW | Add `will-change: transform` to any element that will animate. Remove after animation completes (to avoid memory overhead). |
+| Matisse Swimming Pool art direction — organic cut-out shapes as decorative frieze in hero | Elevates the site from "another fitness app" to a product with genuine aesthetic identity. Matisse's 1952 Swimming Pool is a continuous horizontal strip of blue gouache cut-out swimmers and sea-forms on white paper ringing the dining room walls. On web: a full-width SVG band of simplified organic forms crossing the hero from edge to edge. High memorability, strong differentiation from the chart/metric aesthetic of Garmin/WHOOP/TrainingPeaks. | MEDIUM | Implementation: `<svg>` element with `<path>` Bezier forms, `aria-hidden`, as a decorative background layer. Color: accent green (`#2B5240`) on travertine (`#F4F1ED`). 8–12 abstract swimmer/fish forms. `preserveAspectRatio="xMidYMid slice"`. Placed as full-width band at bottom of hero section. No animation required — static cut-outs are the reference. |
+| Page-to-page smooth transitions via Astro ViewTransitions | The contralabs.com reference is about overall flow smoothness — navigation feel is what separates polished from amateur. Astro's built-in `<ViewTransitions />` provides cross-fade between pages, eliminating the harsh white flash. Supported: Chrome 111+, Edge 111+, Safari 18+ (85%+ market share). Automatic fallback in Firefox. | LOW | Add `<ViewTransitions />` to `BaseLayout.astro` `<head>`. Apply `transition:name="nav"` to header so it persists. Apply `transition:animate="fade"` to `<main>`. 3–5 markup lines total. |
+| Typography scale recalibration: fluid `clamp()` sizing + intentional weight inversion | Light weight for large headings reads as confidence and restraint — contrast between visual mass (large size) and stroke weight (thin) creates premium editorial tension. Heavy body (Semibold 600) on small copy ensures readability. Existing site uses 600 weight on both headings and body — no hierarchy contrast. | LOW | Recalibrate `global.css` tokens: display/heading weight → 300, body → 500–600. Verify General Sans 300 is in Fontshare CDN load config. Extend `clamp()` sizing pattern from hero h1 to h2/h3. |
+| Scroll-driven parallax depth on Matisse shapes | The frieze can subtly shift at a different rate than the page content as the user scrolls, reinforcing the "art anchored to the wall" metaphor — shapes feel spatial, not flat. | MEDIUM | CSS `animation-timeline: scroll()` on the SVG decorative layer. 5–10% offset from page scroll. Must be gated behind `prefers-reduced-motion: no-preference`. Test on real iOS device before merging — iOS scroll inertia can amplify motion. Implement AFTER static shapes are confirmed working. |
 
 ### Anti-Features (Commonly Requested, Often Problematic)
 
 | Feature | Why Requested | Why Problematic | Alternative |
 |---------|---------------|-----------------|-------------|
-| Video autoplay hero | Peloton, Nike, and big-budget fitness brands do it. Creates cinematic opening. | LCP killer. A 5MB video loop destroys Core Web Vitals (Lighthouse < 95 target). Mobile users on cellular get bandwidth-throttled. Apple Fitness+ uses it but has CDN infrastructure we don't. | Animated CSS hero (gradient pulse, floating mockup with subtle motion, noise texture) achieves motion without video. Reserve video for background on blog hero if ever — use `<video muted playsinline preload="none">` with a loading threshold check. |
-| Full GSAP ScrollTrigger integration | Seen on Nike, Awwwards-winning sites. Maximum scroll control, complex timeline orchestration. | 48KB min bundle (GSAP core + ScrollTrigger). Violates the "no client-side JS frameworks" performance constraint. Overkill for "polish" goal. | CSS scroll-driven animations + vanilla IntersectionObserver handles 95% of use cases. If a specific sequence genuinely requires timeline control, use `motion` (Motion One, 18KB) in an Astro island. |
-| Three.js / WebGL hero | Dramatic, memorable. Some premium fitness brands use particle effects. | 250KB+ bundle. Crashes on low-end iPhones. Zero relevance to training load management — would look incongruous. | CSS-animated gradient + noise texture achieves depth without hardware-accelerated 3D. |
-| Lottie animation files | Vector animation, small file size relative to video. Used by some fintech/health apps. | Still requires lottie-web (44KB) or @lottiefiles/lottie-player. Requires designer to produce Lottie-format files. For a solo developer, this is a design production bottleneck. | CSS keyframe animations for icon motion. Existing IntersectionObserver for scroll effects. |
-| Framer Motion in Astro | Rich animation API, used by many React marketing sites. | Pulls in full React + ReactDOM (~130KB) just for animations. Explicitly against the "no client-side JS frameworks" constraint. | `motion` (Motion One — the standalone lib, not Framer Motion) is framework-free, 18KB, works in Astro islands without React. |
-| Particle.js / tsParticles background | Trendy in fitness apps. Ambient motion. | CPU intensive on scroll + on mobile. Perceived as gimmicky by the serious athlete audience Tuwa targets. | Subtle grid dot cascade animation (pure CSS, like Linear uses) provides ambient motion without particle overhead. |
-| AOS (Animate On Scroll) library | Easy drop-in scroll animation library, popular. | 6KB JS + 20KB CSS. Adds a dependency with its own update cadence. The IntersectionObserver approach already in place does the same thing with zero dependencies. | Extend existing IntersectionObserver setup with `data-animate` attribute variants: `fade-up`, `fade-in`, `slide-right`. |
-| Infinite scroll on blog listing | Reduces pagination friction. | Breaks native browser history, makes footer inaccessible, hurts SEO (crawlers may not reach content below fold). | Standard pagination (page 1, 2, 3). Or "load more" button as compromise — explicit user action, no SEO impact. |
-| Dark mode toggle on website | App is dark-first; visitors might expect website to match. | Explicitly descoped in PROJECT.md. Adds CSS complexity, doubles visual QA surface, and can produce flash of unstyled content on first load. | Light mode only. The design already uses a clean light aesthetic. Revisit in v3 if user demand is demonstrated. |
+| Animated SVG shape morphing (continuously shifting blob) | Feels alive and modern | At 60fps, autonomous morphing drains battery on mobile. Defeats the Matisse reference — the artwork is static cut-outs on a wall, not animated forms. Lighthouse performance would drop. | Static SVG paths with optional scroll-offset. Motion only on explicit scroll, never autonomous looping. |
+| Heavy parallax (3+ layers at different rates) | Creates strong depth illusion in isolation | Multiple competing scroll rates induce motion sickness on iOS (which has its own scroll inertia). Site is at Lighthouse 98 mobile — multi-layer parallax can tank this. | Single-layer subtle offset (one SVG layer at 5–10% scroll rate). Test on real device. |
+| GSAP ScrollTrigger | Powerful, well-documented | 48KB minimum bundle. Phase 7 decision was CSS-only animations — correct for a static marketing site. CSS `animation-timeline` / `view-timeline` now covers all GSAP use cases from 2023. | CSS scroll-driven animations. Zero bundle cost. Compositor-thread. |
+| Dark mode toggle | Users expect dark mode | Descoped in Phase 6 (D-06). Would require design token duplication across 10 pages. Travertine warm-white is core brand identity. App is light-mode-first. | Light mode only. `prefers-color-scheme: dark` respected with same palette. |
+| Custom cursor / cursor trail | High-end agency aesthetic | Overrides platform conventions. Irrelevant on touch devices (10 of 10 Tuwa users are on iPhone). Adds JS overhead. Mismatched to "serious athletes and coaches" audience. | Micro-interaction polish: hover states, button scale transforms, underline reveals on nav links. |
+| iPhone 17 device frame upgrade | Latest model signals currency | Existing iPhone 15 Pro frames are built and working. Cosmetic upgrade requires updating all DeviceFrame instances. iPhone 15 Pro is current enough for 2026. | Improve realism of existing frame (shadow depth, screen inset) — far higher ROI than model upgrade. |
 
 ---
 
 ## Feature Dependencies
 
 ```
-Crisp Retina screenshots (fix blurriness)
-    └──required by──> iPhone device frame mockup (if frame is CSS, inner content must be sharp)
-    └──required by──> Sticky scroll feature showcase (shown screenshots must be crisp)
-    └──required by──> Screenshot carousel (same requirement)
+Typography weight system
+    └──requires──> Verify General Sans 300 weight loads (Astro Font API config)
+    └──requires──> Update font-weight tokens in global.css
+    └──enhances──> Matisse art direction (thin headline creates visual breathing room for decorative shapes)
 
-iPhone device frame (CSS approach)
-    └──requires──> Retina-quality screenshots for inner content
-    └──enhances──> Sticky scroll showcase (frame provides context)
-    └──note: must be built before feature page visual pass
+Matisse SVG cut-out shapes
+    └──requires──> Finalized hero layout (shapes positioned relative to hero structure)
+    └──no-conflict-with──> DeviceFrame (shapes behind device, or in strip above/below — never overlapping frame)
+    └──optionally-enhanced-by──> Scroll-driven parallax offset
 
-Scroll entrance animations (refined)
-    └──requires──> Layout is stable (do not animate during layout changes)
-    └──requires──> prefers-reduced-motion @media query check
-    └──enhances──> Stat counter animations (share IntersectionObserver infrastructure)
+iPhone frame realism improvements
+    └──requires──> DeviceFrame.astro CSS-only changes (no component API changes)
+    └──no-dependency-on──> Matisse shapes or typography
 
-Bento grid layout
-    └──requires──> Content exists for each card (screenshots, copy)
-    └──requires──> Retina screenshots (cards show app UI)
-    └──conflicts with──> Standard 3-column card grid (replace, not add)
+Astro ViewTransitions
+    └──requires──> BaseLayout.astro head: add <ViewTransitions />
+    └──CRITICAL-GOTCHA──> Existing hero animations use DOMContentLoaded — must migrate to
+                           document.addEventListener('astro:page-load', ...) for animations
+                           to replay on subsequent page navigations
+    └──requires-verification──> nav persistence via transition:name="nav"
 
-Sticky scroll showcase
-    └──requires──> Multiple screenshot states per feature (3-6 app states)
-    └──requires──> Stable positioning context (position:sticky, height:100vh container)
-    └──note: HIGH complexity — build last, validate content + mockup first
+QR code section removal
+    └──no-dependencies──> standalone deletion
+    └──must-verify──> which file the section lives in (likely index.astro)
 
-Noise texture overlay
-    └──requires──> Base background colors established
-    └──enhances──> Glass morphism (glass over noisy background looks better)
-    └──complexity: LOW — add as final polish step
-
-CSS scroll-driven animations
-    └──requires──> `animation-timeline: scroll()` @supports check (Firefox fallback)
-    └──note: additive to existing IntersectionObserver, not a replacement
-
-`text-wrap: balance`
-    └──no dependencies — pure CSS addition
-    └──add as part of typography pass, before any screenshot work
-
-Glass morphism
-    └──requires──> Meaningful background behind the glass element (gradient or image)
-    └──note: Ineffective on flat white backgrounds
+Scroll-driven parallax on Matisse shapes
+    └──requires──> Matisse SVG shapes working correctly first
+    └──requires──> prefers-reduced-motion gate
+    └──requires──> real-device iOS test before merge
 ```
+
+### Dependency Notes
+
+- **ViewTransitions requires DOMContentLoaded → astro:page-load migration:** This is the most likely pitfall in the entire milestone. Astro's ViewTransitions replaces full page loads with client-side navigation — any animation setup that runs once on `DOMContentLoaded` will not re-run when the user navigates to a new page. The existing IntersectionObserver in `[data-animate]` and hero entrance animations must listen to `astro:page-load` event instead. This is a 2–4 line change per script block but easy to miss.
+
+- **Matisse shapes require hero layout stability:** The SVG frieze must be authored knowing the final hero dimensions. Do typography recalibration first (changes hero text size/weight), then place the shapes.
+
+- **Font weight 300 must be explicitly loaded:** Fontshare/Astro Font API will not load weights not declared in the font config. If 300 is not listed, the browser silently substitutes 400. Verify before authoring any type designs at weight 300.
 
 ---
 
-## MVP Definition (v2.0 Visual Overhaul)
+## MVP Definition
 
-### Phase A: Foundation (do first — unblocks everything else)
+### Launch With (v3.0 milestone targets)
 
-- [x] Fix blurry screenshots — export at 3x, use proper srcset — WHY FIRST: everything else depends on sharp images
-- [x] `text-wrap: balance` on all headings — WHY: free polish, zero risk
-- [x] Consistent spacing rhythm audit — WHY: visible quality signal, low effort
-- [x] Hover micro-interactions on CTAs — WHY: table stakes, low effort
+- [ ] Typography weight recalibration — titles Light (300), body Heavier (500–600). Highest impact, lowest risk. Do first.
+- [ ] Screenshot fit fix — verify `object-fit` and screenshot export dimensions. Do alongside typography.
+- [ ] Remove QR code + adjacent App Store badge section — deletion only.
+- [ ] iPhone frame realism — layered shadow, screen-inset, action button visual distinction.
+- [ ] Matisse cut-out SVG frieze in hero — static SVG, `aria-hidden`, full-width decorative band.
+- [ ] Astro ViewTransitions — page navigation cross-fade + DOMContentLoaded → astro:page-load migration.
 
-### Phase B: Device Mockup + Screenshots
+### Add After Validation (v3.x)
 
-- [ ] CSS iPhone device frame wrapping hero screenshot — WHY: industry standard for iOS apps; naked screenshot looks unfinished
-- [ ] Screenshot carousel on at least 2 feature deep-dive pages — WHY: shows multiple app states in limited space
-- [ ] Annotated screenshot callouts — WHY: converts "I see the UI" to "I understand the value"
+- [ ] Scroll-driven parallax offset on Matisse shapes — add only after static shapes confirmed on real devices. Test iOS scroll feel before merging.
+- [ ] `clamp()` fluid sizing extension to h2/h3 on feature pages — follow-up pass after hero typography confirmed.
 
-### Phase C: Animation Polish
+### Future Consideration (v4+)
 
-- [ ] Refined scroll entrance animations — stagger, ease, consistent timing — WHY: existing animations need polish, not removal
-- [ ] Animated stat counters (ACWR/recovery methodology callouts) — WHY: makes science claims land harder
-- [ ] CSS-only read progress bar on blog posts — WHY: low effort `animation-timeline: scroll()` showcase
-
-### Phase D: Advanced Polish (do last)
-
-- [ ] Noise texture overlay on hero/key sections — WHY: warmth, depth; zero performance cost
-- [ ] Gradient brand accents replacing flat color backgrounds — WHY: removes template feel
-- [ ] Bento grid for feature overview section — WHY: higher visual variety than 3-column cards
-- [ ] Glass morphism on 1-2 key callout elements — WHY: premium signal; use sparingly
-
-### Defer to v3.0
-
-- [ ] Sticky scroll feature showcase — HIGH complexity, HIGH impact. Build when content (multiple screenshot states per feature) is ready.
-- [ ] Parallax depth layers on hero — needs design time; risk of feeling overdone
-- [ ] Full responsive design audit on real devices — after all content changes land
+- [ ] Matisse-inspired organic SVG section dividers on feature deep-dive pages — if hero treatment is well-received.
+- [ ] Astro `transition:name` morphing for device frame element across pages — shared-element transition from hero to feature page. High complexity, high payoff, needs design exploration first.
 
 ---
 
@@ -254,116 +128,137 @@ Glass morphism
 
 | Feature | User Value | Implementation Cost | Priority |
 |---------|------------|---------------------|----------|
-| Fix blurry screenshots (srcset/3x) | HIGH | LOW | P1 |
-| `text-wrap: balance` on headings | MEDIUM | LOW | P1 |
-| Hover micro-interactions on CTAs | MEDIUM | LOW | P1 |
-| Spacing rhythm audit | MEDIUM | LOW | P1 |
-| CSS iPhone device frame | HIGH | LOW | P1 |
-| Refined scroll entrance animations | HIGH | LOW-MED | P1 |
-| Gradient brand accents | MEDIUM | LOW | P2 |
-| Noise texture overlay | MEDIUM | LOW | P2 |
-| Screenshot carousel (CSS scroll-snap) | HIGH | MED | P2 |
-| Animated stat counters | MEDIUM | LOW-MED | P2 |
-| Bento grid feature cards | HIGH | MED | P2 |
-| Glass morphism (selective) | MEDIUM | LOW-MED | P2 |
-| CSS scroll-driven read progress bar | LOW | LOW | P2 |
-| Sticky scroll showcase | HIGH | HIGH | P3 |
-| Parallax depth hero layers | MEDIUM | MED | P3 |
-| Full responsive device audit | MEDIUM | MED | P3 |
+| Typography weight recalibration | HIGH — visible across all 10 pages, raises perceived quality ceiling instantly | LOW — CSS token changes + font config check | P1 |
+| Screenshot fit fix | HIGH — broken fit actively undermines device frame illusion | LOW — 1–2 line fix likely | P1 |
+| Remove QR code section | MEDIUM — cleaner conversion flow | LOW — deletion only | P1 |
+| iPhone frame realism | MEDIUM — builds product credibility subconsciously | LOW — pure CSS | P1 |
+| Matisse SVG cut-out frieze | HIGH — primary differentiator for site identity | MEDIUM — SVG path design + responsive positioning | P1 |
+| Astro ViewTransitions | MEDIUM — navigation smoothness (contralabs reference) | LOW — 3–5 markup lines + script migration | P1 |
+| Scroll-driven parallax on shapes | LOW-MEDIUM — adds depth; motion sickness risk on mobile | MEDIUM — CSS scroll timeline + real-device test | P2 |
+| h2/h3 fluid clamp sizing across feature pages | LOW — refinement | LOW | P2 |
 
 ---
 
-## Competitor Visual Pattern Matrix
+## Implementation Notes by Feature
 
-| Pattern | WHOOP | Oura | Strava | Apple Fitness+ | Arc | Linear | Tuwa v2 Target |
-|---------|-------|------|--------|----------------|-----|--------|----------------|
-| Device frame on screenshots | Yes (lifestyle overlay) | Yes (side-by-side) | Yes (layered) | Yes (hardware composited) | N/A (app) | N/A (app) | Yes — CSS frame |
-| Sticky scroll feature carousel | No | Yes (6 states) | No | No | No | No | P3 target |
-| Noise texture overlay | No | No | No | No | Yes | No | Yes |
-| Scroll entrance animations | Yes | Yes | Yes (parallax layers) | Yes (frame pairs) | Yes | Yes (grid dots) | Yes (refine existing) |
-| Glass morphism | No | No | No | No | Yes | No | Selective |
-| Bento grid | No | No | No | No | No | No | Yes (differentiator) |
-| Animated stat counters | Yes | No | No | No | No | No | Yes |
-| Gradient backgrounds | No (flat) | Yes (subtle) | No | Yes | Yes | Yes | Yes |
-| CSS `text-wrap: balance` | Unknown | Unknown | Unknown | Yes | Yes | Yes | Yes |
-| Video autoplay hero | No | No | No | Yes (CDN-backed) | Yes | No | No (anti-feature) |
+### Typography Weight System
 
----
+General Sans (Fontshare) supports: 300 (Light), 400 (Regular), 500 (Medium), 600 (SemiBold), 700 (Bold). The Astro Font API config must explicitly list all weights to load — verify `astro.config.mjs` experimental fonts config. If only 400 and 600 are listed, weight 300 will silently fall back to 400.
 
-## Screenshot Quality: Technical Root Cause (Fix Plan)
+Recommended weight assignments:
+```css
+/* Display / Hero headline — was 600 */
+.hero-headline { font-weight: 300; }
 
-The current blurriness is a DPR (Device Pixel Ratio) mismatch issue.
+/* Section headings h2 — was 600 */
+h2, .section-heading { font-weight: 300; }
 
-**Root cause:** Screenshots exported at 1x logical CSS pixels display blurry on Retina screens (DPR 2-3) because the browser upscales the image to fill physical pixels.
+/* Sub-headings h3 */
+h3 { font-weight: 400; }
 
-**Fix options (in order of preference):**
+/* Body text — increase from implied 400 */
+body { font-weight: 500; }
 
-1. **srcset with density descriptors** — `<img srcset="shot-2x.png 2x, shot-3x.png 3x" src="shot-1x.png">` — Browser picks the right version. Astro `<Image>` component handles this automatically if you provide a high-res source.
-
-2. **Astro `<Image>` with width prop** — Provide the @3x source, set `width` to the 1x CSS display width. Astro generates WebP + AVIF with correct srcset. Simplest approach if source screenshots are already at 3x.
-
-3. **Generated device mockup with embedded screenshot** — If switching to a CSS device frame, the inner `<img>` follows option 1 or 2 above. The frame itself is CSS, so it's resolution-independent.
-
-**iOS screenshot sizes (for reference):**
-- iPhone 15 Pro: 1179 × 2556 px (@3x) — display as 393 × 852 CSS px
-- iPhone 15: 1170 × 2532 px (@3x) — display as 390 × 844 CSS px
-- Export from Xcode Simulator at these native sizes (already @3x), display at 1/3 the pixel width in CSS
-
----
-
-## CSS Device Frame: Recommended Implementation
-
-Use Flowbite's Tailwind CSS device mockup component as a starting point, customized for crispness.
-
-**Why CSS over PNG frame:**
-- Resolution-independent (sharp at any DPR)
-- No external image dependency
-- Tailwind utility classes = consistent with existing stack
-- Inner content is a real `<img>` tag with srcset support
-
-**Flowbite approach (verified pattern):**
-```html
-<!-- Tailwind CSS iPhone mockup — from Flowbite -->
-<div class="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
-  <div class="h-[32px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -start-[17px] top-[72px] rounded-s-lg"></div>
-  <div class="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -start-[17px] top-[124px] rounded-s-lg"></div>
-  <div class="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -start-[17px] top-[178px] rounded-s-lg"></div>
-  <div class="h-[64px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -end-[17px] top-[142px] rounded-e-lg"></div>
-  <div class="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white dark:bg-gray-800">
-    <img src="..." class="dark:hidden w-[272px] h-[572px]" alt="app screenshot" />
-  </div>
-</div>
+/* Labels, nav, CTAs — keep bold for legibility at small sizes */
+.nav-link, .btn-cta, .nav-dropdown-title { font-weight: 600; }
 ```
 
-**Adaptations needed for Tuwa:**
-- Replace `border-gray-800` with a titanium/space gray CSS variable matching Tuwa brand
-- Add `srcset` to the inner `<img>` for Retina sharpness
-- Wrap in an Astro component `<IPhoneMockup>` for reuse across pages
+Skip-a-weight rule: heading (300) and body (500–600) are separated by 200–300 numeric units — minimum for contrast to read as intentional rather than accidental.
+
+### Matisse SVG Frieze
+
+Reference: The Swimming Pool (1952) — continuous horizontal band of ultramarine blue cut-out swimmers, divers, fish on white paper. Forms are reduced to essence: no detail, only silhouette and gesture.
+
+Web translation:
+- `<svg viewBox="0 0 1440 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true">`
+- 8–12 `<path>` elements with Bezier curves; forms loosely referencing swimmers/water/sea-life
+- Fill color: `var(--color-accent)` (`#2B5240`) — already in palette, provides high contrast on `#F4F1ED`
+- Positioned as `position: absolute; width: 100%; bottom: 0;` within hero section container
+- Hero section needs `position: relative; overflow: hidden` to clip shapes at edges
+- Shapes authored at full resolution in Figma or Inkscape, then path data copied to SVG
+- No JavaScript, no animation on MVP
+
+### Device Frame Realism
+
+Current `box-shadow` is functional but reads as flat. Layered shadow pattern (doubling blur, halving opacity):
+```css
+box-shadow:
+  0 2px 4px rgba(0,0,0,0.18),    /* contact */
+  0 8px 16px rgba(0,0,0,0.14),   /* near shadow */
+  0 20px 40px rgba(0,0,0,0.10),  /* diffuse */
+  0 40px 80px rgba(0,0,0,0.07),  /* ambient */
+  inset 0 1px 0 rgba(255,255,255,0.12),  /* rim light */
+  inset 0 -1px 0 rgba(0,0,0,0.4);       /* bottom bevel */
+```
+
+Screen inset (makes screen look embedded, not flush with bezel):
+```css
+/* On the screen inner div */
+box-shadow: inset 0 2px 6px rgba(0,0,0,0.35), inset 0 0 1px rgba(0,0,0,0.2);
+```
+
+Action button (iPhone 15 Pro left side, above volume buttons): currently the `::before` pseudo-element uses `box-shadow: 0 36px 0 #2A2A2A` to draw two volume buttons. Add a third, visually distinct element for the action button at a different vertical position and slightly shorter width.
+
+### Astro ViewTransitions — Critical Setup
+
+```astro
+---
+import { ViewTransitions } from 'astro:transitions';
+---
+<head>
+  <ViewTransitions />
+</head>
+```
+
+Apply to header element: `<header transition:name="site-header" transition:animate="none">` — prevents header from cross-fading (it should persist).
+
+Apply to main content: `<main transition:animate="fade">` — content cross-fades.
+
+**Script migration (most important step):**
+```javascript
+// Replace:
+document.addEventListener('DOMContentLoaded', setupAnimations);
+
+// With:
+document.addEventListener('astro:page-load', setupAnimations);
+```
+
+This ensures IntersectionObserver for `[data-animate]` elements, the stat counter observer, and the wheel animation all re-initialize correctly on each page navigation.
+
+---
+
+## Competitor Feature Analysis
+
+| Feature | TrainingPeaks / Garmin | WHOOP | Tuwa v2.0 (current) | Tuwa v3.0 (target) |
+|---------|------------------------|-------|----------------------|---------------------|
+| Typography hierarchy | Uniform weight | Conventional bold/regular | Uniform 600 weight | Light headings (300) / heavier body (500–600) |
+| Device mockups | PNG images (static) | High-quality PNGs | CSS frames (responsive) | CSS frames + realistic shadow depth |
+| Page transitions | Full reload | Full reload | Full reload | ViewTransitions cross-fade |
+| Decorative art direction | None | Abstract gradients | Noise texture overlay | Matisse cut-out organic shapes |
+| Scroll animations | None | Minimal | Intersection Observer reveals | Reveals + optional scroll-driven parallax |
 
 ---
 
 ## Sources
 
-- WHOOP.com live analysis, fetched 2026-05-11
-- Oura Ring (ouraring.com) live analysis, fetched 2026-05-11
-- Strava.com live analysis, fetched 2026-05-11
-- TrainingPeaks.com live analysis, fetched 2026-05-11
-- Apple Fitness+ (apple.com/apple-fitness-plus) live analysis, fetched 2026-05-11
-- Eight Sleep (eightsleep.com) live analysis, fetched 2026-05-11
-- Arc Browser (arc.net) live analysis, fetched 2026-05-11 — strongest design inspiration
-- Linear (linear.app) live analysis, fetched 2026-05-11 — ambient animation patterns
-- Notion (notion.com) live analysis, fetched 2026-05-11 — bento grid patterns
-- Superhuman (superhuman.com) live analysis, fetched 2026-05-11 — typography restraint
-- [Flowbite Tailwind CSS Device Mockups](https://flowbite.com/docs/components/device-mockups/) — CSS iPhone frame implementation
-- [MDN: CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations) — browser support ~85% (2026)
-- [caniuse: animation-timeline scroll()](https://caniuse.com/mdn-css_properties_animation-timeline_scroll) — Chrome 115+, Safari 17.2+, Firefox (behind flag)
-- [Device Shots](https://deviceshots.com/) — pre-rendered mockup generator alternative
-- [Previewed.app](https://previewed.app/) — iOS mockup generator
-- [displaypixels.io: DPR explained](https://displaypixels.io/learn/device-pixel-ratio-explained.html) — DPR root cause for blurry screenshots
-- [Mastering CSS Scroll Timeline 2026](https://dev.to/softheartengineer/mastering-css-scroll-timeline-a-complete-guide-to-animation-on-scroll-in-2025-3g7p)
+- [Astro ViewTransitions official docs](https://docs.astro.build/en/guides/view-transitions/)
+- [Astro ViewTransitions: 2 lines of code — BetterLink](https://eastondev.com/blog/en/posts/dev/20251202-astro-view-transitions-guide/)
+- [Animating Multi-Page Navigations with Astro — Codrops](https://tympanus.net/codrops/2023/10/03/animating-multi-page-navigations-with-browser-view-transitions-and-astro/)
+- [CSS Scroll-Driven Animations — MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations)
+- [Mastering CSS Scroll Timeline 2026 — DEV Community](https://dev.to/softheartengineer/mastering-css-scroll-timeline-a-complete-guide-to-animation-on-scroll-in-2025-3g7p)
+- [Anatomy of a CSS Phone Mockup — Conor Luddy](https://www.conor.fyi/writing/anatomy-of-a-css-phone-mockup)
+- [CSS clip-path shapes complete guide 2026 — UDT](https://ultimatedesigntools.com/blog/css-clip-path-shapes-guide/)
+- [Organic Shape Animations with SVG clipPath — Codrops](https://tympanus.net/codrops/2017/06/28/organic-shape-animations-with-svg-clippath/)
+- [Font Weight in Typography: Hierarchy & Contrast — Fontfabric](https://www.fontfabric.com/blog/typography-knowledge-weight-typography/)
+- [Optimal Typography for Web Design 2025 — Elegant Themes](https://www.elegantthemes.com/blog/design/optimal-typography-for-web-design)
+- [MoMA Henri Matisse: The Swimming Pool — interactive](https://www.moma.org/interactives/exhibitions/2014/matisse/the-swimming-pool.html)
+- [Henri Matisse: The Cut-Outs — MoMA](https://www.moma.org/calendar/exhibitions/1429)
+- [Web Design Trends 2026: Organic Shapes — Design Deluxe](https://designdeluxe.in/web-design-trends-2026-with-organic-shapes/)
+- [Shadows in Web Design for Better UX 2025 — Innovate Media](https://innovatemedia.ca/how-shadows-shape-user-experience-in-modern-web-design/)
+- [Mastering Smooth Page Transitions View Transitions API 2026 — DEV Community](https://dev.to/krish_kakadiya_5f0eaf6342/mastering-smooth-page-transitions-with-the-view-transitions-api-in-2026-31of)
+- [Devices.css — CSS device mockup reference](https://devicescss.xyz/)
 
 ---
 
-*Feature research for: Tuwa v2.0 visual overhaul*
-*Researched: 2026-05-11*
-*Previous v1.0 feature research preserved in git history*
+*Feature research for: Tuwa marketing site v3.0 — Art Direction & Interaction Polish*
+*Researched: 2026-05-14*

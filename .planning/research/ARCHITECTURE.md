@@ -1,416 +1,460 @@
 # Architecture Research
 
-**Domain:** Astro 6 marketing site — animation system, device mockups, UI polish integration
-**Researched:** 2026-05-11
-**Confidence:** HIGH (based on direct codebase inspection + official Astro docs)
+**Domain:** Astro 6 marketing site — v3.0 Art Direction & Interaction Polish integration
+**Researched:** 2026-05-14
+**Confidence:** HIGH (direct codebase inspection + component-level analysis)
 
 ---
 
-## Existing Architecture (What Already Exists)
+## Existing Architecture (What v3.0 Builds On)
 
-### Component Inventory
+### Current Component Tree
 
 ```
 src/
 ├── components/
-│   ├── Header.astro           — sticky nav, scroll shadow via sentinel IntersectionObserver
-│   ├── Footer.astro           — static footer
-│   ├── Hero.astro             — h1, subtitle, dashboard.png (no data-animate yet)
-│   ├── FeatureGrid.astro      — 5 feature cards, data-animate on section
-│   ├── FeatureCTA.astro       — CTA section + IS:INLINE observer script
-│   ├── LandingCTA.astro       — CTA section + IS:INLINE observer script (duplicate!)
-│   ├── ScreenshotBlock.astro  — wraps <Image> at max-width: 320px
-│   ├── FaqAccordion.astro     — accordion component
-│   ├── MobileMenu.astro       — mobile drawer
-│   ├── SEO.astro              — meta/OG tags
-│   └── charts/
-│       ├── AcwrChart.astro    — Chart.js island
-│       └── RecoveryChart.astro — Chart.js island
+│   ├── BaseLayout.astro        — html shell, Font API, IntersectionObserver script
+│   ├── Header.astro            — sticky nav, dropdown, mobile toggle
+│   ├── Footer.astro            — static links
+│   ├── Hero.astro              — h1(.hero-headline), subtitle(.hero-subtitle), DeviceFrame
+│   ├── DeviceFrame.astro       — CSS iPhone 15 Pro frame, Dynamic Island, home indicator
+│   ├── FeatureGrid.astro       — iPod click wheel (SVG, inline JS, 15KB)
+│   ├── FeatureCTA.astro        — feature page CTA section
+│   ├── LandingCTA.astro        — landing page CTA section (remove QR here)
+│   ├── StatsCounter.astro      — animated stat counters
+│   ├── ScreenshotBlock.astro   — thin wrapper around <Image>
+│   ├── FaqAccordion.astro      — accordion
+│   ├── MobileMenu.astro        — mobile drawer
+│   ├── SEO.astro               — meta/OG tags
+│   └── charts/                 — Chart.js Astro islands
 ├── layouts/
-│   ├── BaseLayout.astro       — html shell, Font API, Header, Footer
-│   ├── FeaturePageLayout.astro — hero + ScreenshotBlock + slot + FeatureCTA
-│   ├── CoachingPageLayout.astro — variant layout
-│   ├── BlogPostLayout.astro   — prose layout
-│   └── LegalPageLayout.astro  — legal prose
-├── styles/
-│   └── global.css             — Tailwind v4 + design tokens + data-animate CSS
-└── assets/
-    └── screenshots/           — dashboard.png, recovery.png, workload.png, active-workout.png
-```
-
-### Current Animation System State
-
-`global.css` defines `[data-animate]` / `.is-visible` with `fade-up` keyframes and reduced-motion fallback. This is the right foundation.
-
-**Critical bug:** `FeatureCTA.astro` and `LandingCTA.astro` each embed an `is:inline` IntersectionObserver script. Astro does NOT deduplicate `is:inline` scripts — they run once per component instance. On the landing page, both components are present, resulting in two observers both racing to add `.is-visible` to every `[data-animate]` element. On feature pages, FeatureCTA fires its observer, observing ALL `[data-animate]` elements on the page, which is correct by accident — but this only works because FeatureCTA is always the last component. This pattern is fragile.
-
----
-
-## System Overview
-
-### Target Architecture (v2.0 Polish Milestone)
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     BaseLayout.astro                         │
-│  (html shell — Font API, SEO, Header, Footer, global.css)    │
-├─────────────────────────────────────────────────────────────┤
-│             Page-level Layouts (slot consumers)              │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐        │
-│  │FeaturePageL. │  │CoachingPageL.│  │ BlogPostL.   │        │
-│  │(new: DeviceF)│  │              │  │              │        │
-│  └──────┬───────┘  └──────────────┘  └──────────────┘        │
-│         │                                                     │
-├─────────┴───────────────────────────────────────────────────┤
-│              Shared Components (building blocks)             │
-│  ┌───────────┐  ┌───────────┐  ┌──────────────┐             │
-│  │DeviceFrame│  │AnimateIn  │  │FeatureCTA    │             │
-│  │(NEW)      │  │(NEW)      │  │LandingCTA    │             │
-│  └───────────┘  └───────────┘  └──────────────┘             │
-│                                                              │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │ AnimationController (NEW — single global observer)   │   │
-│  │ Injected once by BaseLayout in <body>                │   │
-│  └──────────────────────────────────────────────────────┘   │
-├─────────────────────────────────────────────────────────────┤
-│                     global.css                               │
-│  Design tokens + [data-animate] / .is-visible CSS            │
-│  + new: data-animate-delay, data-animate-variant tokens      │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Component Boundaries
-
-| Component | Responsibility | New vs Modified |
-|-----------|---------------|-----------------|
-| `AnimationController.astro` | Single IntersectionObserver, observes all `[data-animate]` on page, supports delay variants | NEW — replaces duplicated is:inline scripts |
-| `DeviceFrame.astro` | Wraps screenshot in iPhone bezel, handles framed vs bare display | NEW — replaces `ScreenshotBlock.astro` |
-| `AnimateIn.astro` | Convenience wrapper: applies `data-animate` + optional delay + optional variant to any child content | NEW — optional ergonomic shorthand |
-| `BaseLayout.astro` | Add `<AnimationController />` once before `</body>` | MODIFY — add one import + one component tag |
-| `FeatureCTA.astro` | Remove is:inline observer script block | MODIFY — delete ~18 lines |
-| `LandingCTA.astro` | Remove is:inline observer script block | MODIFY — delete ~18 lines |
-| `FeaturePageLayout.astro` | Swap `<ScreenshotBlock>` for `<DeviceFrame>` | MODIFY — swap import + component |
-| `global.css` | Add delay CSS variables + new animation variants (fade-left, scale-up) | MODIFY — additive only |
-| `Hero.astro` | Add data-animate to h1 and subtitle with stagger delays | MODIFY — add data attributes |
-
----
-
-## Recommended Project Structure (additions only)
-
-```
-src/
-├── components/
-│   ├── AnimationController.astro   NEW: single observer, placed in BaseLayout
-│   ├── AnimateIn.astro             NEW: ergonomic wrapper (optional convenience)
-│   ├── DeviceFrame.astro           NEW: replaces ScreenshotBlock
-│   └── [existing components]      modified as needed
+│   ├── BaseLayout.astro        — shared html shell
+│   ├── BlogPostLayout.astro
+│   ├── FeaturePageLayout.astro
+│   ├── CoachingPageLayout.astro
+│   └── LegalPageLayout.astro
+├── pages/
+│   ├── index.astro             — Hero, FeatureGrid, StatsCounter, LandingCTA
+│   └── features/               — 5 feature deep-dive pages
 └── styles/
-    └── global.css                  add delay tokens + variants (additive)
+    └── global.css              — Tailwind v4, CSS variables, all animation keyframes
 ```
 
-No new directories needed. The additions slot cleanly into existing structure.
+### Key Architectural Facts
+
+- **Animation system:** CSS `@keyframes` in `global.css` + a single IntersectionObserver script in `BaseLayout.astro`. Reveal targets use `data-animate` + `data-animate-delay`. No external animation library.
+- **Styling model:** Tailwind v4 utility classes for layout/spacing; CSS custom properties for all design tokens; named CSS classes (`.device-frame`, `.hero-headline`, `.wheel-arc`, etc.) for complex components.
+- **SVG strategy:** FeatureGrid uses inline SVG with `<path>` arcs computed from trigonometry. Interaction (click, keyboard) handled by `<script>` block inside the component.
+- **Script isolation:** One global `<script is:inline>` in BaseLayout for IntersectionObserver. Component-specific scripts live inside the `.astro` file's `<script>` tag (module-scoped by Astro's bundler).
+- **No JS framework:** All interactivity is vanilla JS. No React, Vue, or Solid islands.
+- **Font:** General Sans via Astro Font API (`--font-general-sans` CSS variable). Self-hosted through Fontshare CDN, preloaded in `<head>`.
 
 ---
 
-## Architectural Patterns
+## v3.0 Feature Integration Map
 
-### Pattern 1: Single Global Animation Controller
+### 1. Matisse SVG Cut-Out Art Direction
 
-**What:** One `<script>` (non-inline) injected once at the bottom of `<body>` via `BaseLayout.astro` that observes all `[data-animate]` elements. Elements declare delay via `data-animate-delay` attribute; the controller reads it and sets `animation-delay` before adding `.is-visible`.
+**What it is:** Organic cut-out shapes (leaf, seaweed, biomorph) assembled into a continuous horizontal frieze decorating the hero section and possibly section dividers. Inspired by Matisse's _Swimming Pool_ gouache cut-outs.
 
-**When to use:** Always — this replaces the duplicated `is:inline` observer pattern.
+**Integration point:** `Hero.astro` is the primary host. The frieze sits as a decorative band — either above the hero text, below it, or spanning the full page width behind the section.
 
-**Trade-offs:**
-- Pro: No duplication, no race conditions, respects Astro's script deduplication for module scripts
-- Pro: Single observer is more performant than N observers
-- Pro: Astro module scripts are deduplicated automatically — even if AnimationController were imported multiple times, the script runs once
-- Con: Slightly less co-located with the animation CSS — acceptable tradeoff
+**New component: `MatisseFrieze.astro`**
 
-**Implementation:**
+Create as a standalone component in `src/components/`. Reasons for isolation:
+- The SVG markup will be 100-200 lines (multiple organic path elements)
+- Re-usable as a section divider on feature pages if desired
+- Keeps `Hero.astro` readable
+- Allows independent animation scoping
+
+```
+src/components/MatisseFrieze.astro   ← NEW
+```
+
+Interface:
 ```astro
-<!-- AnimationController.astro -->
-<script>
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const el = entry.target as HTMLElement;
-          const delay = el.dataset.animateDelay ?? '0ms';
-          el.style.animationDelay = delay;
-          el.classList.add('is-visible');
-          observer.unobserve(el);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
-  document.querySelectorAll('[data-animate]').forEach((el) => observer.observe(el));
-</script>
-```
-
-```astro
-<!-- BaseLayout.astro — add before </body> -->
-<AnimationController />
-```
-
-### Pattern 2: CSS Variable Delay Stagger via data-animate-delay
-
-**What:** Individual sections or cards receive a `data-animate-delay="Xms"` attribute. The controller reads it and sets `animation-delay` inline before adding `.is-visible`. The CSS keyframe runs from that delay onward.
-
-**When to use:** Staggering sibling elements (feature cards, section sub-elements) to create sequential entrance effects.
-
-**Trade-offs:**
-- Pro: No JS complexity — delay is data, not logic
-- Pro: Works with prefers-reduced-motion (transition fallback still applies)
-- Con: Requires explicit delay values per element — not auto-calculated from sibling index
-
-**Example applied to FeatureGrid cards:**
-```astro
-<!-- FeatureGrid.astro — each <li> gets a stagger -->
-<li data-animate data-animate-delay="0ms">...</li>
-<li data-animate data-animate-delay="80ms">...</li>
-<li data-animate data-animate-delay="160ms">...</li>
-```
-
-**global.css addition for scale-up variant:**
-```css
-@media (prefers-reduced-motion: no-preference) {
-  [data-animate-variant="scale-up"] {
-    transform: scale(0.96) translateY(8px);
-  }
-  [data-animate-variant="scale-up"].is-visible {
-    animation: scale-up 450ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-  @keyframes scale-up {
-    to { opacity: 1; transform: scale(1) translateY(0); }
-  }
-}
-```
-
-### Pattern 3: Self-Contained Device Frame Component
-
-**What:** `DeviceFrame.astro` accepts an image source and renders it inside a CSS iPhone bezel using Tailwind utility classes + border-radius. No SVG assets, no third-party device CSS libraries.
-
-**When to use:** All screenshot displays on feature pages and hero section. Replaces `ScreenshotBlock.astro` entirely.
-
-**Trade-offs:**
-- Pro: No external dependency, no SVG file to maintain, crisp at all sizes
-- Pro: Purely CSS — zero JS, zero KB
-- Pro: Can show notch + side buttons using small absolutely positioned divs
-- Con: Cannot match Apple's photorealistic device renders (acceptable for this site's tone)
-- Con: Requires update if iPhone aspect ratio changes significantly (unlikely — 9:19.5 is stable)
-
-**Prop API:**
-```typescript
+---
 interface Props {
-  src?: ImageMetadata;         // Astro image import
-  alt: string;                 // required, screen reader text
-  width?: number;              // default: 280
-  showFrame?: boolean;         // default: true; false = bare screenshot
-  loading?: 'eager' | 'lazy'; // default: 'lazy'; hero uses 'eager'
+  variant?: 'hero' | 'divider';      // hero: full-width band; divider: thin strip
+  animate?: boolean;                  // false for reduced-motion static render
+}
+---
+```
+
+**SVG construction approach:**
+
+All shapes should be inline SVG within the `.astro` file — not an external `.svg` file loaded via `<img>`. Reasons:
+- Inline SVG inherits CSS custom properties (can tint shapes with `--color-accent`, `--color-brand-accent`)
+- JS can animate individual `<path>` elements via `data-animate` if desired
+- No extra HTTP request
+
+Shape library: define 5-7 organic biomorph paths that can be tiled/mirrored horizontally. Use a single `viewBox` wide enough for the frieze (e.g., `0 0 1440 160`). Overflow hidden on the wrapper clips the frieze to page width.
+
+**Color palette for shapes:** Use existing CSS variables — `--color-surface`, `--color-surface-el`, `--color-divider`, plus `--color-accent` at 15-20% opacity for one accent shape. This keeps the design within the established palette without new tokens.
+
+**CSS in global.css (additions):**
+```css
+/* Matisse frieze */
+.matisse-frieze {
+  overflow: hidden;
+  width: 100%;
+  pointer-events: none;
+  user-select: none;
+}
+.matisse-shape {
+  transition: transform 800ms ease-out;
 }
 ```
 
-**Aspect ratio note:** iPhone 15/16 screens are 9:19.5 ratio. At width=280, expected height ~607px. The existing screenshots in `src/assets/screenshots/` already use this ratio — no cropping needed.
+**Animation:** Parallax-style gentle float is achievable with CSS `@keyframes` + `animation-play-state`. For the hero, a slow drift (e.g., 20s sinusoidal translate) adds life without Motion library. If complexity escalates, this is the one place where adding `motion` (the standalone library, ~15KB) as an Astro island is justified.
 
-### Pattern 4: UI Refinements via CSS Token Adjustments
+**Integration into Hero.astro:**
+```astro
+import MatisseFrieze from './MatisseFrieze.astro';
 
-**What:** Global UI improvements (spacing, border-radii, color tweaks, typography scale) are applied by adjusting design token values in `global.css` `:root {}`. Components inherit changes automatically because they reference CSS variables.
+<!-- Above or below the text block, full-width within the section -->
+<MatisseFrieze variant="hero" animate={true} />
+```
 
-**When to use:** Site-wide spacing or color adjustments. Touch individual components only when a specific element needs structural change (e.g., adding card hover lift to FeatureGrid).
-
-**Trade-offs:**
-- Pro: Minimal blast radius — one file change ripples everywhere
-- Pro: Reversible quickly
-- Con: Token changes affect every component simultaneously — requires visual review pass after changes
+The `section-spaced` padding on the hero section already creates vertical space. The frieze sits at the visual edge of the section — adjust `margin-top` / `margin-bottom` tokens rather than touching `--space-section-*` tokens.
 
 ---
 
-## Data Flow
+### 2. Typography Weight System
 
-### Animation Trigger Flow
+**What changes:** Titles become larger + lighter (weight 300 or 350, if General Sans supports it). Body copy becomes smaller + heavier (weight 500 or 600 instead of 400).
 
-```
-Page loads (static HTML)
-    ↓
-BaseLayout renders AnimationController <script> at end of <body>
-    ↓
-Module script executes after DOM ready
-    ↓
-querySelectorAll('[data-animate]') — finds all elements on page
-    ↓
-IntersectionObserver.observe(each element)
-    ↓
-User scrolls → element enters viewport (threshold: 0.12)
-    ↓
-Observer callback:
-  1. Read data-animate-delay attribute (default '0ms')
-  2. Set element.style.animationDelay
-  3. Add .is-visible class
-  4. unobserve(element) — fires once only, no repeat
-    ↓
-CSS takes over: fade-up (or variant) keyframe runs
+**Integration point:** `global.css` — the CSS custom property system is the correct place. All typography tokens live in `:root`. Changing the tokens cascades to every component automatically.
+
+**Current token values:**
+```css
+--text-display:  48px;   /* hero h1 */
+--text-heading:  28px;   /* section h2 */
+--text-body:     16px;   /* paragraphs */
+--text-label:    13px;   /* micro labels */
 ```
 
-### Screenshot Display Flow (DeviceFrame)
+**No new tokens needed.** Add font-weight companion tokens:
+```css
+--weight-display:  300;  /* or 350 — verify General Sans variable font axes */
+--weight-heading:  300;
+--weight-body:     500;
+--weight-label:    600;
+```
 
-```
-FeaturePageLayout.astro receives screenshot: ImageMetadata prop
-    ↓
-Passes to <DeviceFrame src={screenshot} alt={screenshotAlt} />
-    ↓
-DeviceFrame renders:
-  - Outer div: bezel (rounded-[44px], dark border, shadow-2xl)
-  - Notch pill: absolute div, centered top
-  - Side buttons: absolute divs, left/right edges
-  - Inner div: overflow-hidden rounded screen area
-  - <Image>: Astro image component (WebP, correct width, quality=90)
-    ↓
-Browser paints crisp device frame + optimized screenshot
-No JS involved — pure HTML/CSS at build time
-```
+**Then update usage sites:**
+
+The challenge is that most components set `font-weight` inline via `style="font-weight: 600;"`. This was necessary in v2.0 to override Tailwind defaults, but now creates a maintenance problem — inline styles beat CSS class rules and token changes.
+
+**Approach: Token-then-inline audit**
+
+1. Add `--weight-*` tokens to `:root` in `global.css`
+2. Update any existing named CSS classes that hardcode weight (e.g., `.nav-dropdown-title`, `.nav-dropdown-desc`, `.wheel-center-title`) to use the token
+3. For components with inline `font-weight` style props: move those values to semantic CSS classes rather than doing a per-file find-replace
+
+**Files to modify:**
+- `src/styles/global.css` — add `--weight-*` tokens, update named classes
+- `src/components/Hero.astro` — replace inline `font-weight: 600` on h1 with token reference
+- `src/components/FeatureGrid.astro` — heading uses inline `font-weight: 600`
+- `src/components/StatsCounter.astro` — check heading weight
+- `src/layouts/FeaturePageLayout.astro` — feature page h1/h2 weights
+- All other layouts with headings
+
+**General Sans variable font check:** The Astro Font API loads General Sans from Fontshare. Fontshare's General Sans is a static font family (not a variable font) — it ships separate files for each weight: 200 (Extralight), 300 (Light), 400 (Regular), 500 (Medium), 600 (Semibold), 700 (Bold). Weight 300 is available. The font API will need `weights: ['300', '500', '600']` in the font config if it isn't already loading all weights. **Verify this in `astro.config.mjs` before implementing.**
 
 ---
 
-## Build Order
+### 3. iPhone Frame Realism
 
-This order respects dependencies — each step is independently validatable before the next begins.
+**What changes:** The existing `DeviceFrame.astro` already implements a CSS iPhone 15 Pro frame with Dynamic Island, side buttons (via `::before`/`::after` pseudo-elements), and home indicator. The issues flagged in PROJECT.md are:
+1. Screenshot fit — possible misalignment or extra border around the image
+2. Realism — bezels, notch accuracy, button placement
 
-### Step 1: Fix Animation System (foundation)
+**Integration point:** `DeviceFrame.astro` + `.device-frame` class in `global.css`.
 
-**Files:**
-- CREATE `src/components/AnimationController.astro`
-- MODIFY `src/layouts/BaseLayout.astro` — import + render AnimationController before `</body>`
-- MODIFY `src/components/FeatureCTA.astro` — delete is:inline script block (~18 lines)
-- MODIFY `src/components/LandingCTA.astro` — delete is:inline script block (~18 lines)
+**Current structure (from component inspection):**
 
-**Why first:** The duplicated observer scripts are a correctness bug that must be resolved before adding more `[data-animate]` elements. Building on broken infrastructure creates confusion and masks real issues.
+```
+.device-frame (outer bezel)
+  ├── Dynamic Island (absolute positioned, top: 20px)
+  ├── Screen area (border-radius: 40px, aspect-ratio: 393/852)
+  │   └── <Image> or placeholder
+  └── Home indicator (100px wide bar)
+```
 
-**Validation:** Load landing page. All `[data-animate]` elements fade in once on scroll. No double-fire. Check DevTools Performance — single observer active.
+Pseudo-elements:
+- `::before` — volume buttons (left side, top: 100px)
+- `::after` — power button (right side, top: 120px)
 
-### Step 2: Device Frame Component
+**Screenshot fit fix:** The `aspect-ratio: 393/852` matches the iPhone 15 Pro logical resolution. If screenshots were captured at 1x instead of 3x Retina, the image content may appear slightly off. The fix is in the `<Image>` tag: ensure `object-fit: cover` with `object-position: top` if screenshots start at the status bar. The component already sets `object-fit: cover` — check `object-position`.
 
-**Files:**
-- CREATE `src/components/DeviceFrame.astro`
-- MODIFY `src/layouts/FeaturePageLayout.astro` — swap ScreenshotBlock import and usage
-- MODIFY `src/components/Hero.astro` — wrap dashboard.png in DeviceFrame
+**Realism improvements (surgical changes to DeviceFrame.astro):**
 
-**Why second:** Device frame is shared across hero + 5 feature pages. One layout change in `FeaturePageLayout.astro` propagates to all feature pages. Getting the component right before touching individual pages avoids N separate fixups.
+| Element | Current | Improved |
+|---------|---------|---------|
+| Frame gradient | `145deg, #2A2A2A, #1A1A1A, #111111` | Add subtle titanium sheen: `145deg, #3A3A3A, #1E1E1E 40%, #111 80%, #1E1E1E` |
+| Border highlight | `1px solid rgba(255,255,255,0.06)` | Split into top highlight + side shadow: use `outline` + `box-shadow` combination |
+| Dynamic Island size | `100px × 28px` | iPhone 15 Pro is 126pt × 37pt — scale to match component size |
+| Screen corner radius | `border-radius: 40px` | Should be approximately 47px at 300px frame width (proportional to real 55pt corner radius at 393pt width) |
+| Button texture | Flat `#2A2A2A` | Add subtle gradient to buttons for physical feel |
+| Volume button gap | Single `box-shadow: 0 36px 0` offset | Real iPhone has 3 buttons: mute + 2 volume; represent with 3 pseudo-shadow layers |
 
-**Validation:** All 5 feature deep-dive pages show screenshot inside iPhone bezel. Landing hero shows device frame. No overflow clipping. Aspect ratio correct. Lighthouse LCP score maintained (use loading="eager" on hero instance).
+**No new component needed.** All changes are surgical edits within `DeviceFrame.astro` and the `.device-frame` CSS block in `global.css`.
 
-### Step 3: Stagger Animations on Key Sections
+**Cascading effect:** DeviceFrame is used in:
+- `Hero.astro` (hero device mockup)
+- Feature pages via `FeaturePageLayout.astro` or `ScreenshotBlock.astro`
 
-**Files:**
-- MODIFY `src/components/Hero.astro` — add `data-animate` + `data-animate-delay` to h1, subtitle, badge block
-- MODIFY `src/components/FeatureGrid.astro` — add per-card `data-animate` + stagger delays
-- MODIFY `src/layouts/FeaturePageLayout.astro` — add `data-animate` to hero section and screenshot section
-- MODIFY `src/styles/global.css` — add `scale-up` variant if hero device frame entrance needs it
-
-**Why third:** AnimationController must be stable (Step 1) and device frames must exist (Step 2) before layering stagger on top. The hero is the most important animation sequence — hero should be fully composed before timing it.
-
-**Validation:** Hero elements enter sequentially. Feature cards stagger left-to-right. Test with DevTools Rendering: "Emulate CSS prefers-reduced-motion: reduce" — confirms fade-only fallback works. Test with "Emulate CSS prefers-reduced-motion: no-preference" after clearing.
-
-### Step 4: UI/UX Refinement Pass
-
-**Files:**
-- MODIFY `src/styles/global.css` — token tuning (spacing scale, potentially typography)
-- MODIFY individual components as needed (card hover lift, border improvements, etc.)
-- UPDATE `public/badges/` — replace placeholder App Store SVG badge with official Apple asset
-
-**Why fourth:** Visual polish is additive and non-breaking. Spacing token adjustments after structure is locked avoids adjusting the same element twice. App Store badge update is a self-contained swap.
-
-**Validation:** Visual review on Chrome desktop + Safari mobile. Lighthouse Performance >= 95 maintained. Accessibility: tab order, focus rings, screen reader test.
-
-### Step 5: Responsive Refinement
-
-**Files:** Component-by-component as issues discovered.
-
-**Why last:** Responsive issues are often exposed by visual changes in Steps 1-4. Testing after all visual work avoids fixing the same breakpoints twice.
-
-**Validation:** Real device testing on iPhone SE (375px), iPhone 14 Pro (390px), iPad (768px), 1440px desktop. Key checkpoints: device frame doesn't overflow on narrow screens, hero type scale readable at 375px, feature grid card wrapping behaves correctly.
+Any improvement propagates automatically to all usage sites.
 
 ---
 
-## Anti-Patterns
+### 4. Remove QR Code + Adjacent App Store Badge Section
 
-### Anti-Pattern 1: Multiple is:inline IntersectionObserver Scripts
+**Integration point:** `LandingCTA.astro` — this is the component that likely contains the QR code section. The header, hero, and footer CTAs remain untouched.
 
-**What people do:** Copy the `is:inline` observer block into each component that needs to trigger animations.
+**Approach:** Inspect `LandingCTA.astro` fully and remove the QR code + its sibling App Store badge. The landing page currently stacks: `Hero → FeatureGrid → StatsCounter → LandingCTA`. After removal, `LandingCTA` either becomes a simpler text CTA or is replaced with a different section.
 
-**Why it's wrong:** Astro does NOT deduplicate `is:inline` scripts — confirmed in official docs. Two observers on the same page race to add `.is-visible` to the same elements. The second observer also observes all `[data-animate]` elements globally (including ones the first observer already handled). Results in unreliable animation timing and wasted CPU.
-
-**Do this instead:** `AnimationController.astro` in `BaseLayout.astro`. Regular `<script>` (not is:inline) — Astro deduplicates module scripts. One observer per page, always.
-
-### Anti-Pattern 2: Keyframes Inside Component `<style>` Blocks
-
-**What people do:** Define `@keyframes fade-up` inside `FeatureGrid.astro`'s `<style>` tag to keep animations co-located.
-
-**Why it's wrong:** Astro scopes `<style>` block CSS to the component's elements. The `is-visible` class is added by JavaScript to a plain HTML element — Astro's scoped styles apply a hashed class selector that the JS doesn't know about. Keyframes in component styles may silently not apply.
-
-**Do this instead:** All animation keyframes and `[data-animate]` state CSS belong in `global.css`. Components only apply `data-animate` attributes.
-
-### Anti-Pattern 3: Using @astrojs/cloudflare Adapter with Static Output
-
-**What people do:** Install `@astrojs/cloudflare` assuming it's required for Cloudflare Pages.
-
-**Why it's wrong:** The adapter is for SSR/edge functions only. Using it alongside `output: "static"` causes deployment failures. Documented pitfall from the v1.0 research.
-
-**Do this instead:** Zero adapters. Connect GitHub repo in Cloudflare Pages dashboard directly. Build command: `npm run build`, output directory: `dist`.
-
-### Anti-Pattern 4: Device Frame as Downloaded SVG Asset
-
-**What people do:** Download an iPhone frame SVG and use absolute positioning to layer the screenshot inside it.
-
-**Why it's wrong:** Creates a z-index coordination problem, often produces blurry results at non-native dimensions, breaks if screenshot aspect ratio doesn't match the SVG cutout, requires maintaining an external asset.
-
-**Do this instead:** CSS-only bezel with `border-radius`, `border`, and small absolutely-positioned button divs. Always crisp, no asset to maintain, naturally adapts to image dimensions.
-
-### Anti-Pattern 5: Importing Motion/GSAP for Scroll Reveals
-
-**What people do:** Install GSAP ScrollTrigger or the `motion` library because the API looks clean.
-
-**Why it's wrong:** GSAP adds ~48KB min+gzip. For `fade-up` reveals, native IntersectionObserver + CSS keyframes produces identical visual results with zero added JS. This site's Lighthouse score (>= 95) is directly tied to its download conversion argument for Tuwa — don't erode it.
-
-**Do this instead:** Native IntersectionObserver + CSS. If a complex sequenced animation is later needed in the hero, add `motion` (the standalone library) as a single Astro island — not site-wide.
+**Risk:** LandingCTA may be the only place `APP_STORE_URL` is used aside from Hero. Confirm the badge in Hero stays — the landing page still needs a download path.
 
 ---
 
-## Integration Points
+### 5. Interaction Polish
 
-### Existing to New Component Handoffs
+**What it is:** Smooth page transitions, scroll feel, navigation flow — referenced against contralabs.com.
 
-| Integration | Current State | Target State | Change |
-|-------------|---------------|--------------|--------|
-| Animation observer | is:inline in FeatureCTA + LandingCTA (duplicated) | AnimationController in BaseLayout | DELETE old blocks, INJECT new component |
-| Screenshot display | ScreenshotBlock.astro in FeaturePageLayout | DeviceFrame.astro in FeaturePageLayout | SWAP import + component tag |
-| Hero screenshot | Bare `<Image>` in Hero.astro | `<DeviceFrame>` wrapping same image | WRAP |
-| data-animate elements | Sparse (FeatureGrid section, CTA sections) | Extended to Hero, feature cards, page body sections | ADD data attributes |
+**Integration point:** This is distributed across multiple components and the global CSS. There is no single file.
 
-### Files Touched Per Step
+**Audit of current transitions:**
+- Nav dropdown: `opacity + transform + visibility`, 200ms ease — already good
+- CTA button: `scale(1.02)` on hover, 150ms — already good
+- Blog card: `box-shadow` lift, 200ms — already good
+- `[data-animate]` reveals: `fade-up` 400ms — already good
+- Page load: no page transition (SPA-style transitions not implemented)
+- Scroll: native browser scroll — no custom easing
 
-| Step | Create | Modify |
-|------|--------|--------|
-| 1: Animation fix | AnimationController.astro | BaseLayout.astro, FeatureCTA.astro, LandingCTA.astro |
-| 2: Device frame | DeviceFrame.astro | FeaturePageLayout.astro, Hero.astro |
-| 3: Stagger | (optional: AnimateIn.astro) | Hero.astro, FeatureGrid.astro, FeaturePageLayout.astro, global.css |
-| 4: UI polish | — | global.css, individual components, public/badges/ |
-| 5: Responsive | — | Any component as issues surface |
+**What "interaction polish" likely means for this site:**
+
+1. **Scroll easing:** CSS `scroll-behavior: smooth` on `html` for anchor links. Already common but verify it's set.
+2. **Nav transition on scroll:** Header already has scroll-shadow behavior. Check if it transitions smoothly (opacity/transform).
+3. **Link hover states:** Feature page internal links, footer links — ensure consistent 100-150ms color transitions.
+4. **Mobile menu animation:** `MobileMenu.astro` — verify the drawer slides in smoothly rather than appearing instantly.
+5. **CTA ripple / press feel:** The `.btn-cta:active { transform: scale(0.98) }` is already implemented.
+
+**New CSS additions (in global.css):**
+```css
+html {
+  scroll-behavior: smooth;
+}
+
+/* View Transition API — progressive enhancement for page navigation */
+@view-transition {
+  navigation: auto;
+}
+```
+
+The **View Transition API** (Chrome 111+, Safari 18+, Firefox 130+) provides page-to-page crossfade with zero JS. In Astro static sites, enabling it requires only the CSS `@view-transition { navigation: auto }` declaration — no adapter or framework changes. This is the key "contralabs.com-style" smooth navigation. Progressive enhancement: browsers without support fall back to instant navigation.
+
+**Files to modify for interaction polish:**
+- `src/styles/global.css` — `scroll-behavior`, `@view-transition`, any missing transition properties
+- `src/components/Header.astro` — verify scroll-shadow transition timing
+- `src/components/MobileMenu.astro` — verify drawer slide animation
+- `src/components/Footer.astro` — consistent link hover transitions
+
+---
+
+## Component Boundary Summary
+
+### New Components (v3.0)
+
+| Component | File | Purpose | Used By |
+|-----------|------|---------|---------|
+| MatisseFrieze | `src/components/MatisseFrieze.astro` | SVG cut-out organic shape frieze | Hero.astro, optionally feature pages |
+
+### Modified Components (v3.0)
+
+| Component | File | What Changes | Risk |
+|-----------|------|-------------|------|
+| DeviceFrame | `src/components/DeviceFrame.astro` | Bezel realism, button count, screen radius, image fit | Low — self-contained, all usage sites benefit |
+| Hero | `src/components/Hero.astro` | Import MatisseFrieze, typography weight token | Low |
+| LandingCTA | `src/components/LandingCTA.astro` | Remove QR code + adjacent badge section | Low — subtractive |
+| FeatureGrid | `src/components/FeatureGrid.astro` | Typography weight tokens on h2 | Low |
+| StatsCounter | `src/components/StatsCounter.astro` | Typography weight token audit | Low |
+| Header | `src/components/Header.astro` | Verify transition timing for polish | Low |
+| MobileMenu | `src/components/MobileMenu.astro` | Verify slide animation | Low |
+| Footer | `src/components/Footer.astro` | Link hover transition consistency | Low |
+
+### Modified Styles (v3.0)
+
+| File | What Changes | Risk |
+|------|-------------|------|
+| `src/styles/global.css` | `--weight-*` tokens, `@view-transition`, `scroll-behavior: smooth`, MatisseFrieze CSS, DeviceFrame improvements | Low — additive tokens, no token renames |
+
+### Modified Layouts (v3.0)
+
+| File | What Changes |
+|------|-------------|
+| `src/layouts/FeaturePageLayout.astro` | Typography weight token on h1/h2 |
+| `src/layouts/CoachingPageLayout.astro` | Typography weight token on h1/h2 |
+| `src/layouts/BlogPostLayout.astro` | Typography weight token on prose headings (if not governed by @tailwindcss/typography) |
+
+---
+
+## Data Flow (v3.0 additions)
+
+### MatisseFrieze Render Flow
+
+```
+index.astro
+  └── Hero.astro
+        └── MatisseFrieze.astro
+              ├── Props: variant, animate
+              ├── Inline SVG: 5-7 <path> shapes in a wide viewBox
+              ├── CSS class: .matisse-frieze, .matisse-shape
+              └── data-animate on individual shapes (reuses BaseLayout observer)
+```
+
+No new data sources. No new JavaScript. The existing IntersectionObserver in BaseLayout will pick up any `data-animate` attributes on shape elements automatically.
+
+### Typography Weight Flow
+
+```
+:root (global.css)
+  └── --weight-display / --weight-heading / --weight-body / --weight-label
+        ├── Named CSS classes (.nav-dropdown-title, .wheel-center-title, etc.)
+        └── Component inline styles → migrate to CSS classes
+```
+
+### View Transition Flow
+
+```
+User clicks <a href="...">
+  ├── Browser captures current page screenshot
+  ├── CSS @view-transition { navigation: auto } triggers crossfade
+  ├── New page loads
+  └── Browser fades between old/new screenshots
+```
+
+Zero JS. Zero Astro configuration. Purely declarative CSS.
+
+---
+
+## Recommended Build Order
+
+Dependencies determine order. Build from foundation to surface:
+
+### Phase 1: Token & CSS Foundation (no component risk)
+1. Add `--weight-*` tokens to `global.css`
+2. Add `scroll-behavior: smooth` to `html` in `global.css`
+3. Add `@view-transition { navigation: auto }` to `global.css`
+4. Add `.matisse-frieze` and `.matisse-shape` CSS classes to `global.css`
+5. Improve `.device-frame` CSS (bezel, button pseudo-elements) in `global.css`
+
+**Why first:** Pure CSS additions. No component changes. Zero regression risk. Can verify in dev server immediately.
+
+### Phase 2: DeviceFrame Realism (self-contained)
+6. Update `DeviceFrame.astro` — adjust Dynamic Island dimensions, screen border-radius, add button count, fix image `object-position`
+
+**Why second:** Self-contained component, no external dependencies. Changes propagate automatically to all pages. Can compare before/after in browser with a single component change.
+
+### Phase 3: Remove QR Code (subtractive)
+7. Edit `LandingCTA.astro` — remove QR code section and adjacent App Store badge
+
+**Why third:** Purely subtractive. No new dependencies. Easy to verify: the section simply disappears.
+
+### Phase 4: Typography Weight Rollout (distributed but low-risk)
+8. Update `Hero.astro` heading to use `--weight-display` token
+9. Update `FeatureGrid.astro` heading
+10. Update `FeaturePageLayout.astro`, `CoachingPageLayout.astro` headings
+11. Update named CSS classes in `global.css` to use `--weight-body` / `--weight-label`
+
+**Why fourth:** Requires touching multiple files, but each change is a one-liner token substitution. Do visual check after each page type.
+
+### Phase 5: MatisseFrieze Component (highest complexity)
+12. Create `src/components/MatisseFrieze.astro` with inline SVG shapes
+13. Import into `Hero.astro`
+14. Tune shape colors, sizes, and animation timing in `global.css`
+
+**Why last:** Requires the most creative iteration and visual judgment. CSS tokens (Phase 1) should already be in place so color references work immediately. The most likely phase to require multiple visual review cycles.
+
+### Phase 6: Interaction Polish Audit
+15. Review `Header.astro` scroll transition timing
+16. Review `MobileMenu.astro` drawer animation
+17. Review `Footer.astro` link hover states
+18. Add any missing `transition` declarations across components
+
+**Why last:** Polish is subjective and iterative. Do it after all structural changes are stable so you're not re-polishing elements that might still change.
+
+---
+
+## Anti-Patterns to Avoid
+
+### Anti-Pattern 1: Putting Frieze SVG in an External File Loaded via `<img>`
+
+**What people do:** Save the frieze as `public/matisse-frieze.svg` and reference it with `<img src="/matisse-frieze.svg">`.
+**Why it's wrong:** External SVGs loaded via `<img>` cannot inherit CSS custom properties. Shape fills would need to be hardcoded hex values, making palette changes manual. Also, `<img>` SVG cannot be animated per-element with CSS or JS.
+**Do this instead:** Inline SVG in `MatisseFrieze.astro`. Shapes reference `var(--color-surface-el)` etc. directly.
+
+### Anti-Pattern 2: Adding Font Weights via New `@font-face` Declarations
+
+**What people do:** Add manual `@font-face` rules for 300/500 weight variants to override the Astro Font API.
+**Why it's wrong:** The Astro Font API owns the `@font-face` declarations and generates optimized preload hints. Duplicating declarations causes double-loading and breaks the API's hash-based cache invalidation.
+**Do this instead:** Configure weight loading through the Font API in `astro.config.mjs` via the `weights` option on the font definition. Let the API handle all `@font-face` generation.
+
+### Anti-Pattern 3: Scoping Animation in Component `<style>` Tags
+
+**What people do:** Add `@keyframes matisse-float` inside a `<style>` block in `MatisseFrieze.astro`.
+**Why it's wrong:** Astro scopes component `<style>` blocks with a generated hash attribute. `@keyframes` inside scoped styles are globally registered by the browser and the hash scope does not apply to the animation name — this causes naming collisions and confusing behavior across pages.
+**Do this instead:** All `@keyframes` go in `global.css`, following the established pattern from `fade-up`, `hero-text-enter`, `wheel-arc-reveal`, etc.
+
+### Anti-Pattern 4: Using Motion Library for the Frieze
+
+**What people do:** Import `motion` from `motion/react` for parallax and shape animation because it's "more capable."
+**Why it's wrong:** Motion requires a client-side JS island, adding ~15KB min+gzip and blocking initial paint if not deferred. The site's Lighthouse 98/99 scores are a product argument. CSS `@keyframes` with long durations (15-25s) achieve the same visual effect at zero cost.
+**Do this instead:** CSS keyframe animations on `.matisse-shape` elements. If a single shape needs sequenced entrance, use `animation-delay` (same system as `data-animate-delay`).
+
+### Anti-Pattern 5: Inline `font-weight` Overriding Token System
+
+**What people do:** Patch typography on a per-component basis by changing inline `style="font-weight: 600"` to `style="font-weight: 300"`.
+**Why it's wrong:** Bypasses the `--weight-*` token system. Future changes require hunting through all component files again.
+**Do this instead:** Replace all inline `font-weight` on heading elements with a CSS class that references the token. One token change in `:root` updates everything.
+
+---
+
+## Scaling Considerations
+
+This is a static site with no server-side state. "Scaling" means build performance and CSS maintainability.
+
+| Concern | Current State | v3.0 Impact |
+|---------|--------------|-------------|
+| CSS bundle size | ~15KB global.css | +~2KB for frieze + weight tokens — negligible |
+| JS bundle size | Inline scripts only, ~3KB | No new JS unless Motion added |
+| Build time | Fast (static, ~20 files) | +1 component = no measurable impact |
+| Lighthouse score | Mobile 98, Desktop 99 | View Transition API: neutral (CSS only). Inline SVG: neutral. Weight tokens: neutral. |
+| Animation perf | All CSS, GPU-composited | Frieze float uses `transform` — GPU-composited, no layout thrash |
+
+---
+
+## Integration Points Summary
+
+| Feature | Where It Integrates | New File? | Modified Files |
+|---------|-------------------|-----------|---------------|
+| Matisse Frieze | Hero.astro imports MatisseFrieze.astro | YES — MatisseFrieze.astro | Hero.astro, global.css |
+| Typography weights | global.css `:root` tokens cascade everywhere | NO | global.css + 5-6 component/layout files (one-liner each) |
+| DeviceFrame realism | DeviceFrame.astro + .device-frame CSS | NO | DeviceFrame.astro, global.css |
+| Remove QR code | LandingCTA.astro (subtractive edit) | NO | LandingCTA.astro |
+| Interaction polish | global.css + Header/MobileMenu/Footer | NO | global.css, Header.astro, MobileMenu.astro, Footer.astro |
 
 ---
 
 ## Sources
 
-- Astro Scripts and event handling — deduplication behavior: https://docs.astro.build/en/guides/client-side-scripts/
-- Tailwind CSS Device Mockup component (structure reference): https://flowbite.com/docs/components/device-mockups/
-- Apple Design Resources (device proportions): https://developer.apple.com/design/resources/
-- IntersectionObserver API (MDN): https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
-- CSS animation-delay (MDN): https://developer.mozilla.org/en-US/docs/Web/CSS/animation-delay
-- Astro View Transitions docs: https://docs.astro.build/en/guides/view-transitions/
-- Direct codebase inspection: `/Users/hanwen/Desktop/tuwa-website/src/` (2026-05-11)
+- Direct inspection of `src/styles/global.css`, `src/components/DeviceFrame.astro`, `src/components/Hero.astro`, `src/layouts/BaseLayout.astro`, `src/pages/index.astro` (2026-05-14)
+- CSS View Transition API: https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API
+- Astro Font API weights configuration: https://docs.astro.build/en/guides/fonts/
+- Fontshare General Sans weight inventory: https://www.fontshare.com/fonts/general-sans
+- Matisse cut-out SVG technique pattern: inline SVG with CSS variable fill, established in FeatureGrid.astro SVG implementation
 
 ---
-*Architecture research for: Tuwa marketing site v2.0 visual polish milestone*
-*Researched: 2026-05-11*
+*Architecture research for: Tuwa Website v3.0 Art Direction & Interaction Polish*
+*Researched: 2026-05-14*

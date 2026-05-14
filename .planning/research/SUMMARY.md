@@ -1,192 +1,192 @@
 # Project Research Summary
 
-**Project:** Tuwa Marketing Website — v2.0 Visual Overhaul
-**Domain:** iOS app marketing site — animations, device mockups, screenshot presentation, Cloudflare deployment
-**Researched:** 2026-05-11
+**Project:** Tuwa Marketing Website — v3.0 Art Direction & Interaction Polish
+**Domain:** Static marketing site — SVG art direction, typography system, CSS animation polish
+**Researched:** 2026-05-14
 **Confidence:** HIGH
 
 ## Executive Summary
 
-The Tuwa v2.0 visual overhaul is a focused polish milestone on top of an already-functional Astro 6 + Tailwind v4 static site. The core task is bringing the site up to the visual standard of premium fitness brands (Oura, WHOOP, Arc) through three coordinated improvements: crisp device-framed screenshots, refined scroll-reveal animations, and UI depth through noise texture, gradients, and glass morphism. Research confirms all of these are achievable within the existing zero-JS-by-default architecture without adding client-side frameworks or eroding the Lighthouse 95+ performance baseline.
+The v3.0 milestone adds visual and interaction polish to an already-shipped, Lighthouse 98/99-scoring Astro 6 + Tailwind v4 marketing site. Research unanimously confirms that all major features — Matisse-inspired SVG art, typography weight contrast, iPhone frame realism, and interaction polish — are achievable with zero or near-zero new dependencies, using CSS-native techniques now available in all major browsers. The existing stack is the right stack; this milestone is about precision additions, not architectural change.
 
-The recommended approach is execution in a strict dependency order: fix the animation system bug first (duplicated IntersectionObserver scripts), then introduce the CSS iPhone device frame component (which all subsequent screenshot work depends on), then layer stagger animations and UI polish. This order avoids rework — every step is independently testable before the next begins. The total new dependencies are one Tailwind CSS plugin (`tailwind-animations` 1.0.1) and optionally the standalone `motion` library (12.38.0) for hero choreography only if CSS proves insufficient.
+The recommended approach is CSS-first at every decision point. Typography weight contrast requires only a font config change and CSS token additions. Matisse cut-out art is hand-authored inline SVG with SVGO-optimized paths. iPhone frame realism is surgical CSS. Page transitions use the native CSS `@view-transition` at-rule — zero JS, Chrome 126+, Safari 18.2+, progressive enhancement on Firefox. The one conditional package — Lenis v1.3.23 at ~3KB gzipped — is optional and only warranted if momentum scroll is confirmed as a design goal. The guiding constraint throughout: preserve the Lighthouse 98/99 baseline.
 
-The most important risks are performance-related and easy to introduce accidentally: lazy-loading the hero/LCP image during device frame refactoring (Lighthouse drops from 95 to 72), animating layout properties instead of only `transform`/`opacity` (CLS penalty), and over-applying `will-change` to all animated elements (GPU memory exhaustion on mobile). All three have simple preventions that should be treated as coding rules rather than per-task checklist items.
-
----
+The primary risk in this milestone is not technical complexity but integration gotchas between existing systems. The most dangerous: Astro `<ViewTransitions />` (the component) and the current IntersectionObserver scroll-reveal system are mutually exclusive without significant rework. Research is clear — if the `<ViewTransitions />` component is added, either remove the IO scroll-reveal or migrate to time-staggered entrance animations. The correct answer for this project is to use native CSS `@view-transition` instead, which does not conflict with IO at all. The second-highest risk is SVG DOM bloat from unoptimized Figma exports displacing the LCP candidate and tanking Lighthouse. Both risks have well-defined prevention strategies documented in PITFALLS.md.
 
 ## Key Findings
 
 ### Recommended Stack
 
-The v1.0 stack (Astro 6, Tailwind v4, MDX, Sharp, SEO component) is validated and unchanged. V2.0 adds one confirmed dependency and one conditional dependency.
+The existing stack (Astro 6.3.1, Tailwind v4, MDX, Cloudflare Pages) remains unchanged and validated. v3.0 adds exactly one configuration change, one optional package, and several CSS additions.
 
-`tailwind-animations` (1.0.1) is the right scroll animation choice: it is a pure CSS Tailwind plugin using the native CSS View Timeline API, adds zero runtime JS, and integrates via a single `@import` in `global.css`. Firefox requires progressive enhancement handling (animations must not hide content for non-supporting browsers). The `motion` library (12.38.0) is confirmed as the correct choice if JS-driven animation becomes necessary — its standalone non-React API works in Astro `<script>` tags without pulling in any framework runtime.
+The Astro Font API must be updated to load General Sans using the variable font range syntax `"200 700"` instead of the current discrete weight array — this downloads one font file instead of five. Font weight 300 is confirmed available from Fontshare. CSS `@view-transition { navigation: auto }` added to `global.css` delivers cross-page transitions at zero bundle cost. The `qrcode` package should be fully removed.
 
-The CSS-only iPhone device frame (Flowbite pattern) is confirmed as the correct device mockup approach: no SVG asset to maintain, resolution-independent, Tailwind v4 arbitrary value syntax compatible. Cloudflare Pages deployment requires `NODE_VERSION=22` in dashboard environment variables and no adapter — the `@astrojs/cloudflare` adapter causes deployment failures with `output: "static"`.
+**Core technologies:**
+- **Astro 6.3.1 (unchanged):** SSG with Font API — no adapter needed for static Cloudflare Pages
+- **Tailwind v4 (unchanged):** CSS-variable token cascade means typography changes propagate to all 10 pages automatically
+- **General Sans variable font (config change):** Weight range `"200 700"` covers the display/body contrast system in a single file
+- **CSS `@view-transition` (additive):** Zero-JS cross-page transitions; do NOT use `<ClientRouter>` or the Astro `<ViewTransitions />` component
+- **Lenis v1.3.23 (conditional, ~3KB gzipped):** Momentum scroll only if confirmed as a design goal — import directly in an Astro `<script>`, never via the `astro-lenis` wrapper
+- **SVGO (dev pipeline, no runtime cost):** Mandatory preprocessing for all Matisse SVG shapes before inlining; use `--multipass` flag
 
-**Core technologies (additive to v1.0):**
-- `tailwind-animations` 1.0.1: CSS View Timeline scroll reveals — zero JS, Tailwind v4 native
-- `motion` 12.38.0 (conditional): hero choreography only, standalone vanilla JS, no React
-- `DeviceFrame.astro` (custom): CSS iPhone bezel component — zero dependencies, infinite DPR sharpness
-- `AnimationController.astro` (custom): single global IntersectionObserver replacing duplicated `is:inline` scripts
-- Cloudflare Pages with `NODE_VERSION=22`: explicit setting required to avoid build failures
+**What NOT to add:** `<ClientRouter>`, GSAP, anime.js, Motion library, `astro-lenis` wrapper, or any animation library. CSS covers 100% of the art direction use cases at zero bundle cost.
 
 ### Expected Features
 
-Research covered 9 premium competitor sites (WHOOP, Oura, Strava, Apple Fitness+, Eight Sleep, Arc, Linear, Notion, Superhuman). Feature priorities emerge clearly from that analysis.
-
-**Must have (table stakes for 2026 fitness app marketing sites):**
-- Crisp Retina-ready screenshots (3x export, Astro `<Image>` with `widths` prop) — blurry screenshots are a credibility failure signal
-- Scroll-triggered entrance animations — static pages read as unfinished; already partially implemented but needs refinement and consistent application
-- Hover micro-interactions on CTAs — `transform: scale(1.02)` on hover, `scale(0.97)` on active, 150ms ease
-- Consistent section spacing rhythm (120-160px desktop gaps, 64-80px mobile)
-- `text-wrap: balance` on all headings — eliminates orphaned words, used by Linear, Superhuman, Apple Fitness+
+**Must have (table stakes):**
+- Typography weight contrast: light (300) large headings + heavier (500–600) body — absent on current site, visible quality gap vs. Linear/Apple/Vercel
+- Screenshot fit correctness: `object-fit`/`object-position` fix + export dimensions verified at 1179×2556px (3x Retina iPhone 15 Pro)
+- Smooth anchor navigation: implemented via JS `scrollIntoView({ behavior: 'smooth' })` on specific links — NOT global `scroll-behavior: smooth` on `html` (Safari bug, IO conflict)
+- QR code section removal: deprecated 2021-era pattern, cleaner conversion flow, remove `qrcode` package entirely
 
 **Should have (competitive differentiators):**
-- CSS iPhone device frame on screenshots — naked screenshots read as internal QA exports, not marketing
-- Noise/grain texture overlay on hero sections — removes flat design sterility (used by Arc, Linear)
-- Gradient brand accents replacing flat solid colors — removes template feel
-- Animated stat counters for ACWR/recovery methodology callouts — makes science claims land harder
-- Bento grid for feature overview — visual variety over 3-column card grid (Notion pattern)
-- Screenshot carousel on feature pages (CSS scroll-snap, no JS library)
-- Glass morphism on 1-2 key callout elements — use sparingly (`backdrop-filter: blur(8px)`)
+- Matisse Swimming Pool SVG frieze in hero: primary visual differentiator — organic cut-out shapes (8–12 SVGO-optimized paths) on full-width SVG band, accent green (`#2B5240`) on travertine (`#F4F1ED`), `aria-hidden`, zero JS
+- iPhone frame realism: layered `box-shadow` (4–5 stops), screen-inset shadow, proportional Dynamic Island, action button visual distinction — all pure CSS
+- CSS `@view-transition` page transitions: cross-fade between pages, zero JS, progressive enhancement on Firefox
+- CSS font-weight token system: `--weight-display`, `--weight-heading`, `--weight-body`, `--weight-label` in `:root`, replacing all inline `font-weight` values across 40+ locations atomically
 
-**Defer to v3.0:**
-- Sticky scroll feature showcase (Oura-style 6-state carousel) — HIGH complexity, requires multiple screenshot states per feature
-- Parallax depth layers on hero — needs design time, risk of feeling overdone
-- Dark mode — explicitly descoped per PROJECT.md
-- Video autoplay hero — LCP killer, not justified without CDN infrastructure
+**Defer (v3.x / v4+):**
+- Scroll-driven parallax on Matisse shapes: add only after static shapes confirmed on real iOS devices
+- `clamp()` fluid sizing extension to h2/h3 on feature pages
+- Matisse-inspired organic section dividers on feature deep-dive pages
+- `transition:name` shared-element morphing for device frame across pages
 
 ### Architecture Approach
 
-The existing codebase has a correct foundation but a critical bug: `FeatureCTA.astro` and `LandingCTA.astro` each embed duplicate `is:inline` IntersectionObserver scripts that race to trigger all `[data-animate]` elements on any page where both components are present. This must be fixed before adding more animated elements. The fix is a single `AnimationController.astro` component injected once by `BaseLayout.astro` — Astro's module script deduplication ensures it runs exactly once per page regardless of how many components import it.
-
-The device frame replaces `ScreenshotBlock.astro` with `DeviceFrame.astro`, a self-contained Tailwind CSS component that accepts an Astro `ImageMetadata` prop. The layout change in `FeaturePageLayout.astro` propagates automatically to all 5 feature deep-dive pages. All animation keyframes stay in `global.css` (not component `<style>` blocks, which Astro scopes and prevents from applying to JS-added classes).
+v3.0 integrates with the existing component tree through targeted additions and surgical edits. One new component is created (`MatisseFrieze.astro`); five to eight existing components receive single-purpose modifications. The CSS custom property system is the single integration layer — all typography tokens are set in `:root` in `global.css` and cascade automatically to all pages. No new JS patterns are introduced.
 
 **Major components:**
-1. `AnimationController.astro` (NEW) — single IntersectionObserver injected by BaseLayout, supports `data-animate-delay` stagger
-2. `DeviceFrame.astro` (NEW) — CSS iPhone bezel, replaces ScreenshotBlock, accepts `ImageMetadata`, `showFrame` toggle, `loading` eager/lazy
-3. `AnimateIn.astro` (NEW, optional) — ergonomic wrapper applying `data-animate` + delay to child content
-4. `BaseLayout.astro` (MODIFY) — add `<AnimationController />` before `</body>`
-5. `FeatureCTA.astro` + `LandingCTA.astro` (MODIFY) — delete duplicated `is:inline` observer blocks
-6. `global.css` (MODIFY) — add delay tokens, `scale-up` animation variant, CSS View Timeline imports (additive only)
+1. **`MatisseFrieze.astro` (NEW):** Inline SVG organic shapes, `variant: 'hero' | 'divider'` and `animate: boolean` props, SVGO-optimized paths, fills from existing CSS variables — no hardcoded hex values
+2. **`DeviceFrame.astro` (EDIT):** Proportional Dynamic Island (percentage width), layered `box-shadow`, screen-inset shadow, side button realism — all CSS, no API changes
+3. **`global.css` (EDIT):** `--weight-*` token definitions, `@view-transition`, `.matisse-frieze` / `.matisse-shape` CSS classes, all `@keyframes` — keyframes must always live here, never in component `<style>` blocks (Astro scopes component styles but `@keyframes` registered inside them are globally named, causing collisions)
+4. **`LandingCTA.astro` (EDIT):** Remove QR code block and `import QRCode` statement entirely — subtractive only, verify CLS = 0 after
+5. **`Hero.astro` (EDIT):** Import `MatisseFrieze`, apply typography weight token on h1
+6. **`astro.config.mjs` (EDIT):** Font weight range `"200 700"` for General Sans variable font
+
+**Recommended build order (dependency-driven):**
+1. CSS Foundation — tokens, `@view-transition`, `.matisse-*` classes — zero regression risk
+2. DeviceFrame realism — self-contained, propagates to all pages automatically
+3. QR code removal — purely subtractive, verify CLS
+4. Typography weight rollout — distributed but each change is a one-liner token swap, done as single atomic commit
+5. MatisseFrieze component — highest creative iteration; benefits from locked typography layout
+6. Interaction polish audit — subjective; do last when structure is stable
 
 ### Critical Pitfalls
 
-Research surfaced 11 v2.0-specific pitfalls and 11 preserved v1.0 pitfalls. The highest-impact v2.0 pitfalls:
+1. **Astro `<ViewTransitions />` component destroys scroll-reveal** (B10) — Using `<ViewTransitions />` causes all `[data-animate]` IO-based scroll-reveal elements to fire simultaneously on every page navigation (IO immediately satisfied on DOM swap). The correct choice for this project is native CSS `@view-transition { navigation: auto }` which provides cross-page crossfade without conflicting with IO. Never add `<ClientRouter>` or `<ViewTransitions />` to this codebase.
 
-1. **LCP image gets lazy-loaded after device frame refactor** — Astro `<Image>` defaults to `loading="lazy"`. During hero refactoring the explicit `loading="eager" fetchpriority="high"` must be set on the hero `DeviceFrame` instance. Recovery is one attribute change, but Lighthouse will drop from 95 to 72 if missed.
+2. **SVG DOM bloat from unoptimized Figma exports** (B1) — Raw exports can push DOM nodes from ~200 to 1,400+. Lighthouse fires "Avoid an excessive DOM size" at 800 nodes. Establish the SVGO `--multipass` pipeline before placing any SVG. Budget: < 400 total nodes for the frieze; < 30 nodes per individual shape after optimization.
 
-2. **Animating layout properties causes CLS** — Using `margin-top`, `height`, `top`, `left` in scroll animations triggers Cumulative Layout Shift under Google's March 2026 Visual Stability Index update. Rule: animate only `transform` (translateY, scale) and `opacity`. Never `margin` or dimension properties.
+3. **Font weight 300 must be loaded before any CSS uses it** (B4) — Astro Font API currently loads only `["400", "600"]`. Writing `font-weight: 300` in CSS without updating the config causes silent browser synthesis — light titles look identical to regular body text, defeating the entire design intent. Update `astro.config.mjs` to `"200 700"` (variable font range) as the very first action in the typography phase.
 
-3. **Missing `prefers-reduced-motion` guard** — Lighthouse Accessibility penalty (score falls below 90) plus genuine harm to ~70M users with vestibular disorders. One `@media (prefers-reduced-motion: reduce)` block in `global.css` prevents this entirely. Add it before writing a single animation rule.
+4. **Typography weight system requires atomic sweep across 40+ locations** (B5) — `font-weight: 600` is hardcoded as inline styles in 40+ locations. Patching page-by-page ships a visually inconsistent product. Establish `--weight-*` CSS variables in `global.css` first, then replace all inline `font-weight` values in one commit. Post-sweep: grep for any remaining hardcoded values outside `global.css`.
 
-4. **FOIC — invisible content without JS** — Setting `opacity: 0` in base CSS hides content for users where JS fails or is blocked. The hidden state must be applied only via a JS-added class (`.will-animate`), not base CSS. Test by disabling JS in Chrome DevTools.
-
-5. **Cloudflare Pages Node.js version mismatch** — Astro 6 requires Node 22+. Cloudflare's default runtime is older. Set `NODE_VERSION=22` in dashboard environment variables plus add `.nvmrc` with `22` before the first deployment attempt.
-
-6. **`will-change` overuse** — Applying `will-change: transform` globally to all `[data-animate]` elements exhausts GPU compositor layers on mobile. Cap at approximately 5-8 elements per page. Apply dynamically and remove after animation completes via the `animationend` event.
-
----
+5. **Device frame realism decorations must use percentage-based offsets** (B8) — Pixel-offset pseudo-element buttons calibrated at 320px break at 260px (the narrowest mobile). Use `%` or `em` units so decorations scale with frame width. Test at 260px, 300px, and 320px after every addition.
 
 ## Implications for Roadmap
 
-Based on combined research, a 5-phase execution order is recommended. Each phase is independently testable and unblocks the next.
+Based on combined research, a 6-phase execution order is recommended. Each phase is independently testable, has a clear verification criterion, and unblocks the next.
 
-### Phase 1: Fix Animation Infrastructure
-**Rationale:** The duplicated `is:inline` IntersectionObserver scripts are a correctness bug that will cause unpredictable behavior as more animated elements are added. Building v2.0 polish on broken infrastructure masks real issues and creates debugging confusion. This phase has no external dependencies and no visual risk.
-**Delivers:** Single reliable `AnimationController.astro`, duplicated observer scripts removed from `FeatureCTA.astro` and `LandingCTA.astro`, `prefers-reduced-motion` guard in `global.css`, FOIC prevention pattern established site-wide.
-**Addresses:** All scroll animation features (existing and new)
-**Avoids:** Pitfall A2 (missing reduced-motion), Pitfall A3 (FOIC), Anti-Pattern 1 (duplicate observers)
+### Phase 1: CSS Foundation & Token System
+**Rationale:** Pure additive CSS with zero regression risk. All subsequent phases depend on the `--weight-*` token system and the updated font config. The `@view-transition` CSS at-rule must be in place before interaction polish is assessed. This phase also resolves the ViewTransitions/IO incompatibility before it can be accidentally introduced.
+**Delivers:** `--weight-*` token system in `:root`; updated General Sans weight range `"200 700"` in `astro.config.mjs`; `@view-transition { navigation: auto }` in `global.css`; `.matisse-frieze` / `.matisse-shape` CSS classes; `prefers-reduced-motion` guards for any new keyframes
+**Addresses:** Typography weight system (foundation), page transitions (complete), Matisse art (CSS foundation)
+**Avoids:** B4 (font not loaded before CSS uses it), B10 (no `<ViewTransitions />` component ever added), A2 (reduced-motion guards from day one)
 
-### Phase 2: Screenshots and Device Frame
-**Rationale:** All visual work downstream depends on having crisp, properly framed screenshots. The `DeviceFrame.astro` component is shared across the hero and all 5 feature pages — getting it right before touching individual pages prevents repeated fixups.
-**Delivers:** `DeviceFrame.astro` (CSS iPhone bezel), `ScreenshotBlock.astro` replaced across all feature page layouts, hero screenshot wrapped in device frame, all screenshots re-exported at 3x from Xcode Simulator, Astro `<Image>` with proper `widths` prop applied throughout.
-**Addresses:** Crisp screenshots (P1), iPhone device frame (P1)
-**Avoids:** Pitfall A4 (lazy LCP — hero DeviceFrame must set `loading="eager" fetchpriority="high"`), Pitfall A5 (blurry screenshots), Pitfall A6 (device frame responsive breakage via `aspect-ratio: 9/19.5`)
+### Phase 2: DeviceFrame Realism
+**Rationale:** Self-contained component with no external dependencies. Improvements propagate automatically to all pages via the single `DeviceFrame.astro` component. Hero layout must be stable before Matisse shapes are positioned against it.
+**Delivers:** Layered `box-shadow` (4–5 stop penumbra), proportional Dynamic Island (percentage-based width), screen-inset shadow, action button visual distinction, screenshot `object-fit`/`object-position` fix
+**Addresses:** Screenshot fit correctness (table stakes), iPhone frame realism (differentiator)
+**Avoids:** B8 (percentage-based offsets throughout, test at 260/300/320px), A4 (LCP image `loading="eager" fetchpriority="high"` preserved after any hero restructure)
 
-### Phase 3: Stagger Animations and Motion Polish
-**Rationale:** Animation system must be stable (Phase 1) and device frames must exist (Phase 2) before layering stagger timing. Hero must be fully composed before its entrance sequence is timed.
-**Delivers:** Staggered entrance animations on hero, feature grid cards, and feature page sections. Optional `motion` library for hero choreography if CSS proves insufficient. Animated stat counters. CSS scroll-driven read progress bar on blog posts.
-**Uses:** `tailwind-animations` 1.0.1 (CSS View Timeline), optionally `motion` 12.38.0 (standalone in `<script>` tag — never as React island)
-**Avoids:** Pitfall A1 (CLS from layout properties), Pitfall A7 (will-change overuse), Pitfall A10 (Motion as React island), Anti-Pattern 5 (GSAP for scroll reveals)
+### Phase 3: QR Code Removal
+**Rationale:** Purely subtractive, no dependencies, fastest verification cycle. Removes a deprecated pattern and eliminates a build-time dependency before adding any new visual elements.
+**Delivers:** Clean `LandingCTA.astro` with QR block and `import QRCode` fully removed; `qrcode` removed from `package.json`; Lighthouse CLS = 0 confirmed; App Store badge visual balance verified at desktop widths
+**Addresses:** QR code removal (table stakes)
+**Avoids:** B7 (complete DOM removal not CSS-hide — no layout footprint, no CLS risk)
 
-### Phase 4: UI Depth and Visual Polish
-**Rationale:** Visual depth tokens (gradients, noise texture, glass morphism, typography refinements) are additive and non-breaking. Applying after structure and animation are locked avoids adjusting the same elements multiple times during development.
-**Delivers:** Noise texture overlay on hero/key sections, gradient brand accents replacing flat backgrounds, `text-wrap: balance` on all headings, hover micro-interactions on CTAs, bento grid for feature overview, glass morphism on 1-2 key callout elements, consistent spacing rhythm audit.
-**Addresses:** All P2 differentiator features from FEATURES.md
-**Avoids:** All anti-features (video autoplay, GSAP, Three.js, Lottie, dark mode toggle)
+### Phase 4: Typography Weight Rollout
+**Rationale:** Depends on Phase 1 token system. Requires touching multiple files but each change is a one-liner variable swap. Typography changes affect hero heading size and visual breathing room — must be locked before Matisse shapes are authored against that layout.
+**Delivers:** Light headings (300) and heavier body (500–600) on all 10 pages and 12 components; `body { font-weight: var(--weight-body) }` inheritance cut in `global.css`; zero inline `font-weight` values remaining outside `global.css`
+**Addresses:** Typography weight contrast (table stakes + primary differentiator)
+**Avoids:** B5 (single atomic commit, not page-by-page), B6 (inheritance cut prevents light weight reaching small text — `font-weight: 300` only on elements >= 28px)
 
-### Phase 5: Responsive Refinement and Deployment
-**Rationale:** Responsive issues are typically exposed by visual changes in Phases 1-4. Testing after all visual work is complete avoids re-testing the same breakpoints multiple times. Deployment configuration verified once at the end.
-**Delivers:** Real-device breakpoint testing (375px, 390px, 768px, 1280px, 1440px), Cloudflare Pages deployment with `NODE_VERSION=22`, `.nvmrc` file committed, Lighthouse mobile score >= 95 verified, CDN cache strategy documented for future screenshot updates.
-**Avoids:** Pitfall A8 (Node version mismatch), Pitfall A9 (stale CDN cache), Pitfall A11 (responsive regression from animation classes), Anti-Pattern 3 (Cloudflare adapter with static output)
+### Phase 5: Matisse SVG Art Direction
+**Rationale:** Highest creative iteration risk — requires design work (SVG path authoring) before code work. Benefits from all foundation phases being stable: CSS color tokens resolve immediately, hero typography is locked, device frame is in its final state. SVGO pipeline must be established as the first step of this phase.
+**Delivers:** `MatisseFrieze.astro` with 8–12 SVGO-optimized organic paths; integrated into `Hero.astro` below the device frame in DOM order; art sub-palette derived from existing CSS variables (no raw hex in SVG); < 400 total DOM nodes for the frieze; verified Lighthouse LCP element unchanged
+**Addresses:** Matisse cut-out SVG frieze (primary visual differentiator)
+**Avoids:** B1 (SVGO pipeline first, < 400 node budget), B2 (no static `<clipPath>` IDs — use fills only), B3 (frieze after DeviceFrame in DOM source order; LCP verified after placement), B11 (palette derived from tokens), B12 (if any animation: `transform`/`opacity` only, never `fill`/`stroke`/`d`)
+
+### Phase 6: Interaction Polish Audit
+**Rationale:** Subjective and iterative — do last when all structural changes are stable so polish decisions are not revisited as elements change. The `@view-transition` CSS is already active from Phase 1. This phase audits existing micro-interactions and adds targeted smooth navigation.
+**Delivers:** Consistent `transition` declarations on nav/footer links; verified MobileMenu drawer animation; smooth anchor navigation via JS `scrollIntoView({ behavior: 'smooth' })` on specific links (not global CSS); Lenis added only if momentum scroll confirmed as a design goal
+**Addresses:** Smooth anchor navigation (table stakes), overall flow polish (differentiator)
+**Avoids:** B9 (no global `scroll-behavior: smooth` on `html` or `body` — Safari 15.4 bug breaks `window.scrollTo()`, IO timing jank), B10 (already resolved in Phase 1 — no `<ViewTransitions />` in the codebase)
 
 ### Phase Ordering Rationale
 
-- Phase 1 before Phase 2: The animation bug means any new `[data-animate]` elements added during the device frame work would fire incorrectly. Fix the foundation first.
-- Phase 2 before Phase 3: Hero stagger animations require the hero to be in its final composed state (with device frame in place). Staggering placeholder layout wastes iteration effort.
-- Phase 3 before Phase 4: UI depth elements (noise texture, gradients) interact visually with scroll-animated sections. Evaluating these interactions is cleaner when animations are stable.
-- Phase 4 before Phase 5: Responsive breakpoints should reflect the final design. Testing after visual changes avoids retesting breakpoints multiple times.
+- CSS Foundation first because the `--weight-*` token system is consumed by Phase 4, the font config must precede any `font-weight: 300` CSS, and the ViewTransitions/IO incompatibility is resolved declaratively before it can be accidentally triggered.
+- DeviceFrame second because it is the visual anchor for the hero — Matisse shapes must be positioned knowing the final frame layout and size.
+- QR removal third because it is purely subtractive with no dependencies — the fastest win and a clean base before adding new elements.
+- Typography before Matisse because heading size and weight affect vertical rhythm and visual breathing room — art shapes must be authored against the locked text hierarchy.
+- Matisse last among structural changes because it requires the most creative iteration and is the only phase with a design-work prerequisite (SVG path authoring).
+- Interaction polish last because it is subjective, and the main tool (CSS `@view-transition`) was already deployed in Phase 1.
 
 ### Research Flags
 
-Phases needing deeper research during planning:
-- **Phase 3 (animations):** If `motion` library is needed for hero choreography, validate the specific animation sequence against the Astro `<script>` import pattern before writing hero animation code. The pattern is documented but the specific hero sequence is a judgment call.
+Phases likely needing deeper research during planning:
+- **Phase 5 (Matisse SVG):** SVG path authoring is creative/craft work with no single right answer. Shape design requires Figma or Inkscape work outside code. Recommend a visual prototype pass (static SVG comped in browser) before committing paths. SVGO configuration (`floatPrecision`, `removeGroups`, `mergePaths`) may need tuning per shape complexity.
 
-Phases with well-documented patterns (skip research-phase):
-- **Phase 1 (animation fix):** Architecture file provides exact implementation code including the full `AnimationController.astro` script. Standard Astro module script pattern.
-- **Phase 2 (device frame):** Flowbite pattern is verified. Architecture file provides the complete prop API and aspect-ratio formula.
-- **Phase 4 (visual polish):** All patterns (noise texture, glass morphism, bento grid) are standard CSS with no library dependencies.
-- **Phase 5 (deployment):** Astro + Cloudflare Pages is well-documented. All known gotchas are captured in PITFALLS.md with exact recovery steps.
-
----
+Phases with standard patterns (skip research-phase):
+- **Phase 1 (CSS Foundation):** `@view-transition` syntax and Tailwind v4 token patterns are fully documented with official sources. One-line font config change is deterministic.
+- **Phase 2 (DeviceFrame):** CSS-only component edit with clear before/after spec in FEATURES.md and ARCHITECTURE.md; percentage-based offset pattern is established.
+- **Phase 3 (QR Removal):** Deletion — no research needed.
+- **Phase 4 (Typography):** Token swap pattern is deterministic; font config is one line; grep verifies completion.
+- **Phase 6 (Interaction Polish):** Audit-and-patch guided by pitfall checklist; Lenis integration is documented vanilla JS.
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | All primary dependencies verified on npm registry as of 2026-05-11. Version numbers confirmed. Firefox View Timeline caveat noted and mitigated with progressive enhancement pattern. |
-| Features | HIGH | Competitor analysis from 9 live sites fetched 2026-05-11. Browser support from MDN and caniuse. Feature prioritization reflects actual observed competitor patterns, not inference. |
-| Architecture | HIGH | Based on direct codebase inspection of actual Tuwa source files. The observer duplication bug is confirmed by reading component code, not assumed. All proposed components have concrete implementations in the research file. |
-| Pitfalls | HIGH | v2.0 pitfalls sourced from Astro official docs, web.dev performance guides, MDN, and 2026 production postmortems. All pitfalls include clear prevention steps and recovery cost estimates. |
+| Stack | HIGH | Astro 6 Font API variable font syntax confirmed in official docs; `@view-transition` confirmed with browser support matrix (Chrome 126, Edge 126, Safari 18.2); Lenis v1.3.23 vanilla JS usage confirmed; ClientRouter conflict documented in Astro GitHub issue #12725 |
+| Features | HIGH | Table stakes derived from direct competitive analysis (TrainingPeaks, Garmin, WHOOP); differentiators cross-validated against MDN, Codrops, MoMA reference; anti-features grounded in specific Lighthouse metrics |
+| Architecture | HIGH | Based on direct codebase inspection of existing component tree — named files, concrete CSS class names, confirmed observer pattern; integration points are specific, not approximations |
+| Pitfalls | HIGH | Critical pitfalls (B10, B4, B1) have confirmed bug reports and official issue tracker references (Astro #9650, Lighthouse #6807, W3C CSSWG #8269); Safari `scroll-behavior` bug confirmed on Apple Developer Forums |
 
-**Overall confidence: HIGH**
+**Overall confidence:** HIGH
 
 ### Gaps to Address
 
-- **Screenhance output quality:** The tool is confirmed to exist and function, but output visual quality is template-dependent. Evaluate a test export before committing pre-rendered mockups to the hero. The CSS device frame is the correct fallback if Screenhance output doesn't meet quality standards.
-- **Hero animation sequence specifics:** Whether CSS View Timeline animations are sufficient for the hero entrance, or whether the `motion` library is needed, cannot be determined until the hero is in its final composed state after Phase 2. This is a design judgment call, not a technical uncertainty.
-- **Sticky scroll showcase (v3.0):** Research confirms high impact but high complexity. Content readiness (3-6 screenshot states per feature) is the primary blocker, not technical feasibility. Revisit when content is available.
-
----
+- **General Sans variable vs. static font files:** STACK.md describes General Sans as a variable font (single weight axis); ARCHITECTURE.md notes Fontshare may serve separate static files per weight. Both are true — Fontshare provides both. Using the `"200 700"` range syntax in the Astro Font API resolves this: the API downloads whichever format Fontshare provides. Verify in the Network tab after the Phase 1 config change — confirm a WOFF2 file appears for weight 300.
+- **Lenis inclusion decision:** Research recommends Lenis only if momentum scroll is a confirmed design goal. This is a product owner decision, not a technical gap. Resolve before Phase 6 begins.
+- **Matisse shape authoring:** The SVG paths for the frieze do not exist and must be authored in Figma or Inkscape. This is design work. Plan for a design prototype pass as the first step of Phase 5 — code cannot begin until paths exist.
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- [tailwind-animations npm](https://www.npmjs.com/package/tailwind-animations) — v1.0.1 confirmed, Tailwind v4 native
-- [motion npm](https://www.npmjs.com/package/motion) — v12.38.0 confirmed, standalone vanilla JS API
-- [Astro deploy to Cloudflare Pages — official docs](https://docs.astro.build/en/guides/deploy/cloudflare/) — no-adapter pattern for static output
-- [Tailwind CSS + Astro install guide](https://tailwindcss.com/docs/installation/framework-guides/astro) — @tailwindcss/vite, not @astrojs/tailwind
-- [Flowbite device mockups](https://flowbite.com/docs/components/device-mockups/) — CSS iPhone frame Tailwind pattern
-- [MDN: CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations) — View Timeline browser support table
-- [web.dev: How to create high-performance CSS animations](https://web.dev/animations-guide/) — transform/opacity vs layout properties
-- [web.dev: Optimize Cumulative Layout Shift](https://web.dev/articles/optimize-cls) — VSI March 2026 update
-- [Astro scripts and event handling](https://docs.astro.build/en/guides/client-side-scripts/) — is:inline vs module script deduplication behavior
-- Direct codebase inspection: `/Users/hanwen/Desktop/tuwa-website/src/` (2026-05-11) — confirmed observer duplication bug in FeatureCTA.astro and LandingCTA.astro
+- [Astro Font Provider API docs](https://docs.astro.build/en/reference/font-provider-reference/) — variable font weight range syntax, `weights` array behavior
+- [Astro zero-JS view transitions blog](https://astro.build/blog/future-of-astro-zero-js-view-transitions/) — `@view-transition { navigation: auto }` canonical reference, browser support
+- [Astro view transitions docs](https://docs.astro.build/en/guides/view-transitions/) — ClientRouter vs. native CSS guidance
+- [MDN CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations) — `animation-timeline: scroll()`, browser support matrix
+- [Lenis GitHub — darkroomengineering/lenis](https://github.com/darkroomengineering/lenis) — v1.3.23, vanilla JS, npm package name
+- [Astro + Lenis ClientRouter conflict issue #12725](https://github.com/withastro/astro/issues/12725) — conflict confirmed; mitigated by using native transitions
+- [Lighthouse issue #6807](https://github.com/GoogleChrome/lighthouse/issues/6807) — SVG nodes counted in DOM size audit
+- [Astro Font API issue #14819](https://github.com/withastro/astro/issues/14819) — variable font loading verification required
+- [W3C CSSWG issue #8269](https://github.com/w3c/csswg-drafts/issues/8269) — ViewTransitions + IntersectionObserver incompatibility (unresolved as of 2026)
+- [Astro GitHub issue #9650](https://github.com/withastro/astro/issues/9650) — IO fires immediately after ViewTransitions navigation
+- [Apple Developer Forums — scroll-behavior breaks JS scroll](https://developer.apple.com/forums/thread/703294) — Safari 15.4+ bug confirmed
+- Direct codebase inspection: `src/styles/global.css`, `src/components/DeviceFrame.astro`, `src/components/Hero.astro`, `src/layouts/BaseLayout.astro` (2026-05-14)
 
 ### Secondary (MEDIUM confidence)
-- [BrightCoding: Tailwind Animations plugin 2026](https://www.blog.brightcoding.dev/2026/03/10/tailwind-animations-the-revolutionary-plugin-for-effortless-ui-motion) — production usage confirmed March 2026
-- [Motion + Astro guide (Netlify)](https://developers.netlify.com/guides/motion-animation-library-with-astro/) — inView, animate, stagger pattern in Astro script tags
-- [gmkennedy.com: Deploy Astro Cloudflare Pages pitfalls](https://www.gmkennedy.com/blog/deploy-astro-cloudflare-pages/) — *.pages.dev vs *.workers.dev gotcha, "Shift to Pages" fix
-- [Addy Osmani: fetchpriority=high for LCP](https://addyosmani.com/blog/fetch-priority/) — performance impact data
-- [Web Animation Performance Tier List — Motion.dev](https://motion.dev/magazine/web-animation-performance-tier-list) — compositor properties, will-change guidance
+- [pimpmytype.com — General Sans](https://pimpmytype.com/font/general-sans/) — variable font axis confirmed, ExtraLight–Bold range
+- [Interop 2026 — WebKit](https://webkit.org/blog/17818/announcing-interop-2026/) — scroll-driven animations and view transitions as cross-browser focus areas
+- [Dev.to: CSS scroll-driven animations 2026](https://dev.to/nickbenksim/creating-complex-scroll-driven-animations-with-pure-css-in-2026-17l) — scroll-driven parallax patterns
+- [MoMA Henri Matisse: The Swimming Pool](https://www.moma.org/interactives/exhibitions/2014/matisse/the-swimming-pool.html) — art direction reference; horizontal frieze, biomorphic forms
+- [SVGO — official GitHub](https://github.com/svg/svgo) — v4 optimization configuration, `--multipass` flag
 
-### Tertiary (competitor pattern analysis)
-- WHOOP, Oura Ring, Strava, Apple Fitness+, Eight Sleep, Arc, Linear, Notion, Superhuman — live site analysis fetched 2026-05-11
+### Tertiary (LOW confidence)
+- Lenis bundle size ~3KB gzipped — consistently described across multiple sources but not independently measured from npm bundle analysis tools
 
 ---
-
-*Research completed: 2026-05-11*
+*Research completed: 2026-05-14*
 *Ready for roadmap: yes*

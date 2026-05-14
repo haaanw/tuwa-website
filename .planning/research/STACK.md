@@ -1,202 +1,300 @@
-# Technology Stack
+# Stack Research
 
-**Project:** Tuwa Marketing Website
-**Researched:** 2026-05-11
-**Milestone:** v2.0 Visual Overhaul — Animations, Device Frames, Screenshot Presentation, Deployment
-**Confidence:** HIGH for all primary recommendations — verified via npm registry, official docs, and multiple 2026 sources
+**Domain:** Marketing site art direction and interaction polish additions (v3.0 milestone)
+**Researched:** 2026-05-14
+**Confidence:** HIGH for CSS-native approaches, MEDIUM for Lenis, HIGH for font/animation libraries
+
+> This document covers ONLY additions or changes needed for the v3.0 milestone.
+> The existing Astro 6 + Tailwind v4 + MDX + Cloudflare Pages stack is validated and unchanged.
 
 ---
 
-## What This Document Covers
+## Current Stack (validated, do not change)
 
-This is the ADDITIVE stack research for v2.0. It covers only new capabilities needed:
-
-1. Scroll-reveal animations
-2. iPhone device mockup frames
-3. App screenshot presentation and generation tools
-4. Cloudflare Pages deployment specifics
-
-Existing v1.0 stack (Astro 6, Tailwind v4, MDX, SEO, General Sans, Chart.js) is validated and NOT re-researched here. See CLAUDE.md or v1 stack decisions for that foundation.
+| Package | Version | Role |
+|---------|---------|------|
+| astro | ^6.3.1 | SSG + Font API |
+| tailwindcss | ^4.3.0 | Utility CSS |
+| @tailwindcss/vite | ^4.3.0 | Tailwind v4 integration |
+| @tailwindcss/typography | ^0.5.19 | Prose styles |
+| @astrojs/mdx | ^5.0.4 | Blog MDX |
+| @astrojs/sitemap | ^3.7.2 | Sitemap |
+| chart.js | ^4.5.1 | Data charts |
+| vite | ^6.4.2 | Build tool |
+| qrcode | ^1.5.4 | (remove in v3.0 — QR section deleted) |
 
 ---
 
 ## Recommended Stack Additions
 
-### Animations
+### 1. Typography Weight System — No New Package Needed
 
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `tailwind-animations` (midudev) | 1.0.1 | Scroll-triggered reveal animations via CSS View Timeline API | Pure CSS, zero runtime JS. Installs as a Tailwind plugin with `@import 'tailwind-animations'` in global.css. Provides `view-animate-single`, `animate-range-*`, and 30+ prebuilt `animate-*` utilities. Uses the native CSS View Timeline API (hardware-accelerated on compositor thread). Compatible with Tailwind v4 specifically — the v3 shim (`@midudev/tailwind-animations`) is deprecated. Firefox still has this behind a flag as of May 2026; use progressive enhancement (animations enhance but never break) so Firefox users see the static layout gracefully. |
-| `motion` (formerly Framer Motion) | 12.38.0 | Complex sequenced animations: hero entrance, device mockup choreography | Use only if CSS alone cannot achieve the desired sequencing. Motion v12 has a 2.3KB mini `animate()` path and a vanilla JS `inView()` function — no React required. Import directly in an Astro `<script>` tag (not an island) using `import { animate, inView, stagger } from "motion"`. Tree-shaking keeps bundle impact minimal. Only add if CSS reveal animations feel too basic for the hero section. |
+**What needs to change:** The Astro Font API in `astro.config.mjs` currently loads only `weights: ["400", "600"]`. General Sans is a variable font (single weight axis, Extra Light through Bold). The typography weight system (large/light titles, smaller/heavier body) requires weight 200 or 300 for display text.
 
-**Decision rule:** Start with `tailwind-animations` CSS-only approach for all scroll reveals on feature/content sections. Add `motion` only if hero entrance or device mockup choreography requires JS timeline control.
+**Change required — `astro.config.mjs`:**
 
-**Confidence:** HIGH for `tailwind-animations` (npm confirmed 1.0.1, Tailwind v4 native, 2026 article confirms production use). MEDIUM for `motion` (npm confirmed 12.38.0, Netlify guide confirms Astro integration pattern — but "only if needed").
-
-### Device Mockup Frames
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| Custom Tailwind CSS component (copy-paste, no package) | N/A | iPhone frame around app screenshots in hero and feature sections | The Flowbite device mockup pattern uses only Tailwind utility classes (`border-[14px]`, `rounded-[2.5rem]`, `shadow-xl`, overflow-hidden container) — fully compatible with Tailwind v4 arbitrary value syntax. No npm package needed. Own the component in `src/components/IPhoneMockup.astro`. Accepts an image src prop, renders a styled frame div with the screenshot inside. This approach: zero dependencies, arbitrary resize via Tailwind, fully responsive down to mobile, no external library to maintain. |
-
-**What NOT to use:** `react-device-frameset` or `device-mockup` npm packages — these require React, add unnecessary JS to a static site, and the CSS-only approach achieves identical results.
-
-**Implementation sketch** (copy into `src/components/IPhoneMockup.astro`):
-```astro
----
-interface Props {
-  src: string;
-  alt: string;
-  width?: number;
-  height?: number;
-}
-const { src, alt, width = 300, height = 600 } = Astro.props;
----
-<div class="relative mx-auto border-[14px] border-gray-800 bg-gray-800 rounded-[2.5rem] shadow-xl"
-     style={`width: ${width}px; height: ${height}px`}>
-  <!-- Dynamic Island notch -->
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[100px] h-[28px] bg-gray-800 rounded-b-[1rem] z-10"></div>
-  <!-- Screen -->
-  <div class="rounded-[2rem] overflow-hidden w-full h-full bg-white">
-    <img {src} {alt} class="w-full h-full object-cover" loading="lazy" />
-  </div>
-</div>
+```js
+fonts: [
+  {
+    provider: fontProviders.fontshare(),
+    name: "General Sans",
+    cssVariable: "--font-general-sans",
+    weights: ["200 700"],  // variable font range — one file, full axis
+    styles: ["normal"],
+    display: "swap",
+    fallbacks: ["system-ui", "sans-serif"],
+    optimizedFallbacks: true,
+  }
+]
 ```
 
-**Confidence:** HIGH — Pattern validated via Flowbite docs and multiple Tailwind CSS iPhone mockup tutorials. Arbitrary values work identically in Tailwind v4.
+Using a range string `"200 700"` instead of an array of discrete values causes Astro's Font API to download a single variable font file covering the full axis. An array like `["200", "300", "400", "600", "700"]` would download five separate static files. The range syntax is the correct approach for variable fonts.
 
-### Screenshot Presentation (Static Assets)
+**CSS token additions in `global.css`:**
 
-| Approach | Purpose | When to Use |
-|----------|---------|-------------|
-| Astro `<Image>` component wrapping raw PNG screenshots | Blur-free, WebP/AVIF optimized screenshots | Always — replace any `<img>` tags with `<Image>` from `astro:assets` to get automatic format optimization, correct `srcset`, and no blurry rendering |
-| Screenhance (screenhance.com) | Generate polished device-framed mockup images for hero backgrounds | Use for static hero imagery that needs high-quality 3D device renders — upload raw app screenshots, export framed PNG/WebP at 2x resolution, commit to `src/assets/` |
-| Apple Developer Design Resources | Official iPhone 16 device frames (Figma format) | Use if building marketing page overlays in Figma first; export as PNG with transparent background, place over screenshots in CSS |
+```css
+/* v3.0 typography weight tokens */
+--font-weight-display: 250;   /* hero title — ultra-light, large */
+--font-weight-heading: 300;   /* section headings */
+--font-weight-body: 500;      /* body copy — slightly heavier than 400 */
+--font-weight-label: 600;     /* caps labels, nav */
+--font-weight-strong: 700;    /* CTAs, callouts */
+```
 
-**On the "generate programmatically" question:** For a marketing site with infrequent screenshot updates, browser-based tools (Screenhance, MockUPhone) are faster than integrating Puppeteer/Playwright into the build pipeline. Use Screenhance to generate 3-4 hero mockup images once, commit them, and use `<Image>` for optimization. Only justify a programmatic pipeline if screenshots change with every app release — that's premature for v2.
+The contrast between 250 (display) and 500 (body) is the typographic signature for this milestone. General Sans's variable axis supports arbitrary values between 200-700; no discrete weight steps needed.
 
-**Confidence:** HIGH for `<Image>` component (core Astro feature). MEDIUM for Screenhance (tool exists and works, but output quality depends on template choice — verify before committing to hero use).
+**Confidence:** HIGH — General Sans variable font confirmed (1 weight axis, ExtraLight-Bold range). Astro Font API variable font range syntax confirmed in docs.
 
-### Cloudflare Pages Deployment
+---
 
-| Setting | Value | Notes |
-|---------|-------|-------|
-| Build command | `npm run build` | Standard Astro build |
-| Output directory | `dist` | Astro default static output |
-| Framework preset | Astro | Select from Cloudflare's preset list |
-| Node.js version | 20.x | Set via environment variable `NODE_VERSION=20` |
-| Adapter | None | Do NOT install `@astrojs/cloudflare` — causes failures with `output: 'static'` |
-| `astro.config.mjs` | `output: 'static'` | Must be explicit |
+### 2. Matisse Cut-Out Art Direction — No New Package Needed
 
-**Critical gotcha (verified from production postmortem):** After first deployment, verify the URL ends in `*.pages.dev` NOT `*.workers.dev`. Cloudflare silently routes some projects to Workers instead of Pages. If you see `*.workers.dev`, go to project settings and click "Shift to Pages."
+**Implementation approach:** Hand-authored inline SVG shapes in Astro components. No library required.
 
-**Confidence:** HIGH — Confirmed via Astro official deploy docs, Cloudflare Pages framework guide, and 2026 production deployment post.
+The Matisse "Swimming Pool" aesthetic uses:
+- Flat biomorphic silhouettes (leaf, kidney, crescent, teardrop shapes)
+- Bold flat fills — one color per shape, no gradients, no strokes
+- Overlapping transparent/opaque layering
+- Horizontal frieze arrangement (shapes flow across the viewport edge)
+
+**Technical approach — inline SVG in `.astro` files:**
+
+Each cut-out shape is a `<path>` or `<ellipse>` element in an inline `<svg>` positioned absolutely behind hero content. The SVG viewBox maps to the viewport width; shapes are authored with bezier curves in Figma or by hand.
+
+```astro
+<!-- MatisseFrieze.astro — example structure -->
+<svg
+  aria-hidden="true"
+  viewBox="0 0 1440 320"
+  preserveAspectRatio="xMidYMid slice"
+  class="absolute inset-0 w-full h-full pointer-events-none"
+>
+  <path d="M0,160 C80,100 160,200 240,160 ..." fill="#2B5240" opacity="0.12" />
+  <ellipse cx="800" cy="200" rx="120" ry="80" fill="#7A6E5C" opacity="0.10" />
+  <!-- additional shapes -->
+</svg>
+```
+
+**Animation of shapes (CSS only):** CSS `@keyframes` with `animation-timing-function: ease-in-out` and long durations (8-15s) for ambient drift. Use `will-change: transform` on animated shapes. Keep to `transform` only (translate, rotate, scale) — never animate the `d` attribute or `fill` in CSS without a library.
+
+**Frieze/scroll parallax (CSS scroll-driven):** The horizontal frieze layer can shift at a different rate than page scroll using CSS scroll-driven animations:
+
+```css
+.frieze-layer {
+  animation: frieze-drift linear;
+  animation-timeline: scroll(root);
+  animation-range: 0% 50%;
+}
+@keyframes frieze-drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-60px); }
+}
+```
+
+This runs on the compositor thread (GPU), zero JS, zero layout recalculation.
+
+**Browser support for CSS scroll-driven:** Chrome 115+, Edge 115+, Safari 18+. Firefox: behind flag (`layout.css.scroll-driven-animations.enabled`). Progressive enhancement — shapes are visible and static on Firefox; parallax drift only in Chromium/Safari. Interop 2026 has cross-browser scroll-driven animations as a focus area, so Firefox default support is coming.
+
+**Confidence:** HIGH — CSS clip-path, inline SVG, scroll-driven animations all confirmed. Firefox gap acknowledged and acceptable as progressive enhancement.
+
+---
+
+### 3. iPhone Frame Realism — No New Package Needed
+
+**Current state:** `DeviceFrame.astro` uses inline CSS with reasonable values but has identified issues: extra border/text misalignment, and screenshot fit problems.
+
+**Fix approach — CSS only:**
+
+The existing component structure is correct (device-frame div + Dynamic Island pill + screen area + home indicator). Specific improvements:
+
+- **Dynamic Island sizing:** Scale the pill proportionally to the frame width using a percentage. Current `width: 100px` is fixed; should be approximately `width: 34%` to remain proportional at all device frame sizes.
+- **Bezel edge refinement:** Add physical side buttons as decorative `div` elements (`position: absolute`) on left/right edges — volume up, volume down, power/lock button. Each is 2-4px wide, ~20px tall, `pointer-events: none`, matching the titanium bezel color.
+- **Screenshot fit:** The `aspect-ratio: 393/852` on the screen div matches the iPhone 15 Pro logical resolution exactly. If screenshots appear misaligned, verify: (a) screenshots exported at 393×852 logical pixels (not 1179×2556 without scaling consideration), and (b) switch from `object-fit: cover` to `object-fit: contain` with `background: #000` to avoid unexpected cropping.
+- **Titanium edge effect:** Replace `border: 1px solid rgba(255,255,255,0.06)` with a two-tone gradient border using a wrapper element and `background: linear-gradient(...)` with `background-clip: border-box` technique, giving the impression of the polished titanium band.
+- **Screen reflection:** A subtle `::after` pseudo-element with a white-to-transparent diagonal gradient at ~3% opacity inside the screen area simulates display glare.
+
+No new packages. All fixes are CSS and HTML structure within the existing `DeviceFrame.astro` component.
+
+**Confidence:** HIGH — CSS-only approach confirmed sufficient, no library gaps identified.
+
+---
+
+### 4. Interaction Polish — One Optional Package
+
+The "contralabs.com-inspired flow" describes:
+1. Smooth native scroll feel (momentum/inertia)
+2. Smooth page transitions between routes
+3. Refined micro-interactions (hover, focus, active states)
+
+#### 4a. Page Transitions — Native CSS, Zero JS
+
+**Use the `@view-transition` CSS at-rule** added to `global.css`. This is the zero-JS approach Astro now recommends over `<ClientRouter>`.
+
+```css
+/* In global.css — enables cross-document view transitions */
+@view-transition {
+  navigation: auto;
+}
+```
+
+Pair with `view-transition-name` on the elements you want to animate between pages:
+
+```css
+.page-hero {
+  view-transition-name: page-hero;
+}
+header {
+  view-transition-name: site-header;
+}
+```
+
+The default fade transition applies automatically. Named transitions morph matching elements between pages.
+
+**Browser support:** Chrome 126+, Edge 126+, Safari 18.2+. Firefox: not yet supported (falls back to instant navigation — acceptable). No JS injected, no `<ClientRouter>` import needed.
+
+**Do NOT add `<ClientRouter>` or the `astro:transitions` module.** The zero-JS native approach is strictly better for a static MPA at tuwa.app's traffic patterns. ClientRouter converts the MPA to a SPA, adding JS overhead and complexity. Astro's own docs state: "As browser APIs and web standards evolve, using Astro's `<ClientRouter />` will increasingly become unnecessary."
+
+#### 4b. Smooth Scroll Feel — Lenis (Conditional, Recommended)
+
+**Package:** `lenis` v1.3.23
+**Install:** `npm install lenis`
+**Bundle size:** ~3KB gzipped (confirmed, vanilla JS, framework-agnostic)
+
+Lenis provides inertia-based smooth scrolling that gives the page the premium feel of high-end creative sites. It intercepts native scroll and replays it with a lerp (linear interpolation) easing curve. This is the mechanism behind the "contralabs feel."
+
+**Use it if:** The product owner confirms the smooth momentum scroll feel is a design goal. If native iOS-style momentum scroll on desktop is the target, Lenis is the correct tool.
+
+**Do NOT use `astro-lenis`** (the wrapper package): 61 weekly downloads, thin abstraction, maintenance risk. Use `lenis` directly in an Astro `<script>` tag in `BaseLayout.astro`:
+
+```astro
+<script>
+  import Lenis from 'lenis';
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t: number) => 1 - Math.pow(1 - t, 4),
+  });
+  function raf(time: number) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+</script>
+```
+
+**Known conflict:** Lenis conflicts with Astro's `<ClientRouter>` (navigation breaks — GitHub issue #12725). Since v3.0 uses native `@view-transition` (no ClientRouter), this conflict does not apply.
+
+**Skip if:** Smooth scroll is not confirmed as a design goal. Native scroll with `scroll-behavior: smooth` on the `:root` gives mild anchor-link smoothing at zero cost for a simpler approach.
+
+**Confidence:** MEDIUM-HIGH — Lenis v1.3.23 confirmed, vanilla JS usage confirmed, ClientRouter conflict confirmed (mitigated). Exact KB gzip not measurable from public sources but consistently described as "ultra-lightweight ~3KB."
+
+#### 4c. Micro-interactions — CSS Only
+
+Hover lift effects, focus ring polish, and active state refinements are all achievable in CSS. Add a global easing override to `global.css`:
+
+```css
+/* Consistent easing across all interactive elements — v3.0 */
+a, button, [role="button"] {
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+```
+
+No library needed.
+
+---
+
+## What NOT to Add
+
+| Avoid | Why | Use Instead |
+|-------|-----|-------------|
+| `<ClientRouter>` from `astro:transitions` | Converts MPA to SPA, adds JS overhead, conflicts with Lenis, unnecessary since browser-native transitions now have 75%+ support | Native `@view-transition` CSS at-rule |
+| `astro-lenis` wrapper | 61 weekly downloads, thin wrapper, maintenance risk | `lenis` direct import in Astro `<script>` |
+| GSAP / MorphSVG | GSAP core is 48KB+; MorphSVG is a paid plugin — extreme overkill for ambient shape drift | CSS `@keyframes` on `transform` for static cut-outs |
+| `anime.js` for cut-out shapes | 10KB for what CSS can do at 0KB | CSS `@keyframes` + `animation-timeline: scroll()` |
+| `flubber` path interpolation | 19KB, only needed if morphing between topologically different SVG paths | Only relevant if shapes transform into each other on user interaction — not the frieze use case |
+| Discrete font weight array `["200","300","400","600","700"]` | Downloads 5 static font files | Variable font range `"200 700"` — one file |
+| `qrcode` npm package | Being removed (QR section deleted in v3.0) | Remove from `package.json` entirely |
 
 ---
 
 ## Installation
 
+One new package is conditionally added:
+
 ```bash
-# Scroll animations (Tailwind v4 CSS plugin)
-npm install tailwind-animations
-
-# Complex animations — only if CSS is insufficient for hero choreography
-npm install motion
+# Add only if smooth momentum scroll is a confirmed design goal
+npm install lenis
 ```
 
-Add to `src/styles/global.css` (after the existing Tailwind import):
-```css
-@import "tailwindcss";
-@import "@tailwindcss/typography";
-@import "tailwind-animations";   /* ADD: scroll-reveal utilities */
-```
+All other v3.0 features are delivered through:
+- **Configuration change:** `astro.config.mjs` font weight range `"200 700"`
+- **CSS additions:** `global.css` — font-weight tokens, `@view-transition`, scroll-driven animations, easing defaults
+- **New Astro components:** `MatisseFrieze.astro` (inline SVG cut-out shapes)
+- **Component edits:** `DeviceFrame.astro` — proportional Dynamic Island, side buttons, screenshot fit fix
+- **Page edits:** Remove QR code + adjacent App Store badge section
 
-No changes needed to `astro.config.mjs` for the animation additions — the Tailwind plugin loads via CSS import, not Vite config.
+Zero new build-time dependencies needed for the art direction features.
 
 ---
 
 ## Alternatives Considered
 
-| Category | Recommended | Alternative | Why Not |
-|----------|-------------|-------------|---------|
-| Scroll animations | `tailwind-animations` CSS plugin | `motion` JS library | JS adds ~12KB even with tree-shaking; CSS View Timeline runs on compositor thread with zero JS overhead. Use CSS first, JS only for hero choreography. |
-| Scroll animations | `tailwind-animations` CSS plugin | AOS (Animate on Scroll) library | AOS is scroll-event-based (main thread). `tailwindcss-intersect` uses IntersectionObserver (more efficient) but requires a JS snippet in `<head>`. The CSS View Timeline approach in `tailwind-animations` is newer and faster — no JS at all. |
-| Scroll animations | `tailwind-animations` CSS plugin | GSAP ScrollTrigger | GSAP is 48KB+ minimum. Appropriate for WebGL galleries and complex timelines, overkill for marketing page reveals. |
-| Scroll animations | `tailwind-animations` CSS plugin | Native CSS `@keyframes` + IntersectionObserver `<script>` | Valid and what v1 STACK.md recommended. `tailwind-animations` is a better v2 choice because it wraps this pattern in Tailwind utility classes (consistent with the project's CSS approach) and uses the newer View Timeline API instead of IntersectionObserver callbacks. |
-| Device frames | Custom Tailwind CSS component | `react-device-frameset` npm package | Requires React. Adds client-side JS to a static site. Identical visual output achievable with 20 lines of Tailwind HTML. |
-| Device frames | Custom Tailwind CSS component | SVG device frames (PommePlate, etc.) | SVG frames are large files, harder to customize colors/shadows, don't respond to Tailwind sizing utilities. CSS approach is simpler and more maintainable. |
-| Screenshot generation | Screenhance (browser tool) | Puppeteer/Playwright build integration | Screenshots change ~monthly at most. Build-pipeline overhead (browser binary, CI time, RAM) isn't justified. Manual generation + commit is the right tradeoff at this scale. |
-| Cloudflare adapter | None | `@astrojs/cloudflare` | Adapter is for SSR/edge functions only. With `output: 'static'`, the adapter silently breaks deployment by routing to Workers. Skip it. |
-
----
-
-## What NOT to Use
-
-| Avoid | Why | Use Instead |
-|-------|-----|-------------|
-| `framer-motion` (old package name) | Deprecated — renamed to `motion`. The `framer-motion` package on npm redirects, but import paths differ. | `motion` with `import { animate } from "motion"` |
-| `@astrojs/tailwind` | Deprecated for Tailwind v4. Causes installation conflicts. | `@tailwindcss/vite` in `vite.plugins` (already in project) |
-| `@midudev/tailwind-animations` | Deprecated compatibility shim for the old v3 version. | `tailwind-animations` (the unprefixed package) |
-| `AOS` (Animate On Scroll library) | Main-thread scroll events, conflicts with Astro view transitions, requires re-init on navigation. | `tailwind-animations` CSS plugin |
-| `@astrojs/cloudflare` adapter | Causes deployment failures with `output: 'static'`. Workers deployment instead of Pages. | No adapter — connect GitHub repo directly to Cloudflare Pages |
-| Online mockup tools that require account/subscription for HD export | Vendor lock-in for core marketing assets | Screenhance free tier (3 exports/month) or Apple Developer Figma resources |
-
----
-
-## Browser Compatibility Note for CSS View Timeline
-
-The `tailwind-animations` plugin uses the CSS View Timeline API (`animation-timeline: view()`):
-
-| Browser | Support |
-|---------|---------|
-| Chrome 115+ | Full |
-| Edge 115+ | Full |
-| Safari 18+ | Full |
-| Firefox | Behind flag (`layout.css.scroll-driven-animations.enabled`) as of May 2026, enabled in Nightly |
-
-**Mitigation:** Treat scroll animations as progressive enhancement. Elements must be fully visible and readable without animation. The `view-animate-single` class makes content appear when scrolled into view — if the animation doesn't fire (Firefox), the element should still be visible at its final state (opacity: 1, no transform offset) by default. Set initial state only via the animation keyframe, not the base element style.
+| Recommended | Alternative | When Alternative Makes Sense |
+|-------------|-------------|-------------------------------|
+| Native `@view-transition` CSS | `<ClientRouter>` (Astro) | Only if you need `transition:persist` for persistent state (audio players, video) — not applicable here |
+| CSS scroll-driven animations | anime.js Scroll Observer | When Firefox support is non-negotiable and you need guaranteed cross-browser parity today |
+| Hand-authored inline SVG | AI generators (Haikei, fffuel.co) | For rapid prototyping / shape ideation — use as design reference, not production output |
+| `lenis` direct | `astro-lenis` wrapper | Never — the wrapper adds no value |
+| Variable font range `"200 700"` | Static font files per weight | Only if variable font files are unavailable from the provider — General Sans has variable files |
 
 ---
 
 ## Version Compatibility
 
-| Package | Version | Compatible With | Notes |
-|---------|---------|-----------------|-------|
-| `tailwind-animations` | 1.0.1 | Tailwind v4 only | The unprefixed package is v4-only. Do not confuse with `@midudev/tailwind-animations` (v3 shim). |
-| `motion` | 12.38.0 | Vanilla JS, no framework required | Import from `"motion"` for vanilla JS functions. Import from `"motion/react"` ONLY if using React islands — this project does not use React. |
-| `tailwind-animations` | 1.0.1 | Astro 6 | No Astro integration needed — it's a CSS `@import`, transparent to Astro's build pipeline. |
-
----
-
-## Confidence Assessment
-
-| Decision | Confidence | Source |
-|----------|------------|--------|
-| `tailwind-animations` v1.0.1 for scroll reveals | HIGH | npm registry confirmed, 2026-03 BrightCoding article, Tailwind v4 CSS `@import` pattern verified |
-| `motion` v12.38.0 for hero choreography (if needed) | MEDIUM | npm confirmed 12.38.0, Netlify Astro guide confirms import pattern, but "only if needed" classification is judgment call |
-| Custom Tailwind CSS for iPhone mockup | HIGH | Flowbite docs + multiple tutorials confirm Tailwind v4 arbitrary value syntax works |
-| Screenhance for pre-generated hero mockups | MEDIUM | Tool exists and is functional; visual quality of output is template-dependent |
-| Cloudflare Pages deployment settings | HIGH | Astro official docs + 2026 production post confirming `*.pages.dev` vs `*.workers.dev` gotcha |
-| Firefox progressive enhancement for View Timeline | HIGH | MDN docs confirm flag status as of 2026-05; "visible by default" fallback is standard pattern |
+| Package | Compatible With | Notes |
+|---------|-----------------|-------|
+| lenis@1.3.23 | Astro 6.x, Vite 6.x, native `@view-transition` | Vanilla JS. Conflicts with `<ClientRouter>` — do not use both. |
+| `@view-transition` CSS at-rule | Chrome 126+, Edge 126+, Safari 18.2+ | Firefox falls back to instant navigation gracefully. Interop 2026 focus area. |
+| CSS scroll-driven animations | Chrome 115+, Edge 115+, Safari 18+ | Firefox behind flag. Progressive enhancement — shapes visible and static on Firefox. |
+| General Sans variable font | Astro `fontProviders.fontshare()` | Weight range `"200 700"` confirmed supported by Fontshare (2 variable font files available). |
 
 ---
 
 ## Sources
 
-- [tailwind-animations npm package (unprefixed, v4)](https://www.npmjs.com/package/tailwind-animations) — version 1.0.1 confirmed
-- [midudev/tailwind-animations GitHub](https://github.com/midudev/tailwind-animations) — install instructions, View Timeline API usage
-- [BrightCoding: Tailwind Animations plugin 2026](https://www.blog.brightcoding.dev/2026/03/10/tailwind-animations-the-revolutionary-plugin-for-effortless-ui-motion) — production usage confirmed March 2026
-- [motion npm package](https://www.npmjs.com/package/motion) — version 12.38.0 confirmed
-- [Motion + Astro guide (Netlify)](https://developers.netlify.com/guides/motion-animation-library-with-astro/) — `inView`, `animate`, `stagger` pattern in Astro `<script>` tags
-- [MDN: CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations) — browser support table, Firefox flag status
-- [Flowbite device mockups](https://flowbite.com/docs/components/device-mockups/) — Tailwind CSS iPhone frame HTML pattern
-- [Screenhance iPhone mockup generator](https://screenhance.com/iphone-mockup-generator) — free browser tool for pre-generated frames
-- [Apple Developer Design Resources](https://developer.apple.com/design/resources/) — official iPhone 16 device frames
-- [Astro deploy to Cloudflare Pages](https://docs.astro.build/en/guides/deploy/cloudflare/) — official docs, no-adapter pattern
-- [Cloudflare Pages Astro framework guide](https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/) — build settings
-- [Deploy Astro Cloudflare Pages pitfalls (gmkennedy.com, 2026)](https://www.gmkennedy.com/blog/deploy-astro-cloudflare-pages/) — `*.workers.dev` vs `*.pages.dev` gotcha, "Shift to Pages" fix
+- [pimpmytype.com — General Sans](https://pimpmytype.com/font/general-sans/) — variable font confirmed, 1 weight axis (ExtraLight-Bold) — HIGH confidence
+- [Astro Font Provider API docs](https://docs.astro.build/en/reference/font-provider-reference/) — variable font `variableAxis` and weight range configuration — HIGH confidence
+- [Astro zero-JS view transitions blog](https://astro.build/blog/future-of-astro-zero-js-view-transitions/) — `@view-transition { navigation: auto; }` canonical reference, Chrome 126/Edge 126 — HIGH confidence
+- [Astro view transitions docs](https://docs.astro.build/en/guides/view-transitions/) — ClientRouter vs native guidance — HIGH confidence
+- [MDN CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations) — browser support, `animation-timeline: scroll()` — HIGH confidence
+- [Interop 2026 — WebKit](https://webkit.org/blog/17818/announcing-interop-2026/) — scroll-driven animations and view transitions cross-browser focus — MEDIUM confidence
+- [Lenis GitHub — darkroomengineering/lenis](https://github.com/darkroomengineering/lenis) — version 1.3.23, vanilla JS, npm install name — HIGH confidence
+- [Astro + Lenis ClientRouter conflict issue #12725](https://github.com/withastro/astro/issues/12725) — confirmed conflict, mitigated by native transitions — HIGH confidence
+- [animejs v4 npm](https://www.npmjs.com/package/animejs) — version 4.2.2, 10KB gzipped, tree-shakeable, SVG morphTo — HIGH confidence
+- [MDN CSS clip-path](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/clip-path) — hardware-accelerated, SVG path values supported — HIGH confidence
+- [Dev.to: CSS scroll-driven animations 2026](https://dev.to/nickbenksim/creating-complex-scroll-driven-animations-with-pure-css-in-2026-17l) — scroll-driven parallax patterns — MEDIUM confidence
+- [DevToolbox: view transitions guide 2026](https://devtoolbox.dedyn.io/blog/css-view-transitions-complete-guide) — browser support matrix current as of 2026 — MEDIUM confidence
 
 ---
 
-*Stack research for: Tuwa Marketing Website v2.0 Visual Overhaul*
-*Researched: 2026-05-11*
+*Stack research for: Tuwa marketing website — v3.0 Art Direction & Interaction Polish*
+*Researched: 2026-05-14*
