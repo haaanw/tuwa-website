@@ -112,7 +112,7 @@ Plans:
 **Plans:** 2 plans
 Plans:
 - [x] 09-01-PLAN.md — Official Apple badge replacement + responsive CSS fixes (fluid headline, 1440px cap, overflow guard)
-- [ ] 09-02-PLAN.md — Cloudflare Pages deployment + Lighthouse verification + responsive visual check
+- [x] 09-02-PLAN.md — Cloudflare Pages deployment + Lighthouse verification + responsive visual check
 
 ## Progress
 
