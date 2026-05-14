@@ -109,7 +109,10 @@ Plans:
   2. The App Store badge in the hero and CTAs is the official Apple asset — no placeholder SVG
   3. The site renders correctly at 375px, 390px, 768px, 1280px, and 1440px viewport widths — no overflow, no broken layouts
   4. Lighthouse Performance score is >= 95 on both mobile and desktop after all v2.0 visual changes are applied
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 09-01-PLAN.md — Official Apple badge replacement + responsive CSS fixes (fluid headline, 1440px cap, overflow guard)
+- [ ] 09-02-PLAN.md — Cloudflare Pages deployment + Lighthouse verification + responsive visual check
 
 ## Progress
 
@@ -124,4 +127,4 @@ Plans:
 | 7. Animation Polish | v2.0 | 2/2 | Complete   | 2026-05-12 |
 | 8. UI/UX Visual Depth | v2.0 | 3/4 | Gap closure | - |
 | 8.1 FeatureGrid Click Wheel | v2.0 | 0/1 | Planned | - |
-| 9. Deployment & Responsive | v2.0 | 0/? | Not started | - |
+| 9. Deployment & Responsive | v2.0 | 0/2 | Planned | - |
