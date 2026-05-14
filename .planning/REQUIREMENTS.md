@@ -29,7 +29,7 @@ Requirements for visual overhaul milestone. Each maps to roadmap phases.
 - [x] **UIPX-02**: Hover micro-interactions on buttons, links, and navigation
 - [x] **UIPX-03**: Card hover lift effects on feature cards and blog listing
 - [x] **UIPX-04**: Noise texture and glass morphism accents on key sections
-- [x] **UIPX-05**: Bento grid layout for feature overview or equivalent high-impact section
+- [x] **UIPX-05**: Bento grid layout for feature overview or equivalent high-impact section _(superseded by Phase 8.1 click wheel)_
 - [x] **UIPX-06**: Animated counters for key metrics (athletes served, workouts tracked)
 
 ### Deployment & Responsive
@@ -71,7 +71,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | ANIM-01 | Phase 5 | Complete |
 | ANIM-02 | Phase 5 | Complete |
-| ANIM-03 | Phase 10 | Pending |
+| ANIM-03 | Phase 10 | Complete |
 | ANIM-04 | Phase 7 | Complete |
 | ANIM-05 | Phase 7 | Complete |
 | SHOT-01 | Phase 6 | Complete |
@@ -83,7 +83,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UIPX-02 | Phase 8 | Complete |
 | UIPX-03 | Phase 8 | Complete |
 | UIPX-04 | Phase 8 | Complete |
-| UIPX-05 | Phase 10 | Pending |
+| UIPX-05 | Phase 10 | Superseded (click wheel) |
 | UIPX-06 | Phase 8 | Complete |
 | DEPL-01 | Phase 9 | Complete |
 | DEPL-02 | Phase 9 | Complete |
@@ -97,4 +97,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-05-11*
-*Last updated: 2026-05-11 after roadmap v2.0 created*
+*Last updated: 2026-05-14 after Phase 10 v2.0 cleanup*
