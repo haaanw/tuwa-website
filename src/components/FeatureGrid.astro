@@ -35,60 +35,64 @@
       >
         <!-- Arcs group: rim track + arc paths rotate together -->
         <g id="wheel-arcs-group">
-          <circle class="wheel-rim-track" cx="240" cy="240" r="190" />
+          <circle class="wheel-rim-track" cx="240" cy="240" r="175" />
           <path class="wheel-arc is-active" data-index="0"
-            d="M 119.549 67.978 A 210 210 0 0 1 360.451 67.978 L 337.508 100.744 A 170 170 0 0 0 142.492 100.744 Z" />
+            d="M 119.549 67.978 A 210 210 0 0 1 360.451 67.978 L 320.301 125.319 A 140 140 0 0 0 159.699 125.319 Z" />
           <path class="wheel-arc" data-index="1"
-            d="M 366.381 72.287 A 210 210 0 0 1 440.824 301.398 L 402.572 289.703 A 170 170 0 0 0 342.309 104.232 Z" />
+            d="M 366.381 72.287 A 210 210 0 0 1 440.824 301.398 L 373.883 280.932 A 140 140 0 0 0 324.254 128.191 Z" />
           <path class="wheel-arc" data-index="2"
-            d="M 438.559 308.369 A 210 210 0 0 1 243.665 449.968 L 242.967 409.974 A 170 170 0 0 0 400.738 295.347 Z" />
+            d="M 438.559 308.369 A 210 210 0 0 1 243.665 449.968 L 242.443 379.979 A 140 140 0 0 0 372.373 285.580 Z" />
           <path class="wheel-arc" data-index="3"
-            d="M 236.335 449.968 A 210 210 0 0 1 41.441 308.369 L 79.262 295.347 A 170 170 0 0 0 237.033 409.974 Z" />
+            d="M 236.335 449.968 A 210 210 0 0 1 41.441 308.369 L 107.627 285.580 A 140 140 0 0 0 237.557 379.979 Z" />
           <path class="wheel-arc" data-index="4"
-            d="M 39.176 301.398 A 210 210 0 0 1 113.619 72.287 L 137.691 104.232 A 170 170 0 0 0 77.428 289.703 Z" />
+            d="M 39.176 301.398 A 210 210 0 0 1 113.619 72.287 L 155.746 128.191 A 140 140 0 0 0 106.117 280.932 Z" />
         </g>
 
-        <!-- Labels: positioned at arc midpoints, translated on rotation to stay upright -->
-        <!-- midRadius=190 (center of 170-210 band). Icon 16px, label below. -->
+        <!-- Labels: positioned at arc midpoints (midR=175), translated on rotation -->
         <g id="wheel-labels-group">
-          <g class="wheel-segment-billboard" data-x="240" data-y="50">
+          <!-- Seg 0: Recovery at (240, 65) -->
+          <g class="wheel-segment-billboard" data-x="240" data-y="65">
             <g class="wheel-segment-content is-active" data-index="0">
-              <svg class="wheel-segment-icon is-active" viewBox="0 0 24 24" width="16" height="16" x="232" y="40" aria-hidden="true">
+              <svg class="wheel-segment-icon is-active" viewBox="0 0 24 24" width="16" height="16" x="232" y="53" aria-hidden="true">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
               </svg>
-              <text class="wheel-segment-label is-active" x="240" y="62">RECOVERY</text>
+              <text class="wheel-segment-label is-active" x="240" y="75">RECOVERY</text>
             </g>
           </g>
-          <g class="wheel-segment-billboard" data-x="420.701" data-y="181.287">
+          <!-- Seg 1: Workload at (406.435, 185.922) -->
+          <g class="wheel-segment-billboard" data-x="406.435" data-y="185.922">
             <g class="wheel-segment-content" data-index="1">
-              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="16" height="16" x="412.701" y="171.287" aria-hidden="true">
+              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="16" height="16" x="398.435" y="173.922" aria-hidden="true">
                 <rect x="2" y="14" width="4" height="8" rx="1"/><rect x="9" y="9" width="4" height="13" rx="1"/><rect x="16" y="4" width="4" height="18" rx="1"/>
               </svg>
-              <text class="wheel-segment-label" x="420.701" y="193.287">LOAD</text>
+              <text class="wheel-segment-label" x="406.435" y="195.922">LOAD</text>
             </g>
           </g>
-          <g class="wheel-segment-billboard" data-x="351.679" data-y="393.713">
+          <!-- Seg 2: Templates at (342.862, 381.578) -->
+          <g class="wheel-segment-billboard" data-x="342.862" data-y="381.578">
             <g class="wheel-segment-content" data-index="2">
-              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="16" height="16" x="343.679" y="383.713" aria-hidden="true">
+              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="16" height="16" x="334.862" y="369.578" aria-hidden="true">
                 <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-1c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-1 14H7v-2h4v2zm0-4H7v-2h4v2zm0-4H7V6h4v2zm6 8h-4v-2h4v2zm0-4h-4v-2h4v2zm0-4h-4V6h4v2z"/>
               </svg>
-              <text class="wheel-segment-label" x="351.679" y="405.713">TRAINING</text>
+              <text class="wheel-segment-label" x="342.862" y="391.578">TRAINING</text>
             </g>
           </g>
-          <g class="wheel-segment-billboard" data-x="128.321" data-y="393.713">
+          <!-- Seg 3: Cold-Start at (137.138, 381.578) -->
+          <g class="wheel-segment-billboard" data-x="137.138" data-y="381.578">
             <g class="wheel-segment-content" data-index="3">
-              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="16" height="16" x="120.321" y="383.713" aria-hidden="true">
+              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="16" height="16" x="129.138" y="369.578" aria-hidden="true">
                 <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
               </svg>
-              <text class="wheel-segment-label" x="128.321" y="405.713">ONBOARDING</text>
+              <text class="wheel-segment-label" x="137.138" y="391.578">ONBOARDING</text>
             </g>
           </g>
-          <g class="wheel-segment-billboard" data-x="59.299" data-y="181.287">
+          <!-- Seg 4: Coaching at (73.565, 185.922) -->
+          <g class="wheel-segment-billboard" data-x="73.565" data-y="185.922">
             <g class="wheel-segment-content" data-index="4">
-              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="16" height="16" x="51.299" y="171.287" aria-hidden="true">
+              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="16" height="16" x="65.565" y="173.922" aria-hidden="true">
                 <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
               </svg>
-              <text class="wheel-segment-label" x="59.299" y="193.287">COACHING</text>
+              <text class="wheel-segment-label" x="73.565" y="195.922">COACHING</text>
             </g>
           </g>
         </g>
@@ -135,7 +139,7 @@
     var CX = 240;
     var CY = 240;
     var SEGMENT_ANGLE = 72;
-    var MID_RADIUS = 190;
+    var MID_RADIUS = 175;
     var DEG2RAD = Math.PI / 180;
 
     var activeIndex = 0;
