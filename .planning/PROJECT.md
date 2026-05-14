@@ -36,6 +36,7 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 - ✓ Cloudflare Pages deployment (GitHub integration, auto-deploy) — Phase 9
 - ✓ Responsive design (fluid, 5 breakpoints verified, 1440px cap) — Phase 9
 - ✓ Lighthouse >= 95 (Mobile 98, Desktop 99 on live tuwa.app) — Phase 9
+- ✓ Dead CSS cleanup + wheel arc stagger animation (ANIM-03, UIPX-05) — Phase 10
 
 ### Out of Scope
 
@@ -105,4 +106,4 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026-05-11 after Phase 5 (Animation Infrastructure) complete*
+*Last updated: 2026-05-14 after Phase 10 (v2.0 cleanup) complete*
