@@ -111,7 +111,7 @@ Plans:
   4. Lighthouse Performance score is >= 95 on both mobile and desktop after all v2.0 visual changes are applied
 **Plans:** 2 plans
 Plans:
-- [ ] 09-01-PLAN.md — Official Apple badge replacement + responsive CSS fixes (fluid headline, 1440px cap, overflow guard)
+- [x] 09-01-PLAN.md — Official Apple badge replacement + responsive CSS fixes (fluid headline, 1440px cap, overflow guard)
 - [ ] 09-02-PLAN.md — Cloudflare Pages deployment + Lighthouse verification + responsive visual check
 
 ## Progress
