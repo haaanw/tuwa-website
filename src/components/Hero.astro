@@ -1,6 +1,7 @@
 ---
 import dashboardScreenshot from '../assets/screenshots/dashboard.png';
 import DeviceFrame from './DeviceFrame.astro';
+import { APP_STORE_URL } from '../config';
 ---
 
 <section class="section-spaced px-6">
@@ -49,6 +50,25 @@ import DeviceFrame from './DeviceFrame.astro';
         fetchpriority="high"
         widths={[320, 640, 960]}
       />
+    </div>
+
+    <!-- App Store badge — above the fold, per D-01/D-02 -->
+    <div class="flex justify-center" style="margin-top: var(--space-xl);">
+      <a
+        href={APP_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download Tuwa on the App Store"
+        class="inline-block"
+      >
+        <img
+          src="/badges/app-store-badge.svg"
+          alt="Download on the App Store"
+          height="40"
+          width="120"
+          loading="eager"
+        />
+      </a>
     </div>
 
   </div>
