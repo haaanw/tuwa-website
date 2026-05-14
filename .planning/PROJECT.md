@@ -48,28 +48,29 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 - E-commerce or merchandise
 - Dark mode — Descoped (light mode only)
 
-## Current Milestone: v2.0 Visual Overhaul & Polish — COMPLETE (2026-05-14)
+## Current State
 
-**Goal:** Elevate the site from functional MVP to polished, professional marketing presence.
-**Status:** All phases complete. Site live at tuwa.app.
+**Shipped:** v2.0 Visual Overhaul & Polish (2026-05-14)
+**Live at:** tuwa.app (Cloudflare Pages, auto-deploy from main)
+**Lighthouse:** Mobile 98, Desktop 99
 
-**Target features:**
-- Competitor/inspiration website research (fitness + broader category)
-- Whole-site UI/UX refinement pass
-- Animation polish (scroll reveals, transitions, entrance effects)
-- Screenshot presentation overhaul (HD, device frames, possibly generated)
-- App Store badge (official Apple asset)
-- Cloudflare Pages deployment
-- Responsive design refinement
+Site is a polished marketing presence with CSS device frames, choreographed animations, iPod click wheel feature overview, sticky scroll showcase, and animated stat counters. All 10 pages responsive across 5 breakpoints.
+
+**Next milestone:** Not yet planned — run `/gsd-new-milestone` to start
 
 ## Context
 
-**Current state (v1.0 shipped 2026-05-11):**
-- 2,399 LOC across Astro/CSS/TS/JS
-- 10 pages built, all with unique OG images
-- General Sans font (switched from Alpino during Phase 4)
+**Current state (v2.0 shipped 2026-05-14):**
+- ~20,000 LOC across Astro/CSS/TS/JS (94 files changed since v1.0)
+- 10 pages live at tuwa.app, all with unique OG images
+- General Sans font via Astro Font API
+- CSS iPhone 15 Pro device frames on all feature pages + hero
+- iPod-style SVG click wheel for feature overview
+- Choreographed animations: hero entrance, stagger delays, sticky scroll showcase
+- Animated stat counters, noise texture, micro-interactions
 - Blog ready for posts (MDX collection, empty state, reading time plugin)
-- Cloudflare 301 redirects configured for old GitHub Pages URLs
+- Cloudflare Pages auto-deploy from GitHub main branch
+- Lighthouse Mobile 98, Desktop 99
 
 **The app (Tuwa):**
 - iOS native (SwiftUI + SwiftData + HealthKit), live on App Store
@@ -100,10 +101,14 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 | MDX for blog | Future posts with embedded components/charts without separate CMS | ✓ Good |
 | No @astrojs/cloudflare adapter | Pure static output, adapter causes deployment failures with static mode | ✓ Good |
 | Chart.js for data visualizations | Lightweight, familiar, works in Astro islands | ✓ Good |
+| CSS device frames over baked-in PNG frames | Reusable, responsive, consistent aspect ratio | ✓ Good |
+| CSS-only animations over motion library | Zero bundle cost, sufficient for all use cases | ✓ Good |
+| iPod click wheel over bento grid | Distinctive, interactive, on-brand differentiation | ✓ Good |
+| No Cloudflare adapter for static site | Pure static output avoids adapter deployment failures | ✓ Good |
 
 ## Evolution
 
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026-05-14 after Phase 10 (v2.0 cleanup) complete*
+*Last updated: 2026-05-14 after v2.0 milestone complete*
