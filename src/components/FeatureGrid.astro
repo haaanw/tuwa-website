@@ -1,11 +1,9 @@
 <!-- Feature navigation wheel — iPod-style SVG click wheel (Phase 08.1) -->
-<!-- 5 feature segments: drag-to-rotate, click-to-select, keyboard navigation -->
-<!-- Labels counter-rotate to stay upright. Buttons reposition on rotate. -->
+<!-- Click any segment to rotate it to the top and show its details in center -->
 
 <section class="section-spaced">
   <div class="mx-auto max-w-6xl px-6">
 
-    <!-- Section title -->
     <h2
       class="text-center"
       style="
@@ -20,7 +18,6 @@
       Everything you need to train without guessing
     </h2>
 
-    <!-- Click wheel container -->
     <div
       class="wheel-container"
       id="feature-wheel"
@@ -30,86 +27,74 @@
       role="group"
       tabindex="0"
     >
-      <!-- SVG wheel: rim track + separate arc and label groups -->
       <svg
         id="feature-wheel-svg"
         class="wheel-svg"
         viewBox="0 0 480 480"
-        style="touch-action: none;"
         aria-hidden="true"
       >
         <!-- Arcs group: rim track + arc paths rotate together -->
         <g id="wheel-arcs-group">
-          <!-- Rim track background circle (rotates with arcs — circle is symmetric so rotation is invisible) -->
           <circle class="wheel-rim-track" cx="240" cy="240" r="190" />
-          <!-- Segment 0: Recovery (12 o'clock) -->
           <path class="wheel-arc is-active" data-index="0"
             d="M 119.549 67.978 A 210 210 0 0 1 360.451 67.978 L 337.508 100.744 A 170 170 0 0 0 142.492 100.744 Z" />
-          <!-- Segment 1: Workload (72 deg) -->
           <path class="wheel-arc" data-index="1"
             d="M 366.381 72.287 A 210 210 0 0 1 440.824 301.398 L 402.572 289.703 A 170 170 0 0 0 342.309 104.232 Z" />
-          <!-- Segment 2: Templates (144 deg) -->
           <path class="wheel-arc" data-index="2"
             d="M 438.559 308.369 A 210 210 0 0 1 243.665 449.968 L 242.967 409.974 A 170 170 0 0 0 400.738 295.347 Z" />
-          <!-- Segment 3: Cold-Start (216 deg) -->
           <path class="wheel-arc" data-index="3"
             d="M 236.335 449.968 A 210 210 0 0 1 41.441 308.369 L 79.262 295.347 A 170 170 0 0 0 237.033 409.974 Z" />
-          <!-- Segment 4: Coaching (288 deg) -->
           <path class="wheel-arc" data-index="4"
             d="M 39.176 301.398 A 210 210 0 0 1 113.619 72.287 L 137.691 104.232 A 170 170 0 0 0 77.428 289.703 Z" />
         </g>
 
-        <!-- Labels group: each billboard counter-rotates to stay upright -->
+        <!-- Labels: positioned at arc midpoints, translated on rotation to stay upright -->
+        <!-- midRadius=190 (center of 170-210 band). Icon 16px, label below. -->
         <g id="wheel-labels-group">
-          <!-- Seg 0: Recovery at (240, 50) -->
           <g class="wheel-segment-billboard" data-x="240" data-y="50">
             <g class="wheel-segment-content is-active" data-index="0">
-              <svg class="wheel-segment-icon is-active" viewBox="0 0 24 24" width="20" height="20" x="230" y="32" aria-hidden="true">
+              <svg class="wheel-segment-icon is-active" viewBox="0 0 24 24" width="16" height="16" x="232" y="40" aria-hidden="true">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
               </svg>
-              <text class="wheel-segment-label is-active" x="240" y="57">RECOVERY</text>
+              <text class="wheel-segment-label is-active" x="240" y="62">RECOVERY</text>
             </g>
           </g>
-          <!-- Seg 1: Workload at (420.701, 181.287) -->
           <g class="wheel-segment-billboard" data-x="420.701" data-y="181.287">
             <g class="wheel-segment-content" data-index="1">
-              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="20" height="20" x="410.701" y="163.287" aria-hidden="true">
+              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="16" height="16" x="412.701" y="171.287" aria-hidden="true">
                 <rect x="2" y="14" width="4" height="8" rx="1"/><rect x="9" y="9" width="4" height="13" rx="1"/><rect x="16" y="4" width="4" height="18" rx="1"/>
               </svg>
-              <text class="wheel-segment-label" x="420.701" y="188.287">LOAD</text>
+              <text class="wheel-segment-label" x="420.701" y="193.287">LOAD</text>
             </g>
           </g>
-          <!-- Seg 2: Templates at (351.679, 393.713) -->
           <g class="wheel-segment-billboard" data-x="351.679" data-y="393.713">
             <g class="wheel-segment-content" data-index="2">
-              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="20" height="20" x="341.679" y="375.713" aria-hidden="true">
+              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="16" height="16" x="343.679" y="383.713" aria-hidden="true">
                 <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-1c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-1 14H7v-2h4v2zm0-4H7v-2h4v2zm0-4H7V6h4v2zm6 8h-4v-2h4v2zm0-4h-4v-2h4v2zm0-4h-4V6h4v2z"/>
               </svg>
-              <text class="wheel-segment-label" x="351.679" y="400.713">TRAINING</text>
+              <text class="wheel-segment-label" x="351.679" y="405.713">TRAINING</text>
             </g>
           </g>
-          <!-- Seg 3: Cold-Start at (128.321, 393.713) -->
           <g class="wheel-segment-billboard" data-x="128.321" data-y="393.713">
             <g class="wheel-segment-content" data-index="3">
-              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="20" height="20" x="118.321" y="375.713" aria-hidden="true">
+              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="16" height="16" x="120.321" y="383.713" aria-hidden="true">
                 <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
               </svg>
-              <text class="wheel-segment-label" x="128.321" y="400.713">ONBOARDING</text>
+              <text class="wheel-segment-label" x="128.321" y="405.713">ONBOARDING</text>
             </g>
           </g>
-          <!-- Seg 4: Coaching at (59.299, 181.287) -->
           <g class="wheel-segment-billboard" data-x="59.299" data-y="181.287">
             <g class="wheel-segment-content" data-index="4">
-              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="20" height="20" x="49.299" y="163.287" aria-hidden="true">
+              <svg class="wheel-segment-icon" viewBox="0 0 24 24" width="16" height="16" x="51.299" y="171.287" aria-hidden="true">
                 <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
               </svg>
-              <text class="wheel-segment-label" x="59.299" y="188.287">COACHING</text>
+              <text class="wheel-segment-label" x="59.299" y="193.287">COACHING</text>
             </g>
           </g>
         </g>
       </svg>
 
-      <!-- Segment buttons: repositioned dynamically on rotate -->
+      <!-- Clickable segment buttons: repositioned on rotate -->
       <button class="wheel-segment-btn" data-index="0" aria-pressed="true"
         style="left: 50%; top: 10.417%;"><span class="sr-only">Recovery Scoring</span></button>
       <button class="wheel-segment-btn" data-index="1" aria-pressed="false"
@@ -121,7 +106,7 @@
       <button class="wheel-segment-btn" data-index="4" aria-pressed="false"
         style="left: 12.354%; top: 37.768%;"><span class="sr-only">Coach + Athlete</span></button>
 
-      <!-- Center overlay: does NOT rotate, shows selected feature preview -->
+      <!-- Center overlay -->
       <div class="wheel-center">
         <div class="wheel-center-content" role="region" aria-live="polite">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--color-accent)" aria-hidden="true">
@@ -142,7 +127,6 @@
     var wheel = document.getElementById('feature-wheel');
     if (!wheel) return;
 
-    var svgEl = document.getElementById('feature-wheel-svg');
     var arcsGroup = document.getElementById('wheel-arcs-group');
     var billboards = wheel.querySelectorAll('.wheel-segment-billboard');
     var centerContent = wheel.querySelector('.wheel-center-content');
@@ -156,11 +140,7 @@
 
     var activeIndex = 0;
     var currentRotation = 0;
-    var isDragging = false;
-    var lastAngle = 0;
-    var velocitySamples = [];
-    var rafId = null;
-    var dragDistance = 0;
+    var animating = false;
 
     var features = [
       {
@@ -195,22 +175,11 @@
       }
     ];
 
-    // --- Compute pointer angle relative to wheel center ---
-    function getAngle(e) {
-      var rect = svgEl.getBoundingClientRect();
-      var scaleX = 480 / rect.width;
-      var scaleY = 480 / rect.height;
-      var dx = (e.clientX - rect.left) * scaleX - CX;
-      var dy = (e.clientY - rect.top) * scaleY - CY;
-      return Math.atan2(dy, dx) * (180 / Math.PI);
-    }
-
-    // --- Apply rotation: arcs rotate, labels translate to rotated positions, buttons reposition ---
+    // --- Set wheel rotation (no animation) ---
     function setWheelRotation(rotation) {
       currentRotation = rotation;
-      // Arcs orbit around center
       arcsGroup.setAttribute('transform', 'rotate(' + rotation + ', ' + CX + ', ' + CY + ')');
-      // Labels: compute each label's new position from rotation, translate there (stays upright)
+
       var rad = rotation * DEG2RAD;
       var cosR = Math.cos(rad);
       var sinR = Math.sin(rad);
@@ -227,7 +196,44 @@
       layoutSegmentButtons(rotation);
     }
 
-    // --- Reposition absolute buttons to follow arc midpoints ---
+    // --- Animate rotation from current to target ---
+    function animateRotation(targetRotation, callback) {
+      if (animating) return;
+      if (reducedMotion) {
+        setWheelRotation(targetRotation);
+        if (callback) callback();
+        return;
+      }
+
+      animating = true;
+      var startRotation = currentRotation;
+      var delta = targetRotation - startRotation;
+      var duration = Math.min(400, Math.max(200, Math.abs(delta) * 3));
+      var startTime = performance.now();
+
+      function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function frame(now) {
+        var elapsed = now - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        var easedProgress = easeOut(progress);
+        var rot = startRotation + delta * easedProgress;
+        setWheelRotation(rot);
+
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          setWheelRotation(targetRotation);
+          animating = false;
+          if (callback) callback();
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    // --- Reposition absolute buttons ---
     var segBtns = wheel.querySelectorAll('.wheel-segment-btn');
 
     function layoutSegmentButtons(rotation) {
@@ -241,83 +247,9 @@
       });
     }
 
-    // --- Pointer Events drag handlers (on container to include buttons) ---
-    wheel.addEventListener('pointerdown', function(e) {
-      if (e.target.closest('.wheel-center, .wheel-center-content, a')) return;
-      isDragging = true;
-      wheel.setPointerCapture(e.pointerId);
-      lastAngle = getAngle(e);
-      velocitySamples = [];
-      dragDistance = 0;
-      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-    });
-
-    wheel.addEventListener('pointermove', function(e) {
-      if (!isDragging) return;
-      var angle = getAngle(e);
-      var delta = angle - lastAngle;
-      if (delta > 180) delta -= 360;
-      if (delta < -180) delta += 360;
-      lastAngle = angle;
-      currentRotation += delta;
-      dragDistance += Math.abs(delta);
-      setWheelRotation(currentRotation);
-      velocitySamples.push({ angle: currentRotation, time: performance.now() });
-      if (velocitySamples.length > 3) velocitySamples.shift();
-    });
-
-    wheel.addEventListener('pointerup', function() {
-      if (!isDragging) return;
-      isDragging = false;
-      if (dragDistance < 5) return;
-      applyInertiaAndSnap();
-    });
-
-    // --- Inertia and snap ---
-    function applyInertiaAndSnap() {
-      if (reducedMotion || velocitySamples.length < 2) {
-        snapToNearest();
-        return;
-      }
-      var first = velocitySamples[0];
-      var last = velocitySamples[velocitySamples.length - 1];
-      var dt = last.time - first.time;
-      var velocity = dt > 0 ? (last.angle - first.angle) / dt : 0;
-      var DECAY = 0.92;
-      var FRAME_MS = 16.67;
-      var MAX_OVERSHOOT = 30;
-
-      function inertiaFrame() {
-        velocity *= DECAY;
-        currentRotation += velocity * FRAME_MS;
-        var nearest = Math.round(currentRotation / SEGMENT_ANGLE) * SEGMENT_ANGLE;
-        if (Math.abs(currentRotation - nearest) > MAX_OVERSHOOT) {
-          currentRotation = nearest + (currentRotation > nearest ? MAX_OVERSHOOT : -MAX_OVERSHOOT);
-          velocity = 0;
-        }
-        setWheelRotation(currentRotation);
-        if (Math.abs(velocity) > 0.05) {
-          rafId = requestAnimationFrame(inertiaFrame);
-        } else {
-          rafId = null;
-          snapToNearest();
-        }
-      }
-      rafId = requestAnimationFrame(inertiaFrame);
-    }
-
-    function snapToNearest() {
-      var nearest = Math.round(currentRotation / SEGMENT_ANGLE) * SEGMENT_ANGLE;
-      currentRotation = nearest;
-      var idx = (((Math.round(-nearest / SEGMENT_ANGLE)) % 5) + 5) % 5;
-      setWheelRotation(nearest);
-      updateActive(idx);
-    }
-
     // --- Click-to-select: segment buttons ---
     segBtns.forEach(function(btn) {
       btn.addEventListener('click', function() {
-        if (dragDistance > 5) { dragDistance = 0; return; }
         var idx = parseInt(btn.getAttribute('data-index'), 10);
         rotateTo(idx);
       });
@@ -327,21 +259,23 @@
     var arcPaths = wheel.querySelectorAll('.wheel-arc');
     arcPaths.forEach(function(arc) {
       arc.addEventListener('click', function() {
-        if (dragDistance > 5) { dragDistance = 0; return; }
         var idx = parseInt(arc.getAttribute('data-index'), 10);
         rotateTo(idx);
       });
     });
 
     function rotateTo(idx) {
-      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      if (animating || idx === activeIndex) return;
       var targetRotation = -idx * SEGMENT_ANGLE;
+      // Shortest path
       var delta = targetRotation - currentRotation;
       while (delta > 180) delta -= 360;
       while (delta < -180) delta += 360;
-      currentRotation = currentRotation + delta;
-      setWheelRotation(currentRotation);
-      updateActive(idx);
+      var finalRotation = currentRotation + delta;
+
+      animateRotation(finalRotation, function() {
+        updateActive(idx);
+      });
     }
 
     // --- Keyboard navigation ---
