@@ -15,85 +15,94 @@ import MobileMenu from "./MobileMenu.astro";
     class="mx-auto flex h-full max-w-6xl items-center justify-between px-6"
     aria-label="Main navigation"
   >
-    <!-- Logo — use <a>, NOT <h1> (accessibility: h1 is in main content) -->
     <a
       href="/"
       aria-label="Tuwa home"
-      style="font-size: var(--text-heading); font-weight: 600; color: var(--color-text-1); letter-spacing: var(--tracking-heading); text-decoration: none;"
+      class="nav-logo"
     >
       Tuwa
     </a>
 
-    <!-- Desktop nav links (hidden on mobile) -->
+    <!-- Desktop nav links -->
     <ul class="hidden items-center gap-8 md:flex" role="list">
       <li class="relative" id="features-dropdown">
         <button
           type="button"
-          class="flex items-center gap-1 transition-colors duration-100"
-          style="color: var(--color-text-1); background: none; border: none; cursor: pointer; font: inherit;"
+          class="nav-link flex items-center gap-1"
           aria-expanded="false"
           aria-haspopup="true"
         >
           Features
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="transition-transform duration-150" style="margin-top: 1px;">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="nav-chevron" style="margin-top: 1px;">
             <polyline points="2,4 6,8 10,4" />
           </svg>
         </button>
-        <ul
-          role="list"
-          class="absolute hidden"
-          style="
-            top: calc(100% + 8px);
-            left: 50%;
-            transform: translateX(-50%);
-            min-width: 200px;
-            background-color: var(--color-surface);
-            border: 1px solid var(--color-divider);
-            border-radius: var(--radius-md);
-            padding: var(--space-xs) 0;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-          "
-        >
-          <li><a href="/features/recovery-scoring" style="display: block; padding: var(--space-sm) var(--space-md); color: var(--color-text-2); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)';this.style.backgroundColor='var(--color-surface-2)'" onmouseout="this.style.color='var(--color-text-2)';this.style.backgroundColor='transparent'">Recovery Scoring</a></li>
-          <li><a href="/features/workload-tracking" style="display: block; padding: var(--space-sm) var(--space-md); color: var(--color-text-2); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)';this.style.backgroundColor='var(--color-surface-2)'" onmouseout="this.style.color='var(--color-text-2)';this.style.backgroundColor='transparent'">Workload Tracking</a></li>
-          <li><a href="/features/smart-templates" style="display: block; padding: var(--space-sm) var(--space-md); color: var(--color-text-2); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)';this.style.backgroundColor='var(--color-surface-2)'" onmouseout="this.style.color='var(--color-text-2)';this.style.backgroundColor='transparent'">Smart Templates</a></li>
-          <li><a href="/features/cold-start" style="display: block; padding: var(--space-sm) var(--space-md); color: var(--color-text-2); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)';this.style.backgroundColor='var(--color-surface-2)'" onmouseout="this.style.color='var(--color-text-2)';this.style.backgroundColor='transparent'">Cold Start Solution</a></li>
-          <li><a href="/features/coaching" style="display: block; padding: var(--space-sm) var(--space-md); color: var(--color-text-2); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)';this.style.backgroundColor='var(--color-surface-2)'" onmouseout="this.style.color='var(--color-text-2)';this.style.backgroundColor='transparent'">Coaching</a></li>
-        </ul>
+        <div class="nav-dropdown" role="menu">
+          <a href="/features/recovery-scoring" class="nav-dropdown-item" role="menuitem">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="var(--color-accent)" aria-hidden="true">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <div>
+              <span class="nav-dropdown-title">Recovery Scoring</span>
+              <span class="nav-dropdown-desc">Daily readiness from HRV, sleep, and training load</span>
+            </div>
+          </a>
+          <a href="/features/workload-tracking" class="nav-dropdown-item" role="menuitem">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="var(--color-accent)" aria-hidden="true">
+              <rect x="2" y="14" width="4" height="8" rx="1"/><rect x="9" y="9" width="4" height="13" rx="1"/><rect x="16" y="4" width="4" height="18" rx="1"/>
+            </svg>
+            <div>
+              <span class="nav-dropdown-title">Workload Tracking</span>
+              <span class="nav-dropdown-desc">Multi-factor fatigue and load spike detection</span>
+            </div>
+          </a>
+          <a href="/features/smart-templates" class="nav-dropdown-item" role="menuitem">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="var(--color-accent)" aria-hidden="true">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-1c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-1 14H7v-2h4v2zm0-4H7v-2h4v2zm0-4H7V6h4v2zm6 8h-4v-2h4v2zm0-4h-4v-2h4v2zm0-4h-4V6h4v2z"/>
+            </svg>
+            <div>
+              <span class="nav-dropdown-title">Smart Templates</span>
+              <span class="nav-dropdown-desc">Prescribed workouts with target sets and reps</span>
+            </div>
+          </a>
+          <a href="/features/cold-start" class="nav-dropdown-item" role="menuitem">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="var(--color-accent)" aria-hidden="true">
+              <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+            </svg>
+            <div>
+              <span class="nav-dropdown-title">Cold Start Solution</span>
+              <span class="nav-dropdown-desc">Useful on day one, no baseline wait</span>
+            </div>
+          </a>
+          <a href="/features/coaching" class="nav-dropdown-item" role="menuitem">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="var(--color-accent)" aria-hidden="true">
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+            <div>
+              <span class="nav-dropdown-title">Coaching</span>
+              <span class="nav-dropdown-desc">Team recovery visibility and prescribed workouts</span>
+            </div>
+          </a>
+        </div>
       </li>
       <li>
-        <a href="/blog" class="transition-colors duration-100" style="color: var(--color-text-1); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-1)'">
-          Blog
-        </a>
+        <a href="/blog" class="nav-link">Blog</a>
       </li>
       <li>
-        <a href="/support" class="transition-colors duration-100" style="color: var(--color-text-1); text-decoration: none;" onmouseover="this.style.color='var(--color-accent)'" onmouseout="this.style.color='var(--color-text-1)'">
-          Support
-        </a>
+        <a href="/support" class="nav-link">Support</a>
       </li>
     </ul>
 
-    <!-- CTA button — accent color (D-02), hidden on mobile -->
+    <!-- CTA button -->
     <a
       href="https://apps.apple.com/app/tuwa"
       rel="noopener noreferrer"
-      class="btn-cta hidden md:inline-flex items-center transition-colors duration-100"
-      style="
-        background-color: var(--color-accent);
-        color: var(--color-accent-fg);
-        border-radius: var(--radius-md);
-        padding: var(--space-sm) var(--space-md);
-        font-weight: 600;
-        text-decoration: none;
-        font-size: var(--text-body);
-      "
-      onmouseover="this.style.backgroundColor='var(--color-accent-hover)';this.style.boxShadow='0 2px 8px rgba(43,82,64,0.20)'"
-      onmouseout="this.style.backgroundColor='var(--color-accent)';this.style.boxShadow='none'"
+      class="btn-cta hidden md:inline-flex items-center"
     >
       Get the App
     </a>
 
-    <!-- Mobile hamburger button (visible below md breakpoint) -->
+    <!-- Mobile hamburger -->
     <button
       id="menu-toggle"
       aria-expanded="false"
@@ -119,26 +128,58 @@ import MobileMenu from "./MobileMenu.astro";
     var dropdown = document.getElementById('features-dropdown');
     if (!dropdown) return;
     var btn = dropdown.querySelector('button');
-    var menu = dropdown.querySelector('ul');
-    var chevron = btn.querySelector('svg');
+    var menu = dropdown.querySelector('.nav-dropdown');
+    var chevron = btn.querySelector('.nav-chevron');
 
-    btn.addEventListener('click', function() {
-      var open = menu.classList.toggle('hidden');
-      btn.setAttribute('aria-expanded', !open);
-      chevron.style.transform = open ? '' : 'rotate(180deg)';
+    function open() {
+      menu.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+      chevron.style.transform = 'rotate(180deg)';
+    }
+
+    function close() {
+      menu.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      chevron.style.transform = '';
+    }
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (menu.classList.contains('is-open')) {
+        close();
+      } else {
+        open();
+      }
     });
 
+    // Hover open/close with delay
+    var closeTimer = null;
+    dropdown.addEventListener('mouseenter', function() {
+      clearTimeout(closeTimer);
+      open();
+    });
+    dropdown.addEventListener('mouseleave', function() {
+      closeTimer = setTimeout(close, 200);
+    });
+
+    // Close on outside click
     document.addEventListener('click', function(e) {
       if (!dropdown.contains(e.target)) {
-        menu.classList.add('hidden');
-        btn.setAttribute('aria-expanded', 'false');
-        chevron.style.transform = '';
+        close();
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+        close();
+        btn.focus();
       }
     });
   })();
 </script>
 
-<!-- Scroll shadow: subtle box-shadow when scrolled past top -->
+<!-- Scroll shadow -->
 <script is:inline>
   (function() {
     const header = document.querySelector("header");
