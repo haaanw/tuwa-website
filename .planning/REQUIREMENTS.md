@@ -69,9 +69,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ANIM-01 | Phase 5 | Pending |
-| ANIM-02 | Phase 5 | Pending |
-| ANIM-03 | Phase 7 | Complete |
+| ANIM-01 | Phase 5 | Complete |
+| ANIM-02 | Phase 5 | Complete |
+| ANIM-03 | Phase 10 | Pending |
 | ANIM-04 | Phase 7 | Complete |
 | ANIM-05 | Phase 7 | Complete |
 | SHOT-01 | Phase 6 | Complete |
@@ -83,12 +83,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UIPX-02 | Phase 8 | Complete |
 | UIPX-03 | Phase 8 | Complete |
 | UIPX-04 | Phase 8 | Complete |
-| UIPX-05 | Phase 8 | Complete |
+| UIPX-05 | Phase 10 | Pending |
 | UIPX-06 | Phase 8 | Complete |
-| DEPL-01 | Phase 9 | Pending |
-| DEPL-02 | Phase 9 | Pending |
-| DEPL-03 | Phase 9 | Pending |
-| DEPL-04 | Phase 9 | Pending |
+| DEPL-01 | Phase 9 | Complete |
+| DEPL-02 | Phase 9 | Complete |
+| DEPL-03 | Phase 9 | Complete |
+| DEPL-04 | Phase 9 | Complete |
 
 **Coverage:**
 - v2.0 requirements: 20 total

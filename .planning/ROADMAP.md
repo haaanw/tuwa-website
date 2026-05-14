@@ -114,6 +114,16 @@ Plans:
 - [x] 09-01-PLAN.md — Official Apple badge replacement + responsive CSS fixes (fluid headline, 1440px cap, overflow guard)
 - [x] 09-02-PLAN.md — Cloudflare Pages deployment + Lighthouse verification + responsive visual check
 
+### Phase 10: v2.0 Cleanup
+**Goal**: Remove dead CSS from superseded bento grid, clean up stale animation attributes, and close all partial requirement gaps from milestone audit
+**Depends on**: Phase 9
+**Requirements**: ANIM-03, UIPX-05
+**Success Criteria** (what must be TRUE):
+  1. No `.feature-card` or `.bento-hero-card` CSS selectors exist in global.css
+  2. No unused `data-animate-delay` attributes on elements with only one animated child
+  3. `npm run build` completes with no errors
+**Plans**: TBD
+
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
@@ -122,9 +132,10 @@ Plans:
 | 2. Landing Page | v1.0 | 2/2 | Complete | 2026-05-10 |
 | 3. Content Pages | v1.0 | 4/4 | Complete | 2026-05-11 |
 | 4. Blog + Polish | v1.0 | 3/3 | Complete | 2026-05-11 |
-| 5. Animation Infrastructure | v2.0 | 0/1 | Not started | - |
-| 6. Screenshot Presentation | v2.0 | 2/2 | Complete   | 2026-05-11 |
-| 7. Animation Polish | v2.0 | 2/2 | Complete   | 2026-05-12 |
-| 8. UI/UX Visual Depth | v2.0 | 3/4 | Gap closure | - |
-| 8.1 FeatureGrid Click Wheel | v2.0 | 0/1 | Planned | - |
-| 9. Deployment & Responsive | v2.0 | 0/2 | Planned | - |
+| 5. Animation Infrastructure | v2.0 | 1/1 | Complete | 2026-05-11 |
+| 6. Screenshot Presentation | v2.0 | 2/2 | Complete | 2026-05-11 |
+| 7. Animation Polish | v2.0 | 2/2 | Complete | 2026-05-12 |
+| 8. UI/UX Visual Depth | v2.0 | 4/4 | Complete | 2026-05-13 |
+| 8.1 FeatureGrid Click Wheel | v2.0 | 1/1 | Complete | 2026-05-14 |
+| 9. Deployment & Responsive | v2.0 | 2/2 | Complete | 2026-05-14 |
+| 10. v2.0 Cleanup | v2.0 | 0/? | Not started | - |
