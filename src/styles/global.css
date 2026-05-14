@@ -77,6 +77,7 @@ body {
   color: var(--color-text-1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 /* Phase 8 — Noise texture overlay (D-01, UIPX-04) */
@@ -299,6 +300,13 @@ body::after {
 }
 @media (prefers-reduced-motion: reduce) {
   /* Intentionally empty -- [data-animate] elements render at full opacity with no transform */
+}
+
+/* Hero headline fluid sizing — D-05/D-06: clamp from 32px (375px viewport) to 48px (686px+) */
+/* Placed outside media query — applies regardless of motion preference */
+/* Overrides inline font-size on Hero h1 (inline style removed from Hero.astro) */
+.hero-headline {
+  font-size: clamp(32px, 7vw, 48px);
 }
 
 /* Hero entrance animations — ANIM-04 */
