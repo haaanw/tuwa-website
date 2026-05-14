@@ -501,8 +501,4 @@ body::after {
   border-radius: 50%;
 }
 
-/* Rotating arcs group — only arcs rotate */
-#wheel-arcs-group {
-  transform-origin: 240px 240px;
-  transform-box: view-box;
-}
+/* Arcs group rotation handled by SVG transform attribute — no CSS transform-origin needed */

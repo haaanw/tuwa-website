@@ -38,11 +38,10 @@
         style="touch-action: none;"
         aria-hidden="true"
       >
-        <!-- Rim track background circle (does not rotate) -->
-        <circle class="wheel-rim-track" cx="240" cy="240" r="190" />
-
-        <!-- Arcs group: ONLY arc paths rotate -->
+        <!-- Arcs group: rim track + arc paths rotate together -->
         <g id="wheel-arcs-group">
+          <!-- Rim track background circle (rotates with arcs — circle is symmetric so rotation is invisible) -->
+          <circle class="wheel-rim-track" cx="240" cy="240" r="190" />
           <!-- Segment 0: Recovery (12 o'clock) -->
           <path class="wheel-arc is-active" data-index="0"
             d="M 119.549 67.978 A 210 210 0 0 1 360.451 67.978 L 337.508 100.744 A 170 170 0 0 0 142.492 100.744 Z" />
