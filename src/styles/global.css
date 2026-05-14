@@ -452,7 +452,7 @@ body::after {
 }
 @media (prefers-reduced-motion: no-preference) {
   .wheel-center-content {
-    transition: opacity 75ms ease-out;
+    transition: opacity 250ms ease-in-out;
   }
 }
 

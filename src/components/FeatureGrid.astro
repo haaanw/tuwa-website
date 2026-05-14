@@ -212,17 +212,17 @@
       animating = true;
       var startRotation = currentRotation;
       var delta = targetRotation - startRotation;
-      var duration = Math.min(400, Math.max(200, Math.abs(delta) * 3));
+      var duration = Math.min(700, Math.max(500, Math.abs(delta) * 5));
       var startTime = performance.now();
 
-      function easeOut(t) {
-        return 1 - Math.pow(1 - t, 3);
+      function easeInOut(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
       }
 
       function frame(now) {
         var elapsed = now - startTime;
         var progress = Math.min(elapsed / duration, 1);
-        var easedProgress = easeOut(progress);
+        var easedProgress = easeInOut(progress);
         var rot = startRotation + delta * easedProgress;
         setWheelRotation(rot);
 
@@ -277,6 +277,11 @@
       while (delta < -180) delta += 360;
       var finalRotation = currentRotation + delta;
 
+      // Fade out center content immediately
+      if (!reducedMotion) {
+        centerContent.style.opacity = '0';
+      }
+
       animateRotation(finalRotation, function() {
         updateActive(idx);
       });
@@ -320,14 +325,13 @@
       });
 
       var f = features[idx];
-      if (reducedMotion) {
-        setCenterContent(f);
-      } else {
-        centerContent.style.opacity = '0';
+      // Content already faded out during rotation — swap and fade in
+      setCenterContent(f);
+      if (!reducedMotion) {
+        // Small delay so browser paints the new content before fading in
         setTimeout(function() {
-          setCenterContent(f);
           centerContent.style.opacity = '1';
-        }, 75);
+        }, 30);
       }
     }
 
