@@ -95,10 +95,10 @@ Plans:
 **Goal:** The feature overview section on the landing page uses an iPod-style circular click wheel instead of a bento grid, with drag-to-rotate, click-to-select, keyboard navigation, and momentum physics
 **Requirements**: D-01 through D-10 (from 08.1-CONTEXT.md)
 **Depends on:** Phase 8
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 08.1-01-PLAN.md — SVG click wheel structure + CSS + WheelController interaction script + visual verification
+- [x] 08.1-01-PLAN.md — SVG click wheel structure + CSS + WheelController interaction script + visual verification
 
 ### Phase 9: Deployment & Responsive
 **Goal**: The site is live on tuwa.app via Cloudflare Pages, passes Lighthouse >= 95 on mobile and desktop, and renders correctly across all target breakpoints
