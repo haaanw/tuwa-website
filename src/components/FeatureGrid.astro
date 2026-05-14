@@ -145,7 +145,6 @@
 
     var svgEl = document.getElementById('feature-wheel-svg');
     var arcsGroup = document.getElementById('wheel-arcs-group');
-    var labelsGroup = document.getElementById('wheel-labels-group');
     var billboards = wheel.querySelectorAll('.wheel-segment-billboard');
     var centerContent = wheel.querySelector('.wheel-center-content');
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -207,18 +206,23 @@
       return Math.atan2(dy, dx) * (180 / Math.PI);
     }
 
-    // --- Apply rotation: arcs rotate, labels counter-rotate, buttons reposition ---
+    // --- Apply rotation: arcs rotate, labels translate to rotated positions, buttons reposition ---
     function setWheelRotation(rotation) {
       currentRotation = rotation;
       // Arcs orbit around center
       arcsGroup.setAttribute('transform', 'rotate(' + rotation + ', ' + CX + ', ' + CY + ')');
-      // Labels group ALSO orbits around center (so they move with arcs)
-      labelsGroup.setAttribute('transform', 'rotate(' + rotation + ', ' + CX + ', ' + CY + ')');
-      // Each billboard counter-rotates at its own anchor to stay upright
+      // Labels: compute each label's new position from rotation, translate there (stays upright)
+      var rad = rotation * DEG2RAD;
+      var cosR = Math.cos(rad);
+      var sinR = Math.sin(rad);
       billboards.forEach(function(g) {
-        var x = parseFloat(g.dataset.x);
-        var y = parseFloat(g.dataset.y);
-        g.setAttribute('transform', 'rotate(' + (-rotation) + ', ' + x + ', ' + y + ')');
+        var ox = parseFloat(g.dataset.x);
+        var oy = parseFloat(g.dataset.y);
+        var dx = ox - CX;
+        var dy = oy - CY;
+        var tx = (dx * cosR - dy * sinR) - dx;
+        var ty = (dx * sinR + dy * cosR) - dy;
+        g.setAttribute('transform', 'translate(' + tx + ', ' + ty + ')');
       });
 
       layoutSegmentButtons(rotation);
