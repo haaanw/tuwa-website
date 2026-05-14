@@ -384,17 +384,17 @@ The traceability table row needs status updated:
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Stagger delay on arc labels**
    - What we know: Arc `<path>` elements and `.wheel-segment-billboard` `<g>` elements are siblings in the SVG DOM. If we only animate arcs, labels appear at full opacity immediately.
    - What's unclear: Whether having labels visible before their arc reveals looks odd, or whether it's fine since labels are text inside the rim area.
-   - Recommendation: Animate arcs only — labels are inside the SVG rim area (midRadius=160), not prominent before arc fill appears. Accept the label-first behavior, or add matching `data-animate` + matching delays to the billboard `<g>` elements if visual testing shows it looks wrong.
+   - RESOLVED: Animate arcs only — labels are inside the SVG rim area (midRadius=160), not prominent before arc fill appears. Accept the label-first behavior, or add matching `data-animate` + matching delays to the billboard `<g>` elements if visual testing shows it looks wrong.
 
 2. **Wider orphan CSS audit scope**
    - What we know: D-02 scopes the audit to a "light" pass — grep each non-trivial class against `src/`.
    - What's unclear: Whether any Phase 7 card-stagger helper classes (if any were added) are now unused.
-   - Recommendation: During execution, grep for any class defined in global.css that isn't referenced by a Tailwind `class=` or by any `.astro` file. Expected result: only `.feature-card` comes up as dead. If others appear, flag for human review rather than auto-deleting.
+   - RESOLVED: During execution, grep for any class defined in global.css that isn't referenced by a Tailwind `class=` or by any `.astro` file. Expected result: only `.feature-card` comes up as dead. If others appear, flag for human review rather than auto-deleting.
 
 ---
 
