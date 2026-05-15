@@ -42,6 +42,11 @@
   --color-brand-accent: #7A6E5C;
   --color-destructive:  #6E3A3A;
 
+  /* Matisse art direction palette (Phase 15 D-11) */
+  --color-matisse-green:      #2B5240;   /* = --color-accent */
+  --color-matisse-terracotta:  #8B5E3C;
+  --color-matisse-gold:        #A89060;
+
   /* Spacing Scale — 8px base, 4px micro for web */
   --space-xs:  4px;
   --space-sm:  8px;
@@ -734,5 +739,75 @@ body::after {
   .matisse-shape {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* ===== Phase 15: Matisse Animation Extensions ===== */
+
+/* Hero frieze shape entrance — page-load, not IO (above fold) */
+@media (prefers-reduced-motion: no-preference) {
+  .matisse-frieze .matisse-shape {
+    animation: matisse-shape-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes matisse-shape-enter {
+    from {
+      opacity: 0;
+      transform: translateY(24px) translateZ(0);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) translateZ(0);
+    }
+  }
+
+  /* Feature page shapes — IO-triggered entrance via data-animate */
+  .js-enabled .matisse-decoration[data-animate] {
+    opacity: 0;
+    transform: translateY(24px) translateZ(0);
+  }
+  .js-enabled .matisse-decoration[data-animate].is-visible {
+    animation: matisse-shape-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+/* Parallax — progressive enhancement only (ART-05) */
+/* Chrome 115+, Safari 26+ only; Firefox behind flag; degrades to static shapes */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Hero frieze shapes: dual animation (entrance + parallax) */
+    .matisse-frieze .matisse-shape[data-parallax-slow] {
+      animation-name: matisse-shape-enter, matisse-parallax-slow;
+      animation-duration: 600ms, auto;
+      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1), linear;
+      animation-fill-mode: both, both;
+      animation-timeline: auto, scroll(root block);
+      animation-range: normal, entry 0% exit 100%;
+    }
+    .matisse-frieze .matisse-shape[data-parallax-fast] {
+      animation-name: matisse-shape-enter, matisse-parallax-fast;
+      animation-duration: 600ms, auto;
+      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1), linear;
+      animation-fill-mode: both, both;
+      animation-timeline: auto, scroll(root block);
+      animation-range: normal, entry 0% exit 100%;
+    }
+
+    @keyframes matisse-parallax-slow {
+      from { transform: translateY(0) translateZ(0); }
+      to   { transform: translateY(-12px) translateZ(0); }
+    }
+    @keyframes matisse-parallax-fast {
+      from { transform: translateY(0) translateZ(0); }
+      to   { transform: translateY(-20px) translateZ(0); }
+    }
+  }
+}
+
+/* Reduced-motion override for decoration wrapper (Phase 15) */
+@media (prefers-reduced-motion: reduce) {
+  .matisse-decoration {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
