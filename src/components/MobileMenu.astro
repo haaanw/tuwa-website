@@ -3,6 +3,21 @@
 // Interactive menu overlay. JS handles open/close, focus trap, Escape key.
 // Rendered inline (not as island) — uses <script> tag for browser JS.
 ---
+
+<style>
+  .mobile-nav-link {
+    padding: var(--space-sm) var(--space-md);
+    color: var(--color-text-1);
+    text-decoration: none;
+    font-size: var(--text-heading);
+    font-weight: var(--weight-body);
+    border-radius: var(--radius-md);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+</style>
+
 <div
   id="mobile-menu"
   role="dialog"
@@ -35,8 +50,7 @@
       <li>
         <a
           href="/features/recovery-scoring"
-          class="block"
-          style="padding: var(--space-sm) var(--space-md); color: var(--color-text-1); text-decoration: none; font-size: var(--text-heading); font-weight: 600; border-radius: var(--radius-md); min-height: 44px; display: flex; align-items: center;"
+          class="block mobile-nav-link"
         >
           Features
         </a>
@@ -44,8 +58,7 @@
       <li>
         <a
           href="/features/coaching"
-          class="block"
-          style="padding: var(--space-sm) var(--space-md); color: var(--color-text-1); text-decoration: none; font-size: var(--text-heading); font-weight: 600; border-radius: var(--radius-md); min-height: 44px; display: flex; align-items: center;"
+          class="block mobile-nav-link"
         >
           Coaching
         </a>
@@ -53,8 +66,7 @@
       <li>
         <a
           href="/blog"
-          class="block"
-          style="padding: var(--space-sm) var(--space-md); color: var(--color-text-1); text-decoration: none; font-size: var(--text-heading); font-weight: 600; border-radius: var(--radius-md); min-height: 44px; display: flex; align-items: center;"
+          class="block mobile-nav-link"
         >
           Blog
         </a>
@@ -62,8 +74,7 @@
       <li>
         <a
           href="/support"
-          class="block"
-          style="padding: var(--space-sm) var(--space-md); color: var(--color-text-1); text-decoration: none; font-size: var(--text-heading); font-weight: 600; border-radius: var(--radius-md); min-height: 44px; display: flex; align-items: center;"
+          class="block mobile-nav-link"
         >
           Support
         </a>
@@ -81,7 +92,7 @@
           color: var(--color-accent-fg);
           border-radius: var(--radius-md);
           padding: var(--space-md);
-          font-weight: 600;
+          font-weight: var(--weight-label);
           text-decoration: none;
           font-size: var(--text-body);
           width: 100%;
