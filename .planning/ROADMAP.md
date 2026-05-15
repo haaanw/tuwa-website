@@ -138,7 +138,7 @@ Plans:
 | 10. v2.0 Cleanup | v2.0 | 1/1 | Complete | 2026-05-14 |
 | 11. CSS Foundation & Token System | v3.0 | 1/1 | Complete    | 2026-05-15 |
 | 12. Device Frame Realism | v3.0 | 1/1 | Complete    | 2026-05-15 |
-| 13. QR Code Removal | v3.0 | 1/1 | Complete   | 2026-05-15 |
+| 13. QR Code Removal | v3.0 | 1/1 | Complete    | 2026-05-15 |
 | 14. Typography Weight Rollout | v3.0 | 0/? | Not started | - |
 | 15. Matisse SVG Art Direction | v3.0 | 0/? | Not started | - |
 | 16. Interaction Polish | v3.0 | 0/? | Not started | - |
