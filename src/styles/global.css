@@ -128,6 +128,31 @@ body::after {
   }
 }
 
+/* ===== Phase 11: View Transitions (IXPN-01) ===== */
+/* MPA browser-native crossfade. Both outgoing and incoming documents need this rule.  */
+/* global.css loads on every page via BaseLayout.astro — single rule covers all pages. */
+/* No @media wrapper — browser suppresses transitions automatically for prefers-reduced-motion. */
+@view-transition {
+  navigation: auto;
+}
+
+/* Override browser default 250ms crossfade -> 200ms (D-07). Easing: ease-out. */
+::view-transition-old(root) {
+  animation: 200ms ease-out both crossfade-out;
+}
+::view-transition-new(root) {
+  animation: 200ms ease-out both crossfade-in;
+}
+
+@keyframes crossfade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+@keyframes crossfade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 /* Nav links */
 .nav-logo {
   font-size: var(--text-heading);
@@ -627,3 +652,33 @@ body::after {
 }
 
 /* Arcs group rotation handled by SVG transform attribute — no CSS transform-origin needed */
+
+/* ===== Phase 11: Matisse CSS Class Scaffolding ===== */
+/* Stubs only — concrete shapes, SVG paths, and scroll-driven animations added in Phase 15. */
+/* Positioning, color contract, and reduced-motion guard established here. */
+
+.matisse-frieze {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  /* Accent green first (D-11); Phase 15 may override to --color-text-1 if contrast insufficient */
+  color: var(--color-accent);
+}
+
+.matisse-shape {
+  fill: currentColor;
+  /* GPU layer pre-promotion for Phase 15 scroll-driven parallax (animation-timeline: scroll()) */
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+/* Reduced-motion guard — consistent with Phase 8 pattern (D-10) */
+/* Phase 15 adds animations only inside @media (prefers-reduced-motion: no-preference) */
+@media (prefers-reduced-motion: reduce) {
+  .matisse-shape {
+    animation: none !important;
+    transition: none !important;
+  }
+}
