@@ -1,5 +1,18 @@
 /* src/styles/global.css */
 /* Tailwind v4 — uses @import directive, not @tailwind directives */
+
+/* ===== Phase 11: Self-Hosted Variable Font (TYPO-01) ===== */
+/* Fontshare CDN serves a variable WOFF2 for General Sans, but Astro's */
+/* Fontshare provider hardcodes hasVariableWeights:false — self-hosting */
+/* is required to get a single variable file. See 11-RESEARCH.md Q1.   */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -8,6 +21,9 @@
 /* Light mode only — D-06 descopes dark mode entirely */
 
 :root {
+  /* Font family variable — replaces Astro Font API auto-generated variable */
+  --font-general-sans: 'General Sans', system-ui, sans-serif;
+
   /* Surface and Text Colors — travertine family */
   --color-bg:           #F4F1ED;  /* 60% — page background, warm travertine off-white */
   --color-surface:      #EDEAE6;  /* 30% — nav bar, footer, cards */
@@ -58,6 +74,13 @@
   --tracking-display: -0.02em;
   --tracking-heading: -0.01em;
   --tracking-label:    0.06em;  /* for all-caps contexts */
+
+  /* Phase 11 — Font Weight Tokens — General Sans variable axis (200-700) */
+  /* Values are unitless integers per CSS font-weight spec */
+  --weight-display: 200;  /* hero headlines 48px+ — maximum editorial lightness */
+  --weight-heading: 300;  /* section titles, page titles */
+  --weight-body:    500;  /* paragraphs, nav links, descriptions */
+  --weight-label:   600;  /* micro text, legal, all-caps captions */
 
   /* Phase 8 — Section Spacing */
   --space-section-desktop: 128px;
