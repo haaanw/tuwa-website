@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import DeviceFrame from '../components/DeviceFrame.astro';
 import FeatureCTA from '../components/FeatureCTA.astro';
+import MatisseDecoration from '../components/MatisseDecoration.astro';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
@@ -12,13 +13,14 @@ interface Props {
   screenshotAlt: string;
   outcomeStatement: string;
   hookLine: string;
+  shapeId?: 'blob-1' | 'blob-2' | 'blob-3' | 'blob-4' | 'blob-5' | 'blob-6' | 'blob-7';
 }
 
-const { title, description, ogImage, screenshot, screenshotAlt, outcomeStatement, hookLine } = Astro.props;
+const { title, description, ogImage, screenshot, screenshotAlt, outcomeStatement, hookLine, shapeId = 'blob-1' } = Astro.props;
 ---
 <BaseLayout title={title} description={description} ogImage={ogImage}>
   <!-- Hero -->
-  <section data-animate style="padding-top: var(--space-3xl); padding-bottom: var(--space-2xl);">
+  <section data-animate style="padding-top: var(--space-3xl); padding-bottom: var(--space-2xl); position: relative;">
     <div class="mx-auto text-center" style="max-width: 768px; padding: 0 var(--space-md);">
       <h1
         style="
@@ -44,12 +46,15 @@ const { title, description, ogImage, screenshot, screenshotAlt, outcomeStatement
         {hookLine}
       </p>
     </div>
+    <MatisseDecoration approach="cluster" shapeId={shapeId} />
   </section>
 
   <!-- Screenshot -->
   <section data-animate style="padding-bottom: var(--space-3xl);">
     <DeviceFrame src={screenshot} alt={screenshotAlt} placeholderLabel="Coming soon" />
   </section>
+
+  <MatisseDecoration approach="divider" shapeId={shapeId} />
 
   <!-- Standard content slot (How it works, overview) -->
   <slot />
