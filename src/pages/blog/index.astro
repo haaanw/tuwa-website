@@ -15,7 +15,7 @@ const posts = (await getCollection('blog', ({ data }) =>
       <h1
         style="
           font-size: var(--text-heading);
-          font-weight: 600;
+          font-weight: var(--weight-heading);
           line-height: var(--leading-heading);
           letter-spacing: var(--tracking-heading);
           color: var(--color-text-1);
@@ -46,7 +46,7 @@ const posts = (await getCollection('blog', ({ data }) =>
                 <h2
                   style="
                     font-size: var(--text-body);
-                    font-weight: 600;
+                    font-weight: var(--weight-heading);
                     color: var(--color-text-1);
                     margin-top: var(--space-xs);
                   "

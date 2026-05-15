@@ -166,7 +166,7 @@ body::after {
 /* Nav links */
 .nav-logo {
   font-size: var(--text-heading);
-  font-weight: 600;
+  font-weight: var(--weight-label);
   color: var(--color-text-1);
   letter-spacing: var(--tracking-heading);
   text-decoration: none;
@@ -230,7 +230,7 @@ body::after {
 .nav-dropdown-title {
   display: block;
   font-size: var(--text-body);
-  font-weight: 600;
+  font-weight: var(--weight-label);
   color: var(--color-text-1);
   line-height: var(--leading-body);
 }
@@ -248,7 +248,7 @@ body::after {
   color: var(--color-accent-fg);
   border-radius: var(--radius-md);
   padding: var(--space-sm) var(--space-md);
-  font-weight: 600;
+  font-weight: var(--weight-label);
   text-decoration: none;
   font-size: var(--text-body);
   transition: background-color 150ms ease, box-shadow 150ms ease;
@@ -577,7 +577,7 @@ body::after {
 .wheel-segment-label {
   fill: var(--color-text-1);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: var(--weight-label);
   letter-spacing: 0.05em;
   text-anchor: middle;
   dominant-baseline: hanging;
@@ -666,7 +666,7 @@ body::after {
 
 .wheel-center-title {
   font-size: var(--text-body);
-  font-weight: 600;
+  font-weight: var(--weight-body);
   color: var(--color-text-1);
   line-height: var(--leading-heading);
 }
@@ -693,7 +693,7 @@ body::after {
 
 .wheel-center-cta {
   font-size: var(--text-label);
-  font-weight: 600;
+  font-weight: var(--weight-label);
   color: var(--color-accent);
   letter-spacing: var(--tracking-label);
 }
