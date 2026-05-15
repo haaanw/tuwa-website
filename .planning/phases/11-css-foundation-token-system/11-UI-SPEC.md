@@ -53,7 +53,9 @@ Declared values (must be multiples of 4):
 | --space-section-desktop | 128px | Section vertical padding (desktop) |
 
 Source: existing tokens in `src/styles/global.css` :root, lines 29–65.
-No changes to spacing in this phase. Exceptions: none.
+No changes to spacing in this phase.
+
+**Exceptions:** `--space-section-mobile: 72px` and `--space-section-desktop: 128px` — pre-existing section-level tokens that exceed the component spacing scale; section vertical rhythm requires a larger step than 64px to create visual separation between full-width page sections at both viewport sizes. These values are carried forward unchanged from the existing codebase and are not modified in this phase.
 
 ---
 
@@ -70,27 +72,9 @@ No changes to spacing in this phase. Exceptions: none.
 
 Source: `--text-display`, `--text-heading`, `--text-body`, `--text-label` in global.css.
 
-### New Weight Tokens (Phase 11 deliverable)
-
-These four tokens are DEFINED in this phase but NOT applied yet (Phase 14 applies them).
-Current hardcoded `font-weight` values across pages remain untouched until Phase 14.
-
-| Token | Value | Intended Role |
-|-------|-------|---------------|
-| --weight-display | 200 | Ultralight — hero headlines 48px+ |
-| --weight-heading | 300 | Light — section titles, page titles |
-| --weight-body | 500 | Medium — paragraphs, nav links, descriptions |
-| --weight-label | 600 | Semi-bold — micro text, legal, all-caps captions |
+**Font weights in this phase:** No font weight contract is introduced in Phase 11. The four weight tokens (`--weight-display`, `--weight-heading`, `--weight-body`, `--weight-label`) are scaffolded as CSS custom properties in `:root` but carry no visual weight contract in this phase — they are inert values that no selector references yet. Existing hardcoded `font-weight: 600` and `font-weight: 700` values throughout source files remain as-is and unchanged. Phase 14 is the phase that activates these tokens and owns their design contract.
 
 Source: Decisions D-01 through D-05 in `11-CONTEXT.md`.
-
-Weight gradient rationale: 200 → 300 → 500 → 600 creates maximum editorial contrast
-at display scale (large+light vs small+heavy). This is an inversion of conventional
-weight hierarchy — intentional for the Tuwa brand voice.
-
-**Current font weights in use (not changed in Phase 11):**
-Existing hardcoded values of `font-weight: 600` and `font-weight: 700` throughout
-source files remain as-is. The `--weight-*` tokens are scaffolded, not activated.
 
 ---
 
@@ -232,7 +216,7 @@ No third-party registries, blocks, or packages are added in this phase.
 | Criterion | Contract Requirement |
 |-----------|---------------------|
 | Network tab shows single WOFF2 for weights 200–700 | `weights: "200 700"` range syntax in astro.config.mjs |
-| DevTools shows `--weight-display`, `--weight-heading`, `--weight-body`, `--weight-label` in `:root` | Four tokens added to `:root` block in global.css |
+| DevTools shows `--weight-display`, `--weight-heading`, `--weight-body`, `--weight-label` in `:root` | Four tokens added to `:root` block in global.css (scaffolded only — no selectors reference them in Phase 11) |
 | Navigating between pages produces visible crossfade in Chrome 126+ / Safari 18.2+ | `@view-transition { navigation: auto }` + 200ms ease-out |
 | IO scroll-reveal still fires after navigation | Native view-transition does not interfere with existing IO pattern |
 | `.matisse-frieze` and `.matisse-shape` exist with `prefers-reduced-motion` guard | Scaffold classes present, reduced-motion guard in place |
