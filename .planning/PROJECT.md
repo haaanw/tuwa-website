@@ -24,7 +24,7 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 
 ### Active
 
-- [ ] Typography weight system — titles: large/light, body: smaller/heavier (General Sans recalibration)
+- ✓ Typography weight system — titles: large/light, body: smaller/heavier (CSS custom property tokens) — Validated in Phase 14
 - [ ] iPhone frame realism — realistic bezels, notch, buttons; fix screenshot fit (extra border/text misalignment)
 - [ ] Remove QR code + adjacent App Store badge section (keep header, hero, footer CTAs)
 - [ ] Matisse Swimming Pool art direction — organic cut-out shapes as continuous frieze (条带), hero-focused
@@ -70,6 +70,8 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 **Lighthouse:** Mobile 98, Desktop 99
 
 Site is a polished marketing presence with CSS device frames, choreographed animations, iPod click wheel feature overview, sticky scroll showcase, and animated stat counters. All 10 pages responsive across 5 breakpoints.
+
+Phase 14 complete (2026-05-15) — typography weight tokens rolled out across all 20 source files. Zero hardcoded font-weight values remain.
 
 ## Context
 
