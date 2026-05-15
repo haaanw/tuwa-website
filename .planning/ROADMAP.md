@@ -81,7 +81,9 @@ Plans:
   1. The QR code and adjacent App Store badge section do not appear anywhere on the landing page
   2. Lighthouse CLS score remains 0 after removal (no layout shift from the deleted block)
   3. Header button, hero CTA button, and footer CTA button all remain functional and navigable
-**Plans**: TBD
+**Plans:** 1 plan
+Plans:
+- [ ] 13-01-PLAN.md — Remove QR code, badge, and qrcode dependency from LandingCTA
 
 ### Phase 14: Typography Weight Rollout
 **Goal**: All 10 pages display the weight contrast system — large light headings (weight 300) and smaller heavier body text (weight 500+) — with no hardcoded font-weight values remaining outside global.css
@@ -136,7 +138,7 @@ Plans:
 | 10. v2.0 Cleanup | v2.0 | 1/1 | Complete | 2026-05-14 |
 | 11. CSS Foundation & Token System | v3.0 | 1/1 | Complete    | 2026-05-15 |
 | 12. Device Frame Realism | v3.0 | 1/1 | Complete    | 2026-05-15 |
-| 13. QR Code Removal | v3.0 | 0/? | Not started | - |
+| 13. QR Code Removal | v3.0 | 0/1 | Not started | - |
 | 14. Typography Weight Rollout | v3.0 | 0/? | Not started | - |
 | 15. Matisse SVG Art Direction | v3.0 | 0/? | Not started | - |
 | 16. Interaction Polish | v3.0 | 0/? | Not started | - |
