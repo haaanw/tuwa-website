@@ -37,7 +37,7 @@
 
 - [x] **Phase 11: CSS Foundation & Token System** - Load variable font, define weight tokens, wire view transitions (completed 2026-05-15)
 - [x] **Phase 12: Device Frame Realism** - Multi-layer shadow, Dynamic Island, screenshot fit fix (completed 2026-05-15)
-- [ ] **Phase 13: QR Code Removal** - Remove QR block and adjacent badge section, verify CLS = 0
+- [x] **Phase 13: QR Code Removal** - Remove QR block and adjacent badge section, verify CLS = 0 (completed 2026-05-15)
 - [ ] **Phase 14: Typography Weight Rollout** - Apply light headings + heavier body across all 10 pages
 - [ ] **Phase 15: Matisse SVG Art Direction** - Author frieze shapes, integrate hero, add parallax and entrance animations
 - [ ] **Phase 16: Interaction Polish** - Hover micro-interactions, magnetic CTA, Lenis scroll, audit pass
@@ -81,9 +81,9 @@ Plans:
   1. The QR code and adjacent App Store badge section do not appear anywhere on the landing page
   2. Lighthouse CLS score remains 0 after removal (no layout shift from the deleted block)
   3. Header button, hero CTA button, and footer CTA button all remain functional and navigable
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 Plans:
-- [ ] 13-01-PLAN.md — Remove QR code, badge, and qrcode dependency from LandingCTA
+- [x] 13-01-PLAN.md — Remove QR code, badge, and qrcode dependency from LandingCTA
 
 ### Phase 14: Typography Weight Rollout
 **Goal**: All 10 pages display the weight contrast system — large light headings (weight 300) and smaller heavier body text (weight 500+) — with no hardcoded font-weight values remaining outside global.css
@@ -138,7 +138,7 @@ Plans:
 | 10. v2.0 Cleanup | v2.0 | 1/1 | Complete | 2026-05-14 |
 | 11. CSS Foundation & Token System | v3.0 | 1/1 | Complete    | 2026-05-15 |
 | 12. Device Frame Realism | v3.0 | 1/1 | Complete    | 2026-05-15 |
-| 13. QR Code Removal | v3.0 | 0/1 | Not started | - |
+| 13. QR Code Removal | v3.0 | 1/1 | Complete   | 2026-05-15 |
 | 14. Typography Weight Rollout | v3.0 | 0/? | Not started | - |
 | 15. Matisse SVG Art Direction | v3.0 | 0/? | Not started | - |
 | 16. Interaction Polish | v3.0 | 0/? | Not started | - |
