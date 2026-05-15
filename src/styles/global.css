@@ -394,21 +394,34 @@ body::after {
   }
 }
 
-/* CSS-only iPhone 15 Pro device frame — DeviceFrame.astro (Phase 6, D-01) */
-/* Side buttons: volume (left) via ::before, power (right) via ::after */
+/* Phase 12 -- Device Frame Realism (DFRM-01 to DFRM-05) */
+/* Side buttons: 3-on-left via ::before box-shadow stacking, power via ::after */
 .device-frame {
   position: relative;
+  background: linear-gradient(145deg, #2A2A2A, #1A1A1A 30%, #111111);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 50px;
+  padding: 14px 12px 12px;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.10),
+    0 8px 16px rgba(0,0,0,0.12),
+    0 20px 40px rgba(0,0,0,0.14),
+    0 40px 80px rgba(0,0,0,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    inset 0 -1px 0 rgba(0,0,0,0.30);
 }
 .device-frame::before {
   content: '';
   position: absolute;
   left: -3px;
-  top: 100px;
+  top: 80px;
   width: 3px;
-  height: 28px;
+  height: 24px;
   background: #2A2A2A;
   border-radius: 2px 0 0 2px;
-  box-shadow: 0 36px 0 #2A2A2A;
+  box-shadow:
+    0 30px 0 #2A2A2A,
+    0 66px 0 #2A2A2A;
 }
 .device-frame::after {
   content: '';
@@ -419,6 +432,41 @@ body::after {
   height: 40px;
   background: #2A2A2A;
   border-radius: 0 2px 2px 0;
+}
+
+/* Dynamic Island -- proportional pill, scales with frame width (D-04/D-05/D-06) */
+.device-island {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32%;
+  aspect-ratio: 2.7;
+  background: #000;
+  border-radius: 100px;
+  z-index: 2;
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+}
+
+/* Screen container -- corrected aspect ratio + inset shadow (D-02/D-10/D-11/D-12) */
+.device-screen {
+  border-radius: 40px;
+  overflow: hidden;
+  aspect-ratio: 402 / 874;
+  position: relative;
+  background: #000;
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.15),
+    inset 0 0 1px rgba(0,0,0,0.08);
+}
+
+/* Home indicator pill */
+.device-home-indicator {
+  width: 100px;
+  height: 4px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 2px;
+  margin: 10px auto 2px;
 }
 
 /* Sticky scroll step indicators — ANIM-05 */
