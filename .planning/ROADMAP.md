@@ -38,7 +38,7 @@
 - [x] **Phase 11: CSS Foundation & Token System** - Load variable font, define weight tokens, wire view transitions (completed 2026-05-15)
 - [x] **Phase 12: Device Frame Realism** - Multi-layer shadow, Dynamic Island, screenshot fit fix (completed 2026-05-15)
 - [x] **Phase 13: QR Code Removal** - Remove QR block and adjacent badge section, verify CLS = 0 (completed 2026-05-15)
-- [ ] **Phase 14: Typography Weight Rollout** - Apply light headings + heavier body across all 10 pages
+- [x] **Phase 14: Typography Weight Rollout** - Apply light headings + heavier body across all 10 pages (completed 2026-05-15)
 - [ ] **Phase 15: Matisse SVG Art Direction** - Author frieze shapes, integrate hero, add parallax and entrance animations
 - [ ] **Phase 16: Interaction Polish** - Hover micro-interactions, magnetic CTA, Lenis scroll, audit pass
 
@@ -94,10 +94,10 @@ Plans:
   2. Body paragraphs and labels appear measurably bolder than headings at the same size
   3. Typography weight system is consistent across all 10 pages (landing, 5 feature pages, blog listing, privacy, terms, support)
   4. A grep for hardcoded `font-weight` values outside `global.css` returns zero results
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 Plans:
-- [ ] 14-01-PLAN.md — Migrate 8 component files to weight tokens (Hero, StatsCounter, Footer, MobileMenu, FaqAccordion, FeatureGrid, FeatureCTA, LandingCTA)
-- [ ] 14-02-PLAN.md — Migrate 4 layouts, 7 pages, and 6 global.css selectors to weight tokens
+- [x] 14-01-PLAN.md — Migrate 8 component files to weight tokens (Hero, StatsCounter, Footer, MobileMenu, FaqAccordion, FeatureGrid, FeatureCTA, LandingCTA)
+- [x] 14-02-PLAN.md — Migrate 4 layouts, 7 pages, and 6 global.css selectors to weight tokens
 **UI hint**: yes
 
 ### Phase 15: Matisse SVG Art Direction
@@ -142,6 +142,6 @@ Plans:
 | 11. CSS Foundation & Token System | v3.0 | 1/1 | Complete    | 2026-05-15 |
 | 12. Device Frame Realism | v3.0 | 1/1 | Complete    | 2026-05-15 |
 | 13. QR Code Removal | v3.0 | 1/1 | Complete    | 2026-05-15 |
-| 14. Typography Weight Rollout | v3.0 | 0/2 | Not started | - |
+| 14. Typography Weight Rollout | v3.0 | 2/2 | Complete   | 2026-05-15 |
 | 15. Matisse SVG Art Direction | v3.0 | 0/? | Not started | - |
 | 16. Interaction Polish | v3.0 | 0/? | Not started | - |
