@@ -89,25 +89,25 @@ The primary planning challenge is grouping the 53 replacements into logical wave
 ```
 global.css :root
   --weight-display: 200
-  --weight-heading: 300       ←── Single source of truth
+  --weight-heading: 300       <-- Single source of truth
   --weight-body:    500
   --weight-label:   600
-         │
-         ├── Components (Hero, StatsCounter, Footer, MobileMenu, FaqAccordion, FeatureGrid, FeatureCTA, LandingCTA)
-         │     └── <style> blocks + inline style="" attrs   →   var(--weight-*)
-         │
-         ├── Layouts (FeaturePageLayout, CoachingPageLayout, LegalPageLayout, BlogPostLayout)
-         │     └── <style> blocks                           →   var(--weight-*)
-         │
-         ├── Pages (blog/index, support, 5 feature pages)
-         │     └── inline style="" attrs on h2/h3           →   var(--weight-*)
-         │
-         └── global.css selectors (nav-logo, nav-dropdown-title, btn-cta, wheel-* classes)
-               └── CSS rules                                →   var(--weight-*)
+         |
+         +-- Components (Hero, StatsCounter, Footer, MobileMenu, FaqAccordion, FeatureGrid, FeatureCTA, LandingCTA)
+         |     \-- <style> blocks + inline style="" attrs   ->   var(--weight-*)
+         |
+         +-- Layouts (FeaturePageLayout, CoachingPageLayout, LegalPageLayout, BlogPostLayout)
+         |     \-- <style> blocks                           ->   var(--weight-*)
+         |
+         +-- Pages (blog/index, support, 5 feature pages)
+         |     \-- inline style="" attrs on h2/h3           ->   var(--weight-*)
+         |
+         \-- global.css selectors (nav-logo, nav-dropdown-title, btn-cta, wheel-* classes)
+               \-- CSS rules                                ->   var(--weight-*)
 
 Verification gate:
   grep -rn "font-weight: [0-9]" src/ --include="*.astro" --include="*.css"
-  → must return 0 results (excluding @font-face range line)
+  -> must return 0 results (excluding @font-face range line)
 ```
 
 ### Recommended Project Structure
@@ -229,9 +229,9 @@ Not applicable — this phase is a code-only refactor with no stored data, live 
 |------|-------------|-----------|---------|
 | `src/components/Hero.astro` | 1 | `<style>` block | `.hero-headline`: 600 → `--weight-display` (200) |
 | `src/components/StatsCounter.astro` | 3 | inline `style=""` | stat number spans: 700 → `--weight-display` (200) |
-| `src/components/Footer.astro` | 4 | inline `style=""` | logo: 600 → `--weight-label`; 3× section headers: 600 → `--weight-body` |
-| `src/components/MobileMenu.astro` | 5 | 4× inline `style=""`, 1× `<style>` | 4 nav links: 600 → `--weight-body`; `.mobile-cta`: 600 → `--weight-label` |
-| `src/components/FaqAccordion.astro` | 3 | `<style>` block | answers: 400 → `--weight-body`; 2× question styles: 600 → `--weight-label` |
+| `src/components/Footer.astro` | 4 | inline `style=""` | logo: 600 → `--weight-label`; 3x section headers: 600 → `--weight-body` |
+| `src/components/MobileMenu.astro` | 5 | 4x inline `style=""`, 1x `<style>` | 4 nav links: 600 → `--weight-body`; `.mobile-cta`: 600 → `--weight-label` |
+| `src/components/FaqAccordion.astro` | 3 | `<style>` block | answers: 400 → `--weight-body`; 2x question styles: 600 → `--weight-label` |
 | `src/components/FeatureGrid.astro` | 1 | `<style>` block | card titles: 600 → `--weight-body` |
 | `src/components/FeatureCTA.astro` | 1 | `<style>` block | CTA heading: 600 → `--weight-heading` |
 | `src/components/LandingCTA.astro` | 1 | `<style>` block | CTA heading: 600 → `--weight-heading` |
@@ -290,7 +290,7 @@ Not applicable — this phase is a code-only refactor with no stored data, live 
 
 ### Pitfall 3: cold-start.astro has Extra h3 Instances
 
-**What goes wrong:** The UI-SPEC notes "cold-start.astro section h2/h3 (4×)" but the actual grep shows lines 38, 46, 54 (h3 elements with inline styles) plus line 20 (another heading) plus line 79 (a `<style>` block) — at least 5 font-weight occurrences, not 4.
+**What goes wrong:** The UI-SPEC notes "cold-start.astro section h2/h3 (4x)" but the actual grep shows lines 38, 46, 54 (h3 elements with inline styles) plus line 20 (another heading) plus line 79 (a `<style>` block) — at least 5 font-weight occurrences, not 4.
 **Why it happens:** The UI-SPEC count was based on CONTEXT.md estimates, not a live grep.
 **How to avoid:** Use the live grep output (53 total across .astro files) as the authoritative count. Treat the UI-SPEC element table as directionally correct for mapping decisions, but run verification grep after each file to confirm zero remain.
 **Warning signs:** Grep showing non-zero count after "complete" migration of a page.
@@ -350,7 +350,7 @@ Verified patterns derived from the live codebase:
 ```html
 <!-- src/components/MobileMenu.astro -->
 <!-- Source: live grep, CONTEXT.md D-08 -->
-<!-- 4 identical long inline styles → class consolidation recommended -->
+<!-- 4 identical long inline styles -> class consolidation recommended -->
 
 <!-- After — option B (class consolidation) -->
 <style>
@@ -404,9 +404,9 @@ Verified patterns derived from the live codebase:
 .nav-logo           { font-weight: var(--weight-label); }
 .nav-dropdown-title { font-weight: var(--weight-label); }
 .btn-cta            { font-weight: var(--weight-label); }
-.wheel-segment-label{ font-weight: var(--weight-label); }  /* 700→600, only value change */
-.wheel-center-title { font-weight: var(--weight-body);  }  /* 600→500, subtle drop */
-.wheel-center-cta   { font-weight: var(--weight-label); }  /* 600→600, no visual change */
+.wheel-segment-label{ font-weight: var(--weight-label); }  /* 700->600, only value change */
+.wheel-center-title { font-weight: var(--weight-body);  }  /* 600->500, subtle drop */
+.wheel-center-cta   { font-weight: var(--weight-label); }  /* 600->600, no visual change */
 ```
 
 ### Verification Command
@@ -440,12 +440,12 @@ grep -rn "font-weight: [0-9]" src/ --include="*.astro" --include="*.css"
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Class consolidation scope for MobileMenu**
    - What we know: 4 identical inline style strings, 60+ chars each, in MobileMenu.astro
    - What's unclear: The nav links have varying `href` and text content — safe to extract to shared class. But MobileMenu.astro's `<style>` scope means the class won't leak. The question is whether to add the class or use inline vars.
-   - Recommendation: Extract to `.mobile-nav-link` class in MobileMenu's `<style>` block — reduces duplication from 4× 60-char strings to 4× short class attributes. This is within Claude's Discretion (D-09).
+   - Recommendation: Extract to `.mobile-nav-link` class in MobileMenu's `<style>` block — reduces duplication from 4x 60-char strings to 4x short class attributes. This is within Claude's Discretion (D-09).
 
 2. **Feature page h3 subheadings at `--text-body` size**
    - What we know: Several h3 elements in feature pages use `font-size: var(--text-body)` with `font-weight: 600`. Per D-02 decision, these map to `--weight-heading` (300).
