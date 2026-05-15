@@ -4,14 +4,14 @@ milestone: v3.0
 milestone_name: Art Direction & Interaction Polish
 status: executing
 stopped_at: Phase 12 UI-SPEC approved
-last_updated: "2026-05-15T07:22:42.553Z"
-last_activity: 2026-05-15
+last_updated: "2026-05-15T07:54:14.215Z"
+last_activity: 2026-05-15 -- Phase 12 execution started
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 1
+  total_plans: 2
   completed_plans: 1
-  percent: 100
+  percent: 50
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-14)
 
 **Core value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing
-**Current focus:** Phase 11 — CSS Foundation & Token System
+**Current focus:** Phase 12 — device-frame-realism
 
 ## Current Position
 
-Phase: 12
-Plan: Not started
-Status: Executing Phase 11
-Last activity: 2026-05-15
+Phase: 12 (device-frame-realism) — EXECUTING
+Plan: 1 of 1
+Status: Executing Phase 12
+Last activity: 2026-05-15 -- Phase 12 execution started
 
 Progress: [░░░░░░░░░░] 0%
 

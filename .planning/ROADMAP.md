@@ -36,7 +36,7 @@
 **Milestone Goal:** Transform site visual identity with Matisse-inspired art direction, a precision typography weight system, realistic device frames, and premium interaction feel — all while preserving the Lighthouse 98/99 baseline.
 
 - [x] **Phase 11: CSS Foundation & Token System** - Load variable font, define weight tokens, wire view transitions (completed 2026-05-15)
-- [ ] **Phase 12: Device Frame Realism** - Multi-layer shadow, Dynamic Island, screenshot fit fix
+- [x] **Phase 12: Device Frame Realism** - Multi-layer shadow, Dynamic Island, screenshot fit fix (completed 2026-05-15)
 - [ ] **Phase 13: QR Code Removal** - Remove QR block and adjacent badge section, verify CLS = 0
 - [ ] **Phase 14: Typography Weight Rollout** - Apply light headings + heavier body across all 10 pages
 - [ ] **Phase 15: Matisse SVG Art Direction** - Author frieze shapes, integrate hero, add parallax and entrance animations
@@ -68,9 +68,9 @@ Plans:
   3. Shadow has 4-5 distinct layers creating a soft, natural light falloff (visible on white background)
   4. Screen interior has an inset shadow making the display appear recessed into the bezel
   5. All screenshots fill the frame correctly with no extra border gap or text misalignment
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 Plans:
-- [ ] 12-01-PLAN.md — Device frame CSS realism: shadow, Dynamic Island, side buttons, screen inset, screenshot fit
+- [x] 12-01-PLAN.md — Device frame CSS realism: shadow, Dynamic Island, side buttons, screen inset, screenshot fit
 **UI hint**: yes
 
 ### Phase 13: QR Code Removal
@@ -135,7 +135,7 @@ Plans:
 | 9. Deployment & Responsive | v2.0 | 2/2 | Complete | 2026-05-14 |
 | 10. v2.0 Cleanup | v2.0 | 1/1 | Complete | 2026-05-14 |
 | 11. CSS Foundation & Token System | v3.0 | 1/1 | Complete    | 2026-05-15 |
-| 12. Device Frame Realism | v3.0 | 0/1 | Planned | - |
+| 12. Device Frame Realism | v3.0 | 1/1 | Complete   | 2026-05-15 |
 | 13. QR Code Removal | v3.0 | 0/? | Not started | - |
 | 14. Typography Weight Rollout | v3.0 | 0/? | Not started | - |
 | 15. Matisse SVG Art Direction | v3.0 | 0/? | Not started | - |
