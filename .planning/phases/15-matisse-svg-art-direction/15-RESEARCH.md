@@ -581,22 +581,25 @@ npx svgo --config svgo.config.mjs input-blobs.svg -o optimized-blobs.svg
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Does the hero section's parent element establish `position: relative`?**
+1. **Does the hero section's parent element establish `position: relative`?** (RESOLVED)
    - What we know: `Hero.astro` renders inside `<main class="max-w-[1440px] mx-auto w-full">` which has no position context. The section inside Hero.astro needs `position: relative` for the absolute frieze container.
    - What's unclear: Whether adding `position: relative` to the hero `<section>` affects any other positioned descendants.
    - Recommendation: Add `position: relative` to the `<section>` in Hero.astro as part of Wave 1.
+   - **Resolution:** Plan 02 Task 1 explicitly adds `position: relative` to the Hero.astro `<section>` tag and `position: relative; z-index: 1` to the content div. No other positioned descendants are affected — the section only contains the frieze (absolute) and content div (relative).
 
-2. **Are any existing feature pages near the Lighthouse DOM node ceiling?**
+2. **Are any existing feature pages near the Lighthouse DOM node ceiling?** (RESOLVED)
    - What we know: Feature pages use `FeaturePageLayout.astro` + sticky showcase sections + charts (RecoveryChart). Node count unknown.
    - What's unclear: Baseline DOM size on each feature page.
    - Recommendation: The planner should include a Lighthouse DOM audit as a verification step before the feature page decoration wave.
+   - **Resolution:** Plan 02 Task 3 (visual checkpoint) includes a Lighthouse Performance audit step that checks for "Avoid an excessive DOM size" warnings. This verifies the DOM budget post-integration. Each decoration adds at most 5-8 DOM nodes (one div + one svg + 2-3 paths), well within budget.
 
-3. **Will entrance animation conflict with parallax animation on hero shapes?**
+3. **Will entrance animation conflict with parallax animation on hero shapes?** (RESOLVED)
    - What we know: CSS allows multiple animations via `animation-name` list. The entrance runs once (600ms), parallax runs continuously. Both operate on `transform` and `opacity`.
    - What's unclear: Whether `animation-fill-mode: both` on the entrance animation conflicts with the parallax transform values once entrance completes.
    - Recommendation: Use `animation-composition: add` on the parallax animation so transforms compose rather than override. This is the correct CSS solution.
+   - **Resolution:** Plan 01 Task 3 implements the dual `animation-name` pattern (`animation-name: matisse-shape-enter, matisse-parallax-slow`) with separate `animation-timeline` values (`auto, scroll(root block)`). The entrance runs on the default time-based timeline and parallax runs on the scroll timeline, avoiding the conflict entirely. This is documented in the CSS code example in RESEARCH.md lines 541-553.
 
 ---
 
