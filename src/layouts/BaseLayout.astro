@@ -41,6 +41,7 @@ const { title, description, ogImage, canonical, type } = Astro.props;
         if (reducedMotion) {
           document.querySelectorAll('[data-counter-target]').forEach(function(counter) {
             var target = parseInt(counter.getAttribute('data-counter-target'), 10);
+            if (isNaN(target)) return; // skip malformed counters
             var suffix = counter.getAttribute('data-counter-suffix') || '';
             counter.textContent = target.toLocaleString() + suffix;
           });
@@ -57,6 +58,7 @@ const { title, description, ogImage, canonical, type } = Astro.props;
                   var counterEls = entry.target.querySelectorAll('[data-counter-target]');
                   counterEls.forEach(function(counter) {
                     var target = parseInt(counter.getAttribute('data-counter-target'), 10);
+                    if (isNaN(target)) return; // skip malformed counters
                     var suffix = counter.getAttribute('data-counter-suffix') || '';
                     var duration = 400;
                     var start = null;
