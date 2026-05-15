@@ -1,11 +1,13 @@
 ---
 import dashboardScreenshot from '../assets/screenshots/dashboard.png';
 import DeviceFrame from './DeviceFrame.astro';
+import MatisseFrieze from './MatisseFrieze.astro';
 import { APP_STORE_URL } from '../config';
 ---
 
-<section class="section-spaced px-6">
-  <div class="mx-auto text-center" style="max-width: 768px;">
+<section class="section-spaced px-6" style="position: relative;">
+  <MatisseFrieze />
+  <div class="mx-auto text-center" style="max-width: 768px; position: relative; z-index: 1;">
 
     <!-- Headline — h1 (one per page, per accessibility contract) -->
     <h1
