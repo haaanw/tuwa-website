@@ -131,26 +131,36 @@ body::after {
 /* ===== Phase 11: View Transitions (IXPN-01) ===== */
 /* MPA browser-native crossfade. Both outgoing and incoming documents need this rule.  */
 /* global.css loads on every page via BaseLayout.astro — single rule covers all pages. */
-/* No @media wrapper — browser suppresses transitions automatically for prefers-reduced-motion. */
+/* Custom animations below override the browser default; reduced-motion users get an   */
+/* instant swap via the ::view-transition reset immediately following @view-transition. */
 @view-transition {
   navigation: auto;
 }
 
-/* Override browser default 250ms crossfade -> 200ms (D-07). Easing: ease-out. */
-::view-transition-old(root) {
-  animation: 200ms ease-out both crossfade-out;
-}
+/* Default for reduced-motion: instant swap, no animation */
+::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: 200ms ease-out both crossfade-in;
+  animation: none;
 }
 
-@keyframes crossfade-out {
-  from { opacity: 1; }
-  to   { opacity: 0; }
-}
-@keyframes crossfade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+/* Animated crossfade only when motion is acceptable (D-03, D-10) */
+@media (prefers-reduced-motion: no-preference) {
+  /* Override browser default 250ms crossfade -> 200ms (D-07). Easing: ease-out. */
+  ::view-transition-old(root) {
+    animation: 200ms ease-out both crossfade-out;
+  }
+  ::view-transition-new(root) {
+    animation: 200ms ease-out both crossfade-in;
+  }
+
+  @keyframes crossfade-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+  @keyframes crossfade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
 }
 
 /* Nav links */
