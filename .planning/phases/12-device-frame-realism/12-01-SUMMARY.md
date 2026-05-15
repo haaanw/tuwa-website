@@ -22,7 +22,7 @@ decisions:
 metrics:
   duration: ~4min
   completed_date: "2026-05-15"
-  tasks_completed: 2
+  tasks_completed: 3
   tasks_total: 3
   files_modified: 2
 ---
@@ -38,9 +38,9 @@ metrics:
 | 1 | Add device frame CSS classes to global.css | fd477c3 | src/styles/global.css |
 | 2 | Migrate DeviceFrame.astro inline styles to CSS classes | b7517df | src/components/DeviceFrame.astro |
 
-## Task 3 -- Pending Human Verification
+## Task 3 -- Visual Verification (Approved)
 
-Task 3 is a `checkpoint:human-verify` gate. Visual verification of device frame realism is required before the plan can be marked complete. See checkpoint details below.
+Human visual verification confirmed: shadow falloff, proportional Dynamic Island, 4 side buttons, screenshot fit, and screen inset shadow all render correctly at all breakpoints.
 
 ## What Was Built
 
