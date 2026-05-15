@@ -110,9 +110,9 @@ Plans:
   3. Matisse shapes shift vertically at a different rate than the page scroll (visible parallax effect)
   4. Shapes animate into view on page load with an entrance sequence
   5. Lighthouse DOM size audit stays within budget (no "Avoid an excessive DOM size" warning) and LCP element is unchanged
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 Plans:
-- [ ] 15-01-PLAN.md — Shape vocabulary, Astro components (MatisseShape, MatisseFrieze, MatisseDecoration), CSS animations and parallax
+- [x] 15-01-PLAN.md — Shape vocabulary, Astro components (MatisseShape, MatisseFrieze, MatisseDecoration), CSS animations and parallax
 - [ ] 15-02-PLAN.md — Hero frieze integration, feature page decoration (both approaches), visual verification checkpoint
 **UI hint**: yes
 
@@ -146,5 +146,5 @@ Plans:
 | 12. Device Frame Realism | v3.0 | 1/1 | Complete    | 2026-05-15 |
 | 13. QR Code Removal | v3.0 | 1/1 | Complete    | 2026-05-15 |
 | 14. Typography Weight Rollout | v3.0 | 2/2 | Complete    | 2026-05-15 |
-| 15. Matisse SVG Art Direction | v3.0 | 0/2 | Planning    | - |
+| 15. Matisse SVG Art Direction | v3.0 | 1/2 | In Progress|  |
 | 16. Interaction Polish | v3.0 | 0/? | Not started | - |
