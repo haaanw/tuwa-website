@@ -35,7 +35,7 @@
 
 **Milestone Goal:** Transform site visual identity with Matisse-inspired art direction, a precision typography weight system, realistic device frames, and premium interaction feel — all while preserving the Lighthouse 98/99 baseline.
 
-- [ ] **Phase 11: CSS Foundation & Token System** - Load variable font, define weight tokens, wire view transitions
+- [x] **Phase 11: CSS Foundation & Token System** - Load variable font, define weight tokens, wire view transitions (completed 2026-05-15)
 - [ ] **Phase 12: Device Frame Realism** - Multi-layer shadow, Dynamic Island, screenshot fit fix
 - [ ] **Phase 13: QR Code Removal** - Remove QR block and adjacent badge section, verify CLS = 0
 - [ ] **Phase 14: Typography Weight Rollout** - Apply light headings + heavier body across all 10 pages
@@ -54,9 +54,9 @@
   3. Navigating between any two pages produces a visible crossfade animation in Chrome 126+ and Safari 18.2+
   4. Existing scroll-reveal animations still fire correctly on page load after navigation (IO not broken)
   5. `.matisse-frieze` and `.matisse-shape` CSS classes exist in the stylesheet and `prefers-reduced-motion` guards are in place
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 Plans:
-- [ ] 11-01-PLAN.md — Variable font, weight tokens, view transitions, Matisse stubs
+- [x] 11-01-PLAN.md — Variable font, weight tokens, view transitions, Matisse stubs
 
 ### Phase 12: Device Frame Realism
 **Goal**: The CSS iPhone device frames look like physical hardware — with layered shadow falloff, a proportional Dynamic Island, visible side buttons, and screenshots that fit without misalignment
@@ -132,7 +132,7 @@ Plans:
 | 8.1 FeatureGrid Click Wheel | v2.0 | 1/1 | Complete | 2026-05-14 |
 | 9. Deployment & Responsive | v2.0 | 2/2 | Complete | 2026-05-14 |
 | 10. v2.0 Cleanup | v2.0 | 1/1 | Complete | 2026-05-14 |
-| 11. CSS Foundation & Token System | v3.0 | 0/1 | Not started | - |
+| 11. CSS Foundation & Token System | v3.0 | 1/1 | Complete   | 2026-05-15 |
 | 12. Device Frame Realism | v3.0 | 0/? | Not started | - |
 | 13. QR Code Removal | v3.0 | 0/? | Not started | - |
 | 14. Typography Weight Rollout | v3.0 | 0/? | Not started | - |
