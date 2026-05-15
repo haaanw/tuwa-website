@@ -178,10 +178,6 @@ body::after {
   border: none;
   cursor: pointer;
   font: inherit;
-  transition: color 150ms ease;
-}
-.nav-link:hover {
-  color: var(--color-accent);
 }
 .nav-chevron {
   transition: transform 250ms ease;
