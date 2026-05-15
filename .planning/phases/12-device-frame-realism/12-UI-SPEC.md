@@ -67,18 +67,11 @@ Source: CONTEXT.md D-07, D-08, REQUIREMENTS.md DFRM-01, DFRM-02, global.css line
 
 ## Typography
 
-No new typography introduced in this phase. Existing tokens apply to placeholder label inside frame when no screenshot is provided.
+**Documented for reference only — no new weights declared in this phase.**
 
-| Role | Size | Weight | Line Height |
-|------|------|--------|-------------|
-| Display | 48px (`--text-display`) | 200 (`--weight-display`) | 1.1 |
-| Heading | 28px (`--text-heading`) | 300 (`--weight-heading`) | 1.2 |
-| Body | 16px (`--text-body`) | 500 (`--weight-body`) | 1.6 |
-| Label | 13px (`--text-label`) | 600 (`--weight-label`) | 1.4 |
+Typography: Existing tokens from Phase 11 (global.css `--text-*` and `--weight-*` tokens) apply unchanged. No new sizes or weights introduced.
 
 Device frame placeholder label uses: `var(--text-label)` at `var(--weight-label)`, uppercase, `var(--tracking-label)`.
-
-Font: General Sans, all weights via single variable WOFF2.
 
 Source: global.css :root tokens, DeviceFrame.astro placeholder div inline styles
 
