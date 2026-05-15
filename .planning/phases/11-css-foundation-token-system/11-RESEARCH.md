@@ -41,7 +41,7 @@ None — discussion stayed within phase scope
 
 | ID | Description | Research Support |
 |----|-------------|------------------|
-| TYPO-01 | Site loads General Sans variable font with weight range 200–700 (single file) | Astro Font API `weights: ["200 700"]` range syntax — confirmed in official docs |
+| TYPO-01 | Site loads General Sans variable font with weight range 200-700 (single file) | Fontshare CDN serves a variable WOFF2 for General Sans (`general-sans@1` endpoint returns `font-weight: 200 700`), but Astro's unifont Fontshare provider hardcodes `hasVariableWeights: false` -- the `weights: ["200 700"]` range syntax gets expanded to 6 discrete static WOFF2 files. **Resolution:** Self-host the variable WOFF2 file in `public/fonts/` and declare manual `@font-face` in global.css. Remove the Astro Font API config for General Sans. See Open Questions (RESOLVED) Q1 for full investigation. |
 | TYPO-02 | CSS `--weight-*` design tokens defined (display, heading, body, label) in global.css | Standard CSS custom property pattern in `:root` — zero new dependencies |
 | IXPN-01 | CSS `@view-transition` page crossfades between all pages | `@view-transition { navigation: auto }` + custom `::view-transition-*` pseudo-elements — confirmed Chrome 126+ / Safari 18.2+ |
 | IXPN-02 | Existing scroll-reveal animations compatible with View Transitions (IO not broken) | Native CSS approach does NOT use `<ClientRouter>` so IO is never disrupted — confirmed by prior research (Astro issue #9650 / W3C CSSWG #8269 concern only applies to `<ClientRouter>`) |
@@ -54,13 +54,13 @@ None — discussion stayed within phase scope
 
 Phase 11 is a pure CSS + minimal config phase. Every deliverable is additive — no existing code is changed, no existing visual output changes. The three workstreams are:
 
-1. **Variable font config change** — `astro.config.mjs` `weights` array goes from `["400","600"]` to `["200 700"]`. This switches Fontshare from serving two static WOFF2 files to one variable WOFF2 covering the full 200–700 range. The Astro Font API uses a single string in an array to signal a weight range (not two separate numbers). This is confirmed by official Astro docs — the syntax is `weights: ["200 700"]`, not `weights: ["200", "700"]`.
+1. **Variable font self-hosting** — The Astro Font API's Fontshare provider (`fontProviders.fontshare()`) hardcodes `hasVariableWeights: false` in its unifont implementation (verified by source code inspection of `node_modules/unifont/dist/index.mjs` line 393). This means `weights: ["200 700"]` gets expanded to 6 discrete static WOFF2 files (200, 300, 400, 500, 600, 700) instead of a single variable WOFF2. **However**, Fontshare's CDN does serve a variable WOFF2 for General Sans — requesting `general-sans@1` (the variable font style number) returns a single file with `font-weight: 200 700`. The fix is to: (a) download the variable WOFF2 from Fontshare CDN, (b) place it in `public/fonts/`, (c) remove the Astro Font API config for General Sans from `astro.config.mjs`, (d) declare a manual `@font-face` in `global.css` with `font-weight: 200 700` and `font-display: swap`, and (e) add a `<link rel="preload">` in `BaseLayout.astro` to replace the `<Font preload />` hint.
 
 2. **CSS token and transition additions in `global.css`** — Four `--weight-*` custom properties added to the existing `:root` block. A `@view-transition { navigation: auto }` rule, with `::view-transition-old(root)` and `::view-transition-new(root)` keyframe overrides for a 200ms crossfade. Two CSS class stubs (`.matisse-frieze`, `.matisse-shape`) with reduced-motion guards.
 
 3. **IO compatibility** — The native CSS `@view-transition` approach does not use `<ClientRouter>` (Astro's SPA router). It works as a browser-native MPA mechanism: the browser performs a full page load, then uses the CSS rule to crossfade between the old and new documents. IntersectionObserver on `[data-animate]` is re-initialized naturally on each full page load — no `astro:page-load` migration required. This is the decisive advantage over the Astro `<ViewTransitions />` component, which would require migrating all IO setup to `astro:page-load`.
 
-**Primary recommendation:** Three surgical edits — one to `astro.config.mjs` (font range), one to `global.css` (tokens + view-transition + Matisse stubs). Zero new packages. Zero visual output change.
+**Primary recommendation:** Four edits — (1) download variable WOFF2 to `public/fonts/`, (2) remove Astro Font API config + add manual `@font-face` and preload link, (3) add tokens + view-transition + Matisse stubs to `global.css`, (4) update `BaseLayout.astro` preload hint. Zero new npm packages. Zero visual output change.
 
 ---
 
@@ -68,7 +68,7 @@ Phase 11 is a pure CSS + minimal config phase. Every deliverable is additive —
 
 | Capability | Primary Tier | Secondary Tier | Rationale |
 |------------|-------------|----------------|-----------|
-| Variable font loading | Frontend Server (Astro build) | CDN (Fontshare serves WOFF2) | Astro Font API fetches and embeds font at build time; `<Font preload />` hint lives in `BaseLayout.astro` `<head>` |
+| Variable font loading | Self-hosted (`public/fonts/`) | Browser (`@font-face` in global.css) | Variable WOFF2 self-hosted because Astro Font API's Fontshare provider does not support variable fonts. Manual `@font-face` + `<link rel="preload">` replaces `<Font preload />`. |
 | CSS design tokens | Browser / CSS cascade | — | Custom properties defined in `:root` cascade to all elements; no server involvement |
 | View transition animation | Browser (native CSS) | — | `@view-transition` is a browser-native MPA mechanism; no JS, no Astro runtime involved |
 | IntersectionObserver scroll-reveal | Browser / Client | — | Inline `<script is:inline>` in `BaseLayout.astro`; runs fresh on each full-page load |
@@ -82,27 +82,53 @@ Phase 11 is a pure CSS + minimal config phase. Every deliverable is additive —
 
 | Technology | Version | Purpose | Status |
 |------------|---------|---------|--------|
-| Astro Font API | bundled with Astro 6.3.1 | Variable font loading + preload hint | Already configured; needs `weights` range update |
+| Self-hosted General Sans variable WOFF2 | N/A (static file) | Variable font with weight axis 200-700 | NEW — downloaded from Fontshare CDN, placed in `public/fonts/` |
 | Tailwind v4 | 4.3.0 (installed) | CSS utility layer; `:root` tokens defined in `global.css` | Unchanged |
-| General Sans (Fontshare variable font) | N/A (CDN) | Primary typeface, weight axis 200–700 | Config change only |
 
 ### No New Dependencies
 
 This phase requires zero new npm packages. [VERIFIED: codebase inspection of `package.json`]
 
-### Configuration Change (not a new dependency)
+### Configuration Change
 
-`astro.config.mjs` font weights syntax:
+**Remove** the Astro Font API config for General Sans from `astro.config.mjs` (the entire `fonts[]` array). **Add** a manual `@font-face` declaration in `global.css` and a `<link rel="preload">` in `BaseLayout.astro`.
 
 ```js
-// BEFORE (current — loads two static WOFF2 files)
-weights: ["400", "600"],
+// BEFORE (astro.config.mjs) — Astro Font API config
+fonts: [
+  {
+    provider: fontProviders.fontshare(),
+    name: "General Sans",
+    cssVariable: "--font-general-sans",
+    weights: ["400", "600"],
+    styles: ["normal"],
+    display: "swap",
+    fallbacks: ["system-ui", "sans-serif"],
+    optimizedFallbacks: true,
+  }
+],
 
-// AFTER (variable font range — loads single WOFF2 file)
-weights: ["200 700"],
+// AFTER — Remove entire fonts[] array from astro.config.mjs
+// Font is now self-hosted via public/fonts/ + manual @font-face in global.css
 ```
 
-[VERIFIED: Astro docs — `/withastro/docs` via Context7, confirmed 2026-05-15]
+```css
+/* NEW in global.css — before :root block */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+```
+
+```html
+<!-- NEW in BaseLayout.astro <head> — replaces <Font preload /> -->
+<link rel="preload" href="/fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
+```
+
+[VERIFIED: Fontshare CDN serves variable WOFF2 at `general-sans@1` endpoint — confirmed 2026-05-15 via direct API inspection]
 
 ---
 
@@ -111,63 +137,64 @@ weights: ["200 700"],
 ### System Architecture: Phase 11 Data Flow
 
 ```
-astro.config.mjs
-  └── fonts[].weights: ["200 700"]
-        │
-        ▼
-Astro build (SSG)
-  └── Fetches single variable WOFF2 from Fontshare CDN
-  └── Emits <link rel="preload"> via <Font cssVariable="--font-general-sans" preload />
-        │
-        ▼
-BaseLayout.astro <head>
-  └── <Font preload /> → preload hint for WOFF2 (already present, unchanged)
-        │
-        ▼
+public/fonts/GeneralSans-Variable.woff2   ← Self-hosted variable WOFF2 (downloaded from Fontshare CDN)
+      │
+      ▼
 src/styles/global.css
-  ├── :root { --weight-display: 200; --weight-heading: 300; ... }   ← NEW tokens
-  ├── @view-transition { navigation: auto; }                         ← NEW rule
-  ├── ::view-transition-old(root) { animation: 200ms crossfade-out } ← NEW keyframes
-  ├── ::view-transition-new(root) { animation: 200ms crossfade-in }  ← NEW keyframes
-  ├── .matisse-frieze { ... }                                        ← NEW stub
-  └── .matisse-shape { ... }                                         ← NEW stub
-        │
-        ▼
+  ├── @font-face { font-family: 'General Sans'; font-weight: 200 700; ... }  ← NEW declaration
+  ├── :root { --weight-display: 200; --weight-heading: 300; ... }             ← NEW tokens
+  ├── @view-transition { navigation: auto; }                                   ← NEW rule
+  ├── ::view-transition-old(root) { animation: 200ms crossfade-out }           ← NEW keyframes
+  ├── ::view-transition-new(root) { animation: 200ms crossfade-in }            ← NEW keyframes
+  ├── .matisse-frieze { ... }                                                  ← NEW stub
+  └── .matisse-shape { ... }                                                   ← NEW stub
+      │
+      ▼
+BaseLayout.astro <head>
+  └── <link rel="preload" href="/fonts/GeneralSans-Variable.woff2" ... />  ← NEW preload hint
+      │
+      ▼
 Browser (Chrome 126+ / Safari 18.2+)
-  ├── Loads single WOFF2, accesses weight axis 200–700
+  ├── Loads single WOFF2, accesses weight axis 200-700
   ├── Resolves --weight-* tokens on all elements (not yet consumed by any selector)
-  └── On MPA navigation: crossfades old→new document at 200ms
-        │
-        ▼ (Firefox / older browsers)
+  └── On MPA navigation: crossfades old->new document at 200ms
+      │
+      ▼ (Firefox / older browsers)
   └── Full page load without crossfade (progressive enhancement — no JS fallback needed)
 ```
 
 ### Recommended File Edits
 
 ```
-astro.config.mjs              ← 1-line weights change
-src/styles/global.css         ← Add to :root, add @view-transition block, add Matisse stubs
+public/fonts/GeneralSans-Variable.woff2  ← NEW file (downloaded from Fontshare CDN)
+astro.config.mjs                         ← Remove fonts[] array + fontProviders import
+src/styles/global.css                    ← Add @font-face, add to :root, add @view-transition, add Matisse stubs
+src/layouts/BaseLayout.astro             ← Replace <Font preload /> with <link rel="preload">
 ```
-
-No other files change in this phase. `BaseLayout.astro` is NOT touched (existing `<Font preload />` already correct).
 
 ---
 
-### Pattern 1: Variable Font Range Syntax (Astro Font API)
+### Pattern 1: Self-Hosted Variable Font with Manual @font-face
 
-**What:** Single string in array = weight range; multiple strings = discrete weights.
-**When to use:** Any variable font with a continuous weight axis.
+**What:** Self-host a variable WOFF2 file and declare `@font-face` manually in global CSS, bypassing the Astro Font API.
+**When to use:** When the Astro Font API's provider does not support variable fonts for your chosen font source (e.g., Fontshare provider hardcodes `hasVariableWeights: false`).
 
-```js
-// Source: /withastro/docs (Context7) — official Astro Font API docs
-// Single WOFF2 covering the full range
-weights: ["200 700"],
-
-// Compare: these load THREE separate static WOFF2 files
-weights: ["400", "600", "700"],
+```css
+/* Self-hosted variable font — single WOFF2 file covering full weight axis */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
 ```
 
-[VERIFIED: Context7 /withastro/docs, 2026-05-15]
+**Critical detail:** The `font-weight: 200 700` declaration (two numbers, space-separated) tells the browser this is a variable font covering that weight range. A single number like `font-weight: 400` would declare a static font at one weight.
+
+**Preload hint:** Add `<link rel="preload" href="/fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossorigin />` in the `<head>` to avoid FOIT. The `crossorigin` attribute is required even for same-origin fonts due to the font loading spec.
+
+[VERIFIED: MDN @font-face docs, Fontshare CDN response for `general-sans@1`, 2026-05-15]
 
 ---
 
@@ -188,7 +215,7 @@ weights: ["400", "600", "700"],
 }
 ```
 
-Note: Values are unitless integers — `font-weight` accepts numeric values 1–1000. [VERIFIED: MDN]
+Note: Values are unitless integers — `font-weight` accepts numeric values 1-1000. [VERIFIED: MDN]
 
 ---
 
@@ -268,7 +295,7 @@ Note: Values are unitless integers — `font-weight` accepts numeric values 1–
 }
 ```
 
-**Rationale for `will-change`:** Phase 15 will add scroll-driven parallax (`animation-timeline: scroll()`) and entrance animations on `.matisse-shape`. Declaring `will-change: transform, opacity` now pre-promotes the layer, preventing a repaint when Phase 15 adds animations. [ASSUMED — `will-change` pre-promotion strategy; low risk to include early]
+**Rationale for `will-change`:** Phase 15 will add scroll-driven parallax (`animation-timeline: scroll()`) and entrance animations on `.matisse-shape`. Declaring `will-change: transform, opacity` now pre-promotes the layer, preventing a repaint when Phase 15 adds animations. The memory cost of `will-change` without active animations is negligible — the browser allocates a compositing layer but performs no extra work until an animation or transform is actually applied. Include it with a code comment linking to Phase 15. Phase 15 can remove it if profiling shows otherwise. [RESOLVED — see Open Questions Q2]
 
 ---
 
@@ -278,7 +305,9 @@ Note: Values are unitless integers — `font-weight` accepts numeric values 1–
 
 - **Placing `@view-transition` inside a `@media` query:** The `@view-transition` at-rule must be at the top level of the stylesheet, not nested inside `@media (prefers-reduced-motion: no-preference)`. The browser handles motion-preference suppression internally. [VERIFIED: MDN]
 
-- **Using `weights: ["200", "700"]` (two strings):** This downloads two static WOFF2 files — ExtraLight and Bold — not a continuous range. The single-string form `["200 700"]` is the variable font range syntax. [VERIFIED: Context7 /withastro/docs]
+- **Using `weights: ["200 700"]` with `fontProviders.fontshare()`:** The Astro Font API's Fontshare provider (unifont) hardcodes `hasVariableWeights: false`. The `"200 700"` range string is expanded into 6 discrete weight requests (200, 300, 400, 500, 600, 700), each loading a separate static WOFF2 file. This defeats the goal of a single variable WOFF2. Self-host the variable font instead. [VERIFIED: unifont source code inspection + Fontshare API testing, 2026-05-15]
+
+- **Using `weights: ["200", "700"]` (two strings):** This downloads two static WOFF2 files — ExtraLight and Bold — not a continuous range. Even worse than the range syntax since intermediate weights (300, 400, 500, 600) are not available at all. [VERIFIED: Context7 /withastro/docs]
 
 - **Touching existing `font-weight` hardcodes in this phase:** D-12 is explicit: tokens go in `:root` only. No existing selectors change. Phase 14 does the sweep.
 
@@ -291,22 +320,24 @@ Note: Values are unitless integers — `font-weight` accepts numeric values 1–
 | Problem | Don't Build | Use Instead | Why |
 |---------|-------------|-------------|-----|
 | Cross-page transitions | Custom JS navigation interception + CSS class swap | `@view-transition { navigation: auto }` | Zero JS, browser-native, progressive enhancement, no IO conflict |
-| Variable font weight management | Multiple `@font-face` declarations + manual file hosting | Astro Font API with `weights: ["200 700"]` | Handles preload hint, WOFF2 format negotiation, fallback generation automatically |
+| Variable font loading | Astro Font API with Fontshare provider (broken for variable fonts) | Self-hosted WOFF2 + manual `@font-face` + `<link rel="preload">` | Fontshare provider hardcodes `hasVariableWeights: false`; self-hosting is the only way to get a single variable WOFF2 |
 | Reduced-motion for view transitions | `@media (prefers-reduced-motion)` wrapper around `@view-transition` | None needed | Browser suppresses view transition animations automatically when reduced-motion preference is set |
 
 ---
 
 ## Common Pitfalls
 
-### Pitfall 1: Wrong Weights Syntax Loads Two Files Instead of One
+### Pitfall 1: Astro Font API Fontshare Provider Does Not Support Variable Fonts
 
-**What goes wrong:** Using `weights: ["200", "700"]` (two separate strings) downloads ExtraLight and Bold WOFF2 files — not a variable font range. Network tab shows two requests, weight 300 is unavailable (browser synthesizes it), and the success criterion "single WOFF2 file for weights 200-700" fails.
+**What goes wrong:** Using `weights: ["200 700"]` with `fontProviders.fontshare()` does NOT load a single variable WOFF2. The unifont Fontshare provider hardcodes `hasVariableWeights: false` (line 393 of `node_modules/unifont/dist/index.mjs`). The `prepareWeights()` function (line 134) checks this flag: when `false`, it expands the space-separated range string into all discrete weights available from the font's style list that fall within [min, max]. For General Sans, this means 6 separate static WOFF2 files (200, 300, 400, 500, 600, 700).
 
-**Why it happens:** The Astro Font API uses string format to distinguish discrete weights (number string) from ranges (two numbers separated by space in one string). The distinction is not obvious from the array syntax.
+**Why it happens:** The Fontsource provider reads `font.variable` from font metadata, but the Fontshare provider does not — it always treats fonts as static. This is likely a missing feature in unifont's Fontshare integration.
 
-**How to avoid:** Use `weights: ["200 700"]` — a single string with a space separator inside the array.
+**How to avoid:** Self-host the variable WOFF2 file. Download it from Fontshare CDN (`https://api.fontshare.com/v2/css?f[]=general-sans@1` returns the URL), place in `public/fonts/`, declare `@font-face` manually in `global.css`.
 
-**Warning signs:** Network tab shows two WOFF2 files after the config change. DevTools shows weight 300 rendering identically to weight 400 (synthesis fallback).
+**Warning signs:** Network tab shows 6 WOFF2 requests after changing to `weights: ["200 700"]`. DevTools shows 6 `@font-face` blocks for General Sans with individual `font-weight` values.
+
+[VERIFIED: unifont source code inspection, Fontshare API direct testing, 2026-05-15]
 
 ---
 
@@ -340,15 +371,37 @@ Note: Values are unitless integers — `font-weight` accepts numeric values 1–
 
 ---
 
+### Pitfall 5: Missing `crossorigin` on Font Preload Link
+
+**What goes wrong:** Omitting `crossorigin` from `<link rel="preload" ... as="font">` causes the browser to fetch the font twice — once for preload (without CORS) and once for the `@font-face` (with CORS, per spec). The preload becomes useless.
+
+**Why it happens:** The font loading spec requires CORS for all font requests, even same-origin. If the preload link doesn't include `crossorigin`, it uses a different fetch mode and the browser can't match it to the `@font-face` request.
+
+**How to avoid:** Always include `crossorigin` (no value needed) on font preload links: `<link rel="preload" href="/fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossorigin />`
+
+---
+
 ## Code Examples
 
 ### Complete global.css Additions (Phase 11)
 
 ```css
+/* ===== Phase 11: Self-Hosted Variable Font ===== */
+/* Add BEFORE the :root block */
+/* Replaces Astro Font API config — see Open Questions (RESOLVED) Q1 */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-Variable.woff2') format('woff2');
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 /* ===== Phase 11: Font Weight Tokens ===== */
 /* Add inside existing :root { } block, after --tracking-label */
 
-  /* Font Weight Tokens — General Sans variable axis (200–700) */
+  /* Font Weight Tokens — General Sans variable axis (200-700) */
   /* Values are unitless integers per CSS font-weight spec */
   --weight-display: 200;  /* hero headlines 48px+ — maximum editorial lightness */
   --weight-heading: 300;  /* section titles, page titles */
@@ -365,7 +418,7 @@ Note: Values are unitless integers — `font-weight` accepts numeric values 1–
   navigation: auto;
 }
 
-/* Override browser default 250ms crossfade → 200ms snappy crossfade (D-07) */
+/* Override browser default 250ms crossfade -> 200ms snappy crossfade (D-07) */
 /* Easing: ease-out — opacity decay front-loaded, feels instant on snap */
 /* No @media wrapper needed — browser suppresses transitions for prefers-reduced-motion */
 ::view-transition-old(root) {
@@ -415,17 +468,26 @@ Note: Values are unitless integers — `font-weight` accepts numeric values 1–
 }
 ```
 
-### Complete astro.config.mjs Font Change
+### BaseLayout.astro Changes
+
+```html
+<!-- REMOVE: <Font preload /> component (Astro Font API) -->
+<!-- ADD: Manual preload link in <head> -->
+<link rel="preload" href="/fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
+```
+
+### astro.config.mjs Changes
 
 ```js
-// Source: /withastro/docs Context7 — Astro Font API variable font range syntax
-// Change in astro.config.mjs fonts[] array:
-
+// REMOVE: fontProviders import (if no other fonts use it)
 // BEFORE
-weights: ["400", "600"],
+import { defineConfig, fontProviders } from "astro/config";
 
-// AFTER — single string signals variable font range, downloads one WOFF2
-weights: ["200 700"],
+// AFTER
+import { defineConfig } from "astro/config";
+
+// REMOVE: entire fonts[] array from defineConfig
+// The font is now self-hosted via public/fonts/ + manual @font-face
 ```
 
 ---
@@ -434,7 +496,7 @@ weights: ["200 700"],
 
 | Old Approach | Current Approach | When Changed | Impact |
 |--------------|------------------|--------------|--------|
-| `weights: ["400", "600"]` discrete loads | `weights: ["200 700"]` variable range | Astro Font API v1 (Astro 4.5+) | Single WOFF2, full axis access, smaller total download |
+| `weights: ["400", "600"]` via Astro Font API (Fontshare) | Self-hosted variable WOFF2 + manual `@font-face` | Phase 11 (this phase) | Single WOFF2 file, full weight axis 200-700, no provider limitation |
 | Astro `<ViewTransitions />` component (SPA router) | Native CSS `@view-transition { navigation: auto }` | Chrome 126 / Safari 18.2 (2024) | Zero JS, no IO conflict, progressive enhancement in Firefox |
 | `DOMContentLoaded` for animation setup (with `<ViewTransitions />`) | Not needed here — native CSS approach uses genuine page loads | N/A for this project | IO and hero animations work unchanged, no migration required |
 | `font-weight: 600` hardcoded everywhere | `font-weight: var(--weight-body)` token system | Phase 11 defines tokens; Phase 14 applies them | Decoupled weight from usage; single `:root` change recalibrates entire type system |
@@ -442,6 +504,7 @@ weights: ["200 700"],
 **Deprecated / never-use in this codebase:**
 - `<ClientRouter>` / `<ViewTransitions />` import from `astro:transitions` — permanently incompatible with IO scroll-reveal pattern; native CSS replaces it completely
 - `@astrojs/tailwind` — deprecated for Tailwind v4, not installed, do not add
+- `fontProviders.fontshare()` with variable weight ranges — hardcodes `hasVariableWeights: false`, always loads discrete static files
 
 ---
 
@@ -454,17 +517,18 @@ weights: ["200 700"],
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Does Fontshare actually serve a variable WOFF2 for General Sans via the Astro Font API?**
-   - What we know: Fontshare lists General Sans as a variable font (weight axis confirmed). Astro Font API supports the `"200 700"` range syntax for Fontsource and for Fontshare.
-   - What's unclear: Whether Fontshare's CDN endpoint for General Sans returns a single variable WOFF2 or multiple static files when the range syntax is used. The SUMMARY.md flags this as an open gap (2026-05-14).
-   - Recommendation: The Network tab verification in the success criteria ("single WOFF2 file loaded for General Sans covering weights 200-700") resolves this empirically. If Fontshare serves static files for General Sans, two or more WOFF2 requests will appear and the font config approach may need adjustment. The build step will complete either way — only verification tells us.
+   - **Answer: NO** — the Astro Font API cannot serve it, but Fontshare's CDN does have the file.
+   - **Investigation (2026-05-15):** Inspected `node_modules/unifont/dist/index.mjs` source code. The `fontshare_default` provider (line 366-414) calls `prepareWeights()` with `hasVariableWeights: false` hardcoded (line 393). The `prepareWeights()` function (line 134-155) checks this flag: when `false` and the input weight contains a space (e.g., `"200 700"`), it expands the range into all discrete weights from the font's style list that fall within [min, max] (lines 142-146). For General Sans, Fontshare's API reports 7 normal-style weights: 200, 300, 400, 500, 600, 700 plus a variable entry (weight: 0, number: 1). The expansion produces 6 discrete weight requests, each loading a separate static WOFF2 file.
+   - **Fontshare CDN confirmation:** `curl -s "https://api.fontshare.com/v2/css?f[]=general-sans@1"` returns a single `@font-face` block with `font-weight: 200 700` and one WOFF2 URL. The variable WOFF2 exists and is accessible — the limitation is purely in unifont's Fontshare provider code.
+   - **Comparison with Fontsource provider:** The fontsource_default provider (line 417+) passes `hasVariableWeights: font.variable` from font metadata (line 427), so it correctly handles variable fonts. However, General Sans is not available on Fontsource (verified: `https://api.fontsource.org/v1/fonts?family=General+Sans` returns empty array).
+   - **Resolution:** Self-host the variable WOFF2 file. Download from Fontshare CDN, place in `public/fonts/GeneralSans-Variable.woff2`, declare manual `@font-face` in global.css, and add `<link rel="preload">` in BaseLayout.astro. Remove the Astro Font API `fonts[]` config from astro.config.mjs.
 
 2. **Is `will-change: transform, opacity` on `.matisse-shape` premature optimization?**
-   - What we know: The property promotes the element to a GPU compositing layer, which has a memory cost.
-   - What's unclear: Whether Phase 15's animation approach will actually use transform/opacity (highly likely given the `prefers-reduced-motion` constraint on scroll-driven parallax), or whether it will change to a different property.
-   - Recommendation: Include the stub but add a code comment linking it to Phase 15's animation plan. Phase 15 can remove it if unused.
+   - **Answer: Acceptable to include.** The memory cost of `will-change` without active animations is negligible — the browser allocates a compositing layer placeholder but performs no extra rendering work until an animation or transform is actually applied. Phase 15 will almost certainly use `transform` and `opacity` for scroll-driven parallax effects (`animation-timeline: scroll()`) and entrance animations, both of which are the standard properties for GPU-composited animations. A code comment linking to Phase 15 documents the intent. If Phase 15's approach changes, the property can be removed in the same edit with zero structural cost.
+   - **Risk assessment:** Low. No layout shift, no paint regression, no visible change. Worst case: remove in Phase 15.
 
 ---
 
@@ -476,7 +540,7 @@ Step 2.6: SKIPPED — Phase 11 is a pure CSS + config change with no external ru
 
 ## Security Domain
 
-Step: SKIPPED — Phase 11 contains no authentication, session management, user input handling, data persistence, or cryptography. All deliverables are static CSS and build config. ASVS categories V2–V6 do not apply.
+Step: SKIPPED — Phase 11 contains no authentication, session management, user input handling, data persistence, or cryptography. All deliverables are static CSS and build config. ASVS categories V2-V6 do not apply.
 
 ---
 
@@ -484,7 +548,8 @@ Step: SKIPPED — Phase 11 contains no authentication, session management, user 
 
 ### Primary (HIGH confidence)
 
-- `/withastro/docs` via Context7 (2026-05-15) — Astro Font API `weights` range syntax; variable font configuration; confirmed `["200 700"]` vs discrete strings
+- `node_modules/unifont/dist/index.mjs` (2026-05-15) — Source code inspection of Fontshare provider; confirmed `hasVariableWeights: false` hardcoded; confirmed `prepareWeights()` expansion logic for range strings
+- Fontshare API direct testing (2026-05-15) — `https://api.fontshare.com/v2/css?f[]=general-sans@1` returns single variable WOFF2 with `font-weight: 200 700`; `https://api.fontshare.com/v2/css?f[]=general-sans@200,300,400,500,600,700` returns 6 discrete `@font-face` blocks
 - [MDN: @view-transition](https://developer.mozilla.org/en-US/docs/Web/CSS/@view-transition) — at-rule syntax, `navigation: auto`, `::view-transition-old`/`::view-transition-new` pseudo-elements, browser support matrix
 - [Astro zero-JS view transitions blog](https://astro.build/blog/future-of-astro-zero-js-view-transitions/) — canonical reference for CSS-native approach, Chrome 126 / Edge 126 support
 - Codebase inspection (2026-05-15) — `astro.config.mjs` (current font config), `src/styles/global.css` (existing `:root` token block and `prefers-reduced-motion` patterns), `src/layouts/BaseLayout.astro` (IO script and `<Font preload />`)
@@ -494,6 +559,8 @@ Step: SKIPPED — Phase 11 contains no authentication, session management, user 
 - [MDN: View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API) — cross-document transition behavior; Safari 18.2 support confirmed
 - `.planning/research/SUMMARY.md` (2026-05-14) — project-level research; `@view-transition` recommendation, font config gap note, IO compatibility analysis
 - `.planning/research/FEATURES.md` (2026-05-14) — Astro issue #9650 and W3C CSSWG #8269 references for IO/ViewTransitions incompatibility
+- [MDN: @font-face font-weight](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-weight) — variable font weight range syntax in @font-face declarations
+- [MDN: Link preload fonts](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload) — crossorigin requirement for font preloads
 
 ### Tertiary (LOW confidence)
 
@@ -506,8 +573,8 @@ Step: SKIPPED — Phase 11 contains no authentication, session management, user 
 **Confidence breakdown:**
 - Standard stack: HIGH — existing stack confirmed by codebase inspection; no new packages
 - Architecture: HIGH — based on direct code reading of `astro.config.mjs`, `global.css`, `BaseLayout.astro`
-- Pitfalls: HIGH — derived from official bug tracker references and confirmed MDN docs
-- Font range syntax: HIGH — verified in Astro official docs via Context7
+- Pitfalls: HIGH — derived from unifont source code inspection, Fontshare API testing, and MDN docs
+- Font self-hosting: HIGH — verified by direct Fontshare CDN API calls and unifont source code reading
 - View transition CSS: HIGH — verified in MDN and Astro blog post
 
 **Research date:** 2026-05-15
