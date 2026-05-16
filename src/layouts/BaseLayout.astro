@@ -93,5 +93,26 @@ const { title, description, ogImage, canonical, type } = Astro.props;
         });
       })();
     </script>
+    <script>
+      import Lenis from 'lenis';
+      import 'lenis/dist/lenis.css';
+
+      // D-03: Disable on touch devices — native momentum is superior
+      const isTouch = window.matchMedia('(pointer: coarse)').matches;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!isTouch && !reducedMotion) {
+        const lenis = new Lenis({
+          autoRaf: true,
+          lerp: 0.1,
+          anchors: {
+            offset: 64, // Sticky header height (src/components/Header.astro)
+          },
+        });
+
+        // Expose for potential programmatic scrollTo access
+        (window as any).__lenis = lenis;
+      }
+    </script>
   </body>
 </html>
