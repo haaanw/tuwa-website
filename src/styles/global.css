@@ -823,9 +823,28 @@ body::after {
   opacity: 0.28;
 }
 
+.matisse-feature-strip {
+  position: absolute;
+  inset: auto 0 -437px;
+  height: 260px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.matisse-feature-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.matisse-feature-svg-mobile {
+  display: none;
+}
+
 .matisse-feature-band {
   fill: var(--color-matisse-tile);
-  opacity: 0.58;
+  opacity: 0.68;
 }
 
 .matisse-feature-brush-edge {
@@ -834,12 +853,12 @@ body::after {
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 16;
-  opacity: 0.34;
+  opacity: 0.44;
 }
 
 .matisse-feature-brush-edge-bottom {
   stroke-width: 14;
-  opacity: 0.28;
+  opacity: 0.36;
 }
 
 .matisse-feature-brush-fray {
@@ -848,12 +867,12 @@ body::after {
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 8;
-  opacity: 0.34;
+  opacity: 0.42;
 }
 
 .matisse-feature-brush-fray-bottom {
   stroke-width: 7;
-  opacity: 0.26;
+  opacity: 0.34;
 }
 
 .matisse-feature-brush-streak {
@@ -862,12 +881,51 @@ body::after {
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 5;
-  opacity: 0.32;
+  opacity: 0.40;
 }
 
 .matisse-feature-brush-streak-low {
   stroke-width: 7;
-  opacity: 0.22;
+  opacity: 0.30;
+}
+
+.matisse-feature-daub,
+.matisse-feature-dot {
+  fill: var(--color-matisse-pool-blue);
+  opacity: 0.58;
+}
+
+.matisse-feature-daub-mid,
+.matisse-feature-dot-mid {
+  fill: var(--color-matisse-water-blue);
+  opacity: 0.54;
+}
+
+.matisse-feature-daub-deep,
+.matisse-feature-dot-deep {
+  fill: var(--color-matisse-deep-blue);
+  opacity: 0.50;
+}
+
+.matisse-feature-oil-mark {
+  stroke: rgb(23 74 130 / 0.08);
+  stroke-width: 1.25;
+  stroke-linejoin: round;
+}
+
+.matisse-feature-paint-bristle {
+  fill: none;
+  stroke: rgb(23 74 130 / 0.22);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3.5;
+  opacity: 0.36;
+}
+
+.matisse-feature-paint-bristle-light {
+  stroke: rgb(255 255 248 / 0.38);
+  stroke-width: 2.5;
+  opacity: 0.34;
 }
 
 .matisse-shape {
@@ -880,6 +938,35 @@ body::after {
 .matisse-feature-shape {
   stroke: rgb(23 74 130 / 0.05);
   stroke-width: 1;
+}
+
+.matisse-feature-shape-small {
+  stroke: rgb(23 74 130 / 0.04);
+}
+
+@media (max-width: 767px) {
+  .matisse-feature-strip {
+    inset: auto 0 -330px;
+    height: 260px;
+  }
+
+  .matisse-feature-svg-desktop {
+    display: none;
+  }
+
+  .matisse-feature-svg-mobile {
+    display: block;
+  }
+
+  .matisse-feature-mobile-daubs .matisse-feature-daub,
+  .matisse-feature-mobile-daubs .matisse-feature-dot {
+    opacity: 0.42;
+  }
+
+  .matisse-feature-mobile-daubs .matisse-feature-paint-bristle {
+    stroke-width: 2;
+    opacity: 0.28;
+  }
 }
 
 /* Reduced-motion guard — consistent with Phase 8 pattern (D-10) */

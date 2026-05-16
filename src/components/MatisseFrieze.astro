@@ -23,9 +23,58 @@ import MatisseShape from './MatisseShape.astro';
     aria-hidden="true"
     style="width: 100%; height: 100%;"
   >
+    <defs>
+      <filter id="matisse-pool-brush-wobble" x="-4%" y="-18%" width="108%" height="136%">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.012 0.09"
+          numOctaves="2"
+          seed="11"
+          result="brushNoise"
+        />
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="brushNoise"
+          scale="5"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        />
+      </filter>
+    </defs>
     <path
       class="matisse-pool-band"
-      d="M-52 74C95 58 205 77 347 68c151-10 275-4 413 8 144 12 292-22 442-10 120 10 213 12 290 2v218c-100 12-196-1-292 11-151 19-298-14-446-5-142 9-269 17-410 2-151-16-269 9-396-2Z"
+      filter="url(#matisse-pool-brush-wobble)"
+      d="M-58 78C26 63 91 78 168 69C236 61 287 76 354 67C505 47 615 79 760 76C909 73 1049 50 1201 67C1316 80 1398 77 1498 63L1492 288C1384 301 1298 287 1198 299C1047 317 901 282 754 293C610 304 485 310 342 294C193 277 72 303 -58 291Z"
+    />
+    <path
+      class="matisse-brush-edge matisse-brush-edge-top"
+      filter="url(#matisse-pool-brush-wobble)"
+      d="M-42 77C82 54 175 82 312 66C469 48 589 78 742 74C892 70 1043 50 1199 67C1313 80 1400 75 1494 61"
+    />
+    <path
+      class="matisse-brush-edge matisse-brush-edge-bottom"
+      filter="url(#matisse-pool-brush-wobble)"
+      d="M-48 288C82 304 194 276 342 293C486 310 611 304 754 294C902 283 1047 317 1199 298C1300 286 1385 301 1491 287"
+    />
+    <path
+      class="matisse-brush-fray"
+      d="M-8 76C28 70 56 74 92 68 M246 69C286 60 318 67 362 63 M476 61C522 56 558 65 604 62 M944 64C990 56 1028 59 1077 55 M1298 70C1342 64 1384 66 1428 58"
+    />
+    <path
+      class="matisse-brush-fray matisse-brush-fray-bottom"
+      d="M70 292C110 299 148 288 190 294 M392 294C438 302 486 290 535 296 M672 292C716 286 758 294 804 289 M1058 302C1110 309 1158 293 1214 299 M1320 292C1370 287 1418 294 1470 285"
+    />
+    <path
+      class="matisse-brush-streak"
+      d="M54 123C170 108 278 130 402 118C530 106 616 123 738 120"
+    />
+    <path
+      class="matisse-brush-streak matisse-brush-streak-short"
+      d="M842 112C934 100 1021 118 1110 108C1205 97 1298 108 1382 98"
+    />
+    <path
+      class="matisse-brush-streak matisse-brush-streak-low"
+      d="M128 245C260 262 374 238 510 249C634 259 740 239 878 252C988 262 1104 246 1240 255"
     />
     <MatisseShape
       shapeId="blob-1"
