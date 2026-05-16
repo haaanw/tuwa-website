@@ -125,9 +125,9 @@ Plans:
   2. Primary CTA buttons respond to cursor proximity with a subtle magnetic pull effect
   3. Page scroll has a momentum feel (either via Lenis or confirmed design decision to use native scroll)
   4. Anchor navigation scrolls smoothly to target sections without triggering Safari scroll jank
-**Plans:** 2/2 plans
+**Plans:** 1/2 plans executed
 Plans:
-- [ ] 16-01-PLAN.md — Easing token + hover micro-interaction audit
+- [x] 16-01-PLAN.md — Easing token + hover micro-interaction audit
 - [ ] 16-02-PLAN.md — Lenis momentum scroll + magnetic CTA effect
 
 ## Progress
@@ -150,4 +150,4 @@ Plans:
 | 13. QR Code Removal | v3.0 | 1/1 | Complete    | 2026-05-15 |
 | 14. Typography Weight Rollout | v3.0 | 2/2 | Complete    | 2026-05-15 |
 | 15. Matisse SVG Art Direction | v3.0 | 2/2 | Complete | 2026-05-15 |
-| 16. Interaction Polish | v3.0 | 0/2 | Not started | - |
+| 16. Interaction Polish | v3.0 | 1/2 | In Progress|  |

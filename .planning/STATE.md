@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Art Direction & Interaction Polish
-status: completed
-stopped_at: Phase 16 context gathered
-last_updated: "2026-05-16T06:37:58.353Z"
-last_activity: 2026-05-16 -- Removed strip border paths while preserving the irregular filled 条带
+status: executing
+stopped_at: Phase 15 subtle feature-page strip polish complete; Phase 16 context gathered
+last_updated: "2026-05-16T08:35:20.336Z"
+last_activity: 2026-05-16 -- Phase 16 execution started
 progress:
   total_phases: 6
   completed_phases: 5
-  total_plans: 7
+  total_plans: 9
   completed_plans: 7
-  percent: 100
+  percent: 78
 ---
 
 # Project State
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-05-14)
 
 ## Current Position
 
-Phase: 16 (interaction-polish) — NOT STARTED
-Plan: TBD
-Status: Phase 15 complete with borderless handmade strip polish applied; Phase 16 awaits Lenis/native scroll decision
-Last activity: 2026-05-16 -- Removed strip border paths while preserving the irregular filled 条带
+Phase: 16 (interaction-polish) — EXECUTING
+Plan: 1 of 2
+Status: Executing Phase 16
+Last activity: 2026-05-16 -- Phase 16 execution started
 
 Progress: [████████░░] 83% milestone complete; Phase 16 remains
 
@@ -68,6 +68,7 @@ Progress: [████████░░] 83% milestone complete; Phase 16 rema
 - [Phase 15]: Latest product feedback pushed the figures further from anatomy into spontaneous, syncopated, jazz-like cut-paper movement marks
 - [Phase 15]: Strip grid removed; hero band is now an irregular filled path with hand-drawn top/bottom edge strokes and rougher figure contours
 - [Phase 15]: Strip border paths removed after product feedback; hero band now reads as a borderless irregular field
+- [Phase 15]: Feature-page decoration now echoes the homepage strip as a subtle full-width borderless band behind the device area instead of a corner cluster
 
 ### Pending Todos
 
@@ -88,6 +89,6 @@ Progress: [████████░░] 83% milestone complete; Phase 16 rema
 
 ## Session Continuity
 
-Last session: 2026-05-16T06:37:58.349Z
-Stopped at: Phase 16 context gathered
+Last session: 2026-05-16T07:45:19Z
+Stopped at: Phase 15 subtle feature-page strip polish complete; Phase 16 context gathered
 Resume file: .planning/phases/16-interaction-polish/16-CONTEXT.md
