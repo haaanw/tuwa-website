@@ -268,7 +268,7 @@ body::after {
 }
 @media (prefers-reduced-motion: no-preference) {
   .btn-cta {
-    transition: background-color 150ms var(--ease-interactive), box-shadow 150ms var(--ease-interactive), transform 150ms var(--ease-interactive);
+    transition: background-color 150ms var(--ease-interactive), box-shadow 150ms var(--ease-interactive), transform 300ms var(--ease-interactive);
   }
   .btn-cta:hover {
     transform: scale(1.02);
@@ -312,6 +312,49 @@ body::after {
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
+}
+
+/* Phase 16 — Hover audit: uncovered interactive elements (D-07, D-09) */
+
+/* FAQ accordion summary hover */
+@media (prefers-reduced-motion: no-preference) {
+  details > summary {
+    cursor: pointer;
+    transition: color 150ms var(--ease-interactive);
+  }
+  details > summary:hover {
+    color: var(--color-accent);
+  }
+}
+
+/* FeatureGrid wheel arc hover — subtle opacity feedback */
+@media (prefers-reduced-motion: no-preference) {
+  .wheel-arc:not(.is-active) {
+    transition: opacity 200ms var(--ease-interactive), fill 200ms var(--ease-interactive);
+  }
+  .wheel-arc:not(.is-active):hover {
+    opacity: 0.75;
+  }
+}
+
+/* Feature page inline links (not CTA, not nav-link) */
+@media (prefers-reduced-motion: no-preference) {
+  main a:not(.btn-cta):not(.nav-link):not([data-animate]) {
+    transition: color 150ms var(--ease-interactive);
+  }
+  main a:not(.btn-cta):not(.nav-link):not([data-animate]):hover {
+    color: var(--color-accent);
+  }
+}
+
+/* Footer links — use same nav-link style for consistency */
+@media (prefers-reduced-motion: no-preference) {
+  footer a:not(.btn-cta) {
+    transition: color 150ms var(--ease-interactive);
+  }
+  footer a:not(.btn-cta):hover {
+    color: var(--color-accent);
+  }
 }
 
 /* Tabular numerals for metric displays */
