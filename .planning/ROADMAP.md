@@ -2,133 +2,129 @@
 
 ## Milestones
 
-- ✅ **v1.0 MVP** — Phases 1-4 (shipped 2026-05-11)
-- ✅ **v2.0 Visual Overhaul & Polish** — Phases 5-10 (shipped 2026-05-14)
-- 🚧 **v3.0 Art Direction & Interaction Polish** — Phases 11-16 (in progress)
+- v1.0 MVP -- Phases 1-4 (shipped 2026-05-11)
+- v2.0 Visual Overhaul & Polish -- Phases 5-10 (shipped 2026-05-14)
+- v3.0 Art Direction & Interaction Polish -- Phases 11-16 (shipped 2026-05-16)
+- v4.0 Multi-Language Support -- Phases 17-22 (in progress)
 
 ## Phases
 
 <details>
-<summary>✅ v1.0 MVP (Phases 1-4) — SHIPPED 2026-05-11</summary>
+<summary>v1.0 MVP (Phases 1-4) -- SHIPPED 2026-05-11</summary>
 
-- [x] Phase 1: Foundation (3/3 plans) — completed 2026-05-10
-- [x] Phase 2: Landing Page (2/2 plans) — completed 2026-05-10
-- [x] Phase 3: Content Pages (4/4 plans) — completed 2026-05-11
-- [x] Phase 4: Blog + Polish (3/3 plans) — completed 2026-05-11
+- [x] Phase 1: Foundation (3/3 plans) -- completed 2026-05-10
+- [x] Phase 2: Landing Page (2/2 plans) -- completed 2026-05-10
+- [x] Phase 3: Content Pages (4/4 plans) -- completed 2026-05-11
+- [x] Phase 4: Blog + Polish (3/3 plans) -- completed 2026-05-11
 
 </details>
 
 <details>
-<summary>✅ v2.0 Visual Overhaul & Polish (Phases 5-10) — SHIPPED 2026-05-14</summary>
+<summary>v2.0 Visual Overhaul & Polish (Phases 5-10) -- SHIPPED 2026-05-14</summary>
 
-- [x] Phase 5: Animation Infrastructure (1/1 plan) — completed 2026-05-11
-- [x] Phase 6: Screenshot Presentation (2/2 plans) — completed 2026-05-11
-- [x] Phase 7: Animation Polish (2/2 plans) — completed 2026-05-12
-- [x] Phase 8: UI/UX Visual Depth (4/4 plans) — completed 2026-05-13
-- [x] Phase 8.1: FeatureGrid Click Wheel (1/1 plan) — completed 2026-05-14
-- [x] Phase 9: Deployment & Responsive (2/2 plans) — completed 2026-05-14
-- [x] Phase 10: v2.0 Cleanup (1/1 plan) — completed 2026-05-14
+- [x] Phase 5: Animation Infrastructure (1/1 plan) -- completed 2026-05-11
+- [x] Phase 6: Screenshot Presentation (2/2 plans) -- completed 2026-05-11
+- [x] Phase 7: Animation Polish (2/2 plans) -- completed 2026-05-12
+- [x] Phase 8: UI/UX Visual Depth (4/4 plans) -- completed 2026-05-13
+- [x] Phase 8.1: FeatureGrid Click Wheel (1/1 plan) -- completed 2026-05-14
+- [x] Phase 9: Deployment & Responsive (2/2 plans) -- completed 2026-05-14
+- [x] Phase 10: v2.0 Cleanup (1/1 plan) -- completed 2026-05-14
 
 </details>
 
-### v3.0 Art Direction & Interaction Polish (In Progress)
+<details>
+<summary>v3.0 Art Direction & Interaction Polish (Phases 11-16) -- SHIPPED 2026-05-16</summary>
 
-**Milestone Goal:** Transform site visual identity with Matisse-inspired art direction, a precision typography weight system, realistic device frames, and premium interaction feel — all while preserving the Lighthouse 98/99 baseline.
+- [x] Phase 11: CSS Foundation & Token System (1/1 plan) -- completed 2026-05-15
+- [x] Phase 12: Device Frame Realism (1/1 plan) -- completed 2026-05-15
+- [x] Phase 13: QR Code Removal (1/1 plan) -- completed 2026-05-15
+- [x] Phase 14: Typography Weight Rollout (2/2 plans) -- completed 2026-05-15
+- [x] Phase 15: Matisse SVG Art Direction (2/2 plans) -- completed 2026-05-15
+- [x] Phase 16: Interaction Polish (2/2 plans) -- completed 2026-05-16
 
-- [x] **Phase 11: CSS Foundation & Token System** - Load variable font, define weight tokens, wire view transitions (completed 2026-05-15)
-- [x] **Phase 12: Device Frame Realism** - Multi-layer shadow, Dynamic Island, screenshot fit fix (completed 2026-05-15)
-- [x] **Phase 13: QR Code Removal** - Remove QR block and adjacent badge section, verify CLS = 0 (completed 2026-05-15)
-- [x] **Phase 14: Typography Weight Rollout** - Apply light headings + heavier body across all 10 pages (completed 2026-05-15)
-- [x] **Phase 15: Matisse SVG Art Direction** - Author frieze shapes, integrate hero, add parallax and entrance animations (completed 2026-05-15)
-- [x] **Phase 16: Interaction Polish** - Hover micro-interactions, magnetic CTA, Lenis scroll, audit pass (completed 2026-05-16)
+</details>
+
+### v4.0 Multi-Language Support (In Progress)
+
+**Milestone Goal:** Add Chinese (zh) and French (fr) translations to all 10 pages with proper i18n routing, a language switcher, and full SEO compliance (hreflang, localized sitemap, per-locale 404s).
+
+- [ ] **Phase 17: i18n Infrastructure** - Astro i18n routing, translation utility, CJK font integration
+- [ ] **Phase 18: Component Extraction** - Language switcher, locale-aware navigation across header/footer
+- [ ] **Phase 19: Home Page Localization** - Prove end-to-end pattern with landing page in zh and fr
+- [ ] **Phase 20: Feature Pages** - 5 feature deep-dive pages translated in zh and fr
+- [ ] **Phase 21: Legal, Support & Blog** - Privacy, Terms, Support, and Blog listing translated
+- [ ] **Phase 22: SEO Verification & Polish** - hreflang, sitemap, locale 404s, Lighthouse audit
 
 ## Phase Details
 
-### Phase 11: CSS Foundation & Token System
-**Goal**: The site has a working variable-font weight axis, CSS weight design tokens, view-transition page crossfades, and Matisse CSS class scaffolding — without any visible change to current design
-**Depends on**: Phase 10 (complete)
-**Requirements**: TYPO-01, TYPO-02, IXPN-01, IXPN-02
+### Phase 17: i18n Infrastructure
+**Goal**: The site has working locale routing, a type-safe translation utility, and CJK font loading -- without any visible content changes to existing English pages
+**Depends on**: Phase 16 (complete)
+**Requirements**: I18N-01, I18N-02, I18N-03
 **Success Criteria** (what must be TRUE):
-  1. Network tab shows a single WOFF2 file loaded for General Sans covering weights 200-700 (not five separate files)
-  2. DevTools shows `--weight-display`, `--weight-heading`, `--weight-body`, `--weight-label` defined in `:root`
-  3. Navigating between any two pages produces a visible crossfade animation in Chrome 126+ and Safari 18.2+
-  4. Existing scroll-reveal animations still fire correctly on page load after navigation (IO not broken)
-  5. `.matisse-frieze` and `.matisse-shape` CSS classes exist in the stylesheet and `prefers-reduced-motion` guards are in place
-**Plans:** 1/1 plans complete
-Plans:
-- [x] 11-01-PLAN.md — Variable font, weight tokens, view transitions, Matisse stubs
+  1. Navigating to /zh/ or /fr/ serves a page (even if content is English fallback) without 404
+  2. A `t()` utility function resolves translation keys from per-page TypeScript dictionary files with full type safety (IDE autocomplete works)
+  3. Chinese text renders in Noto Sans SC on /zh/ pages with no visible Times New Roman fallback
+  4. English pages at unprefixed URLs load identically to before (no performance regression, no new network requests)
+**Plans**: TBD
 
-### Phase 12: Device Frame Realism
-**Goal**: The CSS iPhone device frames look like physical hardware — with layered shadow falloff, a proportional Dynamic Island, visible side buttons, and screenshots that fit without misalignment
-**Depends on**: Phase 11
-**Requirements**: DFRM-01, DFRM-02, DFRM-03, DFRM-04, DFRM-05
+### Phase 18: Component Extraction
+**Goal**: Users can switch languages from any page, and all navigation links route correctly within the chosen locale
+**Depends on**: Phase 17
+**Requirements**: I18N-04, I18N-05
 **Success Criteria** (what must be TRUE):
-  1. Device frame displays a Dynamic Island notch with proportions that match an actual iPhone 15 Pro
-  2. Side button pseudo-elements are visible and scale correctly at 260px, 300px, and 320px frame widths
-  3. Shadow has 4-5 distinct layers creating a soft, natural light falloff (visible on white background)
-  4. Screen interior has an inset shadow making the display appear recessed into the bezel
-  5. All screenshots fill the frame correctly with no extra border gap or text misalignment
-**Plans:** 1/1 plans complete
-Plans:
-- [x] 12-01-PLAN.md — Device frame CSS realism: shadow, Dynamic Island, side buttons, screen inset, screenshot fit
+  1. A language switcher is visible in the header on every page and allows switching between en/zh/fr
+  2. Clicking a nav link while on a /zh/ page navigates to the /zh/ variant of the target page (not back to English)
+  3. Footer links, mobile menu links, and CTA buttons all respect the current locale context
+  4. Language switcher preserves the current page when switching (e.g., /zh/recovery-scoring switches to /fr/recovery-scoring)
+**Plans**: TBD
 **UI hint**: yes
 
-### Phase 13: QR Code Removal
-**Goal**: The QR code block and adjacent App Store badge section are fully removed from the landing page — no hidden DOM footprint, no layout shift
-**Depends on**: Phase 11
-**Requirements**: CTA-01, CTA-02, CTA-03
+### Phase 19: Home Page Localization
+**Goal**: The landing page is fully readable and natural in Chinese and French, proving the translation pattern works end-to-end
+**Depends on**: Phase 18
+**Requirements**: I18N-06
 **Success Criteria** (what must be TRUE):
-  1. The QR code and adjacent App Store badge section do not appear anywhere on the landing page
-  2. Lighthouse CLS score remains 0 after removal (no layout shift from the deleted block)
-  3. Header button, hero CTA button, and footer CTA button all remain functional and navigable
-**Plans:** 1/1 plans complete
-Plans:
-- [x] 13-01-PLAN.md — Remove QR code, badge, and qrcode dependency from LandingCTA
-
-### Phase 14: Typography Weight Rollout
-**Goal**: All 10 pages display the weight contrast system — large light headings (weight 300) and smaller heavier body text (weight 500+) — with no hardcoded font-weight values remaining outside global.css
-**Depends on**: Phase 11
-**Requirements**: TYPO-03, TYPO-04, TYPO-05
-**Success Criteria** (what must be TRUE):
-  1. All page titles and section headings are visibly lighter than body text (observable contrast without DevTools)
-  2. Body paragraphs and labels appear measurably bolder than headings at the same size
-  3. Typography weight system is consistent across all 10 pages (landing, 5 feature pages, blog listing, privacy, terms, support)
-  4. A grep for hardcoded `font-weight` values outside `global.css` returns zero results
-**Plans:** 2/2 plans complete
-Plans:
-- [x] 14-01-PLAN.md — Migrate 8 component files to weight tokens (Hero, StatsCounter, Footer, MobileMenu, FaqAccordion, FeatureGrid, FeatureCTA, LandingCTA)
-- [x] 14-02-PLAN.md — Migrate 4 layouts, 7 pages, and 6 global.css selectors to weight tokens
+  1. /zh/ displays the complete landing page (hero, feature overview, stats, CTAs) in Chinese with no English fragments
+  2. /fr/ displays the complete landing page in French with no English fragments
+  3. French text expansion does not cause layout breaks, overflow, or truncation on any viewport width
+  4. CJK line breaking is natural (no mid-word breaks, proper punctuation handling)
+**Plans**: TBD
 **UI hint**: yes
 
-### Phase 15: Matisse SVG Art Direction
-**Goal**: The hero section features a continuous organic cut-out frieze of Matisse-inspired shapes, lighter decorative touches appear on feature deep-dive pages, and shapes animate on scroll and entrance — all within Lighthouse DOM budget
-**Depends on**: Phase 14
-**Requirements**: ART-01, ART-02, ART-03, ART-04, ART-05, ART-06
+### Phase 20: Feature Pages
+**Goal**: All 5 feature deep-dive pages are fully translated and visually intact in both Chinese and French
+**Depends on**: Phase 19
+**Requirements**: I18N-07, I18N-08
 **Success Criteria** (what must be TRUE):
-  1. The hero section displays a full-width horizontal band of blue abstract human movement SVG shapes on a pale pool-wall frieze band
-  2. Feature deep-dive pages each show a lighter decorative Matisse element (not the full frieze)
-  3. Matisse shapes shift vertically at a different rate than the page scroll (visible parallax effect)
-  4. Shapes animate into view on page load with an entrance sequence
-  5. Lighthouse DOM size audit stays within budget (no "Avoid an excessive DOM size" warning) and LCP element is unchanged
-**Plans:** 2/2 plans complete
-Plans:
-- [x] 15-01-PLAN.md — Shape vocabulary, Astro components (MatisseShape, MatisseFrieze, MatisseDecoration), CSS animations and parallax
-- [x] 15-02-PLAN.md — Hero frieze integration, cluster feature-page decoration, visual verification checkpoint
+  1. All 5 feature pages (/zh/recovery-scoring, /zh/workload-tracking, etc.) display fully translated Chinese content
+  2. All 5 feature pages (/fr/recovery-scoring, /fr/workload-tracking, etc.) display fully translated French content
+  3. French text expansion on feature pages does not break device frame layouts, stat counters, or CTA sections
+  4. Feature-specific terminology is consistent across pages within each locale
+**Plans**: TBD
 **UI hint**: yes
 
-### Phase 16: Interaction Polish
-**Goal**: Every interactive element on the site has a smooth, intentional transition; primary CTA buttons have a magnetic hover pull; and page-to-page navigation feels momentum-driven and cohesive
-**Depends on**: Phase 15
-**Requirements**: IXPN-03, IXPN-04, IXPN-05
+### Phase 21: Legal, Support & Blog
+**Goal**: Legal and support pages are translated (with binding-language disclaimers), and the blog listing page is i18n-wired
+**Depends on**: Phase 19
+**Requirements**: I18N-09, I18N-10
 **Success Criteria** (what must be TRUE):
-  1. Hovering nav links, footer links, and cards produces consistent smooth transition animations (no abrupt state changes)
-  2. Primary CTA buttons respond to cursor proximity with a subtle magnetic pull effect
-  3. Page scroll has a momentum feel (either via Lenis or confirmed design decision to use native scroll)
-  4. Anchor navigation scrolls smoothly to target sections without triggering Safari scroll jank
-**Plans:** 2/2 plans complete
-Plans:
-- [x] 16-01-PLAN.md — Easing token + hover micro-interaction audit
-- [x] 16-02-PLAN.md — Lenis momentum scroll + magnetic CTA effect
+  1. Privacy, Terms, and Support pages are available at /zh/ and /fr/ with translated content
+  2. Legal pages include a visible disclaimer that English is the legally binding version
+  3. Blog listing page at /zh/blog and /fr/blog displays translated UI chrome (headings, empty state text) with correct locale routing
+**Plans**: TBD
+
+### Phase 22: SEO Verification & Polish
+**Goal**: Search engines correctly index all locale variants, social shares show localized metadata, and broken locale URLs gracefully fallback
+**Depends on**: Phase 20, Phase 21
+**Requirements**: I18N-11, I18N-12, I18N-13, I18N-14
+**Success Criteria** (what must be TRUE):
+  1. Every page includes hreflang tags referencing all 3 locale variants plus x-default (verified in page source)
+  2. Sharing a /zh/ or /fr/ page on social media shows localized title and description in the preview card
+  3. Sitemap.xml includes all locale URLs (30 total: 10 pages x 3 locales) with proper hreflang annotations
+  4. Navigating to a nonexistent /zh/ or /fr/ path shows a locale-appropriate 404 page (not the English 404)
+  5. Lighthouse scores remain >= 95 on all locale variants (no CJK font regression)
+**Plans**: TBD
 
 ## Progress
 
@@ -145,9 +141,15 @@ Plans:
 | 8.1 FeatureGrid Click Wheel | v2.0 | 1/1 | Complete | 2026-05-14 |
 | 9. Deployment & Responsive | v2.0 | 2/2 | Complete | 2026-05-14 |
 | 10. v2.0 Cleanup | v2.0 | 1/1 | Complete | 2026-05-14 |
-| 11. CSS Foundation & Token System | v3.0 | 1/1 | Complete    | 2026-05-15 |
-| 12. Device Frame Realism | v3.0 | 1/1 | Complete    | 2026-05-15 |
-| 13. QR Code Removal | v3.0 | 1/1 | Complete    | 2026-05-15 |
-| 14. Typography Weight Rollout | v3.0 | 2/2 | Complete    | 2026-05-15 |
+| 11. CSS Foundation & Token System | v3.0 | 1/1 | Complete | 2026-05-15 |
+| 12. Device Frame Realism | v3.0 | 1/1 | Complete | 2026-05-15 |
+| 13. QR Code Removal | v3.0 | 1/1 | Complete | 2026-05-15 |
+| 14. Typography Weight Rollout | v3.0 | 2/2 | Complete | 2026-05-15 |
 | 15. Matisse SVG Art Direction | v3.0 | 2/2 | Complete | 2026-05-15 |
-| 16. Interaction Polish | v3.0 | 2/2 | Complete    | 2026-05-16 |
+| 16. Interaction Polish | v3.0 | 2/2 | Complete | 2026-05-16 |
+| 17. i18n Infrastructure | v4.0 | 0/? | Not started | - |
+| 18. Component Extraction | v4.0 | 0/? | Not started | - |
+| 19. Home Page Localization | v4.0 | 0/? | Not started | - |
+| 20. Feature Pages | v4.0 | 0/? | Not started | - |
+| 21. Legal, Support & Blog | v4.0 | 0/? | Not started | - |
+| 22. SEO Verification & Polish | v4.0 | 0/? | Not started | - |

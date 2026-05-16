@@ -52,17 +52,17 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| I18N-01 | TBD | Pending |
-| I18N-02 | TBD | Pending |
-| I18N-03 | TBD | Pending |
-| I18N-04 | TBD | Pending |
-| I18N-05 | TBD | Pending |
-| I18N-06 | TBD | Pending |
-| I18N-07 | TBD | Pending |
-| I18N-08 | TBD | Pending |
-| I18N-09 | TBD | Pending |
-| I18N-10 | TBD | Pending |
-| I18N-11 | TBD | Pending |
-| I18N-12 | TBD | Pending |
-| I18N-13 | TBD | Pending |
-| I18N-14 | TBD | Pending |
+| I18N-01 | Phase 17 | Pending |
+| I18N-02 | Phase 17 | Pending |
+| I18N-03 | Phase 17 | Pending |
+| I18N-04 | Phase 18 | Pending |
+| I18N-05 | Phase 18 | Pending |
+| I18N-06 | Phase 19 | Pending |
+| I18N-07 | Phase 20 | Pending |
+| I18N-08 | Phase 20 | Pending |
+| I18N-09 | Phase 21 | Pending |
+| I18N-10 | Phase 21 | Pending |
+| I18N-11 | Phase 22 | Pending |
+| I18N-12 | Phase 22 | Pending |
+| I18N-13 | Phase 22 | Pending |
+| I18N-14 | Phase 22 | Pending |
