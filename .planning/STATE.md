@@ -1,34 +1,35 @@
 ---
 gsd_state_version: 1.0
-milestone: v3.0
-milestone_name: Art Direction & Interaction Polish
-status: executing
-stopped_at: Phase 15 brush-made stripe edge polish complete; Phase 16 context remains gathered
-last_updated: "2026-05-16T09:11:36.338Z"
-last_activity: 2026-05-16
+milestone: v4.0
+milestone_name: Multi-Language Support
+status: planning
+stopped_at: Milestone v4.0 started — defining requirements
+last_updated: "2026-05-16T11:15:00Z"
+last_activity: 2026-05-16 -- Milestone v4.0 started
 progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 9
-  completed_plans: 9
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-05-14)
+See: .planning/PROJECT.md (updated 2026-05-16)
 
 **Core value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing
-**Current focus:** Phase 16 — interaction-polish, after Phase 15 visual follow-up polish
+**Current focus:** Milestone v4.0 — Multi-Language Support (Chinese + French)
 
 ## Current Position
 
-Phase: 16
-Plan: Not started
-Status: Executing Phase 16
-Last activity: 2026-05-16
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-05-16 — Milestone v4.0 started
+Last activity: 2026-05-16 -- Phase 15 oil-brush feature mark polish completed
 
 Progress: [█████████░] 90% milestone complete; Phase 16 remains
 
@@ -36,7 +37,7 @@ Progress: [█████████░] 90% milestone complete; Phase 16 rema
 
 **Velocity:**
 
-- Total plans completed: 11 (this milestone)
+- Total plans completed: 14 (this milestone)
 - Average duration: —
 - Total execution time: —
 
@@ -49,7 +50,7 @@ Progress: [█████████░] 90% milestone complete; Phase 16 rema
 | 12 | 1 | - | - |
 | 13 | 1 | - | - |
 | 14 | 2 | - | - |
-| 15 | 4 | - | - |
+| 15 | 7 | - | - |
 | 16 | 2 | - | - |
 
 *Updated after each plan completion*
@@ -72,6 +73,10 @@ Progress: [█████████░] 90% milestone complete; Phase 16 rema
 - [Phase 15]: Feature-page decoration now echoes the homepage strip as a subtle full-width borderless band behind the device area instead of a corner cluster
 - [Phase 15]: Latest feature-page strip was softened further and lowered so the strip midpoint sits near the iPhone midpoint
 - [Phase 15]: Stripe sections now use brush-wobble filters, dry-brush streaks, and broken fray strokes so the band reads as painted rather than a clean vector field
+- [Phase 15]: Feature-page stripe/figures were strengthened after feedback so they read as one notch quieter than the homepage hero, not as a faint background echo
+- [Phase 15]: Feature-page stripe now uses separate desktop/mobile SVG compositions: broader desktop band and a mobile-specific side-balanced strip to avoid awkward cropped fragments
+- [Phase 15]: Feature-page stripe now includes more vibrant figures plus random blue daubs/dots so the band feels fuller and more alive without adding a new palette
+- [Phase 15]: Feature-page daubs/dots now read as dragged oil-brush traces with bristle streaks rather than flat circular marks
 
 ### Pending Todos
 
@@ -92,6 +97,6 @@ Progress: [█████████░] 90% milestone complete; Phase 16 rema
 
 ## Session Continuity
 
-Last session: 2026-05-16T08:57:00Z
-Stopped at: Phase 15 brush-made stripe edge polish complete; Phase 16 context remains gathered
+Last session: 2026-05-16T11:03:41Z
+Stopped at: Phase 15 oil-brush feature mark polish complete; Phase 16 context remains gathered
 Resume file: .planning/phases/16-interaction-polish/16-CONTEXT.md

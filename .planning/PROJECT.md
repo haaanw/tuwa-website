@@ -48,20 +48,20 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 - App Store review / rating widgets — keep it clean
 - Pricing page — subscription info lives in-app
 - Analytics dashboard or admin panel
-- Internationalization / multi-language — English only for v1
+- ~~Internationalization / multi-language~~ — Moved to Active (v4.0)
 - E-commerce or merchandise
 - Dark mode — Descoped (light mode only)
 
-## Current Milestone: v3.0 Art Direction & Interaction Polish
+## Current Milestone: v4.0 Multi-Language Support
 
-**Goal:** Transform site visual identity with Matisse-inspired art direction, refined typography system, and premium interaction feel.
+**Goal:** Add Chinese (zh) and French (fr) translations to the marketing site.
 
 **Target features:**
-- Typography weight system (titles: large/light, body: smaller/heavier)
-- iPhone frame realism + screenshot fit fix
-- Remove QR + adjacent App Store badge section
-- Matisse Swimming Pool cut-out art direction (hero-focused frieze)
-- Interaction polish (contralabs.com-inspired flow)
+- i18n routing with language prefix URLs (/zh/, /fr/)
+- Translated page content for all 10 pages
+- Language switcher UI component
+- SEO: hreflang tags, per-language OG metadata, localized sitemap
+- Locale-aware formatting (dates, numbers if applicable)
 
 ## Current State
 
@@ -126,4 +126,4 @@ Phase 14 complete (2026-05-15) — typography weight tokens rolled out across al
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026-05-14 after v3.0 milestone started*
+*Last updated: 2026-05-16 after v4.0 milestone started*
