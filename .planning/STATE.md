@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v4.0
 milestone_name: Multi-Language Support
-status: roadmapped
-stopped_at: Roadmap created — ready for phase planning
-last_updated: "2026-05-16T12:00:00Z"
-last_activity: 2026-05-16 -- Roadmap v4.0 created (Phases 17-22)
+status: planning
+stopped_at: Phase 17 context gathered
+last_updated: "2026-05-16T16:01:44.612Z"
+last_activity: 2026-05-16 — Roadmap v4.0 defined (6 phases, 14 requirements)
 progress:
   total_phases: 6
   completed_phases: 0
@@ -87,8 +87,14 @@ Progress: [░░░░░░░░░░] 0% milestone
 | i18n | URL slug translation | v4.1+ | Research |
 | i18n | Additional languages (ja, es, de) | Future milestone | Requirements |
 
+## Quick Tasks Completed
+
+| Date | Task | Summary |
+|------|------|---------|
+| 2026-05-16 | Homepage CRO inspired by Contra Labs | Clarified hero positioning, added earlier CTAs, introduced Tuwa Method proof section, strengthened final CTA, and hid empty Blog nav links. |
+
 ## Session Continuity
 
-Last session: 2026-05-16T12:00:00Z
-Stopped at: Roadmap v4.0 created — 6 phases (17-22), 14 requirements mapped
-Resume file: —
+Last session: 2026-05-16T16:01:44.609Z
+Stopped at: Phase 17 context gathered
+Resume file: .planning/phases/17-i18n-infrastructure/17-CONTEXT.md
