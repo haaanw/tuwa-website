@@ -1,111 +1,68 @@
-# Requirements: Tuwa Marketing Website
+# Requirements — v4.0 Multi-Language Support
 
-**Defined:** 2026-05-14
+**Defined:** 2026-05-16
 **Core Value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing — not another generic fitness tracker.
 
-## v3.0 Requirements
+## Routing & Infrastructure
 
-Requirements for Art Direction & Interaction Polish milestone. Each maps to roadmap phases.
+- [ ] **I18N-01**: Site serves pages at /zh/ and /fr/ URL prefixes with English as unprefixed default
+- [ ] **I18N-02**: Translation utility (`t()` function) loads locale-specific strings from JSON/TS dictionary files
+- [ ] **I18N-03**: Chinese font (Noto Sans SC) loads via unicode-range subsetting — zero impact on English page performance
 
-### Typography
+## UI & Navigation
 
-- [ ] **TYPO-01**: Site loads General Sans variable font with weight range 200–700 (single file)
-- [ ] **TYPO-02**: CSS `--weight-*` design tokens defined (display, heading, body, label) in global.css
-- [ ] **TYPO-03**: All page titles and subtitles use large size with light weight (300 or below)
-- [ ] **TYPO-04**: All body text uses smaller size with heavier weight (500+)
-- [ ] **TYPO-05**: Typography weight system applied consistently across all 10 pages
+- [ ] **I18N-04**: Language switcher component in header allows switching between en/zh/fr on any page
+- [ ] **I18N-05**: All navigation links (header, footer, mobile menu) render locale-aware paths
 
-### Device Frame
+## Content — Landing & Features
 
-- [ ] **DFRM-01**: CSS device frame includes Dynamic Island notch with correct proportions
-- [ ] **DFRM-02**: Side button pseudo-elements visible on device frames
-- [ ] **DFRM-03**: Multi-layer shadow system (4-5 layers) for natural light falloff
-- [ ] **DFRM-04**: Inset screen shadow makes display appear embedded in bezel
-- [ ] **DFRM-05**: Screenshots fit device frame without extra border/text misalignment
+- [ ] **I18N-06**: Landing page fully translated (hero, feature overview, stats, CTAs) in zh and fr
+- [ ] **I18N-07**: 5 feature deep-dive pages fully translated in zh and fr
+- [ ] **I18N-08**: Feature page layouts handle French text expansion without layout breaks
 
-### CTA Cleanup
+## Content — Legal & Support
 
-- [ ] **CTA-01**: QR code and adjacent App Store download badge removed from landing page
-- [ ] **CTA-02**: Layout reflows cleanly after removal (CLS = 0)
-- [ ] **CTA-03**: Header button, hero button, and footer button CTAs remain functional
+- [ ] **I18N-09**: Privacy, Terms, and Support pages translated in zh and fr
 
-### Matisse Art Direction
+## Content — Blog
 
-- [x] **ART-01**: Organic cut-out SVG shapes authored (Matisse Swimming Pool inspired)
-- [x] **ART-02**: Shapes arranged as continuous frieze/strip (条带) in hero section
-- [x] **ART-03**: SVGO-optimized SVGs keep DOM node count within Lighthouse budget
-- [x] **ART-04**: Lighter decorative Matisse touches on feature deep-dive pages
-- [x] **ART-05**: Scroll-driven parallax movement on cut-out shapes
-- [x] **ART-06**: Entrance animations on Matisse cut-out elements
+- [ ] **I18N-10**: Blog listing page translated with i18n routing wired for future translated posts
 
-### Interaction Polish
+## SEO & Metadata
 
-- [ ] **IXPN-01**: CSS `@view-transition` page crossfades between all pages
-- [ ] **IXPN-02**: Existing scroll-reveal animations compatible with View Transitions (astro:page-load migration)
-- [ ] **IXPN-03**: Lenis momentum scroll integrated (~3KB, Astro island)
-- [ ] **IXPN-04**: Hover micro-interactions on interactive elements (buttons, links, cards)
-- [ ] **IXPN-05**: Magnetic hover effects on primary CTA buttons
-
-## Future Requirements
-
-Deferred to future milestones. Tracked but not in current roadmap.
-
-### Content
-
-- **CONT-01**: First blog post published
-- **CONT-02**: Case study page with athlete testimonial
-
-### Advanced Visual
-
-- **ADVZ-01**: Video hero background
+- [ ] **I18N-11**: hreflang tags on all pages referencing all locale variants + x-default
+- [ ] **I18N-12**: Localized OG metadata (title, description) per locale per page
+- [ ] **I18N-13**: Sitemap includes all locale URLs
+- [ ] **I18N-14**: Locale-specific 404 pages
 
 ## Out of Scope
 
-| Feature | Reason |
-|---------|--------|
-| Dark mode | Descoped in PROJECT.md — light mode only |
-| Blog content (posts) | Infrastructure ready, content is separate milestone |
-| Custom cursor | Over-designed for a fitness app marketing site |
-| 3D device frame (WebGL) | Overkill — CSS realism sufficient |
-| Video hero background | Deferred from v2.0, not in v3.0 scope |
-| User accounts / auth | App handles this |
-| Pricing page | Subscription info lives in-app |
-| i18n / multi-language | English only |
+- RTL language support — not needed for zh/fr
+- Translation CMS or external translation management — manual files sufficient at this scale
+- Per-locale App Store badges — use same English badge across all locales
+- Dark mode per locale — single light theme
+
+## Future Requirements
+
+- Additional languages (Japanese, Spanish, German)
+- Blog post translation workflow
+- Translation contributor guide
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TYPO-01 | Phase 11 | Pending |
-| TYPO-02 | Phase 11 | Pending |
-| TYPO-03 | Phase 14 | Pending |
-| TYPO-04 | Phase 14 | Pending |
-| TYPO-05 | Phase 14 | Pending |
-| DFRM-01 | Phase 12 | Pending |
-| DFRM-02 | Phase 12 | Pending |
-| DFRM-03 | Phase 12 | Pending |
-| DFRM-04 | Phase 12 | Pending |
-| DFRM-05 | Phase 12 | Pending |
-| CTA-01 | Phase 13 | Pending |
-| CTA-02 | Phase 13 | Pending |
-| CTA-03 | Phase 13 | Pending |
-| ART-01 | Phase 15 | Complete |
-| ART-02 | Phase 15 | Complete |
-| ART-03 | Phase 15 | Complete |
-| ART-04 | Phase 15 | Complete |
-| ART-05 | Phase 15 | Complete |
-| ART-06 | Phase 15 | Complete |
-| IXPN-01 | Phase 11 | Pending |
-| IXPN-02 | Phase 11 | Pending |
-| IXPN-03 | Phase 16 | Pending |
-| IXPN-04 | Phase 16 | Pending |
-| IXPN-05 | Phase 16 | Pending |
-
-**Coverage:**
-- v3.0 requirements: 24 total
-- Mapped to phases: 24
-- Unmapped: 0 ✓
-
----
-*Requirements defined: 2026-05-14*
-*Last updated: 2026-05-14 after v3.0 roadmap created*
+| I18N-01 | TBD | Pending |
+| I18N-02 | TBD | Pending |
+| I18N-03 | TBD | Pending |
+| I18N-04 | TBD | Pending |
+| I18N-05 | TBD | Pending |
+| I18N-06 | TBD | Pending |
+| I18N-07 | TBD | Pending |
+| I18N-08 | TBD | Pending |
+| I18N-09 | TBD | Pending |
+| I18N-10 | TBD | Pending |
+| I18N-11 | TBD | Pending |
+| I18N-12 | TBD | Pending |
+| I18N-13 | TBD | Pending |
+| I18N-14 | TBD | Pending |
