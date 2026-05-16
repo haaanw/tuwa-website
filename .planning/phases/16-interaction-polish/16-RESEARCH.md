@@ -345,17 +345,13 @@ const lenis = new Lenis({
 | A2 | FeatureGrid wheel arcs respond to hover via opacity change | Code Examples | May need different visual treatment; audit will confirm |
 | A3 | `lenis/dist/lenis.css` import is required for correct behavior | Code Examples | If omitted, Lenis may still work but html/body overflow won't be set correctly |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Fixed header height for anchor offset**
-   - What we know: Header exists in `Header.astro`, appears in normal flow
-   - What's unclear: Whether it's sticky/fixed (would need offset for Lenis anchors)
-   - Recommendation: Check during implementation; if sticky, measure height and set `anchors.offset`
+   - RESOLVED: Header is sticky at 64px. Lenis `anchors.offset` set to 64.
 
 2. **Lenis lerp vs duration**
-   - What we know: Lenis uses either `lerp` OR `duration` (mutually exclusive per docs)
-   - What's unclear: Which feels more like contralabs.com
-   - Recommendation: Start with `lerp: 0.1` (default, smooth momentum). If too floaty, switch to `duration: 1.2` for fixed-time scroll.
+   - RESOLVED: Using `lerp: 0.1` for contralabs-style momentum feel. Tunable at runtime.
 
 ## Environment Availability
 
