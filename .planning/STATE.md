@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Art Direction & Interaction Polish
 status: executing
-stopped_at: Phase 15 subtle feature-page strip polish complete; Phase 16 context gathered
-last_updated: "2026-05-16T08:35:20.336Z"
-last_activity: 2026-05-16 -- Phase 16 execution started
+stopped_at: Phase 15 brush-made stripe edge polish complete; Phase 16 context remains gathered
+last_updated: "2026-05-16T09:11:36.338Z"
+last_activity: 2026-05-16
 progress:
   total_phases: 6
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 9
-  completed_plans: 7
-  percent: 78
+  completed_plans: 9
+  percent: 100
 ---
 
 # Project State
@@ -21,22 +21,22 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-14)
 
 **Core value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing
-**Current focus:** Phase 16 — interaction-polish
+**Current focus:** Phase 16 — interaction-polish, after Phase 15 visual follow-up polish
 
 ## Current Position
 
-Phase: 16 (interaction-polish) — EXECUTING
-Plan: 1 of 2
+Phase: 16
+Plan: Not started
 Status: Executing Phase 16
-Last activity: 2026-05-16 -- Phase 16 execution started
+Last activity: 2026-05-16
 
-Progress: [████████░░] 83% milestone complete; Phase 16 remains
+Progress: [█████████░] 90% milestone complete; Phase 16 remains
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 7 (this milestone)
+- Total plans completed: 11 (this milestone)
 - Average duration: —
 - Total execution time: —
 
@@ -49,7 +49,8 @@ Progress: [████████░░] 83% milestone complete; Phase 16 rema
 | 12 | 1 | - | - |
 | 13 | 1 | - | - |
 | 14 | 2 | - | - |
-| 15 | 2 | - | - |
+| 15 | 4 | - | - |
+| 16 | 2 | - | - |
 
 *Updated after each plan completion*
 
@@ -69,6 +70,8 @@ Progress: [████████░░] 83% milestone complete; Phase 16 rema
 - [Phase 15]: Strip grid removed; hero band is now an irregular filled path with hand-drawn top/bottom edge strokes and rougher figure contours
 - [Phase 15]: Strip border paths removed after product feedback; hero band now reads as a borderless irregular field
 - [Phase 15]: Feature-page decoration now echoes the homepage strip as a subtle full-width borderless band behind the device area instead of a corner cluster
+- [Phase 15]: Latest feature-page strip was softened further and lowered so the strip midpoint sits near the iPhone midpoint
+- [Phase 15]: Stripe sections now use brush-wobble filters, dry-brush streaks, and broken fray strokes so the band reads as painted rather than a clean vector field
 
 ### Pending Todos
 
@@ -89,6 +92,6 @@ Progress: [████████░░] 83% milestone complete; Phase 16 rema
 
 ## Session Continuity
 
-Last session: 2026-05-16T07:45:19Z
-Stopped at: Phase 15 subtle feature-page strip polish complete; Phase 16 context gathered
+Last session: 2026-05-16T08:57:00Z
+Stopped at: Phase 15 brush-made stripe edge polish complete; Phase 16 context remains gathered
 Resume file: .planning/phases/16-interaction-polish/16-CONTEXT.md
