@@ -40,7 +40,7 @@
 - [x] **Phase 13: QR Code Removal** - Remove QR block and adjacent badge section, verify CLS = 0 (completed 2026-05-15)
 - [x] **Phase 14: Typography Weight Rollout** - Apply light headings + heavier body across all 10 pages (completed 2026-05-15)
 - [x] **Phase 15: Matisse SVG Art Direction** - Author frieze shapes, integrate hero, add parallax and entrance animations (completed 2026-05-15)
-- [ ] **Phase 16: Interaction Polish** - Hover micro-interactions, magnetic CTA, Lenis scroll, audit pass
+- [x] **Phase 16: Interaction Polish** - Hover micro-interactions, magnetic CTA, Lenis scroll, audit pass (completed 2026-05-16)
 
 ## Phase Details
 
@@ -125,10 +125,10 @@ Plans:
   2. Primary CTA buttons respond to cursor proximity with a subtle magnetic pull effect
   3. Page scroll has a momentum feel (either via Lenis or confirmed design decision to use native scroll)
   4. Anchor navigation scrolls smoothly to target sections without triggering Safari scroll jank
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 Plans:
 - [x] 16-01-PLAN.md — Easing token + hover micro-interaction audit
-- [ ] 16-02-PLAN.md — Lenis momentum scroll + magnetic CTA effect
+- [x] 16-02-PLAN.md — Lenis momentum scroll + magnetic CTA effect
 
 ## Progress
 
@@ -150,4 +150,4 @@ Plans:
 | 13. QR Code Removal | v3.0 | 1/1 | Complete    | 2026-05-15 |
 | 14. Typography Weight Rollout | v3.0 | 2/2 | Complete    | 2026-05-15 |
 | 15. Matisse SVG Art Direction | v3.0 | 2/2 | Complete | 2026-05-15 |
-| 16. Interaction Polish | v3.0 | 1/2 | In Progress|  |
+| 16. Interaction Polish | v3.0 | 2/2 | Complete   | 2026-05-16 |
