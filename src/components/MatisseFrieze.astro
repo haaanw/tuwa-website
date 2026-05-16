@@ -1,14 +1,14 @@
 ---
 /**
- * MatisseFrieze — hero section background frieze with 7 biomorphic shapes.
+ * MatisseFrieze — hero background frieze inspired by The Swimming Pool.
  *
  * Renders as a full-width SVG band positioned absolutely behind hero content.
  * Uses the Phase 11 `.matisse-frieze` CSS stub for positioning and overflow.
  *
- * Color distribution (D-11, D-12):
- *   - 5 shapes: accent green #2B5240
- *   - 1 shape: terracotta #8B5E3C
- *   - 1 shape: soft gold #A89060
+ * The Swimming Pool reference is a long wall-like frieze of blue cut-paper
+ * swimmer/dancer gestures. The composition is intentionally syncopated, like
+ * jazz phrasing: off-beat spacing, abrupt scale changes, improvised leaps,
+ * and rough handmade edges.
  *
  * Shapes animate on page load (not IO-triggered — above fold).
  * Parallax activates via CSS @supports(animation-timeline: scroll()).
@@ -16,68 +16,96 @@
 import MatisseShape from './MatisseShape.astro';
 ---
 
-<div class="matisse-frieze" style="height: 240px; top: auto; bottom: 30%;" aria-hidden="true">
+<div class="matisse-frieze matisse-pool-frieze" style="height: 430px; top: 430px; bottom: auto;" aria-hidden="true">
   <svg
-    viewBox="0 0 1440 240"
+    viewBox="0 0 1440 360"
     preserveAspectRatio="xMidYMid slice"
     aria-hidden="true"
-    style="width: 100%; height: 100%; overflow: visible;"
+    style="width: 100%; height: 100%;"
   >
+    <path
+      class="matisse-pool-band"
+      d="M-52 74C95 58 205 77 347 68c151-10 275-4 413 8 144 12 292-22 442-10 120 10 213 12 290 2v218c-100 12-196-1-292 11-151 19-298-14-446-5-142 9-269 17-410 2-151-16-269 9-396-2Z"
+    />
     <MatisseShape
       shapeId="blob-1"
-      fill="#2B5240"
-      opacity={0.95}
-      transform="translate(80, 40) rotate(-12) scale(1.5)"
+      fill="#1E5B9A"
+      opacity={0.84}
+      transform="translate(-78, 122) rotate(18) scale(0.82)"
       parallaxSpeed="slow"
       animateDelay="0ms"
     />
     <MatisseShape
-      shapeId="blob-2"
-      fill="#8B5E3C"
-      opacity={0.90}
-      transform="translate(300, 80) rotate(8) scale(1.1)"
+      shapeId="blob-4"
+      fill="#2D78BA"
+      opacity={0.72}
+      transform="translate(72, 48) rotate(-31) scale(0.70)"
       parallaxSpeed="fast"
       animateDelay="80ms"
     />
     <MatisseShape
-      shapeId="blob-3"
-      fill="#2B5240"
-      opacity={0.92}
-      transform="translate(520, 30) rotate(-5) scale(1.6)"
+      shapeId="blob-2"
+      fill="#174A82"
+      opacity={0.88}
+      transform="translate(220, 138) rotate(28) scale(1.02)"
       parallaxSpeed="slow"
       animateDelay="160ms"
     />
     <MatisseShape
-      shapeId="blob-4"
-      fill="#A89060"
-      opacity={0.88}
-      transform="translate(720, 70) rotate(15) scale(1.0)"
+      shapeId="blob-6"
+      fill="#1E5B9A"
+      opacity={0.76}
+      transform="translate(430, 76) rotate(-18) scale(0.68)"
       parallaxSpeed="fast"
       animateDelay="240ms"
     />
     <MatisseShape
-      shapeId="blob-5"
-      fill="#2B5240"
-      opacity={0.94}
-      transform="translate(920, 50) rotate(-8) scale(1.3)"
+      shapeId="blob-3"
+      fill="#2D78BA"
+      opacity={0.86}
+      transform="translate(565, 124) rotate(7) scale(1.06)"
       parallaxSpeed="slow"
       animateDelay="320ms"
     />
     <MatisseShape
-      shapeId="blob-6"
-      fill="#2B5240"
-      opacity={0.91}
-      transform="translate(1120, 60) rotate(10) scale(1.4)"
+      shapeId="blob-7"
+      fill="#174A82"
+      opacity={0.74}
+      transform="translate(785, 52) rotate(24) scale(0.78)"
       parallaxSpeed="fast"
       animateDelay="400ms"
     />
     <MatisseShape
-      shapeId="blob-7"
-      fill="#2B5240"
-      opacity={0.93}
-      transform="translate(1300, 35) rotate(-15) scale(1.2)"
+      shapeId="blob-5"
+      fill="#1E5B9A"
+      opacity={0.84}
+      transform="translate(930, 146) rotate(-32) scale(0.92)"
       parallaxSpeed="slow"
       animateDelay="480ms"
+    />
+    <MatisseShape
+      shapeId="blob-2"
+      fill="#1E5B9A"
+      opacity={0.70}
+      transform="translate(1090, 78) rotate(-6) scale(0.70)"
+      parallaxSpeed="fast"
+      animateDelay="560ms"
+    />
+    <MatisseShape
+      shapeId="blob-4"
+      fill="#2D78BA"
+      opacity={0.84}
+      transform="translate(1224, 118) rotate(31) scale(0.92)"
+      parallaxSpeed="slow"
+      animateDelay="640ms"
+    />
+    <MatisseShape
+      shapeId="blob-1"
+      fill="#174A82"
+      opacity={0.68}
+      transform="translate(1405, 66) rotate(-24) scale(0.76)"
+      parallaxSpeed="fast"
+      animateDelay="720ms"
     />
   </svg>
 </div>

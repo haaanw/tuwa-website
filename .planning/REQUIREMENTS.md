@@ -31,12 +31,12 @@ Requirements for Art Direction & Interaction Polish milestone. Each maps to road
 
 ### Matisse Art Direction
 
-- [ ] **ART-01**: Organic cut-out SVG shapes authored (Matisse Swimming Pool inspired)
-- [ ] **ART-02**: Shapes arranged as continuous frieze/strip (条带) in hero section
-- [ ] **ART-03**: SVGO-optimized SVGs keep DOM node count within Lighthouse budget
-- [ ] **ART-04**: Lighter decorative Matisse touches on feature deep-dive pages
-- [ ] **ART-05**: Scroll-driven parallax movement on cut-out shapes
-- [ ] **ART-06**: Entrance animations on Matisse cut-out elements
+- [x] **ART-01**: Organic cut-out SVG shapes authored (Matisse Swimming Pool inspired)
+- [x] **ART-02**: Shapes arranged as continuous frieze/strip (条带) in hero section
+- [x] **ART-03**: SVGO-optimized SVGs keep DOM node count within Lighthouse budget
+- [x] **ART-04**: Lighter decorative Matisse touches on feature deep-dive pages
+- [x] **ART-05**: Scroll-driven parallax movement on cut-out shapes
+- [x] **ART-06**: Entrance animations on Matisse cut-out elements
 
 ### Interaction Polish
 
@@ -89,12 +89,12 @@ Deferred to future milestones. Tracked but not in current roadmap.
 | CTA-01 | Phase 13 | Pending |
 | CTA-02 | Phase 13 | Pending |
 | CTA-03 | Phase 13 | Pending |
-| ART-01 | Phase 15 | Pending |
-| ART-02 | Phase 15 | Pending |
-| ART-03 | Phase 15 | Pending |
-| ART-04 | Phase 15 | Pending |
-| ART-05 | Phase 15 | Pending |
-| ART-06 | Phase 15 | Pending |
+| ART-01 | Phase 15 | Complete |
+| ART-02 | Phase 15 | Complete |
+| ART-03 | Phase 15 | Complete |
+| ART-04 | Phase 15 | Complete |
+| ART-05 | Phase 15 | Complete |
+| ART-06 | Phase 15 | Complete |
 | IXPN-01 | Phase 11 | Pending |
 | IXPN-02 | Phase 11 | Pending |
 | IXPN-03 | Phase 16 | Pending |

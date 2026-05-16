@@ -21,7 +21,7 @@
     "mdast-util-to-string": "^4.0.0",
     "reading-time": "^1.5.0",
     "tailwindcss": "^4.3.0",
-    "vite": "^6.4.2"
+    "vite": "^7.3.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

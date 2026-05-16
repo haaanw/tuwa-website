@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Art Direction & Interaction Polish
-status: executing
-stopped_at: Phase 15 UI-SPEC approved
-last_updated: "2026-05-15T12:32:49.810Z"
-last_activity: 2026-05-15 -- Phase 15 execution started
+status: in_progress
+stopped_at: Phase 15 borderless strip polish complete; ready for Phase 16 planning once Lenis decision is made
+last_updated: "2026-05-16T05:46:36Z"
+last_activity: 2026-05-16 -- Removed strip border paths while preserving the irregular filled 条带
 progress:
   total_phases: 6
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 7
-  completed_plans: 5
-  percent: 71
+  completed_plans: 7
+  percent: 83
 ---
 
 # Project State
@@ -21,22 +21,22 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-14)
 
 **Core value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing
-**Current focus:** Phase 15 — matisse-svg-art-direction
+**Current focus:** Phase 16 — interaction-polish
 
 ## Current Position
 
-Phase: 15 (matisse-svg-art-direction) — EXECUTING
-Plan: 1 of 2
-Status: Executing Phase 15
-Last activity: 2026-05-15 -- Phase 15 execution started
+Phase: 16 (interaction-polish) — NOT STARTED
+Plan: TBD
+Status: Phase 15 complete with borderless handmade strip polish applied; Phase 16 awaits Lenis/native scroll decision
+Last activity: 2026-05-16 -- Removed strip border paths while preserving the irregular filled 条带
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [████████░░] 83% milestone complete; Phase 16 remains
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 5 (this milestone)
+- Total plans completed: 7 (this milestone)
 - Average duration: —
 - Total execution time: —
 
@@ -49,6 +49,7 @@ Progress: [░░░░░░░░░░] 0%
 | 12 | 1 | - | - |
 | 13 | 1 | - | - |
 | 14 | 2 | - | - |
+| 15 | 2 | - | - |
 
 *Updated after each plan completion*
 
@@ -59,14 +60,21 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 11]: Use native CSS `@view-transition { navigation: auto }` — NOT `<ClientRouter>` or `<ViewTransitions />` component (would break IO scroll-reveal)
 - [Phase 11]: General Sans variable font via `"200 700"` range syntax — single WOFF2 file, not five discrete weights
 - [Phase 15]: Lenis inclusion is a product owner decision; resolve before Phase 16 begins
+- [Phase 15]: Blob paths are code-generated with seeded Catmull-Rom curves, resolving the earlier Figma/Inkscape prerequisite
+- [Phase 15]: Root Vite dependency aligned to 7.3.3 so Astro 6.3.1, Tailwind Vite plugin, `astro check`, and `tsc` share one Vite type package
+- [Phase 15]: Product feedback corrected art direction from generic Matisse blobs to a specific *The Swimming Pool* reference: blue aquatic cut-paper forms on a pale pool-wall 条带 through the hero
+- [Phase 15]: Product owner selected cluster as the final feature-page decoration; divider treatment removed
+- [Phase 15]: Final hero frieze polish uses abstract human movement figures, a clearer tile strip, and lower placement around the iPhone middle
+- [Phase 15]: Latest product feedback pushed the figures further from anatomy into spontaneous, syncopated, jazz-like cut-paper movement marks
+- [Phase 15]: Strip grid removed; hero band is now an irregular filled path with hand-drawn top/bottom edge strokes and rougher figure contours
+- [Phase 15]: Strip border paths removed after product feedback; hero band now reads as a borderless irregular field
 
 ### Pending Todos
 
-None yet.
+- Decide whether Phase 16 should integrate Lenis momentum scrolling or keep native scroll
 
 ### Blockers/Concerns
 
-- Phase 15 (Matisse SVG): SVG paths must be authored in Figma/Inkscape before code begins — design work prerequisite
 - Phase 16 (Interaction Polish): Lenis momentum scroll inclusion needs explicit confirmation before planning
 
 ## Deferred Items
@@ -80,6 +88,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-15T11:36:22.301Z
-Stopped at: Phase 15 UI-SPEC approved
-Resume file: .planning/phases/15-matisse-svg-art-direction/15-UI-SPEC.md
+Last session: 2026-05-16T05:46:36Z
+Stopped at: Phase 15 borderless strip polish complete; Phase 16 Lenis/native scroll decision pending
+Resume file: .planning/ROADMAP.md

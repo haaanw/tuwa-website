@@ -42,10 +42,11 @@
   --color-brand-accent: #7A6E5C;
   --color-destructive:  #6E3A3A;
 
-  /* Matisse art direction palette (Phase 15 D-11) */
-  --color-matisse-green:      #2B5240;   /* = --color-accent */
-  --color-matisse-terracotta:  #8B5E3C;
-  --color-matisse-gold:        #A89060;
+  /* Matisse Swimming Pool art direction palette (Phase 15) */
+  --color-matisse-pool-blue:   #1E5B9A;
+  --color-matisse-water-blue:  #2D78BA;
+  --color-matisse-deep-blue:   #174A82;
+  --color-matisse-tile:        #E7ECEA;
 
   /* Spacing Scale — 8px base, 4px micro for web */
   --space-xs:  4px;
@@ -722,15 +723,19 @@ body::after {
   width: 100%;
   pointer-events: none;
   overflow: hidden;
-  /* Accent green first (D-11); Phase 15 may override to --color-text-1 if contrast insufficient */
-  color: var(--color-accent);
+}
+
+.matisse-pool-band {
+  fill: var(--color-matisse-tile);
+  opacity: 0.90;
+  filter: drop-shadow(0 12px 24px rgb(30 91 154 / 0.08));
 }
 
 .matisse-shape {
-  fill: currentColor;
-  /* GPU layer pre-promotion for Phase 15 scroll-driven parallax (animation-timeline: scroll()) */
-  transform: translateZ(0);
-  will-change: transform, opacity;
+  will-change: opacity;
+  stroke: rgb(23 74 130 / 0.06);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
 }
 
 /* Reduced-motion guard — consistent with Phase 8 pattern (D-10) */
@@ -751,20 +756,13 @@ body::after {
   }
 
   @keyframes matisse-shape-enter {
-    from {
-      opacity: 0;
-      transform: translateY(24px) translateZ(0);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) translateZ(0);
-    }
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 
   /* Feature page shapes — IO-triggered entrance via data-animate */
   .js-enabled .matisse-decoration[data-animate] {
     opacity: 0;
-    transform: translateY(24px) translateZ(0);
   }
   .js-enabled .matisse-decoration[data-animate].is-visible {
     animation: matisse-shape-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -794,12 +792,12 @@ body::after {
     }
 
     @keyframes matisse-parallax-slow {
-      from { transform: translateY(0) translateZ(0); }
-      to   { transform: translateY(-12px) translateZ(0); }
+      from { translate: 0 0; }
+      to   { translate: 0 -12px; }
     }
     @keyframes matisse-parallax-fast {
-      from { transform: translateY(0) translateZ(0); }
-      to   { transform: translateY(-20px) translateZ(0); }
+      from { translate: 0 0; }
+      to   { translate: 0 -20px; }
     }
   }
 }
@@ -808,6 +806,5 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   .matisse-decoration {
     opacity: 1 !important;
-    transform: none !important;
   }
 }

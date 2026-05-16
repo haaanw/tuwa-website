@@ -39,7 +39,7 @@
 - [x] **Phase 12: Device Frame Realism** - Multi-layer shadow, Dynamic Island, screenshot fit fix (completed 2026-05-15)
 - [x] **Phase 13: QR Code Removal** - Remove QR block and adjacent badge section, verify CLS = 0 (completed 2026-05-15)
 - [x] **Phase 14: Typography Weight Rollout** - Apply light headings + heavier body across all 10 pages (completed 2026-05-15)
-- [ ] **Phase 15: Matisse SVG Art Direction** - Author frieze shapes, integrate hero, add parallax and entrance animations
+- [x] **Phase 15: Matisse SVG Art Direction** - Author frieze shapes, integrate hero, add parallax and entrance animations (completed 2026-05-15)
 - [ ] **Phase 16: Interaction Polish** - Hover micro-interactions, magnetic CTA, Lenis scroll, audit pass
 
 ## Phase Details
@@ -105,15 +105,15 @@ Plans:
 **Depends on**: Phase 14
 **Requirements**: ART-01, ART-02, ART-03, ART-04, ART-05, ART-06
 **Success Criteria** (what must be TRUE):
-  1. The hero section displays a full-width horizontal band of organic biomorphic SVG shapes in accent green on a travertine background
+  1. The hero section displays a full-width horizontal band of blue abstract human movement SVG shapes on a pale pool-wall frieze band
   2. Feature deep-dive pages each show a lighter decorative Matisse element (not the full frieze)
   3. Matisse shapes shift vertically at a different rate than the page scroll (visible parallax effect)
   4. Shapes animate into view on page load with an entrance sequence
   5. Lighthouse DOM size audit stays within budget (no "Avoid an excessive DOM size" warning) and LCP element is unchanged
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 Plans:
 - [x] 15-01-PLAN.md — Shape vocabulary, Astro components (MatisseShape, MatisseFrieze, MatisseDecoration), CSS animations and parallax
-- [ ] 15-02-PLAN.md — Hero frieze integration, feature page decoration (both approaches), visual verification checkpoint
+- [x] 15-02-PLAN.md — Hero frieze integration, cluster feature-page decoration, visual verification checkpoint
 **UI hint**: yes
 
 ### Phase 16: Interaction Polish
@@ -146,5 +146,5 @@ Plans:
 | 12. Device Frame Realism | v3.0 | 1/1 | Complete    | 2026-05-15 |
 | 13. QR Code Removal | v3.0 | 1/1 | Complete    | 2026-05-15 |
 | 14. Typography Weight Rollout | v3.0 | 2/2 | Complete    | 2026-05-15 |
-| 15. Matisse SVG Art Direction | v3.0 | 1/2 | In Progress|  |
+| 15. Matisse SVG Art Direction | v3.0 | 2/2 | Complete | 2026-05-15 |
 | 16. Interaction Polish | v3.0 | 0/? | Not started | - |

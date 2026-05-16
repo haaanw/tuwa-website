@@ -21,7 +21,7 @@ const { title, description, ogImage, screenshot, screenshotAlt, outcomeStatement
 <BaseLayout title={title} description={description} ogImage={ogImage}>
   <!-- Hero -->
   <section data-animate style="padding-top: var(--space-3xl); padding-bottom: var(--space-2xl); position: relative;">
-    <div class="mx-auto text-center" style="max-width: 768px; padding: 0 var(--space-md);">
+    <div class="mx-auto text-center" style="width: 100%; max-width: 768px; box-sizing: border-box; padding: 0 var(--space-md);">
       <h1
         style="
           font-size: var(--text-display);
@@ -46,15 +46,13 @@ const { title, description, ogImage, screenshot, screenshotAlt, outcomeStatement
         {hookLine}
       </p>
     </div>
-    <MatisseDecoration approach="cluster" shapeId={shapeId} />
+    <MatisseDecoration shapeId={shapeId} />
   </section>
 
   <!-- Screenshot -->
   <section data-animate style="padding-bottom: var(--space-3xl);">
     <DeviceFrame src={screenshot} alt={screenshotAlt} placeholderLabel="Coming soon" />
   </section>
-
-  <MatisseDecoration approach="divider" shapeId={shapeId} />
 
   <!-- Explanation + Science — page-specific content via slot -->
   <slot />

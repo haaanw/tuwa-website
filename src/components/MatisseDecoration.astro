@@ -1,99 +1,51 @@
 ---
 /**
- * MatisseDecoration — feature page decorative shapes.
+ * MatisseDecoration — feature page fragments from the Swimming Pool system.
  *
- * Supports two approaches for comparison (D-09):
- *   - cluster: Small group of 2-3 shapes in a corner (absolute positioned)
- *   - divider: Full-width band of 3-4 small shapes as section divider
- *
- * Feature page shapes use accent green only at 15-25% opacity (D-13).
+ * Renders a small cluster of cut-paper shapes in the feature hero corner.
+ * Feature page shapes use the same blue cut-paper language at 15-25% opacity.
  * Entrance is IO-triggered via data-animate + existing IntersectionObserver.
  */
 import MatisseShape from './MatisseShape.astro';
 
 interface Props {
-  approach: 'cluster' | 'divider';
   shapeId: 'blob-1' | 'blob-2' | 'blob-3' | 'blob-4' | 'blob-5' | 'blob-6' | 'blob-7';
   secondaryShapeId?: 'blob-1' | 'blob-2' | 'blob-3' | 'blob-4' | 'blob-5' | 'blob-6' | 'blob-7';
 }
 
-const { approach, shapeId, secondaryShapeId } = Astro.props;
+const { shapeId, secondaryShapeId } = Astro.props;
 
 // Pick a tertiary shape that differs from primary and secondary
 const allShapes = ['blob-1', 'blob-2', 'blob-3', 'blob-4', 'blob-5', 'blob-6', 'blob-7'] as const;
 const tertiaryShapeId = allShapes.find((s) => s !== shapeId && s !== secondaryShapeId) ?? 'blob-3';
 ---
 
-{approach === 'cluster' ? (
-  <div
-    class="matisse-decoration matisse-cluster"
-    data-animate
-    aria-hidden="true"
-    style="position: absolute; top: 24px; right: 24px; pointer-events: none;"
-  >
-    <svg viewBox="0 0 200 200" width="120" height="120" aria-hidden="true">
+<div
+  class="matisse-decoration matisse-cluster"
+  data-animate
+  aria-hidden="true"
+  style="position: absolute; top: 24px; right: 24px; pointer-events: none;"
+>
+  <svg viewBox="0 0 200 200" width="120" height="120" aria-hidden="true">
+    <MatisseShape
+      shapeId={shapeId}
+      fill="#1E5B9A"
+      opacity={0.18}
+      transform="translate(-8, 24) scale(0.72) rotate(-8)"
+    />
+    {secondaryShapeId && (
       <MatisseShape
-        shapeId={shapeId}
-        fill="#2B5240"
-        opacity={0.18}
-        transform="translate(0, 0) scale(0.8)"
-      />
-      {secondaryShapeId && (
-        <MatisseShape
-          shapeId={secondaryShapeId}
-          fill="#2B5240"
-          opacity={0.22}
-          transform="translate(60, 50) scale(0.5) rotate(25)"
-        />
-      )}
-      <MatisseShape
-        shapeId={tertiaryShapeId}
-        fill="#2B5240"
-        opacity={0.15}
-        transform="translate(30, 80) scale(0.4) rotate(-15)"
-      />
-    </svg>
-  </div>
-) : (
-  <div
-    class="matisse-decoration matisse-divider"
-    data-animate
-    aria-hidden="true"
-    style="height: 80px; position: relative; overflow: hidden;"
-  >
-    <svg
-      viewBox="0 0 1440 80"
-      preserveAspectRatio="xMidYMid slice"
-      width="100%"
-      height="80"
-      aria-hidden="true"
-    >
-      <MatisseShape
-        shapeId={shapeId}
-        fill="#2B5240"
-        opacity={0.15}
-        transform="translate(200, 10) scale(0.4) rotate(-10)"
-      />
-      {secondaryShapeId && (
-        <MatisseShape
-          shapeId={secondaryShapeId}
-          fill="#2B5240"
-          opacity={0.18}
-          transform="translate(600, 5) scale(0.35) rotate(8)"
-        />
-      )}
-      <MatisseShape
-        shapeId={tertiaryShapeId}
-        fill="#2B5240"
+        shapeId={secondaryShapeId}
+        fill="#2D78BA"
         opacity={0.20}
-        transform="translate(1000, 15) scale(0.3) rotate(-5)"
+        transform="translate(66, 34) scale(0.46) rotate(14)"
       />
-      <MatisseShape
-        shapeId={allShapes.find((s) => s !== shapeId && s !== secondaryShapeId && s !== tertiaryShapeId) ?? 'blob-5'}
-        fill="#2B5240"
-        opacity={0.16}
-        transform="translate(1300, 8) scale(0.35) rotate(12)"
-      />
-    </svg>
-  </div>
-)}
+    )}
+    <MatisseShape
+      shapeId={tertiaryShapeId}
+      fill="#174A82"
+      opacity={0.14}
+      transform="translate(34, 94) scale(0.36) rotate(-18)"
+    />
+  </svg>
+</div>
