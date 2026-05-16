@@ -21,8 +21,9 @@ const { title, description, ogImage, canonical, type } = Astro.props;
     <!-- Font preload FIRST — before stylesheets — per Pitfall 6 in RESEARCH.md -->
     <link rel="preload" href="/fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
     <SEO title={title} description={description} ogImage={ogImage} canonical={canonical} type={type} />
   </head>
