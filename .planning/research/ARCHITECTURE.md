@@ -1,460 +1,569 @@
-# Architecture Research
+# Architecture: i18n Integration (Chinese + French)
 
-**Domain:** Astro 6 marketing site — v3.0 Art Direction & Interaction Polish integration
-**Researched:** 2026-05-14
-**Confidence:** HIGH (direct codebase inspection + component-level analysis)
+**Project:** Tuwa Marketing Website
+**Researched:** 2026-05-16
+**Confidence:** HIGH (based on official Astro docs)
+
+## Strategy: Astro Built-in i18n with Prefix Routing
+
+Use Astro's native i18n routing (available since Astro 3.5, stable in Astro 6). English remains the default locale without a URL prefix. Chinese and French get `/zh/` and `/fr/` prefixes.
+
+**Why this over third-party libraries:** Astro's built-in system handles routing, locale detection, URL generation, and sitemap integration. No extra dependencies needed.
 
 ---
 
-## Existing Architecture (What v3.0 Builds On)
+## 1. Configuration Change
 
-### Current Component Tree
+### astro.config.mjs
+
+```javascript
+export default defineConfig({
+  site: "https://tuwa.app",
+  i18n: {
+    locales: ["en", "zh", "fr"],
+    defaultLocale: "en",
+    routing: {
+      prefixDefaultLocale: false,  // tuwa.app/ = English, tuwa.app/zh/ = Chinese
+      fallbackType: "rewrite",     // Missing translations show English content silently
+    },
+    fallback: {
+      zh: "en",
+      fr: "en",
+    },
+  },
+  // ... rest unchanged
+});
+```
+
+**Key decision: `prefixDefaultLocale: false`** -- English URLs stay clean (no `/en/` prefix), preserving existing SEO juice and inbound links. Only zh/fr get prefixes.
+
+---
+
+## 2. File Structure
+
+### New Files to Create
 
 ```
 src/
-├── components/
-│   ├── BaseLayout.astro        — html shell, Font API, IntersectionObserver script
-│   ├── Header.astro            — sticky nav, dropdown, mobile toggle
-│   ├── Footer.astro            — static links
-│   ├── Hero.astro              — h1(.hero-headline), subtitle(.hero-subtitle), DeviceFrame
-│   ├── DeviceFrame.astro       — CSS iPhone 15 Pro frame, Dynamic Island, home indicator
-│   ├── FeatureGrid.astro       — iPod click wheel (SVG, inline JS, 15KB)
-│   ├── FeatureCTA.astro        — feature page CTA section
-│   ├── LandingCTA.astro        — landing page CTA section (remove QR here)
-│   ├── StatsCounter.astro      — animated stat counters
-│   ├── ScreenshotBlock.astro   — thin wrapper around <Image>
-│   ├── FaqAccordion.astro      — accordion
-│   ├── MobileMenu.astro        — mobile drawer
-│   ├── SEO.astro               — meta/OG tags
-│   └── charts/                 — Chart.js Astro islands
-├── layouts/
-│   ├── BaseLayout.astro        — shared html shell
-│   ├── BlogPostLayout.astro
-│   ├── FeaturePageLayout.astro
-│   ├── CoachingPageLayout.astro
-│   └── LegalPageLayout.astro
+├── i18n/
+│   ├── config.ts          # Language metadata, locale list
+│   ├── utils.ts           # getLangFromUrl(), useTranslations(), getLocalizedPath()
+│   ├── ui.ts              # Shared UI strings (nav, footer, CTAs, buttons)
+│   └── pages/
+│       ├── home.ts        # Page-specific content (hero headline, subtitle, etc.)
+│       ├── recovery-scoring.ts
+│       ├── workload-tracking.ts
+│       ├── smart-templates.ts
+│       ├── cold-start.ts
+│       ├── coaching.ts
+│       └── support.ts
 ├── pages/
-│   ├── index.astro             — Hero, FeatureGrid, StatsCounter, LandingCTA
-│   └── features/               — 5 feature deep-dive pages
-└── styles/
-    └── global.css              — Tailwind v4, CSS variables, all animation keyframes
+│   ├── zh/
+│   │   ├── index.astro
+│   │   ├── support.astro
+│   │   ├── privacy.astro
+│   │   ├── terms.astro
+│   │   └── features/
+│   │       ├── recovery-scoring.astro
+│   │       ├── workload-tracking.astro
+│   │       ├── smart-templates.astro
+│   │       ├── cold-start.astro
+│   │       └── coaching.astro
+│   └── fr/
+│       ├── index.astro
+│       ├── support.astro
+│       ├── privacy.astro
+│       ├── terms.astro
+│       └── features/
+│           ├── recovery-scoring.astro
+│           ├── workload-tracking.astro
+│           ├── smart-templates.astro
+│           ├── cold-start.astro
+│           └── coaching.astro
+├── components/
+│   └── LanguageSwitcher.astro  # NEW
 ```
 
-### Key Architectural Facts
+### Translation File Pattern
 
-- **Animation system:** CSS `@keyframes` in `global.css` + a single IntersectionObserver script in `BaseLayout.astro`. Reveal targets use `data-animate` + `data-animate-delay`. No external animation library.
-- **Styling model:** Tailwind v4 utility classes for layout/spacing; CSS custom properties for all design tokens; named CSS classes (`.device-frame`, `.hero-headline`, `.wheel-arc`, etc.) for complex components.
-- **SVG strategy:** FeatureGrid uses inline SVG with `<path>` arcs computed from trigonometry. Interaction (click, keyboard) handled by `<script>` block inside the component.
-- **Script isolation:** One global `<script is:inline>` in BaseLayout for IntersectionObserver. Component-specific scripts live inside the `.astro` file's `<script>` tag (module-scoped by Astro's bundler).
-- **No JS framework:** All interactivity is vanilla JS. No React, Vue, or Solid islands.
-- **Font:** General Sans via Astro Font API (`--font-general-sans` CSS variable). Self-hosted through Fontshare CDN, preloaded in `<head>`.
+**Why separate page files instead of one giant JSON:** Each feature page has 500+ words of copy. A single monolithic translation file would be unmaintainable. Per-page files keep translations co-located with the content they serve.
+
+```typescript
+// src/i18n/config.ts
+export const languages = {
+  en: { name: "English", flag: "🇬🇧", dir: "ltr" },
+  zh: { name: "中文", flag: "🇨🇳", dir: "ltr" },
+  fr: { name: "Français", flag: "🇫🇷", dir: "ltr" },
+} as const;
+
+export const defaultLang = "en";
+export type Lang = keyof typeof languages;
+```
+
+```typescript
+// src/i18n/ui.ts — shared strings (nav, footer, common CTAs)
+export const ui = {
+  en: {
+    "nav.features": "Features",
+    "nav.blog": "Blog",
+    "nav.support": "Support",
+    "footer.features": "Features",
+    "footer.company": "Company",
+    "footer.legal": "Legal",
+    "footer.privacy": "Privacy",
+    "footer.terms": "Terms",
+    "cta.download": "Download on the App Store",
+    "cta.learn-more": "Learn more",
+  },
+  zh: {
+    "nav.features": "功能",
+    "nav.blog": "博客",
+    "nav.support": "支持",
+    "footer.features": "功能",
+    "footer.company": "关于",
+    "footer.legal": "法律",
+    "footer.privacy": "隐私政策",
+    "footer.terms": "使用条款",
+    "cta.download": "在 App Store 下载",
+    "cta.learn-more": "了解更多",
+  },
+  fr: {
+    "nav.features": "Fonctionnalites",
+    "nav.blog": "Blog",
+    "nav.support": "Support",
+    // ...
+  },
+} as const;
+```
+
+```typescript
+// src/i18n/pages/home.ts — page-specific content
+export const home = {
+  en: {
+    headline: "Train smarter. Recover with precision.",
+    subtitle: "Tuwa combines HRV, sleep, training load, and six fatigue dimensions into a single readiness score — so you know exactly how hard to push today.",
+    altDashboard: "Tuwa app showing today's recovery score of 82 — HRV in green zone, sleep 7.5 hours.",
+  },
+  zh: {
+    headline: "更聪明地训练，更精准地恢复。",
+    subtitle: "Tuwa 将 HRV、睡眠、训练负荷和六项疲劳维度整合为一个准备状态评分 — 让你确切知道今天该推多少。",
+    altDashboard: "Tuwa 应用显示今日恢复评分 82 — HRV 绿区，睡眠 7.5 小时。",
+  },
+  fr: {
+    headline: "Entrainez-vous plus intelligemment. Recuperez avec precision.",
+    subtitle: "Tuwa combine VFC, sommeil, charge d'entrainement et six dimensions de fatigue en un seul score de readiness.",
+    altDashboard: "Application Tuwa affichant un score de recuperation de 82.",
+  },
+} as const;
+```
 
 ---
 
-## v3.0 Feature Integration Map
+## 3. Utility Functions
 
-### 1. Matisse SVG Cut-Out Art Direction
+```typescript
+// src/i18n/utils.ts
+import { ui, defaultLang, type Lang, languages } from "./config";
 
-**What it is:** Organic cut-out shapes (leaf, seaweed, biomorph) assembled into a continuous horizontal frieze decorating the hero section and possibly section dividers. Inspired by Matisse's _Swimming Pool_ gouache cut-outs.
+export function getLangFromUrl(url: URL): Lang {
+  const [, lang] = url.pathname.split("/");
+  if (lang in languages) return lang as Lang;
+  return defaultLang;
+}
 
-**Integration point:** `Hero.astro` is the primary host. The frieze sits as a decorative band — either above the hero text, below it, or spanning the full page width behind the section.
+export function useTranslations(lang: Lang) {
+  return function t(key: keyof typeof ui["en"]): string {
+    return ui[lang]?.[key] || ui[defaultLang][key];
+  };
+}
 
-**New component: `MatisseFrieze.astro`**
+export function getLocalizedPath(lang: Lang, path: string): string {
+  if (lang === defaultLang) return path;
+  return `/${lang}${path}`;
+}
 
-Create as a standalone component in `src/components/`. Reasons for isolation:
-- The SVG markup will be 100-200 lines (multiple organic path elements)
-- Re-usable as a section divider on feature pages if desired
-- Keeps `Hero.astro` readable
-- Allows independent animation scoping
-
+export function getAlternateLinks(currentPath: string): Array<{ lang: Lang; href: string }> {
+  // Strip locale prefix to get base path
+  const basePath = currentPath.replace(/^\/(zh|fr)/, "") || "/";
+  return Object.keys(languages).map((lang) => ({
+    lang: lang as Lang,
+    href: getLocalizedPath(lang as Lang, basePath),
+  }));
+}
 ```
-src/components/MatisseFrieze.astro   ← NEW
-```
 
-Interface:
+---
+
+## 4. Component Modifications
+
+### Pattern: Components Accept Translated Content via Props
+
+Components do NOT import translations themselves. Pages pass translated strings down. This keeps components locale-agnostic and reusable.
+
+#### Hero.astro (modified)
+
 ```astro
 ---
-interface Props {
-  variant?: 'hero' | 'divider';      // hero: full-width band; divider: thin strip
-  animate?: boolean;                  // false for reduced-motion static render
-}
----
-```
-
-**SVG construction approach:**
-
-All shapes should be inline SVG within the `.astro` file — not an external `.svg` file loaded via `<img>`. Reasons:
-- Inline SVG inherits CSS custom properties (can tint shapes with `--color-accent`, `--color-brand-accent`)
-- JS can animate individual `<path>` elements via `data-animate` if desired
-- No extra HTTP request
-
-Shape library: define 5-7 organic biomorph paths that can be tiled/mirrored horizontally. Use a single `viewBox` wide enough for the frieze (e.g., `0 0 1440 160`). Overflow hidden on the wrapper clips the frieze to page width.
-
-**Color palette for shapes:** Use existing CSS variables — `--color-surface`, `--color-surface-el`, `--color-divider`, plus `--color-accent` at 15-20% opacity for one accent shape. This keeps the design within the established palette without new tokens.
-
-**CSS in global.css (additions):**
-```css
-/* Matisse frieze */
-.matisse-frieze {
-  overflow: hidden;
-  width: 100%;
-  pointer-events: none;
-  user-select: none;
-}
-.matisse-shape {
-  transition: transform 800ms ease-out;
-}
-```
-
-**Animation:** Parallax-style gentle float is achievable with CSS `@keyframes` + `animation-play-state`. For the hero, a slow drift (e.g., 20s sinusoidal translate) adds life without Motion library. If complexity escalates, this is the one place where adding `motion` (the standalone library, ~15KB) as an Astro island is justified.
-
-**Integration into Hero.astro:**
-```astro
+import DeviceFrame from './DeviceFrame.astro';
 import MatisseFrieze from './MatisseFrieze.astro';
+import { APP_STORE_URL } from '../config';
 
-<!-- Above or below the text block, full-width within the section -->
-<MatisseFrieze variant="hero" animate={true} />
-```
-
-The `section-spaced` padding on the hero section already creates vertical space. The frieze sits at the visual edge of the section — adjust `margin-top` / `margin-bottom` tokens rather than touching `--space-section-*` tokens.
-
----
-
-### 2. Typography Weight System
-
-**What changes:** Titles become larger + lighter (weight 300 or 350, if General Sans supports it). Body copy becomes smaller + heavier (weight 500 or 600 instead of 400).
-
-**Integration point:** `global.css` — the CSS custom property system is the correct place. All typography tokens live in `:root`. Changing the tokens cascades to every component automatically.
-
-**Current token values:**
-```css
---text-display:  48px;   /* hero h1 */
---text-heading:  28px;   /* section h2 */
---text-body:     16px;   /* paragraphs */
---text-label:    13px;   /* micro labels */
-```
-
-**No new tokens needed.** Add font-weight companion tokens:
-```css
---weight-display:  300;  /* or 350 — verify General Sans variable font axes */
---weight-heading:  300;
---weight-body:     500;
---weight-label:    600;
-```
-
-**Then update usage sites:**
-
-The challenge is that most components set `font-weight` inline via `style="font-weight: 600;"`. This was necessary in v2.0 to override Tailwind defaults, but now creates a maintenance problem — inline styles beat CSS class rules and token changes.
-
-**Approach: Token-then-inline audit**
-
-1. Add `--weight-*` tokens to `:root` in `global.css`
-2. Update any existing named CSS classes that hardcode weight (e.g., `.nav-dropdown-title`, `.nav-dropdown-desc`, `.wheel-center-title`) to use the token
-3. For components with inline `font-weight` style props: move those values to semantic CSS classes rather than doing a per-file find-replace
-
-**Files to modify:**
-- `src/styles/global.css` — add `--weight-*` tokens, update named classes
-- `src/components/Hero.astro` — replace inline `font-weight: 600` on h1 with token reference
-- `src/components/FeatureGrid.astro` — heading uses inline `font-weight: 600`
-- `src/components/StatsCounter.astro` — check heading weight
-- `src/layouts/FeaturePageLayout.astro` — feature page h1/h2 weights
-- All other layouts with headings
-
-**General Sans variable font check:** The Astro Font API loads General Sans from Fontshare. Fontshare's General Sans is a static font family (not a variable font) — it ships separate files for each weight: 200 (Extralight), 300 (Light), 400 (Regular), 500 (Medium), 600 (Semibold), 700 (Bold). Weight 300 is available. The font API will need `weights: ['300', '500', '600']` in the font config if it isn't already loading all weights. **Verify this in `astro.config.mjs` before implementing.**
-
----
-
-### 3. iPhone Frame Realism
-
-**What changes:** The existing `DeviceFrame.astro` already implements a CSS iPhone 15 Pro frame with Dynamic Island, side buttons (via `::before`/`::after` pseudo-elements), and home indicator. The issues flagged in PROJECT.md are:
-1. Screenshot fit — possible misalignment or extra border around the image
-2. Realism — bezels, notch accuracy, button placement
-
-**Integration point:** `DeviceFrame.astro` + `.device-frame` class in `global.css`.
-
-**Current structure (from component inspection):**
-
-```
-.device-frame (outer bezel)
-  ├── Dynamic Island (absolute positioned, top: 20px)
-  ├── Screen area (border-radius: 40px, aspect-ratio: 393/852)
-  │   └── <Image> or placeholder
-  └── Home indicator (100px wide bar)
-```
-
-Pseudo-elements:
-- `::before` — volume buttons (left side, top: 100px)
-- `::after` — power button (right side, top: 120px)
-
-**Screenshot fit fix:** The `aspect-ratio: 393/852` matches the iPhone 15 Pro logical resolution. If screenshots were captured at 1x instead of 3x Retina, the image content may appear slightly off. The fix is in the `<Image>` tag: ensure `object-fit: cover` with `object-position: top` if screenshots start at the status bar. The component already sets `object-fit: cover` — check `object-position`.
-
-**Realism improvements (surgical changes to DeviceFrame.astro):**
-
-| Element | Current | Improved |
-|---------|---------|---------|
-| Frame gradient | `145deg, #2A2A2A, #1A1A1A, #111111` | Add subtle titanium sheen: `145deg, #3A3A3A, #1E1E1E 40%, #111 80%, #1E1E1E` |
-| Border highlight | `1px solid rgba(255,255,255,0.06)` | Split into top highlight + side shadow: use `outline` + `box-shadow` combination |
-| Dynamic Island size | `100px × 28px` | iPhone 15 Pro is 126pt × 37pt — scale to match component size |
-| Screen corner radius | `border-radius: 40px` | Should be approximately 47px at 300px frame width (proportional to real 55pt corner radius at 393pt width) |
-| Button texture | Flat `#2A2A2A` | Add subtle gradient to buttons for physical feel |
-| Volume button gap | Single `box-shadow: 0 36px 0` offset | Real iPhone has 3 buttons: mute + 2 volume; represent with 3 pseudo-shadow layers |
-
-**No new component needed.** All changes are surgical edits within `DeviceFrame.astro` and the `.device-frame` CSS block in `global.css`.
-
-**Cascading effect:** DeviceFrame is used in:
-- `Hero.astro` (hero device mockup)
-- Feature pages via `FeaturePageLayout.astro` or `ScreenshotBlock.astro`
-
-Any improvement propagates automatically to all usage sites.
-
----
-
-### 4. Remove QR Code + Adjacent App Store Badge Section
-
-**Integration point:** `LandingCTA.astro` — this is the component that likely contains the QR code section. The header, hero, and footer CTAs remain untouched.
-
-**Approach:** Inspect `LandingCTA.astro` fully and remove the QR code + its sibling App Store badge. The landing page currently stacks: `Hero → FeatureGrid → StatsCounter → LandingCTA`. After removal, `LandingCTA` either becomes a simpler text CTA or is replaced with a different section.
-
-**Risk:** LandingCTA may be the only place `APP_STORE_URL` is used aside from Hero. Confirm the badge in Hero stays — the landing page still needs a download path.
-
----
-
-### 5. Interaction Polish
-
-**What it is:** Smooth page transitions, scroll feel, navigation flow — referenced against contralabs.com.
-
-**Integration point:** This is distributed across multiple components and the global CSS. There is no single file.
-
-**Audit of current transitions:**
-- Nav dropdown: `opacity + transform + visibility`, 200ms ease — already good
-- CTA button: `scale(1.02)` on hover, 150ms — already good
-- Blog card: `box-shadow` lift, 200ms — already good
-- `[data-animate]` reveals: `fade-up` 400ms — already good
-- Page load: no page transition (SPA-style transitions not implemented)
-- Scroll: native browser scroll — no custom easing
-
-**What "interaction polish" likely means for this site:**
-
-1. **Scroll easing:** CSS `scroll-behavior: smooth` on `html` for anchor links. Already common but verify it's set.
-2. **Nav transition on scroll:** Header already has scroll-shadow behavior. Check if it transitions smoothly (opacity/transform).
-3. **Link hover states:** Feature page internal links, footer links — ensure consistent 100-150ms color transitions.
-4. **Mobile menu animation:** `MobileMenu.astro` — verify the drawer slides in smoothly rather than appearing instantly.
-5. **CTA ripple / press feel:** The `.btn-cta:active { transform: scale(0.98) }` is already implemented.
-
-**New CSS additions (in global.css):**
-```css
-html {
-  scroll-behavior: smooth;
+interface Props {
+  headline: string;
+  subtitle: string;
+  altDashboard: string;
+  downloadLabel: string;
 }
 
-/* View Transition API — progressive enhancement for page navigation */
-@view-transition {
-  navigation: auto;
+const { headline, subtitle, altDashboard, downloadLabel } = Astro.props;
+---
+<section class="section-spaced px-6" style="position: relative;">
+  <MatisseFrieze />
+  <div class="mx-auto text-center" style="...">
+    <h1 class="hero-headline" style="...">{headline}</h1>
+    <p class="hero-subtitle mx-auto" style="...">{subtitle}</p>
+    <!-- device frame unchanged -->
+    <DeviceFrame src={dashboardScreenshot} alt={altDashboard} ... />
+    <!-- badge -->
+    <img src="/badges/app-store-badge.svg" alt={downloadLabel} ... />
+  </div>
+</section>
+```
+
+#### Header.astro (modified)
+
+```astro
+---
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+<!-- Nav links use t() and getLocalizedPath() -->
+<a href={getLocalizedPath(lang, "/features/recovery-scoring")}>{t("nav.features")}</a>
+<!-- Add LanguageSwitcher in nav -->
+<LanguageSwitcher currentLang={lang} currentPath={Astro.url.pathname} />
+```
+
+#### Footer.astro (modified)
+
+Same pattern as Header: import `getLangFromUrl`, `useTranslations`, `getLocalizedPath`. All hardcoded link text and hrefs become dynamic.
+
+#### SEO.astro (modified — add hreflang)
+
+```astro
+---
+import { getAlternateLinks } from '../i18n/utils';
+
+// ... existing props ...
+const lang = Astro.props.lang || "en";
+const alternates = getAlternateLinks(Astro.url.pathname);
+---
+<!-- existing meta tags -->
+
+<!-- hreflang tags for SEO -->
+{alternates.map(({ lang: l, href }) => (
+  <link rel="alternate" hreflang={l} href={`https://tuwa.app${href}`} />
+))}
+<link rel="alternate" hreflang="x-default" href={`https://tuwa.app${alternates.find(a => a.lang === 'en')?.href}`} />
+```
+
+### New Component: LanguageSwitcher.astro
+
+```astro
+---
+import { languages, type Lang } from '../i18n/config';
+import { getLocalizedPath } from '../i18n/utils';
+
+interface Props {
+  currentLang: Lang;
+  currentPath: string;
 }
+
+const { currentLang, currentPath } = Astro.props;
+// Strip existing locale prefix to get base path
+const basePath = currentPath.replace(/^\/(zh|fr)/, '') || '/';
+---
+<div class="language-switcher">
+  {Object.entries(languages).map(([code, { name }]) => (
+    <a
+      href={getLocalizedPath(code as Lang, basePath)}
+      aria-current={code === currentLang ? "page" : undefined}
+      class:list={["lang-link", { active: code === currentLang }]}
+    >
+      {name}
+    </a>
+  ))}
+</div>
 ```
-
-The **View Transition API** (Chrome 111+, Safari 18+, Firefox 130+) provides page-to-page crossfade with zero JS. In Astro static sites, enabling it requires only the CSS `@view-transition { navigation: auto }` declaration — no adapter or framework changes. This is the key "contralabs.com-style" smooth navigation. Progressive enhancement: browsers without support fall back to instant navigation.
-
-**Files to modify for interaction polish:**
-- `src/styles/global.css` — `scroll-behavior`, `@view-transition`, any missing transition properties
-- `src/components/Header.astro` — verify scroll-shadow transition timing
-- `src/components/MobileMenu.astro` — verify drawer slide animation
-- `src/components/Footer.astro` — consistent link hover transitions
 
 ---
 
-## Component Boundary Summary
+## 5. Layout Modifications
 
-### New Components (v3.0)
+### BaseLayout.astro
 
-| Component | File | Purpose | Used By |
-|-----------|------|---------|---------|
-| MatisseFrieze | `src/components/MatisseFrieze.astro` | SVG cut-out organic shape frieze | Hero.astro, optionally feature pages |
+```astro
+---
+// Add lang prop
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonical?: string;
+  type?: string;
+  lang?: string;  // NEW
+}
 
-### Modified Components (v3.0)
+const { title, description, ogImage, canonical, type, lang = "en" } = Astro.props;
+---
+<!doctype html>
+<html lang={lang}>  <!-- was hardcoded "en" -->
+  <head>
+    <!-- existing head content -->
+    <!-- hreflang links added via SEO component -->
+  </head>
+  <body>
+    <Header />  <!-- Header self-detects lang from URL -->
+    <main class="max-w-[1440px] mx-auto w-full">
+      <slot />
+    </main>
+    <Footer />  <!-- Footer self-detects lang from URL -->
+  </body>
+</html>
+```
 
-| Component | File | What Changes | Risk |
-|-----------|------|-------------|------|
-| DeviceFrame | `src/components/DeviceFrame.astro` | Bezel realism, button count, screen radius, image fit | Low — self-contained, all usage sites benefit |
-| Hero | `src/components/Hero.astro` | Import MatisseFrieze, typography weight token | Low |
-| LandingCTA | `src/components/LandingCTA.astro` | Remove QR code + adjacent badge section | Low — subtractive |
-| FeatureGrid | `src/components/FeatureGrid.astro` | Typography weight tokens on h2 | Low |
-| StatsCounter | `src/components/StatsCounter.astro` | Typography weight token audit | Low |
-| Header | `src/components/Header.astro` | Verify transition timing for polish | Low |
-| MobileMenu | `src/components/MobileMenu.astro` | Verify slide animation | Low |
-| Footer | `src/components/Footer.astro` | Link hover transition consistency | Low |
-
-### Modified Styles (v3.0)
-
-| File | What Changes | Risk |
-|------|-------------|------|
-| `src/styles/global.css` | `--weight-*` tokens, `@view-transition`, `scroll-behavior: smooth`, MatisseFrieze CSS, DeviceFrame improvements | Low — additive tokens, no token renames |
-
-### Modified Layouts (v3.0)
-
-| File | What Changes |
-|------|-------------|
-| `src/layouts/FeaturePageLayout.astro` | Typography weight token on h1/h2 |
-| `src/layouts/CoachingPageLayout.astro` | Typography weight token on h1/h2 |
-| `src/layouts/BlogPostLayout.astro` | Typography weight token on prose headings (if not governed by @tailwindcss/typography) |
+**Key insight:** Header and Footer detect their own language from `Astro.url` rather than requiring a lang prop drilled from every page. This minimizes changes to the 10+ page files that use BaseLayout.
 
 ---
 
-## Data Flow (v3.0 additions)
+## 6. Page File Pattern (Localized Pages)
 
-### MatisseFrieze Render Flow
+Each localized page is a thin wrapper that imports translations and passes them to the same components.
 
-```
-index.astro
-  └── Hero.astro
-        └── MatisseFrieze.astro
-              ├── Props: variant, animate
-              ├── Inline SVG: 5-7 <path> shapes in a wide viewBox
-              ├── CSS class: .matisse-frieze, .matisse-shape
-              └── data-animate on individual shapes (reuses BaseLayout observer)
-```
+```astro
+---
+// src/pages/zh/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import StatsCounter from '../../components/StatsCounter.astro';
+import LandingCTA from '../../components/LandingCTA.astro';
+import { home } from '../../i18n/pages/home';
 
-No new data sources. No new JavaScript. The existing IntersectionObserver in BaseLayout will pick up any `data-animate` attributes on shape elements automatically.
-
-### Typography Weight Flow
-
-```
-:root (global.css)
-  └── --weight-display / --weight-heading / --weight-body / --weight-label
-        ├── Named CSS classes (.nav-dropdown-title, .wheel-center-title, etc.)
-        └── Component inline styles → migrate to CSS classes
-```
-
-### View Transition Flow
-
-```
-User clicks <a href="...">
-  ├── Browser captures current page screenshot
-  ├── CSS @view-transition { navigation: auto } triggers crossfade
-  ├── New page loads
-  └── Browser fades between old/new screenshots
+const content = home.zh;
+---
+<BaseLayout
+  title="Tuwa"
+  description={content.subtitle}
+  lang="zh"
+>
+  <Hero
+    headline={content.headline}
+    subtitle={content.subtitle}
+    altDashboard={content.altDashboard}
+    downloadLabel="在 App Store 下载"
+  />
+  <FeatureGrid lang="zh" />
+  <StatsCounter />
+  <LandingCTA lang="zh" />
+</BaseLayout>
 ```
 
-Zero JS. Zero Astro configuration. Purely declarative CSS.
+**Legal pages (privacy, terms):** These are long-form content. Instead of translating them string-by-string, create separate full-page MDX or HTML content per locale. The layout stays the same; only the content slot changes.
 
 ---
 
-## Recommended Build Order
+## 7. Build Output Structure
 
-Dependencies determine order. Build from foundation to surface:
+With `prefixDefaultLocale: false`, the static build produces:
 
-### Phase 1: Token & CSS Foundation (no component risk)
-1. Add `--weight-*` tokens to `global.css`
-2. Add `scroll-behavior: smooth` to `html` in `global.css`
-3. Add `@view-transition { navigation: auto }` to `global.css`
-4. Add `.matisse-frieze` and `.matisse-shape` CSS classes to `global.css`
-5. Improve `.device-frame` CSS (bezel, button pseudo-elements) in `global.css`
+```
+dist/
+├── index.html                    # English (default)
+├── features/
+│   ├── recovery-scoring/index.html
+│   └── ...
+├── support/index.html
+├── privacy/index.html
+├── terms/index.html
+├── blog/index.html
+├── zh/
+│   ├── index.html                # Chinese
+│   ├── features/
+│   │   ├── recovery-scoring/index.html
+│   │   └── ...
+│   ├── support/index.html
+│   ├── privacy/index.html
+│   └── terms/index.html
+├── fr/
+│   ├── index.html                # French
+│   ├── features/...
+│   └── ...
+└── sitemap-index.xml             # Auto-includes all locale URLs
+```
 
-**Why first:** Pure CSS additions. No component changes. Zero regression risk. Can verify in dev server immediately.
-
-### Phase 2: DeviceFrame Realism (self-contained)
-6. Update `DeviceFrame.astro` — adjust Dynamic Island dimensions, screen border-radius, add button count, fix image `object-position`
-
-**Why second:** Self-contained component, no external dependencies. Changes propagate automatically to all pages. Can compare before/after in browser with a single component change.
-
-### Phase 3: Remove QR Code (subtractive)
-7. Edit `LandingCTA.astro` — remove QR code section and adjacent App Store badge
-
-**Why third:** Purely subtractive. No new dependencies. Easy to verify: the section simply disappears.
-
-### Phase 4: Typography Weight Rollout (distributed but low-risk)
-8. Update `Hero.astro` heading to use `--weight-display` token
-9. Update `FeatureGrid.astro` heading
-10. Update `FeaturePageLayout.astro`, `CoachingPageLayout.astro` headings
-11. Update named CSS classes in `global.css` to use `--weight-body` / `--weight-label`
-
-**Why fourth:** Requires touching multiple files, but each change is a one-liner token substitution. Do visual check after each page type.
-
-### Phase 5: MatisseFrieze Component (highest complexity)
-12. Create `src/components/MatisseFrieze.astro` with inline SVG shapes
-13. Import into `Hero.astro`
-14. Tune shape colors, sizes, and animation timing in `global.css`
-
-**Why last:** Requires the most creative iteration and visual judgment. CSS tokens (Phase 1) should already be in place so color references work immediately. The most likely phase to require multiple visual review cycles.
-
-### Phase 6: Interaction Polish Audit
-15. Review `Header.astro` scroll transition timing
-16. Review `MobileMenu.astro` drawer animation
-17. Review `Footer.astro` link hover states
-18. Add any missing `transition` declarations across components
-
-**Why last:** Polish is subjective and iterative. Do it after all structural changes are stable so you're not re-polishing elements that might still change.
+Cloudflare Pages serves this identically to the current setup -- no adapter or worker changes needed. It is purely additive static files.
 
 ---
 
-## Anti-Patterns to Avoid
+## 8. Sitemap and SEO Integration
 
-### Anti-Pattern 1: Putting Frieze SVG in an External File Loaded via `<img>`
+Astro's `@astrojs/sitemap` automatically picks up all generated pages including `/zh/` and `/fr/` routes. No config change needed for sitemap generation.
 
-**What people do:** Save the frieze as `public/matisse-frieze.svg` and reference it with `<img src="/matisse-frieze.svg">`.
-**Why it's wrong:** External SVGs loaded via `<img>` cannot inherit CSS custom properties. Shape fills would need to be hardcoded hex values, making palette changes manual. Also, `<img>` SVG cannot be animated per-element with CSS or JS.
-**Do this instead:** Inline SVG in `MatisseFrieze.astro`. Shapes reference `var(--color-surface-el)` etc. directly.
-
-### Anti-Pattern 2: Adding Font Weights via New `@font-face` Declarations
-
-**What people do:** Add manual `@font-face` rules for 300/500 weight variants to override the Astro Font API.
-**Why it's wrong:** The Astro Font API owns the `@font-face` declarations and generates optimized preload hints. Duplicating declarations causes double-loading and breaks the API's hash-based cache invalidation.
-**Do this instead:** Configure weight loading through the Font API in `astro.config.mjs` via the `weights` option on the font definition. Let the API handle all `@font-face` generation.
-
-### Anti-Pattern 3: Scoping Animation in Component `<style>` Tags
-
-**What people do:** Add `@keyframes matisse-float` inside a `<style>` block in `MatisseFrieze.astro`.
-**Why it's wrong:** Astro scopes component `<style>` blocks with a generated hash attribute. `@keyframes` inside scoped styles are globally registered by the browser and the hash scope does not apply to the animation name — this causes naming collisions and confusing behavior across pages.
-**Do this instead:** All `@keyframes` go in `global.css`, following the established pattern from `fade-up`, `hero-text-enter`, `wheel-arc-reveal`, etc.
-
-### Anti-Pattern 4: Using Motion Library for the Frieze
-
-**What people do:** Import `motion` from `motion/react` for parallax and shape animation because it's "more capable."
-**Why it's wrong:** Motion requires a client-side JS island, adding ~15KB min+gzip and blocking initial paint if not deferred. The site's Lighthouse 98/99 scores are a product argument. CSS `@keyframes` with long durations (15-25s) achieve the same visual effect at zero cost.
-**Do this instead:** CSS keyframe animations on `.matisse-shape` elements. If a single shape needs sequenced entrance, use `animation-delay` (same system as `data-animate-delay`).
-
-### Anti-Pattern 5: Inline `font-weight` Overriding Token System
-
-**What people do:** Patch typography on a per-component basis by changing inline `style="font-weight: 600"` to `style="font-weight: 300"`.
-**Why it's wrong:** Bypasses the `--weight-*` token system. Future changes require hunting through all component files again.
-**Do this instead:** Replace all inline `font-weight` on heading elements with a CSS class that references the token. One token change in `:root` updates everything.
+For `hreflang` in the sitemap XML (preferred by Google), the sitemap integration respects the i18n config and can generate `<xhtml:link>` elements if configured. Verify this works in Phase 1 testing.
 
 ---
 
-## Scaling Considerations
+## 9. Data Flow Diagram
 
-This is a static site with no server-side state. "Scaling" means build performance and CSS maintainability.
-
-| Concern | Current State | v3.0 Impact |
-|---------|--------------|-------------|
-| CSS bundle size | ~15KB global.css | +~2KB for frieze + weight tokens — negligible |
-| JS bundle size | Inline scripts only, ~3KB | No new JS unless Motion added |
-| Build time | Fast (static, ~20 files) | +1 component = no measurable impact |
-| Lighthouse score | Mobile 98, Desktop 99 | View Transition API: neutral (CSS only). Inline SVG: neutral. Weight tokens: neutral. |
-| Animation perf | All CSS, GPU-composited | Frieze float uses `transform` — GPU-composited, no layout thrash |
+```
+Translation Files (src/i18n/)
+        │
+        ▼
+Page Files (src/pages/zh/index.astro)
+  ├── imports translations
+  ├── passes content as props to components
+  └── sets lang on BaseLayout
+        │
+        ▼
+BaseLayout (sets <html lang>, renders Header/Footer)
+  ├── Header: self-detects lang from URL, uses t() for nav
+  ├── Footer: self-detects lang from URL, uses t() for links
+  └── SEO: generates hreflang alternates
+```
 
 ---
 
-## Integration Points Summary
+## 10. What Changes vs What Stays
 
-| Feature | Where It Integrates | New File? | Modified Files |
-|---------|-------------------|-----------|---------------|
-| Matisse Frieze | Hero.astro imports MatisseFrieze.astro | YES — MatisseFrieze.astro | Hero.astro, global.css |
-| Typography weights | global.css `:root` tokens cascade everywhere | NO | global.css + 5-6 component/layout files (one-liner each) |
-| DeviceFrame realism | DeviceFrame.astro + .device-frame CSS | NO | DeviceFrame.astro, global.css |
-| Remove QR code | LandingCTA.astro (subtractive edit) | NO | LandingCTA.astro |
-| Interaction polish | global.css + Header/MobileMenu/Footer | NO | global.css, Header.astro, MobileMenu.astro, Footer.astro |
+### Files Modified (existing)
+
+| File | Change | Complexity |
+|------|--------|-----------|
+| `astro.config.mjs` | Add `i18n` config block | Low |
+| `src/layouts/BaseLayout.astro` | Add `lang` prop, pass to `<html>` | Low |
+| `src/components/Header.astro` | Add i18n utils, LanguageSwitcher, localized hrefs | Medium |
+| `src/components/Footer.astro` | Add i18n utils, localized hrefs and text | Medium |
+| `src/components/SEO.astro` | Add hreflang alternate links | Low |
+| `src/components/Hero.astro` | Accept content via props instead of hardcoded | Medium |
+| `src/components/FeatureGrid.astro` | Accept `lang` prop, localize labels | High (largest component, 15.5K) |
+| `src/components/LandingCTA.astro` | Accept translated CTA text | Low |
+| `src/components/StatsCounter.astro` | Accept translated labels | Low |
+| `src/components/FaqAccordion.astro` | Accept translated Q&A content | Medium |
+| `src/components/FeatureCTA.astro` | Accept translated text | Low |
+
+### Files Created (new)
+
+| File | Purpose |
+|------|---------|
+| `src/i18n/config.ts` | Language definitions, types |
+| `src/i18n/utils.ts` | Translation helpers, URL utilities |
+| `src/i18n/ui.ts` | Shared UI strings (nav, footer, CTAs) |
+| `src/i18n/pages/home.ts` | Home page content (3 locales) |
+| `src/i18n/pages/recovery-scoring.ts` | Feature page content |
+| `src/i18n/pages/workload-tracking.ts` | Feature page content |
+| `src/i18n/pages/smart-templates.ts` | Feature page content |
+| `src/i18n/pages/cold-start.ts` | Feature page content |
+| `src/i18n/pages/coaching.ts` | Feature page content |
+| `src/i18n/pages/support.ts` | Support page content |
+| `src/components/LanguageSwitcher.astro` | Language picker UI |
+| `src/pages/zh/index.astro` | Chinese home |
+| `src/pages/zh/features/*.astro` (5 files) | Chinese feature pages |
+| `src/pages/zh/support.astro` | Chinese support |
+| `src/pages/zh/privacy.astro` | Chinese privacy |
+| `src/pages/zh/terms.astro` | Chinese terms |
+| `src/pages/fr/index.astro` | French home |
+| `src/pages/fr/features/*.astro` (5 files) | French feature pages |
+| `src/pages/fr/support.astro` | French support |
+| `src/pages/fr/privacy.astro` | French privacy |
+| `src/pages/fr/terms.astro` | French terms |
+
+### Files Unchanged
+
+- `src/styles/global.css` -- CSS is language-agnostic
+- `src/components/DeviceFrame.astro` -- receives alt text via prop already
+- `src/components/MatisseFrieze.astro` -- decorative, no text
+- `src/components/MatisseDecoration.astro` -- decorative, no text
+- `src/components/MatisseShape.astro` -- decorative, no text
+- `src/components/ScreenshotBlock.astro` -- alt text via props already
+- `src/components/MobileMenu.astro` -- will mirror Header's nav items (modify alongside Header)
+- `src/config.ts` -- APP_STORE_URL is language-independent
+- All screenshot/image assets -- same across locales
+
+---
+
+## 11. Recommended Build Order
+
+Phases ordered to minimize rework and enable incremental testing:
+
+### Phase 1: Infrastructure (no visible changes yet)
+1. Create `src/i18n/config.ts` + `src/i18n/utils.ts`
+2. Add `i18n` block to `astro.config.mjs`
+3. Create `src/i18n/ui.ts` with English strings extracted from Header/Footer
+4. **Test:** Build still works, English site unchanged
+
+### Phase 2: Shared Components (English extraction)
+1. Modify Header to use `t()` — English strings come from `ui.ts` now
+2. Modify Footer to use `t()` and `getLocalizedPath()`
+3. Modify BaseLayout to accept and propagate `lang`
+4. Modify SEO component to emit hreflang
+5. Create LanguageSwitcher component
+6. **Test:** English site works identically, lang switcher visible but links 404
+
+### Phase 3: Home Page Localization (first complete locale)
+1. Create `src/i18n/pages/home.ts` with all 3 locales
+2. Refactor Hero.astro to accept props
+3. Refactor FeatureGrid, StatsCounter, LandingCTA for lang prop
+4. Create `src/pages/zh/index.astro` (thin wrapper)
+5. Create `src/pages/fr/index.astro`
+6. Add zh/fr strings to `ui.ts`
+7. **Test:** Full Chinese and French home pages render correctly
+
+### Phase 4: Feature Pages
+1. Create translation files for each feature page
+2. Create `src/pages/zh/features/*.astro` (5 pages)
+3. Create `src/pages/fr/features/*.astro` (5 pages)
+4. **Test:** All feature pages render in 3 languages
+
+### Phase 5: Legal and Support Pages
+1. Create full translated content for privacy, terms, support
+2. Create localized page files
+3. **Test:** Complete site navigable in all 3 languages
+
+### Phase 6: Polish and SEO Verification
+1. Verify hreflang tags on all pages
+2. Verify sitemap includes all locale URLs
+3. Test language switcher from every page
+4. Verify OG metadata per locale
+5. Lighthouse audit on locale pages
+
+**Rationale for this order:**
+- Phase 1-2 establish the pattern without creating locale pages (safe, reversible)
+- Phase 3 proves the full pattern on one page before scaling to all 10
+- Phases 4-5 are parallelizable grunt work once the pattern is proven
+- Phase 6 catches SEO issues before deployment
+
+---
+
+## 12. Key Architectural Decisions
+
+| Decision | Rationale |
+|----------|-----------|
+| Props-down pattern (not component-level imports) | Components stay testable and reusable; translation logic lives in pages |
+| Header/Footer self-detect via URL | Avoids prop drilling through every page; these two components always exist |
+| Separate page files per locale (not dynamic routes) | Static build, better SEO, simpler mental model for 10 pages x 3 locales |
+| TypeScript translation files (not JSON) | Type safety, autocomplete in IDE, can include computed values |
+| Per-page translation files | Feature pages have 500+ words each; monolithic file would be unmaintainable |
+| `prefixDefaultLocale: false` | Preserves existing English URLs and SEO equity |
+| Fallback rewrite (not redirect) | Users see English content instead of 404 for untranslated pages during rollout |
 
 ---
 
 ## Sources
 
-- Direct inspection of `src/styles/global.css`, `src/components/DeviceFrame.astro`, `src/components/Hero.astro`, `src/layouts/BaseLayout.astro`, `src/pages/index.astro` (2026-05-14)
-- CSS View Transition API: https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API
-- Astro Font API weights configuration: https://docs.astro.build/en/guides/fonts/
-- Fontshare General Sans weight inventory: https://www.fontshare.com/fonts/general-sans
-- Matisse cut-out SVG technique pattern: inline SVG with CSS variable fill, established in FeatureGrid.astro SVG implementation
-
----
-*Architecture research for: Tuwa Website v3.0 Art Direction & Interaction Polish*
-*Researched: 2026-05-14*
+- [Astro i18n Routing Guide](https://docs.astro.build/en/guides/internationalization/)
+- [Astro i18n Recipe (translation utilities)](https://docs.astro.build/en/recipes/i18n/)
+- [Astro i18n API Reference](https://docs.astro.build/en/reference/modules/astro-i18n/)
+- [Astro Configuration Reference](https://docs.astro.build/en/reference/configuration-reference/)

@@ -1,264 +1,215 @@
-# Feature Research
+# Feature Landscape: i18n (Chinese + French)
 
-**Domain:** Art-direction, typography, device-frame realism, and interaction polish on an existing Astro 6 + Tailwind v4 marketing site
-**Researched:** 2026-05-14
-**Confidence:** HIGH (stack patterns verified via docs/Context7), MEDIUM (Matisse implementation patterns — no exact precedent found; derived from organic shape SVG/clip-path ecosystem)
+**Domain:** Marketing site internationalization
+**Researched:** 2026-05-16
+**Scope:** Adding zh (Chinese) and fr (French) to existing 10-page Astro 6 static site
 
----
+## Table Stakes
 
-## Milestone Scope
+Features users expect from a multilingual marketing site. Missing = broken SEO or confused visitors.
 
-This research covers ONLY new features for v3.0. The following already exist and are out of scope:
+| Feature | Why Expected | Complexity | Dependencies |
+|---------|--------------|------------|--------------|
+| Subdirectory URL routing (`/zh/`, `/fr/`) | Industry standard, best SEO equity sharing, Astro native support | Low | astro.config.mjs i18n block |
+| English as unprefixed default (`/` = en, not `/en/`) | Existing site already ranks at tuwa.app/*, redirecting breaks SEO | Low | `prefixDefaultLocale: false` |
+| hreflang tags on every page | Search engines serve correct language version; prevents duplicate content penalties | Medium | SEO component update |
+| Per-locale `<html lang="">` attribute | Accessibility requirement (screen readers), search engine signal | Low | BaseLayout update |
+| Per-locale meta/OG tags (title, description) | Social shares and search results must be in the correct language | Medium | SEO component + translated metadata |
+| Localized sitemap with hreflang entries | Google requires hreflang in sitemap OR page head; both is best practice | Medium | @astrojs/sitemap i18n config |
+| Language switcher in header | Users must be able to actively choose language; cannot rely on browser detection alone | Medium | New component, header layout change |
+| Translated page content (all 10 pages) | Partial translation is worse than none — confuses users, hurts SEO (thin content) | High | Translation workflow, content organization |
+| CJK-appropriate font stack for Chinese | General Sans has no CJK glyphs; Chinese text must not fall back to Times New Roman | Medium | CSS font-family chain with system CJK fonts |
+| Right-to-left: NOT needed | zh and fr are both LTR; no bidi complexity | N/A | None |
 
-- CSS iPhone device frames (DeviceFrame.astro, `.device-frame` CSS class)
-- Choreographed animations (hero entrance, stagger delays, sticky scroll, wheel arc reveal)
-- General Sans font loaded via Astro Font API
-- Noise texture overlay, micro-interactions, iPod click wheel
-- Animated stat counters, App Store badges
-- All 10 pages, responsive across 5 breakpoints
+## Differentiators
 
----
+Features that elevate the multilingual experience beyond baseline. Not expected, but valued.
 
-## Feature Landscape
+| Feature | Value Proposition | Complexity | Dependencies |
+|---------|-------------------|------------|--------------|
+| Language detection banner (non-intrusive) | "This page is also available in [Chinese]" for visitors whose browser locale differs from page locale | Low | Read `navigator.language`, show dismissible banner |
+| Locale-aware date formatting in blog | Blog posts showing "2026-05-16" vs "2026年5月16日" vs "16 mai 2026" | Low | `Intl.DateTimeFormat` with locale param |
+| Translated OG images | Social shares in Chinese show Chinese text on the OG card | High | Satori + CJK font file (adds ~5MB to build) |
+| Localized App Store badge | Apple provides localized "Download on the App Store" badges (Chinese: 从App Store下载) | Low | Swap SVG asset per locale |
+| URL slug translation (`/features/recovery` vs `/zh/features/recovery`) | Keep slugs in English for simplicity OR translate for SEO in target locale | Medium | Content collection slug config |
+| 404 page per locale | Visitors hitting a bad URL under `/zh/` see Chinese 404, not English | Low | `src/pages/zh/404.astro` |
 
-### Table Stakes (Users Expect These)
+## Anti-Features
 
-These are the baseline for a premium marketing site in 2026. Missing any of these makes the site feel unfinished or cheap.
+Features to explicitly NOT build for this milestone.
 
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| Typography weight contrast: large/light headings + smaller/heavier body | Standard premium editorial pattern since 2022 (Apple, Linear, Vercel). Skipping a weight level — e.g. Light (300) headings + Semibold (600) body — reads as intentional. Same weight across sizes reads as amateur. | LOW | General Sans supports 300–700. Only CSS changes in `global.css`: recalibrate `--text-display`, `--text-heading`, `--text-body` weights. No new dependencies. |
-| Realistic device frame depth: proper shadow layering, screen inset | Marketing sites with device mockups that look flat reduce product credibility. A multi-layer `box-shadow` (natural penumbra, not crisp-edged) is now baseline for any app marketing site. | LOW | Existing `DeviceFrame.astro` has a basic 3-step shadow. Needs: (1) layered `box-shadow` with 4–5 steps doubling blur/halving opacity, (2) screen-inset shadow to embed screen in bezel, (3) action button visually distinct from volume buttons. All pure CSS. |
-| Screenshot fit correctness: no extra border, no text misalignment | Device mockup images that show UI out of alignment with frame corners instantly break the illusion. | LOW | Fix `object-fit` vs export dimensions. Verify screenshots exported at exactly 1179x2556px (3x Retina iPhone 15 Pro). Likely a one-line CSS fix or screenshot re-export. |
-| Smooth anchor navigation within a page | `scroll-behavior: smooth` on `html` is table stakes. Jarring jumps on in-page links feel unpolished. | LOW | Add `html { scroll-behavior: smooth; }` if not present. |
-| Remove deprecated QR code section | QR codes for App Store links are a 2021-era pattern. Contemporary marketing sites drive downloads via direct badge links. | LOW | Delete section from the relevant Astro page. No dependencies. |
-
-### Differentiators (Competitive Advantage)
-
-These set the site apart from generic app marketing templates.
-
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| Matisse Swimming Pool art direction — organic cut-out shapes as decorative frieze in hero | Elevates the site from "another fitness app" to a product with genuine aesthetic identity. Matisse's 1952 Swimming Pool is a continuous horizontal strip of blue gouache cut-out swimmers and sea-forms on white paper ringing the dining room walls. On web: a full-width SVG band of simplified organic forms crossing the hero from edge to edge. High memorability, strong differentiation from the chart/metric aesthetic of Garmin/WHOOP/TrainingPeaks. | MEDIUM | Implementation: `<svg>` element with `<path>` Bezier forms, `aria-hidden`, as a decorative background layer. Color: accent green (`#2B5240`) on travertine (`#F4F1ED`). 8–12 abstract swimmer/fish forms. `preserveAspectRatio="xMidYMid slice"`. Placed as full-width band at bottom of hero section. No animation required — static cut-outs are the reference. |
-| Page-to-page smooth transitions via Astro ViewTransitions | The contralabs.com reference is about overall flow smoothness — navigation feel is what separates polished from amateur. Astro's built-in `<ViewTransitions />` provides cross-fade between pages, eliminating the harsh white flash. Supported: Chrome 111+, Edge 111+, Safari 18+ (85%+ market share). Automatic fallback in Firefox. | LOW | Add `<ViewTransitions />` to `BaseLayout.astro` `<head>`. Apply `transition:name="nav"` to header so it persists. Apply `transition:animate="fade"` to `<main>`. 3–5 markup lines total. |
-| Typography scale recalibration: fluid `clamp()` sizing + intentional weight inversion | Light weight for large headings reads as confidence and restraint — contrast between visual mass (large size) and stroke weight (thin) creates premium editorial tension. Heavy body (Semibold 600) on small copy ensures readability. Existing site uses 600 weight on both headings and body — no hierarchy contrast. | LOW | Recalibrate `global.css` tokens: display/heading weight → 300, body → 500–600. Verify General Sans 300 is in Fontshare CDN load config. Extend `clamp()` sizing pattern from hero h1 to h2/h3. |
-| Scroll-driven parallax depth on Matisse shapes | The frieze can subtly shift at a different rate than the page content as the user scrolls, reinforcing the "art anchored to the wall" metaphor — shapes feel spatial, not flat. | MEDIUM | CSS `animation-timeline: scroll()` on the SVG decorative layer. 5–10% offset from page scroll. Must be gated behind `prefers-reduced-motion: no-preference`. Test on real iOS device before merging — iOS scroll inertia can amplify motion. Implement AFTER static shapes are confirmed working. |
-
-### Anti-Features (Commonly Requested, Often Problematic)
-
-| Feature | Why Requested | Why Problematic | Alternative |
-|---------|---------------|-----------------|-------------|
-| Animated SVG shape morphing (continuously shifting blob) | Feels alive and modern | At 60fps, autonomous morphing drains battery on mobile. Defeats the Matisse reference — the artwork is static cut-outs on a wall, not animated forms. Lighthouse performance would drop. | Static SVG paths with optional scroll-offset. Motion only on explicit scroll, never autonomous looping. |
-| Heavy parallax (3+ layers at different rates) | Creates strong depth illusion in isolation | Multiple competing scroll rates induce motion sickness on iOS (which has its own scroll inertia). Site is at Lighthouse 98 mobile — multi-layer parallax can tank this. | Single-layer subtle offset (one SVG layer at 5–10% scroll rate). Test on real device. |
-| GSAP ScrollTrigger | Powerful, well-documented | 48KB minimum bundle. Phase 7 decision was CSS-only animations — correct for a static marketing site. CSS `animation-timeline` / `view-timeline` now covers all GSAP use cases from 2023. | CSS scroll-driven animations. Zero bundle cost. Compositor-thread. |
-| Dark mode toggle | Users expect dark mode | Descoped in Phase 6 (D-06). Would require design token duplication across 10 pages. Travertine warm-white is core brand identity. App is light-mode-first. | Light mode only. `prefers-color-scheme: dark` respected with same palette. |
-| Custom cursor / cursor trail | High-end agency aesthetic | Overrides platform conventions. Irrelevant on touch devices (10 of 10 Tuwa users are on iPhone). Adds JS overhead. Mismatched to "serious athletes and coaches" audience. | Micro-interaction polish: hover states, button scale transforms, underline reveals on nav links. |
-| iPhone 17 device frame upgrade | Latest model signals currency | Existing iPhone 15 Pro frames are built and working. Cosmetic upgrade requires updating all DeviceFrame instances. iPhone 15 Pro is current enough for 2026. | Improve realism of existing frame (shadow depth, screen inset) — far higher ROI than model upgrade. |
-
----
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Auto-redirect based on IP geolocation | Requires edge runtime (kills static site), frustrates expats/VPN users, Google penalizes cloaking | Let users choose; optionally show language suggestion banner |
+| Machine-translated content (raw Google Translate output) | Destroys "credible science" brand voice; Chinese athletes spot bad translations instantly | Human translation or high-quality AI translation with human review |
+| Subdomain per language (zh.tuwa.app) | DNS complexity, separate Cloudflare Pages deployments, splits domain authority, harder to maintain | Subdirectory (`/zh/`) keeps everything in one build |
+| Query parameter routing (`?lang=zh`) | Not indexable by search engines, breaks caching, Astro does not support this pattern | Subdirectory routing |
+| Full CMS for translators | No non-technical translators on the team; adds SaaS cost and complexity | JSON/MDX files in Git, developer manages translations |
+| Locale-specific pricing or product differences | App Store handles regional pricing; website just drives downloads | Same content structure, translated text only |
+| Cookie-based language persistence | Unnecessary for static site; URL IS the state; adds GDPR consent complexity | URL-based language (bookmark /zh/ = always Chinese) |
+| Translated URL slugs for v4.0 | Doubles routing complexity for marginal SEO benefit with only 2 additional locales | Keep English slugs; all locales use `/zh/features/recovery` not `/zh/功能/恢复` |
 
 ## Feature Dependencies
 
 ```
-Typography weight system
-    └──requires──> Verify General Sans 300 weight loads (Astro Font API config)
-    └──requires──> Update font-weight tokens in global.css
-    └──enhances──> Matisse art direction (thin headline creates visual breathing room for decorative shapes)
+Astro i18n config --> URL routing works
+    |-- hreflang tags (needs locale info from routing)
+    |-- Language switcher (needs getRelativeLocaleUrl helper)
+    +-- Localized sitemap (reads i18n config)
 
-Matisse SVG cut-out shapes
-    └──requires──> Finalized hero layout (shapes positioned relative to hero structure)
-    └──no-conflict-with──> DeviceFrame (shapes behind device, or in strip above/below — never overlapping frame)
-    └──optionally-enhanced-by──> Scroll-driven parallax offset
+Content organization (locale folders or JSON) --> Translated pages
+    |-- Translated metadata --> localized OG tags
+    +-- Translated metadata --> localized sitemap entries
 
-iPhone frame realism improvements
-    └──requires──> DeviceFrame.astro CSS-only changes (no component API changes)
-    └──no-dependency-on──> Matisse shapes or typography
+CJK font stack --> Chinese pages render correctly
+    +-- (Independent, can be done early)
 
-Astro ViewTransitions
-    └──requires──> BaseLayout.astro head: add <ViewTransitions />
-    └──CRITICAL-GOTCHA──> Existing hero animations use DOMContentLoaded — must migrate to
-                           document.addEventListener('astro:page-load', ...) for animations
-                           to replay on subsequent page navigations
-    └──requires-verification──> nav persistence via transition:name="nav"
-
-QR code section removal
-    └──no-dependencies──> standalone deletion
-    └──must-verify──> which file the section lives in (likely index.astro)
-
-Scroll-driven parallax on Matisse shapes
-    └──requires──> Matisse SVG shapes working correctly first
-    └──requires──> prefers-reduced-motion gate
-    └──requires──> real-device iOS test before merge
+SEO component update --> hreflang + locale meta
+    +-- Depends on: i18n routing config being set
 ```
 
-### Dependency Notes
+## Content Strategy Details
 
-- **ViewTransitions requires DOMContentLoaded → astro:page-load migration:** This is the most likely pitfall in the entire milestone. Astro's ViewTransitions replaces full page loads with client-side navigation — any animation setup that runs once on `DOMContentLoaded` will not re-run when the user navigates to a new page. The existing IntersectionObserver in `[data-animate]` and hero entrance animations must listen to `astro:page-load` event instead. This is a 2–4 line change per script block but easy to miss.
+### What to Translate (all 10 pages)
 
-- **Matisse shapes require hero layout stability:** The SVG frieze must be authored knowing the final hero dimensions. Do typography recalibration first (changes hero text size/weight), then place the shapes.
+| Page | Translation Notes |
+|------|-------------------|
+| Landing (index) | Full translation including hero copy, feature summaries, CTAs |
+| 5 feature deep-dives | Full translation; screenshots stay in English (app is English) |
+| Blog listing | Translate UI chrome; blog posts themselves can remain English-only initially |
+| Privacy policy | Should translate — GDPR transparency principle, China PIPL requires accessible language |
+| Terms of service | Should translate — same legal transparency reasoning |
+| Support | Translate; include locale-appropriate contact expectations |
 
-- **Font weight 300 must be explicitly loaded:** Fontshare/Astro Font API will not load weights not declared in the font config. If 300 is not listed, the browser silently substitutes 400. Verify before authoring any type designs at weight 300.
+### What NOT to Translate
 
----
+| Content | Reason |
+|---------|--------|
+| App screenshots | App UI is English; doctoring screenshots is misleading |
+| Code examples (if any in blog) | Code is universal |
+| Brand name "Tuwa" | Proper noun, keep as-is |
+| English blog posts | Blog content is separate concern; can add translated posts later |
+| URLs/slugs | Keep English slugs for consistency and simplicity |
 
-## MVP Definition
+### Legal Pages: Translate or Not?
 
-### Launch With (v3.0 milestone targets)
+**Translate.** Both Chinese (PIPL) and French (Quebec language laws, EU GDPR) privacy frameworks emphasize that privacy notices must be in a language the user understands. Since the site actively serves these locales with translated marketing content, serving English-only legal pages creates a disconnect. However, the English version remains the legally binding version — add a disclaimer at the top of translated legal pages stating this.
 
-- [ ] Typography weight recalibration — titles Light (300), body Heavier (500–600). Highest impact, lowest risk. Do first.
-- [ ] Screenshot fit fix — verify `object-fit` and screenshot export dimensions. Do alongside typography.
-- [ ] Remove QR code + adjacent App Store badge section — deletion only.
-- [ ] iPhone frame realism — layered shadow, screen-inset, action button visual distinction.
-- [ ] Matisse cut-out SVG frieze in hero — static SVG, `aria-hidden`, full-width decorative band.
-- [ ] Astro ViewTransitions — page navigation cross-fade + DOMContentLoaded → astro:page-load migration.
+## Language Switcher UX Specification
 
-### Add After Validation (v3.x)
+### Placement
+- Header, right side (before/after App Store CTA badge)
+- Visible on all pages, all viewports
 
-- [ ] Scroll-driven parallax offset on Matisse shapes — add only after static shapes confirmed on real devices. Test iOS scroll feel before merging.
-- [ ] `clamp()` fluid sizing extension to h2/h3 on feature pages — follow-up pass after hero typography confirmed.
+### Design Pattern
+- Globe icon + current language code (EN / 中文 / FR)
+- Dropdown on click showing all 3 options
+- Each option shows the language in its own script: "English", "中文", "Francais"
+- Never use flags (China flag is politically loaded for Taiwanese users; France flag excludes Quebec/Swiss French)
 
-### Future Consideration (v4+)
+### Behavior
+- Clicking a language navigates to the equivalent page in that locale
+- If equivalent page does not exist, navigate to that locale's homepage
+- Preserve scroll position is NOT expected (page navigation is fine)
+- Mobile: same dropdown, touch-friendly tap targets (44px minimum)
 
-- [ ] Matisse-inspired organic SVG section dividers on feature deep-dive pages — if hero treatment is well-received.
-- [ ] Astro `transition:name` morphing for device frame element across pages — shared-element transition from hero to feature page. High complexity, high payoff, needs design exploration first.
+## CJK Font Strategy
 
----
+### Problem
+General Sans (current site font) has zero CJK coverage. Chinese text would render in browser default serif (Times New Roman on macOS, SimSun on Windows) — looks broken.
 
-## Feature Prioritization Matrix
+### Solution
+Add a CJK fallback chain to the font-family declaration specifically for Chinese pages, using system fonts:
 
-| Feature | User Value | Implementation Cost | Priority |
-|---------|------------|---------------------|----------|
-| Typography weight recalibration | HIGH — visible across all 10 pages, raises perceived quality ceiling instantly | LOW — CSS token changes + font config check | P1 |
-| Screenshot fit fix | HIGH — broken fit actively undermines device frame illusion | LOW — 1–2 line fix likely | P1 |
-| Remove QR code section | MEDIUM — cleaner conversion flow | LOW — deletion only | P1 |
-| iPhone frame realism | MEDIUM — builds product credibility subconsciously | LOW — pure CSS | P1 |
-| Matisse SVG cut-out frieze | HIGH — primary differentiator for site identity | MEDIUM — SVG path design + responsive positioning | P1 |
-| Astro ViewTransitions | MEDIUM — navigation smoothness (contralabs reference) | LOW — 3–5 markup lines + script migration | P1 |
-| Scroll-driven parallax on shapes | LOW-MEDIUM — adds depth; motion sickness risk on mobile | MEDIUM — CSS scroll timeline + real-device test | P2 |
-| h2/h3 fluid clamp sizing across feature pages | LOW — refinement | LOW | P2 |
-
----
-
-## Implementation Notes by Feature
-
-### Typography Weight System
-
-General Sans (Fontshare) supports: 300 (Light), 400 (Regular), 500 (Medium), 600 (SemiBold), 700 (Bold). The Astro Font API config must explicitly list all weights to load — verify `astro.config.mjs` experimental fonts config. If only 400 and 600 are listed, weight 300 will silently fall back to 400.
-
-Recommended weight assignments:
 ```css
-/* Display / Hero headline — was 600 */
-.hero-headline { font-weight: 300; }
-
-/* Section headings h2 — was 600 */
-h2, .section-heading { font-weight: 300; }
-
-/* Sub-headings h3 */
-h3 { font-weight: 400; }
-
-/* Body text — increase from implied 400 */
-body { font-weight: 500; }
-
-/* Labels, nav, CTAs — keep bold for legibility at small sizes */
-.nav-link, .btn-cta, .nav-dropdown-title { font-weight: 600; }
+/* Chinese locale pages get this font stack */
+--font-sans-zh: "General Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
 ```
 
-Skip-a-weight rule: heading (300) and body (500–600) are separated by 200–300 numeric units — minimum for contrast to read as intentional rather than accidental.
+### Why NOT load a web font for Chinese
+- Noto Sans SC full weight = ~5-8MB per weight
+- Subset to common characters still 1-2MB
+- Adds significant page load time
+- System CJK fonts (PingFang on macOS/iOS, Microsoft YaHei on Windows, Noto Sans on Android/Linux) look good and are already installed
+- Performance budget matters: site currently scores Lighthouse 98
+- Known Astro bug: CJK fonts with Fonts API cause OOM during build (GitHub issue #15318)
 
-### Matisse SVG Frieze
+### French: No font change needed
+General Sans covers Latin Extended characters (accents: e, a, c, etc.). No font changes for French.
 
-Reference: The Swimming Pool (1952) — continuous horizontal band of ultramarine blue cut-out swimmers, divers, fish on white paper. Forms are reduced to essence: no detail, only silhouette and gesture.
+## SEO Requirements Detail
 
-Web translation:
-- `<svg viewBox="0 0 1440 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true">`
-- 8–12 `<path>` elements with Bezier curves; forms loosely referencing swimmers/water/sea-life
-- Fill color: `var(--color-accent)` (`#2B5240`) — already in palette, provides high contrast on `#F4F1ED`
-- Positioned as `position: absolute; width: 100%; bottom: 0;` within hero section container
-- Hero section needs `position: relative; overflow: hidden` to clip shapes at edges
-- Shapes authored at full resolution in Figma or Inkscape, then path data copied to SVG
-- No JavaScript, no animation on MVP
+### hreflang Implementation
 
-### Device Frame Realism
-
-Current `box-shadow` is functional but reads as flat. Layered shadow pattern (doubling blur, halving opacity):
-```css
-box-shadow:
-  0 2px 4px rgba(0,0,0,0.18),    /* contact */
-  0 8px 16px rgba(0,0,0,0.14),   /* near shadow */
-  0 20px 40px rgba(0,0,0,0.10),  /* diffuse */
-  0 40px 80px rgba(0,0,0,0.07),  /* ambient */
-  inset 0 1px 0 rgba(255,255,255,0.12),  /* rim light */
-  inset 0 -1px 0 rgba(0,0,0,0.4);       /* bottom bevel */
+Every page must include in `<head>`:
+```html
+<link rel="alternate" hreflang="en" href="https://tuwa.app/features/recovery/" />
+<link rel="alternate" hreflang="zh" href="https://tuwa.app/zh/features/recovery/" />
+<link rel="alternate" hreflang="fr" href="https://tuwa.app/fr/features/recovery/" />
+<link rel="alternate" hreflang="x-default" href="https://tuwa.app/features/recovery/" />
 ```
 
-Screen inset (makes screen look embedded, not flush with bezel):
-```css
-/* On the screen inner div */
-box-shadow: inset 0 2px 6px rgba(0,0,0,0.35), inset 0 0 1px rgba(0,0,0,0.2);
-```
+- `x-default` points to English (the unprefixed default)
+- Every page references ALL language variants including itself
+- Must be present on ALL pages in ALL locales (not just the English version)
 
-Action button (iPhone 15 Pro left side, above volume buttons): currently the `::before` pseudo-element uses `box-shadow: 0 36px 0 #2A2A2A` to draw two volume buttons. Add a third, visually distinct element for the action button at a different vertical position and slightly shorter width.
+### Localized Metadata
 
-### Astro ViewTransitions — Critical Setup
+Each locale needs unique:
+- `<title>` (translated, keyword-optimized for that locale)
+- `<meta name="description">` (translated)
+- `og:title`, `og:description` (translated)
+- `og:locale` (e.g., `zh_CN`, `fr_FR`)
+- `og:locale:alternate` (the other locales)
 
-```astro
----
-import { ViewTransitions } from 'astro:transitions';
----
-<head>
-  <ViewTransitions />
-</head>
-```
+### Sitemap
 
-Apply to header element: `<header transition:name="site-header" transition:animate="none">` — prevents header from cross-fading (it should persist).
+Use `@astrojs/sitemap` with i18n config to auto-generate `<xhtml:link rel="alternate">` entries per URL. This is the second signal to Google (alongside in-page hreflang tags) confirming language relationships.
 
-Apply to main content: `<main transition:animate="fade">` — content cross-fades.
+## MVP Recommendation
 
-**Script migration (most important step):**
-```javascript
-// Replace:
-document.addEventListener('DOMContentLoaded', setupAnimations);
+### Phase 1: Infrastructure (must come first)
+1. Astro i18n config in `astro.config.mjs`
+2. Content organization structure (locale folders or JSON translation files)
+3. CJK font stack in global CSS
+4. SEO component updated for hreflang + locale meta
 
-// With:
-document.addEventListener('astro:page-load', setupAnimations);
-```
+### Phase 2: Content + UI
+5. Language switcher component
+6. Translate all 10 pages (Chinese + French)
+7. Localized App Store badges
 
-This ensures IntersectionObserver for `[data-animate]` elements, the stat counter observer, and the wheel animation all re-initialize correctly on each page navigation.
+### Defer to Later
+- Translated OG images (high complexity, CJK font in satori is painful)
+- Language detection banner (nice-to-have polish)
+- Blog post translations (separate content initiative)
+- Locale-aware date formatting (only matters when blog posts exist in other locales)
 
----
+## Complexity Budget
 
-## Competitor Feature Analysis
+| Feature | Estimated Effort | Risk |
+|---------|-----------------|------|
+| Astro i18n config | 1 hour | Low — well-documented |
+| Content folder restructuring | 2-3 hours | Medium — 10 pages to reorganize |
+| CJK font stack | 30 min | Low |
+| hreflang in SEO component | 1-2 hours | Low |
+| Language switcher | 2-3 hours | Medium — responsive, accessible |
+| Translation (Chinese, 10 pages) | 4-6 hours | Medium — needs quality review |
+| Translation (French, 10 pages) | 4-6 hours | Medium — needs quality review |
+| Localized sitemap | 1 hour | Low — config-driven |
+| Testing all locale routes | 2-3 hours | Medium — many pages x 3 locales |
 
-| Feature | TrainingPeaks / Garmin | WHOOP | Tuwa v2.0 (current) | Tuwa v3.0 (target) |
-|---------|------------------------|-------|----------------------|---------------------|
-| Typography hierarchy | Uniform weight | Conventional bold/regular | Uniform 600 weight | Light headings (300) / heavier body (500–600) |
-| Device mockups | PNG images (static) | High-quality PNGs | CSS frames (responsive) | CSS frames + realistic shadow depth |
-| Page transitions | Full reload | Full reload | Full reload | ViewTransitions cross-fade |
-| Decorative art direction | None | Abstract gradients | Noise texture overlay | Matisse cut-out organic shapes |
-| Scroll animations | None | Minimal | Intersection Observer reveals | Reveals + optional scroll-driven parallax |
-
----
+**Total estimated: 17-25 hours**
 
 ## Sources
 
-- [Astro ViewTransitions official docs](https://docs.astro.build/en/guides/view-transitions/)
-- [Astro ViewTransitions: 2 lines of code — BetterLink](https://eastondev.com/blog/en/posts/dev/20251202-astro-view-transitions-guide/)
-- [Animating Multi-Page Navigations with Astro — Codrops](https://tympanus.net/codrops/2023/10/03/animating-multi-page-navigations-with-browser-view-transitions-and-astro/)
-- [CSS Scroll-Driven Animations — MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations)
-- [Mastering CSS Scroll Timeline 2026 — DEV Community](https://dev.to/softheartengineer/mastering-css-scroll-timeline-a-complete-guide-to-animation-on-scroll-in-2025-3g7p)
-- [Anatomy of a CSS Phone Mockup — Conor Luddy](https://www.conor.fyi/writing/anatomy-of-a-css-phone-mockup)
-- [CSS clip-path shapes complete guide 2026 — UDT](https://ultimatedesigntools.com/blog/css-clip-path-shapes-guide/)
-- [Organic Shape Animations with SVG clipPath — Codrops](https://tympanus.net/codrops/2017/06/28/organic-shape-animations-with-svg-clippath/)
-- [Font Weight in Typography: Hierarchy & Contrast — Fontfabric](https://www.fontfabric.com/blog/typography-knowledge-weight-typography/)
-- [Optimal Typography for Web Design 2025 — Elegant Themes](https://www.elegantthemes.com/blog/design/optimal-typography-for-web-design)
-- [MoMA Henri Matisse: The Swimming Pool — interactive](https://www.moma.org/interactives/exhibitions/2014/matisse/the-swimming-pool.html)
-- [Henri Matisse: The Cut-Outs — MoMA](https://www.moma.org/calendar/exhibitions/1429)
-- [Web Design Trends 2026: Organic Shapes — Design Deluxe](https://designdeluxe.in/web-design-trends-2026-with-organic-shapes/)
-- [Shadows in Web Design for Better UX 2025 — Innovate Media](https://innovatemedia.ca/how-shadows-shape-user-experience-in-modern-web-design/)
-- [Mastering Smooth Page Transitions View Transitions API 2026 — DEV Community](https://dev.to/krish_kakadiya_5f0eaf6342/mastering-smooth-page-transitions-with-the-view-transitions-api-in-2026-31of)
-- [Devices.css — CSS device mockup reference](https://devicescss.xyz/)
-
----
-
-*Feature research for: Tuwa marketing site v3.0 — Art Direction & Interaction Polish*
-*Researched: 2026-05-14*
+- [Astro i18n Routing Documentation](https://docs.astro.build/en/guides/internationalization/)
+- [Astro i18n API Reference](https://docs.astro.build/en/reference/modules/astro-i18n/)
+- [Astro i18n Configuration Guide (BetterLink)](https://eastondev.com/blog/en/posts/dev/20251202-astro-i18n-guide/)
+- [Language Selector Best Practices (SimpleLocalize)](https://simplelocalize.io/blog/posts/language-selector-best-practices/)
+- [Website Localization Best Practices 2026 (Lara Translate)](https://blog.laratranslate.com/website-localization-best-practices/)
+- [Privacy Policy Multiple Languages (PrivacyPolicies.com)](https://www.privacypolicies.com/blog/privacy-policy-multiple-languages/)
+- [Do You Need to Translate Terms of Service (SiteTran)](https://www.sitetran.com/blog/localization-for-growth/do-you-need-to-translate-terms-of-service)
+- [CJK Font OOM Issue in Astro (GitHub #15318)](https://github.com/withastro/astro/issues/15318)
+- [i18n SEO Checklist (DEV Community)](https://dev.to/lingodotdev/the-i18n-seo-checklist-15-seo-optimization-techniques-to-reach-a-global-audience-59l0)
+- [Website Localization Complete Guide 2026 (IntlPull)](https://intlpull.com/blog/website-localization-complete-guide-2026)
