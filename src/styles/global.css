@@ -268,7 +268,7 @@ body::after {
 }
 @media (prefers-reduced-motion: no-preference) {
   .btn-cta {
-    transition: background-color 150ms var(--ease-interactive), box-shadow 150ms var(--ease-interactive), transform 300ms var(--ease-interactive);
+    transition: background-color 150ms var(--ease-interactive), box-shadow 150ms var(--ease-interactive), transform 150ms var(--ease-interactive);
   }
   .btn-cta:hover {
     transform: scale(1.02);
@@ -773,8 +773,101 @@ body::after {
 
 .matisse-pool-band {
   fill: var(--color-matisse-tile);
-  opacity: 0.90;
-  filter: drop-shadow(0 12px 24px rgb(30 91 154 / 0.08));
+  opacity: 0.86;
+}
+
+.matisse-brush-edge {
+  fill: none;
+  stroke: var(--color-matisse-tile);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 24;
+  opacity: 0.52;
+}
+
+.matisse-brush-edge-bottom {
+  stroke-width: 20;
+  opacity: 0.46;
+}
+
+.matisse-brush-fray {
+  fill: none;
+  stroke: rgb(219 231 228 / 0.72);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 11;
+  opacity: 0.64;
+}
+
+.matisse-brush-fray-bottom {
+  stroke-width: 9;
+  opacity: 0.54;
+}
+
+.matisse-brush-streak {
+  fill: none;
+  stroke: rgb(255 255 248 / 0.38);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 7;
+  opacity: 0.48;
+}
+
+.matisse-brush-streak-short {
+  stroke-width: 5;
+  opacity: 0.34;
+}
+
+.matisse-brush-streak-low {
+  stroke-width: 9;
+  opacity: 0.28;
+}
+
+.matisse-feature-band {
+  fill: var(--color-matisse-tile);
+  opacity: 0.58;
+}
+
+.matisse-feature-brush-edge {
+  fill: none;
+  stroke: var(--color-matisse-tile);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 16;
+  opacity: 0.34;
+}
+
+.matisse-feature-brush-edge-bottom {
+  stroke-width: 14;
+  opacity: 0.28;
+}
+
+.matisse-feature-brush-fray {
+  fill: none;
+  stroke: rgb(219 231 228 / 0.28);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 8;
+  opacity: 0.34;
+}
+
+.matisse-feature-brush-fray-bottom {
+  stroke-width: 7;
+  opacity: 0.26;
+}
+
+.matisse-feature-brush-streak {
+  fill: none;
+  stroke: rgb(255 255 248 / 0.24);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 5;
+  opacity: 0.32;
+}
+
+.matisse-feature-brush-streak-low {
+  stroke-width: 7;
+  opacity: 0.22;
 }
 
 .matisse-shape {
@@ -782,6 +875,11 @@ body::after {
   stroke: rgb(23 74 130 / 0.06);
   stroke-width: 1.5;
   stroke-linejoin: round;
+}
+
+.matisse-feature-shape {
+  stroke: rgb(23 74 130 / 0.05);
+  stroke-width: 1;
 }
 
 /* Reduced-motion guard — consistent with Phase 8 pattern (D-10) */
