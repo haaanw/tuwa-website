@@ -48,7 +48,7 @@
 
 **Milestone Goal:** Add Chinese (zh) and French (fr) translations to all 10 pages with proper i18n routing, a language switcher, and full SEO compliance (hreflang, localized sitemap, per-locale 404s).
 
-- [ ] **Phase 17: i18n Infrastructure** - Astro i18n routing, translation utility, CJK font integration
+- [x] **Phase 17: i18n Infrastructure** - Astro i18n routing, translation utility, CJK font integration (completed 2026-05-17)
 - [ ] **Phase 18: Component Extraction** - Language switcher, locale-aware navigation across header/footer
 - [ ] **Phase 19: Home Page Localization** - Prove end-to-end pattern with landing page in zh and fr
 - [ ] **Phase 20: Feature Pages** - 5 feature deep-dive pages translated in zh and fr
@@ -66,10 +66,10 @@
   2. A `t()` utility function resolves translation keys from per-page TypeScript dictionary files with full type safety (IDE autocomplete works)
   3. Chinese text renders in Noto Sans SC on /zh/ pages with no visible Times New Roman fallback
   4. English pages at unprefixed URLs load identically to before (no performance regression, no new network requests)
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 Plans:
 - [x] 17-01-PLAN.md -- Astro i18n config, translation utility, per-locale common.ts files, CJK font install
-- [ ] 17-02-PLAN.md -- BaseLayout/Header/Footer/MobileMenu locale wiring, zh/fr wrapper pages, build verification
+- [x] 17-02-PLAN.md -- BaseLayout/Header/Footer/MobileMenu locale wiring, zh/fr wrapper pages, build verification
 
 ### Phase 18: Component Extraction
 **Goal**: Users can switch languages from any page, and all navigation links route correctly within the chosen locale
@@ -150,7 +150,7 @@ Plans:
 | 14. Typography Weight Rollout | v3.0 | 2/2 | Complete | 2026-05-15 |
 | 15. Matisse SVG Art Direction | v3.0 | 2/2 | Complete | 2026-05-15 |
 | 16. Interaction Polish | v3.0 | 2/2 | Complete | 2026-05-16 |
-| 17. i18n Infrastructure | v4.0 | 1/2 | In Progress|  |
+| 17. i18n Infrastructure | v4.0 | 2/2 | Complete   | 2026-05-17 |
 | 18. Component Extraction | v4.0 | 0/? | Not started | - |
 | 19. Home Page Localization | v4.0 | 0/? | Not started | - |
 | 20. Feature Pages | v4.0 | 0/? | Not started | - |
