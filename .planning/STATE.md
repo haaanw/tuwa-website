@@ -4,14 +4,14 @@ milestone: v4.0
 milestone_name: Multi-Language Support
 status: executing
 stopped_at: Phase 17 context gathered
-last_updated: "2026-05-17T02:06:50.274Z"
-last_activity: 2026-05-17 -- Phase 17 execution started
+last_updated: "2026-05-24T11:31:07.778Z"
+last_activity: 2026-05-24 -- Phase 17 execution started
 progress:
   total_phases: 6
   completed_phases: 0
-  total_plans: 2
-  completed_plans: 0
-  percent: 0
+  total_plans: 3
+  completed_plans: 2
+  percent: 67
 ---
 
 # Project State
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-05-16)
 ## Current Position
 
 Phase: 17 (i18n-infrastructure) — EXECUTING
-Plan: 1 of 2
+Plan: 1 of 3
 Status: Executing Phase 17
-Last activity: 2026-05-17 -- Phase 17 execution started
+Last activity: 2026-05-24 -- Phase 17 execution started
 
 Progress: [░░░░░░░░░░] 0% milestone
 
@@ -91,6 +91,8 @@ Progress: [░░░░░░░░░░] 0% milestone
 
 | Date | Task | Summary |
 |------|------|---------|
+| 2026-05-17 | Performance Briefing full v5 execution | Completed homepage briefing, methodology links, explainer pages, six blog posts, comparison hub/pages, and verification. |
+| 2026-05-17 | Performance Briefing plan and Methodology page | Logged v5.0 roadmap, shipped the first methodology page slice, and added Method links in nav/footer/homepage CTAs. |
 | 2026-05-16 | Homepage CRO inspired by Contra Labs | Clarified hero positioning, added earlier CTAs, introduced Tuwa Method proof section, strengthened final CTA, and hid empty Blog nav links. |
 
 ## Session Continuity
