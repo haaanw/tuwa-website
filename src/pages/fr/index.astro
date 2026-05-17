@@ -1,0 +1,20 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import StatsCounter from '../../components/StatsCounter.astro';
+import LandingCTA from '../../components/LandingCTA.astro';
+
+const t = useTranslations('fr');
+---
+<BaseLayout
+  title={t.meta.title}
+  description={t.meta.description}
+  locale="fr"
+>
+  <Hero />
+  <FeatureGrid />
+  <StatsCounter />
+  <LandingCTA />
+</BaseLayout>
