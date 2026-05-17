@@ -2,6 +2,12 @@
 // src/components/MobileMenu.astro
 // Interactive menu overlay. JS handles open/close, focus trap, Escape key.
 // Rendered inline (not as island) — uses <script> tag for browser JS.
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+interface Props {
+  locale?: string;
+}
+const { locale = 'en' } = Astro.props;
 ---
 
 <style>
@@ -49,7 +55,7 @@
     <ul role="list" class="space-y-1">
       <li>
         <a
-          href="/features/recovery-scoring"
+          href={getRelativeLocaleUrl(locale, '/features/recovery-scoring')}
           class="block mobile-nav-link"
         >
           Features
@@ -57,7 +63,7 @@
       </li>
       <li>
         <a
-          href="/features/coaching"
+          href={getRelativeLocaleUrl(locale, '/features/coaching')}
           class="block mobile-nav-link"
         >
           Coaching
@@ -65,7 +71,7 @@
       </li>
       <li>
         <a
-          href="/blog"
+          href={getRelativeLocaleUrl(locale, '/blog')}
           class="block mobile-nav-link"
         >
           Blog
@@ -73,7 +79,7 @@
       </li>
       <li>
         <a
-          href="/support"
+          href={getRelativeLocaleUrl(locale, '/support')}
           class="block mobile-nav-link"
         >
           Support

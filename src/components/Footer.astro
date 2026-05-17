@@ -1,5 +1,11 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { APP_STORE_URL } from '../config';
+
+interface Props {
+  locale?: string;
+}
+const { locale = 'en' } = Astro.props;
 const year = new Date().getFullYear();
 ---
 <footer style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider);">
@@ -9,7 +15,7 @@ const year = new Date().getFullYear();
 
         <!-- Brand column with App Store badge -->
         <div class="col-span-2 md:col-span-1">
-          <a href="/" aria-label="Tuwa home" class="inline-block" style="font-size: var(--text-heading); font-weight: var(--weight-label); color: var(--color-text-1); letter-spacing: var(--tracking-heading);">
+          <a href={getRelativeLocaleUrl(locale, '/')} aria-label="Tuwa home" class="inline-block" style="font-size: var(--text-heading); font-weight: var(--weight-label); color: var(--color-text-1); letter-spacing: var(--tracking-heading);">
             Tuwa
           </a>
           <div style="margin-top: var(--space-lg);">
@@ -35,11 +41,11 @@ const year = new Date().getFullYear();
         <div>
           <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">Features</p>
           <ul role="list" class="space-y-2" style="color: var(--color-text-2);">
-            <li><a href="/features/recovery-scoring" class="nav-link" style="color: var(--color-text-2);">Recovery Scoring</a></li>
-            <li><a href="/features/workload-tracking" class="nav-link" style="color: var(--color-text-2);">Workload Tracking</a></li>
-            <li><a href="/features/smart-templates" class="nav-link" style="color: var(--color-text-2);">Smart Templates</a></li>
-            <li><a href="/features/cold-start" class="nav-link" style="color: var(--color-text-2);">Cold Start Solution</a></li>
-            <li><a href="/features/coaching" class="nav-link" style="color: var(--color-text-2);">Coaching</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/features/recovery-scoring')} class="nav-link" style="color: var(--color-text-2);">Recovery Scoring</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/features/workload-tracking')} class="nav-link" style="color: var(--color-text-2);">Workload Tracking</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/features/smart-templates')} class="nav-link" style="color: var(--color-text-2);">Smart Templates</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/features/cold-start')} class="nav-link" style="color: var(--color-text-2);">Cold Start Solution</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/features/coaching')} class="nav-link" style="color: var(--color-text-2);">Coaching</a></li>
           </ul>
         </div>
 
@@ -47,8 +53,8 @@ const year = new Date().getFullYear();
         <div>
           <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">Resources</p>
           <ul role="list" class="space-y-2" style="color: var(--color-text-2);">
-            <li><a href="/blog" class="nav-link" style="color: var(--color-text-2);">Blog</a></li>
-            <li><a href="/support" class="nav-link" style="color: var(--color-text-2);">Support</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/blog')} class="nav-link" style="color: var(--color-text-2);">Blog</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/support')} class="nav-link" style="color: var(--color-text-2);">Support</a></li>
           </ul>
         </div>
 
@@ -56,8 +62,8 @@ const year = new Date().getFullYear();
         <div>
           <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">Legal</p>
           <ul role="list" class="space-y-2" style="color: var(--color-text-2);">
-            <li><a href="/privacy" class="nav-link" style="color: var(--color-text-2);">Privacy Policy</a></li>
-            <li><a href="/terms" class="nav-link" style="color: var(--color-text-2);">Terms of Service</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/privacy')} class="nav-link" style="color: var(--color-text-2);">Privacy Policy</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/terms')} class="nav-link" style="color: var(--color-text-2);">Terms of Service</a></li>
           </ul>
         </div>
 
