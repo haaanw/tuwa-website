@@ -4,8 +4,8 @@ milestone: v4.0
 milestone_name: Multi-Language Support
 status: executing
 stopped_at: Phase 17 context gathered
-last_updated: "2026-05-16T16:23:07.989Z"
-last_activity: 2026-05-16 -- Phase 17 planning complete
+last_updated: "2026-05-17T02:06:50.274Z"
+last_activity: 2026-05-17 -- Phase 17 execution started
 progress:
   total_phases: 6
   completed_phases: 0
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-16)
 
 **Core value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing
-**Current focus:** Milestone v4.0 — Multi-Language Support (Chinese + French)
+**Current focus:** Phase 17 — i18n-infrastructure
 
 ## Current Position
 
-Phase: 17 (i18n Infrastructure) — not started
-Plan: —
-Status: Ready to execute
-Last activity: 2026-05-16 -- Phase 17 planning complete
+Phase: 17 (i18n-infrastructure) — EXECUTING
+Plan: 1 of 2
+Status: Executing Phase 17
+Last activity: 2026-05-17 -- Phase 17 execution started
 
 Progress: [░░░░░░░░░░] 0% milestone
 
