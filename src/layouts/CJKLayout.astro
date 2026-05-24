@@ -1,0 +1,23 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import '@fontsource/noto-sans-sc/400.css';
+import '@fontsource/noto-sans-sc/700.css';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonical?: string;
+  type?: string;
+}
+
+const props = Astro.props;
+---
+<style is:global>
+  :root {
+    --font-sans: 'Noto Sans SC', 'General Sans Variable', system-ui, sans-serif;
+  }
+</style>
+<BaseLayout {...props} locale="zh">
+  <slot />
+</BaseLayout>

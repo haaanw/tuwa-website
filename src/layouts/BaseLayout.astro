@@ -14,12 +14,6 @@ interface Props {
 }
 
 const { title, description, ogImage, canonical, type, locale = 'en' } = Astro.props;
-const isCJK = locale === 'zh';
-
-if (isCJK) {
-  await import('@fontsource/noto-sans-sc/400.css');
-  await import('@fontsource/noto-sans-sc/700.css');
-}
 ---
 <!doctype html>
 <html lang={locale}>
@@ -27,11 +21,6 @@ if (isCJK) {
     <meta charset="utf-8" />
     <!-- Font preload FIRST — before stylesheets — per Pitfall 6 in RESEARCH.md -->
     <link rel="preload" href="/fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
-    {isCJK && (
-      <style is:inline>
-        :root { --font-sans: 'Noto Sans SC', 'General Sans Variable', system-ui, sans-serif; }
-      </style>
-    )}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" href="/favicon.ico" />
