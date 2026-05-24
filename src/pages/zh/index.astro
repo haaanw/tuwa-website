@@ -1,6 +1,6 @@
 ---
 import { useTranslations } from '../../i18n/utils';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import CJKLayout from '../../layouts/CJKLayout.astro';
 import Hero from '../../components/Hero.astro';
 import FeatureGrid from '../../components/FeatureGrid.astro';
 import StatsCounter from '../../components/StatsCounter.astro';
@@ -8,13 +8,12 @@ import LandingCTA from '../../components/LandingCTA.astro';
 
 const t = useTranslations('zh');
 ---
-<BaseLayout
+<CJKLayout
   title={t.meta.title}
   description={t.meta.description}
-  locale="zh"
 >
   <Hero />
   <FeatureGrid />
   <StatsCounter />
   <LandingCTA />
-</BaseLayout>
+</CJKLayout>
