@@ -1,11 +1,10 @@
 ---
 phase: 17-i18n-infrastructure
-reviewed: 2026-05-17T12:00:00Z
+reviewed: 2026-05-24T12:00:00Z
 depth: standard
 files_reviewed: 12
 files_reviewed_list:
   - astro.config.mjs
-  - package.json
   - src/components/Footer.astro
   - src/components/Header.astro
   - src/components/MobileMenu.astro
@@ -14,84 +13,108 @@ files_reviewed_list:
   - src/i18n/locales/zh/common.ts
   - src/i18n/utils.ts
   - src/layouts/BaseLayout.astro
+  - src/layouts/CJKLayout.astro
   - src/pages/fr/index.astro
   - src/pages/zh/index.astro
 findings:
   critical: 0
-  warning: 4
-  info: 1
-  total: 5
+  warning: 5
+  info: 2
+  total: 7
 status: issues_found
 ---
 
 # Phase 17: Code Review Report
 
-**Reviewed:** 2026-05-17T12:00:00Z
+**Reviewed:** 2026-05-24T12:00:00Z
 **Depth:** standard
 **Files Reviewed:** 12
 **Status:** issues_found
 
 ## Summary
 
-The i18n infrastructure establishes a solid foundation: Astro's built-in i18n routing is configured correctly, translation files are type-safe (French and Chinese types are validated against the English source via `Common` type import), and `BaseLayout` conditionally loads CJK fonts. However, the translations are defined but largely unused -- the Header, Footer, and MobileMenu components still render hardcoded English strings despite receiving a `locale` prop and despite translation keys existing for those exact strings. The localized page components (Hero, FeatureGrid, etc.) also don't receive translations.
+The i18n infrastructure has a solid foundation: Astro's built-in i18n routing is configured correctly in `astro.config.mjs`, translation files are type-safe (French and Chinese types are validated against the English source via the `Common` type), and a dedicated `CJKLayout` wrapper loads Noto Sans SC for Chinese pages. However, the translation system is largely unused -- all three navigation components (Header, Footer, MobileMenu) hardcode English text, and several links bypass locale-aware routing entirely. This means non-English pages render English navigation labels and some links break locale context by pointing to the bare English URL.
 
 ## Warnings
 
-### WR-01: Header nav text not using translations
+### WR-01: Footer hardcodes links without locale routing
 
-**File:** `src/components/Header.astro:41-98`
-**Issue:** The Header component receives a `locale` prop and uses `getRelativeLocaleUrl(locale, ...)` for link URLs, but all visible text ("Features", "Blog", "Support", "Get the App") is hardcoded in English. French and Chinese visitors will see English navigation labels despite translated strings existing in `nav.features`, `nav.support`, `nav.blog`, `nav.getApp`.
-**Fix:** Import `useTranslations` and use translation keys:
+**File:** `src/components/Footer.astro:56-60`
+**Issue:** Five links in the Resources column use bare paths (`/methodology`, `/readiness-score`, `/training-load`, `/for-coaches`, `/compare`) instead of `getRelativeLocaleUrl(locale, ...)`. When rendered on `/fr/` or `/zh/` pages, clicking these links drops the user out of their locale context back to the English version. Other links in the same file correctly use `getRelativeLocaleUrl`, making this inconsistency easy to miss.
+**Fix:**
+```astro
+<li><a href={getRelativeLocaleUrl(locale, '/methodology')} class="nav-link" style="color: var(--color-text-2);">Methodology</a></li>
+<li><a href={getRelativeLocaleUrl(locale, '/readiness-score')} class="nav-link" style="color: var(--color-text-2);">Readiness Score</a></li>
+<li><a href={getRelativeLocaleUrl(locale, '/training-load')} class="nav-link" style="color: var(--color-text-2);">Training Load</a></li>
+<li><a href={getRelativeLocaleUrl(locale, '/for-coaches')} class="nav-link" style="color: var(--color-text-2);">For Coaches</a></li>
+<li><a href={getRelativeLocaleUrl(locale, '/compare')} class="nav-link" style="color: var(--color-text-2);">Compare Tuwa</a></li>
+```
+
+### WR-02: Header hardcodes links without locale routing
+
+**File:** `src/components/Header.astro:95,98`
+**Issue:** The "Method" and "Coaches" desktop nav links use bare paths (`/methodology`, `/for-coaches`) instead of `getRelativeLocaleUrl(locale, ...)`. Same locale-breaking behavior as WR-01, where navigating from a French or Chinese page sends the user to the English version.
+**Fix:**
+```astro
+<a href={getRelativeLocaleUrl(locale, '/methodology')} class="nav-link">Method</a>
+<a href={getRelativeLocaleUrl(locale, '/for-coaches')} class="nav-link">Coaches</a>
+```
+
+### WR-03: MobileMenu hardcodes links without locale routing
+
+**File:** `src/components/MobileMenu.astro:74,82`
+**Issue:** Same as WR-01/WR-02 -- `/methodology` and `/for-coaches` are bare paths, breaking locale context on mobile navigation.
+**Fix:**
+```astro
+<a href={getRelativeLocaleUrl(locale, '/methodology')} class="block mobile-nav-link">Method</a>
+<a href={getRelativeLocaleUrl(locale, '/for-coaches')} class="block mobile-nav-link">Coaches</a>
+```
+
+### WR-04: Translation keys defined but never consumed by navigation components
+
+**File:** `src/i18n/locales/en/common.ts:1-20`, `src/components/Header.astro`, `src/components/Footer.astro`, `src/components/MobileMenu.astro`
+**Issue:** Translation keys for `nav.features`, `nav.support`, `nav.blog`, `nav.getApp`, `footer.features`, `footer.resources`, `footer.legal`, `footer.privacy`, `footer.terms`, and `footer.copyright` are defined in all three locale files, but none of the navigation components import or use translations. All visible text is hardcoded in English. French and Chinese pages therefore display English navigation labels ("Features", "Support", "Blog", "Get the App", column headings, legal links, and copyright notice).
+**Fix:** Import `useTranslations` in each component and use translation keys for all user-visible text. Example for Header:
 ```astro
 ---
-import { useTranslations } from '../i18n/utils';
-import type { Locale } from '../i18n/utils';
-// ...
+import { useTranslations, type Locale } from '../i18n/utils';
 const { locale = 'en' } = Astro.props;
 const t = useTranslations(locale as Locale);
 ---
-<!-- Then replace hardcoded text -->
 <a href={getRelativeLocaleUrl(locale, '/blog')} class="nav-link">{t.nav.blog}</a>
 ```
-
-### WR-02: Footer nav text not using translations
-
-**File:** `src/components/Footer.astro:42-67`
-**Issue:** Same pattern as Header -- the Footer has a `locale` prop used for URL generation, but column headings ("Features", "Resources", "Legal") and link labels ("Privacy Policy", "Terms of Service", etc.) are all hardcoded English. Translation keys for these exist in `footer.*`.
-**Fix:** Import `useTranslations` and replace hardcoded strings with `t.footer.features`, `t.footer.resources`, `t.footer.legal`, `t.footer.privacy`, `t.footer.terms`. Also use template replacement for the copyright line:
+For the Footer copyright line with year interpolation:
 ```astro
-const t = useTranslations(locale as Locale);
-// copyright:
-t.footer.copyright.replace('{year}', String(year))
+{t.footer.copyright.replace('{year}', String(year))}
 ```
 
-### WR-03: MobileMenu nav text not using translations
+### WR-05: Locale pages do not pass translations or locale to child components
 
-**File:** `src/components/MobileMenu.astro:57-88`
-**Issue:** MobileMenu receives `locale` prop but renders hardcoded "Features", "Coaching", "Blog", "Support", and "Get the App" in English.
-**Fix:** Import and use `useTranslations(locale as Locale)` for all visible text, same pattern as WR-01.
-
-### WR-04: Localized pages don't pass translations to child components
-
-**File:** `src/pages/fr/index.astro:9-20` and `src/pages/zh/index.astro:9-20`
-**Issue:** Both pages call `useTranslations()` to get `t`, but only use `t.meta.title` and `t.meta.description` for the layout. The page-level components (`<Hero />`, `<FeatureGrid />`, `<StatsCounter />`, `<LandingCTA />`) receive no locale or translation props, so they will render English content regardless of locale. This means visiting `/fr/` or `/zh/` produces a page with correct metadata but English body content.
-**Fix:** Either pass `locale` prop to each component and have them call `useTranslations` internally, or pass the translation object directly. The components will also need their own translation keys added to the locale files (hero headline, feature descriptions, etc. are not yet in the translation dictionaries).
+**File:** `src/pages/fr/index.astro:13-28`, `src/pages/zh/index.astro:13-27`
+**Issue:** Both locale index pages call `useTranslations()` and obtain `t`, but only use it for `t.meta.title` and `t.meta.description`. The translation object is never passed to any child component (`Hero`, `TrainingDecision`, `TuwaMethod`, `AudienceLanes`, `OutcomeCards`, `FeatureGrid`, `StatsCounter`, `LandingCTA`), so those components will render their default English content regardless of locale. Visiting `/fr/` or `/zh/` produces a page with correct metadata but English body content.
+**Fix:** Either pass a `locale` prop to each component and have them call `useTranslations` internally, or pass the translation object directly. The components will also need their own translation keys added to the locale files (hero headline, feature descriptions, etc. are not yet in the translation dictionaries).
 
 ## Info
 
-### IN-01: Font preload occurs even for CJK locales that override the font
+### IN-01: Type export placement in en/common.ts
 
-**File:** `src/layouts/BaseLayout.astro:29-33`
-**Issue:** Line 29 always preloads `GeneralSans-Variable.woff2`, but for `locale === 'zh'` the CSS variable `--font-sans` is overridden to prioritize Noto Sans SC. The preloaded General Sans font will still be downloaded but used only as a fallback, wasting bandwidth for Chinese users. This is minor since it is a single font file and serves as a legitimate fallback.
-**Fix:** Optionally conditionalize the preload:
-```astro
-{!isCJK && (
-  <link rel="preload" href="/fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
-)}
+**File:** `src/i18n/locales/en/common.ts:23-27`
+**Issue:** The `WidenStrings` type utility and `Common` type export are placed after the `export default` statement with no visual separation. While valid TypeScript, convention is to place the default export last or to add a comment separator to make secondary exports visible.
+**Fix:** Move the type definitions above the `export default` statement, or add a clear comment separator between the default export and the type exports.
+
+### IN-02: CJKLayout overrides --font-sans on :root globally
+
+**File:** `src/layouts/CJKLayout.astro:16-19`
+**Issue:** The `<style is:global>` block overrides `--font-sans` on `:root`, which works but is not scoped to Chinese pages. If any other global style later in the cascade also sets `--font-sans`, a specificity conflict could arise. Using `html[lang="zh"]` as the selector would be more defensive and self-documenting.
+**Fix:**
+```css
+html[lang="zh"] {
+  --font-sans: 'Noto Sans SC', 'General Sans Variable', system-ui, sans-serif;
+}
 ```
 
 ---
 
-_Reviewed: 2026-05-17T12:00:00Z_
+_Reviewed: 2026-05-24T12:00:00Z_
 _Reviewer: Claude (gsd-code-reviewer)_
 _Depth: standard_
