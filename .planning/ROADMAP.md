@@ -150,7 +150,7 @@ Plans:
 | 14. Typography Weight Rollout | v3.0 | 2/2 | Complete | 2026-05-15 |
 | 15. Matisse SVG Art Direction | v3.0 | 2/2 | Complete | 2026-05-15 |
 | 16. Interaction Polish | v3.0 | 2/2 | Complete | 2026-05-16 |
-| 17. i18n Infrastructure | v4.0 | 3/3 | Complete   | 2026-05-24 |
+| 17. i18n Infrastructure | v4.0 | 3/3 | Complete    | 2026-05-24 |
 | 18. Component Extraction | v4.0 | 0/? | Not started | - |
 | 19. Home Page Localization | v4.0 | 0/? | Not started | - |
 | 20. Feature Pages | v4.0 | 0/? | Not started | - |
