@@ -66,7 +66,7 @@
   2. A `t()` utility function resolves translation keys from per-page TypeScript dictionary files with full type safety (IDE autocomplete works)
   3. Chinese text renders in Noto Sans SC on /zh/ pages with no visible Times New Roman fallback
   4. English pages at unprefixed URLs load identically to before (no performance regression, no new network requests)
-**Plans:** 2/2 plans complete
+**Plans:** 3/3 plans complete
 Plans:
 - [x] 17-01-PLAN.md -- Astro i18n config, translation utility, per-locale common.ts files, CJK font install
 - [x] 17-02-PLAN.md -- BaseLayout/Header/Footer/MobileMenu locale wiring, zh/fr wrapper pages, build verification
@@ -150,7 +150,7 @@ Plans:
 | 14. Typography Weight Rollout | v3.0 | 2/2 | Complete | 2026-05-15 |
 | 15. Matisse SVG Art Direction | v3.0 | 2/2 | Complete | 2026-05-15 |
 | 16. Interaction Polish | v3.0 | 2/2 | Complete | 2026-05-16 |
-| 17. i18n Infrastructure | v4.0 | 2/2 | Complete   | 2026-05-17 |
+| 17. i18n Infrastructure | v4.0 | 3/3 | Complete   | 2026-05-24 |
 | 18. Component Extraction | v4.0 | 0/? | Not started | - |
 | 19. Home Page Localization | v4.0 | 0/? | Not started | - |
 | 20. Feature Pages | v4.0 | 0/? | Not started | - |
