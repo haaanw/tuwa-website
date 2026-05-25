@@ -58,92 +58,119 @@
 ## Phase Details
 
 ### Phase 17: i18n Infrastructure
+
 **Goal**: The site has working locale routing, a type-safe translation utility, and CJK font loading -- without any visible content changes to existing English pages
 **Depends on**: Phase 16 (complete)
 **Requirements**: I18N-01, I18N-02, I18N-03
 **Success Criteria** (what must be TRUE):
+
   1. Navigating to /zh/ or /fr/ serves a page (even if content is English fallback) without 404
   2. A `t()` utility function resolves translation keys from per-page TypeScript dictionary files with full type safety (IDE autocomplete works)
   3. Chinese text renders in Noto Sans SC on /zh/ pages with no visible Times New Roman fallback
   4. English pages at unprefixed URLs load identically to before (no performance regression, no new network requests)
+
 **Plans:** 3/3 plans complete
 Plans:
+
 - [x] 17-01-PLAN.md -- Astro i18n config, translation utility, per-locale common.ts files, CJK font install
 - [x] 17-02-PLAN.md -- BaseLayout/Header/Footer/MobileMenu locale wiring, zh/fr wrapper pages, build verification
 
 ### Phase 18: Component Extraction
+
 **Goal**: Users can switch languages from any page, and all navigation links route correctly within the chosen locale
 **Depends on**: Phase 17
 **Requirements**: I18N-04, I18N-05
 **Success Criteria** (what must be TRUE):
+
   1. A language switcher is visible in the header on every page and allows switching between en/zh/fr
   2. Clicking a nav link while on a /zh/ page navigates to the /zh/ variant of the target page (not back to English)
   3. Footer links, mobile menu links, and CTA buttons all respect the current locale context
   4. Language switcher preserves the current page when switching (e.g., /zh/recovery-scoring switches to /fr/recovery-scoring)
+
 **Plans:** 2/2 plans complete
 Plans:
+
 - [x] 18-01-PLAN.md — Expand translation dictionaries, wire Footer and MobileMenu with locale-aware paths and t() calls
 - [x] 18-02-PLAN.md — Build language switcher widget in Header, translate all nav text, add dropdown JS
+
 **UI hint**: yes
 
 ### Phase 19: Home Page Localization
+
 **Goal**: The landing page is fully readable and natural in Chinese and French, proving the translation pattern works end-to-end
 **Depends on**: Phase 18
 **Requirements**: I18N-06
 **Success Criteria** (what must be TRUE):
+
   1. /zh/ displays the complete landing page (hero, feature overview, stats, CTAs) in Chinese with no English fragments
   2. /fr/ displays the complete landing page in French with no English fragments
   3. French text expansion does not cause layout breaks, overflow, or truncation on any viewport width
   4. CJK line breaking is natural (no mid-word breaks, proper punctuation handling)
+
 **Plans:** 2/2 plans complete
 Plans:
+
 - [x] 19-01-PLAN.md — Create home.ts translation namespace, extend i18n utils, wire Hero/StatsCounter/LandingCTA
 - [x] 19-02-PLAN.md — Wire FeatureGrid with locale-aware static HTML and inline script data
+
 **UI hint**: yes
 
 ### Phase 20: Feature Pages
+
 **Goal**: All 5 feature deep-dive pages are fully translated and visually intact in both Chinese and French
 **Depends on**: Phase 19
 **Requirements**: I18N-07, I18N-08
 **Success Criteria** (what must be TRUE):
+
   1. All 5 feature pages (/zh/recovery-scoring, /zh/workload-tracking, etc.) display fully translated Chinese content
   2. All 5 feature pages (/fr/recovery-scoring, /fr/workload-tracking, etc.) display fully translated French content
   3. French text expansion on feature pages does not break device frame layouts, stat counters, or CTA sections
   4. Feature-specific terminology is consistent across pages within each locale
-**Plans:** 5 plans
+
+**Plans:** 2/5 plans executed
 Plans:
-- [ ] 20-01-PLAN.md -- Layout locale wiring, FeatureCTA refactor, common.ts CTA keys
-- [ ] 20-02-PLAN.md -- EN namespace files for all 5 features, utils.ts extension
+
+- [x] 20-01-PLAN.md -- Layout locale wiring, FeatureCTA refactor, common.ts CTA keys
+- [x] 20-02-PLAN.md -- EN namespace files for all 5 features, utils.ts extension
 - [ ] 20-03-PLAN.md -- zh/fr translations and wrapper pages for recovery-scoring and workload-tracking
 - [ ] 20-04-PLAN.md -- zh/fr translations and wrapper pages for smart-templates and cold-start
 - [ ] 20-05-PLAN.md -- zh/fr translations and wrapper pages for coaching (named slots)
+
 **UI hint**: yes
 
 ### Phase 21: Legal, Support & Blog
+
 **Goal**: Legal and support pages are translated (with binding-language disclaimers), and the blog listing page is i18n-wired
 **Depends on**: Phase 19
 **Requirements**: I18N-09, I18N-10
 **Success Criteria** (what must be TRUE):
+
   1. Privacy, Terms, and Support pages are available at /zh/ and /fr/ with translated content
   2. Legal pages include a visible disclaimer that English is the legally binding version
   3. Blog listing page at /zh/blog and /fr/blog displays translated UI chrome (headings, empty state text) with correct locale routing
+
 **Plans:** 2 plans
 Plans:
+
 - [ ] 21-01-PLAN.md
 - [ ] 21-02-PLAN.md
 
 ### Phase 22: SEO Verification & Polish
+
 **Goal**: Search engines correctly index all locale variants, social shares show localized metadata, and broken locale URLs gracefully fallback
 **Depends on**: Phase 20, Phase 21
 **Requirements**: I18N-11, I18N-12, I18N-13, I18N-14
 **Success Criteria** (what must be TRUE):
+
   1. Every page includes hreflang tags referencing all 3 locale variants plus x-default (verified in page source)
   2. Sharing a /zh/ or /fr/ page on social media shows localized title and description in the preview card
   3. Sitemap.xml includes all locale URLs (30 total: 10 pages x 3 locales) with proper hreflang annotations
   4. Navigating to a nonexistent /zh/ or /fr/ path shows a locale-appropriate 404 page (not the English 404)
   5. Lighthouse scores remain >= 95 on all locale variants (no CJK font regression)
+
 **Plans:** 2 plans
 Plans:
+
 - [ ] 22-01-PLAN.md
 - [ ] 22-02-PLAN.md
 
@@ -171,6 +198,6 @@ Plans:
 | 17. i18n Infrastructure | v4.0 | 3/3 | Complete    | 2026-05-24 |
 | 18. Component Extraction | v4.0 | 2/2 | Complete    | 2026-05-25 |
 | 19. Home Page Localization | v4.0 | 2/2 | Complete    | 2026-05-25 |
-| 20. Feature Pages | v4.0 | 0/5 | Not started | - |
+| 20. Feature Pages | v4.0 | 2/5 | In Progress|  |
 | 21. Legal, Support & Blog | v4.0 | 0/? | Not started | - |
 | 22. SEO Verification & Polish | v4.0 | 0/? | Not started | - |
