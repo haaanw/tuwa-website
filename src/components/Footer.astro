@@ -1,12 +1,14 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { APP_STORE_URL } from '../config';
+import { useTranslations } from '../i18n/utils';
 
 interface Props {
   locale?: string;
 }
 const { locale = 'en' } = Astro.props;
 const year = new Date().getFullYear();
+const t = useTranslations(locale as 'en' | 'zh' | 'fr');
 ---
 <footer style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider);">
   <div class="mx-auto max-w-6xl px-6" style="padding-top: var(--space-2xl); padding-bottom: var(--space-xl);">
@@ -39,31 +41,36 @@ const year = new Date().getFullYear();
 
         <!-- Features column -->
         <div>
-          <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">Features</p>
+          <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">{t.footer.features}</p>
           <ul role="list" class="space-y-2" style="color: var(--color-text-2);">
-            <li><a href={getRelativeLocaleUrl(locale, '/features/recovery-scoring')} class="nav-link" style="color: var(--color-text-2);">Recovery Scoring</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/features/workload-tracking')} class="nav-link" style="color: var(--color-text-2);">Workload Tracking</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/features/smart-templates')} class="nav-link" style="color: var(--color-text-2);">Smart Templates</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/features/cold-start')} class="nav-link" style="color: var(--color-text-2);">Cold Start Solution</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/features/coaching')} class="nav-link" style="color: var(--color-text-2);">Coaching</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/features/recovery-scoring')} class="nav-link" style="color: var(--color-text-2);">{t.nav.featuresDropdown.recoveryScoringTitle}</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/features/workload-tracking')} class="nav-link" style="color: var(--color-text-2);">{t.nav.featuresDropdown.workloadTrackingTitle}</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/features/smart-templates')} class="nav-link" style="color: var(--color-text-2);">{t.nav.featuresDropdown.smartTemplatesTitle}</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/features/cold-start')} class="nav-link" style="color: var(--color-text-2);">{t.nav.featuresDropdown.coldStartTitle}</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/features/coaching')} class="nav-link" style="color: var(--color-text-2);">{t.nav.featuresDropdown.coachingTitle}</a></li>
           </ul>
         </div>
 
         <!-- Resources column -->
         <div>
-          <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">Resources</p>
+          <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">{t.footer.resources}</p>
           <ul role="list" class="space-y-2" style="color: var(--color-text-2);">
-            <li><a href={getRelativeLocaleUrl(locale, '/blog')} class="nav-link" style="color: var(--color-text-2);">Blog</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/support')} class="nav-link" style="color: var(--color-text-2);">Support</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/methodology')} class="nav-link" style="color: var(--color-text-2);">{t.footer.methodology}</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/readiness-score')} class="nav-link" style="color: var(--color-text-2);">{t.footer.readinessScore}</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/training-load')} class="nav-link" style="color: var(--color-text-2);">{t.footer.trainingLoad}</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/for-coaches')} class="nav-link" style="color: var(--color-text-2);">{t.footer.forCoaches}</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/compare')} class="nav-link" style="color: var(--color-text-2);">{t.footer.compare}</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/blog')} class="nav-link" style="color: var(--color-text-2);">{t.nav.blog}</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/support')} class="nav-link" style="color: var(--color-text-2);">{t.nav.support}</a></li>
           </ul>
         </div>
 
         <!-- Legal column -->
         <div>
-          <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">Legal</p>
+          <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">{t.footer.legal}</p>
           <ul role="list" class="space-y-2" style="color: var(--color-text-2);">
-            <li><a href={getRelativeLocaleUrl(locale, '/privacy')} class="nav-link" style="color: var(--color-text-2);">Privacy Policy</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/terms')} class="nav-link" style="color: var(--color-text-2);">Terms of Service</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/privacy')} class="nav-link" style="color: var(--color-text-2);">{t.footer.privacy}</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/terms')} class="nav-link" style="color: var(--color-text-2);">{t.footer.terms}</a></li>
           </ul>
         </div>
 
@@ -72,7 +79,7 @@ const year = new Date().getFullYear();
 
     <!-- Copyright -->
     <p style="margin-top: var(--space-2xl); color: var(--color-text-3); font-size: var(--text-label);">
-      &copy; {year} Tuwa. All rights reserved.
+      {t.footer.copyright.replace('{year}', String(year))}
     </p>
   </div>
 </footer>
