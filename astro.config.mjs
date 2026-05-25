@@ -17,7 +17,19 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkReadingTime],
   },
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en',
+          zh: 'zh-CN',
+          fr: 'fr',
+        },
+      },
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

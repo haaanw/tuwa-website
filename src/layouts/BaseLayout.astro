@@ -11,9 +11,10 @@ interface Props {
   canonical?: string;
   type?: string;
   locale?: string;
+  hreflangAlternates?: Array<{ hreflang: string; href: string }>;
 }
 
-const { title, description, ogImage, canonical, type, locale = 'en' } = Astro.props;
+const { title, description, ogImage, canonical, type, locale = 'en', hreflangAlternates } = Astro.props;
 ---
 <!doctype html>
 <html lang={locale}>
@@ -26,7 +27,7 @@ const { title, description, ogImage, canonical, type, locale = 'en' } = Astro.pr
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
-    <SEO title={title} description={description} ogImage={ogImage} canonical={canonical} type={type} />
+    <SEO title={title} description={description} ogImage={ogImage} canonical={canonical} type={type} locale={locale} hreflangAlternates={hreflangAlternates} />
   </head>
   <body>
     <Header locale={locale} />
