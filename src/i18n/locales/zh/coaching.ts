@@ -2,7 +2,7 @@ import type { Coaching } from '../en/coaching';
 
 const coaching: Coaching = {
   meta: {
-    title: '教练功能 — Tuwa',
+    title: '教练功能',
     description:
       '实时掌握全队运动员的恢复状态。Tuwa 将教练与运动员通过共享训练负荷数据、计划训练和基于邀请的团队管理紧密连接。',
   },

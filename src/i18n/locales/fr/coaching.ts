@@ -2,7 +2,7 @@ import type { Coaching } from '../en/coaching';
 
 const coaching: Coaching = {
   meta: {
-    title: 'Coach + Athlète — Tuwa',
+    title: 'Coach + Athlète',
     description:
       "Visibilité en temps réel sur la récupération de chaque athlète que tu encadres. Tuwa connecte coachs et athlètes via des données de charge partagées, des séances prescrites et une gestion d'équipe par invitation.",
   },

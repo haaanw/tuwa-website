@@ -3,15 +3,17 @@ import BaseLayout from './BaseLayout.astro';
 
 interface Props {
   title: string;
+  description?: string;
   lastUpdated?: string;
   locale?: string;
   disclaimerText?: string;
 }
 
-const { title, lastUpdated, locale = 'en', disclaimerText } = Astro.props;
+const { title, description, lastUpdated, locale = 'en', disclaimerText } = Astro.props;
 const showDisclaimer = locale !== 'en' && disclaimerText;
+const resolvedDescription = description || `${title} for Tuwa — Training Load & Recovery app.`;
 ---
-<BaseLayout title={title} description={`${title} for Tuwa — Training Load & Recovery app.`} locale={locale}>
+<BaseLayout title={title} description={resolvedDescription} locale={locale}>
   <div style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
     <div class="mx-auto px-6" style="max-width: 680px;">
       {showDisclaimer && (

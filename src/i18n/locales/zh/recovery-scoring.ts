@@ -2,7 +2,7 @@ import type { RecoveryScoring } from '../en/recovery-scoring';
 
 const recoveryScoring: RecoveryScoring = {
   meta: {
-    title: '恢复评分 — Tuwa',
+    title: '恢复评分',
     description:
       '精准掌握今日训练强度。Tuwa 将心率变异性、静息心率、睡眠质量和身体状态综合为一个每日准备状态评分。',
   },

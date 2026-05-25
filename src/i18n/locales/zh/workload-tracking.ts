@@ -2,7 +2,7 @@ import type { WorkloadTracking } from '../en/workload-tracking';
 
 const workloadTracking: WorkloadTracking = {
   meta: {
-    title: '训练负荷追踪 — Tuwa',
+    title: '训练负荷追踪',
     description:
       '在不越线的前提下全力训练。Tuwa 通过基于 EWMA 的负荷监测、激增检测和个人纪录追踪，精准管理你的训练量。',
   },

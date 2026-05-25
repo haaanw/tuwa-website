@@ -2,7 +2,7 @@ import type { RecoveryScoring } from '../en/recovery-scoring';
 
 const recoveryScoring: RecoveryScoring = {
   meta: {
-    title: 'Score de récupération — Tuwa',
+    title: 'Score de récupération',
     description:
       'Sache exactement à quelle intensité t\'entraîner aujourd\'hui. Tuwa synthétise la VFC, la fréquence cardiaque au repos, le sommeil et ton état de forme en un score de forme quotidien.',
   },
