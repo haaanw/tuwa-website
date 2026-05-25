@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && cp dist/zh/404/index.html dist/zh/404.html && cp dist/fr/404/index.html dist/fr/404.html",
     "preview": "astro preview",
     "astro": "astro"
   },
