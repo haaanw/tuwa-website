@@ -6,8 +6,7 @@
 - ✅ **v2.0 Visual Overhaul & Polish** -- Phases 5-10 (shipped 2026-05-14)
 - ✅ **v3.0 Art Direction & Interaction Polish** -- Phases 11-16 (shipped 2026-05-16)
 - ✅ **v4.0 Multi-Language Support** -- Phases 17-22 (shipped 2026-05-25)
-
-_Next milestone: run `/gsd:new-milestone`._
+- 🔄 **v4.1 Internationalization Follow-ups** -- Phases 23-25 (in progress)
 
 ## Phases
 
@@ -62,3 +61,57 @@ a language switcher, and full SEO compliance (hreflang, localized sitemap, per-l
 Full phase details: `.planning/milestones/v4.0-ROADMAP.md`
 
 </details>
+
+### v4.1 Internationalization Follow-ups (Phases 23-25) -- IN PROGRESS
+
+**Goal:** Complete the deferred i18n surface on top of the v4.0 trilingual foundation:
+locale-aware date formatting, blog post translation routing, and per-locale OG images.
+
+- [ ] **Phase 23: Locale Formatting Utility** - Shared Intl date/number formatting; remove hardcoded locale strings (I18N-21)
+- [ ] **Phase 24: Blog Translation Infrastructure** - Locale field in schema, zh/fr blog routes, locale-filtered listings + hreflang (I18N-18/19/20)
+- [ ] **Phase 25: Translated OG Images via Satori** - Per-locale OG PNGs with correct CJK/French glyphs (I18N-15/16/17)
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 23. Locale Formatting Utility | 0/TBD | Not started | - |
+| 24. Blog Translation Infrastructure | 0/TBD | Not started | - |
+| 25. Translated OG Images via Satori | 0/TBD | Not started | - |
+
+## Phase Details
+
+### Phase 23: Locale Formatting Utility
+**Goal**: Dates across the site are formatted correctly for each visitor's locale with no hardcoded locale strings
+**Depends on**: Phase 22 (v4.0 complete)
+**Requirements**: I18N-21
+**Success Criteria** (what must be TRUE):
+  1. A zh blog listing card displays a date in Chinese format (e.g. "2026年5月25日"), not "May 25, 2026"
+  2. A fr blog listing card displays a date in French format (e.g. "25 mai 2026"), not "May 25, 2026"
+  3. `grep -r "toLocaleDateString" src/` returns zero hits outside `src/i18n/format.ts` — no inline locale strings remain
+  4. `npx tsc --noEmit` passes with zero errors after the utility is integrated
+**Plans**: TBD
+
+### Phase 24: Blog Translation Infrastructure
+**Goal**: zh and fr blog routes exist and serve only their locale's posts; the blog schema enforces locale; hreflang on blog pages reflects only present locales
+**Depends on**: Phase 23 (locale formatting utility)
+**Requirements**: I18N-18, I18N-19, I18N-20
+**Success Criteria** (what must be TRUE):
+  1. `content.config.ts` has a `locale` field with a Zod enum (`z.enum(['en','zh','fr'])`) and a build error is triggered if a post omits it
+  2. After `astro build`, `find dist/zh/blog -name "index.html" | wc -l` equals the count of zh-locale posts (not all posts)
+  3. Visiting `/zh/blog/` in a browser shows zero English-authored posts; the page is empty (or shows a "no posts yet" state) if no zh posts exist — it does NOT show English fallbacks
+  4. An English-only test post's built HTML contains exactly one `hreflang` tag (`hreflang="en"`) and one `hreflang="x-default"`, and no `hreflang="zh"` or `hreflang="fr"` tags
+  5. `npx tsc --noEmit` passes after schema and route changes
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 25: Translated OG Images via Satori
+**Goal**: Every zh and fr page serves a locale-specific OG image with correctly rendered localized text — no English text on translated pages, no tofu/empty boxes for CJK
+**Depends on**: Phase 24 (blog infrastructure; blog OG endpoint needs locale-filtered slug list)
+**Requirements**: I18N-15, I18N-16, I18N-17
+**Success Criteria** (what must be TRUE):
+  1. After `astro build`, `find dist/og -name "*.png" | wc -l` equals 21 (7 pages × 3 locales) — all OG PNGs are generated
+  2. Open `dist/og/zh/home.png` (or equivalent) in a PNG viewer and confirm Chinese characters are legible text, not empty boxes (tofu) — this is the hard CJK render gate
+  3. Open `dist/og/zh/home.png` and compare a bold heading against body copy — visually distinct stroke weights confirm both weight=400 and weight=700 Noto Sans SC are registered in satori
+  4. `time astro build` completes in under 60 seconds — module-level font cache is in effect
+  5. `grep -r "ogImage" src/pages/zh src/pages/fr` shows every zh and fr page referencing an `/og/zh/` or `/og/fr/` path, not `/og/en/` — no translated page falls back to the English OG card
+**Plans**: TBD
+**UI hint**: yes

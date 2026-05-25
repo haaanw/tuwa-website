@@ -6,7 +6,7 @@ status: planning
 last_updated: "2026-05-25T13:28:55.659Z"
 last_activity: 2026-05-25
 progress:
-  total_phases: 0
+  total_phases: 3
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -17,23 +17,27 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-05-16)
+See: .planning/PROJECT.md (updated 2026-05-25)
 
 **Core value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing
-**Current focus:** Phase 22 — seo-verification-polish
+**Current focus:** Phase 23 — locale-formatting-utility (not started)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 23 — Locale Formatting Utility
 Plan: —
-Status: Defining requirements
-Last activity: 2026-05-25 — Milestone v4.1 started
+Status: Not started (roadmap defined, ready for plan-phase)
+Last activity: 2026-05-25 — v4.1 roadmap created (Phases 23-25)
+
+```
+Progress: [                    ] 0% (0/3 phases)
+```
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 16 (this milestone)
+- Total plans completed: 0 (this milestone)
 - Average duration: —
 - Total execution time: —
 
@@ -41,12 +45,9 @@ Last activity: 2026-05-25 — Milestone v4.1 started
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 17 | 3 | - | - |
-| 18 | 2 | - | - |
-| 19 | 2 | - | - |
-| 20 | 5 | - | - |
-| 21 | 2 | - | - |
-| 22 | 2 | - | - |
+| 23 | TBD | - | - |
+| 24 | TBD | - | - |
+| 25 | TBD | - | - |
 
 *Updated after each plan completion*
 
@@ -55,17 +56,21 @@ Last activity: 2026-05-25 — Milestone v4.1 started
 ### Decisions
 
 - [Roadmap]: Use Astro built-in i18n routing (no external i18n library)
-- [Roadmap]: @fontsource/noto-sans-sc is the only new npm dependency
+- [Roadmap]: @fontsource/noto-sans-sc is the only new npm dependency (v4.0)
 - [Roadmap]: Per-page TypeScript translation files (not monolithic JSON)
 - [Roadmap]: English unprefixed (prefixDefaultLocale: false) to preserve SEO equity
 - [Roadmap]: Components receive content via props (locale-agnostic pattern)
-- [Roadmap]: Phase 20 and 21 can run in parallel (both depend on 19, not each other)
+- [Roadmap v4.1]: Two new packages only — satori ^0.27.0 + @resvg/resvg-js ^2.6.2
+- [Roadmap v4.1]: satori does NOT support WOFF2; load GeneralSans TTF + Noto Sans SC .woff explicitly
+- [Roadmap v4.1]: Module-level font cache in src/lib/og/fonts.ts (not per-call) — build time gate
+- [Roadmap v4.1]: Translated URL slugs deferred — high ripple cost, marginal SEO benefit; revisit with Search Console data
+- [Roadmap v4.1]: Single blog collection with `locale` in frontmatter (post.en.mdx / post.zh.mdx pattern)
+- [Roadmap v4.1]: Native Intl (Node 22 full ICU) for formatting — no date-fns or dayjs
 
 ### Pending Todos
 
-- Translation source decision: LLM draft + human review vs professional translators
-- FeatureGrid (15.5K) decomposition strategy for i18n refactor
-- Verify General Sans oe ligature (U+0153) for French before Phase 19
+- Phase 25 research flag: verify satori `loadAdditionalAsset` return shape before coding the font loader
+- Phase 25 research flag: confirm GeneralSans-Variable.ttf path (currently WOFF2 in public/fonts/)
 
 ### Blockers/Concerns
 
@@ -79,9 +84,7 @@ Last activity: 2026-05-25 — Milestone v4.1 started
 | Content | CONT-02: Case study page | Future milestone | v2.0 planning |
 | Advanced Visual | ADVZ-01: Video hero background | Future milestone | v2.0 planning |
 | Advanced Visual | ADVZ-02: Dark mode support | Out of scope | PROJECT.md |
-| i18n | Translated OG images (CJK in satori) | v4.1+ | Research |
-| i18n | Blog post translations | v4.1+ | Research |
-| i18n | URL slug translation | v4.1+ | Research |
+| i18n | Translated URL slugs | Deferred — revisit with Search Console data | v4.1 requirements |
 | i18n | Additional languages (ja, es, de) | Future milestone | Requirements |
 
 ## Quick Tasks Completed
@@ -94,10 +97,12 @@ Last activity: 2026-05-25 — Milestone v4.1 started
 
 ## Session Continuity
 
-Last session: 2026-05-25T09:35:06.655Z
-Stopped at: Phase 22 context gathered
-Resume file: .planning/phases/22-seo-verification-polish/22-CONTEXT.md
+Last session: 2026-05-25 — v4.1 roadmap created
+Stopped at: Roadmap defined, Phase 23 not started
+Resume file: .planning/ROADMAP.md
 
 ## Operator Next Steps
 
-- Start the next milestone with /gsd-new-milestone
+- Run `/gsd:plan-phase 23` to plan Locale Formatting Utility
+- Then `/gsd:plan-phase 24` for Blog Translation Infrastructure
+- Then `/gsd:plan-phase 25` for Translated OG Images (highest complexity — verify satori font load shape first)

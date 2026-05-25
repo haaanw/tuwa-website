@@ -39,10 +39,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| I18N-15 | TBD | Pending |
-| I18N-16 | TBD | Pending |
-| I18N-17 | TBD | Pending |
-| I18N-18 | TBD | Pending |
-| I18N-19 | TBD | Pending |
-| I18N-20 | TBD | Pending |
-| I18N-21 | TBD | Pending |
+| I18N-15 | Phase 25 | Pending |
+| I18N-16 | Phase 25 | Pending |
+| I18N-17 | Phase 25 | Pending |
+| I18N-18 | Phase 24 | Pending |
+| I18N-19 | Phase 24 | Pending |
+| I18N-20 | Phase 24 | Pending |
+| I18N-21 | Phase 23 | Pending |
