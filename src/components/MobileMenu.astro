@@ -4,6 +4,7 @@
 // Rendered inline (not as island) — uses <script> tag for browser JS.
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { useTranslations } from '../i18n/utils';
+import { APP_STORE_URL } from '../config';
 
 interface Props {
   locale?: string;
@@ -108,7 +109,7 @@ const t = useTranslations(locale as 'en' | 'zh' | 'fr');
     <!-- CTA in mobile menu -->
     <div style="margin-top: var(--space-xl); padding: 0 var(--space-md);">
       <a
-        href="https://apps.apple.com/app/tuwa"
+        href={APP_STORE_URL}
         rel="noopener noreferrer"
         class="flex items-center justify-center"
         style="
