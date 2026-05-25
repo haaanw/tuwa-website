@@ -53,7 +53,7 @@
 - [x] **Phase 19: Home Page Localization** - Prove end-to-end pattern with landing page in zh and fr (completed 2026-05-25)
 - [x] **Phase 20: Feature Pages** - 5 feature deep-dive pages translated in zh and fr (completed 2026-05-25)
 - [x] **Phase 21: Legal, Support & Blog** - Privacy, Terms, Support, and Blog listing translated (completed 2026-05-25)
-- [ ] **Phase 22: SEO Verification & Polish** - hreflang, sitemap, locale 404s, Lighthouse audit
+- [x] **Phase 22: SEO Verification & Polish** - hreflang, sitemap, locale 404s, Lighthouse audit (completed 2026-05-25)
 
 ## Phase Details
 
@@ -168,11 +168,11 @@ Plans:
   4. Navigating to a nonexistent /zh/ or /fr/ path shows a locale-appropriate 404 page (not the English 404)
   5. Lighthouse scores remain >= 95 on all locale variants (no CJK font regression)
 
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 Plans:
 
-- [ ] 22-01-PLAN.md — hreflang tags, og:locale, sitemap i18n, 404 translation namespaces + locale pages
-- [ ] 22-02-PLAN.md — Build verification, sitemap coverage check, human OG preview confirmation
+- [x] 22-01-PLAN.md — hreflang tags, og:locale, sitemap i18n, 404 translation namespaces + locale pages
+- [x] 22-02-PLAN.md — Build verification, sitemap coverage check, human OG preview confirmation
 
 ## Progress
 
@@ -200,4 +200,4 @@ Plans:
 | 19. Home Page Localization | v4.0 | 2/2 | Complete    | 2026-05-25 |
 | 20. Feature Pages | v4.0 | 5/5 | Complete    | 2026-05-25 |
 | 21. Legal, Support & Blog | v4.0 | 2/2 | Complete   | 2026-05-25 |
-| 22. SEO Verification & Polish | v4.0 | 0/? | Not started | - |
+| 22. SEO Verification & Polish | v4.0 | 2/2 | Complete   | 2026-05-25 |
