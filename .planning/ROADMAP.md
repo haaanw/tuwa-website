@@ -52,7 +52,7 @@
 - [x] **Phase 18: Component Extraction** - Language switcher, locale-aware navigation across header/footer (completed 2026-05-25)
 - [x] **Phase 19: Home Page Localization** - Prove end-to-end pattern with landing page in zh and fr (completed 2026-05-25)
 - [x] **Phase 20: Feature Pages** - 5 feature deep-dive pages translated in zh and fr (completed 2026-05-25)
-- [ ] **Phase 21: Legal, Support & Blog** - Privacy, Terms, Support, and Blog listing translated
+- [x] **Phase 21: Legal, Support & Blog** - Privacy, Terms, Support, and Blog listing translated (completed 2026-05-25)
 - [ ] **Phase 22: SEO Verification & Polish** - hreflang, sitemap, locale 404s, Lighthouse audit
 
 ## Phase Details
@@ -149,11 +149,11 @@ Plans:
   2. Legal pages include a visible disclaimer that English is the legally binding version
   3. Blog listing page at /zh/blog and /fr/blog displays translated UI chrome (headings, empty state text) with correct locale routing
 
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 Plans:
 
-- [ ] 21-01-PLAN.md — Translation namespace files, utils.ts extensions, LegalPageLayout + FaqAccordion locale wiring
-- [ ] 21-02-PLAN.md — 8 locale wrapper pages (zh/fr for privacy, terms, support, blog)
+- [x] 21-01-PLAN.md — Translation namespace files, utils.ts extensions, LegalPageLayout + FaqAccordion locale wiring
+- [x] 21-02-PLAN.md — 8 locale wrapper pages (zh/fr for privacy, terms, support, blog)
 
 ### Phase 22: SEO Verification & Polish
 
@@ -171,8 +171,8 @@ Plans:
 **Plans:** 2 plans
 Plans:
 
-- [ ] 22-01-PLAN.md
-- [ ] 22-02-PLAN.md
+- [ ] 22-01-PLAN.md — hreflang tags, og:locale, sitemap i18n, 404 translation namespaces + locale pages
+- [ ] 22-02-PLAN.md — Build verification, sitemap coverage check, human OG preview confirmation
 
 ## Progress
 
@@ -199,5 +199,5 @@ Plans:
 | 18. Component Extraction | v4.0 | 2/2 | Complete    | 2026-05-25 |
 | 19. Home Page Localization | v4.0 | 2/2 | Complete    | 2026-05-25 |
 | 20. Feature Pages | v4.0 | 5/5 | Complete    | 2026-05-25 |
-| 21. Legal, Support & Blog | v4.0 | 0/? | Not started | - |
+| 21. Legal, Support & Blog | v4.0 | 2/2 | Complete   | 2026-05-25 |
 | 22. SEO Verification & Polish | v4.0 | 0/? | Not started | - |
