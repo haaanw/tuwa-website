@@ -1,5 +1,50 @@
 # Retrospective: Tuwa Marketing Website
 
+## Milestone: v4.0 — Multi-Language Support
+
+**Shipped:** 2026-05-25
+**Phases:** 6 (17-22) | **Plans:** 16
+
+### What Was Built
+- Astro i18n routing: EN unprefixed (SEO equity), /zh/ and /fr/ prefixes, type-safe `use*Translations()`
+- zh + fr translations across all 10 pages; per-page namespace translation files
+- Noto Sans SC for Chinese, isolated to /zh/ pages (zero CJK CSS on EN/FR)
+- Path-preserving language switcher (desktop + mobile), locale-aware nav across header/footer/menu
+- Full SEO i18n: hreflang + x-default, per-locale og:locale, localized sitemap, per-locale 404s
+
+### What Worked
+- Components-receive-content-via-props (locale-agnostic) pattern kept translation wiring clean
+- Per-page translation namespaces (not one monolith) kept type errors local and reviewable
+- Phase 19 home page as end-to-end proof before fanning out to feature/legal pages de-risked the pattern
+- Parallel phases 20/21 (both depend on 19, not each other) compressed the schedule
+
+### What Was Inefficient
+- **CJK font never actually rendered until milestone close.** Every zh page set an unused CSS
+  variable (`--font-sans` instead of the consumed `--font-general-sans`, with wrong font name).
+  It looked fine on macOS (PingFang fallback), so it passed casual review and shipped through 6
+  phases. Only browser UAT at close (`document.fonts.check`) caught it. Visual UAT was deferred
+  as `human_needed` across phases 17-20 and never run until close — the defect lived the whole
+  milestone.
+- French header overflowed 24px at the 768px breakpoint — text-expansion not checked at the
+  tablet breakpoint during phase work.
+- summary-extract again produced garbled MILESTONES.md accomplishments — manual rewrite needed.
+
+### Patterns Established
+- CJK font wiring: override `--font-general-sans` scoped to `html[lang="zh"]` (beats global.css
+  `:root` regardless of stylesheet order); import `@fontsource/noto-sans-sc` only in components
+  used by zh pages to keep the bundle isolated. See memory `project-cjk-font-wiring`.
+- Responsive nav: tighten gap at `md`, restore at `lg` to absorb longer-locale labels.
+
+### Key Lessons
+1. `human_needed` visual UAT must be run before phase sign-off, not deferred to milestone close —
+   a font that silently falls back looks correct on the dev's OS and hides real breakage.
+2. For i18n, verify the *computed* font (`document.fonts.check`), not just that text renders.
+3. Test text-expansion locales (fr/de) at every breakpoint, especially the nav breakpoint.
+4. CSS custom-property overrides need specificity OR source-order discipline — `:root` vs `:root`
+   ties go to load order; scope to an attribute selector to win deterministically.
+
+---
+
 ## Milestone: v2.0 — Visual Overhaul & Polish
 
 **Shipped:** 2026-05-14

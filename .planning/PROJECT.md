@@ -24,11 +24,23 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 
 ### Active
 
-- ✓ Typography weight system — titles: large/light, body: smaller/heavier (CSS custom property tokens) — Validated in Phase 14
-- [ ] iPhone frame realism — realistic bezels, notch, buttons; fix screenshot fit (extra border/text misalignment)
-- [ ] Remove QR code + adjacent App Store badge section (keep header, hero, footer CTAs)
-- [ ] Matisse Swimming Pool art direction — organic cut-out shapes as continuous frieze (条带), hero-focused
-- [ ] Interaction polish — smooth transitions, scroll feel, navigation flow (contralabs.com reference)
+(None — v4.0 shipped. Define next milestone with `/gsd:new-milestone`.)
+
+### Validated (v3.0)
+
+- ✓ Typography weight system — titles light, body heavier (CSS custom property tokens) — Phase 14
+- ✓ iPhone frame realism — layered shadow, proportional Dynamic Island, side buttons, screenshot fit — Phase 12
+- ✓ QR code removal (CLS 0 maintained) — Phase 13
+- ✓ Matisse Swimming Pool art direction — organic SVG cut-out frieze — Phase 15
+- ✓ Interaction polish — standardized easing, Lenis momentum scroll, 64px anchor offset, reduced-motion/touch guards, native view-transition crossfade — Phase 16
+
+### Validated (v4.0)
+
+- ✓ i18n routing — EN unprefixed, /zh/ and /fr/ prefixes, type-safe `use*Translations()` — Phase 17
+- ✓ Noto Sans SC CJK font isolated to /zh/ pages (zero CJK CSS on EN/FR) — Phase 17
+- ✓ Language switcher (desktop + mobile), path-preserving, locale-aware nav — Phase 18
+- ✓ zh + fr translations across all 10 pages (home, 5 features, privacy, terms, support, blog) — Phases 19-21
+- ✓ SEO i18n — hreflang + x-default, per-locale og:locale, localized sitemap, per-locale 404s — Phase 22
 
 ### Validated (v2.0)
 
@@ -52,28 +64,25 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 - E-commerce or merchandise
 - Dark mode — Descoped (light mode only)
 
-## Current Milestone: v4.0 Multi-Language Support
+## Next Milestone
 
-**Goal:** Add Chinese (zh) and French (fr) translations to the marketing site.
-
-**Target features:**
-- i18n routing with language prefix URLs (/zh/, /fr/)
-- Translated page content for all 10 pages
-- Language switcher UI component
-- SEO: hreflang tags, per-language OG metadata, localized sitemap
-- Locale-aware formatting (dates, numbers if applicable)
+**TBD** — run `/gsd:new-milestone`. Deferred candidates (v4.1+): translated OG images
+(CJK in satori), blog post translations, URL slug translation, additional languages (ja/es/de).
 
 ## Current State
 
-**Shipped:** v2.0 Visual Overhaul & Polish (2026-05-14)
+**Shipped:** v4.0 Multi-Language Support (2026-05-25)
 **Live at:** tuwa.app (Cloudflare Pages, auto-deploy from main)
-**Lighthouse:** Mobile 98, Desktop 99
+**Lighthouse (v2.0 baseline):** Mobile 98, Desktop 99 · **CLS:** 0 (measured v4.0)
 
-Site is a polished marketing presence with CSS device frames, choreographed animations, iPod click wheel feature overview, sticky scroll showcase, and animated stat counters. All 10 pages responsive across 5 breakpoints.
+Trilingual marketing site (English / 中文 / Français) across all 10 pages. Astro i18n routing
+with EN unprefixed for SEO equity; Noto Sans SC for Chinese, isolated to /zh/ pages so EN/FR
+load zero CJK CSS. Path-preserving language switcher (desktop + mobile). Full SEO i18n:
+hreflang + x-default, per-locale og:locale, localized sitemap (90 hreflang annotations),
+per-locale 404 pages. Build produces 33 static pages.
 
-Phase 19 complete (2026-05-25) — Home page fully localized for zh and fr. Per-namespace translation pattern proven (home.ts). Hero, StatsCounter, LandingCTA, and FeatureGrid all render locale-aware content via useHomeTranslations().
-
-Phase 20 complete (2026-05-25) — All 5 feature deep-dive pages translated for zh and fr. Per-page namespace files (recovery-scoring.ts, coaching.ts, etc.), FeatureCTA made locale-aware via common.ts keys, thin locale wrapper pages. 34 files added/modified across 5 plans in 2 waves.
+Retains the v3.0 polish: CSS device frames, Matisse SVG frieze, Lenis momentum scroll, native
+view-transition crossfades, light typographic weight system, iPod click-wheel feature overview.
 
 ## Context
 
@@ -128,4 +137,4 @@ Phase 20 complete (2026-05-25) — All 5 feature deep-dive pages translated for 
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026-05-25 after Phase 19 (home page localization) complete*
+*Last updated: 2026-05-25 after v4.0 Multi-Language Support milestone complete*
