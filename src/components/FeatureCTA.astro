@@ -1,5 +1,13 @@
 ---
 import { APP_STORE_URL } from '../config';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+const t = useTranslations(locale as any);
 ---
 
 <!-- Feature page CTA section — surface background for visual break from page bg -->
@@ -20,7 +28,7 @@ import { APP_STORE_URL } from '../config';
           color: var(--color-text-1);
         "
       >
-        Start training with confidence
+        {t.featureCTA.headline}
       </h2>
 
       <!-- Supporting copy -->
@@ -30,7 +38,7 @@ import { APP_STORE_URL } from '../config';
           color: var(--color-text-2);
         "
       >
-        Download Tuwa and take the guesswork out of recovery and load management.
+        {t.featureCTA.body}
       </p>
 
       <!-- App Store badge -->
@@ -42,12 +50,12 @@ import { APP_STORE_URL } from '../config';
           href={APP_STORE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Download Tuwa on the App Store"
+          aria-label={t.featureCTA.badgeAriaLabel}
           class="btn-cta inline-block"
         >
           <img
             src="/badges/app-store-badge.svg"
-            alt="Download on the App Store"
+            alt={t.featureCTA.badgeAlt}
             height="40"
             width="120"
             loading="lazy"

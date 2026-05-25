@@ -51,6 +51,12 @@ const common = {
     title: 'Tuwa',
     description: 'Precision training load and recovery management for serious athletes and coaches.',
   },
+  featureCTA: {
+    headline: 'Start training with confidence',
+    body: 'Download Tuwa and take the guesswork out of recovery and load management.',
+    badgeAlt: 'Download on the App Store',
+    badgeAriaLabel: 'Download Tuwa on the App Store',
+  },
 } as const;
 
 export default common;
