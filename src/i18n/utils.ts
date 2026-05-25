@@ -9,9 +9,9 @@ import enWorkloadTracking from './locales/en/workload-tracking';
 import enSmartTemplates from './locales/en/smart-templates';
 import enColdStart from './locales/en/cold-start';
 import enCoaching from './locales/en/coaching';
-// TODO: uncomment when zh/fr files exist (Plans 03-05)
-// import zhRecoveryScoring from './locales/zh/recovery-scoring';
-// import frRecoveryScoring from './locales/fr/recovery-scoring';
+import zhRecoveryScoring from './locales/zh/recovery-scoring';
+import frRecoveryScoring from './locales/fr/recovery-scoring';
+// TODO: uncomment when zh/fr files exist (Plans 04-05)
 // import zhWorkloadTracking from './locales/zh/workload-tracking';
 // import frWorkloadTracking from './locales/fr/workload-tracking';
 // import zhSmartTemplates from './locales/zh/smart-templates';
@@ -46,8 +46,8 @@ const homeTranslations: Record<Locale, Home> = {
 
 const recoveryScoringTranslations: Record<Locale, RecoveryScoring> = {
   en: enRecoveryScoring,
-  zh: enRecoveryScoring, // TODO: replace with zhRecoveryScoring (Plan 03)
-  fr: enRecoveryScoring, // TODO: replace with frRecoveryScoring (Plan 04)
+  zh: zhRecoveryScoring,
+  fr: frRecoveryScoring,
 };
 
 const workloadTrackingTranslations: Record<Locale, WorkloadTracking> = {
