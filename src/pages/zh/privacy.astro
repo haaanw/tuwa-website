@@ -1,0 +1,92 @@
+---
+import '@fontsource/noto-sans-sc/400.css';
+import '@fontsource/noto-sans-sc/700.css';
+import { usePrivacyTranslations } from '../../i18n/utils';
+import LegalPageLayout from '../../layouts/LegalPageLayout.astro';
+
+const t = usePrivacyTranslations('zh');
+---
+
+<style is:global>
+  :root { --font-sans: 'Noto Sans SC', 'General Sans Variable', system-ui, sans-serif; }
+</style>
+
+<LegalPageLayout
+  title={t.meta.title}
+  lastUpdated={t.meta.lastUpdated}
+  locale="zh"
+  disclaimerText={t.disclaimer.text}
+>
+  <p>{t.intro.p1}</p>
+
+  <h2>{t.whatWeCollect.heading}</h2>
+
+  <h3>{t.whatWeCollect.dataYouProvide.heading}</h3>
+  <ul>
+    {t.whatWeCollect.dataYouProvide.items.map((item) => (
+      <li><strong>{item.label}：</strong>{item.description}</li>
+    ))}
+  </ul>
+
+  <h3>{t.whatWeCollect.healthKitData.heading}</h3>
+  <ul>
+    {t.whatWeCollect.healthKitData.items.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
+
+  <p>{t.whatWeCollect.healthKitNote}</p>
+
+  <h3>{t.whatWeCollect.dataWeCompute.heading}</h3>
+  <p>{t.whatWeCollect.dataWeCompute.p1}</p>
+
+  <h2>{t.howDataIsStored.heading}</h2>
+  <ul>
+    {t.howDataIsStored.items.map((item) => (
+      <li><strong>{item.label}</strong>{item.description}</li>
+    ))}
+  </ul>
+
+  <h2>{t.coachAthleteSharing.heading}</h2>
+  <p>{t.coachAthleteSharing.intro}</p>
+  <ul>
+    {t.coachAthleteSharing.items.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
+  <p>{t.coachAthleteSharing.outro}</p>
+
+  <h2>{t.thirdPartyServices.heading}</h2>
+  <ul>
+    {t.thirdPartyServices.services.map((service) => (
+      <li><strong>{service.label}</strong>{service.description}：<a href={service.url} target="_blank" rel="noopener noreferrer">{service.urlDisplay}</a></li>
+    ))}
+  </ul>
+  <p>{t.thirdPartyServices.outro}</p>
+
+  <h2>{t.dataRetention.heading}</h2>
+  <p>{t.dataRetention.intro}</p>
+  <ol>
+    <li>在应用中前往<strong>{t.dataRetention.stepOneStrong}</strong></li>
+    <li>{t.dataRetention.steps[1]}</li>
+  </ol>
+  <p>{t.dataRetention.outro}</p>
+
+  <h2>{t.yourRights.heading}</h2>
+  <p>{t.yourRights.intro}</p>
+  <ul>
+    {t.yourRights.items.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
+
+  <h2>{t.children.heading}</h2>
+  <p>{t.children.p1}</p>
+
+  <h2>{t.changes.heading}</h2>
+  <p>{t.changes.p1}</p>
+
+  <h2>{t.contact.heading}</h2>
+  <p>{t.contact.intro}</p>
+  <p><strong>{t.contact.emailLabel}：</strong><a href={`mailto:${t.contact.email}`}>{t.contact.email}</a></p>
+</LegalPageLayout>

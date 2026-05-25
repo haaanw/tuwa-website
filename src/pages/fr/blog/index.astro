@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useBlogTranslations } from '../../../i18n/utils';
+
+const t = useBlogTranslations('fr');
+const posts = (await getCollection('blog', ({ data }) =>
+  !import.meta.env.PROD || !data.draft
+)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title={t.meta.title} description={t.meta.description} locale="fr">
+  <div class="section-spaced">
+    <div class="mx-auto px-6" style="max-width: 680px;">
+      <h1 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1);">
+        {t.page.heading}
+      </h1>
+      {posts.length === 0 ? (
+        <p style="color: var(--color-text-2); margin-top: var(--space-2xl);">
+          {t.page.emptyState}
+        </p>
+      ) : (
+        <ul style="list-style: none; padding: 0; margin-top: var(--space-2xl);">
+          {posts.map(post => (
+            <li style="padding: var(--space-sm) 0;">
+              <a href={`/fr/blog/${post.id}`} class="blog-listing-item" style="padding: var(--space-md);">
+                <time datetime={post.data.date.toISOString()} style="font-size: var(--text-label); color: var(--color-text-3);">
+                  {post.data.date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                <h2 style="font-size: var(--text-body); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xs);">
+                  {post.data.title}
+                </h2>
+                <p style="font-size: var(--text-body); color: var(--color-text-2); margin-top: var(--space-xs);">
+                  {post.data.description}
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </div>
+</BaseLayout>
