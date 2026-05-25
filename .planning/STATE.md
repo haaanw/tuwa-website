@@ -1,17 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v4.0
-milestone_name: Multi-Language Support
-status: Awaiting next milestone
-stopped_at: Phase 22 context gathered
-last_updated: "2026-05-25T13:05:41.393Z"
-last_activity: 2026-05-25 — Milestone v4.0 completed and archived
+milestone: v4.1
+milestone_name: Internationalization Follow-ups
+status: planning
+last_updated: "2026-05-25T13:28:55.659Z"
+last_activity: 2026-05-25
 progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 16
-  completed_plans: 16
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -25,10 +24,10 @@ See: .planning/PROJECT.md (updated 2026-05-16)
 
 ## Current Position
 
-Phase: Milestone v4.0 complete
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-05-25 — Milestone v4.0 completed and archived
+Status: Defining requirements
+Last activity: 2026-05-25 — Milestone v4.1 started
 
 ## Performance Metrics
 

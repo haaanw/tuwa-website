@@ -64,10 +64,18 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 - E-commerce or merchandise
 - Dark mode — Descoped (light mode only)
 
-## Next Milestone
+## Current Milestone: v4.1 Internationalization Follow-ups
 
-**TBD** — run `/gsd:new-milestone`. Deferred candidates (v4.1+): translated OG images
-(CJK in satori), blog post translations, URL slug translation, additional languages (ja/es/de).
+**Goal:** Complete the deferred i18n surface on top of the v4.0 trilingual foundation —
+localized OG images, translated URL slugs, blog-post translation, and locale-aware formatting.
+
+**Target features:**
+- Translated OG images — per-locale social preview cards with CJK text via satori
+- Translated URL slugs — localized paths under /zh/ and /fr/ (routing + hreflang + sitemap)
+- Blog post translations — per-locale blog posts + i18n routing for posts (blog collection currently empty)
+- Locale date/number formatting — Intl-based formatting for dates/numbers
+
+**Key unknowns:** satori CJK glyph rendering; slug-translation's effect on hreflang/sitemap reciprocity.
 
 ## Current State
 
