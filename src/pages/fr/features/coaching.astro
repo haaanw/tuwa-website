@@ -1,0 +1,198 @@
+---
+import { useCoachingTranslations } from '../../../i18n/utils';
+import CoachingPageLayout from '../../../layouts/CoachingPageLayout.astro';
+
+const t = useCoachingTranslations('fr');
+---
+
+<CoachingPageLayout
+  locale="fr"
+  title={t.meta.title}
+  description={t.meta.description}
+  screenshotAlt={t.hero.screenshotAlt}
+  outcomeStatement={t.hero.outcomeStatement}
+  hookLine={t.hero.hookLine}
+  shapeId="blob-1"
+>
+
+  <!-- Default slot: How it works (overview) -->
+  <section data-animate>
+    <div class="section-spaced mx-auto max-w-3xl px-6">
+      <h2
+        style="
+          font-size: var(--text-heading);
+          font-weight: var(--weight-heading);
+          line-height: var(--leading-heading);
+          letter-spacing: var(--tracking-heading);
+          color: var(--color-text-1);
+          margin-bottom: var(--space-lg);
+        "
+      >
+        {t.howItWorks.heading}
+      </h2>
+
+      <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+        {t.howItWorks.p1}
+      </p>
+
+      <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+        {t.howItWorks.p2}
+      </p>
+
+      <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+        {t.howItWorks.p3}
+      </p>
+
+      <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+        {t.howItWorks.p4}
+      </p>
+
+      <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+        {t.howItWorks.p5}
+      </p>
+    </div>
+  </section>
+
+  <!-- Named slot: coach-athlete — Coach vs Athlete perspective -->
+  <div slot="coach-athlete">
+    <h2
+      style="
+        font-size: var(--text-heading);
+        font-weight: var(--weight-heading);
+        line-height: var(--leading-heading);
+        letter-spacing: var(--tracking-heading);
+        color: var(--color-text-1);
+        margin-bottom: var(--space-lg);
+      "
+    >
+      {t.coachAthlete.athleteHeading}
+    </h2>
+
+    <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+      {t.coachAthlete.athleteP1}
+    </p>
+
+    <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+      {t.coachAthlete.athleteP2}
+    </p>
+
+    <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+      {t.coachAthlete.athleteP3}
+    </p>
+
+    <h2
+      style="
+        font-size: var(--text-heading);
+        font-weight: var(--weight-heading);
+        line-height: var(--leading-heading);
+        letter-spacing: var(--tracking-heading);
+        color: var(--color-text-1);
+        margin-top: var(--space-2xl);
+        margin-bottom: var(--space-lg);
+      "
+    >
+      {t.coachAthlete.coachHeading}
+    </h2>
+
+    <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+      {t.coachAthlete.coachP1}
+    </p>
+
+    <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+      {t.coachAthlete.coachP2}
+    </p>
+
+    <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+      {t.coachAthlete.coachP3}
+    </p>
+  </div>
+
+  <!-- Named slot: team-features — Team workflows -->
+  <div slot="team-features">
+    <h2
+      style="
+        font-size: var(--text-heading);
+        font-weight: var(--weight-heading);
+        line-height: var(--leading-heading);
+        letter-spacing: var(--tracking-heading);
+        color: var(--color-text-1);
+        margin-bottom: var(--space-lg);
+      "
+    >
+      {t.teamFeatures.heading}
+    </h2>
+
+    <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+      {t.teamFeatures.p1}
+    </p>
+
+    <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+      {t.teamFeatures.p2}
+    </p>
+
+    <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+      {t.teamFeatures.p3}
+    </p>
+
+    <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+      {t.teamFeatures.p4}
+    </p>
+  </div>
+
+  <!-- Named slot: invite-flow — Invite mechanics -->
+  <div slot="invite-flow">
+    <h2
+      style="
+        font-size: var(--text-heading);
+        font-weight: var(--weight-heading);
+        line-height: var(--leading-heading);
+        letter-spacing: var(--tracking-heading);
+        color: var(--color-text-1);
+        margin-bottom: var(--space-lg);
+      "
+    >
+      {t.inviteFlow.heading}
+    </h2>
+
+    <p style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md);">
+      {t.inviteFlow.intro}
+    </p>
+
+    <ul style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); margin-top: var(--space-md); padding-left: var(--space-lg);">
+      <li style="margin-top: var(--space-sm);"><strong style="color: var(--color-text-1);">{t.inviteFlow.codeMethod}</strong></li>
+      <li style="margin-top: var(--space-sm);"><strong style="color: var(--color-text-1);">{t.inviteFlow.emailMethod}</strong></li>
+      <li style="margin-top: var(--space-sm);"><strong style="color: var(--color-text-1);">{t.inviteFlow.nfcMethod}</strong></li>
+    </ul>
+
+    <div
+      style="
+        background-color: var(--color-surface);
+        border-radius: var(--radius-lg);
+        padding: var(--space-lg);
+        margin-top: var(--space-xl);
+        border: 1px solid var(--color-divider);
+      "
+    >
+      <p
+        style="
+          font-size: var(--text-label);
+          font-weight: var(--weight-label);
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--color-text-3);
+          margin-bottom: var(--space-md);
+        "
+      >
+        {t.inviteFlow.howConnectionLabel}
+      </p>
+
+      <ol style="color: var(--color-text-2); font-size: var(--text-body); line-height: var(--leading-body); padding-left: var(--space-lg);">
+        <li style="margin-top: var(--space-sm);">{t.inviteFlow.step1}</li>
+        <li style="margin-top: var(--space-sm);">{t.inviteFlow.step2}</li>
+        <li style="margin-top: var(--space-sm);">{t.inviteFlow.step3}</li>
+        <li style="margin-top: var(--space-sm);">{t.inviteFlow.step4}</li>
+      </ol>
+    </div>
+  </div>
+
+</CoachingPageLayout>
