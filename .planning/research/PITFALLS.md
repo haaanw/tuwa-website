@@ -1,298 +1,348 @@
-# Domain Pitfalls: Adding i18n (Chinese + French) to Existing Astro Site
+# Pitfalls Research
 
-**Domain:** Internationalization of a 10-page static marketing site
-**Researched:** 2026-05-16
-**Context:** Astro 6 + Tailwind v4, Cloudflare Pages, General Sans variable font, 10 pages
+**Domain:** i18n follow-up features on a static Astro 6 trilingual site (Tuwa v4.1)
+**Researched:** 2026-05-25
+**Confidence:** HIGH (verified against this codebase's actual implementation, satori docs, SEO authority sources)
+
+> **Scope note:** This file replaces the v4.0 pre-implementation research with v4.1-specific pitfalls:
+> satori CJK OG images, translated URL slugs, blog post translations, locale date/number formatting.
+> The v4.0 pitfalls (font loading, text expansion, hreflang fundamentals) have been resolved.
+> These are the NEW failure modes introduced by the four v4.1 features on top of the working v4.0 foundation.
 
 ---
 
 ## Critical Pitfalls
 
-Mistakes that cause rewrites, performance regressions, or SEO damage.
+### Pitfall 1: Satori Loads WOFF2, All CJK Glyphs Render as Tofu
 
-### 1. Chinese Font Weight Catastrophe (5-20MB per weight)
+**What goes wrong:**
+Every Chinese character in the generated OG image appears as an empty rectangle (tofu). The PNG file saves without error — the failure is entirely silent until you visually inspect the image.
 
-**What goes wrong:** Loading a full Chinese font file (e.g., Noto Sans SC) adds 5-20MB to page weight. General Sans only covers Latin -- it has zero CJK glyphs. Naively adding a Chinese font as a single @font-face file destroys the site's Lighthouse 98 score instantly.
+**Why it happens:**
+`@fontsource/noto-sans-sc` ships both WOFF and WOFF2 variants. The CSS `@font-face` declarations in the package reference WOFF2. Satori's renderer **does not support WOFF2** (brotli-compressed format) — only TTF, OTF, or WOFF. Code that reads the font path from the CSS, or that guesses the extension, will silently load an unreadable buffer. Satori generates the image without erroring, but every CJK codepoint is absent.
 
-**Why it happens:** CJK fonts contain 20,000-70,000 glyphs vs ~500 for Latin. Developers unfamiliar with CJK web fonts load the full file like they would a Latin font.
+Confirmed by inspecting this project's `node_modules/@fontsource/noto-sans-sc/files/`: no TTF files exist. Only `*.woff` (valid for satori) and `*.woff2` (invalid for satori). The named subset file is `noto-sans-sc-chinese-simplified-400-normal.woff` at 1.5MB per weight.
 
-**Consequences:** First paint goes from <1s to 5-15s on mobile. Lighthouse drops to 30-50. Users on Chinese mobile networks (often throttled) see blank text for seconds. Core Web Vitals fail.
+**How to avoid:**
+Read fonts with `fs.readFileSync` (or `await fs.readFile`) pointing explicitly at the `.woff` file extension, never `.woff2`. Use the `chinese-simplified` named subset file, not a numbered unicode-range chunk:
 
-**Prevention:**
-- Use Google Fonts' unicode-range subsetting for Noto Sans SC -- it automatically splits into ~100 chunks (~100-500KB total, only needed chunks load per page)
-- Alternatively, use `cn-font-split` (GitHub tool) to split any Chinese font into unicode-range subsets
-- Set `font-display: swap` so text renders immediately in system font, then swaps
-- For zh pages, declare a font stack: `'General Sans', 'Noto Sans SC', system-ui, sans-serif` -- General Sans handles Latin characters in Chinese pages (brand names, numbers), Noto Sans SC handles hanzi only
-- Test on throttled connection (Slow 3G) after implementation
+```ts
+const SC_400 = readFileSync(
+  'node_modules/@fontsource/noto-sans-sc/files/noto-sans-sc-chinese-simplified-400-normal.woff'
+);
+```
 
-**Detection:** Lighthouse performance audit, Network tab showing >1MB font downloads, CLS from font swap.
+**Warning signs:**
+- OG image endpoint builds without error but PNG shows squares for all Chinese characters.
+- The font buffer you loaded is between 30KB and 43KB — you loaded a unicode-range chunk (covers ~3,000 glyphs) instead of the full `chinese-simplified` subset (~28,000 glyphs).
+- The font buffer starts with bytes `wOF2` — you loaded WOFF2 instead of WOFF.
 
-**Phase:** Infrastructure/foundation phase (font loading must be solved before any translated pages ship).
+**Verification step (direct application of the v4.0 lesson):**
+Open the generated zh OG PNG in a browser tab or Preview.app before phase sign-off. Do not rely on code review alone. Add this to the phase success criteria: "zh OG image visually shows Chinese text, not squares."
 
----
-
-### 2. Hardcoded English Strings Scattered Across 20+ Files
-
-**What goes wrong:** After "completing" translation, dozens of English strings remain embedded in component templates, layouts, alt texts, aria-labels, button texts, error messages, and meta descriptions. The site looks 80% translated but feels broken.
-
-**Why it happens:** Existing site was built English-only for 15+ phases. Strings live in:
-- Layout components (BaseLayout, CoachingPageLayout, FeaturePageLayout)
-- Header/Footer navigation labels
-- CTA buttons ("Download on the App Store", "Start Free Trial")
-- Image alt texts
-- SEO component defaults
-- Blog post metadata
-- 404 page copy
-- Structured data (JSON-LD)
-
-**Consequences:** Mixed-language pages destroy credibility. Chinese users see "Read More" buttons. French users see English alt text read by screen readers. Google may classify pages as "thin" or "not in declared language."
-
-**Prevention:**
-- Before writing any translation: audit ALL source files for English strings. Run grep for common patterns: quoted strings in .astro files, aria-label, alt=, title=, placeholder=
-- Create a string extraction checklist covering: navigation, CTAs, labels, alt text, meta tags, structured data, error states, empty states (blog "no posts yet")
-- Use a t() function pattern from day one -- never inline translated strings directly
-- Build a "translation coverage" CI check that flags untranslated keys
-
-**Detection:** Manual review in each locale. Automated: grep for English words in rendered zh/fr HTML output.
-
-**Phase:** Early extraction phase (must happen before translation begins). This is the highest-effort task.
+**Phase to address:** OG Images phase (first phase of v4.1). Visual confirmation is a hard gate before the phase is marked complete.
 
 ---
 
-### 3. hreflang Implementation Errors Causing SEO Traffic Loss
+### Pitfall 2: CJK Font Weight 700 Silently Falls Back to Weight 400 in OG Images
 
-**What goes wrong:** Incorrect hreflang tags cause Google to ignore locale signals entirely, show wrong language versions in search results, or treat translated pages as duplicate content. One e-commerce site lost 64% organic traffic from broken hreflang in 3 months.
+**What goes wrong:**
+OG image headings in Chinese appear at regular weight even when the CSS template specifies `font-weight: 700`. Latin text in the same element renders bold; Chinese characters alongside it render thin. The image looks slightly off, not broken — easy to miss without side-by-side comparison.
 
-**Why it happens:** hreflang has strict requirements that are easy to violate:
-- Tags must be bidirectional (en page links to zh AND zh page links back to en)
-- Must use absolute URLs (not relative paths)
-- Language codes must be exact (`zh` not `zh-CN` unless targeting a specific region)
-- Every page must include a self-referencing hreflang
-- `x-default` must point to the fallback (English in this case)
-- Canonical tags must not conflict with hreflang
+**Why it happens:**
+Satori resolves bold rendering by looking for a registered font entry with both a matching `name` AND a matching `weight`. When only weight 400 is registered for Noto Sans SC, any element with `font-weight: 700` containing CJK codepoints silently drops to weight 400 — satori does not synthesize bold. This is a known satori limitation (GitHub issue #263: "Font weight not resolving correctly"). The substitution is per-codepoint, not per-weight, so mixed Latin + CJK strings produce visually inconsistent weight within the same line.
 
-**Consequences:** Google ignores all hreflang annotations. Chinese users searching in Google see English pages. Duplicate content dilution across locale variants. Wasted crawl budget.
+**How to avoid:**
+Register two separate font entries in the satori `fonts` array:
 
-**Prevention:**
-- Build hreflang generation into the SEO component systematically -- not manually per page
-- Use `x-default` pointing to English (the unprefixed default)
-- Always use absolute URLs: `https://tuwa.app/zh/features/recovery-scoring`
-- Self-reference every page in its own hreflang set
-- Validate with Google Search Console's International Targeting report
-- Include hreflang in both HTML `<link>` tags AND sitemap (belt and suspenders)
-- Generate a per-locale sitemap with `@astrojs/sitemap` locale config
+```ts
+fonts: [
+  { name: 'Noto Sans SC', data: SC_400, weight: 400, style: 'normal' },
+  { name: 'Noto Sans SC', data: SC_700, weight: 700, style: 'normal' },
+]
+```
 
-**Detection:** Google Search Console > International Targeting > hreflang errors. Screaming Frog hreflang audit.
+Both `SC_400` and `SC_700` must point to WOFF files (not WOFF2) of their respective weights.
 
-**Phase:** SEO/infrastructure phase. Must be baked into the SEO component before pages ship.
+**Warning signs:**
+- zh OG image headline looks the same weight as body text.
+- You registered only one CJK font entry in the fonts array.
+- A design with `fontWeight: 700` in the JSX template renders uniformly thin in zh.
 
----
+**Verification step:**
+Render a zh OG image with deliberate bold + regular mix (e.g., a bold title and a regular subtitle). Compare stroke thickness between the two segments visually. If they look identical, weight 700 was not registered.
 
-### 4. Astro i18n Routing: prefixDefaultLocale Trap
-
-**What goes wrong:** Choosing `prefixDefaultLocale: false` (English at `/`, Chinese at `/zh/`) means existing URLs stay stable BUT creates an asymmetric routing system that breaks helper functions, sitemap generation, and internal linking patterns. Choosing `prefixDefaultLocale: true` breaks all existing English URLs and requires redirects.
-
-**Why it happens:** Astro's i18n has two modes:
-- `prefixDefaultLocale: false` -- English stays at `/about`, others at `/zh/about`. But now `getRelativeLocaleUrl()` behaves differently for default vs non-default locale. Internal links in shared components need conditional logic.
-- `prefixDefaultLocale: true` -- All locales get prefixes (`/en/about`, `/zh/about`). Clean and symmetric, but `/about` (the current live URL with SEO equity) now needs a 301 redirect.
-
-**Consequences:** With `false`: language switcher logic becomes complex, component `href` generation has edge cases, sitemap has asymmetric URL patterns. With `true`: existing Google-indexed URLs all 404 without redirects, breaking SEO.
-
-**Prevention:**
-- Use `prefixDefaultLocale: false` to preserve existing URL equity (tuwa.app already ranks for "tuwa app" queries)
-- Accept the asymmetry and use Astro's `getRelativeLocaleUrl()` helper consistently (never hardcode paths)
-- Create a `localePath(path, locale)` utility that wraps `getRelativeLocaleUrl` and handles edge cases
-- Test language switcher links from every page in every locale
-
-**Detection:** Broken links in non-default locales. 404s on language switch. Duplicate pages in sitemap.
-
-**Phase:** First implementation phase. This decision locks in the URL structure for everything else.
+**Phase to address:** OG Images phase. Dual-weight loading belongs in the initial implementation, not a follow-up.
 
 ---
 
-## Moderate Pitfalls
+### Pitfall 3: Loading the Full chinese-simplified WOFF Per Image Makes Builds Unacceptably Slow
 
-### 5. French Text Expansion Breaking Layouts (25-35% longer)
+**What goes wrong:**
+Build time for OG images balloons. With 10 pages × 3 locales = 30 OG images, loading `1.5MB × 2 weights = 3MB` of font buffer on each satori call means 90MB of file I/O plus 30 `opentype.parse()` invocations. On a cold build this can add 2–5 minutes just for OG generation.
 
-**What goes wrong:** French text is 25-35% longer than English. Headlines that fit perfectly in English overflow containers, break onto extra lines, or cause horizontal scroll. CTAs like "Download on the App Store" become "Telecharger sur l'App Store" and overflow fixed-width buttons. The coaching page with its dense feature strips is especially vulnerable.
+**Why it happens:**
+The naive implementation reads font files inside the route handler or inside a `getStaticPaths` loop — once per image. Satori internally calls `opentype.parse()` on each font buffer it receives; this is CPU-bound and the most expensive part of satori's setup. When the font object changes reference on every call, satori cannot reuse its parsed cache.
 
-**Prevention:**
-- Audit every fixed-width element: buttons with `w-[200px]`, grid cells with fixed heights, hero headlines with specific `max-w-` constraints
-- Replace fixed widths with `min-w` + `max-w` ranges or let flex/grid handle sizing
-- Test with French placeholder text (30% longer) BEFORE real translations arrive
-- For hero headlines, allow 2 lines in French where English uses 1 -- add `min-h` instead of fixed `h`
-- CSS `text-overflow: ellipsis` is NOT a solution for marketing copy -- truncation destroys messaging
-- Use `hyphens: auto` with `lang="fr"` for body text to improve line breaking
+**How to avoid:**
+Load and parse font buffers exactly once at module scope (outside any function), export as constants, and import them in every OG endpoint:
 
-**Detection:** Visual regression testing at all breakpoints with French content. Overflow audit with browser DevTools.
+```ts
+// src/lib/og-fonts.ts — evaluated once at build startup
+import { readFileSync } from 'node:fs';
 
-**Phase:** Layout hardening phase (before translations are inserted). Can use pseudolocalization (English text padded 35%) to test.
+export const SC_400 = readFileSync(
+  'node_modules/@fontsource/noto-sans-sc/files/noto-sans-sc-chinese-simplified-400-normal.woff'
+);
+export const SC_700 = readFileSync(
+  'node_modules/@fontsource/noto-sans-sc/files/noto-sans-sc-chinese-simplified-700-normal.woff'
+);
+```
 
----
+Import `SC_400`/`SC_700` in the OG endpoint and pass them directly. Satori's README and issue #590 both document this pattern as providing a ~2× speedup.
 
-### 6. Translation File Architecture That Doesn't Scale
+**Warning signs:**
+- `astro build` takes more than 90 seconds on a 10-page site.
+- Font loading code appears inside a `for` loop, inside `getStaticPaths`, or as `await fs.readFile()` called within the response handler.
 
-**What goes wrong:** Starting with a single `translations.json` per language. After 10 pages with feature-specific copy, the file becomes 2000+ lines. Merge conflicts on every PR. Can't tell which strings belong to which page. Stale translations accumulate.
+**Verification step:**
+`time astro build` before and after extracting font loading to module scope. Expect total build time under 60 seconds for 30 OG images.
 
-**Prevention:**
-- Structure by page/component: `src/i18n/en/home.ts`, `src/i18n/zh/features/recovery.ts`
-- Keep a shared file for repeated UI: `src/i18n/{locale}/common.ts` (nav, footer, CTAs)
-- Use namespaced keys: `features.recovery.hero.title` not `recovery_hero_title`
-- Add a "last updated" field or use git blame to detect stale translations
-- Use TypeScript const objects over JSON -- you get autocomplete and type-checking on keys
-
-**Detection:** File exceeds 500 lines. Developers struggle to find strings. PRs have merge conflicts in translation files.
-
-**Phase:** Architecture phase. Decide structure before writing the first translation.
-
----
-
-### 7. Missing Locale-Aware Content for OG Images and Metadata
-
-**What goes wrong:** OG images still show English text when shared on Chinese social media (WeChat, Weibo). Meta descriptions stay in English. `og:locale` tag missing or wrong. Social sharing looks unprofessional in target markets.
-
-**Prevention:**
-- Generate per-locale OG images using satori (already in stack) -- pass translated title/description
-- Satori supports CJK rendering BUT needs a CJK font file loaded (Noto Sans SC TTF ~16MB at build time is fine since it's build-only, not shipped to clients)
-- Set `og:locale` to `zh_CN` and `fr_FR` respectively
-- Translate meta descriptions -- these show in Google results for that locale
-- Test by sharing URLs in WeChat/LINE (Chinese) and Facebook (French) preview tools
-
-**Detection:** Social share preview tools (Facebook Debugger, Twitter Card Validator). WeChat link preview test.
-
-**Phase:** SEO phase, after base translations exist.
+**Phase to address:** OG Images phase. Module-level font caching is part of the initial implementation, not a later optimization.
 
 ---
 
-### 8. Cloudflare Pages 404 Handling Per Locale
+### Pitfall 4: Translated Slugs Break the Language Switcher's Path-Preservation Logic
 
-**What goes wrong:** Cloudflare Pages serves `404.html` from the root for all 404s. When a Chinese user hits `/zh/nonexistent`, they see an English 404 page.
+**What goes wrong:**
+On a blog post at `/blog/training-load-explained`, clicking the zh language switcher navigates to `/zh/blog/training-load-explained` — a 404. The actual Chinese URL is `/zh/blog/训练负荷解析` (the translated slug). The user hits a hard 404 instead of the translated post.
 
-**Prevention:**
-- Create locale-specific 404 pages: build outputs `zh/404.html` and `fr/404.html`
-- Cloudflare Pages looks for `404.html` in the nearest directory -- so `/zh/404.html` handles `/zh/*` 404s automatically
-- Verify this behavior in production (Cloudflare's directory-level 404 fallback is documented but must be tested)
-- Keep root `404.html` as the English fallback
+**Why it happens:**
+The current language switcher in `Header.astro` (line 78) computes alternate locale URLs as:
 
-**Detection:** Hit a nonexistent URL under each locale prefix in production. Check response language.
+```ts
+href={getRelativeLocaleUrl(code, pathWithoutLocale)}
+```
 
-**Phase:** Implementation phase, when building locale page structure.
+`pathWithoutLocale` strips the locale prefix from `Astro.url.pathname` and keeps the bare path segment — it is always the EN slug. This works perfectly when all locales share identical path segments (the current state for all 10 pages). The moment translated slugs exist, the EN slug is not a valid path in zh or fr.
+
+**How to avoid:**
+Add a `translations` field to each blog post's MDX frontmatter:
+
+```yaml
+---
+translations:
+  zh: /zh/blog/训练负荷解析
+  fr: /fr/blog/comprendre-la-charge-d-entrainement
+---
+```
+
+Pass this map as a prop through the layout down to `<Header>`. Header checks: if the map contains the target locale, use that URL; otherwise fall back to `getRelativeLocaleUrl`. The Header already accepts a `locale` prop — extend it with an optional `localizedPaths` prop.
+
+The language switcher fix is a **hard prerequisite** that must ship in the same phase as the first translated slug, not after.
+
+**Warning signs:**
+- Language switcher click on a translated-slug blog post returns 404.
+- `getRelativeLocaleUrl('zh', '/blog/some-english-slug')` returns a URL with no corresponding built static page.
+- The `pathWithoutLocale` computation in Header (current: strips locale prefix, keeps bare path) produces an EN slug on a zh page.
+
+**Verification step:**
+After adding any translated slug: manually click the language switcher from that post in all 3 locales. Expect zero 404s. Automate: compare every `href` in the language switcher dropdown against the static paths list from `getStaticPaths`.
+
+**Phase to address:** Translated Slugs phase. Switcher fix ships in the same phase, before any translated slug exists in the collection.
 
 ---
 
-### 9. General Sans French Diacritics and oe Ligature Gap
+### Pitfall 5: Translated Slugs Break hreflang Reciprocity and Invalidate SEO Annotations
 
-**What goes wrong:** General Sans (Fontshare) may not cover all French diacritical marks or the oe ligature (U+0153, used in "oeuvre", "coeur"). If a glyph is missing, the browser falls back to system font for that single character, creating a visible "ransom note" effect with mixed fonts in a single word.
+**What goes wrong:**
+After adding `/zh/blog/训练负荷解析`, the English page still auto-emits:
+```html
+<link rel="alternate" hreflang="zh" href="/zh/blog/training-load-explained" />
+```
+because `SEO.astro` derives zh URLs by string-substitution of the current path (lines 29–34 of SEO.astro). The zh page emits a correct self-referencing annotation. The relationship is **asymmetric**: EN points to a 404 for zh, zh points back to EN correctly. Search engines discard both annotations when reciprocity fails. The pages compete as duplicates.
 
-**Prevention:**
-- Verify General Sans coverage: test with full French character set including oe ligature, e with all accent variants, c-cedilla
-- General Sans from Fontshare likely covers full Latin Extended-A (which includes French) -- but VERIFY with a glyph inspector tool before assuming
-- If gaps exist: subset a complementary font for the missing glyphs using unicode-range
-- The `oe` ligature (U+0153) is the most commonly missing glyph in otherwise-complete Latin fonts
+**Why it happens:**
+`SEO.astro`'s auto-derivation assumes all locale paths differ only by prefix. This is correct for the 10 existing pages. It fails for any page where the slug itself is translated. The auto-derivation has no access to the translations map from post frontmatter.
 
-**Detection:** Render French pages and inspect each accented character in DevTools > Computed > Rendered Fonts.
+**How to avoid:**
+For blog posts with translated slugs, pass explicit `hreflangAlternates` prop to `<SEO>`:
 
-**Phase:** Font infrastructure phase, at the same time as Chinese font setup.
+```ts
+<SEO
+  hreflangAlternates={[
+    { hreflang: 'en', href: 'https://tuwa.app/blog/training-load-explained' },
+    { hreflang: 'zh', href: 'https://tuwa.app/zh/blog/训练负荷解析' },
+    { hreflang: 'fr', href: 'https://tuwa.app/fr/blog/...' },
+  ]}
+/>
+```
 
----
+`SEO.astro` already accepts `hreflangAlternates` as an override prop (line 34: `hreflangAlternatesProp ?? siteLocales`). Use it for every page that has a translated slug.
 
-### 10. Content Collections + i18n: Blog Architecture Clash
+**Warning signs:**
+- hreflang checker (Sitechecker, Klartext Tools) shows "missing return tag" errors after adding translated slugs.
+- The auto-generated zh hreflang URL for an EN blog post page contains the EN slug.
+- Google Search Console > International Targeting shows "Alternate page with proper canonical tag" for zh/fr blog variants.
 
-**What goes wrong:** Blog posts use Astro Content Collections with `[...slug].astro`. Adding locale support means deciding: translate blog posts? Separate collections per locale? Same collection with locale field? Each choice has different routing implications and the blog currently has no posts (empty state only).
+**Verification step:**
+After the translated slugs phase, run a free hreflang checker (e.g., https://klartext-tools.com/en/web-utilities/hreflang-checker/) against each translated-slug page. Expect zero reciprocity errors. This must be run against the live or locally-served site, not via code review.
 
-**Prevention:**
-- For MVP: don't translate blog posts. Keep blog English-only initially. Add a "blog is English-only" notice on zh/fr blog listings
-- If translating later: use a flat collection with `locale` field in frontmatter + filter in `getStaticPaths()`
-- Do NOT create separate content collections per locale (breaks shared schema, multiplies maintenance)
-- URL pattern for translated posts: `/zh/blog/[slug]` where slug stays in English (translated slugs are a maintenance nightmare for a solo dev)
-
-**Detection:** 404s on blog routes under locale prefixes. Duplicate posts appearing in wrong locale.
-
-**Phase:** Content architecture phase. Decide before building locale routing.
-
----
-
-## Minor Pitfalls
-
-### 11. Language Switcher Losing Current Page Context
-
-**What goes wrong:** Language switcher navigates to homepage of target locale instead of the equivalent page. User is on `/features/recovery-scoring`, clicks Chinese, lands on `/zh/` instead of `/zh/features/recovery-scoring`.
-
-**Prevention:**
-- Build switcher using `Astro.url.pathname` to construct equivalent locale URL
-- Use `getRelativeLocaleUrl(locale, currentPath)` from `astro:i18n`
-- Test switcher on every page type: index, feature pages, blog listing, blog post, legal pages
-
-**Phase:** UI component phase.
+**Phase to address:** Translated Slugs phase. Explicit hreflang overrides ship in the same phase as slug translation — never as a deferred cleanup.
 
 ---
 
-### 12. Date/Number Formatting Inconsistencies
+### Pitfall 6: @astrojs/sitemap Generates Wrong hreflang Alternates for Translated-Slug Blog Posts
 
-**What goes wrong:** Blog post dates show "May 16, 2026" in Chinese pages instead of "2026nian5yue16ri". Numbers use wrong separators. Stat counters on the site (animated numbers) need locale-aware formatting in their animation logic.
+**What goes wrong:**
+The built sitemap correctly lists `/blog/training-load-explained` but its zh hreflang annotation points to `/zh/blog/training-load-explained` (a 404) instead of `/zh/blog/训练负荷解析`. Google's Search Console flags these as errors. The zh/fr blog post variants are suppressed from indexing.
 
-**Prevention:**
-- Use `Intl.DateTimeFormat(locale)` for all date rendering
-- Use `Intl.NumberFormat(locale)` for stat counters
-- Create locale-aware formatting utilities used by all components
-- Animated stat counters need locale passed to their formatting function
+**Why it happens:**
+`@astrojs/sitemap` with the `i18n` config option auto-generates hreflang by translating the locale prefix segment. It has no access to per-post frontmatter slug translations. When the zh page was built at `/zh/blog/训练负荷解析` (a different path), the sitemap generator does not know to link those two pages as alternates — it only sees the EN URL and substitutes the prefix.
 
-**Phase:** Utility/infrastructure phase.
+**How to avoid:**
+For blog posts with translated slugs, disable auto-hreflang for those entries and inject correct annotations manually via the sitemap `serialize` option. Alternatively, build a separate `/sitemap-blog.xml` Astro endpoint that reads all posts' `translations` frontmatter and emits correct `<xhtml:link>` entries. Given the blog starts empty and will grow slowly, the serialize callback is the pragmatic choice.
 
----
+**Warning signs:**
+- Sitemap file contains `<xhtml:link rel="alternate" hreflang="zh" href="/zh/blog/training-load-explained"/>` when the actual zh URL has a different slug.
+- Google Search Console shows "Submitted URL not found (404)" under the International Targeting report.
 
-### 13. Tailwind Prose Plugin and CJK Line Breaking
+**Verification step:**
+After build, `grep` the generated sitemap-0.xml for each translated slug. Every translated zh/fr slug must appear as both a primary `<loc>` and as a `<xhtml:link>` alternate in the corresponding EN entry. Automate: parse the XML and cross-reference against the `translations` frontmatter data.
 
-**What goes wrong:** `@tailwindcss/typography` prose styles assume Latin text metrics. Chinese text has no word spaces, so `word-break` defaults produce unexpected results. Line height tuned for Latin feels cramped for CJK characters which are taller.
-
-**Prevention:**
-- Add `word-break: break-all` or `overflow-wrap: anywhere` for CJK prose sections
-- Increase `line-height` by 0.2-0.3 for CJK text (1.8 vs 1.5 for Latin)
-- Use CSS `[lang="zh"]` attribute selectors: `[lang="zh"] .prose { line-height: 1.8; }`
-- Test blog post rendering with Chinese content if/when blog is translated
-
-**Phase:** Styling phase, after base layout works.
+**Phase to address:** Translated Slugs phase. Sitemap fix ships in the same phase.
 
 ---
 
-### 14. Incomplete Redirect Coverage on Deploy
+### Pitfall 7: Blog Posts Without a zh/fr Translation Emit Invalid hreflang, Creating 404 Alternates or Duplicate Content
 
-**What goes wrong:** With `prefixDefaultLocale: false`, English has no prefix. But if any tooling accidentally generates `/en/` prefixed URLs (sitemap plugins, old links, third-party tools), those 404.
+**What goes wrong:**
+An English-only blog post exists. The SEO component auto-emits `<link rel="alternate" hreflang="zh" href="/zh/blog/some-post" />`. That URL either 404s (no zh page built) or the zh/fr blog index at `/zh/blog/` links to it via `href={/zh/blog/${post.id}}` — serving EN content at a zh path (duplicate content).
 
-**Prevention:**
-- Add a `_redirects` file (Cloudflare Pages native) redirecting `/en/*` to `/:splat` with 301
-- Validate sitemap contains no `/en/` prefixed URLs
-- Check all `<a href>` in rendered HTML across locales
+**Why it happens:**
+The zh/fr blog index pages (`src/pages/zh/blog/index.astro` and `src/pages/fr/blog/index.astro`) currently build links as `/zh/blog/${post.id}` for ALL posts regardless of locale. There is no locale-filtered blog routing. When the collection is empty this is harmless. The moment any EN-only post is added, the zh listing links to 404s. There is also no `[...slug].astro` under `/zh/blog/` or `/fr/blog/` — locale-specific blog post routing doesn't exist yet.
 
-**Phase:** Deployment/QA phase.
+**How to avoid:**
+Before adding any post:
+1. Add `locale: z.enum(['en', 'zh', 'fr']).default('en')` to the blog collection schema in `content.config.ts`.
+2. Create `src/pages/zh/blog/[...slug].astro` and `src/pages/fr/blog/[...slug].astro` with `getStaticPaths` filtered to `data.locale === 'zh'` (and `fr` respectively).
+3. Update zh/fr blog index listings to only iterate posts with the matching locale.
+4. For EN-only posts, do not emit zh/fr hreflang — only emit `hreflang="en"` and `hreflang="x-default"`.
+
+**Warning signs:**
+- `src/pages/zh/blog/` contains only `index.astro` — no `[...slug].astro` exists.
+- The zh blog listing links to paths that have no built static file under `dist/zh/blog/`.
+- An EN post's page source shows hreflang pointing to zh/fr URLs that don't exist in `dist/`.
+
+**Verification step:**
+After build: `find dist/zh/blog -name "index.html" | wc -l` must equal the count of posts with `locale: zh` in the collection (currently zero, and the count must stay consistent as posts are added). Any discrepancy indicates a missing page or a dangling hreflang. Run the same check for fr.
+
+**Phase to address:** Blog Translation phase. The schema change (locale field) and filtered routing must be established before any post is created, even an EN-only one.
 
 ---
 
-## Phase-Specific Warnings
+## Technical Debt Patterns
 
-| Phase Topic | Likely Pitfall | Mitigation |
-|-------------|---------------|------------|
-| Font infrastructure | Chinese font bloat (#1), French diacritics gap (#9) | Solve unicode-range subsetting first, verify General Sans coverage |
-| Routing setup | prefixDefaultLocale choice (#4), 404 per locale (#8) | Decide URL strategy before touching any pages |
-| String extraction | Hardcoded English scattered (#2) | Full audit before translation begins, t() wrapper for everything |
-| Translation architecture | File sprawl (#6), blog duplication (#10) | Namespace by page, defer blog translation |
-| Layout hardening | French text expansion (#5), CJK line breaking (#13) | Test with pseudolocalized 35%-longer strings |
-| SEO implementation | hreflang errors (#3), OG per locale (#7) | Systematic generation in SEO component, never manual |
-| UI components | Language switcher context loss (#11) | Use Astro i18n helpers, test from every page |
-| QA/deploy | Redirect gaps (#14), date formatting (#12) | _redirects file, Intl API for all formatting |
+| Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
+|----------|-------------------|----------------|-----------------|
+| Register only weight 400 for CJK in satori | Simpler setup, saves 1.5MB buffer load | All zh headings in OG images render at regular weight permanently; visual inconsistency | Never — dual-weight is a 5-line addition |
+| Auto-derive hreflang from path for all pages | Zero per-page config | Breaks silently when translated slugs are introduced; requires retroactive audit of all affected pages | Acceptable for the 10 existing feature/legal pages (paths match); never acceptable for blog posts |
+| Keep EN slug as the zh blog route path | Avoids building a slug translation system | Language switcher 404s; hreflang reciprocity breaks; zh SEO value unrealized | Never once translated slugs are intended |
+| Skip locale field on blog schema | Simpler schema | First EN-only post causes zh/fr routes to 404 or show duplicate content; hard to retrofit | Never — add before any post is created |
+| Load fonts inside each satori call | Simpler code structure | Build time scales linearly with image count; unacceptable at 30+ images | Never — module-level caching is the correct pattern and takes the same number of lines |
+
+---
+
+## Integration Gotchas
+
+| Integration | Common Mistake | Correct Approach |
+|-------------|----------------|------------------|
+| satori + Fontsource Noto Sans SC | Load the `.woff2` file (referenced in the package CSS) | Use `fs.readFileSync` on the `.woff` file: `noto-sans-sc-chinese-simplified-{weight}-normal.woff` |
+| satori + bold headings in zh OG | Register only weight 400 | Register both weight 400 and 700 as separate `fonts` array entries |
+| @astrojs/sitemap + translated blog slugs | Let sitemap auto-generate hreflang alternates for blog posts | Use sitemap `serialize` callback or a separate sitemap endpoint to inject correct cross-locale URLs |
+| SEO component + translated blog slugs | Let auto-derivation compute zh/fr hreflang from the EN path | Pass explicit `hreflangAlternates` prop for any page whose path differs across locales |
+| Language switcher + translated blog slugs | Use `getRelativeLocaleUrl(code, pathWithoutLocale)` for all pages | Add `localizedPaths` prop to Header; consult translations frontmatter map before falling back to path-substitution |
+| `Intl.DateTimeFormat` in static Astro pages | No `timeZone` argument — uses build server system timezone | Pass `timeZone: 'UTC'` when rendering any date that includes a time component; date-only formatting (as used in the blog listing) is safe without it |
+
+---
+
+## Performance Traps
+
+| Trap | Symptoms | Prevention | When It Breaks |
+|------|----------|------------|----------------|
+| Font loaded inside each satori call | Build time > 90 seconds for 30 OG images | Extract font buffers to module-level constants | First use — 10+ images makes this noticeable |
+| Loading all 1818 numbered WOFF unicode-range chunks | OOM or extremely slow build | Use only the 2 `chinese-simplified` named subset WOFF files (one per weight, 1.5MB each) | Immediately on first attempt |
+| Generating OG images on every build with no caching | Slow CI as blog grows | Add a cache key (hash of post content + OG template); skip regeneration on cache hit | > 50 blog posts |
+
+---
+
+## UX Pitfalls
+
+| Pitfall | User Impact | Better Approach |
+|---------|-------------|-----------------|
+| Language switcher 404s on translated-slug blog posts | User switching locale from a blog post hits a dead page; likely abandons the site | Implement slug translation map lookup in Header before shipping any translated slug |
+| zh blog listing links to paths without zh translations | zh-browsing user clicks a post and sees English content or a 404 | Filter blog listing by `locale` field; only show posts with a matching translation |
+| OG images with tofu shared on WeChat | Link preview for the zh page shows blank squares where Chinese text should be; damages first impression | Visual UAT of generated OG images is a mandatory phase gate |
+| Date formatted without explicit locale context | Users in different timezones may see a post dated one day off | Use `timeZone: 'UTC'` for any date with a time component; the existing `toLocaleDateString('zh-CN', {...})` in zh/blog/index.astro is correct for date-only display |
+
+---
+
+## "Looks Done But Isn't" Checklist
+
+- [ ] **Satori CJK font format:** Code loads a `.woff` file — but open the generated PNG and confirm Chinese characters are visible, not squares. Code review is insufficient; a human must look at the image.
+- [ ] **Satori font weight:** zh OG image was generated — but compare the title stroke weight to the body text. If identical, only weight 400 was registered.
+- [ ] **Language switcher with translated slugs:** Switcher renders — but click it from a translated-slug post in all 3 locales. Expect zero 404s.
+- [ ] **hreflang reciprocity for translated slugs:** All pages emit hreflang — but verify with a reciprocity checker tool. Code review cannot catch asymmetric annotations across two separate files.
+- [ ] **Sitemap hreflang for blog posts:** Sitemap file contains entries — but grep the XML for each translated zh/fr slug and confirm it appears as the `<xhtml:link>` alternate, not the EN slug.
+- [ ] **Blog locale filtering:** zh/fr blog listings show posts — but verify every linked post URL resolves to a built static page, not a 404. `find dist/zh/blog -name "index.html"` count must match locale-filtered post count.
+- [ ] **CJK font in browser (the v4.0 carry-forward):** The CJK font wiring fix from v4.0 is confirmed working — but re-verify after any BaseLayout or global CSS change: `document.querySelector('p').computedStyleMap().get('font-family')` on a zh page must show 'Noto Sans SC'.
+
+---
+
+## Recovery Strategies
+
+| Pitfall | Recovery Cost | Recovery Steps |
+|---------|---------------|----------------|
+| Satori tofu (WOFF2 loaded instead of WOFF) | LOW | Swap file path to `.woff` variant; rebuild; visually confirm |
+| Font weight 400 only in satori | LOW | Add second font entry for weight 700; rebuild OG images |
+| Language switcher 404s on translated slugs | MEDIUM | Add translations frontmatter field and Header lookup; audit all existing translated-slug posts |
+| hreflang reciprocity broken by translated slugs | MEDIUM | Pass explicit `hreflangAlternates` to SEO component for all affected pages; run reciprocity checker; resubmit sitemap |
+| Blog posts ship without locale field and create 404s at zh/fr paths | MEDIUM | Add locale field to schema; update `getStaticPaths` filter; add canonical to any duplicate zh/fr pages that built; resubmit sitemap |
+| Sitemap lists incorrect zh/fr alternate URLs for blog posts | LOW | Fix sitemap serialize callback; rebuild; resubmit via Search Console; Googlebot re-crawl takes ~2 weeks |
+
+---
+
+## Pitfall-to-Phase Mapping
+
+| Pitfall | Prevention Phase | Verification |
+|---------|------------------|--------------|
+| Satori CJK tofu (WOFF2 vs WOFF) | OG Images phase | Visual UAT: open at least one zh PNG, confirm Chinese text is visible |
+| Satori font weight 400-only | OG Images phase | Visual UAT: bold title in zh OG must be visually heavier than body text |
+| Font loaded per-call (build performance) | OG Images phase | `time astro build` < 60s total |
+| Translated slugs break language switcher | Translated Slugs phase — implement switcher fix first, in the same phase as the first slug | Manual: click switcher from every translated-slug post in all 3 locales — zero 404s |
+| Translated slugs break hreflang reciprocity | Translated Slugs phase — explicit hreflang override in same PR as slug translation | hreflang checker tool against live/local site: zero "missing return tag" errors |
+| Sitemap hreflang wrong for translated-slug posts | Translated Slugs phase | Post-build: grep sitemap XML for each translated slug; confirm correct alternates |
+| Blog posts without translations cause 404/duplicate zh routes | Blog Translation phase — schema change before any post is created | `find dist/zh/blog -name "index.html" | wc -l` equals count of posts with locale:zh |
+| EN-only posts emit invalid zh/fr hreflang | Blog Translation phase | Verify EN-only posts emit only `hreflang="en"` and `hreflang="x-default"`, not zh/fr pointing to 404s |
+| Timezone mismatch in date formatting | Blog Translation phase | Compare build-output date strings for posts with known dates; verify 'UTC' is passed when a time component is rendered |
 
 ---
 
 ## Sources
 
-- [Astro i18n Routing Docs](https://docs.astro.build/en/guides/internationalization/)
-- [Astro i18n Configuration Guide (2025)](https://eastondev.com/blog/en/posts/dev/20251202-astro-i18n-guide/)
-- [CJK Font Optimization Guide (2026)](https://font-converters.com/languages/cjk-font-optimization)
-- [Font Subsetting by Language](https://font-converters.com/guides/font-subsetting-by-language)
-- [Best Chinese Fonts for Websites (2026)](https://www.az-loc.com/choose-best-chinese-fonts-for-websites/)
-- [Why Text Expansion Breaks Your UI](https://simplelocalize.io/blog/posts/text-expansion-ui-localization/)
-- [UI Localization Technical Guide 2026](https://intlpull.com/blog/ui-localization-technical-guide-2026)
-- [Common Hreflang Mistakes - SEO Clarity](https://www.seoclarity.net/blog/12-common-hreflang-mistakes-and-how-to-prevent-them)
-- [Hreflang Tags Complete 2026 Guide](https://www.clickrank.ai/hreflang-tags-complete-guide/)
-- [Cloudflare Pages Routing Docs](https://developers.cloudflare.com/pages/functions/routing/)
-- [Cloudflare Pages Localization Tutorial](https://developers.cloudflare.com/pages/tutorials/localize-a-website/)
+- [vercel/satori README — font format support, WOFF2 not supported, font weight config](https://github.com/vercel/satori/blob/main/README.md)
+- [satori issue #263 — font weight not resolving correctly for CJK](https://github.com/vercel/satori/issues/263)
+- [satori issue #590 — 2× speedup with module-level global font variable](https://github.com/vercel/satori/issues/590)
+- [How I Built 19 Per-Topic OG Images with Japanese Fonts at Build Time (Next.js + Satori)](https://dev.to/mitsuashi/how-i-built-19-per-topic-og-images-with-japanese-fonts-at-build-time-nextjs-satori-1ako)
+- [Why Multilingual Hreflang Mistakes Destroy Rankings — Hashmeta](https://hashmeta.com/blog/why-multilingual-hreflang-mistakes-destroy-rankings-the-hidden-seo-crisis/)
+- [Missing Reciprocal Hreflang — Sitebulb documentation](https://sitebulb.com/hints/international/missing-reciprocal-hreflang-no-return-tag/)
+- [Astro i18n Routing — Official Docs](https://docs.astro.build/en/guides/internationalization/)
+- [@astrojs/sitemap integration docs](https://docs.astro.build/en/guides/integrations-guide/sitemap/)
+- [Fontsource Noto Sans SC — file inspection in this project's node_modules confirms WOFF/WOFF2 files, no TTF, 1.4–1.5MB chinese-simplified subset size]
+- Tuwa v4.0 RETROSPECTIVE.md — CJK font defect root cause: wrong CSS var target, silent PingFang fallback, visual UAT deferred 6 phases
+- Tuwa Header.astro line 78 — language switcher uses `getRelativeLocaleUrl(code, pathWithoutLocale)` — path-substitution assumption confirmed by code inspection
+- Tuwa SEO.astro lines 29–34 — hreflang auto-derivation by path prefix substitution confirmed by code inspection
+
+---
+*Pitfalls research for: Astro 6 static i18n follow-up features (satori CJK OG images, translated slugs, blog translations, locale formatting)*
+*Researched: 2026-05-25*

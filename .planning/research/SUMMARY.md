@@ -1,175 +1,116 @@
-# Project Research Summary
+# Research Summary: Tuwa v4.1 i18n Follow-ups
 
-**Project:** Tuwa Marketing Website — i18n (Chinese + French)
-**Domain:** Static site internationalization
-**Researched:** 2026-05-16
+**Project:** Tuwa Marketing Website — v4.1 Internationalization Follow-ups
+**Domain:** Multilingual static marketing site (Astro 6, EN/zh/fr, Cloudflare Pages)
+**Researched:** 2026-05-25
 **Confidence:** HIGH
+
+---
 
 ## Executive Summary
 
-Adding Chinese and French to the Tuwa marketing site is a well-trodden path with Astro 6's built-in i18n routing. The recommended approach uses zero external i18n libraries: Astro's native locale routing handles URL prefixes (`/zh/`, `/fr/`), a lightweight TypeScript dictionary pattern provides type-safe translations, and the existing `@astrojs/sitemap` auto-generates per-locale entries. The only new npm dependency is `@fontsource/noto-sans-sc` for Chinese font rendering with automatic unicode-range subsetting.
+v4.1 builds on a working v4.0 i18n foundation: Astro i18n routing with `prefixDefaultLocale: false`, hreflang auto-derivation in `SEO.astro`, localized sitemap, path-preserving language switcher, Noto Sans SC isolated to zh pages, 33 static pages across three locales. Four follow-up features are scoped: translated OG images via satori, blog post i18n routing, locale date formatting, and (contested) translated URL slugs. The first three have clear implementation paths with only two new packages (`satori` + `@resvg/resvg-js`). Translated slugs are where the researchers disagree — resolve before locking phases.
 
-The architecture follows a "props-down" pattern where locale page files are thin wrappers importing translated content and passing it to existing components. Header and Footer self-detect locale from the URL, minimizing changes to the 10+ existing page files. English URLs remain unprefixed (preserving SEO equity), while zh/fr get directory prefixes. Fallback rewrites serve English content for untranslated pages during incremental rollout.
+Dominant risk theme: **silent failure**. Satori writes a PNG without error even when CJK renders as tofu; hreflang looks correct in code while pointing to 404s; sitemap lists translated pages with wrong locale URLs. v4.0 hit exactly this class of bug. Cross-cutting lesson: every phase needs a visual/tool-based verification gate as a hard sign-off criterion.
 
-The primary risks are: (1) Chinese font bloat destroying performance if not properly subsetted, (2) hardcoded English strings scattered across 20+ existing component files that will surface as untranslated fragments, and (3) hreflang implementation errors causing SEO traffic loss. All three are well-understood problems with documented prevention strategies.
+---
+
+## Key Decision Required: Translated URL Slugs
+
+The four researchers disagree. User must decide before execution.
+
+**FEATURES.md — do NOT build.** Anti-feature at this scale. Feature slugs (`recovery-scoring`, etc.) are short technical terms whose zh/fr equivalents carry no keyword weight. Google's i18n signals are hreflang/og:locale/page content, not URL structure. Translated title+description (v4.0) + translated OG images (v4.1) deliver ~95% of benefit at ~5% of complexity. Path-substitution switcher and SEO.astro hreflang both break when slugs differ. Conclusion: defer; revisit only with Search Console data.
+
+**STACK/ARCHITECTURE/PITFALLS — feasible, heavy ripple.** Implementable via `src/i18n/slugs.ts` slug map + dynamic `[slug].astro` routes, but requires a 4-system atomic update:
+1. Language switcher (`Header.astro` line 78 + `MobileMenu.astro`) — reverse slug lookup, else hard 404 on switch
+2. `SEO.astro` hreflang — explicit `hreflangAlternates` prop per translated page (escape hatch exists), else asymmetric hreflang discarded by search engines
+3. `@astrojs/sitemap` — `serialize` callback to inject correct xhtml:link (API needs verifying in v3.7.2)
+4. OG endpoint `getStaticPaths` — output paths reference slug names, so OG built after slugs final
+
+| Factor | Keep English slugs | Translated slugs |
+|--------|-------------------|------------------|
+| SEO benefit | Minimal loss | Small keyword signal |
+| Impl cost | None | HIGH (4 systems atomic) |
+| Failure risk | None | Silent 404s + broken hreflang |
+| Maintenance | None | Slug map per new page |
+
+**Synthesis recommendation:** accept FEATURES.md — defer translated slugs for v4.1. If overridden, ARCHITECTURE.md build sequence + PITFALLS 4-6 are the spec; switcher/hreflang/sitemap fixes ship in the same phase as the first translated slug.
+
+---
 
 ## Key Findings
 
-### Stack Additions
+### Stack
+Two new packages only:
+- `satori ^0.27.0` — build-time JSX→SVG for OG (chose over @vercel/og which forces React + edge runtime)
+- `@resvg/resvg-js ^2.6.2` — SVG→PNG; MUST add to `vite.optimizeDeps.exclude` + `vite.ssr.external` (native NAPI binding)
 
-One new dependency. Everything else is built-in Astro features plus custom TypeScript utilities.
+Everything else (blog routing, formatting, slug infra) needs zero packages. Native `Intl` on Node 22 (Cloudflare Pages) handles all formatting — full ICU verified, no date-fns/dayjs.
 
-- **@fontsource/noto-sans-sc**: Chinese font with automatic unicode-range subsetting (browser loads only needed character chunks, ~200-400KB per page vs 5-8MB for full file)
-- **Astro i18n config** (built-in): Locale routing, URL helpers, fallback rewrites — no package needed
-- **TypeScript translation utilities** (~50 lines): Type-safe `t()` function with per-page translation files — no i18n framework needed
-- **HreflangTags component** (~15 lines): Uses `getAbsoluteLocaleUrl()` from `astro:i18n`
-- **LanguageSwitcher component** (~20 lines): Globe icon + dropdown, plain `<a>` tags, zero JS
+**Critical font constraint:** satori does NOT support WOFF2. Need `GeneralSans-Variable.ttf` copied to `src/assets/fonts/` (WOFF2 in public/fonts/ unusable). CJK via `@fontsource/noto-sans-sc` `.woff` subset files (no TTF present); load via `loadAdditionalAsset` or explicit `fs.readFileSync` of the `.woff`.
 
-### Feature Table Stakes
+### Features
+- **Table stakes:** translated OG images (zh/fr currently serve English cards — visible gap); locale date formatting (trivial, fix before first post); blog i18n routing (establish before posts written)
+- **Differentiator:** per-page localized OG (21 PNGs) vs per-locale template
+- **Defer:** translated slugs (anti-feature); runtime OG (needs SSR); EN fallback for untranslated posts (breaks language promise, duplicate content)
 
-Non-negotiable for a credible multilingual site:
+### Architecture
+New files: `src/i18n/format.ts`; `src/lib/og/fonts.ts` (module-level font cache — critical for build speed); `src/lib/og/template.ts` (single OG component); `src/pages/og/[locale]/[page].png.ts` (static endpoint, 21 PNGs).
+Modified: `BlogPostLayout.astro` (+locale prop); `content.config.ts` (+locale, +canonicalKey/translationKey, optional slug); blog listing pages (locale filter).
+Blog structure: single collection, `locale` in frontmatter (e.g. `post.en.mdx` / `post.zh.mdx`) — avoids changing all `getCollection('blog')` call sites. zh blog route imports `@fontsource/noto-sans-sc` directly (mirrors zh feature pattern; don't add a 3rd font approach).
 
-- **Subdirectory URL routing** (`/zh/`, `/fr/`) — industry standard, best SEO
-- **English unprefixed** (`/` = en) — preserves existing rankings
-- **hreflang tags on every page** — prevents duplicate content penalties
-- **Per-locale `<html lang="">`** — accessibility and search signals
-- **Localized meta/OG tags** — correct language in search results and social shares
-- **Language switcher in header** — users must actively choose language
-- **All 10 pages translated** — partial translation hurts more than no translation
-- **CJK font stack** — Chinese text must not render in Times New Roman
-- **Localized sitemap** — Google needs hreflang confirmation in sitemap
+### Critical Pitfalls (all silent failures)
+1. **Satori CJK tofu** — WOFF2 unreadable, PNG saves with empty boxes. Read `.woff` explicitly. Gate: open zh PNG visually.
+2. **CJK weight 700 → 400 fallback** — satori needs separate weight entries. Register 400 AND 700. Gate: compare bold vs regular stroke.
+3. **Per-call font load = slow build** — module-level constants. Gate: `time astro build` < 60s.
+4. **Translated slug breaks switcher** — 404 on switch; fix must ship with first translated slug.
+5. **Translated slug breaks hreflang reciprocity** — explicit `hreflangAlternates`; verify with reciprocity checker.
+6. **Blog post without locale field → zh/fr listings link to 404s** — add `locale` to schema + filter `getStaticPaths` before any post. Gate: `find dist/zh/blog -name index.html | wc -l` == zh post count; EN-only posts emit only hreflang en + x-default.
 
-### Feature Differentiators
+---
 
-Nice-to-haves that elevate the experience:
+## Cross-Cutting Verification Lesson (from v4.0)
+Every phase needs a visual/tool gate, not just code review:
+- OG: open zh PNG (text not squares); compare weights; build < 60s
+- Blog: dist zh/blog count == locale-filtered posts; EN-only posts emit only en + x-default hreflang
+- Slugs (if built): switcher click from every translated page in all 3 locales = 0 404s; hreflang reciprocity = 0 errors; grep sitemap for each slug
 
-- **Language detection banner** — non-intrusive suggestion for mismatched browser locale
-- **Locale-aware date formatting** — "2026年5月16日" vs "16 mai 2026"
-- **Localized App Store badges** — Apple provides official translated badges
-- **Per-locale 404 pages** — Cloudflare Pages supports directory-level 404 fallback
+---
 
-### Defer to Later
+## Implications for Roadmap
 
-- Translated OG images (CJK font in satori is complex, ~16MB build asset)
-- Blog post translations (blog is empty state currently)
-- URL slug translation (marginal SEO benefit, doubles routing complexity)
-- Language detection auto-redirect (requires edge runtime, kills static site)
+Suggested phases (translated slugs deferred per FEATURES.md). Phase numbers continue from v4.0 (ended at 22):
 
-### Architecture Pattern
+**Phase 23: Locale Formatting Utility** — `src/i18n/format.ts` + BlogPostLayout locale prop + replace inline `toLocaleDateString` in 3 listing pages. Zero deps, unblocks blog. Standard pattern.
 
-Props-down pattern: locale page files import translations and pass content as props to shared components. Header/Footer self-detect locale from URL via utility function. Translation files are per-page TypeScript objects (not one monolithic JSON) to keep 500+ word feature pages manageable.
+**Phase 24: Blog Translation Infrastructure** — `content.config.ts` schema (+locale, +canonicalKey); new `zh/blog/[...slug].astro` + `fr/blog/[...slug].astro`; EN blog route filters `locale==='en'`; listing pages locale-filter. Avoids Pitfall 6. Standard pattern (Astro i18n recipes).
 
-**File structure:**
-1. **`src/i18n/`** — config, utils, shared UI strings, per-page translation objects
-2. **`src/pages/zh/` and `src/pages/fr/`** — thin wrapper pages importing same layouts/components
-3. **`src/components/LanguageSwitcher.astro`** — new shared component
-4. **Modified components** — Hero, Header, Footer, SEO, FeatureGrid accept locale/content props
+**Phase 25: Translated OG Images via Satori** — add satori + @resvg/resvg-js; `src/lib/og/fonts.ts` (module cache, .woff, both weights); `src/lib/og/template.ts`; `src/pages/og/[locale]/[page].png.ts` (21 PNGs); astro.config.mjs Vite externalize; copy GeneralSans TTF; update all locale ogImage props. Hard visual + build-time gates. Research flag: verify satori `loadAdditionalAsset` return shape on first impl.
 
-**Key decisions:**
-- `prefixDefaultLocale: false` (English stays at `/`, preserves SEO)
-- `fallbackType: "rewrite"` (untranslated pages serve English silently, no 404s during rollout)
-- Per-page translation files (not monolithic JSON — prevents 2000-line merge conflicts)
-- Components stay locale-agnostic (receive content via props, not importing translations themselves)
-
-### Watch Out For
-
-1. **Chinese font bloat** — Use @fontsource/noto-sans-sc with unicode-range subsetting. Never load a full CJK font file (5-20MB). Test on throttled connection.
-2. **Hardcoded English strings** — Audit ALL 20+ source files before translation begins. Grep for quoted strings in .astro files, aria-labels, alt texts, meta defaults.
-3. **hreflang errors** — Must be bidirectional, use absolute URLs, include self-reference, x-default to English. Generate systematically in SEO component, never manual per-page.
-4. **French text expansion (25-35% longer)** — Audit fixed-width elements. Replace `w-[200px]` with flexible sizing. Test with padded pseudo-text before real translations.
-5. **prefixDefaultLocale asymmetry** — Always use `getRelativeLocaleUrl()` helper, never hardcode paths. Add `_redirects` for any accidental `/en/` URLs.
-
-## Suggested Build Order
-
-### Phase 1: i18n Infrastructure
-**Rationale:** Everything depends on routing config and translation utilities existing first. Zero visible changes — safe and reversible.
-**Delivers:** Astro i18n config, translation utility functions, type definitions, CJK font integration
-**Addresses:** Routing, font stack, translation architecture
-**Avoids:** Pitfall #1 (font bloat), #4 (routing trap), #6 (file architecture)
-
-### Phase 2: Component Extraction
-**Rationale:** Existing components have hardcoded English. Must extract strings into t() pattern before creating locale pages. This is the highest-effort task.
-**Delivers:** All components accept locale/content props; Header, Footer, SEO component emit locale-aware markup; LanguageSwitcher built
-**Addresses:** Language switcher, hreflang, localized nav
-**Avoids:** Pitfall #2 (scattered strings), #3 (hreflang errors), #11 (switcher context loss)
-
-### Phase 3: Home Page Localization (Proof of Concept)
-**Rationale:** Prove the full pattern end-to-end on one page before scaling to all 10. Catches layout issues with French expansion and CJK rendering early.
-**Delivers:** Chinese and French home pages fully working
-**Addresses:** Translated content, layout validation
-**Avoids:** Pitfall #5 (French expansion), #13 (CJK line breaking)
-
-### Phase 4: Feature Pages (5 pages x 2 locales)
-**Rationale:** Largest content volume. Pattern is proven from Phase 3, this is parallelizable grunt work.
-**Delivers:** All 5 feature deep-dives in Chinese and French
-**Addresses:** Full feature page translation, localized alt text
-
-### Phase 5: Legal + Support Pages
-**Rationale:** Lower priority content but legally important (PIPL, GDPR require accessible language for privacy notices).
-**Delivers:** Privacy, terms, support in both locales with "English is binding" disclaimer
-**Addresses:** Legal compliance, complete site coverage
-
-### Phase 6: SEO Verification and Polish
-**Rationale:** Final validation pass before shipping. Catches hreflang errors, sitemap gaps, broken links across 30 pages.
-**Delivers:** Verified hreflang, complete sitemap, per-locale 404 pages, `_redirects` file, Lighthouse audit
-**Addresses:** Differentiators (locale 404, date formatting), deployment safety
-**Avoids:** Pitfall #3 (hreflang), #8 (404 per locale), #14 (redirect gaps)
+**Phase 26 (OPTIONAL): Translated URL Slugs** — only if user opts in after the trade-off above. All 4 systems update atomically. Research flag: verify @astrojs/sitemap v3.7.2 `serialize`/`SitemapItem.links`; fallback post-build script.
 
 ### Research Flags
+- Phase 25 (OG): satori `loadAdditionalAsset` font return shape
+- Phase 26 (slugs, if adopted): @astrojs/sitemap serialize API
+Standard (skip research): Phase 23 (Intl), Phase 24 (Astro i18n recipes)
 
-Phases likely needing deeper research during planning:
-- **Phase 2:** FeatureGrid.astro is 15.5K and the most complex component to refactor — may need careful decomposition strategy
-- **Phase 4:** Feature pages have 500+ words each; translation quality review process needs definition
-
-Phases with standard patterns (skip research):
-- **Phase 1:** Well-documented Astro i18n config, official docs cover everything
-- **Phase 6:** Standard SEO validation tooling (Search Console, Screaming Frog)
+---
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | Only 1 new dependency; Astro i18n is built-in and well-documented |
-| Features | HIGH | Standard i18n feature set; clear table stakes vs differentiators |
-| Architecture | HIGH | Official Astro patterns, verified for v6 |
-| Pitfalls | HIGH | Well-known CJK/i18n issues with documented solutions |
+| Stack | HIGH | WOFF2 limit in satori README; resvg externalize from community; Node 22 ICU verified |
+| Features | HIGH | Categories justified; slug trade-off surfaced explicitly |
+| Architecture | HIGH | Direct source inspection of live codebase at HEAD |
+| Pitfalls | HIGH | satori issues #263/#590; Header.astro:78 + SEO.astro:29-34 traced; blog index inspected |
 
-**Overall confidence:** HIGH
+**Overall:** HIGH
 
 ### Gaps to Address
+- @astrojs/sitemap `serialize`/`SitemapItem.links` in v3.7.2 (Phase 26 only) — fallback: post-build script
+- satori `loadAdditionalAsset` return shape (Phase 25) — alternative: preload .woff subset in fonts array
+- **Translated slug decision — the only gap blocking roadmap finalization**
 
-- **General Sans oe ligature coverage** (U+0153): Must verify before French pages ship. Render test needed — if missing, need unicode-range patch font.
-- **@astrojs/sitemap hreflang output**: Docs say it auto-generates `<xhtml:link>` for i18n config, but should verify actual XML output in Phase 1 testing.
-- **Cloudflare Pages directory-level 404 behavior**: Documented but must be tested in production — does `/zh/404.html` actually catch `/zh/nonexistent`?
-- **Translation quality process**: Research covers architecture but not who translates and reviews. LLM-assisted translation with human review is assumed but not formalized.
-
-## Open Questions
-
-1. **Translation source**: Use Claude/LLM for initial drafts with human review, or hire professional translators? Affects timeline significantly (hours vs weeks).
-2. **Blog handling**: Keep blog English-only for this milestone, or include a translated blog listing page with "content is English" notice?
-3. **Localized App Store badges**: Use Apple's official localized SVGs, or keep the English badge everywhere?
-4. **Translated OG images**: Defer entirely, or do text-only OG (no CJK font in satori) for v1?
-5. **FeatureGrid decomposition**: At 15.5K, should this be split into smaller components as part of the i18n refactor, or keep monolithic and just add props?
-
-## Sources
-
-### Primary (HIGH confidence)
-- [Astro i18n Routing Docs](https://docs.astro.build/en/guides/internationalization/)
-- [Astro i18n Recipe](https://docs.astro.build/en/recipes/i18n/)
-- [Astro i18n API Reference](https://docs.astro.build/en/reference/modules/astro-i18n/)
-- [Fontsource Noto Sans SC](https://fontsource.org/fonts/noto-sans-sc)
-- [Tailwind CSS v4 dark mode docs](https://tailwindcss.com/docs/dark-mode)
-
-### Secondary (MEDIUM confidence)
-- [Type-Safe i18n in Astro Without External Packages](https://rubensmn.dev/blog/type-safe-i18n-with-astro/)
-- [Astro i18n Configuration Guide (BetterLink)](https://eastondev.com/blog/en/posts/dev/20251202-astro-i18n-guide/)
-- [CJK Font Optimization Guide](https://font-converters.com/languages/cjk-font-optimization)
-- [Common Hreflang Mistakes](https://www.seoclarity.net/blog/12-common-hreflang-mistakes-and-how-to-prevent-them)
-
-### Tertiary (LOW confidence)
-- Cloudflare Pages directory-level 404 fallback behavior — documented but needs production verification
-- General Sans oe ligature coverage — assumed but unverified
-
----
-*Research completed: 2026-05-16*
-*Ready for roadmap: yes*
+### Ready for Requirements
+Proceed to requirements pending user decision on translated URL slugs.
