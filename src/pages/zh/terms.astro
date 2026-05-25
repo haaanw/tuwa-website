@@ -1,0 +1,74 @@
+---
+import '@fontsource/noto-sans-sc/400.css';
+import '@fontsource/noto-sans-sc/700.css';
+import { useTermsTranslations } from '../../i18n/utils';
+import LegalPageLayout from '../../layouts/LegalPageLayout.astro';
+
+const t = useTermsTranslations('zh');
+---
+
+<style is:global>
+  :root { --font-sans: 'Noto Sans SC', 'General Sans Variable', system-ui, sans-serif; }
+</style>
+
+<LegalPageLayout
+  title={t.meta.title}
+  lastUpdated={t.meta.lastUpdated}
+  locale="zh"
+  disclaimerText={t.disclaimer.text}
+>
+  <p>{t.intro.p1}</p>
+
+  <h2>{t.useOfApp.heading}</h2>
+  <p>{t.useOfApp.p1}</p>
+  <ul>
+    {t.useOfApp.items.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
+
+  <h2>{t.accounts.heading}</h2>
+  <p>{t.accounts.p1}</p>
+
+  <h2>{t.subscriptions.heading}</h2>
+  <p>{t.subscriptions.p1}</p>
+  <ul>
+    {t.subscriptions.items.map((item) => (
+      <li><strong>{item.label}：</strong>{item.description}</li>
+    ))}
+  </ul>
+
+  <h2>{t.healthKitData.heading}</h2>
+  <p>{t.healthKitData.p1}</p>
+
+  <h2>{t.coachAthleteFeatures.heading}</h2>
+  <p>{t.coachAthleteFeatures.p1}</p>
+  <p>{t.coachAthleteFeatures.p2}</p>
+
+  <h2>{t.acceptableUse.heading}</h2>
+  <p>{t.acceptableUse.p1}</p>
+  <ul>
+    {t.acceptableUse.items.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
+
+  <h2>{t.intellectualProperty.heading}</h2>
+  <p>{t.intellectualProperty.p1}</p>
+
+  <h2>{t.disclaimerSection.heading}</h2>
+  <p>{t.disclaimerSection.p1}</p>
+
+  <h2>{t.limitationOfLiability.heading}</h2>
+  <p>{t.limitationOfLiability.p1}</p>
+
+  <h2>{t.termination.heading}</h2>
+  <p>{t.termination.p1}</p>
+
+  <h2>{t.changes.heading}</h2>
+  <p>{t.changes.p1}</p>
+
+  <h2>{t.contact.heading}</h2>
+  <p>{t.contact.intro}</p>
+  <p><strong>{t.contact.emailLabel}：</strong><a href={`mailto:${t.contact.email}`}>{t.contact.email}</a></p>
+</LegalPageLayout>
