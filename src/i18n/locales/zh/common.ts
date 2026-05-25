@@ -45,6 +45,12 @@ const common: Common = {
     title: 'Tuwa',
     description: '专为认真运动员和教练设计的精准训练负荷与恢复管理工具。',
   },
+  featureCTA: {
+    headline: '开启自信的训练之旅',
+    body: '下载 Tuwa，让恢复与负荷管理不再靠猜测。',
+    badgeAlt: '在 App Store 下载',
+    badgeAriaLabel: '在 App Store 下载 Tuwa',
+  },
 };
 
 export default common;

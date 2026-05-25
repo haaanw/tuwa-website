@@ -45,6 +45,12 @@ const common: Common = {
     title: 'Tuwa',
     description: "Gestion précise de la charge d'entraînement et de la récupération pour les athlètes sérieux.",
   },
+  featureCTA: {
+    headline: "Commence à t'entraîner avec confiance",
+    body: "Télécharge Tuwa et dis adieu aux approximations en matière de récupération et de charge.",
+    badgeAlt: "Télécharger sur l'App Store",
+    badgeAriaLabel: "Télécharger Tuwa sur l'App Store",
+  },
 };
 
 export default common;
