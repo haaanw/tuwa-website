@@ -73,6 +73,8 @@ Site is a polished marketing presence with CSS device frames, choreographed anim
 
 Phase 19 complete (2026-05-25) — Home page fully localized for zh and fr. Per-namespace translation pattern proven (home.ts). Hero, StatsCounter, LandingCTA, and FeatureGrid all render locale-aware content via useHomeTranslations().
 
+Phase 20 complete (2026-05-25) — All 5 feature deep-dive pages translated for zh and fr. Per-page namespace files (recovery-scoring.ts, coaching.ts, etc.), FeatureCTA made locale-aware via common.ts keys, thin locale wrapper pages. 34 files added/modified across 5 plans in 2 waves.
+
 ## Context
 
 **Current state (v2.0 shipped 2026-05-14):**
