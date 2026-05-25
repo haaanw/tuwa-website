@@ -1,7 +1,8 @@
 ---
+// Layout for the zh home page. Loads CJK fonts via CJKFonts (imported only by
+// zh pages, so the ~235KB unicode-range CSS never ships to EN/FR pages).
 import BaseLayout from './BaseLayout.astro';
-import '@fontsource/noto-sans-sc/400.css';
-import '@fontsource/noto-sans-sc/700.css';
+import CJKFonts from '../components/CJKFonts.astro';
 
 interface Props {
   title: string;
@@ -13,11 +14,7 @@ interface Props {
 
 const props = Astro.props;
 ---
-<style is:global>
-  :root {
-    --font-sans: 'Noto Sans SC', 'General Sans Variable', system-ui, sans-serif;
-  }
-</style>
 <BaseLayout {...props} locale="zh">
+  <CJKFonts slot="head" />
   <slot />
 </BaseLayout>

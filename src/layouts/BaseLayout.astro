@@ -28,6 +28,7 @@ const { title, description, ogImage, canonical, type, locale = 'en', hreflangAlt
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
     <SEO title={title} description={description} ogImage={ogImage} canonical={canonical} type={type} locale={locale} hreflangAlternates={hreflangAlternates} />
+    <slot name="head" />
   </head>
   <body>
     <Header locale={locale} />

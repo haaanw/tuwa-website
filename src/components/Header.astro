@@ -88,7 +88,8 @@ const LOCALES = [
     </div>
 
     <!-- Desktop nav links -->
-    <ul class="hidden items-center gap-8 md:flex" role="list">
+    <!-- gap tightened at md so longer locales (fr) fit at the 768px breakpoint; full gap restored at lg -->
+    <ul class="hidden items-center gap-5 lg:gap-8 md:flex" role="list">
       <li class="relative" id="features-dropdown">
         <button
           type="button"
