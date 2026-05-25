@@ -10,14 +10,14 @@ import enSmartTemplates from './locales/en/smart-templates';
 import zhSmartTemplates from './locales/zh/smart-templates';
 import frSmartTemplates from './locales/fr/smart-templates';
 import enColdStart from './locales/en/cold-start';
+import zhColdStart from './locales/zh/cold-start';
+import frColdStart from './locales/fr/cold-start';
 import enCoaching from './locales/en/coaching';
 // TODO: uncomment when zh/fr files exist (Plans 03, 05)
 // import zhRecoveryScoring from './locales/zh/recovery-scoring';
 // import frRecoveryScoring from './locales/fr/recovery-scoring';
 // import zhWorkloadTracking from './locales/zh/workload-tracking';
 // import frWorkloadTracking from './locales/fr/workload-tracking';
-// import zhColdStart from './locales/zh/cold-start';
-// import frColdStart from './locales/fr/cold-start';
 // import zhCoaching from './locales/zh/coaching';
 // import frCoaching from './locales/fr/coaching';
 import type { Common } from './locales/en/common';
@@ -64,8 +64,8 @@ const smartTemplatesTranslations: Record<Locale, SmartTemplates> = {
 
 const coldStartTranslations: Record<Locale, ColdStart> = {
   en: enColdStart,
-  zh: enColdStart, // TODO: replace with zhColdStart (Plan 03)
-  fr: enColdStart, // TODO: replace with frColdStart (Plan 04)
+  zh: zhColdStart,
+  fr: frColdStart,
 };
 
 const coachingTranslations: Record<Locale, Coaching> = {
