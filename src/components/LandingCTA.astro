@@ -1,3 +1,14 @@
+---
+import { useHomeTranslations } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale);
+---
 <!-- Final CTA section — surface background for visual break from page bg -->
 <section
   data-animate
@@ -16,7 +27,7 @@
           color: var(--color-text-1);
         "
       >
-        Built for athletes who take training seriously.
+        {t.cta.headline}
       </h2>
 
       <!-- Supporting copy -->
@@ -27,7 +38,7 @@
           padding-bottom: var(--space-xl);
         "
       >
-        Evidence-based workload management. No vanity metrics. No noise.
+        {t.cta.body}
       </p>
 
     </div>

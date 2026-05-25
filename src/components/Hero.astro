@@ -3,6 +3,15 @@ import dashboardScreenshot from '../assets/screenshots/dashboard.png';
 import DeviceFrame from './DeviceFrame.astro';
 import MatisseFrieze from './MatisseFrieze.astro';
 import { APP_STORE_URL } from '../config';
+import { useHomeTranslations } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale);
 ---
 
 <section class="section-spaced px-6" style="position: relative;">
@@ -19,7 +28,7 @@ import { APP_STORE_URL } from '../config';
         color: var(--color-text-1);
       "
     >
-      Train smarter. Recover with precision.
+      {t.hero.headline}
     </h1>
 
     <!-- Subtitle -->
@@ -33,7 +42,7 @@ import { APP_STORE_URL } from '../config';
         color: var(--color-text-2);
       "
     >
-      Tuwa combines HRV, sleep, training load, and six fatigue dimensions into a single readiness score — so you know exactly how hard to push today.
+      {t.hero.subtitle}
     </p>
 
     <!-- Device mockup — CSS iPhone frame with subtle perspective tilt (D-05) -->
@@ -46,7 +55,7 @@ import { APP_STORE_URL } from '../config';
     >
       <DeviceFrame
         src={dashboardScreenshot}
-        alt="Tuwa app showing today's recovery score of 82 — HRV in green zone, sleep 7.5 hours."
+        alt={t.hero.deviceAlt}
         loading="eager"
         fetchpriority="high"
         widths={[320, 640, 960]}
@@ -59,12 +68,12 @@ import { APP_STORE_URL } from '../config';
         href={APP_STORE_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Download Tuwa on the App Store"
+        aria-label={t.hero.badgeAriaLabel}
         class="inline-block"
       >
         <img
           src="/badges/app-store-badge.svg"
-          alt="Download on the App Store"
+          alt={t.hero.badgeAlt}
           height="40"
           width="120"
           loading="eager"

@@ -1,5 +1,13 @@
 ---
-// No props — metrics are hardcoded per D-10
+import { useHomeTranslations } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale);
 ---
 <section
   aria-label="Tuwa by the numbers"
@@ -21,7 +29,7 @@
         data-counter-suffix="+"
         style="font-size: var(--text-display); font-weight: var(--weight-display); line-height: var(--leading-display); color: var(--color-text-1);"
       >1,200+</span>
-      <p style="font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-2); margin-top: var(--space-xs);">Athletes using Tuwa</p>
+      <p style="font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-2); margin-top: var(--space-xs);">{t.stats.athletes}</p>
     </div>
     <div class="text-center">
       <span
@@ -30,7 +38,7 @@
         data-counter-suffix="+"
         style="font-size: var(--text-display); font-weight: var(--weight-display); line-height: var(--leading-display); color: var(--color-text-1);"
       >85,000+</span>
-      <p style="font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-2); margin-top: var(--space-xs);">Sessions analyzed</p>
+      <p style="font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-2); margin-top: var(--space-xs);">{t.stats.sessions}</p>
     </div>
     <div class="text-center">
       <span
@@ -39,7 +47,7 @@
         data-counter-suffix="%"
         style="font-size: var(--text-display); font-weight: var(--weight-display); line-height: var(--leading-display); color: var(--color-text-1);"
       >94%</span>
-      <p style="font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-2); margin-top: var(--space-xs);">HRV prediction accuracy</p>
+      <p style="font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-2); margin-top: var(--space-xs);">{t.stats.accuracy}</p>
     </div>
   </div>
 </section>
