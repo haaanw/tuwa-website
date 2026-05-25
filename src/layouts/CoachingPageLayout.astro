@@ -14,11 +14,12 @@ interface Props {
   outcomeStatement: string;
   hookLine: string;
   shapeId?: 'blob-1' | 'blob-2' | 'blob-3' | 'blob-4' | 'blob-5' | 'blob-6' | 'blob-7';
+  locale?: string;
 }
 
-const { title, description, ogImage, screenshot, screenshotAlt, outcomeStatement, hookLine, shapeId = 'blob-1' } = Astro.props;
+const { title, description, ogImage, screenshot, screenshotAlt, outcomeStatement, hookLine, shapeId = 'blob-1', locale = 'en' } = Astro.props;
 ---
-<BaseLayout title={title} description={description} ogImage={ogImage}>
+<BaseLayout title={title} description={description} ogImage={ogImage} locale={locale}>
   <!-- Hero -->
   <section data-animate style="padding-top: var(--space-3xl); padding-bottom: var(--space-2xl); position: relative;">
     <div class="mx-auto text-center" style="width: 100%; max-width: 768px; box-sizing: border-box; padding: 0 var(--space-md); position: relative; z-index: 1;">
@@ -85,5 +86,5 @@ const { title, description, ogImage, screenshot, screenshotAlt, outcomeStatement
   </section>
 
   <!-- CTA -->
-  <FeatureCTA />
+  <FeatureCTA locale={locale} />
 </BaseLayout>
