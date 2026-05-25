@@ -71,7 +71,7 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 
 Site is a polished marketing presence with CSS device frames, choreographed animations, iPod click wheel feature overview, sticky scroll showcase, and animated stat counters. All 10 pages responsive across 5 breakpoints.
 
-Phase 14 complete (2026-05-15) — typography weight tokens rolled out across all 20 source files. Zero hardcoded font-weight values remain.
+Phase 19 complete (2026-05-25) — Home page fully localized for zh and fr. Per-namespace translation pattern proven (home.ts). Hero, StatsCounter, LandingCTA, and FeatureGrid all render locale-aware content via useHomeTranslations().
 
 ## Context
 
@@ -126,4 +126,4 @@ Phase 14 complete (2026-05-15) — typography weight tokens rolled out across al
 This document evolves at phase transitions and milestone boundaries.
 
 ---
-*Last updated: 2026-05-16 after v4.0 milestone started*
+*Last updated: 2026-05-25 after Phase 19 (home page localization) complete*
