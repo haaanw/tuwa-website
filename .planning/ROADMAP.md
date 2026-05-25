@@ -80,7 +80,10 @@ Plans:
   2. Clicking a nav link while on a /zh/ page navigates to the /zh/ variant of the target page (not back to English)
   3. Footer links, mobile menu links, and CTA buttons all respect the current locale context
   4. Language switcher preserves the current page when switching (e.g., /zh/recovery-scoring switches to /fr/recovery-scoring)
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 18-01-PLAN.md — Expand translation dictionaries, wire Footer and MobileMenu with locale-aware paths and t() calls
+- [ ] 18-02-PLAN.md — Build language switcher widget in Header, translate all nav text, add dropdown JS
 **UI hint**: yes
 
 ### Phase 19: Home Page Localization
@@ -92,7 +95,10 @@ Plans:
   2. /fr/ displays the complete landing page in French with no English fragments
   3. French text expansion does not cause layout breaks, overflow, or truncation on any viewport width
   4. CJK line breaking is natural (no mid-word breaks, proper punctuation handling)
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 18-01-PLAN.md — Expand translation dictionaries, wire Footer and MobileMenu with locale-aware paths and t() calls
+- [ ] 18-02-PLAN.md — Build language switcher widget in Header, translate all nav text, add dropdown JS
 **UI hint**: yes
 
 ### Phase 20: Feature Pages
@@ -104,7 +110,10 @@ Plans:
   2. All 5 feature pages (/fr/recovery-scoring, /fr/workload-tracking, etc.) display fully translated French content
   3. French text expansion on feature pages does not break device frame layouts, stat counters, or CTA sections
   4. Feature-specific terminology is consistent across pages within each locale
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 18-01-PLAN.md — Expand translation dictionaries, wire Footer and MobileMenu with locale-aware paths and t() calls
+- [ ] 18-02-PLAN.md — Build language switcher widget in Header, translate all nav text, add dropdown JS
 **UI hint**: yes
 
 ### Phase 21: Legal, Support & Blog
@@ -115,7 +124,10 @@ Plans:
   1. Privacy, Terms, and Support pages are available at /zh/ and /fr/ with translated content
   2. Legal pages include a visible disclaimer that English is the legally binding version
   3. Blog listing page at /zh/blog and /fr/blog displays translated UI chrome (headings, empty state text) with correct locale routing
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 18-01-PLAN.md — Expand translation dictionaries, wire Footer and MobileMenu with locale-aware paths and t() calls
+- [ ] 18-02-PLAN.md — Build language switcher widget in Header, translate all nav text, add dropdown JS
 
 ### Phase 22: SEO Verification & Polish
 **Goal**: Search engines correctly index all locale variants, social shares show localized metadata, and broken locale URLs gracefully fallback
@@ -127,7 +139,10 @@ Plans:
   3. Sitemap.xml includes all locale URLs (30 total: 10 pages x 3 locales) with proper hreflang annotations
   4. Navigating to a nonexistent /zh/ or /fr/ path shows a locale-appropriate 404 page (not the English 404)
   5. Lighthouse scores remain >= 95 on all locale variants (no CJK font regression)
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 18-01-PLAN.md — Expand translation dictionaries, wire Footer and MobileMenu with locale-aware paths and t() calls
+- [ ] 18-02-PLAN.md — Build language switcher widget in Header, translate all nav text, add dropdown JS
 
 ## Progress
 
@@ -151,7 +166,7 @@ Plans:
 | 15. Matisse SVG Art Direction | v3.0 | 2/2 | Complete | 2026-05-15 |
 | 16. Interaction Polish | v3.0 | 2/2 | Complete | 2026-05-16 |
 | 17. i18n Infrastructure | v4.0 | 3/3 | Complete    | 2026-05-24 |
-| 18. Component Extraction | v4.0 | 0/? | Not started | - |
+| 18. Component Extraction | v4.0 | 0/2 | Not started | - |
 | 19. Home Page Localization | v4.0 | 0/? | Not started | - |
 | 20. Feature Pages | v4.0 | 0/? | Not started | - |
 | 21. Legal, Support & Blog | v4.0 | 0/? | Not started | - |
