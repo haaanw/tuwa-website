@@ -1,11 +1,24 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations } from '../i18n/utils';
 import MobileMenu from "./MobileMenu.astro";
 
 interface Props {
   locale?: string;
 }
 const { locale = 'en' } = Astro.props;
+
+const t = useTranslations(locale as 'en' | 'zh' | 'fr');
+
+// Path-preserving locale switch: strip current locale prefix to get bare path
+const rawPath = Astro.url.pathname;
+const pathWithoutLocale = rawPath.replace(/^\/[a-z]{2}(\/|$)/, '/');
+
+const LOCALES = [
+  { code: 'en', label: t.nav.languageSwitcher.en },
+  { code: 'zh', label: t.nav.languageSwitcher.zh },
+  { code: 'fr', label: t.nav.languageSwitcher.fr },
+] as const;
 ---
 <header
   class="sticky top-0 z-50 border-b"
@@ -29,6 +42,46 @@ const { locale = 'en' } = Astro.props;
       Tuwa
     </a>
 
+    <!-- Mobile language switcher (hidden on desktop) -->
+    <div class="relative flex items-center md:hidden" id="lang-dropdown-mobile">
+      <button
+        type="button"
+        class="nav-link flex items-center gap-1"
+        aria-expanded="false"
+        aria-haspopup="listbox"
+        aria-label={t.nav.languageSwitcher.label}
+        style="padding: 8px; min-height: 48px;"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+             stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+             aria-hidden="true">
+          <circle cx="8" cy="8" r="6.5"/>
+          <path d="M8 1.5C8 1.5 5.5 4 5.5 8s2.5 6.5 2.5 6.5"/>
+          <path d="M8 1.5C8 1.5 10.5 4 10.5 8s-2.5 6.5-2.5 6.5"/>
+          <path d="M1.5 8h13"/>
+        </svg>
+        <span style="font-size: var(--text-label); font-weight: var(--weight-label);">
+          {t.nav.languageSwitcher.current}
+        </span>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="nav-chevron" style="margin-top: 1px;">
+          <polyline points="2,4 6,8 10,4" />
+        </svg>
+      </button>
+      <div class="nav-dropdown" role="listbox" aria-label={t.nav.languageSwitcher.label} style="width: 160px;">
+        {LOCALES.map(({ code, label }) => (
+          <a
+            href={getRelativeLocaleUrl(code, pathWithoutLocale)}
+            class="nav-dropdown-item"
+            role="option"
+            aria-selected={code === locale}
+            style={code === locale ? 'color: var(--color-accent);' : ''}
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+
     <!-- Desktop nav links -->
     <ul class="hidden items-center gap-8 md:flex" role="list">
       <li class="relative" id="features-dropdown">
@@ -38,7 +91,7 @@ const { locale = 'en' } = Astro.props;
           aria-expanded="false"
           aria-haspopup="true"
         >
-          Features
+          {t.nav.features}
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="nav-chevron" style="margin-top: 1px;">
             <polyline points="2,4 6,8 10,4" />
           </svg>
@@ -49,8 +102,8 @@ const { locale = 'en' } = Astro.props;
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
             <div>
-              <span class="nav-dropdown-title">Recovery Scoring</span>
-              <span class="nav-dropdown-desc">Daily readiness from HRV, sleep, and training load</span>
+              <span class="nav-dropdown-title">{t.nav.featuresDropdown.recoveryScoringTitle}</span>
+              <span class="nav-dropdown-desc">{t.nav.featuresDropdown.recoveryScoringDesc}</span>
             </div>
           </a>
           <a href={getRelativeLocaleUrl(locale, '/features/workload-tracking')} class="nav-dropdown-item" role="menuitem">
@@ -58,8 +111,8 @@ const { locale = 'en' } = Astro.props;
               <rect x="2" y="14" width="4" height="8" rx="1"/><rect x="9" y="9" width="4" height="13" rx="1"/><rect x="16" y="4" width="4" height="18" rx="1"/>
             </svg>
             <div>
-              <span class="nav-dropdown-title">Workload Tracking</span>
-              <span class="nav-dropdown-desc">Multi-factor fatigue and load spike detection</span>
+              <span class="nav-dropdown-title">{t.nav.featuresDropdown.workloadTrackingTitle}</span>
+              <span class="nav-dropdown-desc">{t.nav.featuresDropdown.workloadTrackingDesc}</span>
             </div>
           </a>
           <a href={getRelativeLocaleUrl(locale, '/features/smart-templates')} class="nav-dropdown-item" role="menuitem">
@@ -67,8 +120,8 @@ const { locale = 'en' } = Astro.props;
               <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-1c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-1 14H7v-2h4v2zm0-4H7v-2h4v2zm0-4H7V6h4v2zm6 8h-4v-2h4v2zm0-4h-4v-2h4v2zm0-4h-4V6h4v2z"/>
             </svg>
             <div>
-              <span class="nav-dropdown-title">Smart Templates</span>
-              <span class="nav-dropdown-desc">Prescribed workouts with target sets and reps</span>
+              <span class="nav-dropdown-title">{t.nav.featuresDropdown.smartTemplatesTitle}</span>
+              <span class="nav-dropdown-desc">{t.nav.featuresDropdown.smartTemplatesDesc}</span>
             </div>
           </a>
           <a href={getRelativeLocaleUrl(locale, '/features/cold-start')} class="nav-dropdown-item" role="menuitem">
@@ -76,8 +129,8 @@ const { locale = 'en' } = Astro.props;
               <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
             </svg>
             <div>
-              <span class="nav-dropdown-title">Cold Start Solution</span>
-              <span class="nav-dropdown-desc">Useful on day one, no baseline wait</span>
+              <span class="nav-dropdown-title">{t.nav.featuresDropdown.coldStartTitle}</span>
+              <span class="nav-dropdown-desc">{t.nav.featuresDropdown.coldStartDesc}</span>
             </div>
           </a>
           <a href={getRelativeLocaleUrl(locale, '/features/coaching')} class="nav-dropdown-item" role="menuitem">
@@ -85,17 +138,65 @@ const { locale = 'en' } = Astro.props;
               <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
             </svg>
             <div>
-              <span class="nav-dropdown-title">Coaching</span>
-              <span class="nav-dropdown-desc">Team recovery visibility and prescribed workouts</span>
+              <span class="nav-dropdown-title">{t.nav.featuresDropdown.coachingTitle}</span>
+              <span class="nav-dropdown-desc">{t.nav.featuresDropdown.coachingDesc}</span>
             </div>
           </a>
         </div>
       </li>
       <li>
-        <a href={getRelativeLocaleUrl(locale, '/blog')} class="nav-link">Blog</a>
+        <a href={getRelativeLocaleUrl(locale, '/methodology')} class="nav-link">{t.nav.method}</a>
       </li>
       <li>
-        <a href={getRelativeLocaleUrl(locale, '/support')} class="nav-link">Support</a>
+        <a href={getRelativeLocaleUrl(locale, '/for-coaches')} class="nav-link">{t.nav.coaches}</a>
+      </li>
+      <li>
+        <a href={getRelativeLocaleUrl(locale, '/blog')} class="nav-link">{t.nav.blog}</a>
+      </li>
+      <li>
+        <a href={getRelativeLocaleUrl(locale, '/support')} class="nav-link">{t.nav.support}</a>
+      </li>
+      <li class="relative" id="lang-dropdown">
+        <button
+          type="button"
+          class="nav-link flex items-center gap-1"
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          aria-label={t.nav.languageSwitcher.label}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+               stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+               aria-hidden="true">
+            <circle cx="8" cy="8" r="6.5"/>
+            <path d="M8 1.5C8 1.5 5.5 4 5.5 8s2.5 6.5 2.5 6.5"/>
+            <path d="M8 1.5C8 1.5 10.5 4 10.5 8s-2.5 6.5-2.5 6.5"/>
+            <path d="M1.5 8h13"/>
+          </svg>
+          <span style="font-size: var(--text-label); font-weight: var(--weight-label); letter-spacing: var(--tracking-label);">
+            {t.nav.languageSwitcher.current}
+          </span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="nav-chevron" style="margin-top: 1px;">
+            <polyline points="2,4 6,8 10,4" />
+          </svg>
+        </button>
+        <div class="nav-dropdown" role="listbox" aria-label={t.nav.languageSwitcher.label} style="width: 160px;">
+          {LOCALES.map(({ code, label }) => (
+            <a
+              href={getRelativeLocaleUrl(code, pathWithoutLocale)}
+              class="nav-dropdown-item"
+              role="option"
+              aria-selected={code === locale}
+              style={code === locale ? 'color: var(--color-accent);' : ''}
+            >
+              {label}
+              {code === locale && (
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="margin-left: auto; flex-shrink: 0;">
+                  <polyline points="2,7 5.5,10.5 12,3.5"/>
+                </svg>
+              )}
+            </a>
+          ))}
+        </div>
       </li>
     </ul>
 
@@ -105,7 +206,7 @@ const { locale = 'en' } = Astro.props;
       rel="noopener noreferrer"
       class="btn-cta hidden md:inline-flex items-center"
     >
-      Get the App
+      {t.nav.getApp}
     </a>
 
     <!-- Mobile hamburger -->
@@ -181,6 +282,75 @@ const { locale = 'en' } = Astro.props;
         close();
         btn.focus();
       }
+    });
+  })();
+</script>
+
+<!-- Language switcher dropdown toggle (desktop) -->
+<script is:inline>
+  (function() {
+    var dropdown = document.getElementById('lang-dropdown');
+    if (!dropdown) return;
+    var btn = dropdown.querySelector('button');
+    var menu = dropdown.querySelector('.nav-dropdown');
+    var chevron = btn.querySelector('.nav-chevron');
+
+    function open() {
+      menu.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+      if (chevron) chevron.style.transform = 'rotate(180deg)';
+    }
+
+    function close() {
+      menu.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      if (chevron) chevron.style.transform = '';
+    }
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      menu.classList.contains('is-open') ? close() : open();
+    });
+
+    var closeTimer = null;
+    dropdown.addEventListener('mouseenter', function() { clearTimeout(closeTimer); open(); });
+    dropdown.addEventListener('mouseleave', function() { closeTimer = setTimeout(close, 200); });
+    document.addEventListener('click', function(e) { if (!dropdown.contains(e.target)) close(); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && menu.classList.contains('is-open')) { close(); btn.focus(); }
+    });
+  })();
+</script>
+
+<!-- Language switcher dropdown toggle (mobile) -->
+<script is:inline>
+  (function() {
+    var dropdown = document.getElementById('lang-dropdown-mobile');
+    if (!dropdown) return;
+    var btn = dropdown.querySelector('button');
+    var menu = dropdown.querySelector('.nav-dropdown');
+    var chevron = btn.querySelector('.nav-chevron');
+
+    function open() {
+      menu.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+      if (chevron) chevron.style.transform = 'rotate(180deg)';
+    }
+
+    function close() {
+      menu.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      if (chevron) chevron.style.transform = '';
+    }
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      menu.classList.contains('is-open') ? close() : open();
+    });
+
+    document.addEventListener('click', function(e) { if (!dropdown.contains(e.target)) close(); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && menu.classList.contains('is-open')) { close(); btn.focus(); }
     });
   })();
 </script>
