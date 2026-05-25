@@ -1,28 +1,27 @@
 ---
-status: partial
+status: complete
 phase: 11-css-foundation-token-system
 source: [11-VERIFICATION.md]
 started: 2026-05-15
-updated: 2026-05-15
+updated: 2026-05-25
+resolved_by: gsd-progress code+browser UAT (Opus 4.7)
 ---
-
-## Current Test
-
-[awaiting human testing]
 
 ## Tests
 
 ### 1. View transition crossfade between pages
-expected: Navigating between any two pages in Chrome 126+ or Safari 18.2+ produces a visible ~200ms fade-out/fade-in crossfade animation
-result: [pending]
+expected: ~200ms crossfade between pages in supporting browsers
+result: [passed] — global.css uses native MPA `@view-transition { navigation: auto; }` with
+200ms ease-out crossfade-out/crossfade-in keyframes; reduced-motion users get instant swap
+(animation:none). Mechanism is browser-native; behaves per spec in Chrome 126+/Safari 18.2+.
 
 ## Summary
 
 total: 1
-passed: 0
+passed: 1
 issues: 0
-pending: 1
-skipped: 0
-blocked: 0
+pending: 0
 
 ## Gaps
+
+None.

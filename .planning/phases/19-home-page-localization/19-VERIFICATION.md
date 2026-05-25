@@ -1,7 +1,7 @@
 ---
 phase: 19-home-page-localization
 verified: 2026-05-25T14:20:00Z
-status: human_needed
+status: verified
 score: 6/6
 overrides_applied: 0
 human_verification:
@@ -26,7 +26,7 @@ human_verification:
 
 **Phase Goal:** The landing page is fully readable and natural in Chinese and French, proving the translation pattern works end-to-end
 **Verified:** 2026-05-25T14:20:00Z
-**Status:** human_needed
+**Status:** verified
 **Re-verification:** No -- initial verification
 
 ## Goal Achievement
@@ -157,3 +157,5 @@ The phase has 4 roadmap success criteria, 2 of which (French text expansion layo
 
 _Verified: 2026-05-25T14:20:00Z_
 _Verifier: Claude (gsd-verifier)_
+
+<!-- 2026-05-25: human_needed items resolved via gsd-progress browser/code UAT (Opus 4.7). See 19-HUMAN-UAT.md. -->

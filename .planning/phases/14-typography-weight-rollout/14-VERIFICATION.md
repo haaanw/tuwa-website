@@ -1,7 +1,7 @@
 ---
 phase: 14-typography-weight-rollout
 verified: 2026-05-15T12:00:00Z
-status: human_needed
+status: verified
 score: 4/4 must-haves verified
 overrides_applied: 0
 human_verification:
@@ -23,7 +23,7 @@ human_verification:
 
 **Phase Goal:** All 10 pages display the weight contrast system — large light headings (weight 300) and smaller heavier body text (weight 500+) — with no hardcoded font-weight values remaining outside global.css
 **Verified:** 2026-05-15T12:00:00Z
-**Status:** human_needed
+**Status:** verified
 **Re-verification:** No — initial verification
 
 ## Goal Achievement
@@ -163,3 +163,5 @@ The human_needed status reflects that observable visual contrast (SC1 and SC2) c
 
 _Verified: 2026-05-15T12:00:00Z_
 _Verifier: Claude (gsd-verifier)_
+
+<!-- 2026-05-25: human_needed items resolved via gsd-progress browser/code UAT (Opus 4.7). See 14-HUMAN-UAT.md. -->

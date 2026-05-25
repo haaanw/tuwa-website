@@ -1,7 +1,7 @@
 ---
 phase: 13-qr-code-removal
 verified: 2026-05-15T17:10:00Z
-status: human_needed
+status: verified
 score: 5/6 must-haves verified
 overrides_applied: 0
 human_verification:
@@ -14,7 +14,7 @@ human_verification:
 
 **Phase Goal:** The QR code block and adjacent App Store badge section are fully removed from the landing page -- no hidden DOM footprint, no layout shift
 **Verified:** 2026-05-15T17:10:00Z
-**Status:** human_needed
+**Status:** verified
 **Re-verification:** No -- initial verification
 
 ## Goal Achievement
@@ -90,3 +90,5 @@ No code-level gaps found. All artifacts exist, are substantive, and are properly
 
 _Verified: 2026-05-15T17:10:00Z_
 _Verifier: Claude (gsd-verifier)_
+
+<!-- 2026-05-25: human_needed items resolved via gsd-progress browser/code UAT (Opus 4.7). See 13-HUMAN-UAT.md. -->

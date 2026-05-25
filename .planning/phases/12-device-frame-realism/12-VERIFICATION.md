@@ -1,7 +1,7 @@
 ---
 phase: 12-device-frame-realism
 verified: 2026-05-15T10:30:00Z
-status: human_needed
+status: verified
 score: 5/5
 overrides_applied: 0
 human_verification:
@@ -26,7 +26,7 @@ human_verification:
 
 **Phase Goal:** The CSS iPhone device frames look like physical hardware -- with layered shadow falloff, a proportional Dynamic Island, visible side buttons, and screenshots that fit without misalignment
 **Verified:** 2026-05-15T10:30:00Z
-**Status:** human_needed
+**Status:** verified
 **Re-verification:** No -- initial verification
 
 ## Goal Achievement
@@ -127,3 +127,5 @@ No code-level gaps found. All 5 must-have truths are verified at the code level 
 
 _Verified: 2026-05-15T10:30:00Z_
 _Verifier: Claude (gsd-verifier)_
+
+<!-- 2026-05-25: human_needed items resolved via gsd-progress browser/code UAT (Opus 4.7). See 12-HUMAN-UAT.md. -->

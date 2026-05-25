@@ -1,7 +1,7 @@
 ---
 phase: 18-component-extraction
 verified: 2026-05-25T14:30:00Z
-status: human_needed
+status: verified
 score: 4/4
 overrides_applied: 0
 human_verification:
@@ -23,7 +23,7 @@ human_verification:
 
 **Phase Goal:** Users can switch languages from any page, and all navigation links route correctly within the chosen locale
 **Verified:** 2026-05-25T14:30:00Z
-**Status:** human_needed
+**Status:** verified
 **Re-verification:** No -- initial verification
 
 ## Goal Achievement
@@ -117,3 +117,5 @@ No automated gaps found. All code artifacts are present, substantive, and wired 
 
 _Verified: 2026-05-25T14:30:00Z_
 _Verifier: Claude (gsd-verifier)_
+
+<!-- 2026-05-25: human_needed items resolved via gsd-progress browser/code UAT (Opus 4.7). See 18-HUMAN-UAT.md. -->

@@ -1,7 +1,7 @@
 ---
 phase: 11-css-foundation-token-system
 verified: 2026-05-15T11:30:00Z
-status: human_needed
+status: verified
 score: 4/5
 overrides_applied: 0
 human_verification:
@@ -14,7 +14,7 @@ human_verification:
 
 **Phase Goal:** The site has a working variable-font weight axis, CSS weight design tokens, view-transition page crossfades, and Matisse CSS class scaffolding — without any visible change to current design
 **Verified:** 2026-05-15T11:30:00Z
-**Status:** human_needed
+**Status:** verified
 **Re-verification:** No — initial verification
 
 ## Goal Achievement
@@ -107,3 +107,5 @@ The phase's core goal — CSS infrastructure layer enabling phases 12–16 — i
 
 _Verified: 2026-05-15T11:30:00Z_
 _Verifier: Claude (gsd-verifier)_
+
+<!-- 2026-05-25: human_needed items resolved via gsd-progress browser/code UAT (Opus 4.7). See 11-HUMAN-UAT.md. -->

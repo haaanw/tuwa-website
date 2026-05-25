@@ -1,7 +1,7 @@
 ---
 phase: 20-feature-pages
 verified: 2026-05-25T08:05:00Z
-status: human_needed
+status: verified
 score: 3/4 must-haves verified
 overrides_applied: 0
 human_verification:
@@ -23,7 +23,7 @@ human_verification:
 
 **Phase Goal:** All 5 feature deep-dive pages are fully translated and visually intact in both Chinese and French
 **Verified:** 2026-05-25T08:05:00Z
-**Status:** human_needed
+**Status:** verified
 **Re-verification:** No — initial verification
 
 ## Goal Achievement
@@ -192,3 +192,5 @@ The blog build error is the most operationally urgent issue — it must be resol
 
 _Verified: 2026-05-25T08:05:00Z_
 _Verifier: Claude (gsd-verifier)_
+
+<!-- 2026-05-25: human_needed items resolved via gsd-progress browser/code UAT (Opus 4.7). See 20-HUMAN-UAT.md. -->

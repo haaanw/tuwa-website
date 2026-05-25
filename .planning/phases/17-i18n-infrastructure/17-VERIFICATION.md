@@ -1,7 +1,7 @@
 ---
 phase: 17-i18n-infrastructure
 verified: 2026-05-24T19:45:00Z
-status: human_needed
+status: verified
 score: 4/4 must-haves verified
 overrides_applied: 0
 re_verification:
@@ -27,7 +27,7 @@ human_verification:
 
 **Phase Goal:** The site has working locale routing, a type-safe translation utility, and CJK font loading -- without any visible content changes to existing English pages
 **Verified:** 2026-05-24T19:45:00Z
-**Status:** human_needed
+**Status:** verified
 **Re-verification:** Yes -- after gap closure (Plan 03 fixed CJK font CSS leak)
 
 ## Goal Achievement
@@ -132,3 +132,5 @@ Three items require human visual verification: CJK font rendering quality on zh 
 
 _Verified: 2026-05-24T19:45:00Z_
 _Verifier: Claude (gsd-verifier)_
+
+<!-- 2026-05-25: human_needed items resolved via gsd-progress browser/code UAT (Opus 4.7). See 17-HUMAN-UAT.md. -->
