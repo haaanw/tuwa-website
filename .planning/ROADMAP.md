@@ -198,6 +198,6 @@ Plans:
 | 17. i18n Infrastructure | v4.0 | 3/3 | Complete    | 2026-05-24 |
 | 18. Component Extraction | v4.0 | 2/2 | Complete    | 2026-05-25 |
 | 19. Home Page Localization | v4.0 | 2/2 | Complete    | 2026-05-25 |
-| 20. Feature Pages | v4.0 | 5/5 | Complete   | 2026-05-25 |
+| 20. Feature Pages | v4.0 | 5/5 | Complete    | 2026-05-25 |
 | 21. Legal, Support & Blog | v4.0 | 0/? | Not started | - |
 | 22. SEO Verification & Polish | v4.0 | 0/? | Not started | - |

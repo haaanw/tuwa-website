@@ -17,8 +17,8 @@
 ## Content — Landing & Features
 
 - [ ] **I18N-06**: Landing page fully translated (hero, feature overview, stats, CTAs) in zh and fr
-- [ ] **I18N-07**: 5 feature deep-dive pages fully translated in zh and fr
-- [ ] **I18N-08**: Feature page layouts handle French text expansion without layout breaks
+- [x] **I18N-07**: 5 feature deep-dive pages fully translated in zh and fr
+- [x] **I18N-08**: Feature page layouts handle French text expansion without layout breaks
 
 ## Content — Legal & Support
 
@@ -58,8 +58,8 @@
 | I18N-04 | Phase 18 | Pending |
 | I18N-05 | Phase 18 | Pending |
 | I18N-06 | Phase 19 | Pending |
-| I18N-07 | Phase 20 | Pending |
-| I18N-08 | Phase 20 | Pending |
+| I18N-07 | Phase 20 | Complete |
+| I18N-08 | Phase 20 | Complete |
 | I18N-09 | Phase 21 | Pending |
 | I18N-10 | Phase 21 | Pending |
 | I18N-11 | Phase 22 | Pending |
