@@ -1,6 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { useTranslations } from '../i18n/utils';
+import { APP_STORE_URL } from '../config';
 import MobileMenu from "./MobileMenu.astro";
 
 interface Props {
@@ -12,7 +13,11 @@ const t = useTranslations(locale as 'en' | 'zh' | 'fr');
 
 // Path-preserving locale switch: strip current locale prefix to get bare path
 const rawPath = Astro.url.pathname;
-const pathWithoutLocale = rawPath.replace(/^\/[a-z]{2}(\/|$)/, '/');
+const knownLocales = ['en', 'zh', 'fr'];
+const pathSegments = rawPath.split('/');
+const pathWithoutLocale = knownLocales.includes(pathSegments[1])
+  ? '/' + pathSegments.slice(2).join('/')
+  : rawPath;
 
 const LOCALES = [
   { code: 'en', label: t.nav.languageSwitcher.en },
@@ -202,7 +207,7 @@ const LOCALES = [
 
     <!-- CTA button -->
     <a
-      href="https://apps.apple.com/app/tuwa"
+      href={APP_STORE_URL}
       rel="noopener noreferrer"
       class="btn-cta hidden md:inline-flex items-center"
     >
