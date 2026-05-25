@@ -95,9 +95,9 @@ Plans:
   2. /fr/ displays the complete landing page in French with no English fragments
   3. French text expansion does not cause layout breaks, overflow, or truncation on any viewport width
   4. CJK line breaking is natural (no mid-word breaks, proper punctuation handling)
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 Plans:
-- [ ] 19-01-PLAN.md — Create home.ts translation namespace, extend i18n utils, wire Hero/StatsCounter/LandingCTA
+- [x] 19-01-PLAN.md — Create home.ts translation namespace, extend i18n utils, wire Hero/StatsCounter/LandingCTA
 - [ ] 19-02-PLAN.md — Wire FeatureGrid with locale-aware static HTML and inline script data
 **UI hint**: yes
 
@@ -171,7 +171,7 @@ Plans:
 | 16. Interaction Polish | v3.0 | 2/2 | Complete | 2026-05-16 |
 | 17. i18n Infrastructure | v4.0 | 3/3 | Complete    | 2026-05-24 |
 | 18. Component Extraction | v4.0 | 2/2 | Complete    | 2026-05-25 |
-| 19. Home Page Localization | v4.0 | 0/2 | Not started | - |
+| 19. Home Page Localization | v4.0 | 1/2 | In Progress|  |
 | 20. Feature Pages | v4.0 | 0/? | Not started | - |
 | 21. Legal, Support & Blog | v4.0 | 0/? | Not started | - |
 | 22. SEO Verification & Polish | v4.0 | 0/? | Not started | - |
