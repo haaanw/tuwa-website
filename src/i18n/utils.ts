@@ -9,7 +9,9 @@ import enWorkloadTracking from './locales/en/workload-tracking';
 import enSmartTemplates from './locales/en/smart-templates';
 import enColdStart from './locales/en/cold-start';
 import enCoaching from './locales/en/coaching';
-// TODO: uncomment when zh/fr files exist (Plans 03-05)
+import zhCoaching from './locales/zh/coaching';
+import frCoaching from './locales/fr/coaching';
+// TODO: uncomment when zh/fr files exist (Plans 03-04)
 // import zhRecoveryScoring from './locales/zh/recovery-scoring';
 // import frRecoveryScoring from './locales/fr/recovery-scoring';
 // import zhWorkloadTracking from './locales/zh/workload-tracking';
@@ -18,8 +20,6 @@ import enCoaching from './locales/en/coaching';
 // import frSmartTemplates from './locales/fr/smart-templates';
 // import zhColdStart from './locales/zh/cold-start';
 // import frColdStart from './locales/fr/cold-start';
-// import zhCoaching from './locales/zh/coaching';
-// import frCoaching from './locales/fr/coaching';
 import type { Common } from './locales/en/common';
 import type { Home } from './locales/en/home';
 import type { RecoveryScoring } from './locales/en/recovery-scoring';
@@ -70,8 +70,8 @@ const coldStartTranslations: Record<Locale, ColdStart> = {
 
 const coachingTranslations: Record<Locale, Coaching> = {
   en: enCoaching,
-  zh: enCoaching, // TODO: replace with zhCoaching (Plan 03)
-  fr: enCoaching, // TODO: replace with frCoaching (Plan 04)
+  zh: zhCoaching,
+  fr: frCoaching,
 };
 
 export function useTranslations(locale: Locale | undefined): Common {
