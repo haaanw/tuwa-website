@@ -7,18 +7,18 @@ import frHome from './locales/fr/home';
 import enRecoveryScoring from './locales/en/recovery-scoring';
 import enWorkloadTracking from './locales/en/workload-tracking';
 import enSmartTemplates from './locales/en/smart-templates';
+import zhSmartTemplates from './locales/zh/smart-templates';
+import frSmartTemplates from './locales/fr/smart-templates';
 import enColdStart from './locales/en/cold-start';
+import zhColdStart from './locales/zh/cold-start';
+import frColdStart from './locales/fr/cold-start';
 import enCoaching from './locales/en/coaching';
 import zhRecoveryScoring from './locales/zh/recovery-scoring';
 import frRecoveryScoring from './locales/fr/recovery-scoring';
 import zhWorkloadTracking from './locales/zh/workload-tracking';
 import frWorkloadTracking from './locales/fr/workload-tracking';
-// import zhSmartTemplates from './locales/zh/smart-templates';
-// import frSmartTemplates from './locales/fr/smart-templates';
-// import zhColdStart from './locales/zh/cold-start';
-// import frColdStart from './locales/fr/cold-start';
-// import zhCoaching from './locales/zh/coaching';
-// import frCoaching from './locales/fr/coaching';
+import zhCoaching from './locales/zh/coaching';
+import frCoaching from './locales/fr/coaching';
 import type { Common } from './locales/en/common';
 import type { Home } from './locales/en/home';
 import type { RecoveryScoring } from './locales/en/recovery-scoring';
@@ -57,20 +57,20 @@ const workloadTrackingTranslations: Record<Locale, WorkloadTracking> = {
 
 const smartTemplatesTranslations: Record<Locale, SmartTemplates> = {
   en: enSmartTemplates,
-  zh: enSmartTemplates, // TODO: replace with zhSmartTemplates (Plan 03)
-  fr: enSmartTemplates, // TODO: replace with frSmartTemplates (Plan 04)
+  zh: zhSmartTemplates,
+  fr: frSmartTemplates,
 };
 
 const coldStartTranslations: Record<Locale, ColdStart> = {
   en: enColdStart,
-  zh: enColdStart, // TODO: replace with zhColdStart (Plan 03)
-  fr: enColdStart, // TODO: replace with frColdStart (Plan 04)
+  zh: zhColdStart,
+  fr: frColdStart,
 };
 
 const coachingTranslations: Record<Locale, Coaching> = {
   en: enCoaching,
-  zh: enCoaching, // TODO: replace with zhCoaching (Plan 03)
-  fr: enCoaching, // TODO: replace with frCoaching (Plan 04)
+  zh: zhCoaching,
+  fr: frCoaching,
 };
 
 export function useTranslations(locale: Locale | undefined): Common {
