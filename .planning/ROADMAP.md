@@ -49,7 +49,7 @@
 **Milestone Goal:** Add Chinese (zh) and French (fr) translations to all 10 pages with proper i18n routing, a language switcher, and full SEO compliance (hreflang, localized sitemap, per-locale 404s).
 
 - [x] **Phase 17: i18n Infrastructure** - Astro i18n routing, translation utility, CJK font integration (completed 2026-05-17)
-- [ ] **Phase 18: Component Extraction** - Language switcher, locale-aware navigation across header/footer
+- [x] **Phase 18: Component Extraction** - Language switcher, locale-aware navigation across header/footer (completed 2026-05-25)
 - [ ] **Phase 19: Home Page Localization** - Prove end-to-end pattern with landing page in zh and fr
 - [ ] **Phase 20: Feature Pages** - 5 feature deep-dive pages translated in zh and fr
 - [ ] **Phase 21: Legal, Support & Blog** - Privacy, Terms, Support, and Blog listing translated
@@ -80,10 +80,10 @@ Plans:
   2. Clicking a nav link while on a /zh/ page navigates to the /zh/ variant of the target page (not back to English)
   3. Footer links, mobile menu links, and CTA buttons all respect the current locale context
   4. Language switcher preserves the current page when switching (e.g., /zh/recovery-scoring switches to /fr/recovery-scoring)
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 Plans:
 - [x] 18-01-PLAN.md — Expand translation dictionaries, wire Footer and MobileMenu with locale-aware paths and t() calls
-- [ ] 18-02-PLAN.md — Build language switcher widget in Header, translate all nav text, add dropdown JS
+- [x] 18-02-PLAN.md — Build language switcher widget in Header, translate all nav text, add dropdown JS
 **UI hint**: yes
 
 ### Phase 19: Home Page Localization
@@ -97,7 +97,7 @@ Plans:
   4. CJK line breaking is natural (no mid-word breaks, proper punctuation handling)
 **Plans:** 2 plans
 Plans:
-- [ ] 18-01-PLAN.md — Expand translation dictionaries, wire Footer and MobileMenu with locale-aware paths and t() calls
+- [x] 18-01-PLAN.md — Expand translation dictionaries, wire Footer and MobileMenu with locale-aware paths and t() calls
 - [ ] 18-02-PLAN.md — Build language switcher widget in Header, translate all nav text, add dropdown JS
 **UI hint**: yes
 
@@ -166,7 +166,7 @@ Plans:
 | 15. Matisse SVG Art Direction | v3.0 | 2/2 | Complete | 2026-05-15 |
 | 16. Interaction Polish | v3.0 | 2/2 | Complete | 2026-05-16 |
 | 17. i18n Infrastructure | v4.0 | 3/3 | Complete    | 2026-05-24 |
-| 18. Component Extraction | v4.0 | 1/2 | In Progress|  |
+| 18. Component Extraction | v4.0 | 2/2 | Complete   | 2026-05-25 |
 | 19. Home Page Localization | v4.0 | 0/? | Not started | - |
 | 20. Feature Pages | v4.0 | 0/? | Not started | - |
 | 21. Legal, Support & Blog | v4.0 | 0/? | Not started | - |
