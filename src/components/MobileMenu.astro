@@ -3,11 +3,13 @@
 // Interactive menu overlay. JS handles open/close, focus trap, Escape key.
 // Rendered inline (not as island) — uses <script> tag for browser JS.
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations } from '../i18n/utils';
 
 interface Props {
   locale?: string;
 }
 const { locale = 'en' } = Astro.props;
+const t = useTranslations(locale as 'en' | 'zh' | 'fr');
 ---
 
 <style>
@@ -58,7 +60,7 @@ const { locale = 'en' } = Astro.props;
           href={getRelativeLocaleUrl(locale, '/features/recovery-scoring')}
           class="block mobile-nav-link"
         >
-          Features
+          {t.nav.features}
         </a>
       </li>
       <li>
@@ -66,7 +68,23 @@ const { locale = 'en' } = Astro.props;
           href={getRelativeLocaleUrl(locale, '/features/coaching')}
           class="block mobile-nav-link"
         >
-          Coaching
+          {t.nav.featuresDropdown.coachingTitle}
+        </a>
+      </li>
+      <li>
+        <a
+          href={getRelativeLocaleUrl(locale, '/methodology')}
+          class="block mobile-nav-link"
+        >
+          {t.nav.method}
+        </a>
+      </li>
+      <li>
+        <a
+          href={getRelativeLocaleUrl(locale, '/for-coaches')}
+          class="block mobile-nav-link"
+        >
+          {t.nav.coaches}
         </a>
       </li>
       <li>
@@ -74,7 +92,7 @@ const { locale = 'en' } = Astro.props;
           href={getRelativeLocaleUrl(locale, '/blog')}
           class="block mobile-nav-link"
         >
-          Blog
+          {t.nav.blog}
         </a>
       </li>
       <li>
@@ -82,7 +100,7 @@ const { locale = 'en' } = Astro.props;
           href={getRelativeLocaleUrl(locale, '/support')}
           class="block mobile-nav-link"
         >
-          Support
+          {t.nav.support}
         </a>
       </li>
     </ul>
@@ -105,7 +123,7 @@ const { locale = 'en' } = Astro.props;
           min-height: 44px;
         "
       >
-        Get the App
+        {t.nav.getApp}
       </a>
     </div>
   </nav>
