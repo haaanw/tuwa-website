@@ -1,0 +1,154 @@
+---
+import { useRecoveryScoringTranslations } from '../../../i18n/utils';
+import FeaturePageLayout from '../../../layouts/FeaturePageLayout.astro';
+import DeviceFrame from '../../../components/DeviceFrame.astro';
+import RecoveryChart from '../../../components/charts/RecoveryChart.astro';
+import recoveryScreenshot from '../../../assets/screenshots/recovery.png';
+
+const t = useRecoveryScoringTranslations('fr');
+---
+
+<FeaturePageLayout
+  shapeId="blob-3"
+  title={t.meta.title}
+  description={t.meta.description}
+  ogImage="/og/recovery-scoring.png"
+  screenshot={recoveryScreenshot}
+  screenshotAlt={t.hero.screenshotAlt}
+  outcomeStatement={t.hero.outcomeStatement}
+  hookLine={t.hero.hookLine}
+  locale="fr"
+>
+
+  <!-- Sticky scroll showcase — ANIM-05 (D-05, D-06, D-07) -->
+  <section class="section-spaced">
+    <div class="sticky-showcase">
+
+      <!-- Left column: sticky device frame -->
+      <div class="sticky-device-col">
+        <div class="device-sticky-wrapper">
+          <DeviceFrame
+            src={recoveryScreenshot}
+            alt={t.howItWorks.deviceAlt}
+            loading="lazy"
+            widths={[320, 640]}
+          />
+          <!-- Step indicator dots — purely decorative -->
+          <div aria-hidden="true" style="display: flex; justify-content: center; gap: var(--space-sm); margin-top: var(--space-lg);">
+            <div class="step-dot is-active"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: scrolling step content -->
+      <div class="scroll-steps-col">
+
+        <!-- Step 1: Overview + Zones -->
+        <div class="scroll-step is-active" data-step="1" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
+          <h2 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
+            {t.howItWorks.heading}
+          </h2>
+          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+            {t.howItWorks.p1}
+          </p>
+          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+            {t.howItWorks.p2}
+          </p>
+          <h3 style="font-size: var(--text-body); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
+            {t.howItWorks.threeZonesHeading}
+          </h3>
+          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+            {t.howItWorks.p3}
+          </p>
+        </div>
+
+        <!-- Step 2: Device Compatibility -->
+        <div class="scroll-step" data-step="2" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
+          <h3 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
+            {t.deviceCompatibility.heading}
+          </h3>
+          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+            {t.deviceCompatibility.p1}
+          </p>
+        </div>
+
+        <!-- Step 3: Personal Baseline -->
+        <div class="scroll-step" data-step="3" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
+          <h3 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
+            {t.personalBaseline.heading}
+          </h3>
+          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+            {t.personalBaseline.p1}
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: The science behind it -->
+  <section
+    style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
+  >
+    <div
+      class="section-spaced mx-auto max-w-3xl px-6"
+    >
+      <h2
+        style="
+          font-size: var(--text-heading);
+          font-weight: var(--weight-heading);
+          line-height: var(--leading-heading);
+          letter-spacing: var(--tracking-heading);
+          color: var(--color-text-1);
+          margin-bottom: var(--space-lg);
+        "
+      >
+        {t.scienceSection.heading}
+      </h2>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.scienceSection.p1}
+      </p>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.scienceSection.p2}
+      </p>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.scienceSection.p3}
+      </p>
+
+      <RecoveryChart />
+    </div>
+  </section>
+
+</FeaturePageLayout>
+
+<script is:inline>
+  /* StickyScrollController — scoped to recovery-scoring.astro only */
+  /* Separate observer from global AnimationController (different threshold, continuous observation) */
+  (function () {
+    var steps = document.querySelectorAll('.scroll-step');
+    var dots = document.querySelectorAll('.step-dot');
+    if (!steps.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var stepNum = entry.target.getAttribute('data-step');
+          /* Update active step */
+          steps.forEach(function (s) { s.classList.remove('is-active'); });
+          entry.target.classList.add('is-active');
+          /* Update indicator dots */
+          dots.forEach(function (d, i) {
+            d.classList.toggle('is-active', String(i + 1) === stepNum);
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    steps.forEach(function (el) { observer.observe(el); });
+  })();
+</script>
