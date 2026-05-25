@@ -1,0 +1,115 @@
+---
+import '@fontsource/noto-sans-sc/400.css';
+import '@fontsource/noto-sans-sc/700.css';
+import { useWorkloadTrackingTranslations } from '../../../i18n/utils';
+import FeaturePageLayout from '../../../layouts/FeaturePageLayout.astro';
+import AcwrChart from '../../../components/charts/AcwrChart.astro';
+import workloadScreenshot from '../../../assets/screenshots/workload.png';
+
+const t = useWorkloadTrackingTranslations('zh');
+---
+
+<style is:global>
+  :root { --font-sans: 'Noto Sans SC', 'General Sans Variable', system-ui, sans-serif; }
+</style>
+
+<FeaturePageLayout
+  shapeId="blob-5"
+  title={t.meta.title}
+  description={t.meta.description}
+  ogImage="/og/workload-tracking.png"
+  screenshot={workloadScreenshot}
+  screenshotAlt={t.hero.screenshotAlt}
+  outcomeStatement={t.hero.outcomeStatement}
+  hookLine={t.hero.hookLine}
+  locale="zh"
+>
+
+  <!-- Section 1: How it works -->
+  <section data-animate class="section-spaced">
+    <div class="mx-auto max-w-3xl px-6">
+      <h2
+        style="
+          font-size: var(--text-heading);
+          font-weight: var(--weight-heading);
+          line-height: var(--leading-heading);
+          letter-spacing: var(--tracking-heading);
+          color: var(--color-text-1);
+          margin-bottom: var(--space-lg);
+        "
+      >
+        {t.howItWorks.heading}
+      </h2>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.howItWorks.p1}
+      </p>
+
+      <h3 style="font-size: var(--text-body); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
+        {t.howItWorks.acuteChronicHeading}
+      </h3>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.howItWorks.p2}
+      </p>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.howItWorks.p3}
+      </p>
+
+      <h3 style="font-size: var(--text-body); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
+        {t.howItWorks.repsInReserveHeading}
+      </h3>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.howItWorks.p4}
+      </p>
+
+      <h3 style="font-size: var(--text-body); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
+        {t.howItWorks.personalRecordsHeading}
+      </h3>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.howItWorks.p5}
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 2: The science behind it -->
+  <section
+    data-animate
+    style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
+  >
+    <div
+      class="section-spaced mx-auto max-w-3xl px-6"
+    >
+      <h2
+        style="
+          font-size: var(--text-heading);
+          font-weight: var(--weight-heading);
+          line-height: var(--leading-heading);
+          letter-spacing: var(--tracking-heading);
+          color: var(--color-text-1);
+          margin-bottom: var(--space-lg);
+        "
+      >
+        {t.scienceSection.heading}
+      </h2>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.scienceSection.p1}
+      </p>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.scienceSection.p2}
+      </p>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.scienceSection.p3}
+      </p>
+
+      <AcwrChart />
+    </div>
+  </section>
+
+</FeaturePageLayout>
