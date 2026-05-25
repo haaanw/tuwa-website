@@ -4,13 +4,30 @@ import BaseLayout from './BaseLayout.astro';
 interface Props {
   title: string;
   lastUpdated?: string;
+  locale?: string;
+  disclaimerText?: string;
 }
 
-const { title, lastUpdated } = Astro.props;
+const { title, lastUpdated, locale = 'en', disclaimerText } = Astro.props;
+const showDisclaimer = locale !== 'en' && disclaimerText;
 ---
-<BaseLayout title={title} description={`${title} for Tuwa — Training Load & Recovery app.`}>
+<BaseLayout title={title} description={`${title} for Tuwa — Training Load & Recovery app.`} locale={locale}>
   <div style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
     <div class="mx-auto px-6" style="max-width: 680px;">
+      {showDisclaimer && (
+        <div style="
+          background-color: var(--color-surface);
+          border: 1px solid var(--color-divider);
+          border-radius: var(--radius-md);
+          padding: var(--space-sm) var(--space-md);
+          margin-bottom: var(--space-xl);
+          font-size: var(--text-label);
+          color: var(--color-text-3);
+          line-height: var(--leading-body);
+        ">
+          {disclaimerText}
+        </div>
+      )}
       <h1
         style="
           font-size: var(--text-heading);
