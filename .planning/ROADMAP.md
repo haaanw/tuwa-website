@@ -152,8 +152,8 @@ Plans:
 **Plans:** 2 plans
 Plans:
 
-- [ ] 21-01-PLAN.md
-- [ ] 21-02-PLAN.md
+- [ ] 21-01-PLAN.md — Translation namespace files, utils.ts extensions, LegalPageLayout + FaqAccordion locale wiring
+- [ ] 21-02-PLAN.md — 8 locale wrapper pages (zh/fr for privacy, terms, support, blog)
 
 ### Phase 22: SEO Verification & Polish
 
