@@ -101,10 +101,6 @@ Plans:
 - [x] 19-02-PLAN.md — Wire FeatureGrid with locale-aware static HTML and inline script data
 **UI hint**: yes
 
-
-
-
-
 ### Phase 20: Feature Pages
 **Goal**: All 5 feature deep-dive pages are fully translated and visually intact in both Chinese and French
 **Depends on**: Phase 19
@@ -114,10 +110,13 @@ Plans:
   2. All 5 feature pages (/fr/recovery-scoring, /fr/workload-tracking, etc.) display fully translated French content
   3. French text expansion on feature pages does not break device frame layouts, stat counters, or CTA sections
   4. Feature-specific terminology is consistent across pages within each locale
-**Plans:** 2 plans
+**Plans:** 5 plans
 Plans:
-- [x] 18-01-PLAN.md — Expand translation dictionaries, wire Footer and MobileMenu with locale-aware paths and t() calls
-- [ ] 18-02-PLAN.md — Build language switcher widget in Header, translate all nav text, add dropdown JS
+- [ ] 20-01-PLAN.md -- Layout locale wiring, FeatureCTA refactor, common.ts CTA keys
+- [ ] 20-02-PLAN.md -- EN namespace files for all 5 features, utils.ts extension
+- [ ] 20-03-PLAN.md -- zh/fr translations and wrapper pages for recovery-scoring and workload-tracking
+- [ ] 20-04-PLAN.md -- zh/fr translations and wrapper pages for smart-templates and cold-start
+- [ ] 20-05-PLAN.md -- zh/fr translations and wrapper pages for coaching (named slots)
 **UI hint**: yes
 
 ### Phase 21: Legal, Support & Blog
@@ -130,8 +129,8 @@ Plans:
   3. Blog listing page at /zh/blog and /fr/blog displays translated UI chrome (headings, empty state text) with correct locale routing
 **Plans:** 2 plans
 Plans:
-- [ ] 18-01-PLAN.md — Expand translation dictionaries, wire Footer and MobileMenu with locale-aware paths and t() calls
-- [ ] 18-02-PLAN.md — Build language switcher widget in Header, translate all nav text, add dropdown JS
+- [ ] 21-01-PLAN.md
+- [ ] 21-02-PLAN.md
 
 ### Phase 22: SEO Verification & Polish
 **Goal**: Search engines correctly index all locale variants, social shares show localized metadata, and broken locale URLs gracefully fallback
@@ -145,8 +144,8 @@ Plans:
   5. Lighthouse scores remain >= 95 on all locale variants (no CJK font regression)
 **Plans:** 2 plans
 Plans:
-- [ ] 18-01-PLAN.md — Expand translation dictionaries, wire Footer and MobileMenu with locale-aware paths and t() calls
-- [ ] 18-02-PLAN.md — Build language switcher widget in Header, translate all nav text, add dropdown JS
+- [ ] 22-01-PLAN.md
+- [ ] 22-02-PLAN.md
 
 ## Progress
 
@@ -172,6 +171,6 @@ Plans:
 | 17. i18n Infrastructure | v4.0 | 3/3 | Complete    | 2026-05-24 |
 | 18. Component Extraction | v4.0 | 2/2 | Complete    | 2026-05-25 |
 | 19. Home Page Localization | v4.0 | 2/2 | Complete    | 2026-05-25 |
-| 20. Feature Pages | v4.0 | 0/? | Not started | - |
+| 20. Feature Pages | v4.0 | 0/5 | Not started | - |
 | 21. Legal, Support & Blog | v4.0 | 0/? | Not started | - |
 | 22. SEO Verification & Polish | v4.0 | 0/? | Not started | - |
