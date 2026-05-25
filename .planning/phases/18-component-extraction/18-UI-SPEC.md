@@ -44,11 +44,13 @@ Declared values (must be multiples of 4) — inherited from Phase 11, unchanged:
 | 3xl | 64px (`--space-3xl`) | Page-level spacing |
 
 Exceptions:
-- Language switcher trigger button: minimum touch target 44px height (same as hamburger button)
-- Mobile language switcher (between logo and hamburger): 44×44px touch target
 - Dropdown width: 160px (narrower than Features 300px — only 3 locale items, no descriptions)
 
 **Source:** global.css `:root` tokens (Phase 11)
+
+### Accessibility Sizing Constraints
+
+Touch targets for the language switcher trigger button and mobile language switcher (between logo and hamburger) must meet WCAG SC 2.5.5. Use a minimum height of **48px** (achieved via flexbox centering), consistent with the hamburger button. Note: 48px is the nearest multiple-of-4 value that satisfies the 44px WCAG minimum.
 
 ---
 
@@ -60,7 +62,8 @@ All values inherited from the established token system. The language switcher us
 |------|------|--------|-------------|-------|
 | Body | 16px (`--text-body`) | 500 (`--weight-body`) | 1.6 (`--leading-body`) | Nav links, footer text |
 | Label | 13px (`--text-label`) | 600 (`--weight-label`) | 1.4 (`--leading-label`) | Language switcher trigger text (e.g. "EN"), dropdown locale names |
-| Heading | 28px (`--text-heading`) | 300 (`--weight-heading`) | 1.2 (`--leading-heading`) | Mobile nav links (existing `.mobile-nav-link` pattern) |
+
+> **Note:** Heading weight (300) is inherited from existing `.mobile-nav-link` — not declared or modified by this phase.
 
 **Language switcher trigger text:** 13px / weight 600 — rendered as uppercase locale code (EN, ZH, FR) per the `.tracking-label` convention (letter-spacing: 0.06em).
 
@@ -98,6 +101,8 @@ All values from the Phase 11 travertine token system. No new colors introduced.
 
 ### New: LanguageSwitcher (inline in Header.astro + MobileMenu.astro)
 
+**Focal point:** CTA button ("Get the App") is the primary visual focal point of the header; the language switcher is a secondary nav utility and must not compete visually with the CTA.
+
 No separate component file. Implemented inline following the Features dropdown pattern.
 
 **Desktop trigger anatomy:**
@@ -127,7 +132,7 @@ No separate component file. Implemented inline following the Features dropdown p
 [globe SVG 16×16] [locale code] [chevron SVG 12×12]
 ```
 - Same dropdown behavior as desktop (`.nav-dropdown` class)
-- Touch target: min 44px height, achieved via flexbox centering
+- Touch target: min 48px height (see Accessibility Sizing Constraints), achieved via flexbox centering
 - Positioned in the header flex row: `order` between logo and hamburger via flex layout
 
 **Interaction behavior (mirrors Features dropdown exactly):**
