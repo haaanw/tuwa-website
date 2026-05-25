@@ -1,0 +1,112 @@
+---
+import '@fontsource/noto-sans-sc/400.css';
+import '@fontsource/noto-sans-sc/700.css';
+import { useSmartTemplatesTranslations } from '../../../i18n/utils';
+import FeaturePageLayout from '../../../layouts/FeaturePageLayout.astro';
+import activeWorkoutScreenshot from '../../../assets/screenshots/active-workout.png';
+
+const t = useSmartTemplatesTranslations('zh');
+---
+
+<style is:global>
+  :root { --font-sans: 'Noto Sans SC', 'General Sans Variable', system-ui, sans-serif; }
+</style>
+
+<FeaturePageLayout
+  shapeId="blob-4"
+  locale="zh"
+  title={t.meta.title}
+  description={t.meta.description}
+  ogImage="/og/smart-templates.png"
+  screenshot={activeWorkoutScreenshot}
+  screenshotAlt={t.hero.screenshotAlt}
+  outcomeStatement={t.hero.outcomeStatement}
+  hookLine={t.hero.hookLine}
+>
+
+  <!-- 第一节：工作原理 -->
+  <section data-animate class="section-spaced">
+    <div class="mx-auto max-w-3xl px-6">
+      <h2
+        style="
+          font-size: var(--text-heading);
+          font-weight: var(--weight-heading);
+          line-height: var(--leading-heading);
+          letter-spacing: var(--tracking-heading);
+          color: var(--color-text-1);
+          margin-bottom: var(--space-lg);
+        "
+      >
+        {t.howItWorks.heading}
+      </h2>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.howItWorks.p1}
+      </p>
+
+      <h3 style="font-size: var(--text-body); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
+        {t.howItWorks.prescriptionToExecutionHeading}
+      </h3>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.howItWorks.p2}
+      </p>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.howItWorks.p3}
+      </p>
+
+      <h3 style="font-size: var(--text-body); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
+        {t.howItWorks.autoregulationHeading}
+      </h3>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.howItWorks.p4}
+      </p>
+
+      <h3 style="font-size: var(--text-body); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
+        {t.howItWorks.connectHeading}
+      </h3>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.howItWorks.p5}
+      </p>
+    </div>
+  </section>
+
+  <!-- 第二节：专为真实编程逻辑而设计 -->
+  <section
+    data-animate
+    style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
+  >
+    <div
+      class="section-spaced mx-auto max-w-3xl px-6"
+    >
+      <h2
+        style="
+          font-size: var(--text-heading);
+          font-weight: var(--weight-heading);
+          line-height: var(--leading-heading);
+          letter-spacing: var(--tracking-heading);
+          color: var(--color-text-1);
+          margin-bottom: var(--space-lg);
+        "
+      >
+        {t.realProgramming.heading}
+      </h2>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.realProgramming.p1}
+      </p>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.realProgramming.p2}
+      </p>
+
+      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+        {t.realProgramming.p3}
+      </p>
+    </div>
+  </section>
+
+</FeaturePageLayout>
