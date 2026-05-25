@@ -51,7 +51,7 @@
 - [x] **Phase 17: i18n Infrastructure** - Astro i18n routing, translation utility, CJK font integration (completed 2026-05-17)
 - [x] **Phase 18: Component Extraction** - Language switcher, locale-aware navigation across header/footer (completed 2026-05-25)
 - [x] **Phase 19: Home Page Localization** - Prove end-to-end pattern with landing page in zh and fr (completed 2026-05-25)
-- [ ] **Phase 20: Feature Pages** - 5 feature deep-dive pages translated in zh and fr
+- [x] **Phase 20: Feature Pages** - 5 feature deep-dive pages translated in zh and fr (completed 2026-05-25)
 - [ ] **Phase 21: Legal, Support & Blog** - Privacy, Terms, Support, and Blog listing translated
 - [ ] **Phase 22: SEO Verification & Polish** - hreflang, sitemap, locale 404s, Lighthouse audit
 
@@ -127,14 +127,14 @@ Plans:
   3. French text expansion on feature pages does not break device frame layouts, stat counters, or CTA sections
   4. Feature-specific terminology is consistent across pages within each locale
 
-**Plans:** 2/5 plans executed
+**Plans:** 5/5 plans complete
 Plans:
 
 - [x] 20-01-PLAN.md -- Layout locale wiring, FeatureCTA refactor, common.ts CTA keys
 - [x] 20-02-PLAN.md -- EN namespace files for all 5 features, utils.ts extension
-- [ ] 20-03-PLAN.md -- zh/fr translations and wrapper pages for recovery-scoring and workload-tracking
-- [ ] 20-04-PLAN.md -- zh/fr translations and wrapper pages for smart-templates and cold-start
-- [ ] 20-05-PLAN.md -- zh/fr translations and wrapper pages for coaching (named slots)
+- [x] 20-03-PLAN.md -- zh/fr translations and wrapper pages for recovery-scoring and workload-tracking
+- [x] 20-04-PLAN.md -- zh/fr translations and wrapper pages for smart-templates and cold-start
+- [x] 20-05-PLAN.md -- zh/fr translations and wrapper pages for coaching (named slots)
 
 **UI hint**: yes
 
@@ -198,6 +198,6 @@ Plans:
 | 17. i18n Infrastructure | v4.0 | 3/3 | Complete    | 2026-05-24 |
 | 18. Component Extraction | v4.0 | 2/2 | Complete    | 2026-05-25 |
 | 19. Home Page Localization | v4.0 | 2/2 | Complete    | 2026-05-25 |
-| 20. Feature Pages | v4.0 | 2/5 | In Progress|  |
+| 20. Feature Pages | v4.0 | 5/5 | Complete   | 2026-05-25 |
 | 21. Legal, Support & Blog | v4.0 | 0/? | Not started | - |
 | 22. SEO Verification & Polish | v4.0 | 0/? | Not started | - |
