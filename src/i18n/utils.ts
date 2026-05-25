@@ -25,6 +25,9 @@ import frSupport from './locales/fr/support';
 import enBlog from './locales/en/blog';
 import zhBlog from './locales/zh/blog';
 import frBlog from './locales/fr/blog';
+import en404 from './locales/en/404';
+import zh404 from './locales/zh/404';
+import fr404 from './locales/fr/404';
 import zhRecoveryScoring from './locales/zh/recovery-scoring';
 import frRecoveryScoring from './locales/fr/recovery-scoring';
 import zhWorkloadTracking from './locales/zh/workload-tracking';
@@ -42,6 +45,7 @@ import type { Privacy } from './locales/en/privacy';
 import type { Terms } from './locales/en/terms';
 import type { Support } from './locales/en/support';
 import type { Blog } from './locales/en/blog';
+import type { NotFound } from './locales/en/404';
 
 export type Locale = 'en' | 'zh' | 'fr';
 export type CommonTranslations = Common;
@@ -113,6 +117,12 @@ const blogTranslations: Record<Locale, Blog> = {
   fr: frBlog,
 };
 
+const notFoundTranslations: Record<Locale, NotFound> = {
+  en: en404,
+  zh: zh404,
+  fr: fr404,
+};
+
 export function useTranslations(locale: Locale | undefined): Common {
   return translations[locale ?? 'en'] ?? translations['en'];
 }
@@ -155,4 +165,8 @@ export function useSupportTranslations(locale: Locale | undefined): Support {
 
 export function useBlogTranslations(locale: Locale | undefined): Blog {
   return blogTranslations[locale ?? 'en'] ?? blogTranslations['en'];
+}
+
+export function use404Translations(locale: Locale | undefined): NotFound {
+  return notFoundTranslations[locale ?? 'en'] ?? notFoundTranslations['en'];
 }

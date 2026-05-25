@@ -1,0 +1,27 @@
+---
+import { use404Translations } from '../../i18n/utils';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const t = use404Translations('fr');
+---
+<BaseLayout title={t.meta.title} description={t.meta.description} locale="fr">
+  <div style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl); text-align: center;">
+    <div class="mx-auto px-6" style="max-width: 480px;">
+      <p style="font-size: var(--text-display); font-weight: var(--weight-heading); color: var(--color-accent); line-height: 1;">
+        404
+      </p>
+      <h1 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-top: var(--space-md);">
+        {t.heading}
+      </h1>
+      <p style="color: var(--color-text-2); line-height: var(--leading-body); margin-top: var(--space-md);">
+        {t.body}
+      </p>
+      <a
+        href="/fr/"
+        style="display: inline-flex; align-items: center; justify-content: center; margin-top: var(--space-xl); padding: var(--space-sm) var(--space-md); background-color: var(--color-accent); color: var(--color-accent-fg); border-radius: var(--radius-md); text-decoration: none; font-weight: var(--weight-label); min-height: 44px;"
+      >
+        {t.cta}
+      </a>
+    </div>
+  </div>
+</BaseLayout>
