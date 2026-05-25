@@ -11,7 +11,8 @@ interface Props {
 
 const { title, description, ogImage, date, minutesRead } = Astro.props;
 ---
-<BaseLayout title={title} description={description} ogImage={ogImage} type="article">
+<BaseLayout title={title} description={description} ogImage={ogImage} type="article" hreflangAlternates={[]}>
+
   <div style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
     <div class="mx-auto px-6" style="max-width: 680px;">
       <a

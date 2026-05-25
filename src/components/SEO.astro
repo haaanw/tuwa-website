@@ -5,6 +5,8 @@ interface Props {
   ogImage?: string;
   canonical?: string;
   type?: string;
+  locale?: string;
+  hreflangAlternates?: Array<{ hreflang: string; href: string }>;
 }
 
 const {
@@ -13,22 +15,42 @@ const {
   ogImage = "/og-default.png",
   canonical = Astro.url.href,
   type = "website",
+  locale,
+  hreflangAlternates: hreflangAlternatesProp,
 } = Astro.props;
 
 const siteName = "Tuwa";
 const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
 const siteOrigin = Astro.site?.origin ?? "https://tuwa.app";
 const resolvedOgImage = ogImage.startsWith("http") ? ogImage : `${siteOrigin}${ogImage}`;
+
+const currentPath = Astro.url.pathname;
+const pathWithoutLocale = currentPath.replace(/^\/(zh|fr)(\/|$)/, '/');
+const siteLocales = [
+  { hreflang: 'en', href: `${siteOrigin}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}` },
+  { hreflang: 'zh', href: `${siteOrigin}/zh${pathWithoutLocale === '/' ? '' : pathWithoutLocale}` },
+  { hreflang: 'fr', href: `${siteOrigin}/fr${pathWithoutLocale === '/' ? '' : pathWithoutLocale}` },
+] as const;
+const hreflangAlternates = hreflangAlternatesProp ?? siteLocales;
+const derivedLocale = locale ?? (currentPath.startsWith('/zh') ? 'zh' : currentPath.startsWith('/fr') ? 'fr' : 'en');
+const ogLocaleValue = derivedLocale === 'zh' ? 'zh_CN' : derivedLocale === 'fr' ? 'fr_FR' : 'en_US';
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
+{hreflangAlternates.map(({ hreflang, href }) => (
+  <link rel="alternate" hreflang={hreflang} href={href} />
+))}
+{hreflangAlternates.length > 0 && (
+  <link rel="alternate" hreflang="x-default" href={`${siteOrigin}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`} />
+)}
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={resolvedOgImage} />
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content={siteName} />
 <meta property="og:type" content={type} />
+<meta property="og:locale" content={ogLocaleValue} />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
