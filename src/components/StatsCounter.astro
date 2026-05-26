@@ -8,6 +8,8 @@ interface Props {
 
 const { locale = 'en' } = Astro.props;
 const t = useHomeTranslations(locale);
+// D-02: counters target the page locale (not browser locale)
+const pageLocale = Astro.currentLocale ?? locale ?? 'en';
 ---
 <section
   aria-label="Tuwa by the numbers"
@@ -27,6 +29,7 @@ const t = useHomeTranslations(locale);
         class="tabular-nums"
         data-counter-target="1200"
         data-counter-suffix="+"
+        data-locale={pageLocale}
         style="font-size: var(--text-display); font-weight: var(--weight-display); line-height: var(--leading-display); color: var(--color-text-1);"
       >1,200+</span>
       <p style="font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-2); margin-top: var(--space-xs);">{t.stats.athletes}</p>
@@ -36,6 +39,7 @@ const t = useHomeTranslations(locale);
         class="tabular-nums"
         data-counter-target="85000"
         data-counter-suffix="+"
+        data-locale={pageLocale}
         style="font-size: var(--text-display); font-weight: var(--weight-display); line-height: var(--leading-display); color: var(--color-text-1);"
       >85,000+</span>
       <p style="font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-2); margin-top: var(--space-xs);">{t.stats.sessions}</p>
@@ -45,6 +49,7 @@ const t = useHomeTranslations(locale);
         class="tabular-nums"
         data-counter-target="94"
         data-counter-suffix="%"
+        data-locale={pageLocale}
         style="font-size: var(--text-display); font-weight: var(--weight-display); line-height: var(--leading-display); color: var(--color-text-1);"
       >94%</span>
       <p style="font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-2); margin-top: var(--space-xs);">{t.stats.accuracy}</p>

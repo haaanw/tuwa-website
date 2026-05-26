@@ -4,11 +4,15 @@ import '@fontsource/noto-sans-sc/700.css';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { useBlogTranslations } from '../../../i18n/utils';
+import type { Locale } from '../../../i18n/utils';
+import { formatDate } from '../../../i18n/format';
 
 const t = useBlogTranslations('zh');
 const posts = (await getCollection('blog', ({ data }) =>
   !import.meta.env.PROD || !data.draft
 )).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const locale = (Astro.currentLocale ?? 'en') as Locale;
 ---
 
 <style is:global>
@@ -31,7 +35,7 @@ const posts = (await getCollection('blog', ({ data }) =>
             <li style="padding: var(--space-sm) 0;">
               <a href={`/zh/blog/${post.id}`} class="blog-listing-item" style="padding: var(--space-md);">
                 <time datetime={post.data.date.toISOString()} style="font-size: var(--text-label); color: var(--color-text-3);">
-                  {post.data.date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  {formatDate(post.data.date, locale)}
                 </time>
                 <h2 style="font-size: var(--text-body); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xs);">
                   {post.data.title}
