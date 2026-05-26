@@ -67,13 +67,13 @@ Full phase details: `.planning/milestones/v4.0-ROADMAP.md`
 **Goal:** Complete the deferred i18n surface on top of the v4.0 trilingual foundation:
 locale-aware date formatting, blog post translation routing, and per-locale OG images.
 
-- [ ] **Phase 23: Locale Formatting Utility** - Shared Intl date/number formatting; remove hardcoded locale strings (I18N-21)
+- [x] **Phase 23: Locale Formatting Utility** - Shared Intl date/number formatting; remove hardcoded locale strings (I18N-21) (completed 2026-05-26)
 - [ ] **Phase 24: Blog Translation Infrastructure** - Locale field in schema, zh/fr blog routes, locale-filtered listings + hreflang (I18N-18/19/20)
 - [ ] **Phase 25: Translated OG Images via Satori** - Per-locale OG PNGs with correct CJK/French glyphs (I18N-15/16/17)
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 23. Locale Formatting Utility | 0/1 | Not started | - |
+| 23. Locale Formatting Utility | 1/1 | Complete   | 2026-05-26 |
 | 24. Blog Translation Infrastructure | 0/TBD | Not started | - |
 | 25. Translated OG Images via Satori | 0/TBD | Not started | - |
 
@@ -89,7 +89,7 @@ locale-aware date formatting, blog post translation routing, and per-locale OG i
   3. `grep -r "toLocaleDateString" src/` returns zero hits outside `src/i18n/format.ts` — no inline locale strings remain
   4. `npx tsc --noEmit` passes with zero errors after the utility is integrated
 **Plans**: 1 plan
-- [ ] 23-01-PLAN.md — Create src/i18n/format.ts and migrate 4 date + 3 number call sites onto it
+- [x] 23-01-PLAN.md — Create src/i18n/format.ts and migrate 4 date + 3 number call sites onto it
 
 ### Phase 24: Blog Translation Infrastructure
 **Goal**: zh and fr blog routes exist and serve only their locale's posts; the blog schema enforces locale; hreflang on blog pages reflects only present locales

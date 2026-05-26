@@ -4,8 +4,8 @@ milestone: v4.1
 milestone_name: Internationalization Follow-ups
 status: executing
 stopped_at: Phase 23 context gathered
-last_updated: "2026-05-26T09:26:47.031Z"
-last_activity: 2026-05-26 -- Phase 23 planning complete
+last_updated: "2026-05-26T12:45:15.775Z"
+last_activity: 2026-05-26 -- Phase 23 execution started
 progress:
   total_phases: 3
   completed_phases: 0
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-25)
 
 **Core value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing
-**Current focus:** Phase 23 — locale-formatting-utility (not started)
+**Current focus:** Phase 23 — locale-formatting-utility
 
 ## Current Position
 
-Phase: 23 — Locale Formatting Utility
-Plan: —
-Status: Ready to execute
-Last activity: 2026-05-26 -- Phase 23 planning complete
+Phase: 23 (locale-formatting-utility) — EXECUTING
+Plan: 1 of 1
+Status: Executing Phase 23
+Last activity: 2026-05-26 -- Phase 23 execution started
 
 ```
 Progress: [                    ] 0% (0/3 phases)
