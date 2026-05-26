@@ -73,7 +73,7 @@ locale-aware date formatting, blog post translation routing, and per-locale OG i
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 23. Locale Formatting Utility | 0/TBD | Not started | - |
+| 23. Locale Formatting Utility | 0/1 | Not started | - |
 | 24. Blog Translation Infrastructure | 0/TBD | Not started | - |
 | 25. Translated OG Images via Satori | 0/TBD | Not started | - |
 
@@ -88,7 +88,8 @@ locale-aware date formatting, blog post translation routing, and per-locale OG i
   2. A fr blog listing card displays a date in French format (e.g. "25 mai 2026"), not "May 25, 2026"
   3. `grep -r "toLocaleDateString" src/` returns zero hits outside `src/i18n/format.ts` — no inline locale strings remain
   4. `npx tsc --noEmit` passes with zero errors after the utility is integrated
-**Plans**: TBD
+**Plans**: 1 plan
+- [ ] 23-01-PLAN.md — Create src/i18n/format.ts and migrate 4 date + 3 number call sites onto it
 
 ### Phase 24: Blog Translation Infrastructure
 **Goal**: zh and fr blog routes exist and serve only their locale's posts; the blog schema enforces locale; hreflang on blog pages reflects only present locales
