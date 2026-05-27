@@ -42,6 +42,10 @@ Convince serious athletes that Tuwa is the evidence-based workload management to
 - ✓ zh + fr translations across all 10 pages (home, 5 features, privacy, terms, support, blog) — Phases 19-21
 - ✓ SEO i18n — hreflang + x-default, per-locale og:locale, localized sitemap, per-locale 404s — Phase 22
 
+### Validated (v4.1)
+
+- ✓ Locale formatting utility (`src/i18n/format.ts`) — Intl-based `formatDate`/`formatNumber` + `LOCALE_TAG` map; 4 date sites + 3 counter sites migrated, zero hardcoded locale strings (I18N-21) — Phase 23
+
 ### Validated (v2.0)
 
 - ✓ Screenshot presentation overhaul (3x Retina, CSS iPhone device frames) — Phase 6
