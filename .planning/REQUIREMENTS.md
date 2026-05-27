@@ -19,7 +19,7 @@
 
 ## Locale Formatting
 
-- [ ] **I18N-21**: A shared formatting utility formats dates per locale (en-US / zh-CN / fr-FR) via native `Intl`; blog post dates and listing cards use it (no hardcoded locale strings)
+- [x] **I18N-21**: A shared formatting utility formats dates per locale (en-US / zh-CN / fr-FR) via native `Intl`; blog post dates and listing cards use it (no hardcoded locale strings)
 
 ## Out of Scope
 
@@ -45,4 +45,4 @@
 | I18N-18 | Phase 24 | Pending |
 | I18N-19 | Phase 24 | Pending |
 | I18N-20 | Phase 24 | Pending |
-| I18N-21 | Phase 23 | Pending |
+| I18N-21 | Phase 23 | Complete |

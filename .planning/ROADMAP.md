@@ -73,7 +73,7 @@ locale-aware date formatting, blog post translation routing, and per-locale OG i
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 23. Locale Formatting Utility | 1/1 | Complete   | 2026-05-26 |
+| 23. Locale Formatting Utility | 1/1 | Complete    | 2026-05-27 |
 | 24. Blog Translation Infrastructure | 0/TBD | Not started | - |
 | 25. Translated OG Images via Satori | 0/TBD | Not started | - |
 
