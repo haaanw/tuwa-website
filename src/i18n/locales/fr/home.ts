@@ -9,9 +9,19 @@ const home: Home = {
     badgeAriaLabel: 'Télécharger Tuwa sur l\'App Store',
   },
   stats: {
-    athletes: 'Athlètes utilisent Tuwa',
-    sessions: 'Séances analysées',
-    accuracy: 'Précision de prédiction VFC',
+    heading: 'Pourquoi les athlètes font confiance au score',
+    science: {
+      title: 'Fondé sur l\'ACWR et la VFC',
+      desc: 'La forme repose sur le ratio de charge aigüe/chronique et la variabilité de la fréquence cardiaque — des mesures reconnues en science du sport, pas une boîte noire.',
+    },
+    privacy: {
+      title: 'Confidentiel par conception',
+      desc: 'Tes données HealthKit brutes ne quittent jamais ton appareil. L\'app fonctionne hors ligne ; seuls les scores composites se synchronisent si tu actives les fonctions coach.',
+    },
+    dayOne: {
+      title: 'Utile dès le premier jour',
+      desc: 'Des références de population et un bilan matinal donnent des conseils concrets immédiatement — aucune semaine de collecte avant que Tuwa soit utile.',
+    },
   },
   cta: {
     headline: 'Conçu pour les athlètes qui prennent l\'entraînement au sérieux.',

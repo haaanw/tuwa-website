@@ -13,9 +13,19 @@ const home = {
     badgeAriaLabel: 'Download Tuwa on the App Store',
   },
   stats: {
-    athletes: 'Athletes using Tuwa',
-    sessions: 'Sessions analyzed',
-    accuracy: 'HRV prediction accuracy',
+    heading: 'Why athletes trust the score',
+    science: {
+      title: 'Grounded in ACWR + HRV',
+      desc: 'Readiness is built on the acute:chronic workload ratio and heart-rate variability — established sports-science measures, not a black box.',
+    },
+    privacy: {
+      title: 'Private by design',
+      desc: 'Raw HealthKit data never leaves your device. The app works fully offline; only composite scores sync when you opt into coach features.',
+    },
+    dayOne: {
+      title: 'Useful from day one',
+      desc: 'Population baselines and a morning check-in give real guidance immediately — no weeks of data collection before Tuwa earns its place.',
+    },
   },
   cta: {
     headline: 'Built for athletes who take training seriously.',

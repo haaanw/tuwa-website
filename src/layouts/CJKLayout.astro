@@ -8,8 +8,10 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  ogImageAlt?: string;
   canonical?: string;
   type?: string;
+  structuredData?: Record<string, unknown>[];
 }
 
 const props = Astro.props;

@@ -1,5 +1,6 @@
 ---
 import { useSupportTranslations } from '../i18n/utils';
+import { faqPageSchema } from '../seo/schema';
 
 interface Props {
   locale?: string;
@@ -8,7 +9,10 @@ interface Props {
 const { locale = 'en' } = Astro.props;
 const t = useSupportTranslations(locale as any);
 const faqs = t.faq;
+const faqSchema = faqPageSchema(faqs);
 ---
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
 
 <style>
   details > summary {

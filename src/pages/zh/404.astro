@@ -12,6 +12,7 @@ const t = use404Translations('zh');
 </style>
 
 <BaseLayout title={t.meta.title} description={t.meta.description} locale="zh">
+  <meta slot="head" name="robots" content="noindex" />
   <div style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl); text-align: center;">
     <div class="mx-auto px-6" style="max-width: 480px;">
       <p style="font-size: var(--text-display); font-weight: var(--weight-heading); color: var(--color-accent); line-height: 1;">

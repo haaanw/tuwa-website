@@ -6,11 +6,15 @@ import FeatureGrid from '../../components/FeatureGrid.astro';
 import StatsCounter from '../../components/StatsCounter.astro';
 import LandingCTA from '../../components/LandingCTA.astro';
 
+import { softwareApplicationSchema, organizationSchema } from '../../seo/schema';
+
 const t = useTranslations('fr');
+const structuredData = [softwareApplicationSchema(t.meta.description), organizationSchema()];
 ---
 <BaseLayout
-  title={t.meta.title}
+  title="Gestion de la charge d'entraînement et de la récupération"
   description={t.meta.description}
+  structuredData={structuredData}
   locale="fr"
 >
   <Hero locale="fr" />

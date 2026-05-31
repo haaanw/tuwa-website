@@ -8,13 +8,17 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  ogImageAlt?: string;
   canonical?: string;
   type?: string;
   locale?: string;
   hreflangAlternates?: Array<{ hreflang: string; href: string }>;
+  structuredData?: Record<string, unknown>[];
 }
 
-const { title, description, ogImage, canonical, type, locale = 'en', hreflangAlternates } = Astro.props;
+const { title, description, ogImage, ogImageAlt, canonical, type, locale = 'en', hreflangAlternates, structuredData } = Astro.props;
+// NOTE: keep lang={locale} — the zh CJK font override keys off html[lang="zh"] (see CJKFonts.astro).
+// hreflang/sitemap standardize on zh-CN; html lang stays 'zh' (a valid BCP-47 tag) to preserve that selector.
 ---
 <!doctype html>
 <html lang={locale}>
@@ -23,16 +27,19 @@ const { title, description, ogImage, canonical, type, locale = 'en', hreflangAlt
     <!-- Font preload FIRST — before stylesheets — per Pitfall 6 in RESEARCH.md -->
     <link rel="preload" href="/fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#2B5240" />
     <meta name="generator" content={Astro.generator} />
-    <SEO title={title} description={description} ogImage={ogImage} canonical={canonical} type={type} locale={locale} hreflangAlternates={hreflangAlternates} />
+    <SEO title={title} description={description} ogImage={ogImage} ogImageAlt={ogImageAlt} canonical={canonical} type={type} locale={locale} hreflangAlternates={hreflangAlternates} structuredData={structuredData} />
     <slot name="head" />
   </head>
   <body>
+    <a href="#main" class="skip-link">{locale === 'zh' ? '跳到主要内容' : locale === 'fr' ? 'Aller au contenu principal' : 'Skip to main content'}</a>
     <Header locale={locale} />
-    <main class="max-w-[1440px] mx-auto w-full">
+    <main id="main" class="max-w-[1440px] mx-auto w-full">
       <slot />
     </main>
     <Footer locale={locale} />

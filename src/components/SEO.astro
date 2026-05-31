@@ -3,33 +3,41 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  ogImageAlt?: string;
   canonical?: string;
   type?: string;
   locale?: string;
   hreflangAlternates?: Array<{ hreflang: string; href: string }>;
+  structuredData?: Record<string, unknown>[];
 }
 
 const {
   title,
   description,
   ogImage = "/og-default.png",
+  ogImageAlt,
   canonical = Astro.url.href,
   type = "website",
   locale,
   hreflangAlternates: hreflangAlternatesProp,
+  structuredData = [],
 } = Astro.props;
 
 const siteName = "Tuwa";
 const fullTitle = title === siteName ? title : `${title} — ${siteName}`;
 const siteOrigin = Astro.site?.origin ?? "https://tuwa.app";
 const resolvedOgImage = ogImage.startsWith("http") ? ogImage : `${siteOrigin}${ogImage}`;
+const resolvedOgImageAlt = ogImageAlt ?? `${siteName} — ${title}`;
 
 const currentPath = Astro.url.pathname;
 const pathWithoutLocale = currentPath.replace(/^\/(zh|fr)(\/|$)/, '/');
+// Keep the trailing slash on the root path so hreflang hrefs match the canonical (D: trailing-slash parity).
+const suffix = pathWithoutLocale === '/' ? '/' : pathWithoutLocale;
+// hreflang codes mirror the sitemap i18n config (astro.config.mjs): en, zh-CN, fr.
 const siteLocales = [
-  { hreflang: 'en', href: `${siteOrigin}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}` },
-  { hreflang: 'zh', href: `${siteOrigin}/zh${pathWithoutLocale === '/' ? '' : pathWithoutLocale}` },
-  { hreflang: 'fr', href: `${siteOrigin}/fr${pathWithoutLocale === '/' ? '' : pathWithoutLocale}` },
+  { hreflang: 'en', href: `${siteOrigin}${suffix}` },
+  { hreflang: 'zh-CN', href: `${siteOrigin}/zh${suffix}` },
+  { hreflang: 'fr', href: `${siteOrigin}/fr${suffix}` },
 ] as const;
 const hreflangAlternates = hreflangAlternatesProp ?? siteLocales;
 const derivedLocale = locale ?? (currentPath.startsWith('/zh') ? 'zh' : currentPath.startsWith('/fr') ? 'fr' : 'en');
@@ -42,11 +50,14 @@ const ogLocaleValue = derivedLocale === 'zh' ? 'zh_CN' : derivedLocale === 'fr' 
   <link rel="alternate" hreflang={hreflang} href={href} />
 ))}
 {hreflangAlternates.length > 0 && (
-  <link rel="alternate" hreflang="x-default" href={`${siteOrigin}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`} />
+  <link rel="alternate" hreflang="x-default" href={`${siteOrigin}${suffix}`} />
 )}
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={resolvedOgImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={resolvedOgImageAlt} />
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content={siteName} />
 <meta property="og:type" content={type} />
@@ -55,3 +66,7 @@ const ogLocaleValue = derivedLocale === 'zh' ? 'zh_CN' : derivedLocale === 'fr' 
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={resolvedOgImage} />
+<meta name="twitter:image:alt" content={resolvedOgImageAlt} />
+{structuredData.map((schema) => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

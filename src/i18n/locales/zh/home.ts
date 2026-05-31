@@ -9,9 +9,19 @@ const home: Home = {
     badgeAriaLabel: '在 App Store 下载 Tuwa',
   },
   stats: {
-    athletes: '运动员正在使用 Tuwa',
-    sessions: '训练课已分析',
-    accuracy: 'HRV 预测准确率',
+    heading: '运动员为何信任这个评分',
+    science: {
+      title: '基于 ACWR 与 HRV',
+      desc: '准备状态评分建立在急慢性负荷比和心率变异之上——这些是运动科学的公认指标，而非黑箱。',
+    },
+    privacy: {
+      title: '隐私优先设计',
+      desc: '原始 HealthKit 数据永不离开你的设备。应用完全离线可用；仅在你启用教练功能时同步综合评分。',
+    },
+    dayOne: {
+      title: '第一天就能用',
+      desc: '人群基线加上晨间自评，立刻给出真实建议——无需数周数据积累，Tuwa 即刻有用。',
+    },
   },
   cta: {
     headline: '为认真对待训练的运动员而造。',

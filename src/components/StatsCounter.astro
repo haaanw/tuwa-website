@@ -8,11 +8,10 @@ interface Props {
 
 const { locale = 'en' } = Astro.props;
 const t = useHomeTranslations(locale);
-// D-02: counters target the page locale (not browser locale)
-const pageLocale = Astro.currentLocale ?? locale ?? 'en';
+const tiles = [t.stats.science, t.stats.privacy, t.stats.dayOne];
 ---
 <section
-  aria-label="Tuwa by the numbers"
+  aria-label="Why athletes trust Tuwa"
   data-animate
   style="
     background-color: var(--color-surface);
@@ -22,37 +21,45 @@ const pageLocale = Astro.currentLocale ?? locale ?? 'en';
 >
   <div
     class="mx-auto max-w-6xl px-6"
-    style="padding-top: var(--space-2xl); padding-bottom: var(--space-2xl); display: flex; justify-content: center; gap: var(--space-3xl); flex-wrap: wrap;"
+    style="padding-top: var(--space-2xl); padding-bottom: var(--space-2xl);"
   >
-    <div class="text-center">
-      <span
-        class="tabular-nums"
-        data-counter-target="1200"
-        data-counter-suffix="+"
-        data-locale={pageLocale}
-        style="font-size: var(--text-display); font-weight: var(--weight-display); line-height: var(--leading-display); color: var(--color-text-1);"
-      >1,200+</span>
-      <p style="font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-2); margin-top: var(--space-xs);">{t.stats.athletes}</p>
-    </div>
-    <div class="text-center">
-      <span
-        class="tabular-nums"
-        data-counter-target="85000"
-        data-counter-suffix="+"
-        data-locale={pageLocale}
-        style="font-size: var(--text-display); font-weight: var(--weight-display); line-height: var(--leading-display); color: var(--color-text-1);"
-      >85,000+</span>
-      <p style="font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-2); margin-top: var(--space-xs);">{t.stats.sessions}</p>
-    </div>
-    <div class="text-center">
-      <span
-        class="tabular-nums"
-        data-counter-target="94"
-        data-counter-suffix="%"
-        data-locale={pageLocale}
-        style="font-size: var(--text-display); font-weight: var(--weight-display); line-height: var(--leading-display); color: var(--color-text-1);"
-      >94%</span>
-      <p style="font-size: var(--text-label); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-text-2); margin-top: var(--space-xs);">{t.stats.accuracy}</p>
+    <h2
+      class="text-center"
+      style="
+        font-size: var(--text-heading);
+        font-weight: var(--weight-heading);
+        line-height: var(--leading-heading);
+        letter-spacing: var(--tracking-heading);
+        color: var(--color-text-1);
+        margin-bottom: var(--space-2xl);
+      "
+    >
+      {t.stats.heading}
+    </h2>
+    <div class="grid gap-8 md:grid-cols-3">
+      {tiles.map((tile) => (
+        <div>
+          <h3
+            style="
+              font-size: 20px;
+              font-weight: var(--weight-body);
+              line-height: var(--leading-heading);
+              color: var(--color-text-1);
+            "
+          >
+            {tile.title}
+          </h3>
+          <p
+            style="
+              margin-top: var(--space-sm);
+              color: var(--color-text-2);
+              line-height: var(--leading-body);
+            "
+          >
+            {tile.desc}
+          </p>
+        </div>
+      ))}
     </div>
   </div>
 </section>

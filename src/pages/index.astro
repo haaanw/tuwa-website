@@ -4,10 +4,15 @@ import Hero from '../components/Hero.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
 import StatsCounter from '../components/StatsCounter.astro';
 import LandingCTA from '../components/LandingCTA.astro';
+import { softwareApplicationSchema, organizationSchema } from '../seo/schema';
+
+const description = "Precision training load and recovery management for serious athletes and coaches.";
+const structuredData = [softwareApplicationSchema(description), organizationSchema()];
 ---
 <BaseLayout
-  title="Tuwa"
-  description="Precision training load and recovery management for serious athletes and coaches."
+  title="Precision Training Load & Recovery for Serious Athletes"
+  description={description}
+  structuredData={structuredData}
 >
   <Hero />
   <FeatureGrid />

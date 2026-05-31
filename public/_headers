@@ -1,0 +1,7 @@
+# Cloudflare Pages headers
+# Content-hashed assets and self-hosted fonts are immutable — cache for a year.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable

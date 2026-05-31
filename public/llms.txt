@@ -1,0 +1,25 @@
+# Tuwa
+
+> Tuwa is an iOS app for precision training-load and recovery management, built for serious athletes and coaches. It turns HRV, sleep, heart rate, and training load into a single daily readiness score, grounded in the acute:chronic workload ratio (ACWR) and heart-rate variability rather than a black-box algorithm. Raw HealthKit data stays on-device.
+
+## Core concepts
+- Readiness score: a daily composite of HRV, resting heart rate, sleep, and a morning wellness check-in.
+- ACWR (acute:chronic workload ratio): compares the last 7 days of training load against a 28-day average; values outside roughly 0.8–1.3 raise injury risk.
+- On-device privacy: the app works fully offline; only composite scores sync when a user opts into coach features.
+
+## Features
+- [Recovery Scoring](https://tuwa.app/features/recovery-scoring): daily readiness from HRV, sleep, heart rate, and training context.
+- [Workload Tracking](https://tuwa.app/features/workload-tracking): EWMA-based load monitoring and spike detection.
+- [Smart Templates](https://tuwa.app/features/smart-templates): prescribed workouts with target sets, weight, and reps.
+- [Cold-Start Onboarding](https://tuwa.app/features/cold-start): useful guidance from day one, no baseline wait.
+- [Coach + Athlete](https://tuwa.app/features/coaching): team recovery visibility and prescribed workouts.
+
+## Topics
+- [Methodology](https://tuwa.app/methodology): the science behind Tuwa's readiness and load models.
+- [Training Load](https://tuwa.app/training-load): what training load is and how Tuwa measures it.
+- [Readiness Score](https://tuwa.app/readiness-score): how the daily readiness score is calculated.
+- [For Coaches](https://tuwa.app/for-coaches): how coaches use Tuwa with their athletes.
+- [Compare](https://tuwa.app/compare): how Tuwa differs from generic fitness trackers.
+
+## Support
+- [Support & FAQ](https://tuwa.app/support): common questions about scoring, wearables, privacy, and subscriptions.

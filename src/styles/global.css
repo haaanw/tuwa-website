@@ -31,7 +31,7 @@
   --color-divider:      #CFCBC5;  /* hairline borders, separators */
   --color-text-1:       #1C1915;  /* primary text, headings */
   --color-text-2:       #696560;  /* secondary text, footer legal */
-  --color-text-3:       #AFABA5;  /* micro labels, inactive */
+  --color-text-3:       #6D6862;  /* micro labels, inactive — WCAG AA (≥4.5:1 on bg & surface) */
 
   /* Accent — deep forest green (D-02) */
   --color-accent:       #2B5240;  /* CTA buttons only */
@@ -312,6 +312,25 @@ body::after {
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
+}
+
+/* Skip-to-content link — visually hidden until keyboard focus */
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -120%);
+  z-index: 100;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-accent);
+  color: var(--color-accent-fg);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  text-decoration: none;
+  font-weight: var(--weight-label);
+  transition: transform 150ms ease;
+}
+.skip-link:focus {
+  transform: translate(-50%, 0);
 }
 
 /* Phase 16 — Hover audit: uncovered interactive elements (D-07, D-09) */

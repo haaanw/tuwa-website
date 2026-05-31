@@ -2,12 +2,15 @@
 // No frontmatter imports -- Chart.js loaded in bundled script tag
 ---
 <div style="max-width: 600px; margin: 0 auto; padding: var(--space-lg) 0;">
-  <canvas
-    id="acwr-chart"
-    aria-label="Line chart showing 28-day training load trend with acute load in green and chronic load in grey, illustrating the ACWR ratio over time"
-    role="img"
-    style="width: 100%; height: auto;"
-  ></canvas>
+  <!-- Reserved aspect-ratio box prevents layout shift before Chart.js paints (CLS fix) -->
+  <div style="position: relative; width: 100%; aspect-ratio: 2 / 1;">
+    <canvas
+      id="acwr-chart"
+      aria-label="Line chart showing 28-day training load trend with acute load in green and chronic load in grey, illustrating the ACWR ratio over time"
+      role="img"
+      style="position: absolute; inset: 0;"
+    ></canvas>
+  </div>
 </div>
 
 <script>
@@ -15,8 +18,9 @@
 
   const COLOR_ACCENT = '#2B5240';
   const COLOR_TEXT_2 = '#696560';
-  const COLOR_TEXT_3 = '#AFABA5';
+  const COLOR_TEXT_3 = '#6D6862';
   const COLOR_DIVIDER = '#CFCBC5';
+  const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Representative 28-day ACWR data -- illustrates gradual load buildup with safe progression
   const labels = Array.from({ length: 28 }, (_, i) => `Day ${i + 1}`);
@@ -63,6 +67,8 @@
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
+        animation: REDUCED_MOTION ? false : undefined,
         interaction: {
           mode: 'index',
           intersect: false,
