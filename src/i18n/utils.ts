@@ -34,6 +34,22 @@ import zhWorkloadTracking from './locales/zh/workload-tracking';
 import frWorkloadTracking from './locales/fr/workload-tracking';
 import zhCoaching from './locales/zh/coaching';
 import frCoaching from './locales/fr/coaching';
+import enMethodology from './locales/en/methodology';
+import zhMethodology from './locales/zh/methodology';
+import frMethodology from './locales/fr/methodology';
+import enTrainingLoad from './locales/en/training-load';
+import zhTrainingLoad from './locales/zh/training-load';
+import frTrainingLoad from './locales/fr/training-load';
+import enReadinessScore from './locales/en/readiness-score';
+import zhReadinessScore from './locales/zh/readiness-score';
+import frReadinessScore from './locales/fr/readiness-score';
+import enForCoaches from './locales/en/for-coaches';
+import zhForCoaches from './locales/zh/for-coaches';
+import frForCoaches from './locales/fr/for-coaches';
+import enCompare from './locales/en/compare';
+import zhCompare from './locales/zh/compare';
+import frCompare from './locales/fr/compare';
+import type { TopicPageContent } from './topicPage';
 import type { Common } from './locales/en/common';
 import type { Home } from './locales/en/home';
 import type { RecoveryScoring } from './locales/en/recovery-scoring';
@@ -169,4 +185,18 @@ export function useBlogTranslations(locale: Locale | undefined): Blog {
 
 export function use404Translations(locale: Locale | undefined): NotFound {
   return notFoundTranslations[locale ?? 'en'] ?? notFoundTranslations['en'];
+}
+
+export type TopicKey = 'methodology' | 'training-load' | 'readiness-score' | 'for-coaches' | 'compare';
+
+const topicTranslations: Record<TopicKey, Record<Locale, TopicPageContent>> = {
+  methodology: { en: enMethodology, zh: zhMethodology, fr: frMethodology },
+  'training-load': { en: enTrainingLoad, zh: zhTrainingLoad, fr: frTrainingLoad },
+  'readiness-score': { en: enReadinessScore, zh: zhReadinessScore, fr: frReadinessScore },
+  'for-coaches': { en: enForCoaches, zh: zhForCoaches, fr: frForCoaches },
+  compare: { en: enCompare, zh: zhCompare, fr: frCompare },
+};
+
+export function useTopicTranslations(topic: TopicKey, locale: Locale | undefined): TopicPageContent {
+  return topicTranslations[topic][locale ?? 'en'] ?? topicTranslations[topic]['en'];
 }

@@ -29,9 +29,15 @@ Note: kept `html lang="zh"` (not `zh-CN`) — the CJK font override keys off `ht
 
 Build: `npm run build` ✓ 33 pages. Changes verified in `dist/`.
 
-## Wave 2 — build 5 trilingual keyword pages (IN PROGRESS)
+## Wave 2 — build 5 trilingual keyword pages (DONE)
 
-Resolves the CRITICAL sitewide 404 nav links: `/methodology/`, `/for-coaches/`, `/readiness-score/`, `/training-load/`, `/compare/` (en + zh + fr).
+Resolves the CRITICAL sitewide 404 nav links: `/methodology/`, `/for-coaches/`, `/readiness-score/`, `/training-load/`, `/compare/` — now built in **en + zh + fr** (15 pages).
+
+- Shared `TopicPageContent` type (`src/i18n/topicPage.ts`) + one `TopicPageLayout.astro` render all five.
+- Content authored by a 5-agent parallel workflow (one per topic), trilingual, matching existing voice/terminology. Assembled deterministically into 15 locale modules + registered via `useTopicTranslations` in `utils.ts`.
+- `/methodology/` carries the HIGH "cite scientific claims" fix: inline references to Gabbett 2016 BJSM + Hulin/Gabbett 2016.
+- Each page has localized hreflang (en/zh-CN/fr), related-page internal links, and is in the sitemap.
+- Build: `npm run build` ✓ **48 pages** (was 33). All targets verified in `dist/`; Header/Footer/MobileMenu links now resolve.
 
 ## Deferred (M-effort, follow-up)
 

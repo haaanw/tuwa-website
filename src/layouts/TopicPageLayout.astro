@@ -1,0 +1,158 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import BaseLayout from './BaseLayout.astro';
+import FeatureCTA from '../components/FeatureCTA.astro';
+import MatisseDecoration from '../components/MatisseDecoration.astro';
+import type { TopicPageContent } from '../i18n/topicPage';
+
+interface Props {
+  content: TopicPageContent;
+  ogImage?: string;
+  shapeId?: 'blob-1' | 'blob-2' | 'blob-3' | 'blob-4' | 'blob-5' | 'blob-6' | 'blob-7';
+  locale?: string;
+  structuredData?: Record<string, unknown>[];
+}
+
+const { content, ogImage, shapeId = 'blob-1', locale = 'en', structuredData } = Astro.props;
+const { meta, hero, sections, related, references } = content;
+---
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  ogImage={ogImage}
+  locale={locale}
+  structuredData={structuredData}
+>
+  <!-- Hero -->
+  <section data-animate style="padding-top: var(--space-3xl); padding-bottom: var(--space-2xl); position: relative;">
+    <div class="mx-auto text-center" style="width: 100%; max-width: 768px; box-sizing: border-box; padding: 0 var(--space-md); position: relative; z-index: 1;">
+      <h1
+        style="
+          font-size: var(--text-display);
+          font-weight: var(--weight-heading);
+          line-height: var(--leading-display);
+          letter-spacing: var(--tracking-display);
+          color: var(--color-text-1);
+        "
+      >
+        {hero.outcomeStatement}
+      </h1>
+      <p
+        class="mx-auto"
+        style="
+          margin-top: var(--space-lg);
+          max-width: 560px;
+          font-size: var(--text-body);
+          line-height: var(--leading-body);
+          color: var(--color-text-2);
+        "
+      >
+        {hero.hookLine}
+      </p>
+    </div>
+    <MatisseDecoration shapeId={shapeId} />
+  </section>
+
+  <!-- Content sections — alternating surface bg for rhythm -->
+  {sections.map((section, i) => (
+    <section
+      data-animate
+      class={i % 2 === 1 ? '' : 'section-spaced'}
+      style={i % 2 === 1
+        ? 'background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);'
+        : ''}
+    >
+      <div class={i % 2 === 1 ? 'section-spaced mx-auto max-w-3xl px-6' : 'mx-auto max-w-3xl px-6'}>
+        <h2
+          style="
+            font-size: var(--text-heading);
+            font-weight: var(--weight-heading);
+            line-height: var(--leading-heading);
+            letter-spacing: var(--tracking-heading);
+            color: var(--color-text-1);
+            margin-bottom: var(--space-lg);
+          "
+        >
+          {section.heading}
+        </h2>
+        {section.subheading && (
+          <h3 style="font-size: var(--text-body); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-md);">
+            {section.subheading}
+          </h3>
+        )}
+        {section.body.map((para) => (
+          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
+            {para}
+          </p>
+        ))}
+        {section.bullets && (
+          <ul style="margin-top: var(--space-md); padding-left: var(--space-lg); list-style: disc; color: var(--color-text-2);">
+            {section.bullets.map((item) => (
+              <li style="margin-top: var(--space-sm); font-size: var(--text-body); line-height: var(--leading-body);">{item}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  ))}
+
+  <!-- Related links -->
+  {related && (
+    <section data-animate class="section-spaced">
+      <div class="mx-auto max-w-3xl px-6">
+        <h2
+          style="
+            font-size: var(--text-heading);
+            font-weight: var(--weight-heading);
+            line-height: var(--leading-heading);
+            letter-spacing: var(--tracking-heading);
+            color: var(--color-text-1);
+            margin-bottom: var(--space-lg);
+          "
+        >
+          {related.heading}
+        </h2>
+        <ul style="list-style: none; padding: 0;">
+          {related.links.map((link) => (
+            <li style="margin-top: var(--space-sm);">
+              <a href={getRelativeLocaleUrl(locale, link.href)} class="topic-link" style="color: var(--color-accent); font-weight: var(--weight-body); text-decoration: underline; text-underline-offset: 3px;">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- References -->
+  {references && (
+    <section data-animate style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider);">
+      <div class="section-spaced mx-auto max-w-3xl px-6">
+        <h2
+          style="
+            font-size: var(--text-heading);
+            font-weight: var(--weight-heading);
+            line-height: var(--leading-heading);
+            letter-spacing: var(--tracking-heading);
+            color: var(--color-text-1);
+            margin-bottom: var(--space-lg);
+          "
+        >
+          {references.heading}
+        </h2>
+        <ol style="padding-left: var(--space-lg); color: var(--color-text-2);">
+          {references.items.map((ref) => (
+            <li style="margin-top: var(--space-sm); font-size: var(--text-body); line-height: var(--leading-body);">
+              <a href={ref.url} target="_blank" rel="noopener noreferrer nofollow" style="color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px;">
+                {ref.label}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <FeatureCTA locale={locale} />
+</BaseLayout>

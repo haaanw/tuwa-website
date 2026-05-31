@@ -1,0 +1,14 @@
+---
+import '@fontsource/noto-sans-sc/400.css';
+import '@fontsource/noto-sans-sc/700.css';
+import { useTopicTranslations } from '../../i18n/utils';
+import TopicPageLayout from '../../layouts/TopicPageLayout.astro';
+
+const content = useTopicTranslations('training-load', 'zh');
+---
+
+<style is:global>
+  html[lang="zh"] { --font-general-sans: 'General Sans', 'Noto Sans SC', system-ui, sans-serif; }
+</style>
+
+<TopicPageLayout content={content} ogImage="/og-default.png" shapeId="blob-3" locale="zh" />
