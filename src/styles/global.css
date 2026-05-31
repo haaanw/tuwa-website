@@ -65,16 +65,19 @@
   /* Typography -- General Sans (variable set by Astro Font API, do not redeclare) */
 
   /* Type Scale */
-  --text-display:  48px;  /* Phase 2 hero — token declared now */
-  --text-heading:  28px;  /* page titles, section headers */
-  --text-body:     16px;  /* nav links, footer text, paragraphs */
-  --text-label:    13px;  /* micro labels, legal fine print */
+  --text-display:    48px;  /* Phase 2 hero — token declared now */
+  --text-heading:    28px;  /* page titles, section headers */
+  --text-subheading: 20px;  /* h3 / subsection — sits between body and heading (polish r2) */
+  --text-lede:       21px;  /* opening paragraph of a section (polish r2) */
+  --text-body:       16px;  /* nav links, footer text, paragraphs */
+  --text-label:      13px;  /* micro labels, legal fine print */
 
   /* Line Heights */
-  --leading-display: 1.1;
-  --leading-heading: 1.2;
-  --leading-body:    1.6;
-  --leading-label:   1.4;
+  --leading-display:    1.1;
+  --leading-heading:    1.2;
+  --leading-subheading: 1.3;
+  --leading-body:       1.6;
+  --leading-label:      1.4;
 
   /* Letter Spacing */
   --tracking-display: -0.02em;
@@ -189,7 +192,7 @@ body::after {
   font: inherit;
 }
 .nav-chevron {
-  transition: transform 250ms ease;
+  transition: transform 250ms var(--ease-interactive);
 }
 
 /* Features dropdown */
@@ -221,8 +224,8 @@ body::after {
 .nav-dropdown-item {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
+  gap: var(--space-md);
+  padding: var(--space-md);
   border-radius: var(--radius-md);
   text-decoration: none;
   color: var(--color-text-1);
@@ -260,11 +263,12 @@ body::after {
   font-weight: var(--weight-label);
   text-decoration: none;
   font-size: var(--text-body);
+  box-shadow: 0 2px 6px rgba(43,82,64,0.12);
   transition: background-color 150ms var(--ease-interactive), box-shadow 150ms var(--ease-interactive);
 }
 .btn-cta:hover {
   background-color: var(--color-accent-hover);
-  box-shadow: 0 2px 8px rgba(43,82,64,0.20);
+  box-shadow: 0 6px 16px rgba(43,82,64,0.22);
 }
 @media (prefers-reduced-motion: no-preference) {
   .btn-cta {
@@ -275,6 +279,25 @@ body::after {
   }
   .btn-cta:active {
     transform: scale(0.98);
+  }
+}
+
+/* App Store badge — the SVG is its own affordance, not a .btn-cta (polish r2) */
+.app-store-badge {
+  display: inline-block;
+  border-radius: var(--radius-md);
+  transition: transform 150ms var(--ease-interactive), filter 150ms var(--ease-interactive);
+}
+.app-store-badge:hover {
+  filter: brightness(0.96);
+}
+.app-store-badge:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .app-store-badge:hover {
+    transform: translateY(-1px);
   }
 }
 
@@ -327,10 +350,14 @@ body::after {
   border-radius: 0 0 var(--radius-md) var(--radius-md);
   text-decoration: none;
   font-weight: var(--weight-label);
-  transition: transform 150ms ease;
+  box-shadow: var(--shadow-card-hover);
+  transition: transform 150ms var(--ease-interactive), background-color 150ms var(--ease-interactive);
 }
 .skip-link:focus {
   transform: translate(-50%, 0);
+}
+.skip-link:hover {
+  background-color: var(--color-accent-hover);
 }
 
 /* Phase 16 — Hover audit: uncovered interactive elements (D-07, D-09) */
@@ -1057,4 +1084,187 @@ body::after {
   .matisse-decoration {
     opacity: 1 !important;
   }
+}
+
+/* ===== Polish round 2 — topic/long-form prose system ===== */
+
+/* Magazine grid: subheading lives in a left rail, body in the reading column */
+.topic-grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+@media (min-width: 900px) {
+  .topic-grid {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+}
+.topic-kicker {
+  font-size: var(--text-subheading);
+  line-height: var(--leading-subheading);
+  font-weight: var(--weight-heading);
+  color: var(--color-accent);
+  border-top: 2px solid var(--color-accent);
+  padding-top: var(--space-md);
+  margin: 0;
+}
+@media (min-width: 900px) {
+  .topic-kicker {
+    position: sticky;
+    top: 96px;
+  }
+}
+
+/* Prose primitives */
+.prose-h3 {
+  font-size: var(--text-subheading);
+  line-height: var(--leading-subheading);
+  font-weight: var(--weight-heading);
+  color: var(--color-text-1);
+  margin-top: var(--space-lg);
+}
+.prose-lede {
+  font-size: var(--text-lede);
+  line-height: var(--leading-heading);
+  color: var(--color-text-1);
+  font-weight: var(--weight-body);
+  margin-top: 0;
+}
+.prose-p {
+  margin-top: var(--space-md);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-text-2);
+}
+.content-link {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: opacity 120ms var(--ease-interactive);
+}
+.content-link:hover {
+  opacity: 0.72;
+}
+
+/* Signal cards — replace plain disc bullets */
+.signal-cards {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}
+.signal-card {
+  background-color: color-mix(in srgb, var(--color-bg) 55%, #ffffff);
+  border: 1px solid var(--color-divider);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-text-1);
+}
+
+/* Related links → card grid */
+.related-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 700px) {
+  .related-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.related-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  min-height: 72px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  text-decoration: none;
+  color: var(--color-text-1);
+  font-weight: var(--weight-body);
+  box-shadow: var(--shadow-card);
+  transition: background-color 150ms var(--ease-interactive), box-shadow 150ms var(--ease-interactive), transform 150ms var(--ease-interactive);
+}
+.related-card:hover {
+  background-color: var(--color-surface-el);
+  box-shadow: var(--shadow-card-hover);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .related-card:hover {
+    transform: translateY(-2px);
+  }
+}
+.related-card .arrow {
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* References — compact citations with hanging indent */
+.references-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: ref;
+}
+@media (min-width: 700px) {
+  .references-list {
+    columns: 2;
+    column-gap: var(--space-2xl);
+  }
+}
+.references-list li {
+  break-inside: avoid;
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  color: var(--color-text-2);
+  padding-left: var(--space-lg);
+  text-indent: calc(-1 * var(--space-lg));
+  margin-bottom: var(--space-md);
+}
+
+/* Comparison table (/compare) */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-lg);
+  font-size: var(--text-body);
+}
+.compare-table th,
+.compare-table td {
+  text-align: left;
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--color-divider);
+  vertical-align: top;
+  line-height: var(--leading-body);
+}
+.compare-table thead th {
+  font-weight: var(--weight-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-2);
+  background-color: var(--color-surface);
+}
+.compare-table td:first-child {
+  font-weight: var(--weight-body);
+  color: var(--color-text-1);
+}
+.compare-table .col-tuwa {
+  background-color: color-mix(in srgb, var(--color-accent) 7%, transparent);
+  color: var(--color-text-1);
+}
+.compare-table thead .col-tuwa {
+  color: var(--color-accent);
 }

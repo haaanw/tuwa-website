@@ -2,11 +2,17 @@
 // (/methodology, /training-load, /readiness-score, /for-coaches, /compare).
 // One uniform type across all five so a single TopicPageLayout renders them all.
 
+export interface TopicComparison {
+  columns: [string, string, string];
+  rows: { label: string; generic: string; tuwa: string }[];
+}
+
 export interface TopicSection {
   heading: string;
   subheading?: string;
   body: string[];
   bullets?: string[];
+  comparison?: TopicComparison;
 }
 
 export interface TopicPageContent {

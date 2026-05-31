@@ -38,12 +38,13 @@ const tiles = [t.stats.science, t.stats.privacy, t.stats.dayOne];
     </h2>
     <div class="grid gap-8 md:grid-cols-3">
       {tiles.map((tile) => (
-        <div>
+        <div style="border-top: 1px solid var(--color-divider); padding-top: var(--space-lg);">
+          <span aria-hidden="true" style="display: block; width: 32px; height: 2px; background: var(--color-accent); margin-bottom: var(--space-md);"></span>
           <h3
             style="
-              font-size: 20px;
-              font-weight: var(--weight-body);
-              line-height: var(--leading-heading);
+              font-size: var(--text-subheading);
+              font-weight: var(--weight-heading);
+              line-height: var(--leading-subheading);
               color: var(--color-text-1);
             "
           >

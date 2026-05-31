@@ -32,15 +32,50 @@ const content: TopicPageContent = {
       "body": [
         "Aucun des deux outils n'est universellement « meilleur » — ils répondent à des questions différentes. Voici le contraste honnête pour quiconque décide de ce qu'un entraînement sérieux exige vraiment."
       ],
-      "bullets": [
-        "Question principale — Tracker générique : « Qu'ai-je fait ? » (historique d'activité). Tuwa : « Que devrais-je faire aujourd'hui ? » (une décision d'entraînement).",
-        "Signal de récupération — Tracker générique : souvent un chiffre de récupération/forme boîte noire aux entrées cachées. Tuwa : un score de forme transparent montrant VFC, FC au repos, sommeil et facteurs de bien-être.",
-        "Charge d'entraînement — Tracker générique : pas, calories et journaux de séance, sans contexte aigu:chronique. Tuwa : suivi du ratio charge aiguë:chronique (ACWR) avec EWMA et détection des pics avant la séance.",
-        "Charge + récupération ensemble — Tracker générique : généralement séparées, ou contexte de charge totalement absent. Tuwa : charge et récupération combinées en une seule décision de forme.",
-        "Fondement scientifique — Tracker générique : propriétaire, souvent non documenté. Tuwa : l'ACWR développé et validé par Tim Gabbett et ses collègues ; la VFC figure parmi les biomarqueurs de récupération les plus étudiés.",
-        "Confidentialité — Tracker générique : données généralement traitées dans le cloud. Tuwa : les données HealthKit brutes restent sur l'appareil et fonctionnent hors ligne ; seuls les scores composites se synchronisent si tu actives les fonctions coach.",
-        "Délai avant utilité — Tracker générique : variable ; certains exigent des semaines de référence. Tuwa : utile dès le premier jour grâce aux références de population, puis se personnalise."
-      ]
+      "comparison": {
+    "columns": [
+      "Dimension",
+      "Tracker générique",
+      "Tuwa"
+    ],
+    "rows": [
+      {
+        "label": "Question principale",
+        "generic": "« Qu’ai-je fait ? » — historique d’activité",
+        "tuwa": "« Que faire aujourd’hui ? » — une décision d’entraînement"
+      },
+      {
+        "label": "Signal de récupération",
+        "generic": "Un chiffre boîte noire aux entrées cachées",
+        "tuwa": "Score transparent : VFC, FC au repos, sommeil, bien-être"
+      },
+      {
+        "label": "Charge d’entraînement",
+        "generic": "Pas, calories, journaux — sans contexte aigu:chronique",
+        "tuwa": "Suivi ACWR avec EWMA et détection des pics avant la séance"
+      },
+      {
+        "label": "Charge + récupération",
+        "generic": "Séparées, ou contexte de charge absent",
+        "tuwa": "Combinées en une seule décision de forme"
+      },
+      {
+        "label": "Fondement scientifique",
+        "generic": "Propriétaire, souvent non documenté",
+        "tuwa": "ACWR validé par Gabbett et al. ; VFC très étudiée"
+      },
+      {
+        "label": "Confidentialité",
+        "generic": "Données traitées dans le cloud",
+        "tuwa": "HealthKit brut sur l’appareil ; seuls les scores composites se synchronisent"
+      },
+      {
+        "label": "Délai avant utilité",
+        "generic": "Variable ; parfois des semaines",
+        "tuwa": "Utile dès le premier jour, puis se personnalise"
+      }
+    ]
+  }
     },
     {
       "heading": "Comment choisir",

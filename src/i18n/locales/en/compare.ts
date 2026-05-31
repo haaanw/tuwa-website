@@ -32,15 +32,50 @@ const content: TopicPageContent = {
       "body": [
         "Neither tool is universally \"better\" — they answer different questions. Here is the honest contrast for someone deciding what serious training actually requires."
       ],
-      "bullets": [
-        "Primary question — Generic tracker: \"What did I do?\" (activity history). Tuwa: \"What should I do today?\" (a training decision).",
-        "Recovery signal — Generic tracker: often a black-box recovery/readiness number with hidden inputs. Tuwa: a transparent readiness score showing HRV, resting HR, sleep, and wellness factors.",
-        "Training load — Generic tracker: steps, calories, and workout logs with no acute:chronic context. Tuwa: ACWR (acute:chronic workload ratio) tracking with EWMA and pre-session spike detection.",
-        "Load + recovery together — Generic tracker: usually separate, or load context absent entirely. Tuwa: load and recovery combined into one readiness decision.",
-        "Science grounding — Generic tracker: proprietary, often undocumented. Tuwa: ACWR developed and validated by Tim Gabbett and colleagues; HRV is among the most-researched recovery biomarkers.",
-        "Privacy — Generic tracker: data typically processed in the cloud. Tuwa: raw HealthKit data stays on-device and works offline; only composite scores sync when you opt into coach features.",
-        "Time to useful — Generic tracker: varies; some need weeks of baseline. Tuwa: useful from day one via population baselines, then personalizes."
-      ]
+      "comparison": {
+    "columns": [
+      "Dimension",
+      "Generic fitness tracker",
+      "Tuwa"
+    ],
+    "rows": [
+      {
+        "label": "Primary question",
+        "generic": "“What did I do?” — activity history",
+        "tuwa": "“What should I do today?” — a training decision"
+      },
+      {
+        "label": "Recovery signal",
+        "generic": "A black-box recovery number with hidden inputs",
+        "tuwa": "Transparent readiness score: HRV, resting HR, sleep, wellness"
+      },
+      {
+        "label": "Training load",
+        "generic": "Steps, calories, workout logs — no acute:chronic context",
+        "tuwa": "ACWR tracking with EWMA and pre-session spike detection"
+      },
+      {
+        "label": "Load + recovery together",
+        "generic": "Separate, or load context absent entirely",
+        "tuwa": "Combined into one readiness decision"
+      },
+      {
+        "label": "Science grounding",
+        "generic": "Proprietary, often undocumented",
+        "tuwa": "ACWR validated by Gabbett et al.; HRV heavily researched"
+      },
+      {
+        "label": "Privacy",
+        "generic": "Data typically processed in the cloud",
+        "tuwa": "Raw HealthKit stays on-device; only composite scores sync"
+      },
+      {
+        "label": "Time to useful",
+        "generic": "Varies; some need weeks of baseline",
+        "tuwa": "Useful from day one, then personalizes"
+      }
+    ]
+  }
     },
     {
       "heading": "How to decide",

@@ -31,7 +31,7 @@ const locale = (Astro.currentLocale ?? 'en') as Locale;
                 <time datetime={post.data.date.toISOString()} style="font-size: var(--text-label); color: var(--color-text-3);">
                   {formatDate(post.data.date, locale)}
                 </time>
-                <h2 style="font-size: var(--text-body); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xs);">
+                <h2 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xs);">
                   {post.data.title}
                 </h2>
                 <p style="font-size: var(--text-body); color: var(--color-text-2); margin-top: var(--space-xs);">
