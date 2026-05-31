@@ -14,7 +14,23 @@ Codex critique (read-only) and the 5-agent workflow audit converged; shipped the
 
 Build: `npm run build` ✓ 48 pages. Visually verified via headless browser (compare table, magazine grid, stats tiles, references). Commit + push → Cloudflare deploy.
 
-Deferred (lower impact): footer column rebalance, DeviceFrame placeholder gradient, hero micro-spacing, `.prose-*` utility extraction, header backdrop opacity.
+Deferred → **resolved in round 3** (see below): footer column rebalance, DeviceFrame placeholder gradient, hero micro-spacing, header backdrop opacity. Still skipped: `.prose-*` utility extraction (pure refactor, no user-visible change).
+
+## Round 3 — cleared the deferred backlog (both rounds) — DEPLOYED ✅
+
+From AUDIT-FIXES round 1 + UI-POLISH round 2 deferred lists:
+- **Lazy-load chart.js** — both charts now `import('chart.js/auto')` inside an IntersectionObserver (rootMargin 200px); the ~72KB `auto.*.js` chunk is no longer eagerly loaded on the 6 feature pages (0 modulepreload, deferred until the chart scrolls near view).
+- **Chart `<noscript>` fallbacks** — Recovery: 4-row data table; ACWR: descriptive summary with the 0.8–1.3 zone.
+- **Homepage no-JS fallback** — `FeatureGrid` now renders a static 5-card feature list shown when `html` lacks `.js-enabled`; the interactive wheel replaces it when JS runs. All 5 features now in the DOM for crawlers/no-JS.
+- **Meta descriptions trimmed ≤155c** — fr coaching/smart-templates/recovery-scoring/workload-tracking (was 181–225) + en coaching source page (was 175 → 141).
+- **Footer rebalanced** — 7/5/2 → 5/5/4: Resources keeps the 5 keyword pages; new "More" column (Blog, Support, Privacy, Terms) with `footer.more` key in en/zh/fr.
+- **DeviceFrame placeholder** — diagonal travertine gradient + faint accent dot pattern, label in weight-label/text-2.
+- **Hero micro-spacing** — subtitle → lede size + tighter top margin; device gap 48→40px; badge margin xl→lg.
+- **Header backdrop** — surface 95%→85% so the 8px blur reads.
+- All App Store badges now use the `.app-store-badge` affordance (hero, footer, CTAs).
+
+Build: 48 pages. Verified headless: charts render lazily, footer balances 5/5/4, fallbacks present.
+Skipped: in-prose feature cross-links (LOW, content) and `.prose-*` utility extraction (refactor, no UX change).
 
 ---
 

@@ -1268,3 +1268,47 @@ body::after {
 .compare-table thead .col-tuwa {
   color: var(--color-accent);
 }
+
+/* FeatureGrid no-JS fallback: static list shown only when JS is unavailable */
+.feature-static {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 760px;
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .feature-static {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.feature-static-card {
+  display: block;
+  height: 100%;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  text-decoration: none;
+}
+.feature-static-title {
+  display: block;
+  font-size: var(--text-subheading);
+  font-weight: var(--weight-heading);
+  color: var(--color-text-1);
+}
+.feature-static-desc {
+  display: block;
+  margin-top: var(--space-xs);
+  color: var(--color-text-2);
+  line-height: var(--leading-body);
+}
+/* When JS runs (html.js-enabled set by BaseLayout), the interactive wheel takes over */
+html.js-enabled .feature-static {
+  display: none;
+}
+html:not(.js-enabled) .wheel-container {
+  display: none;
+}

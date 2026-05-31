@@ -51,9 +51,12 @@ const {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(var(--color-surface-el), var(--color-divider));
-            color: var(--color-text-3);
+            background:
+              radial-gradient(circle at 1.5px 1.5px, color-mix(in srgb, var(--color-accent) 14%, transparent) 1.5px, transparent 0) 0 0 / 16px 16px,
+              linear-gradient(135deg, var(--color-surface), var(--color-bg));
+            color: var(--color-text-2);
             font-size: var(--text-label);
+            font-weight: var(--weight-label);
             text-transform: uppercase;
             letter-spacing: var(--tracking-label);
           "

@@ -48,11 +48,11 @@ Resolves the CRITICAL sitewide 404 nav links: `/methodology/`, `/for-coaches/`, 
   - `/llms.txt` → **200**
   - Homepage carries real App Store URL (`id6761185505`) + `SoftwareApplication` JSON-LD.
 
-## Deferred (M-effort, follow-up)
+## Deferred → RESOLVED (round 3, see .planning/UI-POLISH.md)
 
-- Lazy-load chart.js behind IntersectionObserver on feature pages (perf MEDIUM).
-- Static feature-list + `<noscript>` fallback behind homepage click-wheel (UI MEDIUM).
-- `<noscript>` data-table fallback inside charts (UI MEDIUM).
-- Trim long fr/en meta descriptions to ~155c (tech-SEO MEDIUM).
-- In-prose cross-links between feature pages (content LOW).
-- Cite scientific claims inline (HIGH) — folded into the new `/methodology/` page in Wave 2.
+- ✅ Lazy-load chart.js behind IntersectionObserver — done (dynamic import, deferred chunk).
+- ✅ Static feature-list + no-JS fallback behind homepage click-wheel — done (`.feature-static`).
+- ✅ `<noscript>` fallback inside charts — done (Recovery table, ACWR summary).
+- ✅ Trim long fr/en meta descriptions to ≤155c — done (4 fr + en coaching).
+- ✅ Cite scientific claims inline (HIGH) — done via `/methodology/` references (Wave 2).
+- Skipped: in-prose cross-links between feature pages (LOW, low value).

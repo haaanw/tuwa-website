@@ -14,22 +14,20 @@
       style="position: absolute; inset: 0;"
     ></canvas>
   </div>
+  <noscript>
+    <p style="margin-top: var(--space-md); font-size: var(--text-label); line-height: var(--leading-body); color: var(--color-text-2);">
+      Across a representative 28-day block, acute load (last ~7 days) rises and falls with each session while chronic load (last ~28 days) climbs gradually. Keeping the acute:chronic ratio inside roughly 0.8–1.3 is the safe progression zone.
+    </p>
+  </noscript>
 </figure>
 
 <script>
-  import Chart from 'chart.js/auto';
-
   const COLOR_ACCENT = '#2B5240';
   const COLOR_TEXT_2 = '#696560';
   const COLOR_TEXT_3 = '#6D6862';
   const COLOR_GRID = 'rgba(207,203,197,0.5)';
   const COLOR_INK = '#1C1915';
   const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // Brand-harmonized Chart.js defaults
-  Chart.defaults.font.family = "'General Sans', system-ui, sans-serif";
-  Chart.defaults.font.size = 13;
-  Chart.defaults.color = COLOR_TEXT_2;
 
   // Representative 28-day ACWR data -- illustrates gradual load buildup with safe progression
   const labels = Array.from({ length: 28 }, (_, i) => `Day ${i + 1}`);
@@ -47,7 +45,13 @@
   ];
 
   const canvas = document.getElementById('acwr-chart') as HTMLCanvasElement;
-  if (canvas) {
+
+  // Defer the ~72KB Chart.js chunk until the chart scrolls near the viewport (perf).
+  async function buildChart() {
+    const { default: Chart } = await import('chart.js/auto');
+    Chart.defaults.font.family = "'General Sans', system-ui, sans-serif";
+    Chart.defaults.font.size = 13;
+    Chart.defaults.color = COLOR_TEXT_2;
     new Chart(canvas, {
       type: 'line',
       data: {
@@ -126,5 +130,22 @@
         },
       },
     });
+  }
+
+  if (canvas) {
+    const figure = canvas.closest('figure');
+    if ('IntersectionObserver' in window && figure) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            obs.disconnect();
+            buildChart();
+          }
+        });
+      }, { rootMargin: '200px' });
+      io.observe(figure);
+    } else {
+      buildChart();
+    }
   }
 </script>

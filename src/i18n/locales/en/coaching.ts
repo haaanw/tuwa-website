@@ -8,7 +8,7 @@ const coaching = {
   meta: {
     title: 'Coach + Athlete',
     description:
-      'Real-time recovery visibility for every athlete you coach. Tuwa connects coaches and athletes with shared workload data, prescribed workouts, and invite-based team management.',
+      "Real-time recovery visibility for every athlete you coach. Tuwa links coaches and athletes with shared workload data and prescribed workouts.",
   },
   hero: {
     outcomeStatement: 'Real-time recovery visibility for every athlete you coach',

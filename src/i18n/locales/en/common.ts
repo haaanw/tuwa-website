@@ -41,6 +41,7 @@ const common = {
     privacy: 'Privacy Policy',
     terms: 'Terms of Service',
     copyright: '© {year} Tuwa. All rights reserved.',
+    more: 'More',
     methodology: 'Methodology',
     readinessScore: 'Readiness Score',
     trainingLoad: 'Training Load',

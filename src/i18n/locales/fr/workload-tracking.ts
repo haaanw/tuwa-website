@@ -4,7 +4,7 @@ const workloadTracking: WorkloadTracking = {
   meta: {
     title: 'Suivi de charge d\'entraînement',
     description:
-      'Entraîne-toi à fond sans franchir la ligne. Tuwa suit ta charge d\'entraînement avec une surveillance basée sur les EWMA, la détection de pics et le suivi de tes records personnels.',
+      "Entraîne-toi à fond sans franchir la ligne. Tuwa suit ta charge avec une surveillance EWMA, la détection de pics et tes records.",
   },
   hero: {
     outcomeStatement: 'Entraîne-toi à fond sans franchir la ligne',

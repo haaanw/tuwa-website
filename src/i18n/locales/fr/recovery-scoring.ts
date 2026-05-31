@@ -4,7 +4,7 @@ const recoveryScoring: RecoveryScoring = {
   meta: {
     title: 'Score de récupération',
     description:
-      'Sache exactement à quelle intensité t\'entraîner aujourd\'hui. Tuwa synthétise la VFC, la fréquence cardiaque au repos, le sommeil et ton état de forme en un score de forme quotidien.',
+      "Sache exactement à quelle intensité t'entraîner. Tuwa synthétise VFC, fréquence cardiaque au repos, sommeil et forme en un score quotidien.",
   },
   hero: {
     outcomeStatement: 'Sache exactement à quelle intensité pousser aujourd\'hui',

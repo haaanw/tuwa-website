@@ -35,6 +35,7 @@ const common: Common = {
     privacy: 'Politique de confidentialité',
     terms: "Conditions d'utilisation",
     copyright: '© {year} Tuwa. Tous droits réservés.',
+    more: 'Plus',
     methodology: 'Méthodologie',
     readinessScore: 'Score de forme',
     trainingLoad: "Charge d'entraînement",

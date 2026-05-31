@@ -38,6 +38,18 @@ const featuresData = t.featureGrid.features.map((f) => ({
       {t.featureGrid.heading}
     </h2>
 
+    <!-- Static fallback — shown when JS is unavailable; the wheel replaces it when JS runs -->
+    <ul class="feature-static" role="list">
+      {featuresData.map((f) => (
+        <li>
+          <a href={f.href} class="feature-static-card">
+            <span class="feature-static-title">{f.title}</span>
+            <span class="feature-static-desc">{f.desc}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
     <div
       class="wheel-container"
       id="feature-wheel"

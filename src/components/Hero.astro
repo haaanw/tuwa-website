@@ -35,9 +35,9 @@ const t = useHomeTranslations(locale);
     <p
       class="hero-subtitle mx-auto"
       style="
-        margin-top: var(--space-lg);
+        margin-top: var(--space-md);
         max-width: 560px;
-        font-size: var(--text-body);
+        font-size: var(--text-lede);
         line-height: var(--leading-body);
         color: var(--color-text-2);
       "
@@ -49,7 +49,7 @@ const t = useHomeTranslations(locale);
     <div
       class="hero-device relative mx-auto"
       style="
-        margin-top: var(--space-2xl);
+        margin-top: 40px;
         max-width: 320px;
       "
     >
@@ -63,13 +63,13 @@ const t = useHomeTranslations(locale);
     </div>
 
     <!-- App Store badge — above the fold, per D-01/D-02 -->
-    <div class="flex justify-center" style="margin-top: var(--space-xl);">
+    <div class="flex justify-center" style="margin-top: var(--space-lg);">
       <a
         href={APP_STORE_URL}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t.hero.badgeAriaLabel}
-        class="inline-block"
+        class="app-store-badge"
       >
         <img
           src="/badges/app-store-badge.svg"

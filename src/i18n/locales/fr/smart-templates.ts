@@ -4,7 +4,7 @@ const smartTemplates: SmartTemplates = {
   meta: {
     title: 'Modèles d\'entraînement intelligents',
     description:
-      'Des séances prescrites, pas des suppositions. Tuwa permet aux coachs de créer des modèles d\'entraînement structurés avec des groupes d\'exercices nommés, des séries cibles et des objectifs de charge et de répétitions.',
+      "Des séances prescrites, pas des suppositions. Crée des modèles structurés : groupes d'exercices, séries cibles et objectifs de répétitions.",
   },
   hero: {
     outcomeStatement: 'Des séances prescrites, pas des suppositions',

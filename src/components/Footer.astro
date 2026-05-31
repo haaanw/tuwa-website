@@ -26,7 +26,7 @@ const t = useTranslations(locale as 'en' | 'zh' | 'fr');
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Download Tuwa on the App Store"
-              class="inline-block"
+              class="app-store-badge"
             >
               <img
                 src="/badges/app-store-badge.svg"
@@ -60,15 +60,15 @@ const t = useTranslations(locale as 'en' | 'zh' | 'fr');
             <li><a href={getRelativeLocaleUrl(locale, '/training-load')} class="nav-link" style="color: var(--color-text-2);">{t.footer.trainingLoad}</a></li>
             <li><a href={getRelativeLocaleUrl(locale, '/for-coaches')} class="nav-link" style="color: var(--color-text-2);">{t.footer.forCoaches}</a></li>
             <li><a href={getRelativeLocaleUrl(locale, '/compare')} class="nav-link" style="color: var(--color-text-2);">{t.footer.compare}</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/blog')} class="nav-link" style="color: var(--color-text-2);">{t.nav.blog}</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/support')} class="nav-link" style="color: var(--color-text-2);">{t.nav.support}</a></li>
           </ul>
         </div>
 
-        <!-- Legal column -->
+        <!-- More column — help + legal -->
         <div>
-          <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">{t.footer.legal}</p>
+          <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">{t.footer.more}</p>
           <ul role="list" class="space-y-2" style="color: var(--color-text-2);">
+            <li><a href={getRelativeLocaleUrl(locale, '/blog')} class="nav-link" style="color: var(--color-text-2);">{t.nav.blog}</a></li>
+            <li><a href={getRelativeLocaleUrl(locale, '/support')} class="nav-link" style="color: var(--color-text-2);">{t.nav.support}</a></li>
             <li><a href={getRelativeLocaleUrl(locale, '/privacy')} class="nav-link" style="color: var(--color-text-2);">{t.footer.privacy}</a></li>
             <li><a href={getRelativeLocaleUrl(locale, '/terms')} class="nav-link" style="color: var(--color-text-2);">{t.footer.terms}</a></li>
           </ul>

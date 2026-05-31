@@ -14,24 +14,36 @@
       style="position: absolute; inset: 0;"
     ></canvas>
   </div>
+  <noscript>
+    <table style="margin-top: var(--space-md); width: 100%; border-collapse: collapse; font-size: var(--text-label); color: var(--color-text-2);">
+      <thead>
+        <tr><th scope="col" style="text-align: left; padding: var(--space-sm); border-bottom: 1px solid var(--color-divider);">Signal</th><th scope="col" style="text-align: left; padding: var(--space-sm); border-bottom: 1px solid var(--color-divider);">Score contribution</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding: var(--space-sm);">HRV</td><td style="padding: var(--space-sm);">28 points</td></tr>
+        <tr><td style="padding: var(--space-sm);">Resting HR</td><td style="padding: var(--space-sm);">22 points</td></tr>
+        <tr><td style="padding: var(--space-sm);">Sleep</td><td style="padding: var(--space-sm);">18 points</td></tr>
+        <tr><td style="padding: var(--space-sm);">Wellness</td><td style="padding: var(--space-sm);">10 points</td></tr>
+      </tbody>
+    </table>
+  </noscript>
 </figure>
 
 <script>
-  import Chart from 'chart.js/auto';
-
   const COLOR_ACCENT = '#2B5240';
   const COLOR_TEXT_2 = '#696560';
   const COLOR_GRID = 'rgba(207,203,197,0.5)';
   const COLOR_INK = '#1C1915';
   const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Brand-harmonized Chart.js defaults
-  Chart.defaults.font.family = "'General Sans', system-ui, sans-serif";
-  Chart.defaults.font.size = 13;
-  Chart.defaults.color = COLOR_TEXT_2;
-
   const canvas = document.getElementById('recovery-chart') as HTMLCanvasElement;
-  if (canvas) {
+
+  // Defer the ~72KB Chart.js chunk until the chart scrolls near the viewport (perf).
+  async function buildChart() {
+    const { default: Chart } = await import('chart.js/auto');
+    Chart.defaults.font.family = "'General Sans', system-ui, sans-serif";
+    Chart.defaults.font.size = 13;
+    Chart.defaults.color = COLOR_TEXT_2;
     new Chart(canvas, {
       type: 'bar',
       data: {
@@ -88,5 +100,22 @@
         },
       },
     });
+  }
+
+  if (canvas) {
+    const figure = canvas.closest('figure');
+    if ('IntersectionObserver' in window && figure) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            obs.disconnect();
+            buildChart();
+          }
+        });
+      }, { rootMargin: '200px' });
+      io.observe(figure);
+    } else {
+      buildChart();
+    }
   }
 </script>

@@ -35,6 +35,7 @@ const common: Common = {
     privacy: '隐私政策',
     terms: '服务条款',
     copyright: '© {year} Tuwa. 保留所有权利。',
+    more: '更多',
     methodology: '方法论',
     readinessScore: '准备状态评分',
     trainingLoad: '训练负荷',
