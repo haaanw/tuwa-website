@@ -39,6 +39,15 @@ Resolves the CRITICAL sitewide 404 nav links: `/methodology/`, `/for-coaches/`, 
 - Each page has localized hreflang (en/zh-CN/fr), related-page internal links, and is in the sitemap.
 - Build: `npm run build` ✓ **48 pages** (was 33). All targets verified in `dist/`; Header/Footer/MobileMenu links now resolve.
 
+## Ship status — DEPLOYED ✅ (2026-05-31)
+
+- Commits: `2f1428b` (Wave 1), `8104ef8` (Wave 2) → pushed to `main`.
+- Cloudflare Pages auto-deploy complete. Live verification on https://tuwa.app:
+  - `/`, `/methodology/`, `/for-coaches/`, `/readiness-score/`, `/training-load/`, `/compare/` → **200**
+  - `/zh/methodology/`, `/fr/compare/` → **200** (5 former 404 nav links now resolve in all locales)
+  - `/llms.txt` → **200**
+  - Homepage carries real App Store URL (`id6761185505`) + `SoftwareApplication` JSON-LD.
+
 ## Deferred (M-effort, follow-up)
 
 - Lazy-load chart.js behind IntersectionObserver on feature pages (perf MEDIUM).
