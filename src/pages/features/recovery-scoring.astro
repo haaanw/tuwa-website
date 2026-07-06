@@ -7,13 +7,13 @@ import recoveryScreenshot from '../../assets/screenshots/recovery.png';
 
 <FeaturePageLayout
   shapeId="blob-3"
-  title="Recovery Scoring"
-  description="Know exactly how hard to push today. Tuwa synthesizes HRV, resting heart rate, sleep, and wellness into a single daily readiness score."
+  title="Daily Verdict"
+  description="A daily go, modify, or hold suggestion for your planned strength session, with an adjusted top-set number and a one-line reason."
   ogImage="/og/recovery-scoring.png"
   screenshot={recoveryScreenshot}
-  screenshotAlt="Tuwa app recovery screen showing a daily readiness score with color-coded HRV trend, resting heart rate, sleep duration, and wellness factors"
-  outcomeStatement="Know exactly how hard to push today"
-  hookLine="One readiness number built from everything your body is telling you."
+  screenshotAlt="Tuwa app Insights recovery screen showing recovery score, HRV, resting heart rate, sleep, and recovery trend rows"
+  outcomeStatement="Go, modify, or hold — with the why"
+  hookLine="Tuwa turns HRV, sleep, resting heart rate, training history, soreness, and match proximity into a suggested adjustment for the lift you planned."
 >
 
   <!-- Sticky scroll showcase — ANIM-05 (D-05, D-06, D-07) -->
@@ -25,7 +25,7 @@ import recoveryScreenshot from '../../assets/screenshots/recovery.png';
         <div class="device-sticky-wrapper">
           <DeviceFrame
             src={recoveryScreenshot}
-            alt="Tuwa recovery scoring screen showing daily readiness score with color-coded zones"
+            alt="Tuwa app Insights recovery screen showing recovery score, HRV, resting heart rate, sleep, and recovery trend rows"
             loading="lazy"
             widths={[320, 640]}
           />
@@ -47,36 +47,36 @@ import recoveryScreenshot from '../../assets/screenshots/recovery.png';
             How it works
           </h2>
           <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            Every morning, before you pick up a barbell or lace up your shoes, Tuwa has already done the analysis. While you slept, it pulled physiological data from Apple HealthKit — your heart rate variability, resting heart rate, sleep duration, body temperature trend, and VO2 Max estimate — and combined that with your morning wellness check-in, where you rate your soreness, energy levels, and stress. These inputs feed a composite scoring algorithm that produces a single readiness number between 0 and 100.
+            Every morning, Tuwa reads the physiology you already collect through HealthKit: HRV, resting heart rate, and sleep. It pairs those signals with your training history, soreness, and the match tier you logged, then evaluates the strength session you planned.
           </p>
           <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            That number is useful on its own, but it gets more valuable when paired with plain-language reasoning factors. Tuwa doesn't just tell you that your readiness is 62 — it tells you that your HRV is tracking 8% below your recent baseline, your sleep was cut short, but your resting heart rate is normal. You understand not just the score, but why.
+            The output is intentionally practical: go, modify, or hold, plus an adjusted top-set number and a one-line reason. For example: "Match Saturday — cap the top set, skip back-offs." You see the suggestion before warmups, while the session can still change.
           </p>
           <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-            Three zones, clear guidance
+            Three verdicts, athlete-controlled
           </h3>
           <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            Recovery scores map to three zones, each with concrete training implications. Green means full capacity — go after your session as prescribed. Yellow means moderate recovery — train, but back off total volume by 10–20% and keep RPE capped. Red means your body is signaling genuine recovery need — light movement, mobility work, or rest. No guessing, no willpower battles with yourself. The data makes the call.
+            Go means the planned dose still fits the day. Modify means keep the session but trim the dose: cap RPE, reduce load, or microdose near a game. Hold means Tuwa sees enough fatigue context to suggest delaying the hard part. None of these is a command; the athlete confirms the call.
           </p>
         </div>
 
         <!-- Step 2: Device Compatibility -->
         <div class="scroll-step" data-step="2" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
           <h3 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
-            Data from any device you already own
+            HealthKit physiology, your basketball context
           </h3>
           <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            Tuwa works with whatever hardware you already wear. Apple Watch is the most common source, but Whoop, Oura, Garmin, and any other device that writes HRV and sleep data to Apple HealthKit feeds directly into the scoring pipeline. You're not locked into a new wearable ecosystem — Tuwa meets you where you are.
+            Tuwa uses the HealthKit signals available to the app — HRV, resting heart rate, and sleep — then adds what a wearable score usually misses: the plan you wrote, the lift you are about to run, and whether your last court session was pickup, scrimmage, or match intensity.
           </p>
         </div>
 
         <!-- Step 3: Personal Baseline -->
         <div class="scroll-step" data-step="3" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
           <h3 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
-            A baseline that's yours, not the population's
+            The strike zone moves daily
           </h3>
           <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            HRV numbers vary enormously between individuals — an athlete with a resting HRV of 45 ms isn't worse than one with 80 ms, they're just different. What matters is whether your HRV is above or below your own recent trend. Tuwa calculates that trend using an averaging method that gives more weight to recent days than older ones. Instead of being thrown off by a single anomalous reading, your baseline evolves naturally as your fitness and recovery patterns shift over weeks and months.
+            HRV numbers vary enormously between athletes. What matters is whether your signals are above or below your own recent trend, and how that trend intersects with today's planned lift. Tuwa uses that context to move the day's strike zone before you load the bar.
           </p>
         </div>
 
@@ -113,7 +113,7 @@ import recoveryScreenshot from '../../assets/screenshots/recovery.png';
       </p>
 
       <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        But HRV is also noisy. A poor night's sleep, a glass of wine, an unusually early alarm — these all affect a single measurement. Comparing your Monday reading to your Sunday reading in isolation is misleading. The signal emerges over time, which is why Tuwa tracks your personal trend rather than individual data points. The chart below illustrates how each data source contributes to your composite readiness score.
+        But HRV is also noisy. A poor night's sleep, a late game, or an unusually early alarm can affect a single measurement. That is why Tuwa treats physiology as one part of the verdict, not the verdict itself. The planned session, match proximity, soreness, and recent training history give the signal training context.
       </p>
 
       <RecoveryChart />
@@ -129,22 +129,48 @@ import recoveryScreenshot from '../../assets/screenshots/recovery.png';
     var steps = document.querySelectorAll('.scroll-step');
     var dots = document.querySelectorAll('.step-dot');
     if (!steps.length) return;
+    var ticking = false;
 
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          var stepNum = entry.target.getAttribute('data-step');
-          /* Update active step */
-          steps.forEach(function (s) { s.classList.remove('is-active'); });
-          entry.target.classList.add('is-active');
-          /* Update indicator dots */
-          dots.forEach(function (d, i) {
-            d.classList.toggle('is-active', String(i + 1) === stepNum);
-          });
+    function setActive(step) {
+      var stepNum = step.getAttribute('data-step');
+      steps.forEach(function (s) { s.classList.toggle('is-active', s === step); });
+      dots.forEach(function (d, i) {
+        d.classList.toggle('is-active', String(i + 1) === stepNum);
+      });
+    }
+
+    function updateActiveStep() {
+      ticking = false;
+      var viewportCenter = window.innerHeight / 2;
+      var bestStep = steps[0];
+      var bestDistance = Infinity;
+      steps.forEach(function (step) {
+        var rect = step.getBoundingClientRect();
+        var visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+        if (visibleHeight <= 0) return;
+        var stepCenter = rect.top + rect.height / 2;
+        var distance = Math.abs(stepCenter - viewportCenter);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestStep = step;
         }
       });
-    }, { threshold: 0.5 });
+      setActive(bestStep);
+    }
+
+    function requestUpdate() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateActiveStep);
+    }
+
+    var observer = new IntersectionObserver(requestUpdate, {
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+      rootMargin: '-12% 0px -12% 0px',
+    });
 
     steps.forEach(function (el) { observer.observe(el); });
+    window.addEventListener('resize', requestUpdate);
+    requestUpdate();
   })();
 </script>

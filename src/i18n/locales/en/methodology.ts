@@ -24,7 +24,7 @@ const content: TopicPageContent = {
       "subheading": "Acute vs chronic load, ACWR, and the 0.8–1.3 band",
       "body": [
         "Every session you log is converted into a load value from volume and intensity (using RPE — rate of perceived exertion, the 1–10 scale for how hard a set felt — and optionally RIR, reps in reserve). Tuwa then maintains two views of that load: acute load, roughly the last week, which reflects current fatigue, and chronic load, roughly the last four weeks, which reflects your fitness base.",
-        "The ratio between them is the acute:chronic workload ratio (ACWR). The research consensus, originating with Tim Gabbett and colleagues, places a relative 'sweet spot' between roughly 0.8 and 1.3. Below 0.8 you may be undertraining relative to your base; above 1.3 the injury-risk curve tends to bend sharply upward as your body absorbs more stress in a week than it has been prepared for.",
+        "The ratio between them is the acute:chronic workload ratio (ACWR). Research originating with Tim Gabbett and colleagues often uses a relative range around 0.8 to 1.3 as workload context. Below the range, you may be doing much less than your recent base; above it, the current week may be asking for a bigger jump than your recent training supports.",
         "Rather than crude rolling sums, Tuwa computes these loads with exponentially weighted moving averages (EWMA) — a smoothing method that gives recent sessions more weight than older ones. This lets your model respond quickly to a hard block or a deload instead of being anchored to weeks-old data, and it flags spikes before you train, not after."
       ]
     },
@@ -42,7 +42,7 @@ const content: TopicPageContent = {
       "subheading": "What the model can and cannot do",
       "body": [
         "Tuwa is useful from day one because it starts with sensible population baselines, but its real value is personal. Over roughly the first seven days it learns your own HRV, resting heart rate, and sleep patterns, and the readiness score becomes meaningfully more accurate as those baselines settle. Early scores should be read as directional, not precise.",
-        "No model built on consumer wearables is perfect. HRV is noisy — a glass of wine, an early alarm, or a poor night can move a single reading — which is exactly why Tuwa tracks trends rather than reacting to individual data points. The ACWR framework describes population-level injury risk associations, not individual guarantees; it informs decisions, it does not make them for you.",
+        "No model built on consumer wearables is perfect. HRV is noisy — a glass of wine, an early alarm, or a poor night can move a single reading — which is exactly why Tuwa tracks trends rather than reacting to individual data points. The ACWR framework describes population-level workload associations, not individual guarantees or predictions; it informs decisions, it does not make them for you.",
         "Tuwa is a training tool, not a medical device. It does not diagnose illness, injury, or any health condition, and nothing in the app is medical advice. If a metric concerns you or you feel unwell, consult a qualified professional."
       ]
     }
@@ -55,7 +55,7 @@ const content: TopicPageContent = {
         "url": "https://bjsm.bmj.com/content/50/5/273"
       },
       {
-        "label": "Hulin BT, Gabbett TJ, et al. (2016). The acute:chronic workload ratio predicts injury: high chronic workload may decrease injury risk. British Journal of Sports Medicine, 50(4), 231–236.",
+        "label": "Hulin BT, Gabbett TJ, et al. (2016). Acute:chronic workload ratio research in British Journal of Sports Medicine, 50(4), 231–236.",
         "url": "https://bjsm.bmj.com/content/50/4/231"
       }
     ]

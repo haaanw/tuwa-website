@@ -1,72 +1,64 @@
 import type { TopicPageContent } from '../../topicPage';
 
 const content: TopicPageContent = {
-  "meta": {
-    "title": "Tuwa for Coaches — Roster Readiness at a Glance",
-    "description": "See every athlete's recovery and workload between sessions. Connect by code, email, or NFC. Athletes share composite scores, never raw health data."
+  meta: {
+    title: 'Tuwa for Self-Coached Basketball Players',
+    description:
+      'How Tuwa helps amateur competitive basketball players who lift seriously adjust their own planned strength sessions.',
   },
-  "hero": {
-    "outcomeStatement": "See how every athlete is recovering — before you prescribe the next session",
-    "hookLine": "Tuwa closes the gap between training days, giving coaches roster-wide readiness, workload trends, and prescribed workouts without ever exposing an athlete's raw health data."
+  hero: {
+    outcomeStatement: 'Self-coached does not have to mean guessing',
+    hookLine:
+      'Tuwa gives you the sports-science back room usually reserved for athletes with coaching, physio, and strength staff.',
   },
-  "sections": [
+  sections: [
     {
-      "heading": "The problem: you coach in the dark between sessions",
-      "body": [
-        "Most coaching happens in the gap you can't see. An athlete trains hard on Monday, sleeps poorly Tuesday, skips a meal Wednesday, and shows up Thursday looking fine while their nervous system is anything but. By the time you read it in their warm-up — or worse, in a tweaked hamstring — the decision that mattered was already made.",
-        "The usual workarounds don't scale. Group chats fill with screenshots. Spreadsheets go stale. Wearable apps report data to the athlete, not to you, and they report everything — raw heart rate, sleep stages, individual readings — which is both more than you need and a privacy line most athletes won't cross with a coach.",
-        "Tuwa is built around what a coach actually needs to decide: is this athlete primed to push today, or do they need lighter work? That answer should be waiting on your screen before the first conversation, not reconstructed after the session is already over."
-      ]
-    },
-    {
-      "heading": "What Tuwa gives you",
-      "subheading": "Roster-wide visibility, in one dashboard",
-      "body": [
-        "Every linked athlete appears on a single coach dashboard with their current recovery score, ACWR (acute:chronic workload ratio) trend, and recent session history. No switching accounts, no chasing updates — the data is ready before your first athlete walks in.",
-        "Visibility only matters if it changes the next decision, so Tuwa surfaces the signals that drive prescription: who is in the green, who is trending toward a dangerous load spike, and who needs a deload before it becomes mandatory."
+      heading: 'The problem: basketball and lifting collide',
+      body: [
+        'You write your own plan, play real games, and still want to get stronger. The difficult decision is rarely whether to train. It is whether today\'s planned top set is still inside your strike zone after last night\'s court work.',
+        'A generic recovery score can tell you your whole body looks good or bad. A training log can tell you what you planned. Neither one alone says: your legs took the hit, adjust squats, bench is still available.',
+        'Tuwa is built for that gap. It does not take over programming. It gives the daily evidence you would want from a sports-science back room, then lets you confirm the call.'
       ],
-      "bullets": [
-        "Daily readiness at a glance — color-coded green / yellow / red zones tell you instantly who can handle a hard session and who needs lighter work today.",
-        "ACWR trend monitoring — spot athletes whose acute load is climbing too fast against their chronic baseline, and intervene before an injury forces the conversation.",
-        "Prescribed workouts via smart templates — build a session once with target sets, reps, weight, and RPE (rate of perceived exertion) ranges, then assign it to an individual or a whole group; it loads straight into the athlete's log.",
-        "Log on behalf of athletes — capture sets, reps, and RPE during in-person sessions so accurate training data lands in their workload calculations without anyone typing mid-set.",
-        "Automatic PR tracking — new personal records surface from logged sessions without the athlete needing to flag them."
-      ]
     },
     {
-      "heading": "How athletes connect — and what stays private",
-      "body": [
-        "Linking an athlete takes seconds, with three methods so you can use whatever fits the moment: share a six-character invite code verbally or by text, send an email invitation the athlete taps to connect instantly, or hold two phones together for an NFC tap during an in-person onboarding. The moment they accept, your dashboard updates with their data.",
-        "Consent runs in one direction and the athlete holds the controls. They choose to link, they choose what their profile shares, and they can unlink at any time from their Profile screen — the connection is severed immediately, with no grace period and no residual access for the coach.",
-        "Crucially, you never see raw HealthKit data. Individual HRV (heart-rate variability) measurements, raw heart rate, and sleep-stage detail stay on the athlete's device and are never transmitted. What syncs to you are composite scores and workout summaries: the recovery score (0–100), the ACWR ratio, the 28-day workload trend, and session logs with exercise names, sets, reps, and RPE. Enough to coach well — not enough to compromise privacy."
-      ]
+      heading: 'What Tuwa gives you',
+      subheading: 'Your plan, physiology, and match context in one decision',
+      body: [
+        'Tuwa starts with the strength session you authored. It reads HRV, resting heart rate, and sleep from HealthKit, adds training history, soreness, match tier, and match proximity, then returns a go, modify, or hold suggestion.',
+        'The suggestion includes an adjusted top-set number and a one-line reason so the decision is concrete before warmups begin.'
+      ],
+      bullets: [
+        'Strike zone: the daily intensity band that moves with physiology, training history, and basketball context.',
+        'Microdose: a trimmed version of your own planned lift, often one or two capped top sets near game day.',
+        'Match proximity: when a game is within 48 hours, the verdict protects freshness.',
+        'Cross-modal fatigue: last night\'s game can lower squat readiness without blocking bench.',
+        'Suggest-and-confirm: Tuwa explains the adjustment; you decide.'
+      ],
     },
     {
-      "heading": "Who it's for",
-      "body": [
-        "Tuwa fits coaches who make load decisions for real people and want the evidence in front of them, not behind them. The model works whether you train one athlete remotely or run a small squad in person.",
-        "Strength coaches use ACWR trends and PR tracking to progress lifters safely and prescribe sessions that match the day. Endurance coaches lean on readiness and workload trends to time hard efforts, recovery weeks, and taper. Small teams and clubs use roster-wide visibility and group prescriptions to manage many athletes from one account, with each athlete's data fully isolated from the others.",
-        "If you're already evaluating Tuwa for your athletes, the coaching feature page, the readiness score breakdown, and the methodology behind the numbers are the natural next reads."
-      ]
-    }
+      heading: 'What Tuwa does not do',
+      body: [
+        'Tuwa does not write the program. It does not generate a workout from chat. It does not command you to stop training. It does not replace a medical professional or claim to predict injury.',
+        'That restraint is the point. The app is designed for athletes who want to stay the author of their own training while getting a more precise day-of adjustment.'
+      ],
+    },
+    {
+      heading: 'Who it is for',
+      body: [
+        'Tuwa fits amateur competitive basketball players who also strength-train seriously, especially athletes without pro coaching, physio, or strength-and-conditioning support.',
+        'If your week includes pickup, scrimmages, matches, and planned lifts, Tuwa helps you keep the program moving without pretending every hard session costs the same.',
+        'You are the CEO of your own body. Tuwa is the back room.'
+      ],
+    },
   ],
-  "related": {
-    "heading": "Keep exploring",
-    "links": [
-      {
-        "label": "Coach + Athlete features",
-        "href": "/features/coaching"
-      },
-      {
-        "label": "The readiness score, explained",
-        "href": "/readiness-score"
-      },
-      {
-        "label": "Our methodology",
-        "href": "/methodology"
-      }
-    ]
-  }
+  related: {
+    heading: 'Keep exploring',
+    links: [
+      { label: 'Daily verdict', href: '/features/recovery-scoring' },
+      { label: 'Lift + match logging', href: '/features/workload-tracking' },
+      { label: 'Compare Tuwa', href: '/compare' },
+    ],
+  },
 };
 
 export default content;

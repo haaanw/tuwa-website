@@ -1,25 +1,46 @@
 # Tuwa
 
-> Tuwa is an iOS app for precision training-load and recovery management, built for serious athletes and coaches. It turns HRV, sleep, heart rate, and training load into a single daily readiness score, grounded in the acute:chronic workload ratio (ACWR) and heart-rate variability rather than a black-box algorithm. Raw HealthKit data stays on-device.
+> Tuwa is an iOS app for self-coached amateur competitive basketball players who strength-train seriously. The athlete authors their own training plan; Tuwa fuses that plan with HealthKit physiology, training history, soreness, match tier, and match proximity to suggest a daily go, modify, or hold verdict with an adjusted top-set number and a one-line reason. Tuwa does not write the program and is not a chat coach.
 
 ## Core concepts
-- Readiness score: a daily composite of HRV, resting heart rate, sleep, and a morning wellness check-in.
-- ACWR (acute:chronic workload ratio): compares the last 7 days of training load against a 28-day average; values outside roughly 0.8–1.3 raise injury risk.
-- On-device privacy: the app works fully offline; only composite scores sync when a user opts into coach features.
+- Strike zone: the daily training-intensity band that moves with physiology, training history, soreness, and basketball context.
+- Daily verdict: a practical go, modify, or hold suggestion for the athlete's planned strength session.
+- Microdose: trimming the athlete's own planned lift to one or two capped top sets near game day.
+- Match proximity: when a game is within 48 hours, Tuwa protects freshness with capped top sets and skipped back-off work.
+- ACWR (acute:chronic workload ratio): compares recent training load against a longer baseline. Tuwa treats it as workload context, not injury prediction.
+- On-device privacy: raw HealthKit data stays on-device.
 
 ## Features
-- [Recovery Scoring](https://tuwa.app/features/recovery-scoring): daily readiness from HRV, sleep, heart rate, and training context.
-- [Workload Tracking](https://tuwa.app/features/workload-tracking): EWMA-based load monitoring and spike detection.
-- [Smart Templates](https://tuwa.app/features/smart-templates): prescribed workouts with target sets, weight, and reps.
+- [Daily Verdict](https://tuwa.app/features/recovery-scoring): go, modify, or hold suggestion with an adjusted top-set number and reason.
+- [Lift + Match Logging](https://tuwa.app/features/workload-tracking): sets, reps, load, RPE, RIR, match tier, and cross-modal fatigue context.
+- [Your Plan Input](https://tuwa.app/features/smart-templates): the athlete's own planned session with targets, caps, notes, and top-set intent.
 - [Cold-Start Onboarding](https://tuwa.app/features/cold-start): useful guidance from day one, no baseline wait.
-- [Coach + Athlete](https://tuwa.app/features/coaching): team recovery visibility and prescribed workouts.
+- [Back-Room Review](https://tuwa.app/features/coaching): workload, recovery, match proximity, and progress review.
 
 ## Topics
 - [Methodology](https://tuwa.app/methodology): the science behind Tuwa's readiness and load models.
 - [Training Load](https://tuwa.app/training-load): what training load is and how Tuwa measures it.
 - [Readiness Score](https://tuwa.app/readiness-score): how the daily readiness score is calculated.
-- [For Coaches](https://tuwa.app/for-coaches): how coaches use Tuwa with their athletes.
-- [Compare](https://tuwa.app/compare): how Tuwa differs from generic fitness trackers.
+- [Self-Coached Athletes](https://tuwa.app/for-coaches): how Tuwa supports basketball players without pro coaching, physio, or strength staff.
+- [Compare](https://tuwa.app/compare): how Tuwa differs from wearable scores, AI coaches, and planning tools.
+
+## SEO/GEO pages
+- [Strength Readiness Calculator](https://tuwa.app/strength-readiness-calculator): free tool that suggests whether to go, modify, or hold.
+- [Apple Watch Training Load for Lifters](https://tuwa.app/apple-watch-training-load-for-lifters): guide to combining Apple Watch load with sets, reps, RPE, soreness, and workout history.
+- [How to Adjust Training When HRV Is Low](https://tuwa.app/guides/how-to-adjust-training-when-hrv-is-low): practical low-HRV strength training decision tree.
+- [HRV for Strength Training](https://tuwa.app/guides/hrv-for-strength-training): explains how lifters should use HRV with recovery and local fatigue context.
+- [Training Load vs Recovery](https://tuwa.app/guides/training-load-vs-recovery): explains workload, recovery, and session adjustment.
+- [ACWR Explained](https://tuwa.app/guides/acwr-explained): explains acute:chronic workload ratio with limitations.
+- [RPE-Based Volume Adjustment](https://tuwa.app/guides/rpe-volume-adjustment): shows how to adjust sets, reps, and load from RPE.
+- [Weekly Training Review Template](https://tuwa.app/weekly-training-review-template): review framework for workload, recovery, soreness, and next-week changes.
+
+## Comparisons
+- [Athlytic Alternative for Strength Training](https://tuwa.app/comparisons/athlytic-alternative-strength-training)
+- [Bevel Alternative for Lifters](https://tuwa.app/comparisons/bevel-alternative-lifters)
+- [WHOOP Strength Trainer Alternative for Apple Watch](https://tuwa.app/comparisons/whoop-strength-trainer-alternative-apple-watch)
+- [Cora vs Tuwa](https://tuwa.app/comparisons/cora-vs-tuwa)
+- [Strong vs Tuwa](https://tuwa.app/comparisons/strong-vs-tuwa)
+- [Hevy vs Tuwa](https://tuwa.app/comparisons/hevy-vs-tuwa)
 
 ## Support
 - [Support & FAQ](https://tuwa.app/support): common questions about scoring, wearables, privacy, and subscriptions.

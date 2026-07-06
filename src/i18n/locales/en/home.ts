@@ -6,61 +6,58 @@ type WidenStrings<T> = T extends string
 
 const home = {
   hero: {
-    headline: 'Train smarter. Recover with precision.',
-    subtitle: 'Tuwa combines HRV, sleep, training load, and six fatigue dimensions into a single readiness score — so you know exactly how hard to push today.',
-    deviceAlt: 'Tuwa app showing today\'s recovery score of 82 — HRV in green zone, sleep 7.5 hours.',
+    headline: 'Stay in your strike zone — every workout.',
+    subtitle: 'Tuwa is the sports-science back room for self-coached basketball players who lift seriously. Enter your plan, log the match tier, and get a daily go, modify, or hold suggestion with an adjusted top-set number and a one-line reason.',
+    loopSteps: ['Plan', 'Check', 'Modify', 'Review'],
+    loopAriaLabel: 'Tuwa training loop',
+    deviceAlt: 'Tuwa Today screen showing a readiness verdict, planned strength session adjustment, recovery signals, and training load.',
     badgeAlt: 'Download on the App Store',
     badgeAriaLabel: 'Download Tuwa on the App Store',
   },
   stats: {
-    heading: 'Why athletes trust the score',
+    heading: 'Built for basketball legs and serious lifting',
     science: {
-      title: 'Grounded in ACWR + HRV',
-      desc: 'Readiness is built on the acute:chronic workload ratio and heart-rate variability — established sports-science measures, not a black box.',
+      title: 'Your moving strike zone',
+      desc: 'HRV, resting heart rate, sleep, soreness, match tier, and lifting history move the day\'s optimal intensity band before you train.',
     },
     privacy: {
-      title: 'Private by design',
-      desc: 'Raw HealthKit data never leaves your device. The app works fully offline; only composite scores sync when you opt into coach features.',
+      title: 'Match proximity built in',
+      desc: 'When a game is inside 48 hours, Tuwa frames the lift as a microdose: cap the top set, skip back-offs, and protect freshness.',
     },
     dayOne: {
-      title: 'Useful from day one',
-      desc: 'Population baselines and a morning check-in give real guidance immediately — no weeks of data collection before Tuwa earns its place.',
+      title: 'Local fatigue, not one body score',
+      desc: 'Last night\'s game can hammer your legs while your upper body is fine. Tuwa ties that context to today\'s squat or bench decision.',
     },
   },
   cta: {
-    headline: 'Built for athletes who take training seriously.',
-    body: 'Evidence-based workload management. No vanity metrics. No noise.',
+    headline: 'Keep your plan. Adjust the day.',
+    body: 'Tuwa does not write your program or act like a chat coach. You author the plan; Tuwa makes today\'s lift safer and more precise.',
   },
   featureGrid: {
-    heading: 'Everything you need to train without guessing',
+    heading: 'Your plan, made safe and optimal for today',
     features: [
       {
-        title: 'Recovery Scoring',
-        desc: 'HRV, sleep, heart rate, and training context synthesized into one daily readiness number.',
-        href: '/features/recovery-scoring',
-      },
-      {
-        title: 'Workload Tracking',
-        desc: 'Multi-factor fatigue tracking and load spike detection keep you in the optimal zone.',
-        href: '/features/workload-tracking',
-      },
-      {
-        title: 'Smart Templates',
-        desc: 'Prescribed workouts with target sets, weight, and rep goals built in.',
+        title: 'Your Plan Input',
+        desc: 'Bring in the strength session you already meant to run, with targets, notes, RPE caps, and top-set intent.',
         href: '/features/smart-templates',
       },
       {
-        title: 'Cold-Start Onboarding',
-        desc: 'Tuwa starts useful on day one — no weeks of baseline data required.',
-        href: '/features/cold-start',
+        title: 'Lift + Match Logging',
+        desc: 'Record sets, reps, load, RPE, RIR, and whether last night was pickup, scrimmage, or match intensity.',
+        href: '/features/workload-tracking',
       },
       {
-        title: 'Coach + Athlete',
-        desc: 'Real-time recovery visibility and prescribed workouts for your whole team.',
-        href: '/features/coaching',
+        title: 'Daily Verdict',
+        desc: 'See a go, modify, or hold suggestion, an adjusted top-set number, and the reason before you start warming up.',
+        href: '/features/recovery-scoring',
+      },
+      {
+        title: 'Back-Room Review',
+        desc: 'Review workload, recovery, match proximity, and strength progress without handing the program to an AI coach.',
+        href: '/training-load',
       },
     ],
-    segmentLabels: ['RECOVERY', 'LOAD', 'TRAINING', 'ONBOARDING', 'COACHING'],
+    segmentLabels: ['PLAN', 'LOG', 'VERDICT', 'REVIEW'],
     exploreCta: 'Explore',
   },
 } as const;

@@ -1,108 +1,87 @@
 import type { TopicPageContent } from '../../topicPage';
 
 const content: TopicPageContent = {
-  "meta": {
-    "title": "Tuwa vs. Generic Fitness Trackers",
-    "description": "How Tuwa differs from generic fitness trackers and black-box recovery apps — load and recovery in one readiness decision, grounded in ACWR and HRV."
+  meta: {
+    title: 'Tuwa vs. Wearable Scores, AI Coaches, and Planning Tools',
+    description:
+      'Tuwa keeps your own plan in charge, then uses physiology, training history, and match proximity to suggest today\'s strength adjustment.',
   },
-  "hero": {
-    "outcomeStatement": "Pick the tool that actually answers \"how hard should I train today?\"",
-    "hookLine": "Most trackers count what you did. Tuwa connects your training load to your recovery so you know what to do next."
+  hero: {
+    outcomeStatement: 'Your plan, made safe and optimal',
+    hookLine:
+      'Whoop and Bevel give scores without your plan. AI coaches replace your plan. TrainingPeaks stores the plan without a daily decision. Tuwa sits in the back room.',
   },
-  "sections": [
+  sections: [
     {
-      "heading": "What generic trackers do well — and where they stop",
-      "body": [
-        "Generic fitness trackers are genuinely good at what they were built for. They count steps, estimate calories, log workouts, map your runs, and keep a tidy history of activity. If your goal is to move more, close some rings, and see a weekly summary, that is a perfectly fine fit — and Tuwa is not trying to replace that.",
-        "The gap shows up the moment training gets serious. Steps and calories say nothing about whether today's prescribed session is wise given the last three weeks of work. Many trackers also surface a single \"recovery\" or \"readiness\" figure, but it arrives as a black box: a number with no visible inputs, no training context, and no explanation you can argue with. You are asked to trust it on faith.",
-        "That black box is the real limitation. A readiness score built only from last night's sleep and heart rate ignores the other half of the equation — how much training stress you have actually accumulated. A score can read green while your acute load is spiking far above your chronic baseline, which is exactly the situation where injury risk climbs. Recovery and load are two halves of one decision; reading them separately leaves the most important question unanswered."
-      ]
-    },
-    {
-      "heading": "What Tuwa does differently",
-      "body": [
-        "Tuwa is built around a single question generic trackers don't fully answer: given everything my body is telling me and everything I've recently asked of it, how hard should I train today? Answering that means holding recovery and training load in the same view, not on separate screens in separate apps.",
-        "On the recovery side, Tuwa synthesizes HRV (heart-rate variability), resting heart rate, sleep, and a short morning wellness check-in into one readiness score between 0 and 100 — then shows the reasoning factors behind it in plain language. On the load side, it tracks your acute load (roughly the last week) against your chronic load (roughly the last four weeks) using EWMA (exponentially weighted moving averages), which weight recent sessions more heavily, and flags load spikes before you execute a session rather than after.",
-        "The scoring is transparent on purpose. Tuwa tells you not just that readiness is 62, but that your HRV is tracking below your recent baseline and your sleep ran short — so you can sanity-check the call against your own judgment. It is also useful from day one: population baselines from validated sports-science literature give real guidance immediately, then hand off progressively to your personal baseline as your own data accumulates."
-      ]
-    },
-    {
-      "heading": "Generic fitness tracker vs. Tuwa",
-      "subheading": "A fit-for-purpose comparison, not a takedown",
-      "body": [
-        "Neither tool is universally \"better\" — they answer different questions. Here is the honest contrast for someone deciding what serious training actually requires."
+      heading: 'What the other tools answer',
+      body: [
+        'Wearable recovery products are useful for broad body state. They can show sleep, HRV, resting heart rate, strain, or a composite score. The gap is that they usually do not know the strength session you authored, the planned top set, or whether Saturday\'s match is inside 48 hours.',
+        'AI-coach apps answer a different question: what should the program be? That can be useful for athletes who want a generated plan. Tuwa is deliberately not that. It does not write the workout or act like a chat coach.',
+        'Planning tools keep the calendar and structure clear. The missing piece is the day-of verdict tied to physiology: should this squat top set stay, move down, or become a microdose because match proximity is high?'
       ],
-      "comparison": {
-    "columns": [
-      "Dimension",
-      "Generic fitness tracker",
-      "Tuwa"
-    ],
-    "rows": [
-      {
-        "label": "Primary question",
-        "generic": "“What did I do?” — activity history",
-        "tuwa": "“What should I do today?” — a training decision"
-      },
-      {
-        "label": "Recovery signal",
-        "generic": "A black-box recovery number with hidden inputs",
-        "tuwa": "Transparent readiness score: HRV, resting HR, sleep, wellness"
-      },
-      {
-        "label": "Training load",
-        "generic": "Steps, calories, workout logs — no acute:chronic context",
-        "tuwa": "ACWR tracking with EWMA and pre-session spike detection"
-      },
-      {
-        "label": "Load + recovery together",
-        "generic": "Separate, or load context absent entirely",
-        "tuwa": "Combined into one readiness decision"
-      },
-      {
-        "label": "Science grounding",
-        "generic": "Proprietary, often undocumented",
-        "tuwa": "ACWR validated by Gabbett et al.; HRV heavily researched"
-      },
-      {
-        "label": "Privacy",
-        "generic": "Data typically processed in the cloud",
-        "tuwa": "Raw HealthKit stays on-device; only composite scores sync"
-      },
-      {
-        "label": "Time to useful",
-        "generic": "Varies; some need weeks of baseline",
-        "tuwa": "Useful from day one, then personalizes"
-      }
-    ]
-  }
     },
     {
-      "heading": "How to decide",
-      "body": [
-        "If you want general activity awareness — daily movement, calories, a casual workout log — a mainstream fitness tracker covers that well and Tuwa would be more than you need. There is no shame in fit-for-purpose; the best tool is the one matched to the job.",
-        "Tuwa is for the case where the stakes are higher: you follow a real program, you push close to your limits, and a poorly-timed hard session costs you weeks. In that situation you need load and recovery read together, scoring you can interrogate, and data that stays yours. Tuwa works with the wearable you already own — Apple Watch, Whoop, Oura, Garmin, anything that writes HRV and sleep to Apple HealthKit — so choosing it doesn't mean buying new hardware.",
-        "If you want to see exactly how the readiness score and load model are built before you trust them, the methodology page lays out the mechanisms in full."
-      ]
-    }
+      heading: 'What Tuwa does differently',
+      body: [
+        'Tuwa starts with the plan you already chose. It fuses that plan with HRV, resting heart rate, sleep, training history, soreness, match tier, and match proximity, then gives a go, modify, or hold suggestion with an adjusted top-set number and a one-line reason.',
+        'That creates a narrower but more useful answer for amateur competitive basketball players who lift seriously: stay in your strike zone today. Not a lifestyle score, not a generated program, and not a spreadsheet that leaves the decision to you at the worst moment.',
+        'The athlete stays in charge. Tuwa suggests and explains; you confirm.'
+      ],
+    },
+    {
+      heading: 'Tool category vs. Tuwa',
+      subheading: 'A fit-for-purpose comparison, not a takedown',
+      body: [
+        'These tools can all be useful. The difference is which decision they are built to support.'
+      ],
+      comparison: {
+        columns: ['Dimension', 'Other tool', 'Tuwa'],
+        rows: [
+          {
+            label: 'Whoop / Bevel-style scores',
+            generic: 'Body signals and composite readiness without direct knowledge of your planned lift.',
+            tuwa: 'Your planned strength session plus physiology, training history, soreness, and match context.',
+          },
+          {
+            label: 'AI-coach apps',
+            generic: 'Their plan for you, often generated from prompts or profile inputs.',
+            tuwa: 'Your plan, evaluated for today. No generated program and no chat coach.',
+          },
+          {
+            label: 'TrainingPeaks-style planning',
+            generic: 'Your plan and calendar, but the daily adjustment is still mostly on you.',
+            tuwa: 'Your plan plus a go, modify, or hold suggestion before the lift starts.',
+          },
+          {
+            label: 'Basketball fatigue',
+            generic: 'Usually represented as a whole-body score or generic training load.',
+            tuwa: 'Match tier and lift context: last night\'s game hammered your legs; bench may still be fine.',
+          },
+          {
+            label: 'Decision owner',
+            generic: 'Either the tool owns the plan or the tool stops before the decision.',
+            tuwa: 'The athlete owns the plan and confirms the suggested adjustment.',
+          },
+        ],
+      },
+    },
+    {
+      heading: 'How to decide',
+      body: [
+        'Use a wearable score if you mainly want broad recovery awareness. Use an AI coach if you want the app to write the program. Use a planning platform if your main need is calendar structure.',
+        'Use Tuwa if you are self-coached, play competitive basketball, strength-train seriously, and need the day\'s lift adjusted without surrendering the program.',
+        'The compact promise is simple: you are the CEO of your own body; Tuwa is the sports-science back room.'
+      ],
+    },
   ],
-  "related": {
-    "heading": "Go deeper",
-    "links": [
-      {
-        "label": "Recovery scoring",
-        "href": "/features/recovery-scoring"
-      },
-      {
-        "label": "Workload tracking",
-        "href": "/features/workload-tracking"
-      },
-      {
-        "label": "Methodology",
-        "href": "/methodology"
-      }
-    ]
-  }
+  related: {
+    heading: 'Go deeper',
+    links: [
+      { label: 'Daily verdict', href: '/features/recovery-scoring' },
+      { label: 'Lift + match logging', href: '/features/workload-tracking' },
+      { label: 'Your plan input', href: '/features/smart-templates' },
+    ],
+  },
 };
 
 export default content;

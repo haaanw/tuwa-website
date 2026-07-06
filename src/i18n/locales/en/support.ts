@@ -13,7 +13,7 @@ const support = {
   faq: [
     {
       q: 'How does Tuwa calculate my recovery score?',
-      a: 'Tuwa synthesizes data from multiple sources -- HRV, resting heart rate, sleep duration, body temperature, and your morning wellness check-in -- into a single readiness score each day. Each factor is weighted based on its reliability and your personal baseline, with plain-language explanations of what drove the score.',
+      a: 'Tuwa synthesizes data from multiple sources -- HRV, resting heart rate, sleep duration, body temperature, and your morning wellness check-in -- into a daily readiness signal. Each factor is weighted based on its reliability and your personal baseline, with plain-language explanations that help you decide whether to push, maintain, reduce, swap, or recover.',
     },
     {
       q: 'Does Tuwa work without an Apple Watch?',
@@ -33,7 +33,7 @@ const support = {
     },
     {
       q: 'What is ACWR and why does it matter?',
-      a: 'ACWR stands for Acute:Chronic Workload Ratio. It compares your recent training load (last 7 days) against your longer-term average (last 28 days). When this ratio spikes above safe thresholds, injury risk increases. Tuwa monitors this continuously and alerts you when a session would push you into a danger zone.',
+      a: 'ACWR stands for Acute:Chronic Workload Ratio. It compares your recent training load against a longer-term average. Tuwa treats it as workload context, not injury prediction: when a planned session would create a large spike, the app prompts you to review volume, intensity, or timing before you train.',
     },
     {
       q: 'How long until Tuwa has enough data to give reliable scores?',
