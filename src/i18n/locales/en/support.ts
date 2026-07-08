@@ -13,7 +13,7 @@ const support = {
   faq: [
     {
       q: 'How does Tuwa calculate my recovery score?',
-      a: 'Tuwa synthesizes data from multiple sources -- HRV, resting heart rate, sleep duration, body temperature, and your morning wellness check-in -- into a daily readiness signal. Each factor is weighted based on its reliability and your personal baseline, with plain-language explanations that help you decide whether to push, maintain, reduce, swap, or recover.',
+      a: 'Tuwa synthesizes HRV, resting heart rate, sleep duration, and your morning wellness check-in into a daily readiness signal. Each factor is weighted based on its reliability and your personal baseline, with plain-language explanations that support the app\'s go, modify, or hold verdict.',
     },
     {
       q: 'Does Tuwa work without an Apple Watch?',
@@ -29,15 +29,15 @@ const support = {
     },
     {
       q: 'How does the coach invitation work?',
-      a: 'Go to Profile and tap Invite My Coach. You can share a 6-character invite code, send an email invitation, or use NFC to connect with your coach instantly. Once linked, your coach can view your recovery scores, workload trends, and session history.',
+      a: 'Go to Profile and tap Invite My Coach. You can share a 6-character invite code or send an email invitation. Once linked, your coach can view your recovery scores, workload trends, and session history.',
     },
     {
       q: 'What is ACWR and why does it matter?',
-      a: 'ACWR stands for Acute:Chronic Workload Ratio. It compares your recent training load against a longer-term average. Tuwa treats it as workload context, not injury prediction: when a planned session would create a large spike, the app prompts you to review volume, intensity, or timing before you train.',
+      a: 'ACWR stands for Acute:Chronic Workload Ratio. It compares your recent training load against a longer-term average. Tuwa treats it as workload context, not injury prediction: recent workload and spike flags are shown before training so you can review volume, intensity, or timing with the latest saved data in mind.',
     },
     {
       q: 'How long until Tuwa has enough data to give reliable scores?',
-      a: 'Tuwa starts providing useful guidance from day one using population-level baselines and your wellness check-ins. As you log workouts and sync HealthKit data, scores become increasingly personalized. After about 7 days, your recovery score reflects your individual patterns rather than population averages.',
+      a: 'Tuwa starts by setting up your training profile and building from your wellness check-ins, logged workouts, and any HealthKit data you permit. With little recovery history, the app stays conservative instead of using population baselines. As real data accumulates, scores become increasingly personal.',
     },
     {
       q: 'How do I contact support or report a bug?',

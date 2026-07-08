@@ -46,7 +46,7 @@ const content: TopicPageContent = {
       "body": [
         "A score you do not understand is a score you will not trust — and one you will eventually ignore. That is why Tuwa pairs every number with plain-language reasoning. It does not just tell you your readiness is 62; it tells you that your HRV is tracking 8% below your recent baseline, your sleep was cut short, but your resting heart rate is normal. You see the score and the why behind it, so you can apply judgment the algorithm cannot.",
         "Transparency also means the data stays yours. Your raw HealthKit readings — individual HRV measurements, raw heart-rate data, sleep-stage detail — never leave your device. The scoring runs locally and works offline, so you get a number every morning whether or not you have signal. Only composite scores sync if you choose to share them with a coach.",
-        "And the score is useful from day one. Tuwa starts with population baselines so you get sensible guidance immediately, then quietly shifts to your personal trend as it learns your individual patterns over the first weeks. You are never staring at a blank screen waiting for the model to warm up."
+        "Tuwa is honest when the data is thin. Onboarding and your first logged sessions start building the training profile immediately, while recovery scoring stays conservative until enough personal HealthKit, wellness, and training history exists to compare against your own trend."
       ]
     }
   ],

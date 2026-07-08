@@ -68,5 +68,5 @@ const ogLocaleValue = derivedLocale === 'zh' ? 'zh_CN' : derivedLocale === 'fr' 
 <meta name="twitter:image" content={resolvedOgImage} />
 <meta name="twitter:image:alt" content={resolvedOgImageAlt} />
 {structuredData.map((schema) => (
-  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
 ))}

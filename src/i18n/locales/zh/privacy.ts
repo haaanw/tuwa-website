@@ -75,7 +75,7 @@ const privacy: Privacy = {
       '个人最佳成绩',
       '身体状态评分',
     ],
-    outro: '教练无法访问您的原始 HealthKit 数据，您随时可以解除与教练的连接。',
+    outro: '教练无法访问您的原始 HealthKit 数据。如果您需要变更或移除教练访问权限，在应用内解除连接控件尚未开放时，请联系支持团队处理。',
   },
   thirdPartyServices: {
     heading: '第三方服务',

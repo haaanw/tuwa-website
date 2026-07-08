@@ -57,8 +57,8 @@ const terms = {
   },
   coachAthleteFeatures: {
     heading: '5. Coach-Athlete Features',
-    p1: 'If you link with a coach, you grant them access to view your recovery scores, workload trends, workout summaries, and wellness check-in ratings. You can unlink from a coach at any time, which revokes their access to your data.',
-    p2: 'Coaches who log workouts on behalf of athletes do so with attribution. Coaches are responsible for using the platform in good faith.',
+    p1: 'If you link with a coach, you grant them access to view your recovery scores, workload trends, workout summaries, and wellness check-in ratings. If you need to remove coach access, contact support while in-app unlink controls are not surfaced.',
+    p2: 'If coach-side workout logging is made available, those entries should be attributed clearly. Coaches are responsible for using the platform in good faith.',
   },
   acceptableUse: {
     heading: '6. Acceptable Use',

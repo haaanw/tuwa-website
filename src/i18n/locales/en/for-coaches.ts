@@ -24,7 +24,7 @@ const content: TopicPageContent = {
       heading: 'What Tuwa gives you',
       subheading: 'Your plan, physiology, and match context in one decision',
       body: [
-        'Tuwa starts with the strength session you authored. It reads HRV, resting heart rate, and sleep from HealthKit, adds training history, soreness, match tier, and match proximity, then returns a go, modify, or hold suggestion.',
+        'Tuwa starts with the strength session you authored. It reads HRV, resting heart rate, and sleep from HealthKit, adds training history, soreness, logged match context, and match proximity, then returns a go, modify, or hold suggestion.',
         'The suggestion includes an adjusted top-set number and a one-line reason so the decision is concrete before warmups begin.'
       ],
       bullets: [

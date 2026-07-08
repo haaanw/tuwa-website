@@ -14,16 +14,195 @@ const t = useTranslations(locale as 'en' | 'zh' | 'fr');
 ---
 
 <style>
-  .mobile-nav-link {
-    padding: var(--space-sm) var(--space-md);
-    color: var(--color-text-1);
-    text-decoration: none;
-    font-size: var(--text-heading);
-    font-weight: var(--weight-body);
-    border-radius: var(--radius-md);
-    min-height: 44px;
+  .mobile-menu-panel {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px);
+    overflow-y: auto;
+    transition:
+      opacity 180ms var(--ease-interactive),
+      visibility 180ms,
+      transform 180ms var(--ease-interactive);
+  }
+  .mobile-menu-panel.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu-panel {
+      transform: none;
+      transition: none;
+    }
+  }
+  .mobile-menu-shell {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding:
+      max(env(safe-area-inset-top), 0px)
+      var(--space-lg)
+      max(calc(env(safe-area-inset-bottom) + var(--space-xl)), var(--space-xl));
+  }
+  .mobile-menu-close-row {
+    min-height: 72px;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+  }
+  .mobile-menu-close {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-1);
+    background-color: color-mix(in srgb, var(--color-bg) 22%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-text-1) 8%, transparent);
+    border-radius: 0;
+    cursor: pointer;
+    transition:
+      background-color 150ms var(--ease-interactive),
+      transform 150ms var(--ease-interactive);
+  }
+  .mobile-menu-close:hover,
+  .mobile-menu-close:focus-visible {
+    background-color: color-mix(in srgb, var(--color-bg) 46%, transparent);
+    transform: translateY(-1px);
+  }
+  .mobile-menu-nav {
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+    padding-top: clamp(28px, 7vh, 56px);
+    flex: 1;
+  }
+  .mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mobile-nav-section {
+    display: block;
+    margin: 0 0 14px;
+    padding-inline: 2px;
+    color: var(--color-text-3);
+    font-size: var(--text-label);
+    font-weight: var(--weight-label);
+    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-label);
+    text-transform: uppercase;
+  }
+  .mobile-nav-divider {
+    height: 1px;
+    margin: 18px 0 12px;
+    background-color: color-mix(in srgb, var(--color-text-1) 10%, transparent);
+  }
+  .mobile-nav-link {
+    padding: 14px var(--space-md);
+    color: var(--color-text-1);
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: var(--weight-body);
+    border-radius: 0;
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    transition:
+      background-color 150ms var(--ease-interactive),
+      color 150ms var(--ease-interactive),
+      transform 150ms var(--ease-interactive);
+  }
+  .mobile-nav-link:hover,
+  .mobile-nav-link:focus-visible {
+    background-color: color-mix(in srgb, var(--color-bg) 46%, transparent);
+    color: var(--color-accent);
+    transform: translateX(2px);
+  }
+  .mobile-menu-cta {
+    margin-top: clamp(40px, 8vh, 72px);
+  }
+  .mobile-menu-cta-link {
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px var(--space-lg);
+    color: var(--color-accent);
+    background-color: transparent;
+    border: 1px solid var(--color-accent);
+    border-radius: 0;
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: var(--weight-label);
+    text-decoration: none;
+    box-shadow: none;
+    transition:
+      transform 150ms var(--ease-interactive),
+      background-color 150ms var(--ease-interactive),
+      border-color 150ms var(--ease-interactive);
+  }
+  .mobile-menu-cta-link:hover,
+  .mobile-menu-cta-link:focus-visible {
+    transform: translateY(-1px);
+    background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    border-color: var(--color-accent-hover);
+    box-shadow: none;
+  }
+  @media (max-width: 380px) {
+    .mobile-menu-shell {
+      padding-inline: var(--space-md);
+    }
+    .mobile-menu-nav {
+      padding-top: var(--space-lg);
+    }
+    .mobile-nav-link {
+      min-height: 50px;
+      font-size: 17px;
+    }
+    .mobile-menu-cta-link {
+      min-height: 54px;
+      font-size: 17px;
+    }
+  }
+  @media (max-width: 480px) and (max-height: 780px) {
+    .mobile-menu-close-row {
+      min-height: 64px;
+    }
+    .mobile-menu-nav {
+      padding-top: 20px;
+    }
+    .mobile-nav-list {
+      gap: 2px;
+    }
+    .mobile-nav-section {
+      margin-bottom: 10px;
+    }
+    .mobile-nav-divider {
+      margin: 12px 0 8px;
+    }
+    .mobile-menu-cta {
+      margin-top: var(--space-lg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu-close,
+    .mobile-nav-link,
+    .mobile-menu-cta-link {
+      transition: none;
+    }
+    .mobile-menu-close:hover,
+    .mobile-menu-close:focus-visible,
+    .mobile-nav-link:hover,
+    .mobile-nav-link:focus-visible,
+    .mobile-menu-cta-link:hover,
+    .mobile-menu-cta-link:focus-visible {
+      transform: none;
+    }
   }
 </style>
 
@@ -33,101 +212,122 @@ const t = useTranslations(locale as 'en' | 'zh' | 'fr');
   aria-modal="true"
   aria-label="Mobile navigation"
   aria-hidden="true"
-  class="fixed inset-0 z-[60] md:hidden"
+  class="mobile-menu-panel fixed inset-0 z-[60] md:hidden"
   style="
-    display: none;
     background-color: var(--color-surface-el);
   "
 >
-  <!-- Close button -->
-  <div class="flex items-center justify-end px-6" style="height: 64px;">
-    <button
-      id="menu-close"
-      aria-label="Close navigation menu"
-      class="flex items-center justify-center"
-      style="width: 44px; height: 44px; background: none; border: none; cursor: pointer; color: var(--color-text-1);"
-    >
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <line x1="6" y1="6" x2="18" y2="18" />
-        <line x1="6" y1="18" x2="18" y2="6" />
-      </svg>
-    </button>
-  </div>
-
-  <nav style="padding: var(--space-lg) var(--space-lg);">
-    <ul role="list" class="space-y-1">
-      <li>
-        <a
-          href={getRelativeLocaleUrl(locale, '/features/recovery-scoring')}
-          class="block mobile-nav-link"
-        >
-          {t.nav.features}
-        </a>
-      </li>
-      <li>
-        <a
-          href={getRelativeLocaleUrl(locale, '/features/coaching')}
-          class="block mobile-nav-link"
-        >
-          {t.nav.featuresDropdown.coachingTitle}
-        </a>
-      </li>
-      <li>
-        <a
-          href={getRelativeLocaleUrl(locale, '/methodology')}
-          class="block mobile-nav-link"
-        >
-          {t.nav.method}
-        </a>
-      </li>
-      <li>
-        <a
-          href={getRelativeLocaleUrl(locale, '/for-coaches')}
-          class="block mobile-nav-link"
-        >
-          {t.nav.coaches}
-        </a>
-      </li>
-      <li>
-        <a
-          href={getRelativeLocaleUrl(locale, '/blog')}
-          class="block mobile-nav-link"
-        >
-          {t.nav.blog}
-        </a>
-      </li>
-      <li>
-        <a
-          href={getRelativeLocaleUrl(locale, '/support')}
-          class="block mobile-nav-link"
-        >
-          {t.nav.support}
-        </a>
-      </li>
-    </ul>
-
-    <!-- CTA in mobile menu -->
-    <div style="margin-top: var(--space-xl); padding: 0 var(--space-md);">
-      <a
-        href={APP_STORE_URL}
-        rel="noopener noreferrer"
-        class="flex items-center justify-center"
-        style="
-          background-color: var(--color-accent);
-          color: var(--color-accent-fg);
-          border-radius: var(--radius-md);
-          padding: var(--space-md);
-          font-weight: var(--weight-label);
-          text-decoration: none;
-          font-size: var(--text-body);
-          width: 100%;
-          min-height: 44px;
-        "
+  <div class="mobile-menu-shell">
+    <!-- Close button -->
+    <div class="mobile-menu-close-row">
+      <button
+        id="menu-close"
+        aria-label="Close navigation menu"
+        class="mobile-menu-close"
       >
-        {t.nav.getApp}
-      </a>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="6" y1="6" x2="18" y2="18" />
+          <line x1="6" y1="18" x2="18" y2="6" />
+        </svg>
+      </button>
     </div>
-  </nav>
+
+    <nav class="mobile-menu-nav">
+      <ul role="list" class="mobile-nav-list">
+        <li>
+          <span class="mobile-nav-section">{t.nav.features}</span>
+        </li>
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, '/features/smart-templates')}
+            class="block mobile-nav-link"
+          >
+            {t.nav.featuresDropdown.smartTemplatesTitle}
+          </a>
+        </li>
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, '/features/workload-tracking')}
+            class="block mobile-nav-link"
+          >
+            {t.nav.featuresDropdown.workloadTrackingTitle}
+          </a>
+        </li>
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, '/features/recovery-scoring')}
+            class="block mobile-nav-link"
+          >
+            {t.nav.featuresDropdown.recoveryScoringTitle}
+          </a>
+        </li>
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, '/features/cold-start')}
+            class="block mobile-nav-link"
+          >
+            {t.nav.featuresDropdown.coldStartTitle}
+          </a>
+        </li>
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, '/training-load')}
+            class="block mobile-nav-link"
+          >
+            {t.nav.featuresDropdown.coachingTitle}
+          </a>
+        </li>
+        <li class="mobile-nav-divider" aria-hidden="true"></li>
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, '/methodology')}
+            class="block mobile-nav-link"
+          >
+            {t.nav.method}
+          </a>
+        </li>
+        {locale === 'en' && (
+          <li>
+            <a
+              href="/strength-readiness-calculator"
+              class="block mobile-nav-link"
+            >
+              Calculator
+            </a>
+          </li>
+        )}
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, '/blog')}
+            class="block mobile-nav-link"
+          >
+            {t.nav.blog}
+          </a>
+        </li>
+        <li>
+          <a
+            href={getRelativeLocaleUrl(locale, '/support')}
+            class="block mobile-nav-link"
+          >
+            {t.nav.support}
+          </a>
+        </li>
+      </ul>
+
+      <!-- CTA in mobile menu -->
+      <div class="mobile-menu-cta">
+        <a
+          href={APP_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={t.featureCTA.badgeAriaLabel}
+          class="mobile-menu-cta-link"
+        >
+          {t.nav.getApp}
+        </a>
+      </div>
+    </nav>
+  </div>
 </div>
 
 <script>
@@ -137,9 +337,12 @@ const t = useTranslations(locale as 'en' | 'zh' | 'fr');
 
   function openMenu() {
     if (!menu || !toggle) return;
-    menu.style.display = "block";
+    menu.classList.add("is-open");
     menu.setAttribute("aria-hidden", "false");
     toggle.setAttribute("aria-expanded", "true");
+    document.querySelectorAll("header, main, footer").forEach((el) => {
+      if (el !== menu) el.setAttribute("inert", "");
+    });
     // Prevent body scroll
     document.body.style.overflow = "hidden";
     // Focus close button
@@ -149,9 +352,12 @@ const t = useTranslations(locale as 'en' | 'zh' | 'fr');
 
   function closeMenu() {
     if (!menu || !toggle) return;
-    menu.style.display = "none";
+    menu.classList.remove("is-open");
     menu.setAttribute("aria-hidden", "true");
     toggle.setAttribute("aria-expanded", "false");
+    document.querySelectorAll("header, main, footer").forEach((el) => {
+      el.removeAttribute("inert");
+    });
     document.body.style.overflow = "";
     toggle.focus();
     document.removeEventListener("keydown", handleKeydown);

@@ -1,7 +1,6 @@
 ---
 import dashboardScreenshot from '../assets/screenshots/dashboard.png';
 import DeviceFrame from './DeviceFrame.astro';
-import MatisseFrieze from './MatisseFrieze.astro';
 import { APP_STORE_URL } from '../config';
 import { useHomeTranslations } from '../i18n/utils';
 import type { Locale } from '../i18n/utils';
@@ -15,7 +14,6 @@ const t = useHomeTranslations(locale);
 ---
 
 <section class="section-spaced px-6" style="position: relative;">
-  <MatisseFrieze />
   <div class="mx-auto text-center" style="width: 100%; max-width: 768px; position: relative; z-index: 1;">
 
     <!-- Headline — h1 (one per page, per accessibility contract) -->
@@ -36,8 +34,8 @@ const t = useHomeTranslations(locale);
       class="hero-subtitle mx-auto"
       style="
         margin-top: var(--space-md);
-        max-width: 560px;
-        font-size: var(--text-lede);
+        max-width: var(--hero-subtitle-max, 560px);
+        font-size: var(--hero-subtitle-size, var(--text-lede));
         line-height: var(--leading-body);
         color: var(--color-text-2);
       "
@@ -45,11 +43,17 @@ const t = useHomeTranslations(locale);
       {t.hero.subtitle}
     </p>
 
+    <ul class="hero-loop-rail" role="list" aria-label={t.hero.loopAriaLabel}>
+      {t.hero.loopSteps.map((step) => (
+        <li>{step}</li>
+      ))}
+    </ul>
+
     <!-- Device mockup — CSS iPhone frame with subtle perspective tilt (D-05) -->
     <div
       class="hero-device relative mx-auto"
       style="
-        margin-top: 40px;
+        margin-top: var(--space-xl);
         max-width: 320px;
       "
     >

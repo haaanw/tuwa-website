@@ -18,7 +18,7 @@ const coaching = {
   },
   howItWorks: {
     heading: 'How it works',
-    p1: "Tuwa starts from your plan and your logs. It reviews the planned strength session, recent lifting work, match tier, soreness, HRV, resting heart rate, and sleep, then turns that evidence into a daily verdict.",
+    p1: "Tuwa starts from your plan and your logs. It reviews the planned strength session, recent lifting work, match proximity, soreness, HRV, resting heart rate, and sleep, then turns that evidence into a daily verdict.",
     p2: "The value is timing. You see the suggestion before the lift, not after the week is already messy. If match proximity is high, the review can steer you toward a microdose. If last night's game hit your legs, the review can protect squats without muting upper-body work.",
     p3: "Review is not command and control. Tuwa gives the back-room view: what changed, what number moved, and what adjustment makes sense. You decide whether to accept the suggestion.",
     p4: "The same review loop makes weekly planning cleaner. You can see whether lower-body work repeatedly collides with games, whether upper-body sessions tolerate match weeks better, and whether top-set adjustments are preserving enough stimulus.",
@@ -30,7 +30,7 @@ const coaching = {
     athleteP2: "That matters for amateur competitive basketball players because the hard part is not motivation. It is knowing when to trim your own planned lift so you can keep getting stronger without carrying dead legs into a game.",
     athleteP3: "The verdict is suggest-and-confirm. Go, modify, and hold are prompts with reasons, never a red stop sign.",
     coachHeading: 'Tuwa runs the back room',
-    coachP1: "A good back room does not take the whistle from the athlete. It gathers the signals: HealthKit physiology, soreness, recent load, match tier, match proximity, and the planned top set.",
+    coachP1: "A good back room does not take the whistle from the athlete. It gathers the signals: HealthKit physiology, soreness, recent load, logged match context, match proximity, and the planned top set.",
     coachP2: "Then it turns them into one useful sentence: \"Match Saturday — cap the top set, skip back-offs.\" That is specific enough to act on and limited enough to stay honest.",
     coachP3: "Over time, the review shows patterns you can use: which lifts suffer after games, which sessions tolerate match weeks, and when your planned progression is asking for more than the week supports.",
   },

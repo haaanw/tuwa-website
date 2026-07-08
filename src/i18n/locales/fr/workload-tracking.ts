@@ -10,7 +10,7 @@ const workloadTracking: WorkloadTracking = {
     outcomeStatement: 'Entraîne-toi à fond sans franchir la ligne',
     hookLine: 'Vois exactement où en est ta charge d\'entraînement — et quand tu pousses trop loin, trop vite.',
     screenshotAlt:
-      'Application Tuwa — écran de charge d\'entraînement affichant les tendances de charge aiguë et chronique avec la zone ACWR sûre mise en évidence',
+      'Application Tuwa — écran Charge dans Insights affichant le score de charge, la charge aiguë, la charge chronique, l\'équilibre de stress et les volumes quotidiens',
   },
   howItWorks: {
     heading: 'Comment ça fonctionne',

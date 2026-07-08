@@ -18,7 +18,7 @@ const home = {
     heading: 'Built for basketball legs and serious lifting',
     science: {
       title: 'Your moving strike zone',
-      desc: 'HRV, resting heart rate, sleep, soreness, match tier, and lifting history move the day\'s optimal intensity band before you train.',
+      desc: 'HRV, resting heart rate, sleep, soreness, match proximity, and lifting history move the day\'s optimal intensity band before you train.',
     },
     privacy: {
       title: 'Match proximity built in',

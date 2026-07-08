@@ -3,7 +3,7 @@ import type { TopicPageContent } from '../../topicPage';
 const content: TopicPageContent = {
   "meta": {
     "title": "What Is Training Load? How Tuwa Measures It",
-    "description": "Training load is volume times intensity. Learn how acute vs chronic load and ACWR provide workload context, and how Tuwa surfaces spikes before you train."
+    "description": "Training load is volume times intensity. Learn how acute vs chronic load and ACWR provide workload context, and how Tuwa surfaces recent load before you train."
   },
   "hero": {
     "outcomeStatement": "Understand your training load before it overtakes you",
@@ -30,11 +30,11 @@ const content: TopicPageContent = {
     },
     {
       "heading": "How Tuwa computes it",
-      "subheading": "EWMA, RPE plus RIR, and spike detection before the session",
+      "subheading": "EWMA, RPE plus RIR, and recent workload context before the session",
       "body": [
         "Tuwa models load using an exponentially weighted moving average (EWMA) — a smoothing method that gives recent sessions more weight than older ones. A training block you finished a month ago counts for less than what you did last week, so your baseline tracks who you are now rather than who you were five weeks ago. This makes the load model responsive instead of anchored to stale data.",
         "The inputs come straight from how you already train: exercises, sets, reps, weight, RPE, and RIR. You do not maintain a separate spreadsheet or convert anything by hand — the session load and the resulting ACWR are computed from the log you keep anyway.",
-        "The part that changes how you train is timing. Tuwa detects load spikes before you execute the session, not after. If the workout you are about to do would push your ACWR out of the target range, you see it while you can still adjust — drop a set, cap the weight, or move volume to another day. The goal is to support the planning decision while it can still change."
+        "The part that changes how you train is timing. Tuwa shows your recent workload context before you execute the session, using the workouts you have already saved. If your latest ACWR is already out of range, you see that while you can still adjust — drop a set, cap the weight, or move volume to another day. Spike flags are computed from logged work, so the goal is to support the next planning decision with current context."
       ]
     },
     {

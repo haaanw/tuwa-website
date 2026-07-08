@@ -2,18 +2,17 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import BaseLayout from './BaseLayout.astro';
 import FeatureCTA from '../components/FeatureCTA.astro';
-import MatisseDecoration from '../components/MatisseDecoration.astro';
 import type { TopicPageContent } from '../i18n/topicPage';
 
 interface Props {
   content: TopicPageContent;
   ogImage?: string;
-  shapeId?: 'blob-1' | 'blob-2' | 'blob-3' | 'blob-4' | 'blob-5' | 'blob-6' | 'blob-7';
+  shapeId?: string;
   locale?: string;
   structuredData?: Record<string, unknown>[];
 }
 
-const { content, ogImage, shapeId = 'blob-1', locale = 'en', structuredData } = Astro.props;
+const { content, ogImage, locale = 'en', structuredData } = Astro.props;
 const { meta, hero, sections, related, references } = content;
 ---
 <BaseLayout
@@ -24,7 +23,7 @@ const { meta, hero, sections, related, references } = content;
   structuredData={structuredData}
 >
   <!-- Hero -->
-  <section data-animate style="padding-top: var(--space-3xl); padding-bottom: var(--space-2xl); position: relative;">
+  <section data-animate class="topic-hero-with-art">
     <div class="mx-auto text-center" style="width: 100%; max-width: 768px; box-sizing: border-box; padding: 0 var(--space-md); position: relative; z-index: 1;">
       <h1
         style="
@@ -52,7 +51,6 @@ const { meta, hero, sections, related, references } = content;
       <!-- accent rule anchors the hero below the hook line -->
       <div aria-hidden="true" style="width: 56px; height: 2px; background: var(--color-accent); margin: var(--space-xl) auto 0;"></div>
     </div>
-    <MatisseDecoration shapeId={shapeId} />
   </section>
 
   <!-- Content sections — magazine grid: heading rail + reading column -->

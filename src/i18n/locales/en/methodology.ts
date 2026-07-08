@@ -25,7 +25,7 @@ const content: TopicPageContent = {
       "body": [
         "Every session you log is converted into a load value from volume and intensity (using RPE — rate of perceived exertion, the 1–10 scale for how hard a set felt — and optionally RIR, reps in reserve). Tuwa then maintains two views of that load: acute load, roughly the last week, which reflects current fatigue, and chronic load, roughly the last four weeks, which reflects your fitness base.",
         "The ratio between them is the acute:chronic workload ratio (ACWR). Research originating with Tim Gabbett and colleagues often uses a relative range around 0.8 to 1.3 as workload context. Below the range, you may be doing much less than your recent base; above it, the current week may be asking for a bigger jump than your recent training supports.",
-        "Rather than crude rolling sums, Tuwa computes these loads with exponentially weighted moving averages (EWMA) — a smoothing method that gives recent sessions more weight than older ones. This lets your model respond quickly to a hard block or a deload instead of being anchored to weeks-old data, and it flags spikes before you train, not after."
+        "Rather than crude rolling sums, Tuwa computes these loads with exponentially weighted moving averages (EWMA) — a smoothing method that gives recent sessions more weight than older ones. This lets your model respond quickly to a hard block or a deload instead of being anchored to weeks-old data, and it keeps recent workload context visible before you train."
       ]
     },
     {
@@ -33,7 +33,7 @@ const content: TopicPageContent = {
       "subheading": "On-device by default, offline-capable, composite-only sync",
       "body": [
         "Your raw HealthKit data — every HRV reading, heart-rate sample, and sleep record — stays on your device. Tuwa reads it locally to compute your scores and never uploads the underlying physiological streams to a server.",
-        "The app works fully offline. Scoring, load calculation, and spike detection all run on-device, so a flaky connection or a basement gym never interrupts the analysis.",
+        "The app works fully offline. Scoring, load calculation, and logged-work spike detection all run on-device, so a flaky connection or a basement gym never interrupts the analysis.",
         "Coach-facing features sync only the composite outputs — your readiness score and load metrics — never the raw biometric data behind them. You share the conclusion, not your nervous system's full record."
       ]
     },
@@ -41,7 +41,7 @@ const content: TopicPageContent = {
       "heading": "Honest limitations",
       "subheading": "What the model can and cannot do",
       "body": [
-        "Tuwa is useful from day one because it starts with sensible population baselines, but its real value is personal. Over roughly the first seven days it learns your own HRV, resting heart rate, and sleep patterns, and the readiness score becomes meaningfully more accurate as those baselines settle. Early scores should be read as directional, not precise.",
+        "Tuwa is useful from day one because onboarding sets up your training profile and logged sessions immediately start building workload history. Readiness is more conservative: when personal recovery history is thin, Tuwa avoids pretending that a population baseline is your baseline. Over time it learns your own HRV, resting heart rate, sleep, wellness, and training patterns.",
         "No model built on consumer wearables is perfect. HRV is noisy — a glass of wine, an early alarm, or a poor night can move a single reading — which is exactly why Tuwa tracks trends rather than reacting to individual data points. The ACWR framework describes population-level workload associations, not individual guarantees or predictions; it informs decisions, it does not make them for you.",
         "Tuwa is a training tool, not a medical device. It does not diagnose illness, injury, or any health condition, and nothing in the app is medical advice. If a metric concerns you or you feel unwell, consult a qualified professional."
       ]

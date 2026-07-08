@@ -15,7 +15,7 @@ const recoveryScoring: RecoveryScoring = {
   howItWorks: {
     heading: '工作原理',
     deviceAlt: 'Tuwa 应用 Insights 恢复界面，显示恢复评分、心率变异性、静息心率、睡眠和恢复趋势',
-    p1: '每天早晨，Tuwa 读取你已经通过 HealthKit 收集的生理信号：HRV、静息心率和睡眠。它再结合你的训练历史、酸痛，以及你记录的比赛等级，评估你原本计划的力量训练。',
+    p1: '每天早晨，Tuwa 读取你已经通过 HealthKit 收集的生理信号：HRV、静息心率和睡眠。它再结合你的训练历史、酸痛和比赛临近情况，评估你原本计划的力量训练。',
     p2: '输出刻意保持实用：go、modify 或 hold，加上调整后的顶组数字和一句原因。例如："周六比赛——限制顶组，跳过回退组。" 你会在热身前看到建议，那时训练仍然可以调整。',
     threeZonesHeading: '三种建议，由运动员确认',
     p3: 'Go 表示原计划剂量仍适合今天。Modify 表示保留训练结构，但减少剂量：限制 RPE、降低重量，或在比赛临近时改成 microdose。Hold 表示 Tuwa 看到足够多疲劳背景，建议推迟最硬的部分。它们都不是命令；最终由你确认。',

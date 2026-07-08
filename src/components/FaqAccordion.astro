@@ -11,26 +11,51 @@ const t = useSupportTranslations(locale as any);
 const faqs = t.faq;
 const faqSchema = faqPageSchema(faqs);
 ---
-<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
 
 <style>
-  details > summary {
-    list-style: none;
+  .faq-item {
+    border-bottom: 1px solid var(--color-divider);
   }
-  details > summary::marker,
-  details > summary::-webkit-details-marker {
+  .faq-summary {
+    list-style: none;
+    padding: var(--space-md) 0;
+    font-weight: var(--weight-label);
+    cursor: pointer;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+  .faq-summary::marker,
+  .faq-summary::-webkit-details-marker {
     display: none;
   }
-  details > summary::after {
+  .faq-summary::after {
     content: '+';
     font-size: 20px;
     font-weight: 400;
     color: var(--color-text-3);
-    transition: transform 150ms ease;
   }
-  details[open] > summary::after {
+  .faq-item[open] > .faq-summary::after {
     content: '\2212';
+  }
+  .faq-answer {
+    padding-bottom: var(--space-md);
+    color: var(--color-text-2);
+    line-height: var(--leading-body);
+    font-weight: var(--weight-body);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .faq-summary::after {
+      transition: transform 150ms var(--ease-interactive), color 150ms var(--ease-interactive);
+    }
+    .faq-summary:hover::after {
+      color: var(--color-accent);
+      transform: scale(1.08);
+    }
   }
 </style>
 
@@ -49,22 +74,11 @@ const faqSchema = faqPageSchema(faqs);
   </h2>
   <dl>
     {faqs.map(({ q, a }) => (
-      <details style="border-bottom: 1px solid var(--color-divider);">
-        <summary
-          style="
-            padding: var(--space-md) 0;
-            font-weight: var(--weight-label);
-            cursor: pointer;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: var(--space-md);
-          "
-        >
+      <details class="faq-item">
+        <summary class="faq-summary">
           {q}
         </summary>
-        <p style="padding-bottom: var(--space-md); color: var(--color-text-2); line-height: var(--leading-body); font-weight: var(--weight-body);">
+        <p class="faq-answer">
           {a}
         </p>
       </details>

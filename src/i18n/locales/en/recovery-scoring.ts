@@ -19,7 +19,7 @@ const recoveryScoring = {
   howItWorks: {
     heading: 'How it works',
     deviceAlt: 'Tuwa app Insights recovery screen showing recovery score, HRV, resting heart rate, sleep, and recovery trend rows',
-    p1: 'Every morning, Tuwa reads the physiology you already collect through HealthKit: HRV, resting heart rate, and sleep. It pairs those signals with your training history, soreness, and the match tier you logged, then evaluates the strength session you planned.',
+    p1: 'Every morning, Tuwa reads the physiology you already collect through HealthKit: HRV, resting heart rate, and sleep. It pairs those signals with your training history, soreness, and match proximity, then evaluates the strength session you planned.',
     p2: "The output is intentionally practical: go, modify, or hold, plus an adjusted top-set number and a one-line reason. For example: \"Match Saturday — cap the top set, skip back-offs.\" You see the suggestion before warmups, while the session can still change.",
     threeZonesHeading: 'Three verdicts, athlete-controlled',
     p3: 'Go means the planned dose still fits the day. Modify means keep the session but trim the dose: cap RPE, reduce load, or microdose near a game. Hold means Tuwa sees enough fatigue context to suggest delaying the hard part. None of these is a command; the athlete confirms the call.',

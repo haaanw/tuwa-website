@@ -79,7 +79,7 @@ const privacy = {
       'Personal records',
       'Wellness check-in ratings',
     ] as const,
-    outro: 'Coaches cannot access your raw HealthKit data, and you can unlink from a coach at any time.',
+    outro: 'Coaches cannot access your raw HealthKit data. If you need to change or remove coach access, contact support while in-app unlink controls are not surfaced.',
   },
   thirdPartyServices: {
     heading: 'Third-Party Services',

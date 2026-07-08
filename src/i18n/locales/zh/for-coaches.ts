@@ -24,7 +24,7 @@ const content: TopicPageContent = {
       heading: 'Tuwa 给你什么',
       subheading: '你的计划、生理状态和比赛背景，合成一个决定',
       body: [
-        'Tuwa 从你自己写的力量训练开始。它从 HealthKit 读取 HRV、静息心率和睡眠，加入训练历史、酸痛、比赛等级和比赛临近情况，然后给出 go、modify 或 hold 建议。',
+        'Tuwa 从你自己写的力量训练开始。它从 HealthKit 读取 HRV、静息心率和睡眠，加入训练历史、酸痛、已记录的比赛背景和比赛临近情况，然后给出 go、modify 或 hold 建议。',
         '建议会包含调整后的顶组数字和一句原因，让你在热身前就有具体决定。',
       ],
       bullets: [

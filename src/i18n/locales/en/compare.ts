@@ -23,7 +23,7 @@ const content: TopicPageContent = {
     {
       heading: 'What Tuwa does differently',
       body: [
-        'Tuwa starts with the plan you already chose. It fuses that plan with HRV, resting heart rate, sleep, training history, soreness, match tier, and match proximity, then gives a go, modify, or hold suggestion with an adjusted top-set number and a one-line reason.',
+        'Tuwa starts with the plan you already chose. It fuses that plan with HRV, resting heart rate, sleep, training history, soreness, logged match context, and match proximity, then gives a go, modify, or hold suggestion with an adjusted top-set number and a one-line reason.',
         'That creates a narrower but more useful answer for amateur competitive basketball players who lift seriously: stay in your strike zone today. Not a lifestyle score, not a generated program, and not a spreadsheet that leaves the decision to you at the worst moment.',
         'The athlete stays in charge. Tuwa suggests and explains; you confirm.'
       ],

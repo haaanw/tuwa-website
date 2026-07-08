@@ -133,22 +133,48 @@ const t = useRecoveryScoringTranslations('fr');
     var steps = document.querySelectorAll('.scroll-step');
     var dots = document.querySelectorAll('.step-dot');
     if (!steps.length) return;
+    var ticking = false;
 
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          var stepNum = entry.target.getAttribute('data-step');
-          /* Update active step */
-          steps.forEach(function (s) { s.classList.remove('is-active'); });
-          entry.target.classList.add('is-active');
-          /* Update indicator dots */
-          dots.forEach(function (d, i) {
-            d.classList.toggle('is-active', String(i + 1) === stepNum);
-          });
+    function setActive(step) {
+      var stepNum = step.getAttribute('data-step');
+      steps.forEach(function (s) { s.classList.toggle('is-active', s === step); });
+      dots.forEach(function (d, i) {
+        d.classList.toggle('is-active', String(i + 1) === stepNum);
+      });
+    }
+
+    function updateActiveStep() {
+      ticking = false;
+      var viewportCenter = window.innerHeight / 2;
+      var bestStep = steps[0];
+      var bestDistance = Infinity;
+      steps.forEach(function (step) {
+        var rect = step.getBoundingClientRect();
+        var visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+        if (visibleHeight <= 0) return;
+        var stepCenter = rect.top + rect.height / 2;
+        var distance = Math.abs(stepCenter - viewportCenter);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestStep = step;
         }
       });
-    }, { threshold: 0.5 });
+      setActive(bestStep);
+    }
+
+    function requestUpdate() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateActiveStep);
+    }
+
+    var observer = new IntersectionObserver(requestUpdate, {
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+      rootMargin: '-12% 0px -12% 0px',
+    });
 
     steps.forEach(function (el) { observer.observe(el); });
+    window.addEventListener('resize', requestUpdate);
+    requestUpdate();
   })();
 </script>

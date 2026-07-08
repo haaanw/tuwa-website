@@ -27,11 +27,12 @@ const { title, description, ogImage, ogImageAlt, canonical, type, locale = 'en',
     <!-- Font preload FIRST — before stylesheets — per Pitfall 6 in RESEARCH.md -->
     <link rel="preload" href="/fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js-enabled');</script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#2B5240" />
+    <meta name="theme-color" content="#ECEEF1" />
     <meta name="generator" content={Astro.generator} />
     <SEO title={title} description={description} ogImage={ogImage} ogImageAlt={ogImageAlt} canonical={canonical} type={type} locale={locale} hreflangAlternates={hreflangAlternates} structuredData={structuredData} />
     <slot name="head" />
@@ -39,97 +40,47 @@ const { title, description, ogImage, ogImageAlt, canonical, type, locale = 'en',
   <body>
     <a href="#main" class="skip-link">{locale === 'zh' ? '跳到主要内容' : locale === 'fr' ? 'Aller au contenu principal' : 'Skip to main content'}</a>
     <Header locale={locale} />
-    <main id="main" class="max-w-[1440px] mx-auto w-full">
-      <slot />
+    <main id="main" class="site-main max-w-[1440px] mx-auto w-full">
+      <div class="site-content-layer">
+        <slot />
+      </div>
     </main>
     <Footer locale={locale} />
-    <script is:inline>
-      (function () {
-        document.documentElement.classList.add('js-enabled');
-        var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        // Pre-set counter values for reduced-motion users (D-12)
-        if (reducedMotion) {
-          document.querySelectorAll('[data-counter-target]').forEach(function(counter) {
-            var target = parseInt(counter.getAttribute('data-counter-target'), 10);
-            if (isNaN(target)) return; // skip malformed counters
-            var suffix = counter.getAttribute('data-counter-suffix') || '';
-            // Page-locale → BCP-47 tag. Source of truth: LOCALE_TAG in src/i18n/format.ts (D-07).
-            var locale = counter.getAttribute('data-locale') || 'en';
-            var tag = locale === 'zh' ? 'zh-CN' : locale === 'fr' ? 'fr-FR' : 'en-US';
-            counter.textContent = target.toLocaleString(tag) + suffix;
-          });
-        }
-
-        var observer = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-
-                // Phase 8: counter animation — fire count-up on child elements with data-counter-target
-                if (!reducedMotion) {
-                  var counterEls = entry.target.querySelectorAll('[data-counter-target]');
-                  counterEls.forEach(function(counter) {
-                    var target = parseInt(counter.getAttribute('data-counter-target'), 10);
-                    if (isNaN(target)) return; // skip malformed counters
-                    var suffix = counter.getAttribute('data-counter-suffix') || '';
-                    // Page-locale → BCP-47 tag. Source of truth: LOCALE_TAG in src/i18n/format.ts (D-07).
-                    var locale = counter.getAttribute('data-locale') || 'en';
-                    var tag = locale === 'zh' ? 'zh-CN' : locale === 'fr' ? 'fr-FR' : 'en-US';
-                    var duration = 400;
-                    var start = null;
-                    function step(timestamp) {
-                      if (!start) start = timestamp;
-                      var progress = Math.min((timestamp - start) / duration, 1);
-                      counter.textContent = Math.floor(progress * target).toLocaleString(tag) + suffix;
-                      if (progress < 1) {
-                        requestAnimationFrame(step);
-                      } else {
-                        counter.textContent = target.toLocaleString(tag) + suffix;
-                      }
-                    }
-                    requestAnimationFrame(step);
-                  });
-                }
-
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.15 }
-        );
-        document.querySelectorAll('[data-animate]').forEach(function (el) {
-          // ANIM-03 stagger: read data-animate-delay, set as inline animationDelay
-          // Required: CSS attr() with type hints not supported in Firefox/Safari as of May 2026
-          var delay = el.getAttribute('data-animate-delay');
-          if (delay) {
-            el.style.animationDelay = delay;
-          }
-          observer.observe(el);
-        });
-      })();
+    <script>
+      import "../scripts/siteMotion.ts";
     </script>
     <script>
       import Lenis from 'lenis';
       import 'lenis/dist/lenis.css';
 
       // D-03: Disable on touch devices — native momentum is superior
-      const isTouch = window.matchMedia('(pointer: coarse)').matches;
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const touchQuery = window.matchMedia('(pointer: coarse)');
+      const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let lenis: Lenis | undefined;
 
-      if (!isTouch && !reducedMotion) {
-        const lenis = new Lenis({
-          autoRaf: true,
-          lerp: 0.1,
-          anchors: {
-            offset: 64, // Sticky header height (src/components/Header.astro)
-          },
-        });
-
-        // Expose for potential programmatic scrollTo access
-        (window as any).__lenis = lenis;
+      function syncLenis() {
+        const shouldRun = !touchQuery.matches && !motionQuery.matches;
+        if (shouldRun && !lenis) {
+          lenis = new Lenis({
+            autoRaf: true,
+            lerp: 0.1,
+            anchors: {
+              offset: 64, // Sticky header height (src/components/Header.astro)
+            },
+          });
+          (window as any).__lenis = lenis;
+          return;
+        }
+        if (!shouldRun && lenis) {
+          lenis.destroy();
+          lenis = undefined;
+          delete (window as any).__lenis;
+        }
       }
+
+      syncLenis();
+      touchQuery.addEventListener('change', syncLenis);
+      motionQuery.addEventListener('change', syncLenis);
     </script>
   </body>
 </html>

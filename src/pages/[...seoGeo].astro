@@ -1,0 +1,412 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { APP_STORE_URL } from '../config';
+import { seoGeoPages } from '../data/seoGeoPages';
+import {
+  articleSchema,
+  breadcrumbListSchema,
+  faqPageSchema,
+  itemListSchema,
+  organizationSchema,
+  softwareApplicationSchema,
+  webApplicationSchema,
+} from '../seo/schema';
+
+export const getStaticPaths = (() =>
+  seoGeoPages.map((page) => ({
+    params: { seoGeo: page.slug },
+    props: { page },
+  }))) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const canonical = `https://tuwa.app/${page.slug}/`;
+const pageUrl = `/${page.slug}`;
+const isCalculator = page.kind === 'calculator';
+const isExternalCta = page.cta.href.startsWith('http');
+const ctaHref = page.cta.href === APP_STORE_URL ? APP_STORE_URL : page.cta.href;
+const categoryLabel =
+  page.kind === 'comparison'
+    ? 'Comparison'
+    : page.kind === 'calculator'
+      ? 'Calculator'
+      : page.kind === 'template'
+        ? 'Template'
+        : 'Guide';
+
+const structuredData = [
+  organizationSchema(),
+  softwareApplicationSchema(page.description),
+  breadcrumbListSchema([
+    { name: 'Home', url: 'https://tuwa.app/' },
+    { name: page.h1, url: canonical },
+  ]),
+  isCalculator
+    ? webApplicationSchema({ name: page.h1, description: page.description, url: canonical })
+    : articleSchema({
+        title: page.title,
+        description: page.description,
+        url: canonical,
+        dateModified: page.updated,
+      }),
+  page.faqs.length > 0 ? faqPageSchema(page.faqs) : undefined,
+  page.comparison ? itemListSchema(`${page.h1} comparison`, page.comparison.rows.map((row) => row.join(' | '))) : undefined,
+].filter(Boolean) as Record<string, unknown>[];
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  canonical={canonical}
+  locale="en"
+  hreflangAlternates={[{ hreflang: 'en', href: canonical }]}
+  type={page.kind === 'calculator' ? 'website' : 'article'}
+  structuredData={structuredData}
+>
+  <section class="seo-hero section-spaced px-6">
+    <div class="seo-hero-inner">
+      <nav class="seo-breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span>{categoryLabel}</span>
+      </nav>
+      <p class="seo-eyebrow">{page.eyebrow}</p>
+      <h1>{page.h1}</h1>
+      <p class="seo-subtitle">{page.description}</p>
+      <div class="seo-answer-block" aria-label={`Direct answer for ${page.primaryQuery}`}>
+        <span>Direct answer</span>
+        <p>{page.directAnswer}</p>
+      </div>
+      <div class="seo-hero-actions">
+        <a
+          href={ctaHref}
+          class="btn-cta"
+          target={isExternalCta ? '_blank' : undefined}
+          rel={isExternalCta ? 'noopener noreferrer' : undefined}
+        >
+          {page.cta.label}
+        </a>
+        {!isCalculator && (
+          <a href="/strength-readiness-calculator" class="seo-text-link">Use the calculator</a>
+        )}
+      </div>
+      <p class="seo-updated">Last updated: <time datetime={page.updated}>{page.updated}</time></p>
+    </div>
+  </section>
+
+  {isCalculator && (
+    <section data-animate class="seo-section-band">
+      <div class="seo-content-grid">
+        <div>
+          <p class="seo-section-label">Calculator</p>
+          <h2>Estimate today&apos;s session adjustment</h2>
+          <p class="seo-muted">
+            Fill in the signals you already have. The result is a training prompt, not a diagnosis or medical recommendation.
+          </p>
+        </div>
+        <form class="calculator-panel" id="readiness-calculator">
+          <label>
+            <span>HRV versus baseline</span>
+            <select name="hrv">
+              <option value="1">Normal or above baseline</option>
+              <option value="0">Slightly below baseline</option>
+              <option value="-2">Clearly below baseline</option>
+            </select>
+          </label>
+          <label>
+            <span>Resting heart rate</span>
+            <select name="rhr">
+              <option value="1">Normal or lower than baseline</option>
+              <option value="0">Slightly higher than baseline</option>
+              <option value="-2">Clearly higher than baseline</option>
+            </select>
+          </label>
+          <label>
+            <span>Sleep</span>
+            <select name="sleep">
+              <option value="1">Good duration and quality</option>
+              <option value="0">Okay but not ideal</option>
+              <option value="-2">Short or poor quality</option>
+            </select>
+          </label>
+          <label>
+            <span>Soreness</span>
+            <select name="soreness">
+              <option value="1">Low</option>
+              <option value="0">Moderate</option>
+              <option value="-2">High or local to today&apos;s main lift</option>
+            </select>
+          </label>
+          <label>
+            <span>Recent hard training days</span>
+            <select name="recent">
+              <option value="1">0-1 in the last 3 days</option>
+              <option value="0">2 in the last 3 days</option>
+              <option value="-2">3+ in the last 4 days</option>
+            </select>
+          </label>
+          <label>
+            <span>Planned intensity</span>
+            <select name="intensity">
+              <option value="1">Technique, easy, or moderate</option>
+              <option value="0">Normal hard session</option>
+              <option value="-2">Heavy, max-effort, or hard intervals</option>
+            </select>
+          </label>
+          <label>
+            <span>Session type</span>
+            <select name="type">
+              <option value="strength">Strength</option>
+              <option value="hypertrophy">Hypertrophy</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="conditioning">Conditioning</option>
+            </select>
+          </label>
+          <button type="submit" class="btn-cta calculator-submit">Calculate</button>
+          <output
+            id="readiness-result"
+            class="calculator-result"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            Add your signals to estimate whether to push, maintain, reduce, swap, or recover.
+          </output>
+        </form>
+      </div>
+    </section>
+  )}
+
+  <section data-animate class="seo-section">
+    <div class="seo-content-grid">
+      <div>
+        <p class="seo-section-label">Key takeaways</p>
+        <h2>What matters for this decision</h2>
+      </div>
+      <ul class="seo-takeaway-list">
+        {page.keyTakeaways.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section data-animate class="seo-section-band">
+    <div class="seo-content-grid">
+      <div>
+        <p class="seo-section-label">Decision rules</p>
+        <h2>If this, change that</h2>
+      </div>
+      <dl class="decision-list">
+        {page.decisionRules.map((rule) => (
+          <div>
+            <dt>If {rule.if}</dt>
+            <dd>{rule.then}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  {page.comparison && (
+    <section data-animate class="seo-section">
+      <div class="seo-content-grid">
+        <div>
+          <p class="seo-section-label">Comparison table</p>
+          <h2>{page.comparison.caption ?? 'Side-by-side comparison'}</h2>
+        </div>
+        <div class="seo-table-wrap">
+          <table class="seo-table">
+            <thead>
+              <tr>
+                {page.comparison.columns.map((column) => (
+                  <th scope="col">{column}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {page.comparison.rows.map((row) => (
+                <tr>
+                  {row.map((cell) => (
+                    <td>{cell}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {page.sections.map((section, index) => (
+    <section data-animate class={index % 2 === 0 ? 'seo-section' : 'seo-section-band'}>
+      <div class="seo-content-grid">
+        <div>
+          <p class="seo-section-label">0{index + 1}</p>
+          <h2>{section.heading}</h2>
+        </div>
+        <div class="seo-reading">
+          {section.body?.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+          {section.bullets && (
+            <ul class="seo-bullet-list">
+              {section.bullets.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )}
+          {section.table && (
+            <div class="seo-table-wrap">
+              <table class="seo-table">
+                <thead>
+                  <tr>
+                    {section.table.columns.map((column) => (
+                      <th scope="col">{column}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {section.table.rows.map((row) => (
+                    <tr>
+                      {row.map((cell) => (
+                        <td>{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section data-animate class="seo-section-band">
+    <div class="seo-content-grid">
+      <div>
+        <p class="seo-section-label">FAQ</p>
+        <h2>Common questions</h2>
+      </div>
+      <div class="seo-faq-list">
+        {page.faqs.map((faq) => (
+          <details>
+            <summary>{faq.q}</summary>
+            <p>{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section data-animate class="seo-section">
+    <div class="seo-content-grid">
+      <div>
+        <p class="seo-section-label">Sources</p>
+        <h2>References and related pages</h2>
+      </div>
+      <div class="seo-source-grid">
+        <div>
+          <h3>Sources</h3>
+          <ol class="seo-source-list">
+            {page.sources.map((source) => (
+              <li>
+                <a href={source.url} target="_blank" rel="noopener noreferrer nofollow">{source.label}</a>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div>
+          <h3>Related Tuwa pages</h3>
+          <ul class="seo-source-list">
+            {page.related.map((link) => (
+              <li><a href={link.url}>{link.label}</a></li>
+            ))}
+            <li><a href="/">Adaptive strength training homepage</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-animate class="seo-final-cta">
+    <div class="seo-final-cta-inner">
+      <h2>Want this decision loop inside your training log?</h2>
+      <p>Tuwa combines Apple Watch recovery signals, workload, soreness, RPE, and workout history so today&apos;s adjustment is tied to the actual session.</p>
+      <div class="seo-hero-actions">
+        <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" class="btn-cta">Try Tuwa</a>
+        {pageUrl !== '/strength-readiness-calculator' && (
+          <a href="/strength-readiness-calculator" class="seo-text-link">Use the free calculator</a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var form = document.getElementById('readiness-calculator');
+      var result = document.getElementById('readiness-result');
+      if (!form || !result) return;
+
+      var resultCopy = {
+        push: {
+          title: 'Push',
+          text: 'Signals support the plan. Keep the session and only add load if warmups confirm it.',
+        },
+        maintain: {
+          title: 'Maintain',
+          text: 'Signals are mixed but acceptable. Run the plan, cap RPE honestly, and avoid bonus volume.',
+        },
+        reduce: {
+          title: 'Reduce',
+          text: 'Recovery or workload suggests less total stress. Cut 20-40% of accessory or back-off volume.',
+        },
+        swap: {
+          title: 'Swap',
+          text: 'The planned intensity is probably the issue. Keep technique work, but swap heavy work for moderate practice.',
+        },
+        recover: {
+          title: 'Recover',
+          text: 'Several red flags stack together. Choose rest, mobility, or easy aerobic work. This is not medical advice.',
+        },
+      };
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var data = new FormData(form);
+        var score = ['hrv', 'rhr', 'sleep', 'soreness', 'recent', 'intensity'].reduce(function (total, name) {
+          return total + Number(data.get(name) || 0);
+        }, 0);
+        var soreness = Number(data.get('soreness') || 0);
+        var intensity = Number(data.get('intensity') || 0);
+        var recent = Number(data.get('recent') || 0);
+        var sessionType = String(data.get('type') || 'strength');
+        var resultKey = 'maintain';
+
+        if (score >= 4) resultKey = 'push';
+        if (score >= 0 && score < 4) resultKey = 'maintain';
+        if (score < 0 && score >= -5) resultKey = 'reduce';
+        if (score < -5 || (soreness < 0 && intensity < 0 && recent < 0)) resultKey = 'swap';
+        if (score <= -9) resultKey = 'recover';
+
+        var copy = resultCopy[resultKey];
+        var context =
+          sessionType === 'hypertrophy'
+            ? ' For hypertrophy work, trim sets before you abandon the whole session.'
+            : sessionType === 'conditioning'
+              ? ' For conditioning, lower intensity before adding more intervals.'
+              : sessionType === 'hybrid'
+                ? ' For hybrid work, protect the week by reducing the most fatiguing piece first.'
+                : ' For strength work, keep technique clean and avoid grindy reps.';
+
+        var title = document.createElement('strong');
+        title.textContent = copy.title + ': ';
+        var detail = document.createElement('span');
+        detail.textContent = copy.text + context;
+        result.replaceChildren(title, detail);
+      });
+    })();
+  </script>
+</BaseLayout>

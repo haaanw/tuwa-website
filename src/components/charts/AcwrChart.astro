@@ -1,12 +1,12 @@
 ---
 // No frontmatter imports -- Chart.js loaded in bundled script tag
 ---
-<figure style="max-width: 640px; margin: 0 auto; padding: var(--space-lg); background: color-mix(in srgb, var(--color-bg) 55%, #ffffff); border: 1px solid var(--color-divider); border-radius: var(--radius-lg);">
+<figure class="chart-figure" style="max-width: 640px; margin: 0 auto; padding: var(--space-lg); background: color-mix(in srgb, var(--color-bg) 55%, #ffffff); border: 1px solid var(--color-divider); border-radius: 0;">
   <h3 style="font-size: var(--text-subheading); font-weight: var(--weight-heading); line-height: var(--leading-subheading); color: var(--color-text-1); margin: 0 0 var(--space-md);">
     Acute vs. chronic load over 28 days
   </h3>
   <!-- Reserved aspect-ratio box prevents layout shift before Chart.js paints (CLS fix) -->
-  <div style="position: relative; width: 100%; aspect-ratio: 2 / 1;">
+  <div class="chart-canvas-wrap" style="position: relative; width: 100%; aspect-ratio: 2 / 1;">
     <canvas
       id="acwr-chart"
       aria-label="Line chart showing 28-day training load trend with acute load in green and chronic load in grey, illustrating the ACWR ratio over time"
@@ -14,22 +14,25 @@
       style="position: absolute; inset: 0;"
     ></canvas>
   </div>
+  <figcaption class="chart-caption">
+    Acute load moves quickly with recent sessions, while chronic load changes more slowly to show the baseline you are carrying.
+  </figcaption>
   <noscript>
     <p style="margin-top: var(--space-md); font-size: var(--text-label); line-height: var(--leading-body); color: var(--color-text-2);">
-      Across a representative 28-day block, acute load (last ~7 days) rises and falls with each session while chronic load (last ~28 days) climbs gradually. Keeping the acute:chronic ratio inside roughly 0.8–1.3 is the safe progression zone.
+      Across a representative 28-day block, acute load (last ~7 days) rises and falls with each session while chronic load (last ~28 days) climbs gradually. Tuwa treats roughly 0.8–1.3 as a planning range, not a universal safety rule.
     </p>
   </noscript>
 </figure>
 
 <script>
-  const COLOR_ACCENT = '#2B5240';
+  const COLOR_ACCENT = '#2E6B86';
   const COLOR_TEXT_2 = '#696560';
   const COLOR_TEXT_3 = '#6D6862';
   const COLOR_GRID = 'rgba(207,203,197,0.5)';
   const COLOR_INK = '#1C1915';
   const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Representative 28-day ACWR data -- illustrates gradual load buildup with safe progression
+  // Representative 28-day ACWR data -- illustrates gradual load buildup against a planning range
   const labels = Array.from({ length: 28 }, (_, i) => `Day ${i + 1}`);
   const acuteLoad = [
     120, 135, 90, 150, 140, 0, 130,
@@ -99,8 +102,8 @@
           },
           tooltip: {
             backgroundColor: COLOR_INK,
-            titleColor: '#F4F1ED',
-            bodyColor: '#F4F1ED',
+            titleColor: '#ECEEF1',
+            bodyColor: '#ECEEF1',
             padding: 12,
             cornerRadius: 6,
             displayColors: false,

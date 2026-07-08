@@ -10,11 +10,11 @@ const recoveryScoring: RecoveryScoring = {
     outcomeStatement: 'Sache exactement à quelle intensité pousser aujourd\'hui',
     hookLine: 'Un score de forme unique construit à partir de tout ce que ton corps t\'indique.',
     screenshotAlt:
-      'Application Tuwa — écran de récupération affichant un score de forme quotidien avec tendance VFC codée par couleur, fréquence cardiaque au repos, durée de sommeil et facteurs de bien-être',
+      'Application Tuwa — écran Récupération dans Insights affichant le score de récupération, la VFC, la fréquence cardiaque au repos, le sommeil et la tendance',
   },
   howItWorks: {
     heading: 'Comment ça fonctionne',
-    deviceAlt: 'Écran de score de récupération Tuwa affichant le score de forme quotidien avec zones codées par couleur',
+    deviceAlt: 'Application Tuwa — écran Récupération dans Insights affichant le score de récupération, la VFC, la fréquence cardiaque au repos, le sommeil et la tendance',
     p1: 'Chaque matin, avant que tu n\'attrapes une barre ou ne laçes tes chaussures, Tuwa a déjà effectué l\'analyse. Pendant que tu dormais, il a récupéré tes données physiologiques depuis Apple HealthKit — variabilité de la fréquence cardiaque, fréquence cardiaque au repos, durée du sommeil, tendance de température corporelle et estimation du VO2 Max — et les a combinées avec ton bilan de bien-être matinal, où tu évalues tes courbatures, ton niveau d\'énergie et ton stress. Ces données alimentent un algorithme de score composite qui produit un chiffre de forme unique entre 0 et 100.',
     p2: 'Ce chiffre est utile en lui-même, mais il prend encore plus de valeur associé à des facteurs d\'explication en langage clair. Tuwa ne te dit pas seulement que ta forme est à 62 — il t\'explique que ta VFC est 8 % en dessous de ta référence récente, que ton sommeil a été écourtée, mais que ta fréquence cardiaque au repos est normale. Tu comprends non seulement le score, mais aussi pourquoi.',
     threeZonesHeading: 'Trois zones, des conseils clairs',
