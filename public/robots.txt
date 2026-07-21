@@ -2,6 +2,9 @@ User-agent: *
 Allow: /
 
 # AI crawlers and answer engines — explicitly welcomed
+User-agent: Googlebot
+Allow: /
+
 User-agent: GPTBot
 Allow: /
 
@@ -14,10 +17,16 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: anthropic-ai
+Allow: /
+
 User-agent: Claude-Web
 Allow: /
 
 User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
 Allow: /
 
 User-agent: Google-Extended

@@ -4,8 +4,8 @@ milestone: v4.1
 milestone_name: Internationalization Follow-ups
 status: ready_to_plan
 stopped_at: Phase 23 complete (1/1) — ready to discuss Phase 24
-last_updated: 2026-05-27T08:28:44.138Z
-last_activity: 2026-05-26 -- Phase 23 execution started
+last_updated: 2026-06-28T13:20:25.000Z
+last_activity: 2026-06-28 -- Quick task: new favicon implemented
 progress:
   total_phases: 3
   completed_phases: 0
@@ -92,6 +92,7 @@ Progress: [                    ] 0% (0/3 phases)
 
 | Date | Task | Summary |
 |------|------|---------|
+| 2026-06-28 | New favicon implementation | Replaced the favicon family with transparent generated assets from the supplied artwork. |
 | 2026-05-17 | Performance Briefing full v5 execution | Completed homepage briefing, methodology links, explainer pages, six blog posts, comparison hub/pages, and verification. |
 | 2026-05-17 | Performance Briefing plan and Methodology page | Logged v5.0 roadmap, shipped the first methodology page slice, and added Method links in nav/footer/homepage CTAs. |
 | 2026-05-16 | Homepage CRO inspired by Contra Labs | Clarified hero positioning, added earlier CTAs, introduced Tuwa Method proof section, strengthened final CTA, and hid empty Blog nav links. |

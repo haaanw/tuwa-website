@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>try{document.documentElement.classList.add("motion")}catch(e){}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tuwa — Your plan. Made safe and optimal.</title>
+<meta name="description" content="Tuwa is the sports-science back room for self-coached athletes. It reads your body and modulates the training plan you authored — today's numbers, a go/modify/hold verdict, and where your load is trending.">
+<link rel="preload" href="assets/fonts/InstrumentSans-Regular.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/InstrumentSans-Medium.ttf" as="font" type="font/ttf" crossorigin>
+<style>
+  /* ------------------------------------------------------------------
+     Tuwa demo A — "Reading room"
+     Calm editorial scrollytelling. Pavilion (Warm Stone) web tokens.
+     ------------------------------------------------------------------ */
+
+  @font-face {
+    font-family: "Instrument Sans";
+    src: url("assets/fonts/InstrumentSans-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Instrument Sans";
+    src: url("assets/fonts/InstrumentSans-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --bg: #F0EFEC;
+    --surface: #F4F3F0;
+    --surface-el: #F8F7F4;
+    --surface-el-2: #FCFBF9;
+    --divider: #D6D3CD;
+    --divider-strong: #CCC9C2;
+    --text-1: #1B1A17;
+    --text-2: #57544E;
+    --text-3: #8B877F;
+    --accent: #6F6759;
+    --well-top: #E7E5E0;
+    --well-bottom: #EDEBE6;
+    --zone-optimal: #3F5A46;
+    --zone-caution: #6E5624;
+    --zone-danger: #7E362E;
+    --zone-low: #46525E;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --r-card: 12px;
+    --r-control: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+  body {
+    font-family: "Instrument Sans", -apple-system, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+    background: var(--bg);
+    color: var(--text-1);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding-left: clamp(24px, 4vw, 48px);
+    padding-right: clamp(24px, 4vw, 48px);
+  }
+
+  /* ---------- micro type ---------- */
+
+  .micro {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    font-weight: 500;
+  }
+
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ---------- scroll progress hairline ---------- */
+
+  .progress {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    z-index: 60;
+    pointer-events: none;
+  }
+
+  /* ---------- nav ---------- */
+
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    background: var(--bg);
+    border-bottom: 1px solid var(--divider);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .wordmark {
+    font-weight: 500;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+  }
+  .pill {
+    display: inline-block;
+    background: var(--text-1);
+    color: var(--surface-el);
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1;
+    padding: 12px 24px;
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .pill:hover { opacity: 0.88; }
+  .pill:active { transform: scale(0.98); }
+  .pill--lg { font-size: 17px; padding: 16px 32px; }
+
+  /* ---------- sticky left section index ---------- */
+
+  .index {
+    display: none;
+    position: fixed;
+    left: 56px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
+  }
+  @media (min-width: 1440px) {
+    .index { display: block; }
+  }
+  .index a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--text-3);
+    transition: color 0.3s var(--ease);
+  }
+  .index .tick {
+    display: block;
+    width: 16px;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.4s var(--ease);
+  }
+  .index a.active { color: var(--text-1); }
+  .index a.active .tick { transform: scaleX(1); }
+  .index .inum { color: var(--text-3); margin-right: 2px; font-variant-numeric: tabular-nums; }
+
+  /* ---------- section bands ---------- */
+
+  section {
+    padding-top: clamp(80px, 10vw, 144px);
+    padding-bottom: clamp(80px, 10vw, 144px);
+  }
+  .band-bg { background: var(--bg); }
+  .band-surface {
+    background: var(--surface);
+    border-top: 1px solid var(--divider);
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .section-head {
+    font-size: clamp(28px, 3.4vw, 40px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    max-width: 18em;
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+  .lede {
+    font-size: clamp(17px, 1.5vw, 19px);
+    color: var(--text-2);
+    max-width: 34em;
+  }
+
+  /* ---------- drawn hairline rules ---------- */
+
+  :where(html.motion) .rule {
+    height: 1px;
+    background: var(--divider-strong);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.7s var(--ease);
+  }
+  .rule.in { transform: scaleX(1); }
+  .rule--accent { background: var(--accent); }
+
+  /* ---------- reveals ---------- */
+
+  :where(html.motion) .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+    transition-delay: var(--d, 0ms);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ---------- hero ---------- */
+
+  .hero { padding-top: clamp(140px, 16vw, 208px); }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    gap: clamp(32px, 6vw, 96px);
+    align-items: end;
+  }
+  .hero h1 {
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    margin-top: 24px;
+    margin-bottom: 32px;
+    max-width: 10em;
+  }
+  .hero .lede { margin-bottom: 16px; }
+  .hero .sub {
+    font-size: 15px;
+    color: var(--text-3);
+    margin-bottom: 40px;
+  }
+  .hero-score { text-align: right; }
+  .hero-score .score-num {
+    font-size: clamp(96px, 12vw, 176px);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-score .rule { margin: 16px 0 12px auto; transform-origin: right center; }
+  .hero-shot {
+    margin-top: clamp(72px, 9vw, 128px);
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ---------- device plates ---------- */
+
+  .plate {
+    background: linear-gradient(180deg, var(--surface-el-2), var(--surface-el));
+    border: 1px solid var(--divider-strong);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    border-radius: 58px;
+    padding: 10px;
+    width: min(320px, 82vw);
+  }
+  .plate img {
+    width: 100%;
+    border-radius: 48px;
+    border: 1px solid var(--divider);
+  }
+  .plate--sm { width: min(272px, 76vw); }
+  .plate--sm { border-radius: 50px; }
+  .plate--sm img { border-radius: 40px; }
+
+  .shot-caption {
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  /* ---------- section layout ---------- */
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+  .feature-grid--flip { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+  .copy-col { max-width: 32em; }
+
+  .screens {
+    display: flex;
+    justify-content: center;
+    gap: clamp(20px, 3vw, 40px);
+    flex-wrap: wrap;
+  }
+  .screens > figure { margin: 0; }
+  .screens .offset { margin-top: 96px; }
+
+  .screens-3 {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: clamp(16px, 2.5vw, 32px);
+    flex-wrap: wrap;
+    margin-top: clamp(56px, 7vw, 96px);
+  }
+  .screens-3 > figure { margin: 0; }
+  .screens-3 .offset { margin-top: 72px; }
+
+  /* ---------- raised card + debossed lottie well ---------- */
+
+  .card {
+    background: linear-gradient(180deg, var(--surface-el-2), var(--surface-el));
+    border: 1px solid var(--divider-strong);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    border-radius: var(--r-card);
+    padding: 24px;
+  }
+  .well {
+    background: linear-gradient(180deg, var(--well-top), var(--well-bottom));
+    border-radius: var(--r-control);
+    box-shadow: inset 0 1px 1px rgba(27, 26, 23, 0.06), inset 0 -1px 0 rgba(255, 255, 255, 0.55);
+    overflow: hidden;
+  }
+  .lottie-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+  .lottie-box svg { display: block; }
+  .card .card-label {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .lottie-card { max-width: 320px; }
+
+  /* ---------- verdict decision cells ---------- */
+
+  .decision-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--divider-strong);
+    border-radius: var(--r-card);
+    overflow: hidden;
+    background: var(--surface-el);
+    margin-top: 40px;
+  }
+  .decision-cell {
+    padding: 20px;
+    border-left: 1px solid var(--divider);
+  }
+  .decision-cell:first-child { border-left: none; }
+  .decision-cell .zone {
+    display: inline-block;
+    border-left: 2px solid currentColor;
+    padding-left: 8px;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .decision-cell p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--text-3);
+    line-height: 1.5;
+  }
+  .z-go { color: var(--zone-optimal); }
+  .z-modify { color: var(--zone-caution); }
+  .z-hold { color: var(--zone-danger); }
+
+  /* ---------- stat numeral (movement bank) ---------- */
+
+  .stat {
+    font-size: clamp(56px, 7vw, 96px);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    margin: 32px 0 8px;
+  }
+
+  /* ---------- closing ---------- */
+
+  .closing { text-align: center; }
+  .closing .section-head { margin-left: auto; margin-right: auto; }
+  .closing .lede { margin-left: auto; margin-right: auto; }
+  .closing .cta-row { margin-top: 48px; }
+  .closing .fineprint {
+    margin-top: 24px;
+    font-size: 14px;
+    color: var(--text-3);
+  }
+
+  footer {
+    border-top: 1px solid var(--divider);
+    padding: 32px 0;
+  }
+  footer .wrap {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--text-3);
+  }
+
+  /* ---------- parallax planes ---------- */
+
+  [data-parallax] { will-change: transform; }
+
+  /* ---------- responsive ---------- */
+
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; align-items: start; }
+    .hero-score { text-align: left; }
+    .hero-score .rule { margin: 16px auto 12px 0; transform-origin: left center; }
+    .feature-grid, .feature-grid--flip { grid-template-columns: 1fr; }
+    .feature-grid--flip .copy-col { order: -1; }
+    .screens .offset, .screens-3 .offset { margin-top: 0; }
+    .decision-row { grid-template-columns: 1fr; }
+    .decision-cell { border-left: none; border-top: 1px solid var(--divider); }
+    .decision-cell:first-child { border-top: none; }
+  }
+
+  @media (max-width: 420px) {
+    body { font-size: 17px; }
+    .nav-inner { height: 56px; }
+    .pill { padding: 10px 18px; font-size: 14px; }
+  }
+
+  /* ---------- reduced motion ---------- */
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal, .rule {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .index .tick { transition: none; }
+    [data-parallax] { transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="wordmark" href="#top">Tuwa</a>
+      <a class="pill" href="#closing">Get the app</a>
+    </div>
+  </header>
+
+  <nav class="index" aria-label="Section index">
+    <a href="#verdict" data-index-link><span class="tick" aria-hidden="true"></span><span class="inum">01</span> Verdict</a>
+    <a href="#load" data-index-link><span class="tick" aria-hidden="true"></span><span class="inum">02</span> Load</a>
+    <a href="#recovery" data-index-link><span class="tick" aria-hidden="true"></span><span class="inum">03</span> Recovery</a>
+    <a href="#log" data-index-link><span class="tick" aria-hidden="true"></span><span class="inum">04</span> Log</a>
+  </nav>
+
+  <main id="top">
+
+    <!-- 1 · Hero ....................................................... -->
+    <section class="hero band-bg">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div data-stagger>
+            <p class="micro reveal">For self-coached athletes</p>
+            <h1 class="reveal">Your plan. Made safe and optimal.</h1>
+            <p class="lede reveal">Tuwa is the sports-science back room for athletes who coach themselves. It reads your body &mdash; HRV, sleep, resting heart rate, training history &mdash; and modulates the plan you wrote: today&rsquo;s numbers, a go / modify / hold verdict, and where your load is trending. It never writes your program.</p>
+            <p class="sub reveal">Built for athletes who train sport skill and strength in parallel.</p>
+            <p class="reveal"><a class="pill pill--lg" href="#closing">Download on the App&nbsp;Store</a></p>
+          </div>
+          <div class="hero-score reveal">
+            <div class="score-num num" data-count="82">82</div>
+            <div class="rule rule--accent" style="width: 64px;"></div>
+            <p class="micro">Readiness &middot; today</p>
+          </div>
+        </div>
+        <div class="hero-shot">
+          <figure class="reveal" data-parallax="20">
+            <div class="plate">
+              <img src="assets/screens/dashboard.png" alt="Tuwa dashboard showing a readiness score of 82 with recovery metrics and training load" width="1320" height="2868" loading="eager">
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · Verdict / today ............................................ -->
+    <section id="verdict" class="band-surface">
+      <div class="wrap">
+        <div class="rule" data-rule></div>
+        <div class="feature-grid" style="margin-top: clamp(40px, 5vw, 64px);">
+          <div class="copy-col" data-stagger>
+            <p class="micro reveal">01 &middot; Verdict</p>
+            <h2 class="section-head reveal">Today&rsquo;s decision, made concrete.</h2>
+            <p class="lede reveal">Every morning Tuwa turns your readiness into one verdict &mdash; with the exact adjustments to make. Load drops in real numbers, microdose options when a full session is too much, and a strike-zone bar showing where today should land.</p>
+            <div class="decision-row reveal">
+              <div class="decision-cell">
+                <span class="zone z-go">Go</span>
+                <p>Run the session as you wrote it.</p>
+              </div>
+              <div class="decision-cell">
+                <span class="zone z-modify">Modify</span>
+                <p>Same session, adjusted numbers.</p>
+              </div>
+              <div class="decision-cell">
+                <span class="zone z-hold">Hold</span>
+                <p>Recover today, keep the week intact.</p>
+              </div>
+            </div>
+            <div class="card lottie-card reveal" style="margin-top: 40px;">
+              <div class="well">
+                <div class="lottie-box" data-lottie="assets/lottie/verdict-tick.json" role="img" aria-label="Animated check mark drawing on with a calm pulse ring"></div>
+              </div>
+              <div class="card-label">
+                <span class="micro">The verdict</span>
+                <span class="micro num">go / modify / hold</span>
+              </div>
+            </div>
+          </div>
+          <div class="screens">
+            <figure data-parallax="24" class="reveal">
+              <div class="plate plate--sm">
+                <img src="assets/screens/verdict.png" alt="Tuwa verdict screen with a go/modify/hold decision and microdose options" width="1320" height="2868" loading="lazy">
+              </div>
+              <figcaption class="shot-caption micro">Verdict + microdose</figcaption>
+            </figure>
+            <figure data-parallax="14" class="offset reveal">
+              <div class="plate plate--sm">
+                <img src="assets/screens/strike-zone.png" alt="Tuwa strike-zone bar showing the safe load range for today's session" width="1320" height="2868" loading="lazy">
+              </div>
+              <figcaption class="shot-caption micro">Strike zone</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · Training load .............................................. -->
+    <section id="load" class="band-bg">
+      <div class="wrap">
+        <div class="rule" data-rule></div>
+        <div class="feature-grid feature-grid--flip" style="margin-top: clamp(40px, 5vw, 64px);">
+          <div class="screens">
+            <figure data-parallax="22" class="reveal">
+              <div class="plate plate--sm">
+                <img src="assets/screens/workload.png" alt="Tuwa training load screen with acute-to-chronic workload ratio chart" width="1320" height="2868" loading="lazy">
+              </div>
+              <figcaption class="shot-caption micro">ACWR &middot; strike zone</figcaption>
+            </figure>
+            <figure data-parallax="12" class="offset reveal">
+              <div class="plate plate--sm">
+                <img src="assets/screens/dashboard.png" alt="Tuwa dashboard summarizing readiness and current training load" width="1320" height="2868" loading="lazy">
+              </div>
+              <figcaption class="shot-caption micro">One view of the week</figcaption>
+            </figure>
+          </div>
+          <div class="copy-col" data-stagger>
+            <p class="micro reveal">02 &middot; Load</p>
+            <h2 class="section-head reveal">One fatigue budget.</h2>
+            <p class="lede reveal">Court time, barbell work and conditioning all draw from the same body. Tuwa tracks them as one load &mdash; acute against chronic &mdash; keeps you inside the strike zone, and flags overreach while it is still a trend, not a setback.</p>
+            <div class="card lottie-card reveal" style="margin-top: 40px;">
+              <div class="well">
+                <div class="lottie-box" data-lottie="assets/lottie/needle-sweep.json" role="img" aria-label="Animated readiness gauge with a travertine needle sweeping across a tick arc"></div>
+              </div>
+              <div class="card-label">
+                <span class="micro">Load trend</span>
+                <span class="micro num">acute : chronic</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · Recovery ................................................... -->
+    <section id="recovery" class="band-surface">
+      <div class="wrap">
+        <div class="rule" data-rule></div>
+        <div class="feature-grid" style="margin-top: clamp(40px, 5vw, 64px);">
+          <div class="copy-col" data-stagger>
+            <p class="micro reveal">03 &middot; Recovery</p>
+            <h2 class="section-head reveal">A score with its reasons.</h2>
+            <p class="lede reveal">HRV, sleep and resting heart rate are read against your own baselines, then folded into one readiness score with plain-language reasons. No black box &mdash; you see which signal moved and what it means for today.</p>
+            <p class="lede reveal" style="margin-top: 16px;">Baselines adapt as you do. A hard week shifts the goalposts; the score knows the difference between tired and detrained.</p>
+          </div>
+          <div class="screens">
+            <figure data-parallax="20" class="reveal">
+              <div class="plate">
+                <img src="assets/screens/recovery.png" alt="Tuwa recovery screen with HRV and sleep trends against personal baselines" width="1320" height="2868" loading="lazy">
+              </div>
+              <figcaption class="shot-caption micro">HRV &middot; sleep &middot; RHR</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · Movement bank / logging .................................... -->
+    <section id="log" class="band-bg">
+      <div class="wrap">
+        <div class="rule" data-rule></div>
+        <div style="margin-top: clamp(40px, 5vw, 64px); max-width: 34em;" data-stagger>
+          <p class="micro reveal">04 &middot; Log</p>
+          <h2 class="section-head reveal">Logging that keeps up with the gym.</h2>
+          <div class="stat num reveal" data-count="1324" data-format="comma">1,324</div>
+          <p class="micro reveal">Exercises in the movement bank</p>
+          <p class="lede reveal" style="margin-top: 24px;">Search-first exercise picking, sets and load in a few taps, and your history where you expect it. Log the session while it happens &mdash; the analysis is already waiting when you rack the bar.</p>
+        </div>
+        <div class="screens-3">
+          <figure data-parallax="22" class="reveal">
+            <div class="plate plate--sm">
+              <img src="assets/screens/movement-bank.png" alt="Tuwa movement bank with a searchable catalog of 1,324 exercises" width="1320" height="2868" loading="lazy">
+            </div>
+            <figcaption class="shot-caption micro">Movement bank</figcaption>
+          </figure>
+          <figure data-parallax="10" class="offset reveal">
+            <div class="plate plate--sm">
+              <img src="assets/screens/active-workout.png" alt="Tuwa live workout logging with fast set and load entry" width="1320" height="2868" loading="lazy">
+            </div>
+            <figcaption class="shot-caption micro">In-session logging</figcaption>
+          </figure>
+          <figure data-parallax="18" class="reveal">
+            <div class="plate plate--sm">
+              <img src="assets/screens/workout-log.png" alt="Tuwa session history list with completed workouts" width="1320" height="2868" loading="lazy">
+            </div>
+            <figcaption class="shot-caption micro">Session history</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · Privacy + closing CTA ...................................... -->
+    <section id="closing" class="band-surface closing">
+      <div class="wrap" data-stagger>
+        <div class="rule" data-rule style="margin-bottom: clamp(40px, 5vw, 64px);"></div>
+        <p class="micro reveal">Privacy</p>
+        <h2 class="section-head reveal">Your health data stays on your phone.</h2>
+        <p class="lede reveal">Tuwa reads HRV, sleep and resting heart rate from Apple Health on-device. Raw health data is never uploaded &mdash; only composite scores sync between your devices.</p>
+        <div class="cta-row reveal">
+          <a class="pill pill--lg" href="#top">Download on the App&nbsp;Store</a>
+        </div>
+        <p class="fineprint reveal">Requires iOS&nbsp;17 or later.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Tuwa &mdash; the sports-science back room for self-coached athletes.</span>
+      <span class="num">&copy; 2026 Tuwa</span>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/lenis.min.js"></script>
+  <script src="assets/vendor/lottie.min.js"></script>
+  <script>
+  (function () {
+    "use strict";
+
+    var reduced = false;
+    try {
+      reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    } catch (e) { reduced = false; }
+
+    var EASE_OUT_CUBIC = function (t) { return 1 - Math.pow(1 - t, 3); };
+
+    /* ---------- Lenis smooth scroll (skip under reduced motion) ---------- */
+    var lenis = null;
+    try {
+      if (!reduced && typeof Lenis !== "undefined") {
+        lenis = new Lenis({ autoRaf: true });
+      }
+    } catch (e) { lenis = null; }
+
+    /* ---------- anchor scrolling through lenis ---------- */
+    try {
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener("click", function (ev) {
+          var id = a.getAttribute("href");
+          if (!id || id === "#") return;
+          var target = document.querySelector(id);
+          if (!target) return;
+          ev.preventDefault();
+          if (lenis) {
+            lenis.scrollTo(target, { offset: -72 });
+          } else {
+            target.scrollIntoView(reduced ? {} : { behavior: "smooth" });
+          }
+        });
+      });
+    } catch (e) { /* anchors fall back to native */ }
+
+    /* ---------- staggered reveal delays (60ms within each group) ---------- */
+    try {
+      document.querySelectorAll("[data-stagger]").forEach(function (group) {
+        var kids = group.querySelectorAll(".reveal");
+        kids.forEach(function (el, i) {
+          el.style.setProperty("--d", (i * 60) + "ms");
+        });
+      });
+    } catch (e) { /* no stagger */ }
+
+    /* ---------- count-up numerals (once, ~400ms, ease-out) ---------- */
+    function countUp(el) {
+      var target = parseFloat(el.getAttribute("data-count") || "0");
+      var comma = el.getAttribute("data-format") === "comma";
+      var start = null;
+      var dur = 400;
+      function fmt(v) {
+        v = Math.round(v);
+        return comma ? v.toLocaleString("en-US") : String(v);
+      }
+      function step(ts) {
+        if (start === null) start = ts;
+        var t = Math.min((ts - start) / dur, 1);
+        el.textContent = fmt(target * EASE_OUT_CUBIC(t));
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = fmt(target);
+      }
+      requestAnimationFrame(step);
+    }
+
+    /* ---------- IntersectionObserver: reveals, rules, counters ---------- */
+    try {
+      if (reduced || !("IntersectionObserver" in window)) {
+        // Reduced motion / no IO: everything visible, counters at final value.
+        document.querySelectorAll(".reveal, .rule").forEach(function (el) {
+          el.classList.add("in");
+        });
+      } else {
+        var counted = new WeakSet();
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var el = entry.target;
+            el.classList.add("in");
+            if (el.hasAttribute("data-count") && !counted.has(el)) {
+              counted.add(el);
+              countUp(el);
+            } else {
+              var inner = el.querySelector ? el.querySelector("[data-count]") : null;
+              if (inner && !counted.has(inner)) {
+                counted.add(inner);
+                countUp(inner);
+              }
+            }
+            io.unobserve(el);
+          });
+        }, { threshold: 0.2, rootMargin: "0px 0px -40px 0px" });
+
+        document.querySelectorAll(".reveal, .rule").forEach(function (el) {
+          io.observe(el);
+        });
+      }
+    } catch (e) {
+      document.querySelectorAll(".reveal, .rule").forEach(function (el) {
+        el.classList.add("in");
+      });
+    }
+
+    /* ---------- active-section index (accent tick, like the tab tick) ---------- */
+    try {
+      var links = Array.prototype.slice.call(document.querySelectorAll("[data-index-link]"));
+      if (links.length && "IntersectionObserver" in window) {
+        var byId = {};
+        links.forEach(function (l) {
+          var id = (l.getAttribute("href") || "").slice(1);
+          if (id) byId[id] = l;
+        });
+        var sectionIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            var link = byId[entry.target.id];
+            if (!link) return;
+            if (entry.isIntersecting) {
+              links.forEach(function (l) { l.classList.remove("active"); });
+              link.classList.add("active");
+            }
+          });
+        }, { rootMargin: "-45% 0px -45% 0px" });
+        ["verdict", "load", "recovery", "log"].forEach(function (id) {
+          var s = document.getElementById(id);
+          if (s) sectionIO.observe(s);
+        });
+      }
+    } catch (e) { /* index stays passive */ }
+
+    /* ---------- rAF loop: scroll-progress hairline + parallax planes ---------- */
+    try {
+      var progressEl = document.getElementById("progress");
+      var parallaxEls = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
+
+      function frame() {
+        var doc = document.documentElement;
+        var max = doc.scrollHeight - window.innerHeight;
+        if (progressEl && max > 0) {
+          var p = Math.min(Math.max(window.scrollY / max, 0), 1);
+          progressEl.style.transform = "scaleX(" + p.toFixed(4) + ")";
+        }
+        if (!reduced) {
+          var vh = window.innerHeight;
+          for (var i = 0; i < parallaxEls.length; i++) {
+            var el = parallaxEls[i];
+            var r = el.getBoundingClientRect();
+            if (r.bottom < -120 || r.top > vh + 120) continue;
+            var center = r.top + r.height / 2;
+            var rel = (center - vh / 2) / (vh / 2);       // -1 .. 1 across the viewport
+            if (rel > 1) rel = 1; else if (rel < -1) rel = -1;
+            var amt = parseFloat(el.getAttribute("data-parallax")) || 24;
+            if (amt > 24) amt = 24;                        // ±24px max drift
+            el.style.transform = "translate3d(0," + (-rel * amt).toFixed(2) + "px,0)";
+          }
+        }
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    } catch (e) { /* static page still reads fine */ }
+
+    /* ---------- Lottie: debossed wells, pause off-view, reduced = still ---------- */
+    try {
+      if (typeof lottie !== "undefined") {
+        var lottieAnims = [];
+        document.querySelectorAll("[data-lottie]").forEach(function (box) {
+          var anim = lottie.loadAnimation({
+            container: box,
+            renderer: "svg",
+            loop: true,
+            autoplay: false,
+            path: box.getAttribute("data-lottie")
+          });
+          anim.addEventListener("DOMLoaded", function () {
+            if (reduced) {
+              // Show a meaningful still frame (~45% in: needle mid-hold / tick drawn).
+              anim.goToAndStop(Math.floor(anim.totalFrames * 0.45), true);
+            }
+          });
+          lottieAnims.push({ box: box, anim: anim });
+        });
+
+        if (!reduced && "IntersectionObserver" in window && lottieAnims.length) {
+          var lio = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              for (var i = 0; i < lottieAnims.length; i++) {
+                if (lottieAnims[i].box === entry.target) {
+                  if (entry.isIntersecting) lottieAnims[i].anim.play();
+                  else lottieAnims[i].anim.pause();
+                }
+              }
+            });
+          }, { threshold: 0.1 });
+          lottieAnims.forEach(function (o) { lio.observe(o.box); });
+        } else if (!reduced) {
+          lottieAnims.forEach(function (o) { o.anim.play(); });
+        }
+      }
+    } catch (e) { /* wells stay empty-stone; page unaffected */ }
+
+  })();
+  </script>
+</body>
+</html>

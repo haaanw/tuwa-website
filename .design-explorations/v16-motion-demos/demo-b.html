@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tuwa — your plan, made safe and optimal</title>
+<meta name="description" content="Tuwa is the sports-science back room for self-coached athletes. It reads your body and modulates the training plan you authored — today's numbers, a go / modify / hold verdict, and where your load is trending.">
+<style>
+/* ================= Pavilion web tokens ================= */
+:root{
+  --bg:#F0EFEC; --surface:#F4F3F0; --surface-el:#F8F7F4; --surface-el-2:#FCFBF9;
+  --divider:#D6D3CD; --divider-strong:#CCC9C2;
+  --text-1:#1B1A17; --text-2:#57544E; --text-3:#8B877F;
+  --accent:#6F6759;
+  --well-top:#E7E5E0; --well-bottom:#EDEBE6;
+  --zone-optimal:#3F5A46; --zone-caution:#6E5624; --zone-danger:#7E362E; --zone-low:#46525E;
+  --ease:cubic-bezier(0.22, 1, 0.36, 1);
+}
+@font-face{
+  font-family:'Instrument Sans';
+  src:url('assets/fonts/InstrumentSans-Regular.ttf') format('truetype');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Instrument Sans';
+  src:url('assets/fonts/InstrumentSans-Medium.ttf') format('truetype');
+  font-weight:500; font-style:normal; font-display:swap;
+}
+
+/* ================= Base ================= */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+html,body{overflow-x:clip}
+body{
+  background:var(--bg); color:var(--text-1);
+  font-family:'Instrument Sans', system-ui, sans-serif;
+  font-weight:400; font-size:17px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block; max-width:100%}
+a{color:inherit; text-decoration:none}
+ol,ul{list-style:none}
+
+.container{max-width:1160px; margin-inline:auto; padding-inline:clamp(20px,4vw,48px)}
+section{padding-block:clamp(88px,11vw,152px)}
+
+h1{font-size:clamp(38px,7vw,92px); font-weight:400; line-height:1.02; letter-spacing:-0.015em}
+h2{font-size:clamp(29px,3.4vw,40px); font-weight:400; line-height:1.12; letter-spacing:-0.01em; max-width:18em}
+h3{font-size:20px; font-weight:500; line-height:1.3}
+.lede{font-size:clamp(16px,1.5vw,19px); color:var(--text-2); max-width:34em}
+.body-copy{font-size:17px; color:var(--text-2); max-width:36em}
+.micro{
+  font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+  font-weight:500; color:var(--text-3);
+}
+.section-head .micro{margin-bottom:16px}
+.section-head h2{margin-bottom:16px}
+.num{font-variant-numeric:tabular-nums}
+
+/* ================= Relief system (no shadows) ================= */
+.raised{
+  background:linear-gradient(#FCFBF9,#F8F7F4);
+  border:1px solid var(--divider-strong);
+  border-radius:12px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+}
+.well{
+  background:linear-gradient(var(--well-top),var(--well-bottom));
+  border:1px solid var(--divider);
+  border-radius:8px;
+  box-shadow:inset 0 1px 2px rgba(27,26,23,.07);
+}
+
+/* ================= Pills / CTA ================= */
+.cta{
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--text-1); color:var(--surface-el);
+  font-size:17px; font-weight:500; line-height:1;
+  padding:16px 30px; border-radius:999px;
+  transition:opacity .3s var(--ease), transform .3s var(--ease);
+}
+.cta:hover{opacity:.88; transform:translateY(-1px)}
+.ghost-pill{
+  display:inline-flex; align-items:center;
+  border:1px solid var(--divider-strong); border-radius:999px;
+  font-size:15px; font-weight:500; line-height:1;
+  padding:9px 18px; color:var(--text-1);
+  transition:border-color .3s var(--ease);
+}
+.ghost-pill:hover{border-color:var(--text-3)}
+
+/* ================= Nav ================= */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:60;
+  background:rgba(240,239,236,.85);
+  -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--divider);
+}
+.nav-inner{
+  max-width:1160px; margin-inline:auto; padding:14px clamp(20px,4vw,48px);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.wordmark{font-size:20px; font-weight:500; letter-spacing:-0.01em}
+
+/* ================= Device plate ================= */
+.device{
+  background:linear-gradient(#FCFBF9,#F8F7F4);
+  border:1px solid var(--divider-strong);
+  border-radius:48px; padding:11px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+}
+.device .screen{border-radius:38px; overflow:hidden; border:1px solid var(--divider)}
+.device img{width:100%; height:auto}
+
+/* ================= Reveals ================= */
+.js .reveal{opacity:0; transform:translateY(24px);
+  transition:opacity .5s var(--ease), transform .5s var(--ease)}
+.js .reveal.in{opacity:1; transform:none}
+.js .rd1{transition-delay:.07s}
+.js .rd2{transition-delay:.14s}
+.js .rd3{transition-delay:.21s}
+
+/* ================= Scene 1 — hero gauge scrub ================= */
+.hero-wrap{position:relative}
+.js .hero-wrap{height:250vh}
+.hero-sticky{
+  min-height:100vh; min-height:100svh;
+  display:flex; flex-direction:column; justify-content:center;
+  padding-top:88px; padding-bottom:48px; position:relative;
+}
+.js .hero-sticky{
+  position:sticky; top:0;
+  height:100vh; height:100svh; min-height:0;
+  overflow:hidden;
+}
+.hero-grid{
+  display:grid; grid-template-columns:1.08fr .92fr;
+  gap:clamp(32px,5vw,72px); align-items:center;
+}
+.hero-copy .micro{margin-bottom:20px}
+.hero-copy h1{margin-bottom:24px}
+.hero-copy .lede{margin-bottom:14px}
+.hero-sub{font-size:15px; color:var(--text-3); max-width:30em; margin-bottom:32px}
+.hero-gauge{display:flex; flex-direction:column; align-items:center; text-align:center}
+.gauge-svg{width:min(400px,84vw); height:auto; display:block}
+.gauge-needle{will-change:transform}
+.g-score{
+  font-size:clamp(72px,8.5vw,118px); line-height:1;
+  color:var(--accent); font-variant-numeric:tabular-nums;
+  margin-top:-30px;
+}
+.g-label{margin-top:10px}
+.gauge-sub{font-size:15px; color:var(--text-2); max-width:24em; margin-top:14px}
+.js .gauge-sub{will-change:transform,opacity}
+.scroll-cue{
+  position:absolute; left:50%; bottom:22px; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+}
+.scroll-cue::after{content:''; width:1px; height:26px; background:var(--divider-strong)}
+html:not(.js) .scroll-cue{display:none}
+
+/* ================= Scene 2 — pinned phone showcase ================= */
+.show-wrap{position:relative}
+.js .show-wrap{height:340vh}
+.show-sticky{padding-block:40px}
+.js .show-sticky{
+  position:sticky; top:0;
+  height:100vh; height:100svh;
+  display:flex; align-items:center; padding-block:0;
+}
+.show-grid{
+  display:grid; grid-template-columns:minmax(280px,420px) 1fr;
+  gap:clamp(32px,6vw,88px); align-items:center; width:100%;
+}
+.show-steps{position:relative; padding-left:32px}
+.rail{position:absolute; left:0; top:6px; bottom:6px; width:2px; background:var(--divider); border-radius:1px}
+.rail-fill{position:absolute; inset:0; background:var(--accent); border-radius:1px;
+  transform:scaleY(0); transform-origin:top; will-change:transform}
+html:not(.js) .rail-fill{transform:none}
+.step{padding-block:20px}
+.step .micro{margin-bottom:8px}
+.step h3{margin-bottom:8px}
+.step p{font-size:15px; color:var(--text-2); max-width:24em}
+.js .step{opacity:.35; transition:opacity .45s var(--ease)}
+.js .step.active{opacity:1}
+.show-stage{
+  width:min(320px,40vw,calc((100vh - 150px)*0.46));
+  width:min(320px,40vw,calc((100svh - 150px)*0.46));
+  margin-inline:auto;
+}
+.js .show-stage{position:relative; aspect-ratio:1342/2890}
+.shot-plate{will-change:transform,opacity}
+.js .shot-plate{
+  position:absolute; inset:0; opacity:0;
+  transform:translateY(28px) scale(.98);
+  transition:opacity .55s var(--ease), transform .55s var(--ease);
+}
+.js .shot-plate.active{opacity:1; transform:none}
+.js .shot-plate.prev{opacity:0; transform:translateY(-28px) scale(.98)}
+.js .shot-plate .screen{height:100%}
+.js .shot-plate img{height:100%; object-fit:cover}
+html:not(.js) .show-stage{width:100%; max-width:340px; display:grid; gap:32px}
+
+/* ================= Scene 3 — strike-zone scrub ================= */
+.zone-wrap{position:relative}
+.js .zone-wrap{height:220vh}
+.zone-sticky{padding-block:32px}
+.js .zone-sticky{
+  position:sticky; top:0;
+  height:100vh; height:100svh;
+  display:flex; flex-direction:column; justify-content:center; padding-block:0;
+}
+.zone-head .micro{margin-bottom:14px}
+.zone-label{
+  font-size:clamp(28px,3.2vw,38px); font-weight:400; line-height:1.15;
+  min-height:1.2em; margin-bottom:10px;
+}
+.zl0{color:var(--zone-low)}
+.zl1{color:var(--zone-optimal)}
+.zl2{color:var(--zone-caution)}
+.zl3{color:var(--zone-danger)}
+.zone-copy{font-size:17px; color:var(--text-2); max-width:36em; margin-bottom:56px}
+.zone-bar{
+  position:relative; height:56px; margin-top:44px;
+  display:flex; overflow:visible;
+}
+.zseg{height:100%; border-left:1px solid var(--divider); position:relative}
+.zseg:first-child{border-left:none}
+.zseg-low{width:30.77%; background:rgba(70,82,94,.08)}
+.zseg-opt{width:38.46%; background:rgba(63,90,70,.10)}
+.zseg-caut{width:15.38%; background:rgba(110,86,36,.08)}
+.zseg-dang{width:15.39%; background:rgba(126,54,46,.08)}
+.zone-fill{
+  position:absolute; left:0; top:0; bottom:0; width:100%;
+  background:rgba(111,103,89,.16);
+  transform-origin:left; will-change:transform; pointer-events:none;
+}
+.zone-needle{
+  position:absolute; top:-8px; bottom:-8px; width:2px;
+  background:var(--accent); will-change:transform; pointer-events:none;
+}
+.zone-chip{
+  position:absolute; top:-40px; left:50%; transform:translateX(-50%);
+  font-size:17px; font-weight:500; color:var(--accent);
+  font-variant-numeric:tabular-nums;
+  background:linear-gradient(#FCFBF9,#F8F7F4);
+  border:1px solid var(--divider-strong); border-radius:8px;
+  padding:4px 10px; white-space:nowrap;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+}
+.zone-legend{display:flex; margin-top:12px}
+.zone-legend span{display:block}
+.zone-legend .micro{letter-spacing:0.06em}
+.zleg-low{width:30.77%}
+.zleg-opt{width:38.46%}
+.zleg-caut{width:15.38%}
+.zleg-dang{width:15.39%}
+.zone-foot{font-size:15px; color:var(--text-3); margin-top:40px; max-width:38em}
+
+/* ================= Static content blocks ================= */
+.duo-grid{
+  display:grid; grid-template-columns:1.05fr .95fr;
+  gap:clamp(32px,6vw,80px); align-items:center;
+}
+.duo-grid .device{width:min(320px,80vw); margin-inline:auto}
+.feature-list{margin-top:28px; display:grid; gap:0}
+.feature-list li{
+  padding-block:16px; border-top:1px solid var(--divider);
+  display:grid; grid-template-columns:150px 1fr; gap:16px; align-items:baseline;
+}
+.feature-list li:last-child{border-bottom:1px solid var(--divider)}
+.feature-list .micro{padding-top:2px}
+.feature-list p{font-size:15px; color:var(--text-2)}
+
+.lottie-plate{
+  width:min(260px,70vw); aspect-ratio:1;
+  border-radius:12px; overflow:hidden;
+}
+.lottie-plate > div{width:100%; height:100%}
+.lottie-caption{margin-top:12px; text-align:center}
+
+.load-row{
+  display:grid; grid-template-columns:minmax(240px,320px) 1fr;
+  gap:clamp(32px,6vw,80px); align-items:center;
+  margin-top:clamp(64px,8vw,112px);
+}
+.load-row .device{width:min(300px,80vw)}
+.load-side .lottie-plate{margin-top:36px}
+
+.verdict-intro{
+  display:grid; grid-template-columns:1.1fr .9fr;
+  gap:clamp(32px,6vw,80px); align-items:center;
+}
+.verdict-intro .lottie-plate{margin-inline:auto}
+
+.trio-grid{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:clamp(20px,3vw,40px); margin-top:clamp(40px,5vw,64px);
+}
+.trio-cell{display:flex; flex-direction:column; align-items:center; gap:14px}
+.trio-cell .device{width:min(280px,78vw); border-radius:40px; padding:9px}
+.trio-cell .device .screen{border-radius:32px}
+
+/* ================= Closing ================= */
+.closing{text-align:center}
+.closing .micro{margin-bottom:16px}
+.closing h2{margin-inline:auto; margin-bottom:18px}
+.closing .body-copy{margin-inline:auto; margin-bottom:36px}
+.closing-note{font-size:13px; color:var(--text-3); margin-top:18px}
+
+footer{border-top:1px solid var(--divider); padding-block:28px}
+footer .container{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+footer p{font-size:13px; color:var(--text-3)}
+
+/* ================= Responsive ================= */
+@media (max-width:880px){
+  .hero-grid{grid-template-columns:1fr; gap:28px; text-align:left}
+  .hero-gauge{align-items:flex-start; text-align:left}
+  .gauge-svg{width:min(260px,70vw)}
+  .g-score{margin-top:-22px}
+  .hero-sticky{padding-top:96px}
+  .show-grid{grid-template-columns:1fr; gap:28px}
+  .js .show-steps{min-height:150px}
+  .js .step{position:absolute; left:32px; right:0; top:0; padding-block:0;
+    transform:translateY(12px); opacity:0;
+    transition:opacity .45s var(--ease), transform .45s var(--ease)}
+  .js .step.active{opacity:1; transform:none}
+  .show-stage{width:min(240px,62vw,calc((100vh - 300px)*0.46))}
+  .duo-grid, .verdict-intro, .load-row{grid-template-columns:1fr; gap:36px}
+  .trio-grid{grid-template-columns:1fr; gap:44px}
+  .feature-list li{grid-template-columns:1fr; gap:4px}
+  .zone-bar{height:48px}
+  .zone-legend .micro{font-size:10px}
+}
+@media (max-width:460px){
+  .gauge-sub{display:none}
+  .zleg-caut .micro, .zleg-dang .micro{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:block; padding-right:4px}
+}
+
+/* ================= Reduced motion: collapse pins, show finals. Last so it wins. ================= */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .js .reveal{opacity:1; transform:none; transition:none}
+  .js .hero-wrap, .js .show-wrap, .js .zone-wrap{height:auto}
+  .js .hero-sticky{position:static; height:auto; min-height:0; overflow:visible;
+    padding-top:120px; padding-bottom:56px}
+  .js .show-sticky, .js .zone-sticky{position:static; height:auto; display:block; padding-block:32px}
+  .scroll-cue{display:none}
+  .js .step{opacity:1; position:static; transform:none; padding-block:20px; transition:none}
+  .js .show-stage{position:static; aspect-ratio:auto; width:100%; max-width:340px; display:grid; gap:32px}
+  .js .shot-plate{position:static; opacity:1; transform:none; transition:none}
+  .js .shot-plate .screen{height:auto}
+  .js .shot-plate img{height:auto; object-fit:unset}
+  html.js .rail-fill{transform:none}
+  .cta, .ghost-pill{transition:none}
+  .cta:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="wordmark" href="#">Tuwa</a>
+    <a class="ghost-pill" href="#get">Get the app</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ 1. HERO — pinned gauge scrub ============ -->
+<div class="hero-wrap" id="heroWrap">
+  <section class="hero-sticky">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="micro">For self-coached athletes</p>
+        <h1>Your plan. Made safe and&nbsp;optimal.</h1>
+        <p class="lede">Tuwa is the sports-science back room for self-coached athletes. It reads your body — HRV, sleep, resting heart rate, training history — and modulates the plan you wrote: today's numbers, a go / modify / hold verdict, and where your load is trending. It never writes your program.</p>
+        <p class="hero-sub">Built for athletes who train sport skill and strength in parallel.</p>
+        <a class="cta" href="#get">Download on the App Store</a>
+      </div>
+      <div class="hero-gauge">
+        <svg class="gauge-svg" viewBox="0 0 200 112" aria-hidden="true" focusable="false">
+          <g stroke="#CCC9C2" stroke-width="2" stroke-linecap="round">
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(-82.5 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(-75 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(-67.5 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(-52.5 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(-45 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(-37.5 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(-22.5 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(-15 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(-7.5 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(7.5 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(15 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(22.5 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(37.5 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(45 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(52.5 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(67.5 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(75 100 100)"/>
+            <line x1="100" y1="19" x2="100" y2="27" transform="rotate(82.5 100 100)"/>
+          </g>
+          <g stroke="#8B877F" stroke-width="2.5" stroke-linecap="round">
+            <line x1="100" y1="17" x2="100" y2="29" transform="rotate(-90 100 100)"/>
+            <line x1="100" y1="17" x2="100" y2="29" transform="rotate(-60 100 100)"/>
+            <line x1="100" y1="17" x2="100" y2="29" transform="rotate(-30 100 100)"/>
+            <line x1="100" y1="17" x2="100" y2="29" transform="rotate(0 100 100)"/>
+            <line x1="100" y1="17" x2="100" y2="29" transform="rotate(30 100 100)"/>
+            <line x1="100" y1="17" x2="100" y2="29" transform="rotate(60 100 100)"/>
+            <line x1="100" y1="17" x2="100" y2="29" transform="rotate(90 100 100)"/>
+          </g>
+          <g id="gaugeNeedle" class="gauge-needle" transform="rotate(57.6 100 100)">
+            <line x1="100" y1="98" x2="100" y2="36" stroke="#6F6759" stroke-width="3" stroke-linecap="round"/>
+          </g>
+          <circle cx="100" cy="100" r="4.5" fill="#6F6759"/>
+        </svg>
+        <div class="g-score num" id="scoreNum">82</div>
+        <p class="micro g-label">Readiness</p>
+        <p class="gauge-sub" id="gaugeSub">This morning: HRV steady, sleep 7 h 40 m, resting heart rate on baseline. Cleared to go.</p>
+      </div>
+    </div>
+    <div class="scroll-cue" id="scrollCue"><span class="micro">Scroll</span></div>
+  </section>
+</div>
+
+<!-- ============ 2. VERDICT / TODAY ============ -->
+<section id="verdict">
+  <div class="container verdict-intro">
+    <div class="section-head">
+      <p class="micro reveal">Today</p>
+      <h2 class="reveal rd1">A verdict, not a chart to interpret.</h2>
+      <p class="body-copy reveal rd2">Every morning Tuwa turns your readiness and your plan into one decision: go, modify, or hold. Modifications are concrete — drop the top set, cap the intensity, take the microdose option — so the session still moves you forward on a day your body says no.</p>
+    </div>
+    <div class="reveal rd2">
+      <div class="lottie-plate raised"><div id="lotVerdict"></div></div>
+      <p class="micro lottie-caption">The daily verdict</p>
+    </div>
+  </div>
+</section>
+
+<!-- pinned phone showcase: verdict → strike zone → load -->
+<div class="show-wrap" id="showWrap">
+  <div class="show-sticky">
+    <div class="container show-grid">
+      <div class="show-steps">
+        <div class="rail" aria-hidden="true"><div class="rail-fill" id="railFill"></div></div>
+        <ol>
+          <li class="step active" data-step="0">
+            <p class="micro num">01</p>
+            <h3>The verdict</h3>
+            <p>Go, modify or hold — with the exact number changes for today's session, computed from your readiness and where you sit in your plan.</p>
+          </li>
+          <li class="step" data-step="1">
+            <p class="micro num">02</p>
+            <h3>The strike zone</h3>
+            <p>A live view of your acute-to-chronic workload ratio, held inside the band where adaptation outpaces injury risk.</p>
+          </li>
+          <li class="step" data-step="2">
+            <p class="micro num">03</p>
+            <h3>The load trend</h3>
+            <p>One fatigue budget across sport skill, strength and conditioning — and where it is heading over the coming weeks.</p>
+          </li>
+        </ol>
+      </div>
+      <div class="show-stage" id="showStage">
+        <div class="device shot-plate active">
+          <div class="screen"><img src="assets/screens/verdict.png" alt="Tuwa verdict screen: go / modify / hold with concrete number adjustments" width="1320" height="2868" loading="lazy" decoding="async"></div>
+        </div>
+        <div class="device shot-plate">
+          <div class="screen"><img src="assets/screens/strike-zone.png" alt="Tuwa strike-zone bar showing acute-to-chronic workload ratio" width="1320" height="2868" loading="lazy" decoding="async"></div>
+        </div>
+        <div class="device shot-plate">
+          <div class="screen"><img src="assets/screens/workload.png" alt="Tuwa training load chart with ACWR trend" width="1320" height="2868" loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 3. TRAINING LOAD ============ -->
+<section id="load">
+  <div class="container section-head">
+    <p class="micro reveal">Training load</p>
+    <h2 class="reveal rd1">One fatigue budget for everything you train.</h2>
+    <p class="body-copy reveal rd2">Court sessions, lifting and conditioning all draw from the same recovery reserves. Tuwa tracks them as one load, watches your acute-to-chronic ratio, and forecasts overreach before it arrives.</p>
+  </div>
+</section>
+
+<!-- pinned strike-zone bar scrub -->
+<div class="zone-wrap" id="zoneWrap">
+  <div class="zone-sticky">
+    <div class="container">
+      <div class="zone-head">
+        <p class="micro">Acute : chronic workload ratio</p>
+        <h3 class="zone-label zl2" id="zoneLabel">Trending hot — time to modify</h3>
+        <p class="zone-copy">The ratio compares the last seven days of load to the last four weeks. Tuwa's job is to keep it inside the strike zone.</p>
+      </div>
+      <div class="zone-bar well" id="zoneBar">
+        <div class="zseg zseg-low"></div>
+        <div class="zseg zseg-opt"></div>
+        <div class="zseg zseg-caut"></div>
+        <div class="zseg zseg-dang"></div>
+        <div class="zone-fill" id="zoneFill" style="transform:scaleX(0.808)"></div>
+        <div class="zone-needle" id="zoneNeedle" style="left:80.8%">
+          <span class="zone-chip num" id="zoneChip">1.45</span>
+        </div>
+      </div>
+      <div class="zone-legend" aria-hidden="true">
+        <span class="zleg-low"><span class="micro">Under 0.8 — undertraining</span></span>
+        <span class="zleg-opt"><span class="micro">0.8–1.3 — strike zone</span></span>
+        <span class="zleg-caut"><span class="micro">1.3–1.5 — caution</span></span>
+        <span class="zleg-dang"><span class="micro">Over 1.5 — danger</span></span>
+      </div>
+      <p class="zone-foot">Zone names are always written out — colour is supplementary, never the message.</p>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="container load-row">
+    <div class="device reveal">
+      <div class="screen"><img src="assets/screens/dashboard.png" alt="Tuwa dashboard with readiness score and training load metrics" width="1320" height="2868" loading="lazy" decoding="async"></div>
+    </div>
+    <div class="load-side">
+      <h3 class="reveal">The whole picture on one screen.</h3>
+      <p class="body-copy reveal rd1">Readiness, load ratio, this week against last — the dashboard is the two-minute morning read before you decide anything.</p>
+      <div class="reveal rd2">
+        <div class="lottie-plate raised"><div id="lotNeedle"></div></div>
+        <p class="micro lottie-caption">The readiness gauge, live</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. RECOVERY ============ -->
+<section id="recovery">
+  <div class="container duo-grid">
+    <div class="section-head">
+      <p class="micro reveal">Recovery</p>
+      <h2 class="reveal rd1">One score, with plain-language reasons.</h2>
+      <p class="body-copy reveal rd2">Tuwa builds your personal baselines, then compresses this morning's data into a single readiness score — and tells you why in words, not another dashboard to decode.</p>
+      <ul class="feature-list reveal rd3">
+        <li><span class="micro">HRV</span><p>Overnight heart-rate variability against your rolling baseline.</p></li>
+        <li><span class="micro">Sleep</span><p>Duration and consistency, weighted the way recovery research weights them.</p></li>
+        <li><span class="micro">Resting HR</span><p>Drift above baseline flags accumulating fatigue early.</p></li>
+      </ul>
+    </div>
+    <div class="device reveal rd1">
+      <div class="screen"><img src="assets/screens/recovery.png" alt="Tuwa recovery screen with HRV and sleep trends" width="1320" height="2868" loading="lazy" decoding="async"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. MOVEMENT BANK / LOGGING ============ -->
+<section id="logging">
+  <div class="container">
+    <div class="section-head">
+      <p class="micro reveal">Logging</p>
+      <h2 class="reveal rd1">Fast enough to use mid-session.</h2>
+      <p class="body-copy reveal rd2">A 1,324-exercise movement bank, search-first picking, and set logging built for chalked hands. You log the session; Tuwa does the science.</p>
+    </div>
+    <div class="trio-grid">
+      <div class="trio-cell reveal">
+        <div class="device"><div class="screen"><img src="assets/screens/movement-bank.png" alt="Tuwa movement bank with 1,324 exercises" width="1320" height="2868" loading="lazy" decoding="async"></div></div>
+        <p class="micro">Movement bank</p>
+      </div>
+      <div class="trio-cell reveal rd1">
+        <div class="device"><div class="screen"><img src="assets/screens/active-workout.png" alt="Tuwa live workout logging" width="1320" height="2868" loading="lazy" decoding="async"></div></div>
+        <p class="micro">Live logging</p>
+      </div>
+      <div class="trio-cell reveal rd2">
+        <div class="device"><div class="screen"><img src="assets/screens/workout-log.png" alt="Tuwa session history" width="1320" height="2868" loading="lazy" decoding="async"></div></div>
+        <p class="micro">Session history</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. PRIVACY + CLOSING CTA ============ -->
+<section id="get" class="closing">
+  <div class="container">
+    <p class="micro reveal">Privacy</p>
+    <h2 class="reveal rd1">Your health data never leaves your phone.</h2>
+    <p class="body-copy reveal rd2">Tuwa reads HealthKit on-device. Raw HRV, sleep and heart-rate streams stay on your iPhone — only composite scores sync to your account.</p>
+    <div class="reveal rd3">
+      <a class="cta" href="#">Download on the App Store</a>
+      <p class="closing-note">Requires iOS 17 or later.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Tuwa. The sports-science back room for self-coached athletes.</p>
+    <p>Made for athletes who write their own plan.</p>
+  </div>
+</footer>
+
+<script src="assets/vendor/lenis.min.js"></script>
+<script src="assets/vendor/lottie.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  var doc = document.documentElement;
+  doc.classList.add('js');
+  var RM = false;
+  try { RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+
+  /* -------- Lenis smooth scroll (skip when reduced) -------- */
+  if (!RM) {
+    try { if (window.Lenis) new Lenis({ autoRaf: true }); } catch(e){}
+  }
+
+  /* -------- Fade-rise reveals -------- */
+  try {
+    var revs = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    if (RM || !('IntersectionObserver' in window)) {
+      revs.forEach(function(el){ el.classList.add('in'); });
+    } else {
+      var rio = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (en.isIntersecting) { en.target.classList.add('in'); rio.unobserve(en.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      revs.forEach(function(el){ rio.observe(el); });
+    }
+  } catch(e){}
+
+  /* -------- Lottie: autoplay loops, pause off-screen, static frame when reduced -------- */
+  try {
+    if (window.lottie) {
+      [
+        { id: 'lotVerdict', path: 'assets/lottie/verdict-tick.json' },
+        { id: 'lotNeedle',  path: 'assets/lottie/needle-sweep.json' }
+      ].forEach(function(cfg){
+        var host = document.getElementById(cfg.id);
+        if (!host) return;
+        var anim = lottie.loadAnimation({
+          container: host, renderer: 'svg', loop: true, autoplay: !RM, path: cfg.path
+        });
+        if (RM) {
+          anim.addEventListener('DOMLoaded', function(){
+            try { anim.goToAndStop(Math.floor(anim.totalFrames * 0.55), true); } catch(e){}
+          });
+        } else if ('IntersectionObserver' in window) {
+          var lio = new IntersectionObserver(function(entries){
+            entries.forEach(function(en){
+              try { en.isIntersecting ? anim.play() : anim.pause(); } catch(e){}
+            });
+          }, { threshold: 0.1 });
+          lio.observe(host);
+        }
+      });
+    }
+  } catch(e){}
+
+  /* -------- Scroll-scrubbed pinned scenes (rAF + rect math) -------- */
+  if (RM) return; // reduced motion: markup already shows final values
+  try {
+    var vh = window.innerHeight;
+    var clamp01 = function(x){ return x < 0 ? 0 : x > 1 ? 1 : x; };
+    var easeO = function(t){ return 1 - Math.pow(1 - t, 3); };
+    var scenes = [];
+
+    function progressOf(el){
+      var r = el.getBoundingClientRect();
+      var span = r.height - vh;
+      if (span <= 0) return r.top < 0 ? 1 : 0;
+      return clamp01(-r.top / span);
+    }
+
+    /* --- Scene: hero gauge --- */
+    (function(){
+      var wrap = document.getElementById('heroWrap');
+      var needle = document.getElementById('gaugeNeedle');
+      var score = document.getElementById('scoreNum');
+      var cue = document.getElementById('scrollCue');
+      var gsub = document.getElementById('gaugeSub');
+      if (!wrap || !needle || !score) return;
+      scenes.push({ el: wrap, p: -1, fn: function(p){
+        var t = easeO(Math.min(1, p / 0.7));
+        score.textContent = Math.round(82 * t);
+        needle.setAttribute('transform', 'rotate(' + (-90 + 147.6 * t).toFixed(2) + ' 100 100)');
+        if (cue) cue.style.opacity = Math.max(0, 1 - p / 0.12).toFixed(3);
+        if (gsub) {
+          var s = clamp01((p - 0.5) / 0.3);
+          gsub.style.opacity = s.toFixed(3);
+          gsub.style.transform = 'translateY(' + (14 * (1 - s)).toFixed(1) + 'px)';
+        }
+      }});
+    })();
+
+    /* --- Scene: pinned phone showcase --- */
+    (function(){
+      var wrap = document.getElementById('showWrap');
+      if (!wrap) return;
+      var rail = document.getElementById('railFill');
+      var plates = Array.prototype.slice.call(wrap.querySelectorAll('.shot-plate'));
+      var steps = Array.prototype.slice.call(wrap.querySelectorAll('.step'));
+      var cur = -1;
+      scenes.push({ el: wrap, p: -1, fn: function(p){
+        if (rail) rail.style.transform = 'scaleY(' + p.toFixed(4) + ')';
+        var idx = Math.min(2, Math.floor(p * 3));
+        if (idx !== cur) {
+          cur = idx;
+          plates.forEach(function(pl, i){
+            pl.classList.toggle('active', i === idx);
+            pl.classList.toggle('prev', i < idx);
+          });
+          steps.forEach(function(st, i){ st.classList.toggle('active', i === idx); });
+        }
+      }});
+    })();
+
+    /* --- Scene: strike-zone bar --- */
+    (function(){
+      var wrap = document.getElementById('zoneWrap');
+      var bar = document.getElementById('zoneBar');
+      var fill = document.getElementById('zoneFill');
+      var needle = document.getElementById('zoneNeedle');
+      var chip = document.getElementById('zoneChip');
+      var label = document.getElementById('zoneLabel');
+      if (!wrap || !bar || !fill || !needle || !chip || !label) return;
+      var barW = bar.getBoundingClientRect().width;
+      window.addEventListener('resize', function(){
+        barW = bar.getBoundingClientRect().width;
+      });
+      needle.style.left = '0'; // switch from static-final left% to transform-driven
+      var zones = [
+        { txt: 'Undertraining — room to build', cls: 'zl0' },
+        { txt: 'In the strike zone',            cls: 'zl1' },
+        { txt: 'Trending hot — time to modify', cls: 'zl2' },
+        { txt: 'Overreach risk — hold',         cls: 'zl3' }
+      ];
+      var curZ = -1;
+      scenes.push({ el: wrap, p: -1, fn: function(p){
+        var ac = 0.4 + 1.05 * p;           // 0.40 → 1.45
+        var pos = (ac - 0.4) / 1.3;        // position across the 0.4–1.7 scale
+        fill.style.transform = 'scaleX(' + pos.toFixed(4) + ')';
+        needle.style.transform = 'translateX(' + (pos * barW).toFixed(1) + 'px)';
+        chip.textContent = ac.toFixed(2);
+        var z = ac < 0.8 ? 0 : ac <= 1.3 ? 1 : ac <= 1.5 ? 2 : 3;
+        if (z !== curZ) {
+          curZ = z;
+          label.textContent = zones[z].txt;
+          label.className = 'zone-label ' + zones[z].cls;
+        }
+      }});
+    })();
+
+    window.addEventListener('resize', function(){ vh = window.innerHeight; });
+
+    function frame(){
+      for (var i = 0; i < scenes.length; i++) {
+        var s = scenes[i];
+        var p = progressOf(s.el);
+        if (Math.abs(p - s.p) > 0.0004) { s.p = p; s.fn(p); }
+      }
+      window.requestAnimationFrame(frame);
+    }
+    window.requestAnimationFrame(frame);
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
