@@ -52,7 +52,7 @@
   // Defer the ~72KB Chart.js chunk until the chart scrolls near the viewport (perf).
   async function buildChart() {
     const { default: Chart } = await import('chart.js/auto');
-    Chart.defaults.font.family = "'General Sans', system-ui, sans-serif";
+    Chart.defaults.font.family = "'Instrument Sans', system-ui, sans-serif";
     Chart.defaults.font.size = 13;
     Chart.defaults.color = COLOR_TEXT_2;
     new Chart(canvas, {

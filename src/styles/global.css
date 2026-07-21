@@ -1,14 +1,19 @@
 /* src/styles/global.css */
 /* Tailwind v4 — uses @import directive, not @tailwind directives */
 
-/* ===== Phase 11: Self-Hosted Variable Font (TYPO-01) ===== */
-/* Fontshare CDN serves a variable WOFF2 for General Sans, but Astro's */
-/* Fontshare provider hardcodes hasVariableWeights:false — self-hosting */
-/* is required to get a single variable file. See 11-RESEARCH.md Q1.   */
+/* ===== v1.6 Pavilion: Instrument Sans — the one app voice (static 400 + 500) ===== */
+/* Self-hosted static TTFs matching the app (DESIGN.md v5 One-Voice Type Law).      */
 @font-face {
-  font-family: 'General Sans';
-  src: url('/fonts/GeneralSans-Variable.woff2') format('woff2');
-  font-weight: 400 500;
+  font-family: 'Instrument Sans';
+  src: url('/fonts/InstrumentSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('/fonts/InstrumentSans-Medium.ttf') format('truetype');
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
@@ -21,8 +26,12 @@
 /* Light mode only — D-06 descopes dark mode entirely */
 
 :root {
-  /* Font family variable — replaces Astro Font API auto-generated variable */
-  --font-general-sans: 'General Sans', system-ui, sans-serif;
+  /* Font family variables — Instrument Sans is the one voice (Pavilion v5).   */
+  /* --font-general-sans is a legacy alias: zh pages override it inline for the */
+  /* CJK cascade, and body reads it so that override keeps working. Do not      */
+  /* remove the alias without sweeping zh/.                                     */
+  --font-sans: 'Instrument Sans', system-ui, sans-serif;
+  --font-general-sans: var(--font-sans);
 
   /* Tuwa v2 light-only cool material system */
   --color-bg:             #ECEEF1;
@@ -58,7 +67,7 @@
   --radius-md: 0;
   --radius-lg: 0;
 
-  /* Typography -- General Sans (variable set by Astro Font API, do not redeclare) */
+  /* Typography -- Instrument Sans (static 400/500, declared above) */
 
   /* Type Scale */
   --text-display:    clamp(44px, 6vw, 72px);
@@ -82,7 +91,7 @@
   --tracking-heading: 0;
   --tracking-label:   0.10em;  /* for all-caps contexts */
 
-  /* Phase 11 — Font Weight Tokens — General Sans variable axis (200-700) */
+  /* Font Weight Tokens — Instrument Sans static faces: 400 (Regular) + 500 (Medium) only */
   /* Values are unitless integers per CSS font-weight spec */
   --weight-display: 400;
   --weight-heading: 500;
