@@ -15,13 +15,12 @@
 - [Lift + Match Logging](https://tuwa.app/features/workload-tracking): sets, reps, load, RPE, RIR, match tier, and cross-modal fatigue context.
 - [Your Plan Input](https://tuwa.app/features/smart-templates): the athlete's own planned session with targets, caps, notes, and top-set intent.
 - [Cold-Start Onboarding](https://tuwa.app/features/cold-start): useful guidance from day one, no baseline wait.
-- [Back-Room Review](https://tuwa.app/features/coaching): workload, recovery, match proximity, and progress review.
+- [Back-Room Review](https://tuwa.app/training-load): workload, recovery, match proximity, and progress review.
 
 ## Topics
 - [Methodology](https://tuwa.app/methodology): the science behind Tuwa's readiness and load models.
 - [Training Load](https://tuwa.app/training-load): what training load is and how Tuwa measures it.
 - [Readiness Score](https://tuwa.app/readiness-score): how the daily readiness score is calculated.
-- [Self-Coached Athletes](https://tuwa.app/for-coaches): how Tuwa supports basketball players without pro coaching, physio, or strength staff.
 - [Compare](https://tuwa.app/compare): how Tuwa differs from wearable scores, AI coaches, and planning tools.
 
 ## SEO/GEO pages
