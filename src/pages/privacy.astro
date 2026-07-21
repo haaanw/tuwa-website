@@ -8,7 +8,7 @@ import LegalPageLayout from '../layouts/LegalPageLayout.astro';
 
   <h3>Data you provide</h3>
   <ul>
-    <li><strong>Account information:</strong> Email address and display name (used for authentication and coach-athlete pairing)</li>
+    <li><strong>Account information:</strong> Email address and display name (used for authentication)</li>
     <li><strong>Workout logs:</strong> Exercises, sets, reps, weights, RPE, session duration, and notes you enter</li>
     <li><strong>Wellness check-ins:</strong> Self-reported sleep quality, soreness, energy, and stress ratings</li>
   </ul>
@@ -31,19 +31,9 @@ import LegalPageLayout from '../layouts/LegalPageLayout.astro';
   <h2>How Data Is Stored</h2>
   <ul>
     <li><strong>On your device:</strong> All data is stored locally using SwiftData. The app works fully offline.</li>
-    <li><strong>In the cloud:</strong> Composite scores (recovery score, workload snapshots, wellness ratings, workout session headers, and personal records) sync to Supabase (hosted on AWS) for coach-athlete features and multi-device access.</li>
+    <li><strong>In the cloud:</strong> Composite scores (recovery score, workload snapshots, wellness ratings, workout session headers, and personal records) sync to Supabase (hosted on AWS) for multi-device access.</li>
     <li><strong>Raw HealthKit data is never uploaded.</strong> Only computed scores derived from HealthKit data are synced.</li>
   </ul>
-
-  <h2>Coach-Athlete Data Sharing</h2>
-  <p>If you link with a coach, they can view:</p>
-  <ul>
-    <li>Your recovery scores and ACWR trends</li>
-    <li>Workout session summaries</li>
-    <li>Personal records</li>
-    <li>Wellness check-in ratings</li>
-  </ul>
-  <p>Coaches cannot access your raw HealthKit data. If you need to change or remove coach access, contact support while in-app unlink controls are not surfaced.</p>
 
   <h2>Third-Party Services</h2>
   <ul>
@@ -58,7 +48,7 @@ import LegalPageLayout from '../layouts/LegalPageLayout.astro';
     <li>Go to <strong>Profile → Sign Out</strong> in the app</li>
     <li>Contact us at the email below to request full account and data deletion from our servers</li>
   </ol>
-  <p>Upon deletion, all your data — including workout logs, scores, and coach relationships — is permanently removed from our servers.</p>
+  <p>Upon deletion, all your data — including workout logs and scores — is permanently removed from our servers.</p>
 
   <h2>Your Rights</h2>
   <p>You have the right to:</p>

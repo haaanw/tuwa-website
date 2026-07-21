@@ -1,3 +1,17 @@
 /privacy.html    /privacy    301
 /terms.html      /terms      301
 /support.html    /support    301
+
+# Coach pages removed in the athlete-only repositioning (app v1.6)
+/for-coaches              /                     301
+/for-coaches/             /                     301
+/zh/for-coaches           /zh/                  301
+/zh/for-coaches/          /zh/                  301
+/fr/for-coaches           /fr/                  301
+/fr/for-coaches/          /fr/                  301
+/features/coaching        /training-load        301
+/features/coaching/       /training-load        301
+/zh/features/coaching     /zh/training-load     301
+/zh/features/coaching/    /zh/training-load     301
+/fr/features/coaching     /fr/training-load     301
+/fr/features/coaching/    /fr/training-load     301
