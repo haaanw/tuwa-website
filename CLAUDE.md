@@ -3,7 +3,7 @@
 
 **Tuwa Marketing Website**
 
-Marketing website for Tuwa — a precision training load and recovery management app for serious athletes and coaches. The site lives at tuwa.app, built with Astro + Tailwind + MDX on Cloudflare Pages. It communicates scientific credibility without jargon walls, driving App Store downloads.
+Marketing website for Tuwa — a precision training load and recovery management app for serious self-coached athletes (athlete-only since app v1.6 — no coach features). The site lives at tuwa.app, built with Astro + Tailwind + MDX on Cloudflare Pages. It communicates scientific credibility without jargon walls, driving App Store downloads.
 
 **Core Value:** Convince serious athletes that Tuwa is the evidence-based workload management tool they've been missing — not another generic fitness tracker.
 
