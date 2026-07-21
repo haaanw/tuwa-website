@@ -19,7 +19,7 @@ const privacy: Privacy = {
       items: [
         {
           label: 'Informations de compte',
-          description: 'Adresse e-mail et nom d\'affichage (utilisés pour l\'authentification et le jumelage coach-athlète)',
+          description: 'Adresse e-mail et nom d\'affichage (utilisés pour l\'authentification)',
         },
         {
           label: 'Journaux d\'entraînement',
@@ -58,24 +58,13 @@ const privacy: Privacy = {
       },
       {
         label: 'Dans le cloud',
-        description: 'Les scores composites (score de récupération, instantanés de charge, bilans de forme, en-têtes de séance et records personnels) se synchronisent sur Supabase (hébergé sur AWS) pour les fonctionnalités coach-athlète et l\'accès multi-appareils.',
+        description: 'Les scores composites (score de récupération, instantanés de charge, bilans de forme, en-têtes de séance et records personnels) se synchronisent sur Supabase (hébergé sur AWS) pour l\'accès multi-appareils.',
       },
       {
         label: 'Les données HealthKit brutes ne sont jamais téléchargées.',
         description: 'Seuls les scores calculés à partir des données HealthKit sont synchronisés.',
       },
     ],
-  },
-  coachAthleteSharing: {
-    heading: 'Partage de données coach-athlète',
-    intro: 'Si tu te lies à un coach, il peut consulter :',
-    items: [
-      'Tes scores de récupération et tendances ACWR',
-      'Les résumés de tes séances d\'entraînement',
-      'Tes records personnels',
-      'Tes évaluations de bilan de forme',
-    ],
-    outro: 'Les coachs ne peuvent pas accéder à tes données HealthKit brutes, et tu peux te délier d\'un coach à tout moment.',
   },
   thirdPartyServices: {
     heading: 'Services tiers',
@@ -103,7 +92,7 @@ const privacy: Privacy = {
       'Contacte-nous à l\'adresse e-mail ci-dessous pour demander la suppression complète de ton compte et de tes données de nos serveurs',
     ],
     stepOneStrong: 'Profil → Se déconnecter',
-    outro: 'Après suppression, toutes tes données — journaux d\'entraînement, scores et relations de coaching inclus — sont définitivement retirées de nos serveurs.',
+    outro: 'Après suppression, toutes tes données — journaux d\'entraînement et scores inclus — sont définitivement retirées de nos serveurs.',
   },
   yourRights: {
     heading: 'Tes droits',

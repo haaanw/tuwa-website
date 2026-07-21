@@ -14,7 +14,7 @@ const terms: Terms = {
   },
   useOfApp: {
     heading: '1. 应用使用',
-    p1: 'Tuwa 是一款训练负荷与恢复管理工具。您可将其用于个人体能追踪，以及教练-运动员协作（如适用）。您同意：',
+    p1: 'Tuwa 是一款训练负荷与恢复管理工具。您可将其用于个人体能追踪。您同意：',
     items: [
       '在创建账户时提供准确信息',
       '妥善保管您的登录凭据',
@@ -27,7 +27,7 @@ const terms: Terms = {
   },
   subscriptions: {
     heading: '3. 订阅',
-    p1: 'Tuwa 提供免费和付费订阅方案（运动员专业版和教练版）。付费订阅通过 Apple App Store 计费，并由 RevenueCat 管理。',
+    p1: 'Tuwa 提供免费和付费订阅方案（运动员专业版）。付费订阅通过 Apple App Store 计费，并由 RevenueCat 管理。',
     items: [
       {
         label: '计费',
@@ -51,13 +51,8 @@ const terms: Terms = {
     heading: '4. HealthKit 数据',
     p1: 'Tuwa 在您明确授权的前提下读取 Apple HealthKit 中的健康数据。我们从不向 HealthKit 写入数据。原始 HealthKit 数据保留在您的设备上——仅计算得出的综合评分会同步至我们的服务器。您可随时通过 iOS 设置撤回 HealthKit 访问权限。',
   },
-  coachAthleteFeatures: {
-    heading: '5. 教练-运动员功能',
-    p1: '若您与教练建立连接，即授权其查看您的恢复评分、训练负荷趋势、训练课程概要及身体状态评分。如需移除教练访问权限，在应用内解除连接控件尚未开放时，请联系支持团队处理。',
-    p2: '如果未来开放教练端代记训练功能，这些记录应清晰标注归属。教练有责任以诚信方式使用本平台。',
-  },
   acceptableUse: {
-    heading: '6. 可接受使用',
+    heading: '5. 可接受使用',
     p1: '您同意不得：',
     items: [
       '对本应用进行逆向工程、反编译或篡改',
@@ -67,28 +62,28 @@ const terms: Terms = {
     ],
   },
   intellectualProperty: {
-    heading: '7. 知识产权',
+    heading: '6. 知识产权',
     p1: '本应用，包括其设计、代码和内容，归 Hanwen Ma 所有。您使用本应用不授予您任何所有权。',
   },
   disclaimerSection: {
-    heading: '8. 免责声明',
+    heading: '7. 免责声明',
     p1: 'Tuwa 提供的训练负荷和恢复数据仅供参考，不构成医疗建议。在做出任何健康或训练决策前，请务必咨询合格的医疗专业人员。对于因使用本应用引发的受伤、过度训练或健康问题，我们概不负责。',
     informationalStrong: '仅供参考',
   },
   limitationOfLiability: {
-    heading: '9. 责任限制',
+    heading: '8. 责任限制',
     p1: '在法律允许的最大范围内，我们不对因您使用本应用而产生的任何间接、附带或后果性损害承担责任。我们的总责任以您在索赔前 12 个月内为本应用支付的金额为限。',
   },
   termination: {
-    heading: '10. 终止',
+    heading: '9. 终止',
     p1: '如您违反本条款，我们可能暂停或终止您的账户。您可随时通过联系我们删除账户。',
   },
   changes: {
-    heading: '11. 条款变更',
+    heading: '10. 条款变更',
     p1: '我们可能会不时更新本条款。变更内容将连同更新日期一并发布至本页面。在变更后继续使用本应用即视为接受变更。',
   },
   contact: {
-    heading: '12. 联系我们',
+    heading: '11. 联系我们',
     intro: '如对本条款有任何疑问：',
     emailLabel: '电子邮件',
     email: 'hanwenma09@gmail.com',

@@ -18,7 +18,7 @@ const terms = {
   },
   useOfApp: {
     heading: '1. Use of the App',
-    p1: 'Tuwa is a training load and recovery management tool. You may use it for personal fitness tracking and, if applicable, coach-athlete collaboration. You agree to:',
+    p1: 'Tuwa is a training load and recovery management tool. You may use it for personal fitness tracking. You agree to:',
     items: [
       'Provide accurate information when creating your account',
       'Keep your login credentials secure',
@@ -31,7 +31,7 @@ const terms = {
   },
   subscriptions: {
     heading: '3. Subscriptions',
-    p1: "Tuwa offers free and paid subscription tiers (Athlete Pro and Coach). Paid subscriptions are billed through Apple's App Store and managed by RevenueCat.",
+    p1: "Tuwa offers free and paid subscription tiers (Athlete Pro). Paid subscriptions are billed through Apple's App Store and managed by RevenueCat.",
     items: [
       {
         label: 'Billing',
@@ -55,13 +55,8 @@ const terms = {
     heading: '4. HealthKit Data',
     p1: 'Tuwa reads health data from Apple HealthKit with your explicit permission. We never write data to HealthKit. Raw HealthKit data stays on your device — only computed scores are synced to our servers. You can revoke HealthKit access at any time via iOS Settings.',
   },
-  coachAthleteFeatures: {
-    heading: '5. Coach-Athlete Features',
-    p1: 'If you link with a coach, you grant them access to view your recovery scores, workload trends, workout summaries, and wellness check-in ratings. If you need to remove coach access, contact support while in-app unlink controls are not surfaced.',
-    p2: 'If coach-side workout logging is made available, those entries should be attributed clearly. Coaches are responsible for using the platform in good faith.',
-  },
   acceptableUse: {
-    heading: '6. Acceptable Use',
+    heading: '5. Acceptable Use',
     p1: 'You agree not to:',
     items: [
       'Reverse-engineer, decompile, or tamper with the app',
@@ -71,28 +66,28 @@ const terms = {
     ] as const,
   },
   intellectualProperty: {
-    heading: '7. Intellectual Property',
+    heading: '6. Intellectual Property',
     p1: 'The app, including its design, code, and content, is owned by Hanwen Ma. Your use of the app does not grant you any ownership rights.',
   },
   disclaimerSection: {
-    heading: '8. Disclaimer',
+    heading: '7. Disclaimer',
     p1: 'Tuwa provides training load and recovery data for informational purposes only. It is not medical advice. Always consult a qualified healthcare professional before making decisions about your health or training. We are not liable for injuries, overtraining, or health issues arising from use of the app.',
     informationalStrong: 'informational purposes only',
   },
   limitationOfLiability: {
-    heading: '9. Limitation of Liability',
+    heading: '8. Limitation of Liability',
     p1: 'To the maximum extent permitted by law, we are not liable for any indirect, incidental, or consequential damages arising from your use of the app. Our total liability is limited to the amount you paid for the app in the 12 months preceding the claim.',
   },
   termination: {
-    heading: '10. Termination',
+    heading: '9. Termination',
     p1: 'We may suspend or terminate your account if you violate these Terms. You may delete your account at any time by contacting us.',
   },
   changes: {
-    heading: '11. Changes to These Terms',
+    heading: '10. Changes to These Terms',
     p1: 'We may update these Terms from time to time. Changes will be posted to this page with an updated date. Continued use of the app after changes constitutes acceptance.',
   },
   contact: {
-    heading: '12. Contact',
+    heading: '11. Contact',
     intro: 'For questions about these Terms:',
     emailLabel: 'Email',
     email: 'hanwenma09@gmail.com',

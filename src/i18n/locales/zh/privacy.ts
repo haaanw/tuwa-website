@@ -19,7 +19,7 @@ const privacy: Privacy = {
       items: [
         {
           label: '账户信息',
-          description: '电子邮件地址和显示名称（用于身份验证和教练-运动员配对）',
+          description: '电子邮件地址和显示名称（用于身份验证）',
         },
         {
           label: '训练记录',
@@ -58,24 +58,13 @@ const privacy: Privacy = {
       },
       {
         label: '存储在云端',
-        description: '综合评分（恢复评分、训练负荷快照、身体状态评分、训练课概要及个人最佳成绩）会同步至 Supabase（托管于 AWS），以支持教练-运动员功能和多设备访问。',
+        description: '综合评分（恢复评分、训练负荷快照、身体状态评分、训练课概要及个人最佳成绩）会同步至 Supabase（托管于 AWS），以支持多设备访问。',
       },
       {
         label: '原始 HealthKit 数据永不上传。',
         description: '仅同步从 HealthKit 数据中计算得出的综合评分。',
       },
     ],
-  },
-  coachAthleteSharing: {
-    heading: '教练-运动员数据共享',
-    intro: '若您与教练建立连接，教练可查看：',
-    items: [
-      '您的恢复评分和 ACWR 趋势',
-      '训练课程概要',
-      '个人最佳成绩',
-      '身体状态评分',
-    ],
-    outro: '教练无法访问您的原始 HealthKit 数据。如果您需要变更或移除教练访问权限，在应用内解除连接控件尚未开放时，请联系支持团队处理。',
   },
   thirdPartyServices: {
     heading: '第三方服务',
@@ -103,7 +92,7 @@ const privacy: Privacy = {
       '通过以下邮件联系我们，申请从服务器完全删除您的账户和数据',
     ],
     stepOneStrong: '个人资料 → 退出登录',
-    outro: '删除后，您的所有数据——包括训练记录、评分及教练关系——将从我们的服务器上永久移除。',
+    outro: '删除后，您的所有数据——包括训练记录及评分——将从我们的服务器上永久移除。',
   },
   yourRights: {
     heading: '您的权利',

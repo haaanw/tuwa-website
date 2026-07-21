@@ -23,7 +23,7 @@ const privacy = {
       items: [
         {
           label: 'Account information',
-          description: 'Email address and display name (used for authentication and coach-athlete pairing)',
+          description: 'Email address and display name (used for authentication)',
         },
         {
           label: 'Workout logs',
@@ -62,24 +62,13 @@ const privacy = {
       },
       {
         label: 'In the cloud',
-        description: 'Composite scores (recovery score, workload snapshots, wellness ratings, workout session headers, and personal records) sync to Supabase (hosted on AWS) for coach-athlete features and multi-device access.',
+        description: 'Composite scores (recovery score, workload snapshots, wellness ratings, workout session headers, and personal records) sync to Supabase (hosted on AWS) for multi-device access.',
       },
       {
         label: 'Raw HealthKit data is never uploaded.',
         description: 'Only computed scores derived from HealthKit data are synced.',
       },
     ] as const,
-  },
-  coachAthleteSharing: {
-    heading: 'Coach-Athlete Data Sharing',
-    intro: 'If you link with a coach, they can view:',
-    items: [
-      'Your recovery scores and ACWR trends',
-      'Workout session summaries',
-      'Personal records',
-      'Wellness check-in ratings',
-    ] as const,
-    outro: 'Coaches cannot access your raw HealthKit data. If you need to change or remove coach access, contact support while in-app unlink controls are not surfaced.',
   },
   thirdPartyServices: {
     heading: 'Third-Party Services',
@@ -107,7 +96,7 @@ const privacy = {
       'Contact us at the email below to request full account and data deletion from our servers',
     ] as const,
     stepOneStrong: 'Profile → Sign Out',
-    outro: 'Upon deletion, all your data — including workout logs, scores, and coach relationships — is permanently removed from our servers.',
+    outro: 'Upon deletion, all your data — including workout logs and scores — is permanently removed from our servers.',
   },
   yourRights: {
     heading: 'Your Rights',

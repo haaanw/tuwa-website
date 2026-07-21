@@ -14,7 +14,7 @@ const terms: Terms = {
   },
   useOfApp: {
     heading: '1. Utilisation de l\'application',
-    p1: 'Tuwa est un outil de gestion de la charge d\'entraînement et de la récupération. Tu peux l\'utiliser pour le suivi personnel de ta condition physique et, le cas échéant, pour la collaboration coach-athlète. Tu t\'engages à :',
+    p1: 'Tuwa est un outil de gestion de la charge d\'entraînement et de la récupération. Tu peux l\'utiliser pour le suivi personnel de ta condition physique. Tu t\'engages à :',
     items: [
       'Fournir des informations exactes lors de la création de ton compte',
       'Garder tes identifiants de connexion en sécurité',
@@ -27,7 +27,7 @@ const terms: Terms = {
   },
   subscriptions: {
     heading: '3. Abonnements',
-    p1: 'Tuwa propose des formules d\'abonnement gratuites et payantes (Athlète Pro et Coach). Les abonnements payants sont facturés via l\'App Store d\'Apple et gérés par RevenueCat.',
+    p1: 'Tuwa propose des formules d\'abonnement gratuites et payantes (Athlète Pro). Les abonnements payants sont facturés via l\'App Store d\'Apple et gérés par RevenueCat.',
     items: [
       {
         label: 'Facturation',
@@ -51,13 +51,8 @@ const terms: Terms = {
     heading: '4. Données HealthKit',
     p1: 'Tuwa lit les données de santé d\'Apple HealthKit avec ton autorisation explicite. Nous n\'écrivons jamais de données dans HealthKit. Les données HealthKit brutes restent sur ton appareil — seuls les scores calculés sont synchronisés sur nos serveurs. Tu peux révoquer l\'accès à HealthKit à tout moment via les Réglages iOS.',
   },
-  coachAthleteFeatures: {
-    heading: '5. Fonctionnalités coach-athlète',
-    p1: 'Si tu te lies à un coach, tu lui accordes l\'accès à tes scores de récupération, tendances de charge, résumés de séances et évaluations de bilan de forme. Tu peux te délier d\'un coach à tout moment, ce qui révoque immédiatement son accès à tes données.',
-    p2: 'Les coachs qui enregistrent des séances au nom des athlètes le font avec attribution. Les coachs sont responsables d\'utiliser la plateforme de bonne foi.',
-  },
   acceptableUse: {
-    heading: '6. Utilisation acceptable',
+    heading: '5. Utilisation acceptable',
     p1: 'Tu t\'engages à ne pas :',
     items: [
       'Rétro-ingénier, décompiler ou altérer l\'application',
@@ -67,28 +62,28 @@ const terms: Terms = {
     ],
   },
   intellectualProperty: {
-    heading: '7. Propriété intellectuelle',
+    heading: '6. Propriété intellectuelle',
     p1: 'L\'application, y compris son design, son code et son contenu, appartient à Hanwen Ma. L\'utilisation de l\'application ne t\'accorde aucun droit de propriété.',
   },
   disclaimerSection: {
-    heading: '8. Avertissement',
+    heading: '7. Avertissement',
     p1: 'Tuwa fournit des données sur la charge d\'entraînement et la récupération à titre informatif uniquement. Il ne s\'agit pas d\'un avis médical. Consulte toujours un professionnel de santé qualifié avant de prendre des décisions concernant ta santé ou ton entraînement. Nous ne sommes pas responsables des blessures, du surentraînement ou des problèmes de santé résultant de l\'utilisation de l\'application.',
     informationalStrong: 'à titre informatif uniquement',
   },
   limitationOfLiability: {
-    heading: '9. Limitation de responsabilité',
+    heading: '8. Limitation de responsabilité',
     p1: 'Dans la mesure maximale permise par la loi, nous ne sommes pas responsables des dommages indirects, accessoires ou consécutifs découlant de ton utilisation de l\'application. Notre responsabilité totale est limitée au montant que tu as payé pour l\'application au cours des 12 mois précédant la réclamation.',
   },
   termination: {
-    heading: '10. Résiliation',
+    heading: '9. Résiliation',
     p1: 'Nous pouvons suspendre ou résilier ton compte si tu violes ces Conditions. Tu peux supprimer ton compte à tout moment en nous contactant.',
   },
   changes: {
-    heading: '11. Modifications des présentes Conditions',
+    heading: '10. Modifications des présentes Conditions',
     p1: 'Nous pouvons mettre à jour ces Conditions de temps à autre. Les modifications seront publiées sur cette page avec une date de mise à jour. La poursuite de l\'utilisation de l\'application après les modifications vaut acceptation.',
   },
   contact: {
-    heading: '12. Contact',
+    heading: '11. Contact',
     intro: 'Pour toute question concernant ces Conditions :',
     emailLabel: 'E-mail',
     email: 'hanwenma09@gmail.com',
