@@ -7,7 +7,6 @@ const common: Common = {
     blog: 'Blog',
     getApp: "Télécharger l'app",
     method: 'Méthode',
-    coaches: 'Coachs',
     languageSwitcher: {
       label: 'Langue',
       en: 'English',
@@ -24,8 +23,8 @@ const common: Common = {
       smartTemplatesDesc: 'Séances réutilisables et modèles importés',
       coldStartTitle: 'Démarrage immédiat',
       coldStartDesc: 'Utile avant de longues références personnelles',
-      coachingTitle: 'Revue des progrès',
-      coachingDesc: 'Charge hebdo, records et contexte de tendance',
+      backRoomTitle: 'Revue des progrès',
+      backRoomDesc: 'Charge hebdo, records et contexte de tendance',
     },
   },
   footer: {
@@ -39,7 +38,6 @@ const common: Common = {
     methodology: 'Méthodologie',
     readinessScore: 'Score de forme',
     trainingLoad: "Charge d'entraînement",
-    forCoaches: 'Pour les coachs',
     compare: 'Comparer Tuwa',
   },
   meta: {

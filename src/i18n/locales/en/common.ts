@@ -13,7 +13,6 @@ const common = {
     blog: 'Blog',
     getApp: 'Get the App',
     method: 'Method',
-    coaches: 'Self-Coached',
     languageSwitcher: {
       label: 'Language',
       en: 'English',
@@ -30,8 +29,8 @@ const common = {
       smartTemplatesDesc: 'Planned top sets, caps, notes, and targets',
       coldStartTitle: 'Day-One Setup',
       coldStartDesc: 'Useful before long personal baselines',
-      coachingTitle: 'Back-Room Review',
-      coachingDesc: 'Workload, recovery, match proximity, and PRs',
+      backRoomTitle: 'Back-Room Review',
+      backRoomDesc: 'Workload, recovery, match proximity, and PRs',
     },
   },
   footer: {
@@ -45,7 +44,6 @@ const common = {
     methodology: 'Methodology',
     readinessScore: 'Readiness Score',
     trainingLoad: 'Training Load',
-    forCoaches: 'Self-Coached',
     compare: 'Compare Tuwa',
   },
   meta: {

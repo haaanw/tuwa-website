@@ -12,7 +12,6 @@ import frSmartTemplates from './locales/fr/smart-templates';
 import enColdStart from './locales/en/cold-start';
 import zhColdStart from './locales/zh/cold-start';
 import frColdStart from './locales/fr/cold-start';
-import enCoaching from './locales/en/coaching';
 import enPrivacy from './locales/en/privacy';
 import zhPrivacy from './locales/zh/privacy';
 import frPrivacy from './locales/fr/privacy';
@@ -32,8 +31,6 @@ import zhRecoveryScoring from './locales/zh/recovery-scoring';
 import frRecoveryScoring from './locales/fr/recovery-scoring';
 import zhWorkloadTracking from './locales/zh/workload-tracking';
 import frWorkloadTracking from './locales/fr/workload-tracking';
-import zhCoaching from './locales/zh/coaching';
-import frCoaching from './locales/fr/coaching';
 import enMethodology from './locales/en/methodology';
 import zhMethodology from './locales/zh/methodology';
 import frMethodology from './locales/fr/methodology';
@@ -43,9 +40,6 @@ import frTrainingLoad from './locales/fr/training-load';
 import enReadinessScore from './locales/en/readiness-score';
 import zhReadinessScore from './locales/zh/readiness-score';
 import frReadinessScore from './locales/fr/readiness-score';
-import enForCoaches from './locales/en/for-coaches';
-import zhForCoaches from './locales/zh/for-coaches';
-import frForCoaches from './locales/fr/for-coaches';
 import enCompare from './locales/en/compare';
 import zhCompare from './locales/zh/compare';
 import frCompare from './locales/fr/compare';
@@ -56,7 +50,6 @@ import type { RecoveryScoring } from './locales/en/recovery-scoring';
 import type { WorkloadTracking } from './locales/en/workload-tracking';
 import type { SmartTemplates } from './locales/en/smart-templates';
 import type { ColdStart } from './locales/en/cold-start';
-import type { Coaching } from './locales/en/coaching';
 import type { Privacy } from './locales/en/privacy';
 import type { Terms } from './locales/en/terms';
 import type { Support } from './locales/en/support';
@@ -101,12 +94,6 @@ const coldStartTranslations: Record<Locale, ColdStart> = {
   en: enColdStart,
   zh: zhColdStart,
   fr: frColdStart,
-};
-
-const coachingTranslations: Record<Locale, Coaching> = {
-  en: enCoaching,
-  zh: zhCoaching,
-  fr: frCoaching,
 };
 
 const privacyTranslations: Record<Locale, Privacy> = {
@@ -163,10 +150,6 @@ export function useColdStartTranslations(locale: Locale | undefined): ColdStart 
   return coldStartTranslations[locale ?? 'en'] ?? coldStartTranslations['en'];
 }
 
-export function useCoachingTranslations(locale: Locale | undefined): Coaching {
-  return coachingTranslations[locale ?? 'en'] ?? coachingTranslations['en'];
-}
-
 export function usePrivacyTranslations(locale: Locale | undefined): Privacy {
   return privacyTranslations[locale ?? 'en'] ?? privacyTranslations['en'];
 }
@@ -187,13 +170,12 @@ export function use404Translations(locale: Locale | undefined): NotFound {
   return notFoundTranslations[locale ?? 'en'] ?? notFoundTranslations['en'];
 }
 
-export type TopicKey = 'methodology' | 'training-load' | 'readiness-score' | 'for-coaches' | 'compare';
+export type TopicKey = 'methodology' | 'training-load' | 'readiness-score' | 'compare';
 
 const topicTranslations: Record<TopicKey, Record<Locale, TopicPageContent>> = {
   methodology: { en: enMethodology, zh: zhMethodology, fr: frMethodology },
   'training-load': { en: enTrainingLoad, zh: zhTrainingLoad, fr: frTrainingLoad },
   'readiness-score': { en: enReadinessScore, zh: zhReadinessScore, fr: frReadinessScore },
-  'for-coaches': { en: enForCoaches, zh: zhForCoaches, fr: frForCoaches },
   compare: { en: enCompare, zh: zhCompare, fr: frCompare },
 };
 

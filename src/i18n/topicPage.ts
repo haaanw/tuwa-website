@@ -1,6 +1,6 @@
 // Shared content shape for the keyword/topic hub pages
-// (/methodology, /training-load, /readiness-score, /for-coaches, /compare).
-// One uniform type across all five so a single TopicPageLayout renders them all.
+// (/methodology, /training-load, /readiness-score, /compare).
+// One uniform type across all four so a single TopicPageLayout renders them all.
 
 export interface TopicComparison {
   columns: [string, string, string];

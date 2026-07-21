@@ -7,7 +7,6 @@ const common: Common = {
     blog: '博客',
     getApp: '下载应用',
     method: '方法论',
-    coaches: '自我训练',
     languageSwitcher: {
       label: '语言',
       en: 'English',
@@ -24,8 +23,8 @@ const common: Common = {
       smartTemplatesDesc: '计划顶组、强度上限、备注和目标',
       coldStartTitle: '即刻开始',
       coldStartDesc: '不必等待很久的个人基线',
-      coachingTitle: '后方团队复盘',
-      coachingDesc: '负荷、恢复、比赛临近和个人纪录',
+      backRoomTitle: '后方团队复盘',
+      backRoomDesc: '负荷、恢复、比赛临近和个人纪录',
     },
   },
   footer: {
@@ -39,7 +38,6 @@ const common: Common = {
     methodology: '方法论',
     readinessScore: '准备状态评分',
     trainingLoad: '训练负荷',
-    forCoaches: '自我训练',
     compare: '对比 Tuwa',
   },
   meta: {
