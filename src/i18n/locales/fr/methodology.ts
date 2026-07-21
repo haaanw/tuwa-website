@@ -34,7 +34,7 @@ const content: TopicPageContent = {
       "body": [
         "Tes données HealthKit brutes — chaque mesure de VFC, chaque échantillon de fréquence cardiaque, chaque enregistrement de sommeil — restent sur ton appareil. Tuwa les lit localement pour calculer tes scores et n'envoie jamais les flux physiologiques sous-jacents à un serveur.",
         "L'app fonctionne entièrement hors ligne. Le calcul des scores, de la charge et la détection des pics s'exécutent sur l'appareil : une connexion instable ou une salle en sous-sol n'interrompt jamais l'analyse.",
-        "Les fonctionnalités pour le coach ne synchronisent que les résultats composites — ton score de préparation et tes indicateurs de charge — jamais les données biométriques brutes qui les sous-tendent. Tu partages la conclusion, pas le dossier complet de ton système nerveux."
+        "La synchronisation cloud ne transmet que les résultats composites — ton score de préparation et tes indicateurs de charge — jamais les données biométriques brutes qui les sous-tendent. Les serveurs reçoivent la conclusion, pas le dossier complet de ton système nerveux."
       ]
     },
     {

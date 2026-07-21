@@ -7,7 +7,7 @@ type WidenStrings<T> = T extends string
 const blog = {
   meta: {
     title: 'Blog',
-    description: 'Training science, recovery insights, and coaching notes from Tuwa.',
+    description: 'Training science, recovery insights, and self-coaching notes from Tuwa.',
   },
   page: {
     heading: 'Blog',

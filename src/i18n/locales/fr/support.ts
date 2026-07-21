@@ -17,15 +17,11 @@ const support: Support = {
     },
     {
       q: 'Comment mes données de santé sont-elles stockées et protégées ?',
-      a: 'Toutes les données sont stockées localement sur ton appareil via SwiftData. L\'application fonctionne entièrement hors ligne. Lorsque tu utilises les fonctionnalités cloud (synchronisation coach-athlète, accès multi-appareils), seuls les scores composites se synchronisent sur nos serveurs — les données HealthKit brutes ne quittent jamais ton appareil.',
+      a: 'Toutes les données sont stockées localement sur ton appareil via SwiftData. L\'application fonctionne entièrement hors ligne. Lorsque tu utilises les fonctionnalités cloud (accès multi-appareils), seuls les scores composites se synchronisent sur nos serveurs — les données HealthKit brutes ne quittent jamais ton appareil.',
     },
     {
       q: 'Comment gérer mon abonnement ?',
       a: 'Les abonnements sont gérés via Apple. Va dans Réglages > Identifiant Apple > Abonnements sur ton appareil pour consulter, modifier ou annuler ton abonnement Tuwa. L\'annulation prend effet à la fin de ta période de facturation en cours.',
-    },
-    {
-      q: 'Comment fonctionne l\'invitation d\'un coach ?',
-      a: 'Va dans Profil et appuie sur « Inviter mon coach ». Tu peux partager un code d\'invitation à 6 caractères, envoyer une invitation par e-mail, ou utiliser le NFC pour te connecter instantanément avec ton coach. Une fois liés, ton coach peut consulter tes scores de récupération, tendances de charge et historique de séances.',
     },
     {
       q: 'Qu\'est-ce que l\'ACWR et pourquoi est-ce important ?',

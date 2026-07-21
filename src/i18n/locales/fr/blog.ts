@@ -3,7 +3,7 @@ import type { Blog } from '../en/blog';
 const blog: Blog = {
   meta: {
     title: 'Blog',
-    description: 'Science de l\'entraînement, insights sur la récupération et notes de coaching par Tuwa.',
+    description: 'Science de l\'entraînement, insights sur la récupération et notes d\'auto-coaching par Tuwa.',
   },
   page: {
     heading: 'Blog',

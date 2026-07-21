@@ -21,15 +21,11 @@ const support = {
     },
     {
       q: 'How is my health data stored and protected?',
-      a: 'All data is stored locally on your device using SwiftData. The app works fully offline. When you use cloud features (coach-athlete sync, multi-device access), only composite scores sync to our servers -- raw HealthKit data never leaves your device.',
+      a: 'All data is stored locally on your device using SwiftData. The app works fully offline. When you use cloud features (multi-device access), only composite scores sync to our servers -- raw HealthKit data never leaves your device.',
     },
     {
       q: 'How do I manage my subscription?',
       a: 'Subscriptions are managed through Apple. Go to Settings > Apple ID > Subscriptions on your device to view, change, or cancel your Tuwa subscription. Cancellation takes effect at the end of your current billing period.',
-    },
-    {
-      q: 'How does the coach invitation work?',
-      a: 'Go to Profile and tap Invite My Coach. You can share a 6-character invite code or send an email invitation. Once linked, your coach can view your recovery scores, workload trends, and session history.',
     },
     {
       q: 'What is ACWR and why does it matter?',

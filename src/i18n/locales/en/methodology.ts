@@ -34,7 +34,7 @@ const content: TopicPageContent = {
       "body": [
         "Your raw HealthKit data — every HRV reading, heart-rate sample, and sleep record — stays on your device. Tuwa reads it locally to compute your scores and never uploads the underlying physiological streams to a server.",
         "The app works fully offline. Scoring, load calculation, and logged-work spike detection all run on-device, so a flaky connection or a basement gym never interrupts the analysis.",
-        "Coach-facing features sync only the composite outputs — your readiness score and load metrics — never the raw biometric data behind them. You share the conclusion, not your nervous system's full record."
+        "Cloud sync carries only the composite outputs — your readiness score and load metrics — never the raw biometric data behind them. The servers get the conclusion, not your nervous system's full record."
       ]
     },
     {
