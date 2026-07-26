@@ -43,6 +43,9 @@ import frReadinessScore from './locales/fr/readiness-score';
 import enCompare from './locales/en/compare';
 import zhCompare from './locales/zh/compare';
 import frCompare from './locales/fr/compare';
+import enAbout from './locales/en/about';
+import zhAbout from './locales/zh/about';
+import frAbout from './locales/fr/about';
 import type { TopicPageContent } from './topicPage';
 import type { Common } from './locales/en/common';
 import type { Home } from './locales/en/home';
@@ -55,6 +58,7 @@ import type { Terms } from './locales/en/terms';
 import type { Support } from './locales/en/support';
 import type { Blog } from './locales/en/blog';
 import type { NotFound } from './locales/en/404';
+import type { About } from './locales/en/about';
 
 export type Locale = 'en' | 'zh' | 'fr';
 export type CommonTranslations = Common;
@@ -126,6 +130,12 @@ const notFoundTranslations: Record<Locale, NotFound> = {
   fr: fr404,
 };
 
+const aboutTranslations: Record<Locale, About> = {
+  en: enAbout,
+  zh: zhAbout,
+  fr: frAbout,
+};
+
 export function useTranslations(locale: Locale | undefined): Common {
   return translations[locale ?? 'en'] ?? translations['en'];
 }
@@ -168,6 +178,10 @@ export function useBlogTranslations(locale: Locale | undefined): Blog {
 
 export function use404Translations(locale: Locale | undefined): NotFound {
   return notFoundTranslations[locale ?? 'en'] ?? notFoundTranslations['en'];
+}
+
+export function useAboutTranslations(locale: Locale | undefined): About {
+  return aboutTranslations[locale ?? 'en'] ?? aboutTranslations['en'];
 }
 
 export type TopicKey = 'methodology' | 'training-load' | 'readiness-score' | 'compare';

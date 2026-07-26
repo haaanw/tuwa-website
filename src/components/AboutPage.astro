@@ -1,0 +1,142 @@
+---
+// About page body — editorial manifesto in the Pavilion system.
+// Shared across en / zh / fr; all copy comes from the per-locale about module.
+// Reveals use the site-wide [data-animate] system (siteMotion.ts via
+// BaseLayout); content renders fully visible without JS.
+import { APP_STORE_URL } from '../config';
+import { useAboutTranslations, type Locale } from '../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const t = useAboutTranslations(locale);
+---
+<style>
+  /* Page-local composition only — tokens and shared classes come from global.css. */
+  .about-hero {
+    padding-top: clamp(144px, 16vw, 200px);
+    padding-bottom: clamp(64px, 8vw, 96px);
+  }
+  .about-h1 {
+    margin-top: var(--space-lg);
+    font-size: var(--text-display);
+    line-height: 1.02;
+    font-weight: var(--weight-display);
+    letter-spacing: var(--tracking-display);
+    color: var(--color-text-1);
+    max-width: 14ch;
+    text-wrap: balance;
+  }
+  .about-lede {
+    margin-top: var(--space-xl);
+    max-width: 620px;
+    font-size: var(--text-lede);
+    line-height: var(--leading-body);
+    color: var(--color-text-2);
+  }
+
+  /* Principles — hairline-ruled list */
+  .principles {
+    list-style: none;
+    margin: var(--space-3xl) 0 0;
+    padding: 0;
+  }
+  .principle {
+    display: grid;
+    gap: var(--space-sm);
+    padding: var(--space-lg) 0;
+    border-top: 1px solid var(--color-divider);
+  }
+  .principle:last-child {
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .principle h3 {
+    font-size: var(--text-subheading);
+    font-weight: var(--weight-label);
+    line-height: var(--leading-subheading);
+    color: var(--color-text-1);
+  }
+  .principle p {
+    margin: 0;
+    max-width: 560px;
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    color: var(--color-text-2);
+  }
+  @media (min-width: 768px) {
+    .principle {
+      grid-template-columns: 48px minmax(200px, 320px) minmax(0, 1fr);
+      gap: var(--space-sm) var(--space-2xl);
+      align-items: baseline;
+    }
+  }
+</style>
+
+<section class="sec about-hero" aria-label={t.hero.title}>
+  <div class="wrap">
+    <span class="micro" data-animate>{t.hero.kicker}</span>
+    <h1 class="about-h1" data-animate>{t.hero.title}</h1>
+    <p class="about-lede" data-animate data-animate-delay="80">{t.hero.lede}</p>
+  </div>
+</section>
+
+<section class="sec bt">
+  <div class="ghost num" aria-hidden="true">01</div>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro" data-animate>{t.problem.kicker}</span>
+      <h2 data-animate>{t.problem.heading}</h2>
+      {t.problem.body.map((p) => <p data-animate>{p}</p>)}
+    </div>
+  </div>
+</section>
+
+<section class="sec bt sec-alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro" data-animate>{t.what.kicker}</span>
+      <h2 data-animate>{t.what.heading}</h2>
+      {t.what.body.map((p) => <p data-animate>{p}</p>)}
+    </div>
+  </div>
+</section>
+
+<section class="sec bt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro" data-animate>{t.who.kicker}</span>
+      <h2 data-animate>{t.who.heading}</h2>
+      {t.who.body.map((p) => <p data-animate>{p}</p>)}
+    </div>
+  </div>
+</section>
+
+<section class="sec bt sec-alt">
+  <div class="ghost ghost-left num" aria-hidden="true">04</div>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro" data-animate>{t.principles.kicker}</span>
+      <h2 data-animate>{t.principles.heading}</h2>
+    </div>
+    <ol class="principles">
+      {t.principles.items.map((item, i) => (
+        <li class="principle" data-animate data-animate-delay={String(i * 40)}>
+          <span class="micro num">0{i + 1}</span>
+          <h3>{item.title}</h3>
+          <p>{item.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section class="sec bt">
+  <div class="wrap">
+    <h2 class="home-h2" data-animate>{t.closing.heading}</h2>
+    <div class="closing-cta" data-animate>
+      <a class="pill-ink" href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">{t.closing.cta}</a>
+      <span class="micro">{t.closing.ctaNote}</span>
+    </div>
+  </div>
+</section>

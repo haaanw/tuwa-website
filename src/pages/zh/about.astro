@@ -1,0 +1,16 @@
+---
+import CJKLayout from '../../layouts/CJKLayout.astro';
+import AboutPage from '../../components/AboutPage.astro';
+import { useAboutTranslations } from '../../i18n/utils';
+import { organizationSchema } from '../../seo/schema';
+
+const t = useAboutTranslations('zh');
+const structuredData = [organizationSchema()];
+---
+<CJKLayout
+  title={t.meta.title}
+  description={t.meta.description}
+  structuredData={structuredData}
+>
+  <AboutPage locale="zh" />
+</CJKLayout>

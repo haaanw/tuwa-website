@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AboutPage from '../../components/AboutPage.astro';
+import { useAboutTranslations } from '../../i18n/utils';
+import { organizationSchema } from '../../seo/schema';
+
+const t = useAboutTranslations('fr');
+const structuredData = [organizationSchema()];
+---
+<BaseLayout
+  title={t.meta.title}
+  description={t.meta.description}
+  structuredData={structuredData}
+  locale="fr"
+>
+  <AboutPage locale="fr" />
+</BaseLayout>
