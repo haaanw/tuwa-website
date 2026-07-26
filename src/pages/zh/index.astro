@@ -1,23 +1,37 @@
 ---
-import { useTranslations } from '../../i18n/utils';
+import { useHomeTranslations } from '../../i18n/utils';
 import CJKLayout from '../../layouts/CJKLayout.astro';
-import Hero from '../../components/Hero.astro';
-import FeatureGrid from '../../components/FeatureGrid.astro';
-import StatsCounter from '../../components/StatsCounter.astro';
-import LandingCTA from '../../components/LandingCTA.astro';
-
+import HeroScrub from '../../components/home/HeroScrub.astro';
+import VocabMarquee from '../../components/home/VocabMarquee.astro';
+import StickyShowcase from '../../components/home/StickyShowcase.astro';
+import StrikeZoneScrub from '../../components/home/StrikeZoneScrub.astro';
+import StatsBand from '../../components/home/StatsBand.astro';
+import RecoveryQuote from '../../components/home/RecoveryQuote.astro';
+import LoggingFan from '../../components/home/LoggingFan.astro';
+import PrivacyClose from '../../components/home/PrivacyClose.astro';
 import { softwareApplicationSchema, organizationSchema } from '../../seo/schema';
 
-const t = useTranslations('zh');
+const t = useHomeTranslations('zh');
 const structuredData = [softwareApplicationSchema(t.meta.description), organizationSchema()];
 ---
 <CJKLayout
-  title="每一次训练都留在你的 strike zone"
+  title={t.meta.title}
   description={t.meta.description}
   structuredData={structuredData}
 >
-  <Hero locale="zh" />
-  <FeatureGrid locale="zh" />
-  <StatsCounter locale="zh" />
-  <LandingCTA locale="zh" />
+  <HeroScrub locale="zh" />
+  <VocabMarquee locale="zh" />
+  <StickyShowcase locale="zh" />
+  <StrikeZoneScrub locale="zh" />
+  <StatsBand locale="zh" />
+  <RecoveryQuote locale="zh" />
+  <LoggingFan locale="zh" />
+  <PrivacyClose locale="zh" />
+
+  <!-- Self-hosted Lottie runtime (classic script: executes before the deferred
+       homeMotion module below). No CDN URLs anywhere. -->
+  <script is:inline src="/vendor/lottie.min.js"></script>
+  <script>
+    import '../../scripts/homeMotion.ts';
+  </script>
 </CJKLayout>
