@@ -1,0 +1,58 @@
+---
+// Section 01 · today (demo-d): intro row with verdict Lottie well, then the
+// pinned 3-step phone showcase (verdict → strike zone → load) with the accent
+// progress rail. Motion lives in homeMotion.ts; no-JS shows the three plates
+// stacked with all steps visible.
+import { Image } from 'astro:assets';
+import verdictShot from '../../assets/screens-v16/verdict.png';
+import strikeZoneShot from '../../assets/screens-v16/strike-zone.png';
+import workloadShot from '../../assets/screens-v16/workload.png';
+---
+<section class="sec">
+  <div class="ghost num" data-ghost aria-hidden="true">01</div>
+  <div class="wrap">
+    <div class="intro-row">
+      <div class="sec-head">
+        <span class="micro" data-reveal>01 · today</span>
+        <h2 data-reveal>One decision, every day</h2>
+        <p data-reveal>Every session starts with a verdict: go, modify, or hold. Tuwa turns this morning's physiology and yesterday's load into concrete number adjustments — drop the top set five percent, cap the conditioning piece, or take the microdose option and keep the pattern without the cost.</p>
+      </div>
+      <div class="aside" data-reveal>
+        <div class="lottie-plate"><div data-lottie="/lottie/verdict-tick.json" aria-label="Animated verdict check mark with a calm pulse ring"></div></div>
+        <span class="micro lottie-cap">the verdict, drawn calm</span>
+        <p style="margin-top:16px">No chat, no interpretation homework. A verdict, the numbers behind it, and the session you actually meant to do.</p>
+      </div>
+    </div>
+  </div>
+  <div class="show-wrap" id="showWrap">
+    <div class="show-sticky">
+      <div class="wrap show-grid">
+        <div class="show-steps">
+          <div class="show-rail" aria-hidden="true"><div class="show-rail-fill" id="railFill"></div></div>
+          <ol>
+            <li class="step active" data-step="0">
+              <span class="micro num">01</span>
+              <h3>The verdict</h3>
+              <p>Go, modify or hold — with the exact number changes for today's session, computed from your readiness and where you sit in your plan.</p>
+            </li>
+            <li class="step" data-step="1">
+              <span class="micro num">02</span>
+              <h3>The strike zone</h3>
+              <p>A live view of your acute-to-chronic workload ratio, held inside the band where adaptation outpaces injury risk.</p>
+            </li>
+            <li class="step" data-step="2">
+              <span class="micro num">03</span>
+              <h3>The load trend</h3>
+              <p>One fatigue budget across sport skill, strength and conditioning — and where it is heading over the coming weeks.</p>
+            </li>
+          </ol>
+        </div>
+        <div class="show-stage" id="showStage">
+          <div class="plate shot active"><Image src={verdictShot} alt="Tuwa verdict screen: go / modify / hold with concrete number adjustments" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate shot"><Image src={strikeZoneShot} alt="Tuwa strike-zone bar showing acute-to-chronic workload ratio" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate shot"><Image src={workloadShot} alt="Tuwa training load chart with ACWR trend" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

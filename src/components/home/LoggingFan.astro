@@ -1,0 +1,26 @@
+---
+// Section 04 · logging (demo-d): the fanned 3-plate spread (movement bank /
+// active workout / workout log). The fan opens on scroll via --p; no-JS and
+// reduced-motion render the fan fully open (--p: 1 default).
+import { Image } from 'astro:assets';
+import movementBankShot from '../../assets/screens-v16/movement-bank.png';
+import activeWorkoutShot from '../../assets/screens-v16/active-workout.png';
+import workoutLogShot from '../../assets/screens-v16/workout-log.png';
+---
+<section class="sec sec-alt bt">
+  <div class="ghost ghost-left num" data-ghost aria-hidden="true">04</div>
+  <div class="wrap">
+    <div class="sec-head" style="margin-left:auto">
+      <span class="micro" data-reveal>04 · logging</span>
+      <h2 data-reveal>Log fast, between sets</h2>
+      <p data-reveal>A 1,324-exercise movement bank behind a search-first picker. Weight, reps, done — logging built for chalk-covered thumbs, so the record keeps up with the session instead of slowing it down.</p>
+    </div>
+    <div class="sec-body">
+      <div class="spread spread-3" data-spread>
+        <div class="plate" data-fan="l"><Image src={movementBankShot} alt="Tuwa movement bank: searchable 1,324-exercise catalog" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Tuwa active workout: live set logging" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        <div class="plate" data-fan="r"><Image src={workoutLogShot} alt="Tuwa workout log: session history" width={640} format="webp" loading="lazy" decoding="async" /></div>
+      </div>
+    </div>
+  </div>
+</section>

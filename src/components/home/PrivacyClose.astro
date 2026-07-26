@@ -1,0 +1,28 @@
+---
+// Section 05 · privacy + closing CTA (demo-d): debossed privacy well and the
+// closing ink pill. The nav pill hides while this CTA is on screen
+// (nav CTA discipline in homeMotion.ts).
+import { APP_STORE_URL } from '../../config';
+---
+<section class="sec bt" id="get">
+  <div class="ghost num" data-ghost aria-hidden="true">05</div>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro" data-reveal>05 · privacy</span>
+      <h2 data-reveal>Your data stays on your phone</h2>
+      <p data-reveal>Tuwa reads HealthKit — it never writes to it — and raw health data never leaves the device. Only composite scores sync.</p>
+    </div>
+    <div class="privacy-well" data-reveal>
+      <ul>
+        <li>HealthKit access is read-only</li>
+        <li>Raw HRV, sleep, and heart-rate samples stay on-device</li>
+        <li>Only composite scores sync to your account</li>
+        <li>Requires iOS 17 or later</li>
+      </ul>
+    </div>
+    <div class="closing-cta" data-reveal>
+      <a class="pill-ink" id="closeCta" href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">Download on the App Store</a>
+      <span class="micro">your plan, made safe and optimal</span>
+    </div>
+  </div>
+</section>

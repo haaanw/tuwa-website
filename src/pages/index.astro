@@ -1,9 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import FeatureGrid from '../components/FeatureGrid.astro';
-import StatsCounter from '../components/StatsCounter.astro';
-import LandingCTA from '../components/LandingCTA.astro';
+import HeroScrub from '../components/home/HeroScrub.astro';
+import VocabMarquee from '../components/home/VocabMarquee.astro';
+import StickyShowcase from '../components/home/StickyShowcase.astro';
+import StrikeZoneScrub from '../components/home/StrikeZoneScrub.astro';
+import StatsBand from '../components/home/StatsBand.astro';
+import RecoveryQuote from '../components/home/RecoveryQuote.astro';
+import LoggingFan from '../components/home/LoggingFan.astro';
+import PrivacyClose from '../components/home/PrivacyClose.astro';
 import { softwareApplicationSchema, organizationSchema } from '../seo/schema';
 
 const description = "Tuwa is the sports-science back room for self-coached basketball players who strength-train seriously.";
@@ -14,8 +18,19 @@ const structuredData = [softwareApplicationSchema(description), organizationSche
   description={description}
   structuredData={structuredData}
 >
-  <Hero />
-  <FeatureGrid />
-  <StatsCounter />
-  <LandingCTA />
+  <HeroScrub />
+  <VocabMarquee />
+  <StickyShowcase />
+  <StrikeZoneScrub />
+  <StatsBand />
+  <RecoveryQuote />
+  <LoggingFan />
+  <PrivacyClose />
+
+  <!-- Self-hosted Lottie runtime (classic script: executes before the deferred
+       homeMotion module below). No CDN URLs anywhere. -->
+  <script is:inline src="/vendor/lottie.min.js"></script>
+  <script>
+    import '../scripts/homeMotion.ts';
+  </script>
 </BaseLayout>

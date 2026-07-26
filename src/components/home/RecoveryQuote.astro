@@ -1,0 +1,25 @@
+---
+// Section 03 · recovery (demo-d): recovery plate + pull-quote with the accent
+// hairline draw-in (quote-rule scales in when the quote enters view).
+import { Image } from 'astro:assets';
+import recoveryShot from '../../assets/screens-v16/recovery.png';
+---
+<section class="sec bt">
+  <div class="ghost num" data-ghost aria-hidden="true">03</div>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro" data-reveal>03 · recovery</span>
+      <h2 data-reveal>Readiness you can read</h2>
+      <p data-reveal>Overnight HRV, sleep, and resting heart rate are scored against your own rolling baselines — not population norms — and compressed into one number with plain-language reasons. You don't get a dashboard to interpret. You get a score and the why.</p>
+    </div>
+    <div class="sec-body">
+      <div class="spread" data-spread>
+        <div class="plate" data-fan="c"><Image src={recoveryShot} alt="Tuwa recovery screen: HRV and sleep trends against personal baselines" width={640} format="webp" loading="lazy" decoding="async" /></div>
+      </div>
+      <div class="aside quote" data-quote>
+        <div class="quote-rule"></div>
+        <blockquote>The back room of a pro team — plan, physiology, and a decision — for athletes who coach themselves.</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
