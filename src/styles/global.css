@@ -1066,6 +1066,18 @@ header .btn-cta {
 
 /* ===== Polish round 2 — topic/long-form prose system ===== */
 
+/* Topic-page hero — class replaced inline styles in 73bd209 but the rule was never added */
+.topic-hero-with-art {
+  position: relative;
+  padding-top: var(--space-3xl);
+  padding-bottom: var(--space-2xl);
+}
+@media (min-width: 768px) {
+  .topic-hero-with-art {
+    padding-top: var(--space-section-desktop);
+  }
+}
+
 /* Magazine grid: subheading lives in a left rail, body in the reading column */
 .topic-grid {
   display: grid;
