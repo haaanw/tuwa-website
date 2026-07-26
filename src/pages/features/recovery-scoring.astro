@@ -1,176 +1,163 @@
 ---
-import FeaturePageLayout from '../../layouts/FeaturePageLayout.astro';
-import DeviceFrame from '../../components/DeviceFrame.astro';
-import RecoveryChart from '../../components/charts/RecoveryChart.astro';
-import recoveryScreenshot from '../../assets/screenshots/recovery.png';
+// Recovery scoring — readiness against personal baselines (Pavilion rebuild).
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FeatureFaq from '../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../seo/schema';
+import recoveryShot from '../../assets/screens-v16/recovery.png';
+
+const title = 'Recovery Scoring: Readiness You Can Read';
+const description =
+  'Overnight HRV, sleep, and resting heart rate are scored against your own rolling baselines — not population norms — and compressed into one readiness number with plain-language reasons.';
+
+const faqs = [
+  {
+    q: 'Which signals feed the score?',
+    a: 'Tuwa reads the physiology you already collect through HealthKit — HRV, resting heart rate, and sleep — and pairs it with a morning wellness check-in where you rate soreness, energy, and stress. Every signal is compared to your own recent trend, not a population norm.',
+  },
+  {
+    q: 'Why personal baselines instead of population norms?',
+    a: 'HRV numbers vary enormously between athletes. An athlete with a resting HRV of 45 ms is not less recovered than one at 80 ms — the question is whether your HRV today sits above or below your own recent trend.',
+  },
+  {
+    q: 'What if the numbers look fine but I feel wrecked?',
+    a: 'The morning check-in is where your subjective read enters the model: you rate soreness, energy, and stress, and those answers can override the physiology when, for example, you feel wrecked despite clean numbers.',
+  },
+  {
+    q: 'Does my raw health data leave my phone?',
+    a: 'No. Tuwa reads HealthKit — it never writes to it — and raw health data never leaves the device. Only composite scores sync.',
+  },
+  {
+    q: 'What does a low score actually change?',
+    a: 'Physiology is one part of the verdict, not the verdict itself. The planned session, match proximity, soreness, and recent training history give the signal training context — and the output is a go, modify, or hold suggestion for the session you planned.',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
 ---
-
-<FeaturePageLayout
-  shapeId="blob-3"
-  title="Daily Verdict"
-  description="A daily go, modify, or hold suggestion for your planned strength session, with an adjusted top-set number and a one-line reason."
+<BaseLayout
+  title={title}
+  description={description}
   ogImage="/og/recovery-scoring.png"
-  screenshot={recoveryScreenshot}
-  screenshotAlt="Tuwa app Insights recovery screen showing recovery score, HRV, resting heart rate, sleep, and recovery trend rows"
-  outcomeStatement="Go, modify, or hold — with the why"
-  hookLine="Tuwa turns HRV, sleep, resting heart rate, training history, soreness, and match proximity into a suggested adjustment for the lift you planned."
+  structuredData={structuredData}
 >
-
-  <!-- Sticky scroll showcase — ANIM-05 (D-05, D-06, D-07) -->
-  <section class="section-spaced">
-    <div class="sticky-showcase">
-
-      <!-- Left column: sticky device frame -->
-      <div class="sticky-device-col">
-        <div class="device-sticky-wrapper">
-          <DeviceFrame
-            src={recoveryScreenshot}
-            alt="Tuwa app Insights recovery screen showing recovery score, HRV, resting heart rate, sleep, and recovery trend rows"
-            loading="lazy"
-            widths={[320, 640]}
-          />
-          <!-- Step indicator dots — purely decorative -->
-          <div aria-hidden="true" style="display: flex; justify-content: center; gap: var(--space-sm); margin-top: var(--space-lg);">
-            <div class="step-dot is-active"></div>
-            <div class="step-dot"></div>
-            <div class="step-dot"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right column: scrolling step content -->
-      <div class="scroll-steps-col">
-
-        <!-- Step 1: Overview + Zones -->
-        <div class="scroll-step is-active" data-step="1" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
-          <h2 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
-            How it works
-          </h2>
-          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            Every morning, Tuwa reads the physiology you already collect through HealthKit: HRV, resting heart rate, and sleep. It pairs those signals with your training history, soreness, and match proximity, then evaluates the strength session you planned.
-          </p>
-          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            The output is intentionally practical: go, modify, or hold, plus an adjusted top-set number and a one-line reason. For example: "Match Saturday — cap the top set, skip back-offs." You see the suggestion before warmups, while the session can still change.
-          </p>
-          <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-            Three verdicts, athlete-controlled
-          </h3>
-          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            Go means the planned dose still fits the day. Modify means keep the session but trim the dose: cap RPE, reduce load, or microdose near a game. Hold means Tuwa sees enough fatigue context to suggest delaying the hard part. None of these is a command; the athlete confirms the call.
-          </p>
-        </div>
-
-        <!-- Step 2: Device Compatibility -->
-        <div class="scroll-step" data-step="2" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
-          <h3 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
-            HealthKit physiology, your basketball context
-          </h3>
-          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            Tuwa uses the HealthKit signals available to the app — HRV, resting heart rate, and sleep — then adds what a wearable score usually misses: the plan you wrote, the lift you are about to run, and whether your last court session was pickup, scrimmage, or match intensity.
-          </p>
-        </div>
-
-        <!-- Step 3: Personal Baseline -->
-        <div class="scroll-step" data-step="3" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
-          <h3 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
-            The strike zone moves daily
-          </h3>
-          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            HRV numbers vary enormously between athletes. What matters is whether your signals are above or below your own recent trend, and how that trend intersects with today's planned lift. Tuwa uses that context to move the day's strike zone before you load the bar.
-          </p>
-        </div>
-
+  <!-- Hero -->
+  <section class="sec feat-hero">
+    <div class="ghost num" data-ghost aria-hidden="true">82</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>recovery</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">Readiness you can read</h1>
+        <p class="feat-lead" data-animate data-animate-delay="120">
+          Overnight HRV, sleep, and resting heart rate are scored against your own
+          rolling baselines — not population norms — and compressed into one number
+          with plain-language reasons. You don't get a dashboard to interpret. You
+          get a score and the why.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: The science behind it -->
-  <section
-    style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
-  >
-    <div
-      class="section-spaced mx-auto max-w-3xl px-6"
-    >
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        The science behind it
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Heart rate variability is the variation in time between consecutive heartbeats, measured in milliseconds. A perfectly metronomic heartbeat — every interval exactly the same — is actually a sign of stress. Healthy hearts show subtle beat-to-beat variation because they're responding to signals from the autonomic nervous system, which balances the sympathetic (fight-or-flight) and parasympathetic (rest-and-digest) branches.
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        When you're well-recovered, parasympathetic activity is dominant and HRV is higher. When you're stressed, fatigued, or fighting off illness, sympathetic tone increases and HRV drops. This is why HRV has become one of the most researched biomarkers in sports science over the past two decades — it's a window into your nervous system's current state.
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        But HRV is also noisy. A poor night's sleep, a late game, or an unusually early alarm can affect a single measurement. That is why Tuwa treats physiology as one part of the verdict, not the verdict itself. The planned session, match proximity, soreness, and recent training history give the signal training context.
-      </p>
-
-      <RecoveryChart />
+  <!-- How it works — personal baselines -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>how it works</span>
+        <h2 data-animate>Your baseline, not the crowd's</h2>
+        <p data-animate>
+          Each morning, Tuwa pulls overnight physiological data from Apple HealthKit
+          and combines it with a short wellness check-in to produce a single
+          readiness number between 0 and 100. The inputs are not treated equally,
+          and none of them is judged against a population norm — every signal is
+          compared to your own recent trend.
+        </p>
+        <p data-animate data-animate-delay="80">
+          HRV numbers vary enormously between athletes. What matters is whether your
+          signals are above or below your own recent trend, and how that trend
+          intersects with today's planned lift.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread" data-spread>
+          <div class="plate" data-fan="c"><Image src={recoveryShot} alt="Tuwa recovery screen: HRV and sleep trends against personal baselines" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+        <div class="aside quote" data-animate data-quote>
+          <div class="quote-rule"></div>
+          <blockquote>
+            A score of 62 is never just a number: your HRV is tracking 8% below your
+            recent baseline, your sleep ran short, but your resting heart rate is
+            normal.
+          </blockquote>
+          <p style="margin-top:16px">You see the reasoning, not just the verdict.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-</FeaturePageLayout>
+  <!-- The honest blend -->
+  <section class="sec bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>the honest blend</span>
+        <h2 data-animate>Physiology, blended with how you feel</h2>
+        <p data-animate>
+          The morning wellness check-in — where you rate soreness, energy, and
+          stress — adds the context no wearable can measure. Those answers can
+          override the physiology when, for example, you feel wrecked despite clean
+          numbers.
+        </p>
+        <p data-animate data-animate-delay="80">
+          HRV is also noisy. A poor night's sleep, a late game, or an unusually
+          early alarm can affect a single measurement — which is exactly why Tuwa
+          tracks trends rather than reacting to individual data points. Physiology
+          is one part of the verdict, not the verdict itself.
+        </p>
+      </div>
+    </div>
+  </section>
 
-<script is:inline>
-  /* StickyScrollController — scoped to recovery-scoring.astro only */
-  /* Separate observer from global AnimationController (different threshold, continuous observation) */
-  (function () {
-    var steps = document.querySelectorAll('.scroll-step');
-    var dots = document.querySelectorAll('.step-dot');
-    if (!steps.length) return;
-    var ticking = false;
+  <!-- The science behind it -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>the science</span>
+        <h2 data-animate>Why HRV carries the most weight</h2>
+        <p data-animate>
+          Heart rate variability is the variation in time between consecutive
+          heartbeats, measured in milliseconds. A perfectly metronomic heartbeat —
+          every interval exactly the same — is actually a sign of stress. Healthy
+          hearts show subtle beat-to-beat variation because they're responding to
+          signals from the autonomic nervous system, which balances the sympathetic
+          (fight-or-flight) and parasympathetic (rest-and-digest) branches.
+        </p>
+        <p data-animate data-animate-delay="80">
+          When you're well-recovered, parasympathetic activity is dominant and HRV
+          is higher. When you're stressed, fatigued, or fighting off illness,
+          sympathetic tone increases and HRV drops. This is why HRV has become one
+          of the most researched biomarkers in sports science over the past two
+          decades — it's a window into your nervous system's current state.
+        </p>
+      </div>
+    </div>
+  </section>
 
-    function setActive(step) {
-      var stepNum = step.getAttribute('data-step');
-      steps.forEach(function (s) { s.classList.toggle('is-active', s === step); });
-      dots.forEach(function (d, i) {
-        d.classList.toggle('is-active', String(i + 1) === stepNum);
-      });
-    }
+  <FeatureFaq heading="Common questions" faqs={faqs} />
 
-    function updateActiveStep() {
-      ticking = false;
-      var viewportCenter = window.innerHeight / 2;
-      var bestStep = steps[0];
-      var bestDistance = Infinity;
-      steps.forEach(function (step) {
-        var rect = step.getBoundingClientRect();
-        var visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-        if (visibleHeight <= 0) return;
-        var stepCenter = rect.top + rect.height / 2;
-        var distance = Math.abs(stepCenter - viewportCenter);
-        if (distance < bestDistance) {
-          bestDistance = distance;
-          bestStep = step;
-        }
-      });
-      setActive(bestStep);
-    }
+  <FeatureClosing
+    heading="A score and the why"
+    body="Download Tuwa to bring your own plan, check today's verdict, and adjust the top set before you train."
+    ctaNote="iOS 17+ · iPhone"
+    related={[
+      { label: 'The daily verdict', href: '/features/verdict' },
+      { label: 'Workload tracking', href: '/features/workload-tracking' },
+      { label: 'Starting out', href: '/features/cold-start' },
+      { label: 'Readiness score explained', href: '/readiness-score' },
+      { label: 'Methodology', href: '/methodology' },
+    ]}
+  />
 
-    function requestUpdate() {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(updateActiveStep);
-    }
-
-    var observer = new IntersectionObserver(requestUpdate, {
-      threshold: [0, 0.25, 0.5, 0.75, 1],
-      rootMargin: '-12% 0px -12% 0px',
-    });
-
-    steps.forEach(function (el) { observer.observe(el); });
-    window.addEventListener('resize', requestUpdate);
-    requestUpdate();
-  })();
-</script>
+  <script>
+    import '../../scripts/featureMotion.ts';
+  </script>
+</BaseLayout>

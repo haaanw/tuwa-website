@@ -56,6 +56,25 @@ interface LottiePlayer {
     }
   } catch (e) { /* noop */ }
 
+  /* pull-quote accent rule — same .in contract as homeMotion's quote observer */
+  try {
+    const quoteEls = Array.prototype.slice.call(document.querySelectorAll('[data-quote]')) as HTMLElement[];
+    if (quoteEls.length) {
+      if (RM || typeof IntersectionObserver === 'undefined') {
+        quoteEls.forEach((el) => { el.classList.add('in'); });
+      } else {
+        const qio = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('in');
+            qio.unobserve(entry.target);
+          });
+        }, { threshold: 0.2, rootMargin: '0px 0px -5% 0px' });
+        quoteEls.forEach((el) => { qio.observe(el); });
+      }
+    }
+  } catch (e) { /* noop */ }
+
   /* lottie — self-hosted vendor file, pause off-screen, static frame when reduced */
   try {
     const lottie = (window as unknown as { lottie?: LottiePlayer }).lottie;
