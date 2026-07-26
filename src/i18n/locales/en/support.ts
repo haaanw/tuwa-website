@@ -9,7 +9,15 @@ const support = {
     title: 'Support',
     description: 'Get help with Tuwa — Training Load & Recovery app.',
   },
-  faqHeading: 'Frequently Asked Questions',
+  hero: {
+    kicker: 'support',
+    promise: 'Straight answers to common questions — and a real person on the other end of the email.',
+  },
+  requirements: {
+    label: 'app requirements',
+    value: 'iOS 17+ · iPhone',
+  },
+  faqHeading: 'Frequently asked questions',
   faq: [
     {
       q: 'How does Tuwa calculate my recovery score?',
@@ -41,6 +49,7 @@ const support = {
     },
   ] as const,
   contact: {
+    emailLabel: 'email',
     heading: 'Contact us',
     subtext: "Can't find what you're looking for? We're here to help.",
     buttonLabel: 'Contact Support',

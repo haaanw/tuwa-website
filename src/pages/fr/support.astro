@@ -1,28 +1,10 @@
 ---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SupportPage from '../../components/SupportPage.astro';
 import { useSupportTranslations } from '../../i18n/utils';
-import LegalPageLayout from '../../layouts/LegalPageLayout.astro';
-import FaqAccordion from '../../components/FaqAccordion.astro';
 
 const t = useSupportTranslations('fr');
 ---
-
-<LegalPageLayout title={t.meta.title} description={t.meta.description} locale="fr">
-  <FaqAccordion locale="fr" />
-
-  <section style="margin-top: var(--space-2xl);">
-    <h2 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1);">
-      {t.contact.heading}
-    </h2>
-    <p style="margin-top: var(--space-md); color: var(--color-text-2); line-height: var(--leading-body);">
-      {t.contact.subtext}
-    </p>
-    <p style="margin-top: var(--space-md);">
-      <a href="mailto:hanwenma09@gmail.com" style="display: inline-flex; align-items: center; gap: var(--space-sm); padding: var(--space-sm) var(--space-md); background-color: transparent; color: var(--color-accent); border: 1px solid var(--color-accent); border-radius: 0; text-decoration: none; font-weight: var(--weight-label); min-height: 44px;">
-        {t.contact.buttonLabel}
-      </a>
-    </p>
-    <p style="margin-top: var(--space-sm); font-size: var(--text-label); color: var(--color-text-3);">
-      {t.contact.responseTime}
-    </p>
-  </section>
-</LegalPageLayout>
+<BaseLayout title={t.meta.title} description={t.meta.description} locale="fr">
+  <SupportPage locale="fr" />
+</BaseLayout>

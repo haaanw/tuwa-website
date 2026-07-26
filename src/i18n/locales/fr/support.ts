@@ -5,6 +5,14 @@ const support: Support = {
     title: 'Support',
     description: 'Obtiens de l\'aide avec Tuwa — application de gestion de la charge d\'entraînement et de la récupération.',
   },
+  hero: {
+    kicker: 'support',
+    promise: "Des réponses directes aux questions fréquentes — et une vraie personne au bout de l'e-mail.",
+  },
+  requirements: {
+    label: 'configuration requise',
+    value: 'iOS 17+ · iPhone',
+  },
   faqHeading: 'Questions fréquentes',
   faq: [
     {
@@ -37,6 +45,7 @@ const support: Support = {
     },
   ],
   contact: {
+    emailLabel: 'e-mail',
     heading: 'Nous contacter',
     subtext: 'Tu ne trouves pas ce que tu cherches ? Nous sommes là pour t\'aider.',
     buttonLabel: 'Contacter le support',

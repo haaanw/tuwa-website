@@ -5,6 +5,14 @@ const support: Support = {
     title: '支持',
     description: '获取 Tuwa——训练负荷与恢复管理应用的帮助。',
   },
+  hero: {
+    kicker: '支持',
+    promise: '常见问题的直接回答——邮件那头也是真人。',
+  },
+  requirements: {
+    label: '系统要求',
+    value: 'iOS 17+ · iPhone',
+  },
   faqHeading: '常见问题',
   faq: [
     {
@@ -37,6 +45,7 @@ const support: Support = {
     },
   ],
   contact: {
+    emailLabel: '邮箱',
     heading: '联系我们',
     subtext: '没找到您需要的答案？我们随时为您提供帮助。',
     buttonLabel: '联系客服',
