@@ -1,4 +1,7 @@
 ---
+// Demo-d one-line footer, extended with the site's page links and the
+// language switcher in quiet micro type (the minimal header carries no nav,
+// so the footer is the canonical navigation surface).
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { APP_STORE_URL } from '../config';
 import { useTranslations } from '../i18n/utils';
@@ -9,83 +12,83 @@ interface Props {
 const { locale = 'en' } = Astro.props;
 const year = new Date().getFullYear();
 const t = useTranslations(locale as 'en' | 'zh' | 'fr');
+
+// Path-preserving locale switch (moved here from the old header nav)
+const rawPath = Astro.url.pathname;
+const knownLocales = ['en', 'zh', 'fr'];
+const pathSegments = rawPath.split('/');
+const pathWithoutLocale = knownLocales.includes(pathSegments[1])
+  ? '/' + pathSegments.slice(2).join('/')
+  : rawPath;
+
+const LOCALES = [
+  { code: 'en', label: t.nav.languageSwitcher.en },
+  { code: 'zh', label: t.nav.languageSwitcher.zh },
+  { code: 'fr', label: t.nav.languageSwitcher.fr },
+] as const;
+
+const ENGLISH_ONLY_PATH_PREFIXES = [
+  '/strength-readiness-calculator',
+  '/weekly-training-review-template',
+  '/apple-watch-training-load-for-lifters',
+  '/guides/',
+  '/comparisons/',
+];
+const isEnglishOnlyPath = ENGLISH_ONLY_PATH_PREFIXES.some((prefix) =>
+  rawPath === prefix || rawPath.startsWith(prefix)
+);
+const availableLocales = isEnglishOnlyPath ? LOCALES.filter(({ code }) => code === 'en') : LOCALES;
+const showLanguageSwitcher = availableLocales.length > 1;
+
+const TAGLINE: Record<string, string> = {
+  en: 'it never writes your program',
+  zh: '它从不替你写训练计划',
+  fr: 'il n’écrit jamais votre programme',
+};
+const tagline = TAGLINE[locale] ?? TAGLINE.en;
 ---
-<footer style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider);">
-  <div class="mx-auto max-w-6xl px-6" style="padding-top: var(--space-2xl); padding-bottom: var(--space-xl);">
-    <nav aria-label="Footer navigation">
-      <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
-
-        <!-- Brand column with App Store badge -->
-        <div class="col-span-2 md:col-span-1">
-          <a href={getRelativeLocaleUrl(locale, '/')} aria-label="Tuwa home" class="inline-block" style="font-size: var(--text-heading); font-weight: var(--weight-label); color: var(--color-text-1); letter-spacing: var(--tracking-heading);">
-            Tuwa
-          </a>
-          <div style="margin-top: var(--space-lg);">
-            <a
-              href={APP_STORE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Download Tuwa on the App Store"
-              class="app-store-badge"
-            >
-              <img
-                src="/badges/app-store-badge.svg"
-                alt="Download on the App Store"
-                height="40"
-                width="120"
-                loading="lazy"
-              />
-            </a>
-          </div>
-        </div>
-
-        <!-- Features column -->
-        <div>
-          <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">{t.footer.features}</p>
-          <ul role="list" class="space-y-2" style="color: var(--color-text-2);">
-            <li><a href={getRelativeLocaleUrl(locale, '/features/smart-templates')} class="nav-link" style="color: var(--color-text-2);">{t.nav.featuresDropdown.smartTemplatesTitle}</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/features/workload-tracking')} class="nav-link" style="color: var(--color-text-2);">{t.nav.featuresDropdown.workloadTrackingTitle}</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/features/recovery-scoring')} class="nav-link" style="color: var(--color-text-2);">{t.nav.featuresDropdown.recoveryScoringTitle}</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/training-load')} class="nav-link" style="color: var(--color-text-2);">{t.nav.featuresDropdown.backRoomTitle}</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/features/cold-start')} class="nav-link" style="color: var(--color-text-2);">{t.nav.featuresDropdown.coldStartTitle}</a></li>
-          </ul>
-        </div>
-
-        <!-- Resources column -->
-        <div>
-          <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">{t.footer.resources}</p>
-          <ul role="list" class="space-y-2" style="color: var(--color-text-2);">
-            <li><a href={getRelativeLocaleUrl(locale, '/methodology')} class="nav-link" style="color: var(--color-text-2);">{t.footer.methodology}</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/readiness-score')} class="nav-link" style="color: var(--color-text-2);">{t.footer.readinessScore}</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/training-load')} class="nav-link" style="color: var(--color-text-2);">{t.footer.trainingLoad}</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/compare')} class="nav-link" style="color: var(--color-text-2);">{t.footer.compare}</a></li>
-            {locale === 'en' && (
-              <>
-                <li><a href="/strength-readiness-calculator" class="nav-link" style="color: var(--color-text-2);">Readiness Calculator</a></li>
-                <li><a href="/apple-watch-training-load-for-lifters" class="nav-link" style="color: var(--color-text-2);">Apple Watch for Lifters</a></li>
-                <li><a href="/guides/hrv-for-strength-training" class="nav-link" style="color: var(--color-text-2);">HRV for Strength</a></li>
-              </>
-            )}
-          </ul>
-        </div>
-
-        <!-- More column — help + legal -->
-        <div>
-          <p style="color: var(--color-text-1); font-weight: var(--weight-body); margin-bottom: var(--space-sm);">{t.footer.more}</p>
-          <ul role="list" class="space-y-2" style="color: var(--color-text-2);">
-            <li><a href={getRelativeLocaleUrl(locale, '/blog')} class="nav-link" style="color: var(--color-text-2);">{t.nav.blog}</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/support')} class="nav-link" style="color: var(--color-text-2);">{t.nav.support}</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/privacy')} class="nav-link" style="color: var(--color-text-2);">{t.footer.privacy}</a></li>
-            <li><a href={getRelativeLocaleUrl(locale, '/terms')} class="nav-link" style="color: var(--color-text-2);">{t.footer.terms}</a></li>
-          </ul>
-        </div>
-
-      </div>
+<footer class="site-footer">
+  <div class="wrap micro">
+    <nav class="f-row" aria-label="Footer navigation">
+      <a href={getRelativeLocaleUrl(locale, '/features/smart-templates')}>{t.nav.featuresDropdown.smartTemplatesTitle}</a>
+      <a href={getRelativeLocaleUrl(locale, '/features/workload-tracking')}>{t.nav.featuresDropdown.workloadTrackingTitle}</a>
+      <a href={getRelativeLocaleUrl(locale, '/features/recovery-scoring')}>{t.nav.featuresDropdown.recoveryScoringTitle}</a>
+      <a href={getRelativeLocaleUrl(locale, '/features/cold-start')}>{t.nav.featuresDropdown.coldStartTitle}</a>
+      <a href={getRelativeLocaleUrl(locale, '/methodology')}>{t.footer.methodology}</a>
+      <a href={getRelativeLocaleUrl(locale, '/readiness-score')}>{t.footer.readinessScore}</a>
+      <a href={getRelativeLocaleUrl(locale, '/training-load')}>{t.footer.trainingLoad}</a>
+      <a href={getRelativeLocaleUrl(locale, '/compare')}>{t.footer.compare}</a>
+      {locale === 'en' && (
+        <>
+          <a href="/strength-readiness-calculator">Readiness calculator</a>
+          <a href="/apple-watch-training-load-for-lifters">Apple Watch for lifters</a>
+          <a href="/guides/hrv-for-strength-training">HRV for strength</a>
+        </>
+      )}
+      <a href={getRelativeLocaleUrl(locale, '/blog')}>{t.nav.blog}</a>
+      <a href={getRelativeLocaleUrl(locale, '/support')}>{t.nav.support}</a>
+      <a href={getRelativeLocaleUrl(locale, '/privacy')}>{t.footer.privacy}</a>
+      <a href={getRelativeLocaleUrl(locale, '/terms')}>{t.footer.terms}</a>
+      <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">{t.nav.getApp}</a>
     </nav>
-
-    <!-- Copyright -->
-    <p style="margin-top: var(--space-2xl); color: var(--color-text-3); font-size: var(--text-label);">
-      {t.footer.copyright.replace('{year}', String(year))}
-    </p>
+    {showLanguageSwitcher && (
+      <nav class="f-row" aria-label={t.nav.languageSwitcher.label}>
+        {availableLocales.map(({ code, label }) => (
+          <a
+            href={getRelativeLocaleUrl(code, pathWithoutLocale)}
+            aria-current={code === locale ? 'true' : undefined}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+    )}
+    <div class="f-row">
+      <span>{t.footer.copyright.replace('{year}', String(year))}</span>
+      <span class="f-tick" aria-hidden="true"></span>
+      <span>iOS 17+</span>
+      <span class="f-tick" aria-hidden="true"></span>
+      <span>{tagline}</span>
+    </div>
   </div>
 </footer>
