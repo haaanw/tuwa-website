@@ -17,11 +17,11 @@ const support: Support = {
   faq: [
     {
       q: 'Comment Tuwa calcule-t-il mon score de récupération ?',
-      a: 'Tuwa synthétise des données de plusieurs sources — HRV, fréquence cardiaque au repos, durée du sommeil, température corporelle et ton bilan de forme matinal — en un score de préparation quotidien. Chaque facteur est pondéré selon sa fiabilité et ta base personnelle, avec des explications en langage clair sur ce qui a influencé le score.',
+      a: 'Tuwa synthétise la VFC, la fréquence cardiaque au repos, la durée du sommeil et ton bilan de forme matinal en un signal de forme quotidien. Chaque facteur est pondéré selon sa fiabilité et ta référence personnelle, avec des explications en langage clair qui soutiennent le verdict go, modify ou hold de l\'app.',
     },
     {
       q: 'Tuwa fonctionne-t-il sans Apple Watch ?',
-      a: 'Oui. Bien que Tuwa lise les données HRV, fréquence cardiaque et sommeil depuis HealthKit (fournis par Apple Watch, Whoop, Oura et Garmin), tu peux quand même enregistrer tes entraînements, suivre ta charge et utiliser les bilans de forme sans aucun appareil connecté. La précision du score de récupération s\'améliore avec les données HealthKit, mais ce n\'est pas obligatoire.',
+      a: 'Oui. Bien que Tuwa lise les données de VFC, fréquence cardiaque et sommeil depuis HealthKit (fournis par Apple Watch, Whoop, Oura et Garmin), tu peux quand même enregistrer tes entraînements, suivre ta charge et utiliser les bilans de forme sans aucun appareil connecté. La précision du score de récupération s\'améliore avec les données HealthKit, mais ce n\'est pas obligatoire.',
     },
     {
       q: 'Comment mes données de santé sont-elles stockées et protégées ?',
@@ -33,11 +33,11 @@ const support: Support = {
     },
     {
       q: 'Qu\'est-ce que l\'ACWR et pourquoi est-ce important ?',
-      a: 'L\'ACWR est le ratio charge aiguë/chronique (Acute:Chronic Workload Ratio). Il compare ta charge d\'entraînement récente (7 derniers jours) à ta moyenne à long terme (28 derniers jours). Quand ce ratio dépasse les seuils sûrs, le risque de blessure augmente. Tuwa le surveille en continu et t\'alerte quand une séance te ferait entrer dans une zone dangereuse.',
+      a: 'L\'ACWR est le ratio de charge aiguë sur chronique (Acute:Chronic Workload Ratio). Il compare ta charge d\'entraînement récente à une moyenne de plus long terme. Tuwa le traite comme du contexte de charge, pas comme une prédiction de blessure : la charge récente et les signaux de pic sont affichés avant l\'entraînement, pour que tu puisses revoir le volume, l\'intensité ou le timing avec les dernières données enregistrées en tête.',
     },
     {
       q: 'Combien de temps avant que Tuwa ait assez de données pour donner des scores fiables ?',
-      a: 'Tuwa commence à fournir des conseils utiles dès le premier jour en utilisant les bases de la population et tes bilans de forme. Au fur et à mesure que tu enregistres des séances et synchronises les données HealthKit, les scores deviennent de plus en plus personnalisés. Après environ 7 jours, ton score de récupération reflète tes patterns individuels plutôt que les moyennes de la population.',
+      a: 'Tuwa commence par mettre en place ton profil d\'entraînement, puis construit à partir de tes bilans de forme, de tes séances enregistrées et des données HealthKit que tu autorises. Avec peu d\'historique de récupération, l\'app reste prudente au lieu de s\'appuyer sur des références de population. À mesure que les données réelles s\'accumulent, les scores deviennent de plus en plus personnels.',
     },
     {
       q: 'Comment contacter le support ou signaler un bug ?',
