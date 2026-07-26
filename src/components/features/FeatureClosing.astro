@@ -1,0 +1,36 @@
+---
+// Pavilion feature-page closing — the page's one ink CTA plus a quiet
+// related-pages row. #closeCta pairs with featureMotion.ts, which hides the
+// header pill while this one is on screen (one ink pill per screenful).
+import { APP_STORE_URL } from '../../config';
+
+interface Props {
+  heading: string;
+  body?: string;
+  ctaNote: string;
+  related: ReadonlyArray<{ label: string; href: string }>;
+}
+const { heading, body, ctaNote, related } = Astro.props;
+---
+<section class="sec bt">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-animate>{heading}</h2>
+      {body && <p data-animate>{body}</p>}
+    </div>
+    <div class="closing-cta" data-animate>
+      <a class="pill-ink" id="closeCta" href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
+        Download on the App Store
+      </a>
+      <span class="micro">{ctaNote}</span>
+    </div>
+    <nav class="related-row micro" aria-label="Related pages">
+      {related.map((link, i) => (
+        <>
+          {i > 0 && <span class="f-tick" aria-hidden="true"></span>}
+          <a href={link.href}>{link.label}</a>
+        </>
+      ))}
+    </nav>
+  </div>
+</section>

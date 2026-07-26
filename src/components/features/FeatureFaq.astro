@@ -1,0 +1,26 @@
+---
+// Pavilion feature-page FAQ — hairline details list. The matching FAQPage
+// JSON-LD is emitted by the page via BaseLayout's structuredData prop
+// (seo/schema.ts faqPageSchema), so this component renders markup only.
+interface Props {
+  heading: string;
+  faqs: ReadonlyArray<{ q: string; a: string }>;
+}
+const { heading, faqs } = Astro.props;
+---
+<section class="sec bt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro" data-animate>faq</span>
+      <h2 data-animate>{heading}</h2>
+    </div>
+    <div class="faq-list" data-animate>
+      {faqs.map(({ q, a }) => (
+        <details class="faq-item">
+          <summary>{q}</summary>
+          <p class="faq-answer">{a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
