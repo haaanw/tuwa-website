@@ -1,105 +1,136 @@
 ---
-import { useSmartTemplatesTranslations } from '../../i18n/utils';
-import FeaturePageLayout from '../../layouts/FeaturePageLayout.astro';
-import activeWorkoutScreenshot from '../../assets/screenshots/active-workout.png';
+// Logging, templates & the movement bank (Pavilion rebuild — slug kept).
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FeatureFaq from '../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../seo/schema';
+import workoutLogShot from '../../assets/screens-v16/workout-log.png';
+import activeWorkoutShot from '../../assets/screens-v16/active-workout.png';
+import movementBankShot from '../../assets/screens-v16/movement-bank.png';
 
-const t = useSmartTemplatesTranslations('en');
+const title = 'Logging, Templates & the Movement Bank';
+const description =
+  'Fast in-gym logging, templates that carry your own plan, and a 1,324-exercise search-first movement bank — so the record keeps up with the session.';
+
+const faqs = [
+  {
+    q: 'How big is the movement bank?',
+    a: 'A 1,324-exercise movement bank behind a search-first picker. Find the movement, log the set, get back to the bar.',
+  },
+  {
+    q: 'What can a template carry?',
+    a: 'Each session can carry target sets, rep ranges, planned top-set weight, RPE caps, and notes — the strength sessions you already believe in, structured enough for the day’s adjustment to be specific.',
+  },
+  {
+    q: 'Does Tuwa generate workouts for me?',
+    a: 'No. No chat coach, no generated program. Tuwa is the sports-science back room for the plan you authored — it sits between planning and execution.',
+  },
+  {
+    q: 'How fast is logging mid-session?',
+    a: 'Weight, reps, done — logging built for chalk-covered thumbs, so the record keeps up with the session instead of slowing it down.',
+  },
+  {
+    q: 'How does the log connect to the daily verdict?',
+    a: 'Actual work is recorded beside the target: set, reps, load, RPE, and reps in reserve. That planned-versus-actual trail is what lets Tuwa connect your own programming to the next readiness verdict.',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
 ---
-
-<FeaturePageLayout
-  shapeId="blob-4"
-  title={t.meta.title}
-  description={t.meta.description}
+<BaseLayout
+  title={title}
+  description={description}
   ogImage="/og/smart-templates.png"
-  screenshot={activeWorkoutScreenshot}
-  screenshotAlt={t.hero.screenshotAlt}
-  outcomeStatement={t.hero.outcomeStatement}
-  hookLine={t.hero.hookLine}
+  structuredData={structuredData}
 >
-
-  <!-- Section 1: How it works -->
-  <section data-animate class="section-spaced">
-    <div class="mx-auto max-w-3xl px-6">
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        {t.howItWorks.heading}
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p1}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.prescriptionToExecutionHeading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p2}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p3}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.autoregulationHeading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p4}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.connectHeading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p5}
-      </p>
+  <!-- Hero -->
+  <section class="sec feat-hero">
+    <div class="ghost num" data-ghost aria-hidden="true">1,324</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>logging</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">Log fast, between sets</h1>
+        <p class="feat-lead" data-animate data-animate-delay="120">
+          A 1,324-exercise movement bank behind a search-first picker. Weight, reps,
+          done — logging built for chalk-covered thumbs, so the record keeps up with
+          the session instead of slowing it down.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Section 2: Built for real programming -->
-  <section
-    data-animate
-    style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
-  >
-    <div
-      class="section-spaced mx-auto max-w-3xl px-6"
-    >
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        {t.realProgramming.heading}
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.realProgramming.p1}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.realProgramming.p2}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.realProgramming.p3}
-      </p>
+  <!-- The three surfaces -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>how it works</span>
+        <h2 data-animate>Plan, log, and history in one place</h2>
+        <p data-animate>
+          Build the strength sessions you already believe in: lower-body strength
+          after skill work, upper-body lifts between pickup nights, or a simple
+          two-day template around your league schedule. Each session can carry
+          target sets, rep ranges, planned top-set weight, RPE caps, and notes.
+        </p>
+        <p data-animate data-animate-delay="80">
+          Actual work is recorded beside the target: set, reps, load, RPE, and reps
+          in reserve. That planned-versus-actual trail is what lets Tuwa connect
+          your own programming to the next readiness verdict.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread spread-3" data-spread>
+          <div class="plate" data-fan="l"><Image src={movementBankShot} alt="Tuwa movement bank: searchable 1,324-exercise catalog" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Tuwa active workout: live set logging" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="r"><Image src={workoutLogShot} alt="Tuwa workout log: session history" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+      </div>
     </div>
   </section>
 
-</FeaturePageLayout>
+  <!-- Templates feed the decision -->
+  <section class="sec bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>your plan stays yours</span>
+        <h2 data-animate>Structure the plan, keep the authorship</h2>
+        <p data-animate>
+          When you open the planned session, Tuwa has enough structure to answer the
+          only useful question: is this still the right dose today? The app can
+          suggest the planned top set, an adjusted number, or a capped microdose
+          without inventing a different workout.
+        </p>
+        <p data-animate data-animate-delay="80">
+          No chat coach, no generated program. Use Tuwa as the sports-science back
+          room for the plan you authored. It sits between planning and execution:
+          quiet enough for the weight room, structured enough to make the day's
+          adjustment specific.
+        </p>
+        <p data-animate data-animate-delay="160">
+          Templates persist over time, so you can review how actual lifting moved
+          against the plan — and Tuwa tracks personal records and session history so
+          the back-room view is not only about caution.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FeatureFaq heading="Common questions" faqs={faqs} />
+
+  <FeatureClosing
+    heading="Keep your plan. Adjust the day."
+    body="Download Tuwa to bring your own plan, check today's verdict, and adjust the top set before you train."
+    ctaNote="iOS 17+ · iPhone"
+    related={[
+      { label: 'The daily verdict', href: '/features/verdict' },
+      { label: 'Workload tracking', href: '/features/workload-tracking' },
+      { label: 'Recovery scoring', href: '/features/recovery-scoring' },
+      { label: 'Starting out', href: '/features/cold-start' },
+      { label: 'Compare Tuwa', href: '/compare' },
+    ]}
+  />
+
+  <script>
+    import '../../scripts/featureMotion.ts';
+  </script>
+</BaseLayout>
