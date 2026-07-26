@@ -1,105 +1,186 @@
 ---
-import FeaturePageLayout from '../../layouts/FeaturePageLayout.astro';
-import AcwrChart from '../../components/charts/AcwrChart.astro';
-import workloadScreenshot from '../../assets/screenshots/workload.png';
+// Workload tracking — one fatigue budget (Pavilion rebuild).
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FeatureFaq from '../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../seo/schema';
+import workloadShot from '../../assets/screens-v16/workload.png';
+import dashboardShot from '../../assets/screens-v16/dashboard.png';
+
+const title = 'Workload Tracking: One Fatigue Budget';
+const description =
+  'Sport skill, strength, and conditioning drain the same tank. Tuwa tracks them as one load — acute against chronic — and keeps the ratio inside the ACWR strike zone.';
+
+const faqs = [
+  {
+    q: 'What counts toward the fatigue budget?',
+    a: 'Every lift you log carries exercise, sets, reps, load, RPE, and reps in reserve. Basketball work gets its own context through match tier logging, so a casual pickup run does not count the same as a full match. Sport skill, strength, and conditioning are tracked as one load.',
+  },
+  {
+    q: 'What is the ACWR strike zone?',
+    a: "The acute:chronic workload ratio compares the last seven days of load to the last four weeks. Tuwa's job is to keep it inside the strike zone — roughly 0.8 to 1.3. Below the range, you may be doing much less than your recent base; above it, the current week may be asking for a bigger jump than your recent training supports.",
+  },
+  {
+    q: 'Does the ratio predict injury?',
+    a: 'No. The ACWR framework describes population-level workload associations, not individual guarantees or predictions; it informs decisions, it does not make them for you. Tuwa treats the target range as planning context, not a universal safety rule.',
+  },
+  {
+    q: 'Why moving averages instead of weekly totals?',
+    a: 'Tuwa computes loads with exponentially weighted moving averages, so recent sessions matter more than older ones. That keeps the load model responsive to a week with two games and a heavy lower-body day instead of anchoring the verdict to stale work.',
+  },
+  {
+    q: 'Is the load view only about caution?',
+    a: 'No. Tuwa tracks personal records and session history so the back-room view is not only about caution. If the verdict says go, you can train hard with the week in view. If it says modify, you still know what stimulus you preserved.',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
 ---
-
-<FeaturePageLayout
-  shapeId="blob-5"
-  title="Lift + Match Logging"
-  description="Log lifting work and basketball match tier together so Tuwa can separate leg fatigue from upper-body readiness."
+<BaseLayout
+  title={title}
+  description={description}
   ogImage="/og/workload-tracking.png"
-  screenshot={workloadScreenshot}
-  screenshotAlt="Tuwa app Insights load screen showing load score, acute load, chronic load, training stress balance, and daily volume rows"
-  outcomeStatement="Last night's game matters to today's squat"
-  hookLine="Tuwa connects sets, reps, load, RPE, RIR, and match tier so the verdict can say: legs down, bench still fine."
+  structuredData={structuredData}
 >
-
-  <!-- Section 1: How it works -->
-  <section data-animate class="section-spaced">
-    <div class="mx-auto max-w-3xl px-6">
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        How it works
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Every lift you log in Tuwa carries the details that matter for a readiness verdict: exercise, sets, reps, load, RPE, and reps in reserve. Basketball work gets its own context through match tier logging, so a casual pickup run does not count the same as a full match.
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        Cross-modal fatigue
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        A whole-body wearable score can tell you that you are generally recovered or generally strained. It cannot say the useful thing for a basketball player who lifts: last night's game hammered your legs, today's squat readiness is down, and your bench is fine.
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Tuwa can make that distinction because the plan and the log are in the same system. The court session, lower-body soreness, recent leg volume, and planned squat top set are evaluated together before the verdict is shown.
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        RPE and RIR keep the dose honest
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        RPE tells you how hard a set felt. Reps in reserve (RIR) tells you how close to failure you were. Together they let Tuwa suggest a smaller top set or fewer back-off sets without pretending the entire training day has to vanish.
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        Progress still matters
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Tuwa tracks personal records and session history so the back-room view is not only about caution. If the verdict says go, you can train hard with the week in view. If it says modify, you still know what stimulus you preserved.
-      </p>
+  <!-- Hero -->
+  <section class="sec feat-hero">
+    <div class="ghost num" data-ghost aria-hidden="true">1.3</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>training load</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">One fatigue budget</h1>
+        <p class="feat-lead" data-animate data-animate-delay="120">
+          Sport skill, strength, and conditioning drain the same tank. Tuwa tracks
+          them as one load — acute against chronic — and keeps the ratio inside the
+          strike zone. When the trend points at overreach, you see it days before
+          you feel it.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Section 2: The science behind it -->
-  <section
-    data-animate
-    style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
-  >
-    <div
-      class="section-spaced mx-auto max-w-3xl px-6"
-    >
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        The science behind it
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        The acute-to-chronic workload idea compares recent workload with a longer baseline. The useful product lesson is not that one ratio predicts an injury. It is that sudden changes deserve attention before you add another hard lift.
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Tuwa uses exponentially weighted moving averages so recent sessions matter more than older ones. That keeps the load model responsive to a week with two games and a heavy lower-body day instead of anchoring the verdict to stale work.
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Tuwa treats the target range as planning context, not a universal safety rule. Below the range, you may be doing much less than your recent base. Above it, the current week may be asking for a bigger jump than your recent training supports. The chart below shows how this ratio evolves across a representative training cycle.
-      </p>
-
-      <AcwrChart />
+  <!-- How it works — the ledger + the needle -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>how it works</span>
+        <h2 data-animate>Every session lands in one ledger</h2>
+        <p data-animate>
+          Every lift you log in Tuwa carries the details that matter for a readiness
+          verdict: exercise, sets, reps, load, RPE, and reps in reserve. Basketball
+          work gets its own context through match tier logging, so a casual pickup
+          run does not count the same as a full match.
+        </p>
+        <p data-animate data-animate-delay="80">
+          Tuwa uses exponentially weighted moving averages so recent sessions matter
+          more than older ones. That keeps the load model responsive to a week with
+          two games and a heavy lower-body day instead of anchoring the verdict to
+          stale work.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread" data-spread>
+          <div class="plate" data-fan="l"><Image src={dashboardShot} alt="Tuwa dashboard: hero readiness card scoring 82 with metrics" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={workloadShot} alt="Tuwa training load chart with ACWR trend" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+        <div class="aside" data-animate>
+          <div class="lottie-well"><div data-lottie="/lottie/needle-sweep.json" aria-label="Animated readiness gauge with a travertine needle sweeping the tick arc"></div></div>
+          <span class="micro lottie-cap">readiness, measured</span>
+          <p style="margin-top:16px">
+            The needle is fed by your history, not a population average. Same input,
+            same answer — the engine is deterministic.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
-</FeaturePageLayout>
+  <!-- The strike zone -->
+  <section class="sec bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>acute : chronic workload ratio</span>
+        <h2 data-animate>The strike zone</h2>
+        <p data-animate>
+          The ratio compares the last seven days of load to the last four weeks.
+          Tuwa's job is to keep it inside the strike zone. Below the range, you may
+          be doing much less than your recent base. Above it, the current week may be
+          asking for a bigger jump than your recent training supports.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="aside" data-animate>
+          <div class="privacy-well" style="margin-top:0">
+            <ul>
+              <li>Under 0.8 — undertraining, room to build</li>
+              <li>0.8–1.3 — in the strike zone</li>
+              <li>1.3–1.5 — caution, trending hot</li>
+              <li>Over 1.5 — danger, overreach risk</li>
+            </ul>
+          </div>
+          <p class="zone-foot" data-animate>
+            Zone names are always written out — colour is supplementary, never the
+            message.
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="80">
+          <p>
+            Tuwa treats the target range as planning context, not a universal safety
+            rule. The acute-to-chronic workload idea compares recent workload with a
+            longer baseline; the useful product lesson is not that one ratio predicts
+            an injury. It is that sudden changes deserve attention before you add
+            another hard lift.
+          </p>
+          <p style="margin-top:16px">
+            One fatigue budget across sport skill, strength and conditioning — and
+            where it is heading over the coming weeks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-modal context -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>cross-modal fatigue</span>
+        <h2 data-animate>Last night's game matters to today's squat</h2>
+        <p data-animate>
+          A whole-body wearable score can tell you that you are generally recovered
+          or generally strained. It cannot say the useful thing for a basketball
+          player who lifts: last night's game hammered your legs, today's squat
+          readiness is down, and your bench is fine.
+        </p>
+        <p data-animate data-animate-delay="80">
+          Tuwa can make that distinction because the plan and the log are in the same
+          system. The court session, lower-body soreness, recent leg volume, and
+          planned squat top set are evaluated together before the verdict is shown.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FeatureFaq heading="Common questions" faqs={faqs} />
+
+  <FeatureClosing
+    heading="Stay in your strike zone"
+    body="Download Tuwa to bring your own plan, check today's verdict, and adjust the top set before you train."
+    ctaNote="iOS 17+ · iPhone"
+    related={[
+      { label: 'The daily verdict', href: '/features/verdict' },
+      { label: 'Recovery scoring', href: '/features/recovery-scoring' },
+      { label: 'Logging & movement bank', href: '/features/smart-templates' },
+      { label: 'Training load explained', href: '/training-load' },
+      { label: 'Methodology', href: '/methodology' },
+    ]}
+  />
+
+  <!-- Self-hosted Lottie runtime (classic script: executes before the deferred
+       featureMotion module below). No CDN URLs anywhere. -->
+  <script is:inline src="/vendor/lottie.min.js"></script>
+  <script>
+    import '../../scripts/featureMotion.ts';
+  </script>
+</BaseLayout>
