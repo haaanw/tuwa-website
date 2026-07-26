@@ -41,7 +41,7 @@ const support: Support = {
     },
     {
       q: 'Comment contacter le support ou signaler un bug ?',
-      a: 'Envoie-nous un e-mail à hanwenma09@gmail.com. Nous répondons généralement sous 48 heures. Inclus le modèle de ton appareil et la version iOS quand tu signales un bug pour nous aider à investiguer plus rapidement.',
+      a: 'Envoie-nous un e-mail à support@tuwa.app. Nous répondons généralement sous 48 heures. Inclus le modèle de ton appareil et la version iOS quand tu signales un bug pour nous aider à investiguer plus rapidement.',
     },
   ],
   contact: {

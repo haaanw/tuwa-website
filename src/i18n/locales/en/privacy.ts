@@ -120,7 +120,7 @@ const privacy = {
     heading: 'Contact',
     intro: 'For privacy questions or data deletion requests:',
     emailLabel: 'Email',
-    email: 'hanwenma09@gmail.com',
+    email: 'support@tuwa.app',
   },
 } as const;
 

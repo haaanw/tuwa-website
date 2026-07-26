@@ -90,7 +90,7 @@ const terms = {
     heading: '11. Contact',
     intro: 'For questions about these Terms:',
     emailLabel: 'Email',
-    email: 'hanwenma09@gmail.com',
+    email: 'support@tuwa.app',
   },
 } as const;
 

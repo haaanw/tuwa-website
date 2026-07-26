@@ -86,7 +86,7 @@ const terms: Terms = {
     heading: '11. Contact',
     intro: 'Pour toute question concernant ces Conditions :',
     emailLabel: 'E-mail',
-    email: 'hanwenma09@gmail.com',
+    email: 'support@tuwa.app',
   },
 };
 

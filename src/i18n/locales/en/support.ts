@@ -45,7 +45,7 @@ const support = {
     },
     {
       q: 'How do I contact support or report a bug?',
-      a: 'Email us at hanwenma09@gmail.com. We typically respond within 48 hours. Include your device model and iOS version when reporting bugs to help us investigate faster.',
+      a: 'Email us at support@tuwa.app. We typically respond within 48 hours. Include your device model and iOS version when reporting bugs to help us investigate faster.',
     },
   ] as const,
   contact: {

@@ -116,7 +116,7 @@ const privacy: Privacy = {
     heading: 'Contact',
     intro: 'Pour toute question relative à la confidentialité ou demande de suppression de données :',
     emailLabel: 'E-mail',
-    email: 'hanwenma09@gmail.com',
+    email: 'support@tuwa.app',
   },
 };
 
