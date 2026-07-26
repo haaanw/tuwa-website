@@ -40,12 +40,6 @@ const isEnglishOnlyPath = ENGLISH_ONLY_PATH_PREFIXES.some((prefix) =>
 const availableLocales = isEnglishOnlyPath ? LOCALES.filter(({ code }) => code === 'en') : LOCALES;
 const showLanguageSwitcher = availableLocales.length > 1;
 
-const TAGLINE: Record<string, string> = {
-  en: 'it never writes your program',
-  zh: '它从不替你写训练计划',
-  fr: 'il n’écrit jamais votre programme',
-};
-const tagline = TAGLINE[locale] ?? TAGLINE.en;
 ---
 <footer class="site-footer">
   <div class="wrap micro">
@@ -89,8 +83,6 @@ const tagline = TAGLINE[locale] ?? TAGLINE.en;
       <span>{t.footer.copyright.replace('{year}', String(year))}</span>
       <span class="f-tick" aria-hidden="true"></span>
       <span>iOS 17+</span>
-      <span class="f-tick" aria-hidden="true"></span>
-      <span>{tagline}</span>
     </div>
   </div>
 </footer>
