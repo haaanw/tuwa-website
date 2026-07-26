@@ -85,6 +85,7 @@ const nextDelay = () => `${Math.min(revealIndex++ * 40, 320)}ms`;
   aria-modal="true"
   aria-label={t.drawer.ariaLabel}
   aria-hidden="true"
+  data-lenis-prevent
 >
   <div class="nav-drawer-top">
     <a class="wordmark" href={getRelativeLocaleUrl(locale, '/')} aria-label="Tuwa home">Tuwa</a>
