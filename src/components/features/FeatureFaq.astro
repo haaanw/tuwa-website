@@ -14,11 +14,11 @@ const { heading, faqs } = Astro.props;
       <span class="micro" data-animate>faq</span>
       <h2 data-animate>{heading}</h2>
     </div>
-    <div class="faq-list" data-animate>
+    <div class="feat-faq-list" data-animate>
       {faqs.map(({ q, a }) => (
-        <details class="faq-item">
+        <details class="feat-faq-item">
           <summary>{q}</summary>
-          <p class="faq-answer">{a}</p>
+          <p class="feat-faq-answer">{a}</p>
         </details>
       ))}
     </div>

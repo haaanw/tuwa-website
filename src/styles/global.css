@@ -2586,10 +2586,11 @@ html:not(.motion) .scroll-cue { display: none; }
 }
 .lottie-well > div { width: 100%; height: 100%; }
 
-/* faq — hairline list, quiet plus/minus marker */
-.faq-list { margin-top: 48px; max-width: 720px; border-top: 1px solid var(--color-divider); }
-.faq-item { border-bottom: 1px solid var(--color-divider); }
-.faq-item summary {
+/* faq — hairline list, quiet plus/minus marker (feat-faq-* namespace so the
+   support page's scoped FaqAccordion .faq-* classes are never touched) */
+.feat-faq-list { margin-top: 48px; max-width: 720px; border-top: 1px solid var(--color-divider); }
+.feat-faq-item { border-bottom: 1px solid var(--color-divider); }
+.feat-faq-item summary {
   list-style: none;
   cursor: pointer;
   padding: 24px 0;
@@ -2602,16 +2603,16 @@ html:not(.motion) .scroll-cue { display: none; }
   font-weight: var(--weight-label);
   color: var(--color-text-1);
 }
-.faq-item summary::marker,
-.faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary::after {
+.feat-faq-item summary::marker,
+.feat-faq-item summary::-webkit-details-marker { display: none; }
+.feat-faq-item summary::after {
   content: '+';
   flex: none;
   color: var(--color-text-3);
   font-weight: var(--weight-body);
 }
-.faq-item[open] summary::after { content: '\2212'; }
-.faq-item .faq-answer {
+.feat-faq-item[open] summary::after { content: '\2212'; }
+.feat-faq-item .feat-faq-answer {
   padding-bottom: 24px;
   font-size: var(--text-body);
   line-height: 1.6;
