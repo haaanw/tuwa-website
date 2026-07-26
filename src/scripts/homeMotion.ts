@@ -153,9 +153,11 @@ interface LottieAnim {
     const mq = document.getElementById('marquee');
     const mqBtn = document.getElementById('mqPause');
     if (mq && mqBtn && !RM) {
+      const pauseLabel = mqBtn.getAttribute('data-label-pause') || 'pause';
+      const playLabel = mqBtn.getAttribute('data-label-play') || 'play';
       mqBtn.addEventListener('click', () => {
         const paused = mq.classList.toggle('paused');
-        mqBtn.textContent = paused ? 'play' : 'pause';
+        mqBtn.textContent = paused ? playLabel : pauseLabel;
         mqBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
       });
     }
@@ -279,11 +281,24 @@ interface LottieAnim {
         barW = bar.getBoundingClientRect().width || 1;
       });
       needle.style.left = '0';
+      /* zone labels come from the locale copy via data-zones (EN fallback) */
+      let zoneTexts = [
+        'Undertraining — room to build',
+        'In the strike zone',
+        'Trending hot — time to modify',
+        'Overreach risk — hold'
+      ];
+      try {
+        const parsed = JSON.parse(label.getAttribute('data-zones') || '');
+        if (Array.isArray(parsed) && parsed.length === 4 && parsed.every((z) => typeof z === 'string')) {
+          zoneTexts = parsed;
+        }
+      } catch (e) { /* noop — keep EN fallback */ }
       const zones = [
-        { txt: 'Undertraining — room to build', cls: 'zl0' },
-        { txt: 'In the strike zone',            cls: 'zl1' },
-        { txt: 'Trending hot — time to modify', cls: 'zl2' },
-        { txt: 'Overreach risk — hold',         cls: 'zl3' }
+        { txt: zoneTexts[0], cls: 'zl0' },
+        { txt: zoneTexts[1], cls: 'zl1' },
+        { txt: zoneTexts[2], cls: 'zl2' },
+        { txt: zoneTexts[3], cls: 'zl3' }
       ];
       let curZ = -1;
       scenes.push({ el: wrap, p: -1, fn: (p) => {

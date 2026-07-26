@@ -2,26 +2,36 @@
 // Section 02 · training load (demo-d): pinned ACWR strike-zone bar scrub
 // (0.40 → 1.45) with live zone-label rewrite and value chip, then the
 // dashboard plate + needle-sweep Lottie well. Final values (1.45, needle at
-// 80.8%, "trending hot" label) are baked in markup for no-JS/reduced-motion.
+// 80.8%, zone label 2) are baked in markup for no-JS/reduced-motion.
+// Copy comes from the per-locale home module (defaults to EN for index.astro).
+// data-zones carries the four live zone labels for homeMotion.ts.
 import { Image } from 'astro:assets';
 import dashboardShot from '../../assets/screens-v16/dashboard.png';
+import { useHomeTranslations, type Locale } from '../../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale).zoneScrub;
+const legendClasses = ['zleg-low', 'zleg-opt', 'zleg-caut', 'zleg-dang'];
 ---
 <section class="sec sec-alt bt">
   <div class="ghost ghost-left num" data-ghost aria-hidden="true">02</div>
   <div class="wrap">
     <div class="sec-head" style="margin-left:auto">
-      <span class="micro" data-reveal>02 · training load</span>
-      <h2 data-reveal>One fatigue budget</h2>
-      <p data-reveal>Sport skill, strength, and conditioning drain the same tank. Tuwa tracks them as one load — acute against chronic — and keeps the ratio inside the strike zone. When the trend points at overreach, you see it days before you feel it.</p>
+      <span class="micro" data-reveal>{t.kicker}</span>
+      <h2 data-reveal>{t.heading}</h2>
+      <p data-reveal>{t.body}</p>
     </div>
   </div>
   <div class="zone-wrap" id="zoneWrap">
     <div class="zone-sticky">
       <div class="wrap">
         <div class="zone-head">
-          <span class="micro">acute : chronic workload ratio</span>
-          <h3 class="zone-label zl2 num" id="zoneLabel">Trending hot — time to modify</h3>
-          <p class="zone-copy">The ratio compares the last seven days of load to the last four weeks. Tuwa's job is to keep it inside the strike zone.</p>
+          <span class="micro">{t.barMicro}</span>
+          <h3 class="zone-label zl2 num" id="zoneLabel" data-zones={JSON.stringify(t.zoneLabels)}>{t.zoneLabels[2]}</h3>
+          <p class="zone-copy">{t.zoneCopy}</p>
         </div>
         <div class="zone-bar" id="zoneBar">
           <div class="zseg zseg-low"></div>
@@ -34,24 +44,23 @@ import dashboardShot from '../../assets/screens-v16/dashboard.png';
           </div>
         </div>
         <div class="zone-legend" aria-hidden="true">
-          <span class="zleg-low"><span class="micro">under 0.8 — undertraining</span></span>
-          <span class="zleg-opt"><span class="micro">0.8–1.3 — strike zone</span></span>
-          <span class="zleg-caut"><span class="micro">1.3–1.5 — caution</span></span>
-          <span class="zleg-dang"><span class="micro">over 1.5 — danger</span></span>
+          {t.legend.map((item, i) => (
+            <span class={legendClasses[i]}><span class="micro">{item}</span></span>
+          ))}
         </div>
-        <p class="zone-foot">Zone names are always written out — colour is supplementary, never the message.</p>
+        <p class="zone-foot">{t.foot}</p>
       </div>
     </div>
   </div>
   <div class="wrap">
     <div class="sec-body">
       <div class="spread" data-spread>
-        <div class="plate" data-fan="c"><Image src={dashboardShot} alt="Tuwa dashboard: hero readiness card scoring 82 with metrics" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        <div class="plate" data-fan="c"><Image src={dashboardShot} alt={t.dashboardAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
       </div>
       <div class="aside" data-reveal>
-        <div class="lottie-plate"><div data-lottie="/lottie/needle-sweep.json" aria-label="Animated readiness gauge with a travertine needle sweeping the tick arc"></div></div>
-        <span class="micro lottie-cap">readiness, measured</span>
-        <p style="margin-top:16px">The needle is fed by your history, not a population average. Same input, same answer — the engine is deterministic.</p>
+        <div class="lottie-plate"><div data-lottie="/lottie/needle-sweep.json" aria-label={t.lottieAria}></div></div>
+        <span class="micro lottie-cap">{t.lottieCaption}</span>
+        <p style="margin-top:16px">{t.aside}</p>
       </div>
     </div>
   </div>

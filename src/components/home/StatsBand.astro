@@ -1,22 +1,30 @@
 ---
 // Stats band (demo-d): 1,324 / 82 / 7 count-ups. Markup carries the final
 // values; homeMotion.ts plays the count once on entry (skipped under
-// reduced motion / no JS).
+// reduced motion / no JS). Numbers are identical across locales; only the
+// labels come from the per-locale home module (defaults to EN).
+import { useHomeTranslations, type Locale } from '../../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale).statsBand;
 ---
-<section class="stats" aria-label="Key numbers">
+<section class="stats" aria-label={t.sectionAria}>
   <div class="wrap">
     <div class="stats-grid">
       <div class="stat" data-reveal>
         <span class="n num" data-count="1324" data-comma="1">1,324</span>
-        <span class="micro">exercises in the movement bank</span>
+        <span class="micro">{t.labels[0]}</span>
       </div>
       <div class="stat" data-reveal>
         <span class="n num" data-count="82">82</span>
-        <span class="micro">readiness, scored every morning</span>
+        <span class="micro">{t.labels[1]}</span>
       </div>
       <div class="stat" data-reveal>
         <span class="n num" data-count="7">7</span>
-        <span class="micro">days of load forecast</span>
+        <span class="micro">{t.labels[2]}</span>
       </div>
     </div>
   </div>

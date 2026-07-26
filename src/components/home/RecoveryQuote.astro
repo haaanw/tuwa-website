@@ -1,24 +1,32 @@
 ---
 // Section 03 · recovery (demo-d): recovery plate + pull-quote with the accent
 // hairline draw-in (quote-rule scales in when the quote enters view).
+// Copy comes from the per-locale home module (defaults to EN for index.astro).
 import { Image } from 'astro:assets';
 import recoveryShot from '../../assets/screens-v16/recovery.png';
+import { useHomeTranslations, type Locale } from '../../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale).recovery;
 ---
 <section class="sec bt">
   <div class="ghost num" data-ghost aria-hidden="true">03</div>
   <div class="wrap">
     <div class="sec-head">
-      <span class="micro" data-reveal>03 · recovery</span>
-      <h2 data-reveal>Readiness you can read</h2>
-      <p data-reveal>Overnight HRV, sleep, and resting heart rate are scored against your own rolling baselines — not population norms — and compressed into one number with plain-language reasons. You don't get a dashboard to interpret. You get a score and the why.</p>
+      <span class="micro" data-reveal>{t.kicker}</span>
+      <h2 data-reveal>{t.heading}</h2>
+      <p data-reveal>{t.body}</p>
     </div>
     <div class="sec-body">
       <div class="spread" data-spread>
-        <div class="plate" data-fan="c"><Image src={recoveryShot} alt="Tuwa recovery screen: HRV and sleep trends against personal baselines" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        <div class="plate" data-fan="c"><Image src={recoveryShot} alt={t.shotAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
       </div>
       <div class="aside quote" data-quote>
         <div class="quote-rule"></div>
-        <blockquote>The back room of a pro team — plan, physiology, and a decision — for athletes who coach themselves.</blockquote>
+        <blockquote>{t.quote}</blockquote>
       </div>
     </div>
   </div>

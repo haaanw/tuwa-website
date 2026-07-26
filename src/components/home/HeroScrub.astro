@@ -2,14 +2,22 @@
 // Pavilion homepage hero (demo-d): pinned scrub 0→82 with tick-rail needle.
 // Final values (82, needle at 82%) are baked in markup — no-JS and
 // reduced-motion users see the finished state.
+// Copy comes from the per-locale home module (defaults to EN for index.astro).
 import { APP_STORE_URL } from '../../config';
+import { useHomeTranslations, type Locale } from '../../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale).heroScrub;
 ---
-<section class="hero-wrap" id="heroWrap" aria-label="Tuwa — your plan, made safe and optimal">
+<section class="hero-wrap" id="heroWrap" aria-label={t.sectionAria}>
   <div class="hero-sticky">
     <div class="wrap hero-grid">
-      <div class="hero-score" aria-label="Readiness score 82">
+      <div class="hero-score" aria-label={t.scoreAria}>
         <span class="hero-score-n num" id="heroScore">82</span>
-        <span class="micro">readiness today</span>
+        <span class="micro">{t.scoreCaption}</span>
         <div class="score-rail" id="heroRail" aria-hidden="true">
           <span class="rail-needle" id="heroNeedle" style="left:82%"></span>
         </div>
@@ -19,19 +27,19 @@ import { APP_STORE_URL } from '../../config';
         </div>
       </div>
       <h1 class="hero-h1 lines" id="heroLines">
-        <span class="line-mask"><span>Your plan.</span></span>
-        <span class="line-mask"><span>Made safe</span></span>
-        <span class="line-mask"><span>and optimal.</span></span>
+        {t.lines.map((line) => (
+          <span class="line-mask"><span>{line}</span></span>
+        ))}
       </h1>
       <div class="hero-copy">
-        <p class="lead" data-reveal>Tuwa is the sports-science back room for self-coached athletes. It reads your body — HRV, sleep, resting heart rate, training history — and modulates the plan you authored: today's numbers, a go / modify / hold verdict, and where your load is trending. It never writes your program.</p>
-        <p class="sub" data-reveal>Built for athletes who train sport skill and strength in parallel.</p>
+        <p class="lead" data-reveal>{t.lead}</p>
+        <p class="sub" data-reveal>{t.sub}</p>
         <div class="hero-cta" id="heroCtaRow">
-          <a class="pill-ink" id="heroCta" href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">Download on the App Store</a>
-          <span class="micro">iOS 17+ · iPhone</span>
+          <a class="pill-ink" id="heroCta" href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">{t.cta}</a>
+          <span class="micro">{t.ctaNote}</span>
         </div>
       </div>
     </div>
-    <div class="scroll-cue" id="scrollCue"><span class="micro">scroll</span></div>
+    <div class="scroll-cue" id="scrollCue"><span class="micro">{t.scrollCue}</span></div>
   </div>
 </section>
