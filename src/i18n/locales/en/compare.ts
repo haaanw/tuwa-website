@@ -77,9 +77,10 @@ const content: TopicPageContent = {
   related: {
     heading: 'Go deeper',
     links: [
-      { label: 'Daily verdict', href: '/features/recovery-scoring' },
-      { label: 'Lift + match logging', href: '/features/workload-tracking' },
-      { label: 'Your plan input', href: '/features/smart-templates' },
+      { label: 'The daily verdict', href: '/features/verdict' },
+      { label: 'Recovery scoring', href: '/features/recovery-scoring' },
+      { label: 'Workload tracking', href: '/features/workload-tracking' },
+      { label: 'Logging & movement bank', href: '/features/smart-templates' },
     ],
   },
 };

@@ -64,6 +64,10 @@ const content: TopicPageContent = {
     "heading": "Go deeper",
     "links": [
       {
+        "label": "The daily verdict",
+        "href": "/features/verdict"
+      },
+      {
         "label": "Recovery scoring",
         "href": "/features/recovery-scoring"
       },

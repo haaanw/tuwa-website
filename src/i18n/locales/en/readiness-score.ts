@@ -58,6 +58,10 @@ const content: TopicPageContent = {
         "href": "/features/recovery-scoring"
       },
       {
+        "label": "The daily verdict in the app",
+        "href": "/features/verdict"
+      },
+      {
         "label": "The methodology behind Tuwa",
         "href": "/methodology"
       },

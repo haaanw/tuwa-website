@@ -50,6 +50,9 @@ const tagline = TAGLINE[locale] ?? TAGLINE.en;
 <footer class="site-footer">
   <div class="wrap micro">
     <nav class="f-row" aria-label="Footer navigation">
+      {locale === 'en' && (
+        <a href="/features/verdict">{t.drawer.verdict}</a>
+      )}
       <a href={getRelativeLocaleUrl(locale, '/features/smart-templates')}>{t.nav.featuresDropdown.smartTemplatesTitle}</a>
       <a href={getRelativeLocaleUrl(locale, '/features/workload-tracking')}>{t.nav.featuresDropdown.workloadTrackingTitle}</a>
       <a href={getRelativeLocaleUrl(locale, '/features/recovery-scoring')}>{t.nav.featuresDropdown.recoveryScoringTitle}</a>

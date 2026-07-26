@@ -128,6 +128,7 @@ const coreRelated = [
   { label: 'Use the strength readiness calculator', url: '/strength-readiness-calculator' },
   { label: 'Apple Watch training load for lifters', url: '/apple-watch-training-load-for-lifters' },
   { label: 'How to adjust training when HRV is low', url: '/guides/how-to-adjust-training-when-hrv-is-low' },
+  { label: 'The daily verdict in Tuwa', url: '/features/verdict' },
 ];
 
 function guidePage(config: {

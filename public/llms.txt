@@ -11,10 +11,11 @@
 - On-device privacy: raw HealthKit data stays on-device.
 
 ## Features
-- [Daily Verdict](https://tuwa.app/features/recovery-scoring): go, modify, or hold suggestion with an adjusted top-set number and reason.
-- [Lift + Match Logging](https://tuwa.app/features/workload-tracking): sets, reps, load, RPE, RIR, match tier, and cross-modal fatigue context.
-- [Your Plan Input](https://tuwa.app/features/smart-templates): the athlete's own planned session with targets, caps, notes, and top-set intent.
-- [Cold-Start Onboarding](https://tuwa.app/features/cold-start): useful guidance from day one, no baseline wait.
+- [The Daily Verdict](https://tuwa.app/features/verdict): go, modify, or hold suggestion with an adjusted top-set number and a one-line reason.
+- [Workload Tracking](https://tuwa.app/features/workload-tracking): one fatigue budget across sport skill, strength, and conditioning, with the ACWR strike zone.
+- [Recovery Scoring](https://tuwa.app/features/recovery-scoring): HRV, sleep, and resting heart rate scored against personal baselines, with plain-language reasons.
+- [Logging, Templates & the Movement Bank](https://tuwa.app/features/smart-templates): fast in-gym logging, templates with targets and RPE caps, and a 1,324-exercise search-first movement bank.
+- [Cold-Start Onboarding](https://tuwa.app/features/cold-start): honest setup from day one — workload builds from the first logged session, readiness stays conservative until real data exists.
 - [Back-Room Review](https://tuwa.app/training-load): workload, recovery, match proximity, and progress review.
 
 ## Topics
