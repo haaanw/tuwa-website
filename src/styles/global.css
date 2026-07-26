@@ -1813,7 +1813,7 @@ html:not(.js-enabled) .feature-loop {
 
 /* ---------- hero: pinned scrub 0→82 with tick rail ---------- */
 .hero-wrap { position: relative; }
-:where(html.motion) .hero-wrap { height: 220vh; }
+:where(html.motion) .hero-wrap { height: 170vh; }
 .hero-sticky {
   position: relative;
   padding: clamp(144px, 16vw, 200px) 0 clamp(96px, 12vw, 128px);
@@ -2124,7 +2124,7 @@ html:not(.motion) .scroll-cue { display: none; }
 
 /* ---------- pinned phone showcase ---------- */
 .show-wrap { position: relative; z-index: 1; }
-:where(html.motion) .show-wrap { height: 340vh; }
+:where(html.motion) .show-wrap { height: 250vh; }
 .show-sticky { padding: 40px 0; }
 :where(html.motion) .show-sticky {
   position: sticky;
@@ -2207,7 +2207,7 @@ html:not(.motion) .scroll-cue { display: none; }
 
 /* ---------- pinned strike-zone scrub ---------- */
 .zone-wrap { position: relative; z-index: 1; }
-:where(html.motion) .zone-wrap { height: 220vh; }
+:where(html.motion) .zone-wrap { height: 170vh; }
 .zone-sticky { padding: 32px 0; }
 :where(html.motion) .zone-sticky {
   position: sticky;
