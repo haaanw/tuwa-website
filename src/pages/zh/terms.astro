@@ -65,6 +65,14 @@ const t = useTermsTranslations('zh');
   <h2>{t.changes.heading}</h2>
   <p>{t.changes.p1}</p>
 
+  <h2>{t.appStore.heading}</h2>
+  <p>{t.appStore.p1}</p>
+  <ul>
+    {t.appStore.items.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
+
   <h2>{t.contact.heading}</h2>
   <p>{t.contact.intro}</p>
   <p><strong>{t.contact.emailLabel}：</strong><a href={`mailto:${t.contact.email}`}>{t.contact.email}</a></p>

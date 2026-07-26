@@ -3,7 +3,7 @@ import type { Terms } from '../en/terms';
 const terms: Terms = {
   meta: {
     title: '服务条款',
-    lastUpdated: '2026年4月10日',
+    lastUpdated: '2026年7月26日',
     description: 'Tuwa——训练负荷与恢复管理应用的服务条款。',
   },
   disclaimer: {
@@ -27,11 +27,11 @@ const terms: Terms = {
   },
   subscriptions: {
     heading: '3. 订阅',
-    p1: 'Tuwa 提供免费和付费订阅方案（运动员专业版）。付费订阅通过 Apple App Store 计费，并由 RevenueCat 管理。',
+    p1: 'Tuwa 提供免费方案与付费自动续期订阅 Tuwa Pro。可选订阅时长及其价格会在购买前于应用内及 App Store 产品页面显示。付费订阅通过 Apple App Store 计费，并由 RevenueCat 管理。',
     items: [
       {
         label: '计费',
-        description: '订阅将自动续期，除非您在当前周期结束前至少 24 小时取消。',
+        description: '确认购买时，费用将从您的 Apple 账户扣除。订阅将按相同价格与相同时长自动续期，除非您在当前周期结束前至少 24 小时取消；续期费用将在当前周期结束前 24 小时内扣除。',
       },
       {
         label: '取消',
@@ -82,8 +82,22 @@ const terms: Terms = {
     heading: '10. 条款变更',
     p1: '我们可能会不时更新本条款。变更内容将连同更新日期一并发布至本页面。在变更后继续使用本应用即视为接受变更。',
   },
+  appStore: {
+    heading: '11. Apple App Store 条款',
+    p1: 'Tuwa 通过 Apple App Store 分发。以下条款适用于该分发方式；如与上文任何内容冲突，以以下条款为准：',
+    items: [
+      '本协议仅在您与 Hanwen Ma 之间订立，Apple 并非本协议一方。Apple 不对本应用或其内容负责。',
+      '您获得一项不可转让的许可，可在您拥有或控制的任何 Apple 品牌产品上按 App Store 使用规则使用本应用；此外，与您关联的其他账户亦可通过家人共享或批量购买访问本应用。',
+      'Hanwen Ma 独自负责维护与技术支持。Apple 没有提供任何维护或支持服务的义务。',
+      'Hanwen Ma 独自承担任何明示或默示的产品保证责任。若本应用不符合适用的保证，您可通知 Apple，Apple 将向您退还本应用的购买价款。在法律允许的最大范围内，Apple 对本应用不承担任何其他保证义务。',
+      '对于与本应用相关的任何主张，包括产品责任主张、本应用不符合法律或监管要求的主张，以及依据消费者保护、隐私或类似法规提出的主张，均由 Hanwen Ma 而非 Apple 负责处理。',
+      '如第三方主张本应用或您对本应用的使用侵犯其知识产权，由 Hanwen Ma 独自负责该主张的调查、抗辩、和解与了结。',
+      '您声明：您不位于受美国政府禁运或被美国政府认定为"支持恐怖主义"的国家，且未被列入任何美国政府的禁止或受限方名单。',
+      'Apple 及其子公司为本协议的第三方受益人；在您接受本条款后，Apple 有权作为第三方受益人对您强制执行本协议。',
+    ],
+  },
   contact: {
-    heading: '11. 联系我们',
+    heading: '12. 联系我们',
     intro: '如对本条款有任何疑问：',
     emailLabel: '电子邮件',
     email: 'support@tuwa.app',

@@ -7,7 +7,7 @@ type WidenStrings<T> = T extends string
 const terms = {
   meta: {
     title: 'Terms of Service',
-    lastUpdated: 'April 10, 2026',
+    lastUpdated: 'July 26, 2026',
     description: 'Terms of Service for Tuwa — Training Load & Recovery app.',
   },
   disclaimer: {
@@ -31,11 +31,11 @@ const terms = {
   },
   subscriptions: {
     heading: '3. Subscriptions',
-    p1: "Tuwa offers free and paid subscription tiers (Athlete Pro). Paid subscriptions are billed through Apple's App Store and managed by RevenueCat.",
+    p1: "Tuwa offers a free tier and a paid auto-renewing subscription, Tuwa Pro. The available subscription lengths and their prices are shown in the app before you purchase and on the App Store product page. Paid subscriptions are billed through Apple's App Store and managed by RevenueCat.",
     items: [
       {
         label: 'Billing',
-        description: 'Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period.',
+        description: 'Payment is charged to your Apple account at confirmation of purchase. Subscriptions auto-renew at the same price and for the same length unless cancelled at least 24 hours before the end of the current period, and your account is charged for renewal within 24 hours of the end of that period.',
       },
       {
         label: 'Cancellation',
@@ -86,8 +86,22 @@ const terms = {
     heading: '10. Changes to These Terms',
     p1: 'We may update these Terms from time to time. Changes will be posted to this page with an updated date. Continued use of the app after changes constitutes acceptance.',
   },
+  appStore: {
+    heading: '11. Apple App Store terms',
+    p1: 'Tuwa is distributed through the Apple App Store. The following terms apply to that distribution and, where they conflict with anything above, they govern:',
+    items: [
+      'This agreement is between you and Hanwen Ma only, not with Apple. Apple is not responsible for the app or its content.',
+      'You are granted a non-transferable licence to use the app on any Apple-branded products that you own or control, as permitted by the App Store Usage Rules, except that the app may be accessed by other accounts associated with you via Family Sharing or volume purchasing.',
+      'Hanwen Ma is solely responsible for maintenance and support. Apple has no obligation to furnish any maintenance or support services.',
+      'Hanwen Ma is solely responsible for any product warranties, whether express or implied. If the app fails to conform to an applicable warranty, you may notify Apple, and Apple will refund the purchase price of the app to you. To the maximum extent permitted by law, Apple has no other warranty obligation whatsoever with respect to the app.',
+      'Hanwen Ma, not Apple, is responsible for addressing any claim relating to the app, including product liability claims, any claim that the app fails to conform to a legal or regulatory requirement, and claims arising under consumer protection, privacy, or similar legislation.',
+      'In the event of a third-party claim that the app or your use of it infringes that third party’s intellectual property rights, Hanwen Ma is solely responsible for the investigation, defence, settlement, and discharge of that claim.',
+      'You represent that you are not located in a country subject to a U.S. Government embargo or designated by the U.S. Government as a "terrorist supporting" country, and that you are not listed on any U.S. Government list of prohibited or restricted parties.',
+      'Apple and Apple’s subsidiaries are third-party beneficiaries of this agreement and, upon your acceptance of these Terms, have the right to enforce this agreement against you as a third-party beneficiary.',
+    ] as const,
+  },
   contact: {
-    heading: '11. Contact',
+    heading: '12. Contact',
     intro: 'For questions about these Terms:',
     emailLabel: 'Email',
     email: 'support@tuwa.app',

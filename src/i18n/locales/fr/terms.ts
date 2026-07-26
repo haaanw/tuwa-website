@@ -3,7 +3,7 @@ import type { Terms } from '../en/terms';
 const terms: Terms = {
   meta: {
     title: 'Conditions d\'utilisation',
-    lastUpdated: '10 avril 2026',
+    lastUpdated: '26 juillet 2026',
     description: 'Conditions d\'utilisation de Tuwa — application de gestion de la charge d\'entraînement et de la récupération.',
   },
   disclaimer: {
@@ -27,11 +27,11 @@ const terms: Terms = {
   },
   subscriptions: {
     heading: '3. Abonnements',
-    p1: 'Tuwa propose des formules d\'abonnement gratuites et payantes (Athlète Pro). Les abonnements payants sont facturés via l\'App Store d\'Apple et gérés par RevenueCat.',
+    p1: 'Tuwa propose une formule gratuite et un abonnement payant à renouvellement automatique, Tuwa Pro. Les durées d\'abonnement disponibles et leurs prix sont affichés dans l\'app avant l\'achat ainsi que sur la fiche produit de l\'App Store. Les abonnements payants sont facturés via l\'App Store d\'Apple et gérés par RevenueCat.',
     items: [
       {
         label: 'Facturation',
-        description: 'Les abonnements se renouvellent automatiquement, sauf annulation au moins 24 heures avant la fin de la période en cours.',
+        description: 'Le paiement est débité de ton compte Apple à la confirmation de l\'achat. Les abonnements se renouvellent automatiquement au même prix et pour la même durée, sauf annulation au moins 24 heures avant la fin de la période en cours ; le renouvellement est débité dans les 24 heures précédant la fin de cette période.',
       },
       {
         label: 'Annulation',
@@ -82,8 +82,22 @@ const terms: Terms = {
     heading: '10. Modifications des présentes Conditions',
     p1: 'Nous pouvons mettre à jour ces Conditions de temps à autre. Les modifications seront publiées sur cette page avec une date de mise à jour. La poursuite de l\'utilisation de l\'application après les modifications vaut acceptation.',
   },
+  appStore: {
+    heading: '11. Conditions de l\'App Store d\'Apple',
+    p1: 'Tuwa est distribuée via l\'App Store d\'Apple. Les conditions suivantes s\'appliquent à cette distribution et, en cas de conflit avec ce qui précède, elles prévalent :',
+    items: [
+      'Le présent accord est conclu uniquement entre toi et Hanwen Ma, et non avec Apple. Apple n\'est pas responsable de l\'app ni de son contenu.',
+      'Il t\'est accordé une licence non transférable d\'utilisation de l\'app sur tout produit de marque Apple que tu possèdes ou contrôles, dans les limites des Règles d\'utilisation de l\'App Store ; l\'app peut en outre être accessible à d\'autres comptes qui te sont associés via le partage familial ou l\'achat en volume.',
+      'Hanwen Ma est seul responsable de la maintenance et de l\'assistance. Apple n\'a aucune obligation de fournir des services de maintenance ou d\'assistance.',
+      'Hanwen Ma est seul responsable des garanties du produit, expresses ou implicites. Si l\'app n\'est pas conforme à une garantie applicable, tu peux en informer Apple, qui te remboursera le prix d\'achat de l\'app. Dans toute la mesure permise par la loi, Apple n\'a aucune autre obligation de garantie concernant l\'app.',
+      'Hanwen Ma, et non Apple, est responsable du traitement de toute réclamation relative à l\'app, y compris les réclamations en matière de responsabilité du fait des produits, toute réclamation selon laquelle l\'app ne satisfait pas à une exigence légale ou réglementaire, et les réclamations fondées sur le droit de la consommation, la protection de la vie privée ou une législation similaire.',
+      'En cas de réclamation d\'un tiers selon laquelle l\'app ou ton utilisation de celle-ci porte atteinte à ses droits de propriété intellectuelle, Hanwen Ma est seul responsable de l\'enquête, de la défense, du règlement et de l\'acquittement de cette réclamation.',
+      'Tu déclares ne pas te trouver dans un pays soumis à un embargo du gouvernement des États-Unis ou désigné par celui-ci comme « soutenant le terrorisme », et ne figurer sur aucune liste de parties interdites ou soumises à restrictions du gouvernement des États-Unis.',
+      'Apple et ses filiales sont bénéficiaires tiers du présent accord et, dès ton acceptation des présentes Conditions, ont le droit de le faire appliquer à ton encontre en qualité de bénéficiaires tiers.',
+    ],
+  },
   contact: {
-    heading: '11. Contact',
+    heading: '12. Contact',
     intro: 'Pour toute question concernant ces Conditions :',
     emailLabel: 'E-mail',
     email: 'support@tuwa.app',
