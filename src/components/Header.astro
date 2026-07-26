@@ -1,10 +1,14 @@
 ---
-// Minimal demo-d nav: wordmark + the one ink pill. All page navigation lives
-// in the footer (see Footer.astro). On the homepage, homeMotion.ts hides the
-// pill (#navCta) while another ink CTA is on screen — one pill per screenful.
+// Minimal demo-d nav: wordmark + quiet "Menu" text button (opens NavDrawer)
+// on the left, the one ink pill on the right. Full page navigation lives in
+// the drawer + footer (footer stays canonical for no-JS). On the homepage,
+// homeMotion.ts hides the pill (#navCta) while another ink CTA is on screen —
+// one pill per screenful. NavDrawer is mounted here, as a SIBLING of <header>,
+// so the open-state `inert` on header/main/footer never swallows the dialog.
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { useTranslations } from '../i18n/utils';
 import { APP_STORE_URL } from '../config';
+import NavDrawer from './NavDrawer.astro';
 
 interface Props {
   locale?: string;
@@ -14,7 +18,18 @@ const t = useTranslations(locale as 'en' | 'zh' | 'fr');
 ---
 <header class="site-nav">
   <nav class="site-nav-inner" aria-label="Main">
-    <a class="wordmark" href={getRelativeLocaleUrl(locale, '/')} aria-label="Tuwa home">Tuwa</a>
+    <div class="site-nav-left">
+      <a class="wordmark" href={getRelativeLocaleUrl(locale, '/')} aria-label="Tuwa home">Tuwa</a>
+      <button
+        class="nav-menu-btn"
+        id="navMenuBtn"
+        type="button"
+        aria-expanded="false"
+        aria-controls="navDrawer"
+      >
+        {t.nav.menu}
+      </button>
+    </div>
     <a
       class="pill-ink pill-ink-sm"
       id="navCta"
@@ -27,3 +42,4 @@ const t = useTranslations(locale as 'en' | 'zh' | 'fr');
     </a>
   </nav>
 </header>
+<NavDrawer locale={locale} />

@@ -2546,3 +2546,185 @@ html:not(.motion) .scroll-cue { display: none; }
   border-radius: var(--radius-pill);
   flex: none;
 }
+
+/* ---------- nav drawer (Pavilion, site-wide — src/components/NavDrawer.astro) ----------
+   Closed state is FUNCTIONAL (dialog only opens via JS), so it is handled
+   normally, not gated on html.motion. The quiet Menu trigger is hidden until
+   html.js-enabled because without JS the drawer cannot open (footer stays the
+   canonical no-JS navigation). No shadows: plane + hairline right edge; the
+   backdrop is a translucent stone veil, not a dark scrim. */
+.nav-menu-btn {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 8px;
+  margin: -8px 0; /* keep the 8px hit-area pad without growing the nav row */
+  font-family: inherit;
+  font-size: var(--text-label);
+  font-weight: var(--weight-label);
+  line-height: var(--leading-label);
+  color: var(--color-text-2);
+  cursor: pointer;
+  transition: color 140ms var(--ease-interactive);
+}
+.nav-menu-btn:hover,
+.nav-menu-btn:focus-visible { color: var(--color-text-1); }
+:where(html:not(.js-enabled)) .nav-menu-btn { display: none; }
+.site-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 69;
+  background: color-mix(in srgb, var(--color-bg) 55%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms var(--ease), visibility 300ms;
+}
+.nav-drawer-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 70;
+  width: min(440px, 100vw);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background: var(--color-bg);
+  border-right: 1px solid var(--color-divider);
+  padding: 0 32px 40px;
+  transform: translateX(-100%);
+  visibility: hidden;
+  transition: transform 400ms var(--ease), visibility 400ms;
+}
+.nav-drawer.is-open {
+  transform: none;
+  visibility: visible;
+}
+
+.nav-drawer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--color-divider);
+}
+.nav-drawer-close {
+  appearance: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -8px; /* optical: align the glyph, not the hit area, to the pad edge */
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-2);
+  cursor: pointer;
+  transition: color 140ms var(--ease-interactive), border-color 140ms var(--ease-interactive);
+}
+.nav-drawer-close:hover,
+.nav-drawer-close:focus-visible {
+  color: var(--color-text-1);
+  border-color: var(--color-divider-strong);
+}
+
+.nav-drawer-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.nav-drawer-label {
+  display: block;
+  margin-bottom: 16px;
+}
+.nav-drawer-list {
+  display: flex;
+  flex-direction: column;
+}
+.nav-drawer-link {
+  display: block;
+  padding: 8px 0;
+  font-size: clamp(28px, 3.4vw, 36px);
+  font-weight: var(--weight-body);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-heading);
+  color: var(--color-text-1);
+  text-decoration: none;
+  transition: color 140ms var(--ease-interactive);
+}
+.nav-drawer-link:hover,
+.nav-drawer-link:focus-visible { color: var(--color-text-3); }
+
+.nav-drawer-foot {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.nav-drawer-cta {
+  display: block;
+  text-align: center;
+}
+.nav-drawer-langs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: var(--text-label);
+}
+.nav-drawer-langs a {
+  color: var(--color-text-3);
+  text-decoration: none;
+  transition: color 140ms var(--ease-interactive);
+}
+.nav-drawer-langs a:hover,
+.nav-drawer-langs a:focus-visible { color: var(--color-text-1); }
+.nav-drawer-langs a[aria-current="true"] { color: var(--color-accent); }
+
+/* Staggered fade-rise reveal of drawer content on open (--dr set inline per
+   item, 40ms steps). Hidden state lives INSIDE an already-hidden drawer, so
+   no-JS/no-motion users are unaffected; still, only stagger when motion is on. */
+:where(html.motion) .nav-drawer .drawer-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 360ms var(--ease), transform 360ms var(--ease);
+}
+:where(html.motion) .nav-drawer.is-open .drawer-reveal {
+  opacity: 1;
+  transform: none;
+  transition-delay: var(--dr, 0ms);
+}
+
+@media (max-width: 480px) {
+  .nav-drawer { padding: 0 24px 32px; }
+  .nav-drawer-nav { gap: 32px; }
+  .nav-drawer-top { margin-bottom: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-drawer,
+  .nav-drawer-backdrop {
+    transition: none;
+  }
+  :where(html.motion) .nav-drawer .drawer-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    transition-delay: 0ms;
+  }
+}

@@ -1,0 +1,205 @@
+---
+// src/components/NavDrawer.astro
+// Full-height navigation drawer sliding from the left (Pavilion). Mounted by
+// Header.astro on every page/locale. Opened by the quiet "Menu" text button in
+// the header (#navMenuBtn). The drawer's closed state is functional (not
+// motion-cosmetic), so it is NOT gated on html.motion — it is hidden via
+// transform + visibility and only opens through JS. No-JS users keep the
+// footer as the canonical navigation surface (the Menu button is hidden until
+// html.js-enabled). Styles live in the Pavilion section of global.css.
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations } from '../i18n/utils';
+import { APP_STORE_URL } from '../config';
+
+interface Props {
+  locale?: string;
+}
+const { locale = 'en' } = Astro.props;
+const t = useTranslations(locale as 'en' | 'zh' | 'fr');
+
+// Path-preserving locale switch — same mechanism as Footer.astro (kept there too).
+const rawPath = Astro.url.pathname;
+const knownLocales = ['en', 'zh', 'fr'];
+const pathSegments = rawPath.split('/');
+const pathWithoutLocale = knownLocales.includes(pathSegments[1])
+  ? '/' + pathSegments.slice(2).join('/')
+  : rawPath;
+
+const LOCALES = [
+  { code: 'en', label: t.nav.languageSwitcher.en },
+  { code: 'zh', label: t.nav.languageSwitcher.zh },
+  { code: 'fr', label: t.nav.languageSwitcher.fr },
+] as const;
+
+const ENGLISH_ONLY_PATH_PREFIXES = [
+  '/strength-readiness-calculator',
+  '/weekly-training-review-template',
+  '/apple-watch-training-load-for-lifters',
+  '/guides/',
+  '/comparisons/',
+];
+const isEnglishOnlyPath = ENGLISH_ONLY_PATH_PREFIXES.some((prefix) =>
+  rawPath === prefix || rawPath.startsWith(prefix)
+);
+const availableLocales = isEnglishOnlyPath ? LOCALES.filter(({ code }) => code === 'en') : LOCALES;
+const showLanguageSwitcher = availableLocales.length > 1;
+
+// Sections. Product feature pages exist in all three locales (footer convention:
+// locale-prefixed); /features/verdict is EN-only for now, so it follows the
+// footer's EN-only convention — shown only in the en drawer, unprefixed.
+type DrawerLink = { label: string; href: string; external?: boolean };
+const productLinks: DrawerLink[] = [
+  ...(locale === 'en' ? [{ label: t.drawer.verdict, href: '/features/verdict' }] : []),
+  { label: t.drawer.trainingLoad, href: getRelativeLocaleUrl(locale, '/features/workload-tracking') },
+  { label: t.drawer.recoveryScore, href: getRelativeLocaleUrl(locale, '/features/recovery-scoring') },
+  { label: t.drawer.logging, href: getRelativeLocaleUrl(locale, '/features/smart-templates') },
+  { label: t.drawer.startingOut, href: getRelativeLocaleUrl(locale, '/features/cold-start') },
+];
+const scienceLinks: DrawerLink[] = [
+  { label: t.drawer.methodology, href: getRelativeLocaleUrl(locale, '/methodology') },
+  { label: t.drawer.readinessScore, href: getRelativeLocaleUrl(locale, '/readiness-score') },
+  { label: t.drawer.trainingLoadGuide, href: getRelativeLocaleUrl(locale, '/training-load') },
+  { label: t.drawer.compare, href: getRelativeLocaleUrl(locale, '/compare') },
+];
+const companyLinks: DrawerLink[] = [
+  { label: t.drawer.about, href: getRelativeLocaleUrl(locale, '/about') },
+  { label: t.drawer.support, href: getRelativeLocaleUrl(locale, '/support') },
+  { label: t.drawer.blog, href: getRelativeLocaleUrl(locale, '/blog') },
+  { label: t.drawer.privacy, href: getRelativeLocaleUrl(locale, '/privacy') },
+  { label: t.drawer.terms, href: getRelativeLocaleUrl(locale, '/terms') },
+];
+const sections = [
+  { label: t.drawer.product, links: productLinks },
+  { label: t.drawer.science, links: scienceLinks },
+  { label: t.drawer.company, links: companyLinks },
+];
+
+// Staggered fade-rise: per-item transition-delay, 40ms steps, capped at 320ms.
+let revealIndex = 0;
+const nextDelay = () => `${Math.min(revealIndex++ * 40, 320)}ms`;
+---
+<div class="nav-drawer-backdrop" id="navDrawerBackdrop" aria-hidden="true"></div>
+<aside
+  class="nav-drawer"
+  id="navDrawer"
+  role="dialog"
+  aria-modal="true"
+  aria-label={t.drawer.ariaLabel}
+  aria-hidden="true"
+>
+  <div class="nav-drawer-top">
+    <a class="wordmark" href={getRelativeLocaleUrl(locale, '/')} aria-label="Tuwa home">Tuwa</a>
+    <button class="nav-drawer-close" id="navDrawerClose" type="button" aria-label={t.drawer.close}>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <line x1="5" y1="5" x2="15" y2="15" />
+        <line x1="5" y1="15" x2="15" y2="5" />
+      </svg>
+    </button>
+  </div>
+
+  <nav class="nav-drawer-nav" aria-label={t.drawer.ariaLabel}>
+    {sections.map((section) => (
+      <div class="nav-drawer-section">
+        <span class="micro nav-drawer-label drawer-reveal" style={`--dr:${nextDelay()}`}>{section.label}</span>
+        <ul role="list" class="nav-drawer-list">
+          {section.links.map((link) => (
+            <li>
+              <a class="nav-drawer-link drawer-reveal" style={`--dr:${nextDelay()}`} href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </nav>
+
+  <div class="nav-drawer-foot">
+    <a
+      class="pill-ink nav-drawer-cta drawer-reveal"
+      style={`--dr:${nextDelay()}`}
+      href={APP_STORE_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={t.featureCTA.badgeAriaLabel}
+    >
+      {t.nav.getApp}
+    </a>
+    {showLanguageSwitcher && (
+      <nav class="nav-drawer-langs drawer-reveal" style={`--dr:${nextDelay()}`} aria-label={t.nav.languageSwitcher.label}>
+        {availableLocales.map(({ code, label }) => (
+          <a
+            href={getRelativeLocaleUrl(code, pathWithoutLocale)}
+            aria-current={code === locale ? 'true' : undefined}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+    )}
+  </div>
+</aside>
+
+<script>
+  const drawer = document.getElementById('navDrawer');
+  const backdrop = document.getElementById('navDrawerBackdrop');
+  const toggle = document.getElementById('navMenuBtn');
+  const closeBtn = document.getElementById('navDrawerClose');
+
+  function openDrawer() {
+    if (!drawer || !toggle) return;
+    drawer.classList.add('is-open');
+    backdrop?.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    toggle.setAttribute('aria-expanded', 'true');
+    // Inert everything behind the dialog (drawer/backdrop live outside these).
+    document.querySelectorAll('header, main, footer').forEach((el) => el.setAttribute('inert', ''));
+    document.body.style.overflow = 'hidden';
+    (window as any).__lenis?.stop();
+    closeBtn?.focus();
+    document.addEventListener('keydown', handleKeydown);
+  }
+
+  function closeDrawer(restoreFocus = true) {
+    if (!drawer || !toggle) return;
+    drawer.classList.remove('is-open');
+    backdrop?.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.querySelectorAll('header, main, footer').forEach((el) => el.removeAttribute('inert'));
+    document.body.style.overflow = '';
+    (window as any).__lenis?.start();
+    document.removeEventListener('keydown', handleKeydown);
+    if (restoreFocus) toggle.focus();
+  }
+
+  function handleKeydown(e: KeyboardEvent) {
+    if (e.key === 'Escape') {
+      closeDrawer();
+      return;
+    }
+    // Focus trap: keep Tab within the drawer while open.
+    if (e.key === 'Tab' && drawer) {
+      const focusable = Array.from(drawer.querySelectorAll<HTMLElement>('a, button'));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeDrawer() : openDrawer();
+  });
+  closeBtn?.addEventListener('click', () => closeDrawer());
+  backdrop?.addEventListener('click', () => closeDrawer());
+  // Close on link click — let navigation proceed, don't steal focus back.
+  drawer?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => closeDrawer(false));
+  });
+</script>
