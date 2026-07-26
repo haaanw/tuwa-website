@@ -44,12 +44,11 @@ const isEnglishOnlyPath = ENGLISH_ONLY_PATH_PREFIXES.some((prefix) =>
 const availableLocales = isEnglishOnlyPath ? LOCALES.filter(({ code }) => code === 'en') : LOCALES;
 const showLanguageSwitcher = availableLocales.length > 1;
 
-// Sections. Product feature pages exist in all three locales (footer convention:
-// locale-prefixed); /features/verdict is EN-only for now, so it follows the
-// footer's EN-only convention — shown only in the en drawer, unprefixed.
+// Sections. Product feature pages — including /features/verdict — exist in
+// all three locales (footer convention: locale-prefixed).
 type DrawerLink = { label: string; href: string; external?: boolean };
 const productLinks: DrawerLink[] = [
-  ...(locale === 'en' ? [{ label: t.drawer.verdict, href: '/features/verdict' }] : []),
+  { label: t.drawer.verdict, href: getRelativeLocaleUrl(locale, '/features/verdict') },
   { label: t.drawer.trainingLoad, href: getRelativeLocaleUrl(locale, '/features/workload-tracking') },
   { label: t.drawer.recoveryScore, href: getRelativeLocaleUrl(locale, '/features/recovery-scoring') },
   { label: t.drawer.logging, href: getRelativeLocaleUrl(locale, '/features/smart-templates') },
