@@ -1,0 +1,196 @@
+---
+// The daily verdict — flagship feature page (Pavilion). EN-only for now,
+// so hreflang follows the seoGeo convention (self-referencing en only).
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FeatureFaq from '../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../seo/schema';
+import verdictShot from '../../assets/screens-v16/verdict.png';
+import strikeZoneShot from '../../assets/screens-v16/strike-zone.png';
+
+const title = 'The Daily Verdict: Go, Modify, or Hold';
+const description =
+  'A daily go, modify, or hold suggestion for your planned strength session, with an adjusted top-set number and a one-line reason.';
+
+const faqs = [
+  {
+    q: 'Does Tuwa write my training program?',
+    a: 'No. Tuwa does not write the program. It reads the strength session you authored, then helps you decide how hard to run it today. There is no generated program and no chat coach.',
+  },
+  {
+    q: 'What feeds the verdict?',
+    a: 'HRV, sleep, resting heart rate, training history, soreness, and match proximity — evaluated against the strength session you planned. Physiology is one part of the verdict, not the verdict itself.',
+  },
+  {
+    q: 'What does "modify" actually change?',
+    a: 'Modify means keep the session but trim the dose: cap RPE, reduce load, or microdose near a game. You get an adjusted top-set number and a one-line reason, before warmups, while the session can still change.',
+  },
+  {
+    q: 'Do I have to follow the verdict?',
+    a: 'No. None of the three is a command; the athlete confirms the call. You confirm the change or run the original plan.',
+  },
+  {
+    q: 'What happens in the first week, before Tuwa knows me?',
+    a: 'Readiness and verdicts stay conservative until enough real physiology and training data exist. When the evidence is still too thin for a confident adjustment, the verdict can defer rather than trimming your plan on a guess.',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
+const canonical = 'https://tuwa.app/features/verdict';
+---
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/og-default.png"
+  canonical={canonical}
+  hreflangAlternates={[{ hreflang: 'en', href: canonical }]}
+  structuredData={structuredData}
+>
+  <!-- Hero — editorial type + verdict tick in a debossed well -->
+  <section class="sec feat-hero">
+    <div class="wrap">
+      <div class="intro-row">
+        <div class="sec-head">
+          <span class="micro" data-animate>the daily verdict</span>
+          <h1 class="feat-h1" data-animate data-animate-delay="60">Go, modify, or hold — with the why</h1>
+          <p class="feat-lead" data-animate data-animate-delay="120">
+            Every session starts with a verdict: go, modify, or hold. Tuwa turns this
+            morning's physiology and yesterday's load into concrete number adjustments —
+            drop the top set five percent, cap the conditioning piece, or take the
+            microdose option and keep the pattern without the cost.
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="180">
+          <div class="lottie-well"><div data-lottie="/lottie/verdict-tick.json" aria-label="Animated verdict check mark with a calm pulse ring"></div></div>
+          <span class="micro lottie-cap">the verdict, drawn calm</span>
+          <p style="margin-top:16px">
+            No chat, no interpretation homework. A verdict, the numbers behind it, and
+            the session you actually meant to do.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How the verdict is computed -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>how it is computed</span>
+        <h2 data-animate>Three things, weighed together</h2>
+        <p data-animate>
+          Every morning, Tuwa reads the physiology you already collect through
+          HealthKit: HRV, resting heart rate, and sleep. It pairs those signals with
+          your training history, soreness, and match proximity, then evaluates the
+          strength session you planned.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="aside" data-animate>
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">Your readiness</h3>
+          <p>
+            Overnight HRV, sleep, and resting heart rate are scored against your own
+            rolling baselines — not population norms — and compressed into one number
+            with plain-language reasons.
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="80">
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">Where you sit in your plan</h3>
+          <p>
+            When you open the planned session, Tuwa has enough structure to answer the
+            only useful question: is this still the right dose today? The exact number
+            changes are computed from your readiness and where you sit in your plan.
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="160">
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">Match proximity</h3>
+          <p>
+            When a game is inside 48 hours, Tuwa frames the lift as a microdose: cap
+            the top set, skip back-offs, and protect freshness.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Concrete numbers -->
+  <section class="sec bt">
+    <div class="ghost num" data-ghost aria-hidden="true">-5%</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>concrete numbers</span>
+        <h2 data-animate>An adjusted top set, not a lecture</h2>
+        <p data-animate>
+          The output is intentionally practical: go, modify, or hold, plus an adjusted
+          top-set number and a one-line reason. For example: "Match Saturday — cap the
+          top set, skip back-offs." You see the suggestion before warmups, while the
+          session can still change.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread" data-spread>
+          <div class="plate" data-fan="l"><Image src={strikeZoneShot} alt="Tuwa strike-zone bar showing acute-to-chronic workload ratio" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={verdictShot} alt="Tuwa verdict screen: go / modify / hold with concrete number adjustments" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+        <div class="aside" data-animate>
+          <div class="privacy-well" style="margin-top:0">
+            <ul>
+              <li>Go — the planned dose still fits the day.</li>
+              <li>Modify — keep the session but trim the dose: cap RPE, reduce load, or microdose near a game.</li>
+              <li>Hold — enough fatigue context to suggest delaying the hard part.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The nocebo guard -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>the athlete decides</span>
+        <h2 data-animate>You confirm the call</h2>
+        <p data-animate>
+          A planned workout is a starting point, not a commandment. If match proximity,
+          HRV, sleep, soreness, or recent load point down, Tuwa suggests a smaller dose
+          and explains why. You confirm the change or run the original plan.
+        </p>
+        <p data-animate data-animate-delay="80">
+          The choices carry equal visual weight in the app — accepting the adjustment
+          and keeping your original plan sit side by side, and neither is styled as the
+          right answer. A readiness tool should inform the decision, not talk your body
+          into feeling worse than it is.
+        </p>
+        <p data-animate data-animate-delay="160">
+          Same input, same answer — the engine is deterministic. And it never writes
+          your program.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FeatureFaq heading="Common questions" faqs={faqs} />
+
+  <FeatureClosing
+    heading="One decision, every day"
+    body="Download Tuwa to bring your own plan, check today's verdict, and adjust the top set before you train."
+    ctaNote="iOS 17+ · iPhone"
+    related={[
+      { label: 'Workload tracking', href: '/features/workload-tracking' },
+      { label: 'Recovery scoring', href: '/features/recovery-scoring' },
+      { label: 'Logging & movement bank', href: '/features/smart-templates' },
+      { label: 'Starting out', href: '/features/cold-start' },
+      { label: 'Methodology', href: '/methodology' },
+      { label: 'Compare Tuwa', href: '/compare' },
+    ]}
+  />
+
+  <!-- Self-hosted Lottie runtime (classic script: executes before the deferred
+       featureMotion module below). No CDN URLs anywhere. -->
+  <script is:inline src="/vendor/lottie.min.js"></script>
+  <script>
+    import '../../scripts/featureMotion.ts';
+  </script>
+</BaseLayout>
