@@ -42,7 +42,7 @@ const common: Common = {
   },
   meta: {
     title: 'Tuwa',
-    description: "Entraînement de force adaptatif pour les athlètes de force et hybrides qui se coachent eux-mêmes.",
+    description: "Le staff sports-science des basketteurs qui se coachent seuls et s'entraînent sérieusement en force.",
   },
   featureCTA: {
     headline: 'Commence à te coacher avec confiance',

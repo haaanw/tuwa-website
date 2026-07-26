@@ -1,24 +1,38 @@
 ---
-import { useTranslations } from '../../i18n/utils';
+import { useHomeTranslations } from '../../i18n/utils';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Hero from '../../components/Hero.astro';
-import FeatureGrid from '../../components/FeatureGrid.astro';
-import StatsCounter from '../../components/StatsCounter.astro';
-import LandingCTA from '../../components/LandingCTA.astro';
-
+import HeroScrub from '../../components/home/HeroScrub.astro';
+import VocabMarquee from '../../components/home/VocabMarquee.astro';
+import StickyShowcase from '../../components/home/StickyShowcase.astro';
+import StrikeZoneScrub from '../../components/home/StrikeZoneScrub.astro';
+import StatsBand from '../../components/home/StatsBand.astro';
+import RecoveryQuote from '../../components/home/RecoveryQuote.astro';
+import LoggingFan from '../../components/home/LoggingFan.astro';
+import PrivacyClose from '../../components/home/PrivacyClose.astro';
 import { softwareApplicationSchema, organizationSchema } from '../../seo/schema';
 
-const t = useTranslations('fr');
+const t = useHomeTranslations('fr');
 const structuredData = [softwareApplicationSchema(t.meta.description), organizationSchema()];
 ---
 <BaseLayout
-  title="Entraînement de force adaptatif pour athlètes autonomes"
+  title={t.meta.title}
   description={t.meta.description}
   structuredData={structuredData}
   locale="fr"
 >
-  <Hero locale="fr" />
-  <FeatureGrid locale="fr" />
-  <StatsCounter locale="fr" />
-  <LandingCTA locale="fr" />
+  <HeroScrub locale="fr" />
+  <VocabMarquee locale="fr" />
+  <StickyShowcase locale="fr" />
+  <StrikeZoneScrub locale="fr" />
+  <StatsBand locale="fr" />
+  <RecoveryQuote locale="fr" />
+  <LoggingFan locale="fr" />
+  <PrivacyClose locale="fr" />
+
+  <!-- Self-hosted Lottie runtime (classic script: executes before the deferred
+       homeMotion module below). No CDN URLs anywhere. -->
+  <script is:inline src="/vendor/lottie.min.js"></script>
+  <script>
+    import '../../scripts/homeMotion.ts';
+  </script>
 </BaseLayout>
