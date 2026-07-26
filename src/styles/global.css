@@ -1821,7 +1821,7 @@ html:not(.js-enabled) .feature-loop {
 .hero-score {
   position: absolute;
   top: -0.22em;
-  right: -2%;
+  right: 24px; /* mirror .wrap's inline padding — absolute children resolve against the padding box */
   z-index: 0;
   text-align: right;
   pointer-events: none;
