@@ -1,0 +1,15 @@
+---
+// Product-vocabulary marquee band (demo-d). Track is aria-hidden; the
+// sr-only paragraph carries the content for assistive tech.
+const terms = ['strike zone', 'microdose', 'match tier', 'readiness', 'one fatigue budget', 'go / modify / hold'];
+const track = [...terms, ...terms, ...terms, ...terms];
+---
+<section class="marquee" id="marquee" aria-label="Product vocabulary">
+  <p class="sr-only">Strike zone, microdose, match tier, readiness, one fatigue budget, go / modify / hold.</p>
+  <div class="mq-track" aria-hidden="true">
+    {track.map((term) => (
+      <><span class="mq-item">{term}</span><span class="mq-tick"></span></>
+    ))}
+  </div>
+  <button class="mq-pause" id="mqPause" aria-pressed="false">pause</button>
+</section>

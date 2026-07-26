@@ -28,7 +28,7 @@ const { title, description, ogImage, ogImageAlt, canonical, type, locale = 'en',
     <link rel="preload" href="/fonts/InstrumentSans-Regular.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preload" href="/fonts/InstrumentSans-Medium.ttf" as="font" type="font/ttf" crossorigin />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline>document.documentElement.classList.add('js-enabled');</script>
+    <script is:inline>document.documentElement.classList.add('js-enabled');try{document.documentElement.classList.add("motion")}catch(e){}</script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" href="/favicon.ico" />
