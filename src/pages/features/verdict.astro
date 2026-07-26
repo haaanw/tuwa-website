@@ -1,6 +1,6 @@
 ---
-// The daily verdict — flagship feature page (Pavilion). EN-only for now,
-// so hreflang follows the seoGeo convention (self-referencing en only).
+// The daily verdict — flagship feature page (Pavilion). zh + fr siblings
+// exist, so hreflang uses SEO.astro's default en / zh-CN / fr triplet.
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import FeatureFaq from '../../components/features/FeatureFaq.astro';
@@ -37,14 +37,11 @@ const faqs = [
 ] as const;
 
 const structuredData = [faqPageSchema(faqs)];
-const canonical = 'https://tuwa.app/features/verdict';
 ---
 <BaseLayout
   title={title}
   description={description}
   ogImage="/og-default.png"
-  canonical={canonical}
-  hreflangAlternates={[{ hreflang: 'en', href: canonical }]}
   structuredData={structuredData}
 >
   <!-- Hero — editorial type + verdict tick in a debossed well -->

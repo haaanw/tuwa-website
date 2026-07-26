@@ -1,108 +1,188 @@
 ---
-import { useColdStartTranslations } from '../../../i18n/utils';
-import FeaturePageLayout from '../../../layouts/FeaturePageLayout.astro';
+// Démarrage à froid — utile dès le premier jour, honnêtement (rebuild
+// Pavilion, fr). Structure calquée section par section sur la version EN ;
+// copie traduite (tutoiement, voix de fr/home.ts). hreflang : triplet par
+// défaut de SEO.astro (en / zh-CN / fr).
+import { Image } from 'astro:assets';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FeatureFaq from '../../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../../seo/schema';
+import workoutLogShot from '../../../assets/screens-v16/workout-log.png';
 
-const t = useColdStartTranslations('fr');
+const title = 'Démarrage immédiat, sans fausse précision';
+const description =
+  'Une mise en route honnête dès le premier jour. Tuwa amorce ton profil de charge avec tes réponses d’onboarding, puis attend de vraies données de récupération avant de trancher plus fort.';
+
+const faqs = [
+  {
+    q: 'Faut-il des semaines de données de référence avant que Tuwa soit utile ?',
+    a: 'Non. Tuwa est utile dès le premier jour : l’onboarding met en place ton profil d’entraînement et les séances notées commencent immédiatement à construire ton historique de charge. La forme, elle, reste plus prudente : quand l’historique de récupération personnel est mince, Tuwa évite de faire passer une référence de population pour la tienne.',
+  },
+  {
+    q: 'À quoi ressemble le premier jour, concrètement ?',
+    a: 'Tuwa collecte le contexte qu’il peut utiliser honnêtement : ton passé d’entraînement, ton rythme de force prévu, un bilan de forme, et les données HealthKit que tu autorises. Le suivi de charge d’entraînement commence à se construire dès la première séance notée.',
+  },
+  {
+    q: 'Et si je n’ai que peu ou pas d’historique HealthKit ?',
+    a: 'Si l’historique de récupération est mince, l’app évite de le surinterpréter ; l’état « pas de données » reste neutre au lieu de prétendre connaître ta référence personnelle.',
+  },
+  {
+    q: 'Les premiers verdicts vont-ils commencer à rogner mon plan ?',
+    a: 'Quand les preuves sont encore trop minces pour un ajustement fiable, le verdict peut s’abstenir plutôt que de rogner ton plan sur une supposition.',
+  },
+  {
+    q: 'Pourquoi ne pas afficher un score de récupération quand même ?',
+    a: 'La fausse précision est pire que l’incertitude assumée. Si une app t’annonce « ton score de récupération est de 84 » le premier jour, sans aucune donnée physiologique derrière, ce chiffre est fabriqué — et le décalage finit par éroder complètement la confiance dans l’outil.',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
 ---
-
-<FeaturePageLayout
-  shapeId="blob-2"
-  locale="fr"
-  title={t.meta.title}
-  description={t.meta.description}
+<BaseLayout
+  title={title}
+  description={description}
   ogImage="/og/cold-start.png"
-  screenshotAlt={t.hero.screenshotAlt}
-  outcomeStatement={t.hero.outcomeStatement}
-  hookLine={t.hero.hookLine}
+  structuredData={structuredData}
+  locale="fr"
 >
-
-  <!-- Section 1 : Comment ça fonctionne -->
-  <section data-animate class="section-spaced">
-    <div class="mx-auto max-w-3xl px-6">
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        {t.howItWorks.heading}
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p1}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p2}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.day1Heading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p3}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.days3to5Heading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p4}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.day7Heading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p5}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p6}
-      </p>
+  <!-- Hero -->
+  <section class="sec feat-hero">
+    <div class="ghost num" data-ghost aria-hidden="true">01</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>pour commencer</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">Utile dès le premier jour — sans prétendre à la certitude</h1>
+        <p class="feat-lead" data-animate data-animate-delay="120">
+          Tuwa démarre avec ton profil et tes premières séances notées, puis devient
+          plus personnel à mesure que les vraies données arrivent. Le score de
+          récupération, les tendances de charge et les références personnelles
+          s'améliorent tous quand tu as de vrais enregistrements — Tuwa ne comble pas
+          ce vide avec une précision factice.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Section 2 : Pourquoi l'honnêteté compte -->
-  <section
-    data-animate
-    style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
-  >
-    <div
-      class="section-spaced mx-auto max-w-3xl px-6"
-    >
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        {t.honestySection.heading}
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.honestySection.p1}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.honestySection.p2}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.honestySection.p3}
-      </p>
+  <!-- How it works — three stages -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>comment ça marche</span>
+        <h2 data-animate>Des réponses d'onboarding à ta propre référence</h2>
+        <p data-animate>
+          Tuwa commence par construire un profil d'entraînement à partir de tes
+          réponses d'onboarding : contexte sportif, rythme de force actuel, charge
+          récente et le type de séances que tu comptes noter. Ce profil aide le
+          modèle de charge à démarrer organisé, pendant que la forme et les verdicts
+          restent prudents tant qu'il n'y a pas assez de données physiologiques et
+          d'entraînement réelles.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="aside" data-animate>
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">Le premier jour</h3>
+          <p>
+            Tuwa collecte le contexte qu'il peut utiliser honnêtement : ton passé
+            d'entraînement, ton rythme de force prévu, un bilan de forme et les
+            données HealthKit que tu autorises. L'état « pas de données » reste
+            neutre au lieu de prétendre connaître ta référence personnelle.
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="80">
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">Les premières séances</h3>
+          <p>
+            À mesure que tu notes tes entraînements, Tuwa calcule la charge de
+            séance à partir du travail réellement fait : exercices, séries,
+            répétitions, poids, RPE et répétitions en réserve. Ces notes dessinent
+            la première image de ta charge aiguë.
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="160">
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">Quand l'historique s'accumule</h3>
+          <p>
+            Avec des lectures HealthKit régulières, des bilans de forme et des
+            séances notées, Tuwa peut comparer plus de signaux à ta propre tendance
+            récente — et les explications deviennent plus spécifiques à ta
+            physiologie et à ton historique d'entraînement.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
-</FeaturePageLayout>
+  <!-- The first log -->
+  <section class="sec bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>construit sur ce que tu notes</span>
+        <h2 data-animate>La première séance lance le modèle</h2>
+        <p data-animate>
+          Le suivi de charge d'entraînement commence à se construire dès la première
+          séance notée. La première séance donne à Tuwa de vraies données de charge
+          à stocker, et chaque séance suivante rend les vues de charge aiguë et
+          chronique plus utiles.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread" data-spread>
+          <div class="plate" data-fan="c"><Image src={workoutLogShot} alt="Journal d'entraînement Tuwa : historique des séances" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+        <div class="aside" data-animate>
+          <p>
+            Les athlètes sérieux ont déjà de bonnes intuitions sur leur propre
+            récupération — construites par des années d'entraînement, de compétition
+            et d'attention aux réponses de leur corps. L'approche de démarrage de
+            Tuwa respecte ça. Au début, il t'aide à structurer le journal et à
+            comprendre ce qui est connu, tout en laissant la place à ton jugement
+            quand les données sont incomplètes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why honesty matters -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>le principe</span>
+        <h2 data-animate>Pourquoi l'honnêteté compte</h2>
+        <p data-animate>
+          La fausse précision est pire que l'incertitude assumée. Si une app
+          t'annonce « ton score de récupération est de 84 » le premier jour, sans
+          aucune donnée physiologique derrière, ce chiffre est fabriqué. Les
+          athlètes qui s'y fient s'entraînent sur une fiction.
+        </p>
+        <p data-animate data-animate-delay="80">
+          Le bénéfice est pratique : au lieu de jouer la confiance avant d'avoir des
+          preuves, Tuwa laisse tes propres enregistrements devenir la référence. À
+          mesure que les lectures HealthKit, les bilans de forme et les séances
+          notées s'accumulent, les explications deviennent plus spécifiques à ta
+          physiologie et à ton historique d'entraînement.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FeatureFaq heading="Questions fréquentes" faqs={faqs} />
+
+  <FeatureClosing
+    heading="Laisse tes propres données devenir la référence"
+    body="Télécharge Tuwa pour apporter ton propre plan, vérifier le verdict du jour et ajuster la série lourde avant de t'entraîner."
+    ctaNote="iOS 17+ · iPhone"
+    ctaLabel="Télécharger sur l'App Store"
+    relatedAriaLabel="Pages liées"
+    related={[
+      { label: 'Le verdict du jour', href: '/fr/features/verdict' },
+      { label: 'Score de récupération', href: '/fr/features/recovery-scoring' },
+      { label: 'Charge d\'entraînement', href: '/fr/features/workload-tracking' },
+      { label: 'Journal et banque de mouvements', href: '/fr/features/smart-templates' },
+      { label: 'Méthodologie', href: '/fr/methodology' },
+    ]}
+  />
+
+  <script>
+    import '../../../scripts/featureMotion.ts';
+  </script>
+</BaseLayout>

@@ -1,109 +1,196 @@
 ---
-import { useWorkloadTrackingTranslations } from '../../../i18n/utils';
-import FeaturePageLayout from '../../../layouts/FeaturePageLayout.astro';
-import AcwrChart from '../../../components/charts/AcwrChart.astro';
-import workloadScreenshot from '../../../assets/screenshots/workload.png';
+// Charge d'entraînement — un seul budget de fatigue (rebuild Pavilion, fr).
+// Structure calquée section par section sur la version EN ; copie traduite
+// (tutoiement, voix de fr/home.ts). hreflang : triplet par défaut de
+// SEO.astro (en / zh-CN / fr).
+import { Image } from 'astro:assets';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FeatureFaq from '../../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../../seo/schema';
+import workloadShot from '../../../assets/screens-v16/workload.png';
+import dashboardShot from '../../../assets/screens-v16/dashboard.png';
 
-const t = useWorkloadTrackingTranslations('fr');
+const title = 'Charge d’entraînement : un seul budget de fatigue';
+const description =
+  'Le sport, la force et le cardio puisent dans le même réservoir. Tuwa les suit comme une seule charge — aiguë contre chronique — et garde le ratio dans la strike zone ACWR.';
+
+const faqs = [
+  {
+    q: 'Qu’est-ce qui compte dans le budget de fatigue ?',
+    a: 'Chaque séance de force notée porte exercice, séries, répétitions, charge, RPE et répétitions en réserve. Le basket a son propre contexte grâce au niveau de match : un pickup tranquille ne compte pas comme un vrai match. Sport, force et cardio sont suivis comme une seule charge.',
+  },
+  {
+    q: 'C’est quoi, la strike zone ACWR ?',
+    a: 'Le ratio de charge aiguë sur chronique compare la charge des sept derniers jours à celle des quatre dernières semaines. Le travail de Tuwa : le garder dans la strike zone — environ 0.8 à 1.3. Sous la bande, tu fais peut-être bien moins que ta base récente ; au-dessus, la semaine en cours demande peut-être un saut plus grand que ce que ton entraînement récent supporte.',
+  },
+  {
+    q: 'Le ratio prédit-il les blessures ?',
+    a: 'Non. Le cadre ACWR décrit des associations de charge au niveau de populations, pas des garanties ou des prédictions individuelles ; il éclaire les décisions, il ne les prend pas à ta place. Tuwa traite la bande cible comme un contexte de planification, pas comme une règle de sécurité universelle.',
+  },
+  {
+    q: 'Pourquoi des moyennes mobiles plutôt que des totaux hebdomadaires ?',
+    a: 'Tuwa calcule les charges avec des moyennes mobiles à pondération exponentielle : les séances récentes pèsent plus que les anciennes. Le modèle de charge reste ainsi réactif à une semaine avec deux matchs et une grosse séance bas du corps, au lieu d’ancrer le verdict sur du travail périmé.',
+  },
+  {
+    q: 'La vue charge ne sert-elle qu’à la prudence ?',
+    a: 'Non. Tuwa suit les records personnels et l’historique des séances, pour que la vue du staff ne soit pas faite que de prudence. Si le verdict dit go, tu peux t’entraîner dur avec la semaine sous les yeux. S’il dit modify, tu sais quand même quel stimulus tu as préservé.',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
 ---
-
-<FeaturePageLayout
-  shapeId="blob-5"
-  title={t.meta.title}
-  description={t.meta.description}
+<BaseLayout
+  title={title}
+  description={description}
   ogImage="/og/workload-tracking.png"
-  screenshot={workloadScreenshot}
-  screenshotAlt={t.hero.screenshotAlt}
-  outcomeStatement={t.hero.outcomeStatement}
-  hookLine={t.hero.hookLine}
+  structuredData={structuredData}
   locale="fr"
 >
-
-  <!-- Section 1: How it works -->
-  <section data-animate class="section-spaced">
-    <div class="mx-auto max-w-3xl px-6">
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        {t.howItWorks.heading}
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p1}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.acuteChronicHeading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p2}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p3}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.repsInReserveHeading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p4}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.personalRecordsHeading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p5}
-      </p>
+  <!-- Hero -->
+  <section class="sec feat-hero">
+    <div class="ghost num" data-ghost aria-hidden="true">1.3</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>charge d'entraînement</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">Un seul budget de fatigue</h1>
+        <p class="feat-lead" data-animate data-animate-delay="120">
+          Le sport, la force et le cardio puisent dans le même réservoir. Tuwa les
+          suit comme une seule charge — aiguë contre chronique — et garde le ratio
+          dans la strike zone. Quand la tendance pointe vers le surmenage, tu le
+          vois des jours avant de le sentir.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Section 2: The science behind it -->
-  <section
-    data-animate
-    style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
-  >
-    <div
-      class="section-spaced mx-auto max-w-3xl px-6"
-    >
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        {t.scienceSection.heading}
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.scienceSection.p1}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.scienceSection.p2}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.scienceSection.p3}
-      </p>
-
-      <AcwrChart />
+  <!-- How it works — the ledger + the needle -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>comment ça marche</span>
+        <h2 data-animate>Chaque séance atterrit dans un seul registre</h2>
+        <p data-animate>
+          Chaque séance de force notée dans Tuwa porte les détails qui comptent pour
+          un verdict de forme : exercice, séries, répétitions, charge, RPE et
+          répétitions en réserve. Le basket a son propre contexte grâce au niveau de
+          match : un pickup tranquille ne compte pas comme un vrai match.
+        </p>
+        <p data-animate data-animate-delay="80">
+          Tuwa utilise des moyennes mobiles à pondération exponentielle : les
+          séances récentes pèsent plus que les anciennes. Le modèle de charge reste
+          réactif à une semaine avec deux matchs et une grosse séance bas du corps,
+          au lieu d'ancrer le verdict sur du travail périmé.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread" data-spread>
+          <div class="plate" data-fan="l"><Image src={dashboardShot} alt="Tableau de bord Tuwa : carte de forme affichant 82 avec les métriques" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={workloadShot} alt="Graphique de charge d'entraînement Tuwa avec tendance ACWR" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+        <div class="aside" data-animate>
+          <div class="lottie-well"><div data-lottie="/lottie/needle-sweep.json" aria-label="Animation : jauge de forme avec une aiguille travertin balayant l'arc gradué"></div></div>
+          <span class="micro lottie-cap">la forme, mesurée</span>
+          <p style="margin-top:16px">
+            L'aiguille est alimentée par ton historique, pas par une moyenne de
+            population. Même entrée, même réponse — le moteur est déterministe.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
-</FeaturePageLayout>
+  <!-- The strike zone -->
+  <section class="sec bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>ratio de charge aiguë : chronique</span>
+        <h2 data-animate>La strike zone</h2>
+        <p data-animate>
+          Le ratio compare la charge des sept derniers jours à celle des quatre
+          dernières semaines. Le travail de Tuwa : le garder dans la strike zone.
+          Sous la bande, tu fais peut-être bien moins que ta base récente.
+          Au-dessus, la semaine en cours demande peut-être un saut plus grand que ce
+          que ton entraînement récent supporte.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="aside" data-animate>
+          <div class="privacy-well" style="margin-top:0">
+            <ul>
+              <li>Sous 0.8 — sous-entraînement, de la marge pour construire</li>
+              <li>0.8–1.3 — dans la strike zone</li>
+              <li>1.3–1.5 — prudence, ça chauffe</li>
+              <li>Au-delà de 1.5 — danger, risque de surmenage</li>
+            </ul>
+          </div>
+          <p class="zone-foot" data-animate>
+            Les zones sont toujours écrites en toutes lettres — la couleur est un
+            appui, jamais le message.
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="80">
+          <p>
+            Tuwa traite la bande cible comme un contexte de planification, pas comme
+            une règle de sécurité universelle. L'idée de charge aiguë sur chronique
+            compare la charge récente à une référence plus longue ; la vraie leçon
+            produit n'est pas qu'un ratio prédit une blessure. C'est que les
+            changements brusques méritent de l'attention avant d'ajouter une autre
+            grosse séance.
+          </p>
+          <p style="margin-top:16px">
+            Un seul budget de fatigue pour le sport, la force et le cardio — et sa
+            trajectoire sur les semaines à venir.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-modal context -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>fatigue croisée</span>
+        <h2 data-animate>Le match d'hier soir compte pour le squat d'aujourd'hui</h2>
+        <p data-animate>
+          Un score global de wearable peut te dire que tu es globalement récupéré ou
+          globalement fatigué. Il ne peut pas dire la chose utile pour un basketteur
+          qui pousse de la fonte : le match d'hier soir a détruit tes jambes, ta
+          forme au squat est en baisse aujourd'hui, et ton développé couché va très
+          bien.
+        </p>
+        <p data-animate data-animate-delay="80">
+          Tuwa peut faire cette distinction parce que le plan et le journal vivent
+          dans le même système. La séance sur le terrain, les courbatures du bas du
+          corps, le volume récent sur les jambes et la série lourde de squat prévue
+          sont évalués ensemble avant d'afficher le verdict.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FeatureFaq heading="Questions fréquentes" faqs={faqs} />
+
+  <FeatureClosing
+    heading="Reste dans ta strike zone"
+    body="Télécharge Tuwa pour apporter ton propre plan, vérifier le verdict du jour et ajuster la série lourde avant de t'entraîner."
+    ctaNote="iOS 17+ · iPhone"
+    ctaLabel="Télécharger sur l'App Store"
+    relatedAriaLabel="Pages liées"
+    related={[
+      { label: 'Le verdict du jour', href: '/fr/features/verdict' },
+      { label: 'Score de récupération', href: '/fr/features/recovery-scoring' },
+      { label: 'Journal et banque de mouvements', href: '/fr/features/smart-templates' },
+      { label: 'La charge d\'entraînement expliquée', href: '/fr/training-load' },
+      { label: 'Méthodologie', href: '/fr/methodology' },
+    ]}
+  />
+
+  <!-- Self-hosted Lottie runtime (classic script: executes before the deferred
+       featureMotion module below). No CDN URLs anywhere. -->
+  <script is:inline src="/vendor/lottie.min.js"></script>
+  <script>
+    import '../../../scripts/featureMotion.ts';
+  </script>
+</BaseLayout>

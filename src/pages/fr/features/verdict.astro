@@ -1,0 +1,200 @@
+---
+// Le verdict du jour — page phare (Pavilion, fr). Structure calquée section
+// par section sur la version EN ; copie traduite (tutoiement, voix de
+// fr/home.ts). hreflang : triplet par défaut de SEO.astro (en / zh-CN / fr).
+import { Image } from 'astro:assets';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FeatureFaq from '../../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../../seo/schema';
+import verdictShot from '../../../assets/screens-v16/verdict.png';
+import strikeZoneShot from '../../../assets/screens-v16/strike-zone.png';
+
+const title = 'Le verdict du jour : go, modify ou hold';
+const description =
+  'Une suggestion quotidienne go, modify ou hold pour ta séance de force planifiée, avec une série lourde ajustée et une raison en une ligne.';
+
+const faqs = [
+  {
+    q: 'Tuwa écrit-il mon programme d’entraînement ?',
+    a: 'Non. Tuwa n’écrit pas le programme. Il lit la séance de force que tu as écrite, puis t’aide à décider à quelle intensité la faire aujourd’hui. Pas de programme généré, pas de coach par chat.',
+  },
+  {
+    q: 'Qu’est-ce qui alimente le verdict ?',
+    a: 'VFC, sommeil, fréquence cardiaque au repos, historique d’entraînement, courbatures et proximité du match — évalués contre la séance de force que tu as planifiée. La physiologie est une partie du verdict, pas le verdict lui-même.',
+  },
+  {
+    q: 'Que change « modify » concrètement ?',
+    a: 'Modify signifie garder la séance mais réduire la dose : plafonner le RPE, baisser la charge, ou passer en microdose à l’approche d’un match. Tu reçois une série lourde ajustée et une raison en une ligne, avant l’échauffement, quand la séance peut encore changer.',
+  },
+  {
+    q: 'Suis-je obligé de suivre le verdict ?',
+    a: 'Non. Aucun des trois n’est un ordre ; c’est l’athlète qui confirme la décision. Tu confirmes l’ajustement ou tu gardes ton plan d’origine.',
+  },
+  {
+    q: 'Que se passe-t-il la première semaine, avant que Tuwa me connaisse ?',
+    a: 'La forme et les verdicts restent prudents tant qu’il n’y a pas assez de données physiologiques et d’entraînement réelles. Quand les preuves sont encore trop minces pour un ajustement fiable, le verdict peut s’abstenir plutôt que de rogner ton plan sur une supposition.',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
+---
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="/og-default.png"
+  structuredData={structuredData}
+  locale="fr"
+>
+  <!-- Hero — editorial type + verdict tick in a debossed well -->
+  <section class="sec feat-hero">
+    <div class="wrap">
+      <div class="intro-row">
+        <div class="sec-head">
+          <span class="micro" data-animate>le verdict du jour</span>
+          <h1 class="feat-h1" data-animate data-animate-delay="60">Go, modify ou hold — avec le pourquoi</h1>
+          <p class="feat-lead" data-animate data-animate-delay="120">
+            Chaque séance commence par un verdict : go, modify ou hold. Tuwa transforme
+            la physiologie du matin et la charge d'hier en ajustements concrets — baisse
+            la série lourde de cinq pour cent, plafonne le travail cardio, ou prends
+            l'option microdose pour garder le schéma moteur sans en payer le prix.
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="180">
+          <div class="lottie-well"><div data-lottie="/lottie/verdict-tick.json" aria-label="Animation : coche de verdict avec un anneau de pulsation calme"></div></div>
+          <span class="micro lottie-cap">le verdict, tracé calmement</span>
+          <p style="margin-top:16px">
+            Pas de chat, pas de données à interpréter toi-même. Un verdict, les chiffres
+            derrière, et la séance que tu comptais vraiment faire.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How the verdict is computed -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>comment il est calculé</span>
+        <h2 data-animate>Trois choses, pesées ensemble</h2>
+        <p data-animate>
+          Chaque matin, Tuwa lit la physiologie que tu collectes déjà via HealthKit :
+          VFC, fréquence cardiaque au repos et sommeil. Il associe ces signaux à ton
+          historique d'entraînement, tes courbatures et la proximité du match, puis
+          évalue la séance de force que tu as planifiée.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="aside" data-animate>
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">Ta forme</h3>
+          <p>
+            VFC nocturne, sommeil et fréquence cardiaque au repos sont notés contre tes
+            propres références glissantes — pas des normes de population — et condensés
+            en un seul chiffre avec des raisons en langage clair.
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="80">
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">Ta position dans ton plan</h3>
+          <p>
+            Quand tu ouvres la séance planifiée, Tuwa a assez de structure pour répondre
+            à la seule question utile : est-ce encore la bonne dose aujourd'hui ? Les
+            ajustements exacts sont calculés à partir de ta forme et de ta position dans
+            ton plan.
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="160">
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">La proximité du match</h3>
+          <p>
+            Quand un match est à moins de 48 heures, Tuwa cadre la séance comme une
+            microdose : plafonne la série lourde, saute les séries de back-off et
+            protège la fraîcheur.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Concrete numbers -->
+  <section class="sec bt">
+    <div class="ghost num" data-ghost aria-hidden="true">-5%</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>des chiffres concrets</span>
+        <h2 data-animate>Une série lourde ajustée, pas un sermon</h2>
+        <p data-animate>
+          La sortie est volontairement pratique : go, modify ou hold, plus une série
+          lourde ajustée et une raison en une ligne. Par exemple : « Match samedi —
+          plafonne la série lourde, saute les back-offs. » Tu vois la suggestion avant
+          l'échauffement, quand la séance peut encore changer.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread" data-spread>
+          <div class="plate" data-fan="l"><Image src={strikeZoneShot} alt="Barre strike zone de Tuwa montrant le ratio de charge aiguë sur chronique" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={verdictShot} alt="Écran de verdict Tuwa : go / modify / hold avec ajustements chiffrés" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+        <div class="aside" data-animate>
+          <div class="privacy-well" style="margin-top:0">
+            <ul>
+              <li>Go — la dose prévue convient encore à la journée.</li>
+              <li>Modify — garde la séance mais réduis la dose : plafonne le RPE, baisse la charge, ou passe en microdose à l'approche d'un match.</li>
+              <li>Hold — assez de contexte de fatigue pour suggérer de reporter la partie dure.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The nocebo guard -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>l'athlète décide</span>
+        <h2 data-animate>C'est toi qui confirmes</h2>
+        <p data-animate>
+          Une séance planifiée est un point de départ, pas un ordre. Si la proximité du
+          match, la VFC, le sommeil, les courbatures ou la charge récente pointent vers
+          le bas, Tuwa suggère une dose plus petite et explique pourquoi. Tu confirmes
+          le changement ou tu gardes ton plan d'origine.
+        </p>
+        <p data-animate data-animate-delay="80">
+          Dans l'app, les deux choix ont exactement le même poids visuel — accepter
+          l'ajustement et garder ton plan d'origine sont côte à côte, et aucun n'est
+          stylé comme la bonne réponse. Un outil de forme doit éclairer la décision,
+          pas convaincre ton corps qu'il va plus mal qu'en réalité.
+        </p>
+        <p data-animate data-animate-delay="160">
+          Même entrée, même réponse — le moteur est déterministe. Et il n'écrit jamais
+          ton programme.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FeatureFaq heading="Questions fréquentes" faqs={faqs} />
+
+  <FeatureClosing
+    heading="Une décision, chaque jour"
+    body="Télécharge Tuwa pour apporter ton propre plan, vérifier le verdict du jour et ajuster la série lourde avant de t'entraîner."
+    ctaNote="iOS 17+ · iPhone"
+    ctaLabel="Télécharger sur l'App Store"
+    relatedAriaLabel="Pages liées"
+    related={[
+      { label: 'Charge d\'entraînement', href: '/fr/features/workload-tracking' },
+      { label: 'Score de récupération', href: '/fr/features/recovery-scoring' },
+      { label: 'Journal et banque de mouvements', href: '/fr/features/smart-templates' },
+      { label: 'Démarrage immédiat', href: '/fr/features/cold-start' },
+      { label: 'Méthodologie', href: '/fr/methodology' },
+      { label: 'Comparer Tuwa', href: '/fr/compare' },
+    ]}
+  />
+
+  <!-- Self-hosted Lottie runtime (classic script: executes before the deferred
+       featureMotion module below). No CDN URLs anywhere. -->
+  <script is:inline src="/vendor/lottie.min.js"></script>
+  <script>
+    import '../../../scripts/featureMotion.ts';
+  </script>
+</BaseLayout>

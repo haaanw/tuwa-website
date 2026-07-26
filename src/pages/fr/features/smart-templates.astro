@@ -1,106 +1,146 @@
 ---
-import { useSmartTemplatesTranslations } from '../../../i18n/utils';
-import FeaturePageLayout from '../../../layouts/FeaturePageLayout.astro';
-import activeWorkoutScreenshot from '../../../assets/screenshots/active-workout.png';
+// Journal, modèles et banque de mouvements (rebuild Pavilion, fr — slug
+// conservé). Structure calquée section par section sur la version EN ; copie
+// traduite (tutoiement, voix de fr/home.ts). hreflang : triplet par défaut de
+// SEO.astro (en / zh-CN / fr).
+import { Image } from 'astro:assets';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import FeatureFaq from '../../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../../seo/schema';
+import workoutLogShot from '../../../assets/screens-v16/workout-log.png';
+import activeWorkoutShot from '../../../assets/screens-v16/active-workout.png';
+import movementBankShot from '../../../assets/screens-v16/movement-bank.png';
 
-const t = useSmartTemplatesTranslations('fr');
+const title = 'Journal, modèles et banque de mouvements';
+const description =
+  'Un journal rapide en salle, des modèles qui portent ton propre plan, et une banque de 1 324 mouvements pensée recherche d’abord — pour que la trace suive la séance.';
+
+const faqs = [
+  {
+    q: 'Quelle est la taille de la banque de mouvements ?',
+    a: 'Une banque de 1 324 mouvements derrière un sélecteur pensé recherche d’abord. Trouve le mouvement, note la série, retourne à la barre.',
+  },
+  {
+    q: 'Que peut porter un modèle ?',
+    a: 'Chaque séance peut porter des séries cibles, des fourchettes de répétitions, une série lourde planifiée, des plafonds de RPE et des notes — les séances de force auxquelles tu crois déjà, assez structurées pour que l’ajustement du jour soit précis.',
+  },
+  {
+    q: 'Tuwa génère-t-il des entraînements pour moi ?',
+    a: 'Non. Pas de coach par chat, pas de programme généré. Tuwa est le staff sports-science du plan que tu as écrit — il se place entre la planification et l’exécution.',
+  },
+  {
+    q: 'Le journal est-il rapide en pleine séance ?',
+    a: 'Charge, répétitions, validé — un journal fait pour des pouces couverts de magnésie, qui suit la séance au lieu de la ralentir.',
+  },
+  {
+    q: 'Comment le journal se connecte-t-il au verdict du jour ?',
+    a: 'Le travail réel est enregistré à côté de la cible : série, répétitions, charge, RPE et répétitions en réserve. C’est cette trace prévu-contre-réalisé qui permet à Tuwa de relier ta propre programmation au prochain verdict de forme.',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
 ---
-
-<FeaturePageLayout
-  shapeId="blob-4"
-  locale="fr"
-  title={t.meta.title}
-  description={t.meta.description}
+<BaseLayout
+  title={title}
+  description={description}
   ogImage="/og/smart-templates.png"
-  screenshot={activeWorkoutScreenshot}
-  screenshotAlt={t.hero.screenshotAlt}
-  outcomeStatement={t.hero.outcomeStatement}
-  hookLine={t.hero.hookLine}
+  structuredData={structuredData}
+  locale="fr"
 >
-
-  <!-- Section 1 : Comment ça fonctionne -->
-  <section data-animate class="section-spaced">
-    <div class="mx-auto max-w-3xl px-6">
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        {t.howItWorks.heading}
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p1}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.prescriptionToExecutionHeading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p2}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p3}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.autoregulationHeading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p4}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.connectHeading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p5}
-      </p>
+  <!-- Hero -->
+  <section class="sec feat-hero">
+    <div class="ghost num" data-ghost aria-hidden="true">1 324</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>journal</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">Note vite, entre les séries</h1>
+        <p class="feat-lead" data-animate data-animate-delay="120">
+          Une banque de 1 324 mouvements derrière un sélecteur pensé recherche
+          d'abord. Charge, répétitions, validé — un journal fait pour des pouces
+          couverts de magnésie, qui suit la séance au lieu de la ralentir.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Section 2 : Conçu pour une vraie programmation -->
-  <section
-    data-animate
-    style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
-  >
-    <div
-      class="section-spaced mx-auto max-w-3xl px-6"
-    >
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        {t.realProgramming.heading}
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.realProgramming.p1}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.realProgramming.p2}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.realProgramming.p3}
-      </p>
+  <!-- The three surfaces -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>comment ça marche</span>
+        <h2 data-animate>Plan, journal et historique au même endroit</h2>
+        <p data-animate>
+          Construis les séances de force auxquelles tu crois déjà : force bas du
+          corps après le travail technique, haut du corps entre deux soirs de
+          pickup, ou un simple modèle sur deux jours autour de ton calendrier de
+          championnat. Chaque séance peut porter des séries cibles, des fourchettes
+          de répétitions, une série lourde planifiée, des plafonds de RPE et des
+          notes.
+        </p>
+        <p data-animate data-animate-delay="80">
+          Le travail réel est enregistré à côté de la cible : série, répétitions,
+          charge, RPE et répétitions en réserve. C'est cette trace
+          prévu-contre-réalisé qui permet à Tuwa de relier ta propre programmation
+          au prochain verdict de forme.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread spread-3" data-spread>
+          <div class="plate" data-fan="l"><Image src={movementBankShot} alt="Banque de mouvements Tuwa : catalogue de 1 324 exercices avec recherche" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Séance en cours dans Tuwa : saisie des séries en direct" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="r"><Image src={workoutLogShot} alt="Journal d'entraînement Tuwa : historique des séances" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+      </div>
     </div>
   </section>
 
-</FeaturePageLayout>
+  <!-- Templates feed the decision -->
+  <section class="sec bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>ton plan reste le tien</span>
+        <h2 data-animate>Structure le plan, reste l'auteur</h2>
+        <p data-animate>
+          Quand tu ouvres la séance planifiée, Tuwa a assez de structure pour
+          répondre à la seule question utile : est-ce encore la bonne dose
+          aujourd'hui ? L'app peut suggérer la série lourde prévue, un chiffre
+          ajusté ou une microdose plafonnée sans inventer un autre entraînement.
+        </p>
+        <p data-animate data-animate-delay="80">
+          Pas de coach par chat, pas de programme généré. Utilise Tuwa comme le
+          staff sports-science du plan que tu as écrit. Il se place entre la
+          planification et l'exécution : assez discret pour la salle, assez
+          structuré pour rendre l'ajustement du jour précis.
+        </p>
+        <p data-animate data-animate-delay="160">
+          Les modèles persistent dans le temps, tu peux donc revoir comment le
+          travail réel a bougé par rapport au plan — et Tuwa suit les records
+          personnels et l'historique des séances, pour que la vue du staff ne soit
+          pas faite que de prudence.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FeatureFaq heading="Questions fréquentes" faqs={faqs} />
+
+  <FeatureClosing
+    heading="Garde ton plan. Ajuste la journée."
+    body="Télécharge Tuwa pour apporter ton propre plan, vérifier le verdict du jour et ajuster la série lourde avant de t'entraîner."
+    ctaNote="iOS 17+ · iPhone"
+    ctaLabel="Télécharger sur l'App Store"
+    relatedAriaLabel="Pages liées"
+    related={[
+      { label: 'Le verdict du jour', href: '/fr/features/verdict' },
+      { label: 'Charge d\'entraînement', href: '/fr/features/workload-tracking' },
+      { label: 'Score de récupération', href: '/fr/features/recovery-scoring' },
+      { label: 'Démarrage immédiat', href: '/fr/features/cold-start' },
+      { label: 'Comparer Tuwa', href: '/fr/compare' },
+    ]}
+  />
+
+  <script>
+    import '../../../scripts/featureMotion.ts';
+  </script>
+</BaseLayout>
