@@ -1,0 +1,175 @@
+---
+// 每日建议（verdict）——旗舰功能页（Pavilion，zh）。结构与 EN 版逐节对应，
+// 文案为翻译；hreflang 走 SEO.astro 默认的三语对（en / zh-CN / fr）。
+import { Image } from 'astro:assets';
+import CJKLayout from '../../../layouts/CJKLayout.astro';
+import FeatureFaq from '../../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../../seo/schema';
+import verdictShot from '../../../assets/screens-v16/verdict.png';
+import strikeZoneShot from '../../../assets/screens-v16/strike-zone.png';
+
+const title = '每日建议：go、modify 或 hold';
+const description =
+  '针对你计划中的力量训练，给出每日 go、modify 或 hold 建议、调整后的顶组数字，以及一句原因。';
+
+const faqs = [
+  {
+    q: 'Tuwa 会替我写训练计划吗？',
+    a: '不会。Tuwa 不写课表。它读取你自己安排的力量训练，再帮你判断今天该用多大剂量执行。没有生成式课表，也没有聊天教练。',
+  },
+  {
+    q: '判定由什么驱动？',
+    a: 'HRV、睡眠、静息心率、训练历史、酸痛和比赛临近情况——对照你计划中的力量训练一起评估。生理数据只是判定的一部分，不是判定本身。',
+  },
+  {
+    q: '"modify" 实际会改什么？',
+    a: 'Modify 表示保留训练结构，但减少剂量：限制 RPE、降低重量，或在比赛临近时改成 microdose。你会拿到调整后的顶组数字和一句原因，在热身前看到，那时训练仍然可以调整。',
+  },
+  {
+    q: '我必须听从判定吗？',
+    a: '不必。三种判定都不是命令；最终由运动员确认。你可以确认调整，也可以继续执行原计划。',
+  },
+  {
+    q: '第一周 Tuwa 还不了解我时会怎样？',
+    a: '在真实生理和训练数据足够之前，准备状态和判定会保持克制。当证据仍不足以支持有把握的调整时，判定可以选择暂缓，而不是凭猜测削减你的计划。',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
+---
+<CJKLayout
+  title={title}
+  description={description}
+  ogImage="/og-default.png"
+  structuredData={structuredData}
+>
+  <!-- Hero — editorial type + verdict tick in a debossed well -->
+  <section class="sec feat-hero">
+    <div class="wrap">
+      <div class="intro-row">
+        <div class="sec-head">
+          <span class="micro" data-animate>每日建议</span>
+          <h1 class="feat-h1" data-animate data-animate-delay="60">go、modify 或 hold——并告诉你为什么</h1>
+          <p class="feat-lead" data-animate data-animate-delay="120">
+            每次训练从一个判定开始：go、modify 还是 hold。Tuwa 把今晨的生理状态和昨天的负荷变成具体的数字调整——顶组降
+            5%、给体能部分设上限，或者选 microdose 方案，保住动作模式、省下代价。
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="180">
+          <div class="lottie-well"><div data-lottie="/lottie/verdict-tick.json" aria-label="动画：判定对勾与平静的脉冲圆环"></div></div>
+          <span class="micro lottie-cap">平静给出的判定</span>
+          <p style="margin-top:16px">
+            不用聊天，也不用自己解读数据。一个判定、背后的数字，以及你本来就打算练的那堂课。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How the verdict is computed -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>计算方式</span>
+        <h2 data-animate>三件事，一起权衡</h2>
+        <p data-animate>
+          每天早晨，Tuwa 读取你已经通过 HealthKit 收集的生理信号：HRV、静息心率和睡眠。它再结合你的训练历史、酸痛和比赛临近情况，评估你原本计划的力量训练。
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="aside" data-animate>
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">你的准备状态</h3>
+          <p>
+            夜间 HRV、睡眠和静息心率会对照你自己的滚动基线打分——不是人群标准——再压缩成一个数字，配上直白的原因。
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="80">
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">你在计划中的位置</h3>
+          <p>
+            打开计划训练时，Tuwa 已经有足够结构来回答真正有用的问题：今天这个剂量还合适吗？确切的数字调整，由你的准备状态和你在计划中的位置算出。
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="160">
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">比赛临近度</h3>
+          <p>
+            当比赛在 48 小时内，Tuwa 会把这堂力量课框定为 microdose：限制顶组、跳过回退组，保护比赛新鲜度。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Concrete numbers -->
+  <section class="sec bt">
+    <div class="ghost num" data-ghost aria-hidden="true">-5%</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>具体数字</span>
+        <h2 data-animate>给你调整后的顶组，而不是说教</h2>
+        <p data-animate>
+          输出刻意保持实用：go、modify 或 hold，加上调整后的顶组数字和一句原因。例如："周六比赛——限制顶组，跳过回退组。"你会在热身前看到建议，那时训练仍然可以调整。
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread" data-spread>
+          <div class="plate" data-fan="l"><Image src={strikeZoneShot} alt="Tuwa strike zone 条显示急性与慢性负荷比值" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={verdictShot} alt="Tuwa 判定界面：go / modify / hold 与具体数字调整" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+        <div class="aside" data-animate>
+          <div class="privacy-well" style="margin-top:0">
+            <ul>
+              <li>Go——原计划剂量仍适合今天。</li>
+              <li>Modify——保留训练结构，但减少剂量：限制 RPE、降低重量，或在比赛临近时改成 microdose。</li>
+              <li>Hold——疲劳背景足够多，建议推迟最硬的部分。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The nocebo guard -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>由运动员决定</span>
+        <h2 data-animate>最终由你确认</h2>
+        <p data-animate>
+          计划训练是起点，不是命令。当比赛临近、HRV、睡眠、酸痛或近期负荷提示风险上升时，Tuwa 会建议更小剂量并说明原因。你确认调整，或继续执行原计划。
+        </p>
+        <p data-animate data-animate-delay="80">
+          在应用里，两个选择的视觉分量完全相同——接受调整和保留原计划并排出现，谁都不会被样式暗示成"正确答案"。准备状态工具应该辅助决定，而不是把你的身体说得比实际更糟。
+        </p>
+        <p data-animate data-animate-delay="160">
+          同样的输入，同样的答案——引擎是确定性的。而且它从不替你写课表。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FeatureFaq heading="常见问题" faqs={faqs} />
+
+  <FeatureClosing
+    heading="每天一个决定"
+    body="下载 Tuwa，带入自己的计划，查看今天的建议，在训练前调整顶组。"
+    ctaNote="iOS 17+ · iPhone"
+    ctaLabel="在 App Store 下载"
+    relatedAriaLabel="相关页面"
+    related={[
+      { label: '训练负荷', href: '/zh/features/workload-tracking' },
+      { label: '恢复评分', href: '/zh/features/recovery-scoring' },
+      { label: '记录与动作库', href: '/zh/features/smart-templates' },
+      { label: '即刻开始', href: '/zh/features/cold-start' },
+      { label: '方法论', href: '/zh/methodology' },
+      { label: '对比 Tuwa', href: '/zh/compare' },
+    ]}
+  />
+
+  <!-- Self-hosted Lottie runtime (classic script: executes before the deferred
+       featureMotion module below). No CDN URLs anywhere. -->
+  <script is:inline src="/vendor/lottie.min.js"></script>
+  <script>
+    import '../../../scripts/featureMotion.ts';
+  </script>
+</CJKLayout>

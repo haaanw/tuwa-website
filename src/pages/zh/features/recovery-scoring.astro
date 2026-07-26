@@ -1,186 +1,141 @@
 ---
-import '@fontsource/noto-sans-sc/400.css';
-import '@fontsource/noto-sans-sc/700.css';
-import { useRecoveryScoringTranslations } from '../../../i18n/utils';
-import FeaturePageLayout from '../../../layouts/FeaturePageLayout.astro';
-import DeviceFrame from '../../../components/DeviceFrame.astro';
-import RecoveryChart from '../../../components/charts/RecoveryChart.astro';
-import recoveryScreenshot from '../../../assets/screenshots/recovery.png';
+// 恢复评分——对照个人基线的准备状态（Pavilion 重建，zh）。结构与 EN 版逐节对应。
+import { Image } from 'astro:assets';
+import CJKLayout from '../../../layouts/CJKLayout.astro';
+import FeatureFaq from '../../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../../seo/schema';
+import recoveryShot from '../../../assets/screens-v16/recovery.png';
 
-const t = useRecoveryScoringTranslations('zh');
+const title = '恢复评分：看得懂的准备状态';
+const description =
+  '夜间 HRV、睡眠和静息心率对照你自己的滚动基线打分——不是人群标准——再压缩成一个准备状态数字，配上直白的原因。';
+
+const faqs = [
+  {
+    q: '哪些信号会进入评分？',
+    a: 'Tuwa 读取你已经通过 HealthKit 收集的生理信号——HRV、静息心率和睡眠——再结合早晨的身体状态自评，你在其中评估酸痛、精力和压力。每个信号都与你自己的近期趋势比较，而不是人群标准。',
+  },
+  {
+    q: '为什么用个人基线而不是人群标准？',
+    a: 'HRV 数字因人而异。静息 HRV 45 毫秒的运动员并不比 80 毫秒的运动员恢复更差——真正的问题是你今天的 HRV 高于还是低于自己的近期趋势。',
+  },
+  {
+    q: '如果数字看起来正常，但我感觉很糟怎么办？',
+    a: '早晨自评就是你的主观感受进入模型的入口：你评估酸痛、精力和压力，当你在数字干净的情况下仍然感觉很糟时，这些答案可以覆盖生理数据。',
+  },
+  {
+    q: '我的原始健康数据会离开手机吗？',
+    a: '不会。Tuwa 只读取 HealthKit——从不写入——原始健康数据也永远不会离开设备。只有合成分数会同步。',
+  },
+  {
+    q: '低分实际会改变什么？',
+    a: '生理数据只是判定的一部分，不是判定本身。计划训练、比赛临近、酸痛和近期训练历史给信号补上训练上下文——最终输出是针对你计划训练的 go、modify 或 hold 建议。',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
 ---
-
-<style is:global>
-  html[lang="zh"] { --font-general-sans: 'General Sans', 'Noto Sans SC', system-ui, sans-serif; }
-</style>
-
-<FeaturePageLayout
-  shapeId="blob-3"
-  title={t.meta.title}
-  description={t.meta.description}
+<CJKLayout
+  title={title}
+  description={description}
   ogImage="/og/recovery-scoring.png"
-  screenshot={recoveryScreenshot}
-  screenshotAlt={t.hero.screenshotAlt}
-  outcomeStatement={t.hero.outcomeStatement}
-  hookLine={t.hero.hookLine}
-  locale="zh"
+  structuredData={structuredData}
 >
-
-  <!-- Sticky scroll showcase — ANIM-05 (D-05, D-06, D-07) -->
-  <section class="section-spaced">
-    <div class="sticky-showcase">
-
-      <!-- Left column: sticky device frame -->
-      <div class="sticky-device-col">
-        <div class="device-sticky-wrapper">
-          <DeviceFrame
-            src={recoveryScreenshot}
-            alt={t.howItWorks.deviceAlt}
-            loading="lazy"
-            widths={[320, 640]}
-          />
-          <!-- Step indicator dots — purely decorative -->
-          <div aria-hidden="true" style="display: flex; justify-content: center; gap: var(--space-sm); margin-top: var(--space-lg);">
-            <div class="step-dot is-active"></div>
-            <div class="step-dot"></div>
-            <div class="step-dot"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right column: scrolling step content -->
-      <div class="scroll-steps-col">
-
-        <!-- Step 1: Overview + Zones -->
-        <div class="scroll-step is-active" data-step="1" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
-          <h2 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
-            {t.howItWorks.heading}
-          </h2>
-          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            {t.howItWorks.p1}
-          </p>
-          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            {t.howItWorks.p2}
-          </p>
-          <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-            {t.howItWorks.threeZonesHeading}
-          </h3>
-          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            {t.howItWorks.p3}
-          </p>
-        </div>
-
-        <!-- Step 2: Device Compatibility -->
-        <div class="scroll-step" data-step="2" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
-          <h3 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
-            {t.deviceCompatibility.heading}
-          </h3>
-          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            {t.deviceCompatibility.p1}
-          </p>
-        </div>
-
-        <!-- Step 3: Personal Baseline -->
-        <div class="scroll-step" data-step="3" style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
-          <h3 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1); margin-bottom: var(--space-lg);">
-            {t.personalBaseline.heading}
-          </h3>
-          <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-            {t.personalBaseline.p1}
-          </p>
-        </div>
-
+  <!-- Hero -->
+  <section class="sec feat-hero">
+    <div class="ghost num" data-ghost aria-hidden="true">82</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>恢复</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">看得懂的准备状态</h1>
+        <p class="feat-lead" data-animate data-animate-delay="120">
+          夜间 HRV、睡眠和静息心率会对照你自己的滚动基线打分——不是人群标准——再压缩成一个数字，配上直白的原因。你拿到的不是一块要自己解读的仪表盘，而是一个分数和它背后的为什么。
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: The science behind it -->
-  <section
-    style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
-  >
-    <div
-      class="section-spaced mx-auto max-w-3xl px-6"
-    >
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        {t.scienceSection.heading}
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.scienceSection.p1}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.scienceSection.p2}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.scienceSection.p3}
-      </p>
-
-      <RecoveryChart />
+  <!-- How it works — personal baselines -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>工作原理</span>
+        <h2 data-animate>你的基线，不是人群的</h2>
+        <p data-animate>
+          每天早晨，Tuwa 从 Apple HealthKit 拉取夜间生理数据，再结合一次简短的身体状态自评，产出一个
+          0 到 100 之间的准备状态数字。各项输入的权重并不相同，也没有任何一项会被拿去和人群标准比较——每个信号都对照你自己的近期趋势。
+        </p>
+        <p data-animate data-animate-delay="80">
+          HRV 数字因人而异。真正重要的是你的信号高于还是低于自己的近期趋势，以及这个趋势如何影响今天计划中的力量训练。
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread" data-spread>
+          <div class="plate" data-fan="c"><Image src={recoveryShot} alt="Tuwa 恢复界面：HRV 与睡眠趋势对照个人基线" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+        <div class="aside quote" data-animate data-quote>
+          <div class="quote-rule"></div>
+          <blockquote>
+            62 分从来不只是一个数字：你的 HRV 比近期基线低 8%，睡眠偏短，但静息心率正常。
+          </blockquote>
+          <p style="margin-top:16px">你看到的是推理过程，而不只是结论。</p>
+        </div>
+      </div>
     </div>
   </section>
 
-</FeaturePageLayout>
+  <!-- The honest blend -->
+  <section class="sec bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>诚实混合</span>
+        <h2 data-animate>生理数据，混合你的主观感受</h2>
+        <p data-animate>
+          早晨的身体状态自评——你在其中评估酸痛、精力和压力——补上了可穿戴设备测不到的上下文。当你在数字干净的情况下仍然感觉很糟时，这些答案可以覆盖生理数据。
+        </p>
+        <p data-animate data-animate-delay="80">
+          HRV 本身也有噪声。睡眠不足、一场很晚的比赛，或闹钟异常提前，都会影响单次测量——这正是
+          Tuwa 追踪趋势、而不是对单个数据点做反应的原因。生理数据只是判定的一部分，不是判定本身。
+        </p>
+      </div>
+    </div>
+  </section>
 
-<script is:inline>
-  /* StickyScrollController — scoped to recovery-scoring.astro only */
-  /* Separate observer from global AnimationController (different threshold, continuous observation) */
-  (function () {
-    var steps = document.querySelectorAll('.scroll-step');
-    var dots = document.querySelectorAll('.step-dot');
-    if (!steps.length) return;
-    var ticking = false;
+  <!-- The science behind it -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>科学原理</span>
+        <h2 data-animate>为什么 HRV 权重最高</h2>
+        <p data-animate>
+          心率变异性是连续心跳之间时间间隔的变化量，以毫秒为单位。完全规律的心跳——每次间隔完全相同——实际上是压力的信号。健康的心脏会产生细微的逐搏变异，因为它在响应自主神经系统的调控，平衡交感神经（战斗或逃跑）与副交感神经（休息与消化）的活动。
+        </p>
+        <p data-animate data-animate-delay="80">
+          恢复良好时，副交感神经活性占主导，心率变异性更高。疲劳、压力过大或身体不适时，交感神经张力增强，心率变异性下降。正因如此，过去二十年间心率变异性已成为运动科学领域研究最广泛的生物标志物之一——它是你神经系统当前状态的窗口。
+        </p>
+      </div>
+    </div>
+  </section>
 
-    function setActive(step) {
-      var stepNum = step.getAttribute('data-step');
-      steps.forEach(function (s) { s.classList.toggle('is-active', s === step); });
-      dots.forEach(function (d, i) {
-        d.classList.toggle('is-active', String(i + 1) === stepNum);
-      });
-    }
+  <FeatureFaq heading="常见问题" faqs={faqs} />
 
-    function updateActiveStep() {
-      ticking = false;
-      var viewportCenter = window.innerHeight / 2;
-      var bestStep = steps[0];
-      var bestDistance = Infinity;
-      steps.forEach(function (step) {
-        var rect = step.getBoundingClientRect();
-        var visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-        if (visibleHeight <= 0) return;
-        var stepCenter = rect.top + rect.height / 2;
-        var distance = Math.abs(stepCenter - viewportCenter);
-        if (distance < bestDistance) {
-          bestDistance = distance;
-          bestStep = step;
-        }
-      });
-      setActive(bestStep);
-    }
+  <FeatureClosing
+    heading="一个分数和它背后的为什么"
+    body="下载 Tuwa，带入自己的计划，查看今天的建议，在训练前调整顶组。"
+    ctaNote="iOS 17+ · iPhone"
+    ctaLabel="在 App Store 下载"
+    relatedAriaLabel="相关页面"
+    related={[
+      { label: '每日建议', href: '/zh/features/verdict' },
+      { label: '训练负荷', href: '/zh/features/workload-tracking' },
+      { label: '即刻开始', href: '/zh/features/cold-start' },
+      { label: '准备状态评分', href: '/zh/readiness-score' },
+      { label: '方法论', href: '/zh/methodology' },
+    ]}
+  />
 
-    function requestUpdate() {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(updateActiveStep);
-    }
-
-    var observer = new IntersectionObserver(requestUpdate, {
-      threshold: [0, 0.25, 0.5, 0.75, 1],
-      rootMargin: '-12% 0px -12% 0px',
-    });
-
-    steps.forEach(function (el) { observer.observe(el); });
-    window.addEventListener('resize', requestUpdate);
-    requestUpdate();
-  })();
-</script>
+  <script>
+    import '../../../scripts/featureMotion.ts';
+  </script>
+</CJKLayout>

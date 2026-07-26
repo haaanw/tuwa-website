@@ -9,8 +9,18 @@ interface Props {
   body?: string;
   ctaNote: string;
   related: ReadonlyArray<{ label: string; href: string }>;
+  /* Localized pages pass translated labels; EN pages rely on the defaults. */
+  ctaLabel?: string;
+  relatedAriaLabel?: string;
 }
-const { heading, body, ctaNote, related } = Astro.props;
+const {
+  heading,
+  body,
+  ctaNote,
+  related,
+  ctaLabel = 'Download on the App Store',
+  relatedAriaLabel = 'Related pages',
+} = Astro.props;
 ---
 <section class="sec bt">
   <div class="wrap">
@@ -20,11 +30,11 @@ const { heading, body, ctaNote, related } = Astro.props;
     </div>
     <div class="closing-cta" data-animate>
       <a class="pill-ink" id="closeCta" href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
-        Download on the App Store
+        {ctaLabel}
       </a>
       <span class="micro">{ctaNote}</span>
     </div>
-    <nav class="related-row micro" aria-label="Related pages">
+    <nav class="related-row micro" aria-label={relatedAriaLabel}>
       {related.map((link, i) => (
         <>
           {i > 0 && <span class="f-tick" aria-hidden="true"></span>}

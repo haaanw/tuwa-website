@@ -1,112 +1,126 @@
 ---
-import '@fontsource/noto-sans-sc/400.css';
-import '@fontsource/noto-sans-sc/700.css';
-import { useSmartTemplatesTranslations } from '../../../i18n/utils';
-import FeaturePageLayout from '../../../layouts/FeaturePageLayout.astro';
-import activeWorkoutScreenshot from '../../../assets/screenshots/active-workout.png';
+// 记录、模板与动作库（Pavilion 重建，zh——沿用原 slug）。结构与 EN 版逐节对应。
+import { Image } from 'astro:assets';
+import CJKLayout from '../../../layouts/CJKLayout.astro';
+import FeatureFaq from '../../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../../seo/schema';
+import workoutLogShot from '../../../assets/screens-v16/workout-log.png';
+import activeWorkoutShot from '../../../assets/screens-v16/active-workout.png';
+import movementBankShot from '../../../assets/screens-v16/movement-bank.png';
 
-const t = useSmartTemplatesTranslations('zh');
+const title = '记录、模板与动作库';
+const description =
+  '面向力量房的快速记录、承载你自己计划的模板，以及 1,324 个动作的搜索优先动作库——让记录跟上训练。';
+
+const faqs = [
+  {
+    q: '动作库有多大？',
+    a: '1,324 个动作的动作库，放在一个搜索优先的选择器后面。找到动作、记下这一组，回到杠铃旁。',
+  },
+  {
+    q: '模板可以承载什么？',
+    a: '每堂课都可以保留目标组数、次数区间、计划顶组重量、RPE 上限和备注——把你本来就认可的力量训练结构化，让当天的调整足够具体。',
+  },
+  {
+    q: 'Tuwa 会替我生成训练吗？',
+    a: '不会。没有聊天教练，也不生成课表。Tuwa 是你自己计划背后的运动科学后方团队——它位于计划和执行之间。',
+  },
+  {
+    q: '训练中记录有多快？',
+    a: '重量、次数、完成——为沾满镁粉的拇指设计的记录方式，让记录跟上训练，而不是拖慢它。',
+  },
+  {
+    q: '日志如何连接每日建议？',
+    a: '实际训练会与目标并排记录：组数、次数、重量、RPE 和 RIR。这条"计划 vs 实际"轨迹，让 Tuwa 能把你的编排和下一次准备状态判定连接起来。',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
 ---
-
-<style is:global>
-  html[lang="zh"] { --font-general-sans: 'General Sans', 'Noto Sans SC', system-ui, sans-serif; }
-</style>
-
-<FeaturePageLayout
-  shapeId="blob-4"
-  locale="zh"
-  title={t.meta.title}
-  description={t.meta.description}
+<CJKLayout
+  title={title}
+  description={description}
   ogImage="/og/smart-templates.png"
-  screenshot={activeWorkoutScreenshot}
-  screenshotAlt={t.hero.screenshotAlt}
-  outcomeStatement={t.hero.outcomeStatement}
-  hookLine={t.hero.hookLine}
+  structuredData={structuredData}
 >
-
-  <!-- 第一节：工作原理 -->
-  <section data-animate class="section-spaced">
-    <div class="mx-auto max-w-3xl px-6">
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        {t.howItWorks.heading}
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p1}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.prescriptionToExecutionHeading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p2}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p3}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.autoregulationHeading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p4}
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        {t.howItWorks.connectHeading}
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.howItWorks.p5}
-      </p>
+  <!-- Hero -->
+  <section class="sec feat-hero">
+    <div class="ghost num" data-ghost aria-hidden="true">1,324</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>记录</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">组间快速记录</h1>
+        <p class="feat-lead" data-animate data-animate-delay="120">
+          1,324 个动作的动作库，放在一个搜索优先的选择器后面。重量、次数、完成——为沾满镁粉的拇指设计的记录方式，让记录跟上训练，而不是拖慢它。
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- 第二节：专为真实编程逻辑而设计 -->
-  <section
-    data-animate
-    style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
-  >
-    <div
-      class="section-spaced mx-auto max-w-3xl px-6"
-    >
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        {t.realProgramming.heading}
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.realProgramming.p1}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.realProgramming.p2}
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        {t.realProgramming.p3}
-      </p>
+  <!-- The three surfaces -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>工作原理</span>
+        <h2 data-animate>计划、记录和历史在同一个地方</h2>
+        <p data-animate>
+          搭建你本来就认可的力量训练：技术课后的下肢力量、野球夜之间的上肢训练，或围绕联赛日程安排的两天模板。每堂课都可以保留目标组数、次数区间、计划顶组重量、RPE
+          上限和备注。
+        </p>
+        <p data-animate data-animate-delay="80">
+          实际训练会与目标并排记录：组数、次数、重量、RPE 和 RIR。这条"计划 vs 实际"轨迹，让
+          Tuwa 能把你的编排和下一次准备状态判定连接起来。
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread spread-3" data-spread>
+          <div class="plate" data-fan="l"><Image src={movementBankShot} alt="Tuwa 动作库：可搜索的 1,324 个动作目录" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Tuwa 进行中训练：实时记录每一组" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="r"><Image src={workoutLogShot} alt="Tuwa 训练日志：历史训练记录" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+      </div>
     </div>
   </section>
 
-</FeaturePageLayout>
+  <!-- Templates feed the decision -->
+  <section class="sec bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>你的计划仍然属于你</span>
+        <h2 data-animate>把计划结构化，保留作者权</h2>
+        <p data-animate>
+          打开计划训练时，Tuwa 已经有足够结构来回答真正有用的问题：今天这个剂量还合适吗？它可以建议按计划顶组执行、给出调整后的数字，或把训练改成有上限的
+          microdose，而不是凭空生成另一堂课。
+        </p>
+        <p data-animate data-animate-delay="80">
+          没有聊天教练，也不生成课表。把 Tuwa 当作你自己计划背后的运动科学后方团队。它位于计划和执行之间：在力量房里足够安静，在当天调整时又足够具体。
+        </p>
+        <p data-animate data-animate-delay="160">
+          模板会随时间保留，因此你能复盘实际训练如何相对计划变化——Tuwa 也追踪个人纪录和训练历史，所以后方团队视角不只是谨慎。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FeatureFaq heading="常见问题" faqs={faqs} />
+
+  <FeatureClosing
+    heading="保留你的计划，调整今天"
+    body="下载 Tuwa，带入自己的计划，查看今天的建议，在训练前调整顶组。"
+    ctaNote="iOS 17+ · iPhone"
+    ctaLabel="在 App Store 下载"
+    relatedAriaLabel="相关页面"
+    related={[
+      { label: '每日建议', href: '/zh/features/verdict' },
+      { label: '训练负荷', href: '/zh/features/workload-tracking' },
+      { label: '恢复评分', href: '/zh/features/recovery-scoring' },
+      { label: '即刻开始', href: '/zh/features/cold-start' },
+      { label: '对比 Tuwa', href: '/zh/compare' },
+    ]}
+  />
+
+  <script>
+    import '../../../scripts/featureMotion.ts';
+  </script>
+</CJKLayout>
