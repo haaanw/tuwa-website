@@ -1,104 +1,176 @@
 ---
-import FeaturePageLayout from '../../layouts/FeaturePageLayout.astro';
+// Cold start — useful from day one, honestly (Pavilion rebuild).
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FeatureFaq from '../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../seo/schema';
+import workoutLogShot from '../../assets/screens-v16/workout-log.png';
+
+const title = 'Cold-Start Onboarding';
+const description =
+  'Honest setup from day one. Tuwa uses onboarding answers to seed your workload profile, then waits for real recovery data before making stronger calls.';
+
+const faqs = [
+  {
+    q: 'Do I need weeks of baseline data before Tuwa is useful?',
+    a: 'No. Tuwa is useful from day one because onboarding sets up your training profile and logged sessions immediately start building workload history. Readiness is more conservative: when personal recovery history is thin, Tuwa avoids pretending that a population baseline is your baseline.',
+  },
+  {
+    q: 'What does day one actually look like?',
+    a: 'Tuwa collects the context it can honestly use: your training background, planned lifting pattern, wellness check-in, and any HealthKit data you permit. Training load tracking starts building from the first logged workout.',
+  },
+  {
+    q: 'What if I have little or no HealthKit history?',
+    a: 'If recovery history is thin, the app avoids over-reading it; a no-data recovery state stays neutral instead of pretending to know your personal baseline.',
+  },
+  {
+    q: 'Will early verdicts start trimming my plan?',
+    a: 'When the evidence is still too thin for a confident adjustment, the verdict can defer rather than trimming your plan on a guess.',
+  },
+  {
+    q: 'Why not just show a recovery score anyway?',
+    a: 'False precision is worse than acknowledged uncertainty. If an app tells you "your recovery score is 84" on day one with no physiological data behind it, that number is fabricated — and the disconnect eventually erodes trust in the tool entirely.',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
 ---
-
-<FeaturePageLayout
-  shapeId="blob-2"
-  title="Cold-Start Onboarding"
-  description="Honest setup from day one. Tuwa uses onboarding answers to seed your workload profile, then waits for real recovery data before making stronger calls."
+<BaseLayout
+  title={title}
+  description={description}
   ogImage="/og/cold-start.png"
-  screenshotAlt="Cold-Start Onboarding Screenshot — coming soon"
-  outcomeStatement="Useful setup on day one — without pretending certainty"
-  hookLine="Tuwa starts with your profile and first logged sessions, then gets more personal as real data arrives."
+  structuredData={structuredData}
 >
-
-  <!-- Section 1: How it works -->
-  <section data-animate class="section-spaced">
-    <div class="mx-auto max-w-3xl px-6">
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        How it works
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Every system that learns from personal data faces the same problem on day one: there is not much personal history yet. Recovery scoring, training load trends, and personal baselines all get better once you have real records. Tuwa does not fill that gap with fake precision.
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Tuwa starts by building a training profile from your onboarding answers: sport context, current lifting rhythm, recent workload, and the kind of sessions you plan to log. That profile helps the workload model start organized, while readiness and verdicts stay conservative until enough real physiology and training data exist.
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        Day 1: set the workload profile
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        On your first day, Tuwa collects the context it can honestly use: your training background, planned lifting pattern, wellness check-in, and any HealthKit data you permit. If recovery history is thin, the app avoids over-reading it; a no-data recovery state stays neutral instead of pretending to know your personal baseline.
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        First sessions: build from what you log
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        As you log workouts, Tuwa starts calculating session load from the work you actually did: exercises, sets, reps, weight, RPE, and reps in reserve. Those logs create the early acute-load picture and make the next review more grounded than a blank calendar.
-      </p>
-
-      <h3 style="font-size: var(--text-subheading); line-height: var(--leading-subheading); font-weight: var(--weight-heading); color: var(--color-text-1); margin-top: var(--space-xl);">
-        After history accumulates: personalize the trend
-      </h3>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        With consistent HealthKit readings, wellness check-ins, and logged sessions, Tuwa can compare more signals against your own recent trend. When the evidence is still too thin for a confident adjustment, the verdict can defer rather than trimming your plan on a guess.
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Training load tracking starts building from the first logged workout. The first session gives Tuwa real load data to store, and each later session makes the acute and chronic workload views more useful.
-      </p>
+  <!-- Hero -->
+  <section class="sec feat-hero">
+    <div class="ghost num" data-ghost aria-hidden="true">01</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>starting out</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">Useful on day one — without pretending certainty</h1>
+        <p class="feat-lead" data-animate data-animate-delay="120">
+          Tuwa starts with your profile and first logged sessions, then gets more
+          personal as real data arrives. Recovery scoring, training load trends, and
+          personal baselines all get better once you have real records — Tuwa does
+          not fill that gap with fake precision.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Section 2: Why honesty matters -->
-  <section
-    data-animate
-    style="background-color: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);"
-  >
-    <div
-      class="section-spaced mx-auto max-w-3xl px-6"
-    >
-      <h2
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-bottom: var(--space-lg);
-        "
-      >
-        Why honesty matters
-      </h2>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        False precision is worse than acknowledged uncertainty. If an app tells you "your recovery score is 84" on day one with no physiological data behind it, that number is fabricated. Athletes who rely on it are training by fiction. Over time, the disconnect between the app's confident output and their subjective experience erodes trust in the tool entirely.
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        Serious athletes already have good intuitions about their own recovery — built from years of training, competition, and paying attention to how their body responds. Tuwa's cold-start approach respects that. Early on, it helps you structure the log and understand what is known, while leaving room for your judgment when the data is incomplete.
-      </p>
-
-      <p style="margin-top: var(--space-md); font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-text-2);">
-        The payoff is practical: instead of acting confident before it has evidence, Tuwa lets your own records become the baseline. As HealthKit readings, wellness check-ins, and logged sessions accumulate, the explanations become more specific to your physiology and training history.
-      </p>
+  <!-- How it works — three stages -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>how it works</span>
+        <h2 data-animate>From onboarding answers to your own baseline</h2>
+        <p data-animate>
+          Tuwa starts by building a training profile from your onboarding answers:
+          sport context, current lifting rhythm, recent workload, and the kind of
+          sessions you plan to log. That profile helps the workload model start
+          organized, while readiness and verdicts stay conservative until enough
+          real physiology and training data exist.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="aside" data-animate>
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">Day one</h3>
+          <p>
+            Tuwa collects the context it can honestly use: your training background,
+            planned lifting pattern, wellness check-in, and any HealthKit data you
+            permit. A no-data recovery state stays neutral instead of pretending to
+            know your personal baseline.
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="80">
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">First sessions</h3>
+          <p>
+            As you log workouts, Tuwa starts calculating session load from the work
+            you actually did: exercises, sets, reps, weight, RPE, and reps in
+            reserve. Those logs create the early acute-load picture.
+          </p>
+        </div>
+        <div class="aside" data-animate data-animate-delay="160">
+          <h3 style="font-size:20px; font-weight:var(--weight-label); color:var(--color-text-1); margin-bottom:8px">As history accumulates</h3>
+          <p>
+            With consistent HealthKit readings, wellness check-ins, and logged
+            sessions, Tuwa can compare more signals against your own recent trend —
+            and the explanations become more specific to your physiology and
+            training history.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
-</FeaturePageLayout>
+  <!-- The first log -->
+  <section class="sec bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>build from what you log</span>
+        <h2 data-animate>The first workout starts the model</h2>
+        <p data-animate>
+          Training load tracking starts building from the first logged workout. The
+          first session gives Tuwa real load data to store, and each later session
+          makes the acute and chronic workload views more useful.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread" data-spread>
+          <div class="plate" data-fan="c"><Image src={workoutLogShot} alt="Tuwa workout log: session history" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+        <div class="aside" data-animate>
+          <p>
+            Serious athletes already have good intuitions about their own recovery —
+            built from years of training, competition, and paying attention to how
+            their body responds. Tuwa's cold-start approach respects that. Early on,
+            it helps you structure the log and understand what is known, while
+            leaving room for your judgment when the data is incomplete.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why honesty matters -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>the principle</span>
+        <h2 data-animate>Why honesty matters</h2>
+        <p data-animate>
+          False precision is worse than acknowledged uncertainty. If an app tells
+          you "your recovery score is 84" on day one with no physiological data
+          behind it, that number is fabricated. Athletes who rely on it are training
+          by fiction.
+        </p>
+        <p data-animate data-animate-delay="80">
+          The payoff is practical: instead of acting confident before it has
+          evidence, Tuwa lets your own records become the baseline. As HealthKit
+          readings, wellness check-ins, and logged sessions accumulate, the
+          explanations become more specific to your physiology and training history.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FeatureFaq heading="Common questions" faqs={faqs} />
+
+  <FeatureClosing
+    heading="Let your own records become the baseline"
+    body="Download Tuwa to bring your own plan, check today's verdict, and adjust the top set before you train."
+    ctaNote="iOS 17+ · iPhone"
+    related={[
+      { label: 'The daily verdict', href: '/features/verdict' },
+      { label: 'Recovery scoring', href: '/features/recovery-scoring' },
+      { label: 'Workload tracking', href: '/features/workload-tracking' },
+      { label: 'Logging & movement bank', href: '/features/smart-templates' },
+      { label: 'Methodology', href: '/methodology' },
+    ]}
+  />
+
+  <script>
+    import '../../scripts/featureMotion.ts';
+  </script>
+</BaseLayout>
