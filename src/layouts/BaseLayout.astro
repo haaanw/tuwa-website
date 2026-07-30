@@ -27,6 +27,11 @@ const { title, description, ogImage, ogImageAlt, canonical, type, locale = 'en',
     <!-- Font preload FIRST — before stylesheets — per Pitfall 6 in RESEARCH.md -->
     <link rel="preload" href="/fonts/InstrumentSans-Regular.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preload" href="/fonts/InstrumentSans-Medium.ttf" as="font" type="font/ttf" crossorigin />
+    <!-- Field Notes v6: Alpino is the display voice (hero/section headings) and
+         Fragment Mono is the annotation voice (kickers, captions) — both render
+         above the fold, so both preload. Self-hosted; no CDN, ever. -->
+    <link rel="preload" href="/fonts/Alpino-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/FragmentMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script is:inline>document.documentElement.classList.add('js-enabled');try{document.documentElement.classList.add("motion")}catch(e){}</script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

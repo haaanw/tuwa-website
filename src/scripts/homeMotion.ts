@@ -111,10 +111,12 @@ interface LottieAnim {
     const revealEls = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]')) as HTMLElement[];
     const countEls = Array.prototype.slice.call(document.querySelectorAll('[data-count]')) as HTMLElement[];
     const quoteEls = Array.prototype.slice.call(document.querySelectorAll('[data-quote]')) as HTMLElement[];
+    const annoEls = Array.prototype.slice.call(document.querySelectorAll('.annotation-reveal')) as HTMLElement[];
 
     if (RM || typeof IntersectionObserver === 'undefined') {
       revealEls.forEach((el) => { el.classList.add('in'); });
       quoteEls.forEach((el) => { el.classList.add('in'); });
+      annoEls.forEach((el) => { el.classList.add('in'); });
       countEls.forEach((el) => { runCount(el); });
     } else {
       const counted = new WeakSet<Element>();
@@ -131,6 +133,10 @@ interface LottieAnim {
             el.classList.add('in');
           }
           if (el.hasAttribute('data-quote')) el.classList.add('in');
+          /* annotation choreography (Field Notes): the surface settles, THEN the
+             scientist labels it. The stagger itself is CSS (--ai × --anno-stagger
+             plus a --dur-state settle delay); JS only flips the class. */
+          if (el.classList.contains('annotation-reveal')) el.classList.add('in');
           if (el.hasAttribute('data-count') && !counted.has(el)) {
             counted.add(el);
             runCount(el);
@@ -140,13 +146,54 @@ interface LottieAnim {
 
       revealEls.forEach((el) => { io.observe(el); });
       quoteEls.forEach((el) => { io.observe(el); });
+      annoEls.forEach((el) => { io.observe(el); });
       countEls.forEach((el) => { io.observe(el); });
     }
   } catch (e) {
     try {
       document.querySelectorAll('[data-reveal]').forEach((el) => { el.classList.add('in'); });
+      document.querySelectorAll('.annotation-reveal').forEach((el) => { el.classList.add('in'); });
     } catch (e2) { /* noop */ }
   }
+
+  /* self-drawing baseline chart (section 04). Reduced motion is handled in CSS —
+     html:not(.motion) and prefers-reduced-motion both show the finished chart —
+     so this block only runs when motion is on. Draw order: line (left to right),
+     then the dashed baseline, then the "now" marker; the mono axis labels ride
+     the annotation stagger above. */
+  try {
+    const spark = document.getElementById('spark');
+    if (spark && !RM && typeof IntersectionObserver !== 'undefined') {
+      const line = spark.querySelector('path.line') as SVGPathElement | null;
+      const baseline = document.getElementById('baseline');
+      const nowDot = document.getElementById('nowDot');
+      let drawn = false;
+      const cio = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (!en.isIntersecting || drawn) return;
+          drawn = true;
+          cio.disconnect();
+          if (line) {
+            line.style.transition = 'stroke-dashoffset 900ms var(--ease)';
+            window.requestAnimationFrame(() => { line.style.strokeDashoffset = '0'; });
+          }
+          window.setTimeout(() => {
+            if (baseline) {
+              baseline.style.transition = 'opacity var(--dur-entrance) var(--ease)';
+              baseline.style.opacity = '1';
+            }
+          }, 700);
+          window.setTimeout(() => {
+            if (nowDot) {
+              nowDot.style.transition = 'opacity var(--dur-state) var(--ease)';
+              nowDot.style.opacity = '1';
+            }
+          }, 1000);
+        });
+      }, { threshold: 0.4 });
+      cio.observe(spark);
+    }
+  } catch (e) { /* noop */ }
 
   /* marquee pause */
   try {
@@ -341,7 +388,8 @@ interface LottieAnim {
       for (i = 0; i < ghosts.length; i++) {
         r = ghosts[i].getBoundingClientRect();
         if (r.bottom < -200 || r.top > vh + 200) continue;
-        off = (r.top + r.height / 2 - vh / 2) * -0.06;
+        /* -0.08 matches design-system/ui_kits/website/motion.js (was -0.06) */
+        off = (r.top + r.height / 2 - vh / 2) * -0.08;
         ghosts[i].style.transform = 'translateY(' + off.toFixed(1) + 'px)';
       }
       window.requestAnimationFrame(frame);

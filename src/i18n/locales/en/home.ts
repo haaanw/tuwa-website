@@ -86,6 +86,15 @@ const home = {
     body: "Overnight HRV, sleep, and resting heart rate are scored against your own rolling baselines — not population norms — and compressed into one number with plain-language reasons. You don't get a dashboard to interpret. You get a score and the why.",
     shotAlt: 'Tuwa recovery screen: HRV and sleep trends against personal baselines',
     quote: 'The back room of a pro team — plan, physiology, and a decision — for athletes who coach themselves.',
+    // Annotation layer for the self-drawing baseline chart (Field Notes v6).
+    // Written lowercase; the .micro/.anno rule uppercases Latin locales.
+    spark: {
+      caption: 'Every metric is scored against your own rolling baseline, not population norms. This is 28 days of HRV, drawn the way the app draws it.',
+      label: 'hrv · 28 days',
+      reading: '62 ms +4 · at baseline',
+      axis: ['d-28', 'd-21', 'd-14', 'd-7', 'today'],
+      chartAlt: 'HRV trend over 28 days, currently 62 milliseconds, at baseline',
+    },
   },
   logging: {
     kicker: '04 · logging',

@@ -1,7 +1,12 @@
 ---
-// Demo-d one-line footer, extended with the site's page links and the
-// language switcher in quiet micro type (the minimal header carries no nav,
-// so the footer is the canonical navigation surface).
+// Demo-d one-line footer, extended with the site's page links and the language
+// switcher (the minimal header carries no nav, so the footer is the canonical
+// navigation surface).
+//
+// Field Notes v6: the annotation voice never carries a nav label, so only the
+// meta row (copyright · iOS 17+) is .micro — matching
+// design-system/ui_kits/website/index.html, where the footer nav is sans
+// --text-small and just the © line is .anno. The nav links keep the working voice.
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { APP_STORE_URL } from '../config';
 import { useTranslations } from '../i18n/utils';
@@ -42,7 +47,7 @@ const showLanguageSwitcher = availableLocales.length > 1;
 
 ---
 <footer class="site-footer">
-  <div class="wrap micro">
+  <div class="wrap footer-inner">
     <nav class="f-row" aria-label="Footer navigation">
       <a href={getRelativeLocaleUrl(locale, '/features/verdict')}>{t.drawer.verdict}</a>
       <a href={getRelativeLocaleUrl(locale, '/features/smart-templates')}>{t.nav.featuresDropdown.smartTemplatesTitle}</a>
@@ -79,7 +84,7 @@ const showLanguageSwitcher = availableLocales.length > 1;
         ))}
       </nav>
     )}
-    <div class="f-row">
+    <div class="f-row micro">
       <span>{t.footer.copyright.replace('{year}', String(year))}</span>
       <span class="f-tick" aria-hidden="true"></span>
       <span>iOS 17+</span>

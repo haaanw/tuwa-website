@@ -79,6 +79,15 @@ const home: Home = {
     body: "VFC nocturne, sommeil et fréquence cardiaque au repos sont notés contre tes propres références glissantes — pas des normes de population — puis condensés en un seul chiffre avec des raisons en langage clair. Tu ne reçois pas un tableau de bord à interpréter. Tu reçois un score et le pourquoi.",
     shotAlt: 'Écran de récupération Tuwa : tendances VFC et sommeil contre les références personnelles',
     quote: "Le staff d'une équipe pro — plan, physiologie et une décision — pour les athlètes qui se coachent eux-mêmes.",
+    // Couche d'annotation du graphe qui se dessine (Field Notes v6).
+    // Écrit en minuscules ; la règle .micro/.anno met en capitales pour le latin.
+    spark: {
+      caption: "Chaque métrique est notée contre ta propre référence glissante, pas des normes de population. Voici 28 jours de VFC, tracés comme l'app les trace.",
+      label: 'vfc · 28 jours',
+      reading: '62 ms +4 · à la référence',
+      axis: ['j-28', 'j-21', 'j-14', 'j-7', "aujourd'hui"],
+      chartAlt: 'Tendance de la VFC sur 28 jours, actuellement 62 millisecondes, à la référence',
+    },
   },
   logging: {
     kicker: '04 · journal',

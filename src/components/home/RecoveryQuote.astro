@@ -29,5 +29,51 @@ const t = useHomeTranslations(locale).recovery;
         <blockquote>{t.quote}</blockquote>
       </div>
     </div>
+
+    <!-- Self-drawing baseline chart (Field Notes v6, ui_kits/website/index.html
+         section 04). The line draws left-to-right, the dashed baseline arrives,
+         then the "now" marker; the mono axis labels land last on the 40ms
+         annotation stagger. All initial-hidden states are gated on html.motion,
+         so no-JS and reduced-motion render the finished chart. -->
+    <figure class="spark-card card" data-reveal>
+      <p class="spark-caption">{t.spark.caption}</p>
+      <div class="spark-head">
+        <span class="micro">{t.spark.label}</span>
+        <span class="micro spark-reading">{t.spark.reading}</span>
+      </div>
+      <div class="spark-plot">
+        <svg
+          id="spark"
+          class="spark-svg"
+          viewBox="0 0 800 180"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label={t.spark.chartAlt}
+        >
+          <line class="spark-grid" x1="0" y1="45" x2="800" y2="45"></line>
+          <line class="spark-grid" x1="0" y1="135" x2="800" y2="135"></line>
+          <line
+            id="baseline"
+            class="spark-baseline"
+            x1="0" y1="90" x2="800" y2="90"
+          ></line>
+          <path
+            class="line spark-line"
+            d="M0,120 C40,116 70,128 110,122 C150,116 180,96 220,100 C260,104 290,132 330,126 C370,120 400,84 440,80 C480,76 510,98 550,92 C590,86 620,64 660,60 C700,56 740,72 780,66"
+            pathLength="1"
+          ></path>
+        </svg>
+        <!-- The "now" marker is an HTML element, not an SVG circle: the plot is
+             drawn with preserveAspectRatio="none", which would squash a circle
+             into an ellipse on narrow viewports. Its position mirrors the path's
+             final point — 780/800 across, 66/180 down. -->
+        <span id="nowDot" class="spark-now" aria-hidden="true"></span>
+      </div>
+      <figcaption class="spark-axis">
+        {t.spark.axis.map((tick, i) => (
+          <span class="micro annotation-reveal" style={`--ai:${i}`}>{tick}</span>
+        ))}
+      </figcaption>
+    </figure>
   </div>
 </section>

@@ -1,0 +1,26 @@
+Alpino Variable — licence notice
+================================
+
+Family:     Alpino Variable (wght 100–900)
+Designers:  Jérémie Hornus, Alisa Nowak
+Foundry:    Indian Type Foundry (ITF) — https://indiantypefoundry.com
+Source:     Fontshare — https://fontshare.com
+Licence:    Fontshare / ITF Free Font Licence — https://fontshare.com/terms
+
+Licence text embedded in the font (name ID 13), verbatim:
+
+  "This Font Software is protected under domestic and international trademark
+   and copyright law. You agree to identify the ITF fonts by name and credit
+   the ITF's ownership of the trademarks and copyrights in any design or
+   production credits."
+
+The authoritative terms are the ones published at https://fontshare.com/terms.
+This file is an attribution notice, not a substitute for that document.
+
+Usage scope in this project: Alpino is the DISPLAY voice and is confined to
+marketing surfaces (this website) and slide templates. It must never be
+bundled into the Tuwa iOS app — a design-fence test there bans the string
+"Alpino" (DESIGN.md v6 Two-Voice Type Law).
+
+Files: Alpino-Variable.woff2 (converted from design-system/fonts/Alpino-Variable.ttf
+with fontTools; glyph data unmodified, WOFF2 is a lossless container).

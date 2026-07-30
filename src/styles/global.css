@@ -1,8 +1,16 @@
 /* src/styles/global.css */
 /* Tailwind v4 — uses @import directive, not @tailwind directives */
 
-/* ===== v1.6 Pavilion: Instrument Sans — the one app voice (static 400 + 500) ===== */
-/* Self-hosted static TTFs matching the app (DESIGN.md v5 One-Voice Type Law).      */
+/* ===== v1.7 "Field Notes" (v6) — three voices, every one self-hosted =====
+   Instrument Sans (400 + 500) is what the site SAYS.
+   Fragment Mono is what it ANNOTATES with — ≤12px, uppercase, marginalia only.
+   Alpino is the DISPLAY voice — marketing surfaces only. It must NEVER reach the
+   iOS app; a design fence there bans the string (DESIGN.md v6 Two-Voice Type Law).
+
+   design-system/tokens/fonts.css pulls Fragment Mono from Google Fonts. This site
+   has a no-CDN law, so that @import is deliberately NOT carried over: the woff2 is
+   self-hosted in public/fonts/ alongside its SIL OFL 1.1 licence. Same for Alpino
+   (Fontshare/ITF terms in public/fonts/Alpino-LICENSE.txt).                        */
 @font-face {
   font-family: 'Instrument Sans';
   src: url('/fonts/InstrumentSans-Regular.ttf') format('truetype');
@@ -17,45 +25,106 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Fragment Mono';
+  src: url('/fonts/FragmentMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Alpino';
+  src: url('/fonts/Alpino-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* ===== Design Tokens ===== */
-/* Derived from app DESIGN.md light mode, web-tuned per D-01 */
-/* Light mode only — D-06 descopes dark mode entirely */
+/* ===== Design tokens — v1.7 "Field Notes" (v6) =====
+   Ported from design-system/tokens/{colors,typography,fonts,spacing,motion}.css.
+   Light-only (locked decision — gym-floor readability). No shadows anywhere:
+   elevation is plane + hairline + relief.
+
+   Naming: the site keeps its --color-* / --text-* prefixes, which are load-bearing
+   across ~2800 lines here plus every component. The canonical unprefixed token
+   names are aliased at the end of :root so markup copied out of
+   design-system/ui_kits/website/ resolves without edits. Three names collide with
+   DIFFERENT meanings between the two systems and are NOT aliased — see
+   .planning/v17-field-notes/status-e.md ("token name collisions").
+*/
 
 :root {
-  /* Font family variables — Instrument Sans is the one voice (Pavilion v5).   */
+  /* ---- Voices (design-system/tokens/fonts.css) ---------------------------- */
   /* --font-general-sans is a legacy alias: zh pages override it inline for the */
   /* CJK cascade, and body reads it so that override keeps working. Do not      */
   /* remove the alias without sweeping zh/.                                     */
-  --font-sans: 'Instrument Sans', system-ui, sans-serif;
+  --font-sans: 'Instrument Sans', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono: 'Fragment Mono', ui-monospace, monospace;
+  --font-display: 'Alpino', 'Instrument Sans', sans-serif;
+  --font-cjk: 'Noto Sans SC', 'Instrument Sans', system-ui, sans-serif;
   --font-general-sans: var(--font-sans);
 
-  /* Tuwa v1.6 "Pavilion" (Warm Stone) light-only material system — BRIEF.md web tokens */
+  /* ---- Stone planes — ascending light (relief: raised = brighter) --------- */
   --color-bg:             #F0EFEC;
   --color-surface:        #F4F3F0;
   --color-surface-el:     #F8F7F4;
   --color-surface-el-2:   #FCFBF9;
   --color-divider:        #D6D3CD;
   --color-divider-strong: #CCC9C2;
+  --color-well-top:       #E7E5E0;
+  --color-well-bottom:    #EDEBE6;
+  --color-relief-highlight: #FFFFFE;
+  --color-relief-shade:     #DBD8D2;
+
+  /* ---- Ink ramp ----------------------------------------------------------- */
   --color-text-1:         #1B1A17;
   --color-text-2:         #57544E;
   --color-text-3:         #8B877F;
-  --color-accent:         #6F6759; /* travertine — hero readings + live-state marks ONLY, never CTA fill, never labels */
-  --color-accent-hover:   #5E574B;
-  --color-accent-fg:      #F8F7F4;
-  --color-zone-optimal:   #3F5A46;
-  --color-zone-caution:   #6E5624;
-  --color-zone-danger:    #7E362E;
-  --color-zone-low:       #46525E;
-  --color-well-top:       #E7E5E0;
-  --color-well-bottom:    #EDEBE6;
+  --color-disabled:       #A19D95;
+  --color-ink-inverse:    #F4F3F0;
+
+  /* ---- Accent — travertine. Reading Color Rule v6: live-state marks only
+          (progress fills, active/selected, ticks, needles, recording dot) plus
+          hero readings with no metric identity. Never a CTA fill, never labels,
+          never decorative. */
+  --color-accent:         #6F6759;
+  --color-accent-hover:   #5E574B; /* site-only: no design-system counterpart */
+  --color-accent-fg:      #F8F7F4; /* site-only: predates --color-ink-inverse */
+
+  /* ---- Metric identities (NEW in v6) — five hues grown from the app icon,
+          re-tuned 2026-07-28 for mutual contrast. Each metric owns its hue.
+          Series lines, state dots, "now" markers, hero readings. NEVER a plane
+          fill, card background, CTA fill, or decorative tint. */
+  --color-metric-readiness: #2E7D4F; /* verdant green */
+  --color-metric-recovery:  #1D7189; /* teal — HRV */
+  --color-metric-sleep:     #52589E; /* indigo */
+  --color-metric-strain:    #A8442D; /* rust */
+  --color-metric-load:      #8A6810; /* ochre */
+
+  /* ---- Zone colors — RE-TUNED in v6 (was Pavilion 3F5A46/6E5624/7E362E/46525E).
+          Text label first, colour supplementary, never colour alone. */
+  --color-zone-optimal:   #2E7D4F;
+  --color-zone-caution:   #8A5C08;
+  --color-zone-danger:    #9E3428;
+  --color-zone-low:       #52589E;
+
+  /* ---- Charts ------------------------------------------------------------- */
+  --color-chart-positive: #4E7A74;
+  --color-chart-grid:     #E4E2DC;
+
+  /* ---- Site-only semantic aliases ---------------------------------------- */
   --color-brand-accent:   var(--color-divider-strong);
   --color-destructive:    var(--color-zone-danger);
 
-  /* Spacing Scale — 8px base, 4px micro for web */
+  /* ---- Spacing (design-system/tokens/spacing.css) -------------------------
+     WARNING: the two scales share names at a one-step offset. Design system:
+     pair 4 / xs 8 / sm 16 / md 24 / lg 32 / xl 48 / 2xl 64. This site:
+     xs 4 / sm 8 / md 16 / lg 24 / xl 32 / 2xl 48 / 3xl 64. Same 8pt grid, same
+     values, different labels. The site labels stay (renaming would touch every
+     rule and component); the canonical names are aliased below. */
   --space-xs:  4px;
   --space-sm:  8px;
   --space-md:  16px;
@@ -64,56 +133,124 @@
   --space-2xl: 48px;
   --space-3xl: 64px;
 
-  /* Border Radius — Pavilion corners: controls 8px, cards 12px, pills 999px. Nothing else. */
+  /* ---- Corner law: cards 12 / controls 8 / pill. Nothing else. ------------ */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 12px;
   --radius-pill: 999px;
+  --hairline: 0.5px;
 
-  /* Typography -- Instrument Sans (static 400/500, declared above) */
-
-  /* Type Scale — demo-d / BRIEF.md web ramp */
+  /* ---- Type ramp (design-system/tokens/typography.css) --------------------
+     Marketing ramp. --text-display keeps this site's marketing clamp; the design
+     system spells that --text-display-xl and uses --text-display for the app's
+     32px step. Both names are provided; do not cross them. */
   --text-display:    clamp(56px, 7vw, 96px);
+  --text-display-xl: clamp(56px, 7vw, 96px);
   --text-heading:    clamp(32px, 4vw, 40px);
-  --text-subheading: 19px;
+  --text-subheading: 19px; /* site-only: no design-system counterpart */
   --text-lede:       19px;
   --text-body:       17px;
   --text-label:      15px;
   --text-small:      13px;
-  --text-micro:      12px;
+  --text-micro:      11px; /* v6: micro-caps are 11px (was 12px in Pavilion) */
 
-  /* Line Heights */
+  /* Annotation layer — Fragment Mono. HARD CAP 12px. Never larger, ever. */
+  --anno:    12px;
+  --anno-sm: 10px;
+
+  /* ---- Line heights ------------------------------------------------------- */
   --leading-display:    1.1;
   --leading-heading:    1.2;
   --leading-subheading: 1.3;
-  --leading-body:       1.6;
+  --leading-body:       1.6;  /* design-system says 1.55; site keeps 1.6 (web) */
   --leading-label:      1.4;
+  --leading-anno:       1.7;
 
-  /* Letter Spacing */
+  /* ---- Tracking ----------------------------------------------------------- */
   --tracking-display: -0.02em;
   --tracking-heading: -0.01em;
   --tracking-label:   0.08em;  /* micro-caps contexts only */
+  --tracking-anno:    0.05em;  /* annotation voice, Latin only */
 
-  /* Font Weight Tokens — Instrument Sans static faces: 400 (Regular) + 500 (Medium) only */
-  /* Values are unitless integers per CSS font-weight spec */
-  --weight-display: 400;
-  --weight-heading: 400; /* One-Voice: hierarchy by size + the one weight step (500 = labels only) */
+  /* ---- Weights — sans 400/500 only; Alpino display 650 ------------------- */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-display: 650; /* Alpino only — see --font-display users */
+  --weight-heading: 400;
   --weight-body:    400;
   --weight-label:   500;
 
-  /* Phase 8 — Section Spacing */
+  /* ---- Section rhythm (site-only) ---------------------------------------- */
   --space-section-desktop: 128px;
   --space-section-mobile: 72px;
 
-  /* Phase 8 — Shadow Tokens (D-05) */
+  /* ---- No shadows anywhere (relief instead) ------------------------------ */
   --shadow-card: none;
   --shadow-card-hover: none;
+  --shadow-none: none;
 
-  /* Motion law — ease-out, no bounce, no ease-in (BRIEF.md web translation of the app spring law) */
+  /* ---- Motion (design-system/tokens/motion.css) --------------------------
+     Non-bouncy, interruptible; no ease-in ever; nothing dips to invisible. */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
   --ease-interactive: var(--ease);
   --ease-reveal: var(--ease);
-  --duration-reveal: 420ms;
+  --dur-press: 100ms;
+  --dur-state: 220ms;
+  --dur-screen: 260ms;
+  --dur-entrance: 340ms;
+  --dur-countup: 400ms;
+  --dur-anno: 180ms;
+  --anno-stagger: 40ms;
+  --rise: 6px;
+  --duration-reveal: 420ms; /* site-only: the [data-animate] reveal */
+
+  /* ---- Canonical design-system names, aliased ----------------------------
+     So snippets copied out of design-system/ui_kits/website/ resolve as-is.
+     NOT aliased, because the same name means something else here:
+       --text-body    (colors.css aliases it to a COLOUR; here it is 17px)
+       --text-display (app 32px there; marketing clamp here — use --text-display-xl)
+       --space-*      (one-step offset, documented above)                        */
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --surface-el: var(--color-surface-el);
+  --surface-el-2: var(--color-surface-el-2);
+  --divider: var(--color-divider);
+  --divider-strong: var(--color-divider-strong);
+  --well-top: var(--color-well-top);
+  --well-bottom: var(--color-well-bottom);
+  --relief-highlight: var(--color-relief-highlight);
+  --relief-shade: var(--color-relief-shade);
+  --text-1: var(--color-text-1);
+  --text-2: var(--color-text-2);
+  --text-3: var(--color-text-3);
+  --disabled: var(--color-disabled);
+  --ink-inverse: var(--color-ink-inverse);
+  --accent: var(--color-accent);
+  --metric-readiness: var(--color-metric-readiness);
+  --metric-recovery: var(--color-metric-recovery);
+  --metric-sleep: var(--color-metric-sleep);
+  --metric-strain: var(--color-metric-strain);
+  --metric-load: var(--color-metric-load);
+  --zone-optimal: var(--color-zone-optimal);
+  --zone-caution: var(--color-zone-caution);
+  --zone-danger: var(--color-zone-danger);
+  --zone-low: var(--color-zone-low);
+  --chart-positive: var(--color-chart-positive);
+  --chart-grid: var(--color-chart-grid);
+  --surface-card: var(--color-surface-el);
+  --surface-raised: var(--color-surface-el-2);
+  --text-secondary: var(--color-text-2);
+  --text-anno: var(--color-text-3);
+  --border-hairline: var(--color-divider);
+  --border-strong: var(--color-divider-strong);
+  --cta-fill: var(--color-text-1);
+  --cta-ink: var(--color-ink-inverse);
+  --focus-ring: var(--color-accent);
+  --destructive: var(--color-zone-danger);
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --space-pair: 4px;
 }
 
 html {
@@ -1361,9 +1498,11 @@ html:not(.js-enabled) .feature-loop {
   max-width: 780px;
   margin: var(--space-md) 0 0;
   color: var(--color-text-1);
+  font-family: var(--font-display);
   font-size: 48px;
   font-weight: var(--weight-display);
   line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
   text-wrap: balance;
 }
 
@@ -1435,9 +1574,11 @@ html:not(.js-enabled) .feature-loop {
 .seo-content-grid h2 {
   margin: var(--space-sm) 0 0;
   color: var(--color-text-1);
+  font-family: var(--font-display);
   font-size: var(--text-heading);
-  font-weight: var(--weight-heading);
+  font-weight: var(--weight-display);
   line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-display);
   text-wrap: balance;
 }
 
@@ -1689,9 +1830,11 @@ html:not(.js-enabled) .feature-loop {
 
 .seo-final-cta h2 {
   margin: 0;
+  font-family: var(--font-display);
   font-size: var(--text-heading);
-  font-weight: var(--weight-heading);
+  font-weight: var(--weight-display);
   line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-display);
   text-wrap: balance;
 }
 
@@ -1760,12 +1903,47 @@ html:not(.js-enabled) .feature-loop {
   padding: 0 24px;
 }
 
-.micro {
+/* ---------- the annotation voice (v6) ----------
+   .micro is this site's marginalia layer — kickers, captions, axis ends, unit
+   notes, stat labels. Under Field Notes it speaks in Fragment Mono: uppercase,
+   tracked, ≤12px, text-3 by default. It annotates; it never carries a sentence,
+   headline, CTA, or nav label. `.anno` is the design-system name for the same
+   thing, provided so ui_kits/website markup drops in unchanged. */
+.micro,
+.anno {
+  font-family: var(--font-mono);
   font-size: var(--text-micro);
-  letter-spacing: 0.08em;
+  letter-spacing: var(--tracking-anno);
+  line-height: var(--leading-anno);
   text-transform: uppercase;
   color: var(--color-text-3);
-  font-weight: var(--weight-label);
+  font-weight: var(--weight-regular);
+  font-variant-numeric: tabular-nums;
+}
+.anno-sm { font-size: var(--anno-sm); }
+
+/* zh-Hans: no case transform, no added tracking, and the CJK cascade instead of
+   the mono face (Fragment Mono carries no CJK glyphs). Latin-only laws stay Latin. */
+html[lang="zh"] .micro,
+html[lang="zh"] .anno {
+  font-family: var(--font-cjk);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Annotation choreography: the surface settles, then the scientist labels it.
+   40ms steps, driven by --ai (index) set inline. Gated on html.motion so no-JS
+   and reduced-motion render the labels immediately. */
+:where(html.motion) .annotation-reveal {
+  opacity: 0;
+  transition: opacity var(--dur-anno) var(--ease);
+}
+:where(html.motion) .annotation-reveal.in {
+  opacity: 1;
+  transition-delay: calc(var(--dur-state) + var(--ai, 0) * var(--anno-stagger));
+}
+@media (prefers-reduced-motion: reduce) {
+  .annotation-reveal { opacity: 1; transition: none; }
 }
 
 .num { font-variant-numeric: tabular-nums; }
@@ -1838,18 +2016,24 @@ html:not(.js-enabled) .feature-loop {
   text-align: right;
   pointer-events: none;
 }
+/* The hero reading. Reading Color Rule v6: readiness has a metric identity, so it
+   takes --color-metric-readiness rather than the travertine accent; the accent
+   keeps the live-state marks around it (the tick-rail needle). Numerals stay on
+   the sans working voice — Alpino is display type, not a numeral face. */
 .hero-score .hero-score-n {
   display: block;
   font-size: clamp(140px, 24vw, 300px);
   line-height: 1;
-  font-weight: var(--weight-display);
-  color: var(--color-accent);
+  font-weight: var(--weight-regular);
+  color: var(--color-metric-readiness);
   letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
 }
+/* Annotation defaults to text-3 and stays there — it labels the reading, it is
+   not a second coloured element (DESIGN.md v6 contrast rule). */
 .hero-score .micro {
   display: block;
   text-align: right;
-  color: var(--color-accent);
   margin-top: 8px;
 }
 .score-rail {
@@ -1882,10 +2066,11 @@ html:not(.js-enabled) .feature-loop {
 .hero-h1 {
   position: relative;
   z-index: 1;
+  font-family: var(--font-display);
   font-size: clamp(52px, 7.5vw, 104px);
   line-height: 1.02;
   font-weight: var(--weight-display);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-display);
   max-width: 12ch;
 }
 .hero-copy {
@@ -2026,10 +2211,11 @@ html:not(.motion) .scroll-cue { display: none; }
 .sec-head .micro { display: block; margin-bottom: 16px; }
 .sec-head h2,
 .home-h2 {
+  font-family: var(--font-display);
   font-size: var(--text-heading);
   line-height: 1.15;
-  font-weight: var(--weight-heading);
-  letter-spacing: -0.01em;
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display);
   color: var(--color-text-1);
 }
 .sec-head p {
@@ -2249,15 +2435,17 @@ html:not(.motion) .scroll-cue { display: none; }
 }
 .zseg { height: 100%; border-left: 1px solid var(--color-divider); }
 .zseg:first-child { border-left: none; }
-.zseg-low  { width: 30.77%; background: rgba(70,82,94,0.08); }
-.zseg-opt  { width: 38.46%; background: rgba(63,90,70,0.10); }
-.zseg-caut { width: 15.38%; background: rgba(110,86,36,0.08); }
-.zseg-dang { width: 15.39%; background: rgba(126,54,46,0.08); }
+/* Band tints derive from the zone tokens instead of hardcoded rgba, so the v6
+   retune reaches them. Tints only — the message is the written zone name. */
+.zseg-low  { width: 30.77%; background: color-mix(in srgb, var(--color-zone-low) 8%, transparent); }
+.zseg-opt  { width: 38.46%; background: color-mix(in srgb, var(--color-zone-optimal) 10%, transparent); }
+.zseg-caut { width: 15.38%; background: color-mix(in srgb, var(--color-zone-caution) 8%, transparent); }
+.zseg-dang { width: 15.39%; background: color-mix(in srgb, var(--color-zone-danger) 8%, transparent); }
 .zone-fill {
   position: absolute;
   left: 0; top: 0; bottom: 0;
   width: 100%;
-  background: rgba(111,103,89,0.16);
+  background: color-mix(in srgb, var(--color-accent) 16%, transparent);
   transform-origin: left;
   will-change: transform;
   pointer-events: none;
@@ -2288,7 +2476,14 @@ html:not(.motion) .scroll-cue { display: none; }
 }
 .zone-legend { display: flex; margin-top: 16px; }
 .zone-legend span { display: block; }
-.zone-legend .micro { letter-spacing: 0.06em; font-size: 11px; }
+/* Fragment Mono is wider than the sans at the same size, and these four labels
+   sit in fixed-percentage columns — so the legend drops to --anno-sm and keeps a
+   gutter, otherwise "UNDER 0.8 — UNDERTRAINING" butts into the next cell. */
+.zone-legend .micro {
+  font-size: var(--anno-sm);
+  padding-right: var(--space-sm);
+  line-height: 1.5;
+}
 .zleg-low  { width: 30.77%; }
 .zleg-opt  { width: 38.46%; }
 .zleg-caut { width: 15.38%; }
@@ -2311,10 +2506,12 @@ html:not(.motion) .scroll-cue { display: none; }
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 48px;
 }
+/* Standing values stay on the sans working voice with tabular figures — the
+   display face is for words, not readings. */
 .stat .n {
   font-size: clamp(72px, 9vw, 140px);
   line-height: 1;
-  font-weight: var(--weight-display);
+  font-weight: var(--weight-regular);
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
   color: var(--color-text-1);
@@ -2333,12 +2530,107 @@ html:not(.motion) .scroll-cue { display: none; }
 }
 :where(html.motion) .quote-rule { transform: scaleX(0); }
 .quote.in .quote-rule { transform: scaleX(1); }
+/* Pull quote: display voice at the lighter 450 step (ui_kits/website/index.html) */
 .quote blockquote {
   margin-top: 32px;
+  font-family: var(--font-display);
   font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 450;
   line-height: 1.25;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tracking-heading);
   color: var(--color-text-1);
+}
+
+/* ---------- self-drawing baseline chart (Field Notes section 04) ----------
+   A card plane, a hairline, no shadow. The series takes its metric's hue
+   (recovery = HRV = teal); the "now" marker is the same hue, open-circle per the
+   chart spec. Axis labels are the annotation voice at --anno-sm. */
+.spark-card {
+  margin-top: 64px;
+  padding: 28px;
+  background: var(--color-surface-el);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+}
+.spark-caption {
+  max-width: 60ch;
+  margin-bottom: 32px;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-text-2);
+}
+.spark-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+/* The reading takes its metric hue. Below 24px it must sit on a card plane —
+   .spark-card is one. */
+.spark-reading { color: var(--color-metric-recovery); }
+/* preserveAspectRatio="none" + an explicit height, so the trend stays legible at
+   every width instead of collapsing to a 70px sliver on a phone. No
+   vector-effect: non-scaling-stroke anywhere in here — it fights the
+   pathLength="1" + stroke-dasharray draw-on trick and truncates the line. */
+.spark-svg {
+  display: block;
+  width: 100%;
+  height: clamp(160px, 14vw, 200px);
+  margin-top: 16px;
+  overflow: visible;
+}
+.spark-grid {
+  stroke: var(--color-chart-grid);
+  stroke-width: 1;
+}
+.spark-baseline {
+  stroke: var(--color-divider-strong);
+  stroke-width: 1;
+  stroke-dasharray: 4 5;
+}
+.spark-line {
+  fill: none;
+  stroke: var(--color-metric-recovery);
+  stroke-width: 2;
+}
+.spark-plot { position: relative; }
+/* Open-circle "now" marker, per the chart spec. HTML rather than SVG so it stays
+   a circle under the non-uniform plot scale. */
+.spark-now {
+  position: absolute;
+  left: 97.5%;   /* 780 / 800 */
+  top: 36.67%;   /*  66 / 180 */
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border: 2px solid var(--color-metric-recovery);
+  border-radius: var(--radius-pill);
+  pointer-events: none;
+}
+/* Initial-hidden states behind html.motion: without JS the chart is already drawn. */
+:where(html.motion) .spark-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+:where(html.motion) .spark-baseline,
+:where(html.motion) .spark-now { opacity: 0; }
+.spark-axis {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+.spark-axis .micro { font-size: var(--anno-sm); }
+@media (prefers-reduced-motion: reduce) {
+  .spark-line { stroke-dasharray: none; stroke-dashoffset: 0; }
+  .spark-baseline, .spark-now { opacity: 1; }
+}
+@media (max-width: 720px) {
+  .spark-card { margin-top: 40px; padding: 20px; }
+  .spark-caption { margin-bottom: 24px; }
+  .spark-axis .micro:nth-child(2),
+  .spark-axis .micro:nth-child(4) { display: none; }
 }
 
 /* ---------- privacy / closing ---------- */
@@ -2524,6 +2816,13 @@ html:not(.motion) .scroll-cue { display: none; }
   background: var(--color-bg);
   padding: 32px 0 40px;
 }
+/* Footer nav stays in the working voice at --text-small; only the meta row below
+   carries .micro (the annotation voice never labels navigation). */
+.footer-inner {
+  font-size: var(--text-small);
+  line-height: var(--leading-label);
+  color: var(--color-text-3);
+}
 .site-footer .f-row {
   display: flex;
   gap: 12px 16px;
@@ -2558,10 +2857,11 @@ html:not(.motion) .scroll-cue { display: none; }
 .feat-hero { padding-top: clamp(96px, 12vw, 152px); }
 .feat-hero .micro { display: block; margin-bottom: 24px; }
 .feat-h1 {
+  font-family: var(--font-display);
   font-size: clamp(44px, 6.5vw, 88px);
   line-height: 1.05;
   font-weight: var(--weight-display);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-display);
   color: var(--color-text-1);
   max-width: 15ch;
   text-wrap: balance;
