@@ -1,9 +1,11 @@
 ---
-// Section 03 · recovery (demo-d): recovery plate + pull-quote with the accent
-// hairline draw-in (quote-rule scales in when the quote enters view).
-// Copy comes from the per-locale home module (defaults to EN for index.astro).
-import { Image } from 'astro:assets';
-import recoveryShot from '../../assets/screens-v16/recovery.png';
+// 05 · Recovery — the self-drawing baseline chart (demo row 07).
+// The demo puts the heading and body ABOVE the card rather than inside it and
+// closes with the annotation foot. The line draws left-to-right in the
+// recovery hue, the dashed baseline fades at 700ms, the "now" marker pops at
+// 1000ms, and the mono axis labels land last on the 40ms annotation stagger.
+// Every initial-hidden state is gated on html.motion, so no-JS and reduced
+// motion render the finished chart.
 import { useHomeTranslations, type Locale } from '../../i18n/utils';
 
 interface Props {
@@ -12,31 +14,13 @@ interface Props {
 const { locale = 'en' } = Astro.props;
 const t = useHomeTranslations(locale).recovery;
 ---
-<section class="sec bt">
-  <div class="ghost num" data-ghost aria-hidden="true">03</div>
+<section class="sec" id="recovery">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="micro" data-reveal>{t.kicker}</span>
-      <h2 data-reveal>{t.heading}</h2>
-      <p data-reveal>{t.body}</p>
-    </div>
-    <div class="sec-body">
-      <div class="spread" data-spread>
-        <div class="plate" data-fan="c"><Image src={recoveryShot} alt={t.shotAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
-      </div>
-      <div class="aside quote" data-quote>
-        <div class="quote-rule"></div>
-        <blockquote>{t.quote}</blockquote>
-      </div>
-    </div>
+    <span class="micro show-kicker">{t.kicker}</span>
+    <h2 class="home-h2">{t.heading}</h2>
+    <p class="sec-lede">{t.body}</p>
 
-    <!-- Self-drawing baseline chart (Field Notes v6, ui_kits/website/index.html
-         section 04). The line draws left-to-right, the dashed baseline arrives,
-         then the "now" marker; the mono axis labels land last on the 40ms
-         annotation stagger. All initial-hidden states are gated on html.motion,
-         so no-JS and reduced-motion render the finished chart. -->
-    <figure class="spark-card card" data-reveal>
-      <p class="spark-caption">{t.spark.caption}</p>
+    <figure class="spark-card card" data-reveal data-anno-reveal>
       <div class="spark-head">
         <span class="micro">{t.spark.label}</span>
         <span class="micro spark-reading">{t.spark.reading}</span>
@@ -70,10 +54,10 @@ const t = useHomeTranslations(locale).recovery;
         <span id="nowDot" class="spark-now" aria-hidden="true"></span>
       </div>
       <figcaption class="spark-axis">
-        {t.spark.axis.map((tick, i) => (
-          <span class="micro annotation-reveal" style={`--ai:${i}`}>{tick}</span>
-        ))}
+        {t.spark.axis.map((tick) => <span class="micro">{tick}</span>)}
       </figcaption>
     </figure>
+
+    <p class="micro sec-foot">{t.spark.foot}</p>
   </div>
 </section>

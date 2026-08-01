@@ -1,13 +1,19 @@
 ---
+// Homepage (zh-Hans) — mirrors src/pages/index.astro. Section order comes from
+// the locked Session W demo; every string routes through the zh locale module.
+// CJKLayout carries the Noto Sans SC cascade; the annotation voice takes no
+// case transform and no added tracking in zh (global.css).
 import { useHomeTranslations } from '../../i18n/utils';
 import CJKLayout from '../../layouts/CJKLayout.astro';
-import HeroScrub from '../../components/home/HeroScrub.astro';
-import VocabMarquee from '../../components/home/VocabMarquee.astro';
+import HomeHero from '../../components/home/HomeHero.astro';
 import StickyShowcase from '../../components/home/StickyShowcase.astro';
 import StrikeZoneScrub from '../../components/home/StrikeZoneScrub.astro';
+import SystemFan from '../../components/home/SystemFan.astro';
+import LoggingRow from '../../components/home/LoggingRow.astro';
 import StatsBand from '../../components/home/StatsBand.astro';
-import RecoveryQuote from '../../components/home/RecoveryQuote.astro';
-import LoggingFan from '../../components/home/LoggingFan.astro';
+import RecoverySpark from '../../components/home/RecoverySpark.astro';
+import MethodologySection from '../../components/home/MethodologySection.astro';
+import GhostQuote from '../../components/home/GhostQuote.astro';
 import PrivacyClose from '../../components/home/PrivacyClose.astro';
 import { softwareApplicationSchema, organizationSchema } from '../../seo/schema';
 
@@ -19,13 +25,15 @@ const structuredData = [softwareApplicationSchema(t.meta.description), organizat
   description={t.meta.description}
   structuredData={structuredData}
 >
-  <HeroScrub locale="zh" />
-  <VocabMarquee locale="zh" />
+  <HomeHero locale="zh" />
   <StickyShowcase locale="zh" />
   <StrikeZoneScrub locale="zh" />
+  <SystemFan locale="zh" />
+  <LoggingRow locale="zh" />
   <StatsBand locale="zh" />
-  <RecoveryQuote locale="zh" />
-  <LoggingFan locale="zh" />
+  <RecoverySpark locale="zh" />
+  <MethodologySection locale="zh" />
+  <GhostQuote locale="zh" />
   <PrivacyClose locale="zh" />
 
   <!-- Self-hosted Lottie runtime (classic script: executes before the deferred

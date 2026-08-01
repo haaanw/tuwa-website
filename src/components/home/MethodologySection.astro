@@ -1,0 +1,163 @@
+---
+// 06 · Methodology — new section, no live counterpart (demo row 09).
+//
+// CLAIM RAILS (DISTRIBUTION.md §10 ladder). The sleep-score v2 engine is NOT
+// BUILT. Everything here is presented as design and evidence: the status chips
+// say "design · not in the shipping app" and "no performance or accuracy
+// claim"; every unbacked assumption is labelled a guess with the test that
+// would kill it; the rails block states plainly that it is not a medical
+// device and that nothing here is finished or proven. These survive
+// translation in every locale — no claim may be strengthened in zh or fr.
+//
+// The one item marked "shipping today" is on-device privacy, which is true of
+// the current build.
+import { useHomeTranslations, type Locale } from '../../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale).methodology;
+
+// Bar widths are the series data, not copy — derived from the weight value so
+// the figure and the bar can never disagree across locales.
+const weightRows = t.weights.rows.map((row) => ({
+  ...row,
+  pct: Math.round(Number(row.value) * 100),
+}));
+const branch = (i: number, len: number) => (i === len - 1 ? '└─' : '├─');
+---
+<section class="sec sec-alt bt bb" id="method">
+  <div class="wrap">
+    <span class="micro show-kicker">{t.kicker}</span>
+    <h2 class="home-h2 method-h2">
+      {t.headingLines.map((line, i) => (i === 0 ? <>{line}<br /></> : line))}
+    </h2>
+    <p class="method-lede">{t.lede}</p>
+    <div class="chips">
+      {t.chips.map((chip) => <span class="chip">{chip}</span>)}
+    </div>
+
+    <!-- three design intents -->
+    <div class="method-intents" data-anno-reveal>
+      {t.intents.map((intent) => (
+        <div class="card method-card">
+          <span class="micro">{intent.kicker}</span>
+          <h3>{intent.title}</h3>
+          <p>{intent.body}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- the mechanism, beside the base weights -->
+    <div class="method-mech">
+      <div>
+        <span class="micro">{t.mechanism.kicker}</span>
+        <h3 class="method-h3">{t.mechanism.heading}</h3>
+        <p class="method-body">{t.mechanism.body}</p>
+        <div class="card tree-card" data-anno-reveal>
+          <div class="tree">
+            {t.mechanism.tree.map(([key, value], i) => (
+              <div class="tree-row">
+                <span class="tree-branch" aria-hidden="true">{branch(i, t.mechanism.tree.length)}</span>
+                <span class="tree-key">{key}</span>
+                <span class="tree-val">{value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <p class="micro method-foot">{t.mechanism.foot}</p>
+      </div>
+
+      <div class="card card-el2 weights-card" data-reveal data-anno-reveal>
+        <div class="weights-head">
+          <span class="micro">{t.weights.label}</span>
+          <span class="micro num weights-sum">{t.weights.sum}</span>
+        </div>
+        <div class="weights-list">
+          {weightRows.map((row) => (
+            <div class="weight">
+              <div class="weight-head">
+                <span class="weight-name">{row.name}</span>
+                <span class="micro num">{row.value}</span>
+              </div>
+              <div class="wbar"><i style={`width:${row.pct}%`}></i></div>
+            </div>
+          ))}
+        </div>
+        <p class="micro weights-note">{t.weights.note}</p>
+        <p class="micro weights-prov">{t.weights.provenance}</p>
+      </div>
+    </div>
+
+    <!-- the situations -->
+    <div class="method-block">
+      <span class="micro">{t.situations.kicker}</span>
+      <h3 class="method-h3">{t.situations.heading}</h3>
+      <div class="card table-card">
+        <table class="tbl tbl-situations">
+          <thead>
+            <tr>{t.situations.columns.map((col) => <th>{col}</th>)}</tr>
+          </thead>
+          <tbody>
+            {t.situations.rows.map((row) => (
+              <tr>
+                <td>{row.name}</td>
+                <td>{row.when}</td>
+                <td>{row.change}</td>
+                <td><span class="status-key micro">{row.status}</span>{row.confidence}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="micro method-foot">{t.situations.foot}</p>
+    </div>
+
+    <!-- the hypothesis registry -->
+    <div class="method-block">
+      <span class="micro">{t.registry.kicker}</span>
+      <h3 class="method-h3">{t.registry.heading}</h3>
+      <p class="method-body">{t.registry.body}</p>
+      <div class="card table-card">
+        <table class="tbl tbl-registry">
+          <thead>
+            <tr>{t.registry.columns.map((col) => <th>{col}</th>)}</tr>
+          </thead>
+          <tbody>
+            {t.registry.rows.map((row) => (
+              <tr>
+                <td class="num">{row.id}</td>
+                <td>{row.claim}</td>
+                <td><span class="status-key micro">{row.status}</span></td>
+                <td>{row.test}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- the claim rails -->
+    <div class="card tree-card rails-card" data-anno-reveal>
+      <div class="tree">
+        {t.rails.map((rail, i) => (
+          <div class="tree-row">
+            <span class="tree-branch" aria-hidden="true">{branch(i, t.rails.length)}</span>
+            <span class="tree-rail">{rail}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- what we read -->
+    <div class="method-sources">
+      <span class="micro">{t.sources.kicker}</span>
+      <div class="sources-grid">
+        {t.sources.items.map((item) => (
+          <p><b>{item.finding}</b> {item.cite}</p>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

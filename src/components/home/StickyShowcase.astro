@@ -1,9 +1,8 @@
 ---
-// Section 01 · today (demo-d): intro row with verdict Lottie well, then the
-// pinned 3-step phone showcase (verdict → strike zone → load) with the accent
-// progress rail. Motion lives in homeMotion.ts; no-JS shows the three plates
-// stacked with all steps visible.
-// Copy comes from the per-locale home module (defaults to EN for index.astro).
+// 01 · Today — the pinned three-step showcase (demo row 02).
+// The demo keeps the kicker, heading, body and all three steps on screen for
+// the whole pin, with the plate column beside them and the verdict Lottie
+// under the steps. The rail fills and the plates swap on scroll progress.
 import { Image } from 'astro:assets';
 import verdictShot from '../../assets/screens-v16/verdict.png';
 import strikeZoneShot from '../../assets/screens-v16/strike-zone.png';
@@ -16,37 +15,36 @@ interface Props {
 const { locale = 'en' } = Astro.props;
 const t = useHomeTranslations(locale).showcase;
 ---
-<section class="sec">
-  <div class="ghost num" data-ghost aria-hidden="true">01</div>
-  <div class="wrap">
-    <div class="intro-row">
-      <div class="sec-head">
-        <span class="micro" data-reveal>{t.kicker}</span>
-        <h2 data-reveal>{t.heading}</h2>
-        <p data-reveal>{t.body}</p>
-      </div>
-      <div class="aside" data-reveal>
-        <div class="lottie-plate"><div data-lottie="/lottie/verdict-tick.json" aria-label={t.lottieAria}></div></div>
-        <span class="micro lottie-cap">{t.lottieCaption}</span>
-        <p style="margin-top:16px">{t.aside}</p>
-      </div>
-    </div>
-  </div>
+<section id="today">
   <div class="show-wrap" id="showWrap">
     <div class="show-sticky">
       <div class="wrap show-grid">
-        <div class="show-steps">
-          <div class="show-rail" aria-hidden="true"><div class="show-rail-fill" id="railFill"></div></div>
-          <ol>
-            {t.steps.map((step, i) => (
-              <li class={i === 0 ? 'step active' : 'step'} data-step={i}>
-                <span class="micro num">{String(i + 1).padStart(2, '0')}</span>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-              </li>
-            ))}
-          </ol>
+        <div class="show-col">
+          <span class="micro show-kicker">{t.kicker}</span>
+          <h2 class="home-h2">{t.heading}</h2>
+          <p class="show-body">{t.body}</p>
+
+          <div class="show-steps">
+            <div class="show-rail" aria-hidden="true"><div class="show-rail-fill" id="railFill"></div></div>
+            <ol>
+              {t.steps.map((step, i) => (
+                <li class={i === 0 ? 'step active' : 'step'} data-step={i}>
+                  <h3>{step.title}</h3>
+                  <p>{step.body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div class="show-note">
+            <div class="lottie-mini"><div data-lottie="/lottie/verdict-tick.json" aria-label={t.lottieAria}></div></div>
+            <div>
+              <span class="micro">{t.lottieCaption}</span>
+              <p>{t.aside}</p>
+            </div>
+          </div>
         </div>
+
         <div class="show-stage" id="showStage">
           <div class="plate shot active"><Image src={verdictShot} alt={t.verdictAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
           <div class="plate shot"><Image src={strikeZoneShot} alt={t.strikeZoneAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>

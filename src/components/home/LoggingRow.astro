@@ -1,0 +1,38 @@
+---
+// 04 · Logging — restored as its own section (demo row 05).
+// Deliberately NOT a second fan: two fanned sections back to back read as one
+// repeated trick. This is a flat three-up row on a surface band, each screen
+// captioned in the annotation voice.
+import { Image } from 'astro:assets';
+import movementBankShot from '../../assets/screens-v16/movement-bank.png';
+import activeWorkoutShot from '../../assets/screens-v16/active-workout.png';
+import workoutLogShot from '../../assets/screens-v16/workout-log.png';
+import { useHomeTranslations, type Locale } from '../../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale).logging;
+const shots = [
+  { src: movementBankShot, alt: t.movementBankAlt },
+  { src: activeWorkoutShot, alt: t.activeWorkoutAlt },
+  { src: workoutLogShot, alt: t.workoutLogAlt },
+];
+---
+<section class="sec sec-logging sec-alt bt bb" id="logging">
+  <div class="wrap">
+    <span class="micro show-kicker">{t.kicker}</span>
+    <h2 class="home-h2">{t.heading}</h2>
+    <p class="sec-lede">{t.body}</p>
+
+    <div class="logrow" data-anno-reveal>
+      {shots.map((shot, i) => (
+        <figure>
+          <div class="plate"><Image src={shot.src} alt={shot.alt} width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <figcaption class="micro">{t.captions[i]}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

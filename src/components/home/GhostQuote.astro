@@ -1,0 +1,21 @@
+---
+// Ghost numerals + the quote (demo row 08).
+// Three mono numerals drift behind the line at 5% ink, parallaxed at -0.08 of
+// viewport offset by homeMotion.ts. The numerals are readings, not copy — they
+// never translate.
+import { useHomeTranslations, type Locale } from '../../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale).ghostBand;
+---
+<section class="ghost-band" aria-label={t.sectionAria}>
+  <span class="ghost-num g1" data-ghost aria-hidden="true">82</span>
+  <span class="ghost-num g2" data-ghost aria-hidden="true">1.23</span>
+  <span class="ghost-num g3" data-ghost aria-hidden="true">62MS</span>
+  <div class="wrap ghost-band-inner">
+    <blockquote>{t.quote}</blockquote>
+  </div>
+</section>

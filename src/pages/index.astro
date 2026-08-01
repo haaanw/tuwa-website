@@ -1,12 +1,18 @@
 ---
+// Homepage — the Astro port of the locked Session W demo
+// (.design-explorations/website-v2-demo; compare.html rows 01–11).
+// Section order: hero → 01 today → 02 training load → 03 the system →
+// 04 logging → stats → 05 recovery → 06 methodology → ghost band → 07 privacy.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroScrub from '../components/home/HeroScrub.astro';
-import VocabMarquee from '../components/home/VocabMarquee.astro';
+import HomeHero from '../components/home/HomeHero.astro';
 import StickyShowcase from '../components/home/StickyShowcase.astro';
 import StrikeZoneScrub from '../components/home/StrikeZoneScrub.astro';
+import SystemFan from '../components/home/SystemFan.astro';
+import LoggingRow from '../components/home/LoggingRow.astro';
 import StatsBand from '../components/home/StatsBand.astro';
-import RecoveryQuote from '../components/home/RecoveryQuote.astro';
-import LoggingFan from '../components/home/LoggingFan.astro';
+import RecoverySpark from '../components/home/RecoverySpark.astro';
+import MethodologySection from '../components/home/MethodologySection.astro';
+import GhostQuote from '../components/home/GhostQuote.astro';
 import PrivacyClose from '../components/home/PrivacyClose.astro';
 import { softwareApplicationSchema, organizationSchema } from '../seo/schema';
 
@@ -18,13 +24,15 @@ const structuredData = [softwareApplicationSchema(description), organizationSche
   description={description}
   structuredData={structuredData}
 >
-  <HeroScrub />
-  <VocabMarquee />
+  <HomeHero />
   <StickyShowcase />
   <StrikeZoneScrub />
+  <SystemFan />
+  <LoggingRow />
   <StatsBand />
-  <RecoveryQuote />
-  <LoggingFan />
+  <RecoverySpark />
+  <MethodologySection />
+  <GhostQuote />
   <PrivacyClose />
 
   <!-- Self-hosted Lottie runtime (classic script: executes before the deferred

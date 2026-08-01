@@ -1989,23 +1989,14 @@ html[lang="zh"] .anno {
 .lines.played .line-mask:nth-child(2) > span { transition-delay: 80ms; }
 .lines.played .line-mask:nth-child(3) > span { transition-delay: 160ms; }
 
-/* ---------- hero: pinned scrub 0→82 with tick rail ---------- */
-.hero-wrap { position: relative; }
-:where(html.motion) .hero-wrap { height: 170vh; }
-.hero-sticky {
+/* ---------- hero: the reading, counted up once on load ----------
+   NOT a scrub. The locked demo unpinned the hero — only 01 Today and 02
+   Training load stay pinned — so this is an ordinary block and the numeral
+   counts 0→82 on load with the tick-rail needle rising alongside it. */
+.hero-wrap {
   position: relative;
-  padding: clamp(144px, 16vw, 200px) 0 clamp(96px, 12vw, 128px);
-}
-:where(html.motion) .hero-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 96px 0 48px;
   overflow: hidden;
+  padding: clamp(96px, 12vw, 128px) 0 clamp(88px, 11vw, 116px);
 }
 .hero-grid { position: relative; width: 100%; }
 .hero-score {
@@ -2073,113 +2064,31 @@ html[lang="zh"] .anno {
   letter-spacing: var(--tracking-display);
   max-width: 12ch;
 }
+/* The strapline sits above the headline; the qualifier sits under the lede.
+   Both are annotation-voice PHRASES, never sentences (DESIGN.md v6). */
+.hero-strap {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 20px;
+}
 .hero-copy {
   position: relative;
   z-index: 1;
-  margin-top: 48px;
+  margin-top: 32px;
   max-width: 560px;
 }
-:where(html.motion) .hero-copy { margin-top: 32px; }
 .hero-copy p.lead {
   font-size: var(--text-lede);
   color: var(--color-text-2);
 }
-.hero-copy p.sub {
-  margin-top: 16px;
-  font-size: var(--text-body);
-  color: var(--color-text-3);
-}
+.hero-copy p.hero-sub { margin-top: 12px; }
 .hero-cta {
-  margin-top: 40px;
+  margin-top: 32px;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   flex-wrap: wrap;
 }
-:where(html.motion) .hero-cta {
-  margin-top: 32px;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
-}
-.hero-cta.played {
-  opacity: 1;
-  transform: none;
-}
-.scroll-cue {
-  position: absolute;
-  left: 50%;
-  bottom: 24px;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  z-index: 2;
-}
-.scroll-cue::after {
-  content: "";
-  width: 1px;
-  height: 24px;
-  background: var(--color-divider-strong);
-}
-html:not(.motion) .scroll-cue { display: none; }
-
-/* ---------- vocabulary marquee ---------- */
-.marquee {
-  position: relative;
-  border-top: 1px solid var(--color-divider);
-  border-bottom: 1px solid var(--color-divider);
-  background: var(--color-surface);
-  overflow: hidden;
-  padding: 32px 0;
-}
-.mq-track {
-  display: flex;
-  align-items: center;
-  width: max-content;
-  gap: 40px;
-  animation: mq 40s linear infinite;
-  will-change: transform;
-}
-.marquee.paused .mq-track { animation-play-state: paused; }
-@keyframes mq {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-25%); }
-}
-.mq-item {
-  font-size: clamp(28px, 4vw, 56px);
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  color: var(--color-text-1);
-  white-space: nowrap;
-}
-.mq-tick {
-  display: inline-block;
-  width: 3px;
-  height: 0.7em;
-  background: var(--color-accent);
-  border-radius: var(--radius-pill);
-  flex: none;
-}
-.mq-pause {
-  position: absolute;
-  right: 16px;
-  bottom: 8px;
-  z-index: 2;
-  font-family: inherit;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: var(--weight-label);
-  color: var(--color-text-3);
-  background: var(--color-surface-el);
-  border: 1px solid var(--color-divider);
-  border-radius: var(--radius-pill);
-  padding: 4px 16px;
-  cursor: pointer;
-}
-.mq-pause:hover { color: var(--color-text-1); }
 
 /* ---------- home sections ---------- */
 .sec {
@@ -2187,7 +2096,101 @@ html:not(.motion) .scroll-cue { display: none; }
   padding: clamp(96px, 12vw, 160px) 0;
 }
 .bt { border-top: 1px solid var(--color-divider); }
+.bb { border-bottom: 1px solid var(--color-divider); }
 .sec-alt { background: var(--color-surface); }
+
+/* ---------- Field Notes surfaces (homepage) ----------
+   Plane + hairline + radius. No shadows: elevation is the relief system. */
+.card {
+  background: var(--color-surface-el);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+}
+.card-el2 {
+  background: var(--color-surface-el-2);
+  border-color: var(--color-divider-strong);
+}
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.chip {
+  display: inline-block;
+  border: 1px solid var(--color-divider-strong);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: var(--anno-sm);
+  letter-spacing: var(--tracking-anno);
+  line-height: var(--leading-anno);
+  text-transform: uppercase;
+  color: var(--color-text-2);
+}
+html[lang="zh"] .chip {
+  font-family: var(--font-cjk);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Reason trees — ├─ / └─ marginalia. The demo sets these as one pre-formatted
+   block; here each row is a flex row instead, so a longer German-length key in
+   zh or fr cannot break the column alignment and nothing needs white-space:pre
+   (which would force a horizontal scrollbar on a phone). */
+.tree {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-anno);
+  line-height: 2;
+  text-transform: uppercase;
+  color: var(--color-text-2);
+}
+html[lang="zh"] .tree {
+  font-family: var(--font-cjk);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.tree-row {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.tree-branch { flex: none; color: var(--color-text-3); }
+.tree-key { flex: none; min-width: 15ch; color: var(--color-text-3); }
+.tree-val,
+.tree-rail { min-width: 0; }
+
+/* Section lede + closing annotation, shared by the flat sections */
+.sec-lede {
+  margin-top: 20px;
+  max-width: 640px;
+  font-size: 18px;
+  color: var(--color-text-2);
+}
+.sec-foot {
+  display: block;
+  margin-top: 16px;
+  max-width: 72ch;
+}
+.show-kicker { display: block; margin-bottom: 16px; }
+
+/* Annotation choreography on a whole surface: the plane settles, then its
+   marginalia is written on 40ms steps (delays stamped by homeMotion.ts). */
+:where(html.motion) [data-anno-reveal] .micro,
+:where(html.motion) [data-anno-reveal] .anno,
+:where(html.motion) [data-anno-reveal] .tree-row {
+  opacity: 0;
+  transition: opacity var(--dur-anno) var(--ease);
+}
+[data-anno-reveal].in .micro,
+[data-anno-reveal].in .anno,
+[data-anno-reveal].in .tree-row { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  [data-anno-reveal] .micro,
+  [data-anno-reveal] .anno,
+  [data-anno-reveal] .tree-row { opacity: 1; transition: none; }
+}
 
 .ghost {
   position: absolute;
@@ -2308,28 +2311,57 @@ html:not(.motion) .scroll-cue { display: none; }
 .lottie-plate > div { width: 100%; height: 100%; }
 .lottie-cap { margin-top: 12px; display: block; }
 
-/* ---------- pinned phone showcase ---------- */
+/* ---------- pinned phone showcase (01 · today) ----------
+   The demo keeps the kicker, heading, body and all three steps on screen for
+   the whole pin, with the plate column beside them. */
 .show-wrap { position: relative; z-index: 1; }
-:where(html.motion) .show-wrap { height: 250vh; }
-.show-sticky { padding: 40px 0; }
+:where(html.motion) .show-wrap { height: 280vh; }
+.show-sticky { padding: clamp(72px, 9vw, 112px) 0; }
 :where(html.motion) .show-sticky {
   position: sticky;
   top: 0;
-  height: 100vh;
-  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
-  padding: 0;
+  padding: 96px 0 48px;
 }
 .show-grid {
   display: grid;
-  grid-template-columns: minmax(280px, 420px) 1fr;
-  gap: clamp(32px, 6vw, 88px);
+  grid-template-columns: 1fr auto;
+  gap: clamp(32px, 6vw, 64px);
   align-items: center;
   width: 100%;
 }
-.show-steps { position: relative; padding-left: 32px; }
-.show-steps ol { list-style: none; margin: 0; padding: 0; }
+.show-grid > * { min-width: 0; }
+.show-body {
+  margin-top: 20px;
+  max-width: 480px;
+  font-size: var(--text-body);
+  color: var(--color-text-2);
+}
+.show-note {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+.show-note p {
+  margin-top: 4px;
+  font-size: var(--text-label);
+  color: var(--color-text-2);
+  max-width: 420px;
+}
+.show-note .micro { display: block; }
+.lottie-mini {
+  width: 72px;
+  height: 72px;
+  flex: none;
+}
+.lottie-mini > div { width: 100%; height: 100%; }
+.show-steps { position: relative; padding-left: 32px; margin-top: 36px; }
+.show-steps ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 32px; }
 .show-rail {
   position: absolute;
   left: 0; top: 6px; bottom: 6px;
@@ -2346,7 +2378,6 @@ html:not(.motion) .scroll-cue { display: none; }
   will-change: transform;
 }
 :where(html.motion) .show-rail-fill { transform: scaleY(0); }
-.step { padding: 20px 0; }
 .step .micro { display: block; margin-bottom: 8px; }
 .step h3 {
   font-size: 20px;
@@ -2366,7 +2397,7 @@ html:not(.motion) .scroll-cue { display: none; }
 }
 :where(html.motion) .step.active { opacity: 1; }
 .show-stage {
-  width: min(320px, 80vw);
+  width: min(280px, 80vw);
   margin: 0 auto;
   display: grid;
   gap: 32px;
@@ -2375,7 +2406,7 @@ html:not(.motion) .scroll-cue { display: none; }
 :where(html.motion) .show-stage {
   position: relative;
   gap: 0;
-  width: min(300px, 34vw, calc((100svh - 140px) * 0.44));
+  width: min(260px, 30vw, calc((100svh - 180px) * 0.44));
 }
 .shot { will-change: transform, opacity; }
 :where(html.motion) .shot {
@@ -2391,108 +2422,112 @@ html:not(.motion) .scroll-cue { display: none; }
 .shot.active { opacity: 1; transform: none; }
 .shot.prev { opacity: 0; transform: translateY(-28px) scale(0.98); }
 
-/* ---------- pinned strike-zone scrub ---------- */
+/* ---------- pinned strike-zone scrub (02 · training load) ----------
+   The demo collapses this into ONE card on a surface band and drops the phone,
+   so the bar is the subject. The axis runs 0.0–2.0, which is what makes the
+   band widths 40 / 25 / 10 / 25. */
 .zone-wrap { position: relative; z-index: 1; }
-:where(html.motion) .zone-wrap { height: 170vh; }
-.zone-sticky { padding: 32px 0; }
+:where(html.motion) .zone-wrap { height: 220vh; }
+.zone-sticky { padding: clamp(72px, 9vw, 112px) 0; }
 :where(html.motion) .zone-sticky {
   position: sticky;
   top: 0;
-  height: 100vh;
-  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0;
+  padding: 96px 0 48px;
 }
-.zone-head .micro { display: block; margin-bottom: 16px; }
+.zone-lede {
+  margin: 20px 0 40px;
+  max-width: 640px;
+  font-size: var(--text-body);
+  color: var(--color-text-2);
+}
+.zone-card { padding: 28px; }
+.zone-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+.zone-bar {
+  position: relative;
+  height: 40px;
+  margin-top: 16px;
+}
+.zone-track {
+  position: absolute;
+  inset: 14px 0;
+  display: flex;
+  background: linear-gradient(180deg, var(--color-well-top), var(--color-well-bottom));
+}
+/* Band tints derive from the zone tokens instead of hardcoded rgba, so the v6
+   retune reaches them. Tints only — the message is the written zone name. */
+.zseg { height: 100%; }
+.zseg-low  { width: 40%; background: var(--color-well-top); }
+.zseg-opt  { width: 25%; background: color-mix(in srgb, var(--color-zone-optimal) 18%, transparent); }
+.zseg-caut { width: 10%; background: color-mix(in srgb, var(--color-zone-caution) 18%, transparent); }
+.zseg-dang { flex: 1;    background: color-mix(in srgb, var(--color-zone-danger) 14%, transparent); }
+.zone-fill {
+  position: absolute;
+  inset: 14px 0;
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  transform-origin: left;
+  will-change: transform;
+  pointer-events: none;
+}
+.zone-needle {
+  position: absolute;
+  top: 6px;
+  height: 28px;
+  width: 1.5px;
+  background: var(--color-accent);
+  will-change: transform;
+  pointer-events: none;
+}
+.zone-axis {
+  position: absolute;
+  bottom: -8px;
+  left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+}
+.zone-legend {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+}
+.zone-legend > span { display: block; }
+.zleg-opt  .micro { color: var(--color-zone-optimal); }
+.zleg-caut .micro { color: var(--color-zone-caution); }
+.zleg-dang .micro { color: var(--color-zone-danger); }
+/* The live zone reading. It is a status line inside the card, not a heading —
+   the section's heading is "One fatigue budget" above it. Always written out;
+   colour is supplementary. */
 .zone-label {
-  font-size: clamp(28px, 3.2vw, 38px);
-  font-weight: var(--weight-heading);
-  line-height: 1.15;
-  min-height: 1.2em;
-  margin-bottom: 8px;
+  margin-top: 20px;
+  font-size: 17px;
+  font-weight: var(--weight-label);
+  min-height: 1.4em;
 }
 .zl0 { color: var(--color-zone-low); }
 .zl1 { color: var(--color-zone-optimal); }
 .zl2 { color: var(--color-zone-caution); }
 .zl3 { color: var(--color-zone-danger); }
 .zone-copy {
-  font-size: var(--text-body);
-  color: var(--color-text-2);
-  max-width: 36em;
-  margin-bottom: 56px;
-}
-.zone-bar {
-  position: relative;
-  height: 56px;
-  margin-top: 48px;
-  display: flex;
-  background: linear-gradient(180deg, var(--color-well-top), var(--color-well-bottom));
-  border: 1px solid var(--color-divider);
-  border-radius: var(--radius-sm);
-  box-shadow: inset 0 1px 2px rgba(27,26,23,0.07);
-}
-.zseg { height: 100%; border-left: 1px solid var(--color-divider); }
-.zseg:first-child { border-left: none; }
-/* Band tints derive from the zone tokens instead of hardcoded rgba, so the v6
-   retune reaches them. Tints only — the message is the written zone name. */
-.zseg-low  { width: 30.77%; background: color-mix(in srgb, var(--color-zone-low) 8%, transparent); }
-.zseg-opt  { width: 38.46%; background: color-mix(in srgb, var(--color-zone-optimal) 10%, transparent); }
-.zseg-caut { width: 15.38%; background: color-mix(in srgb, var(--color-zone-caution) 8%, transparent); }
-.zseg-dang { width: 15.39%; background: color-mix(in srgb, var(--color-zone-danger) 8%, transparent); }
-.zone-fill {
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 100%;
-  background: color-mix(in srgb, var(--color-accent) 16%, transparent);
-  transform-origin: left;
-  will-change: transform;
-  pointer-events: none;
-  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-}
-.zone-needle {
-  position: absolute;
-  top: -8px; bottom: -8px;
-  width: 2px;
-  background: var(--color-accent);
-  will-change: transform;
-  pointer-events: none;
-}
-.zone-chip {
-  position: absolute;
-  top: -40px; left: 50%;
-  transform: translateX(-50%);
-  font-size: var(--text-body);
-  font-weight: var(--weight-label);
-  color: var(--color-accent);
-  font-variant-numeric: tabular-nums;
-  background: linear-gradient(180deg, var(--color-surface-el-2), var(--color-surface-el));
-  border: 1px solid var(--color-divider-strong);
-  border-radius: var(--radius-sm);
-  padding: 4px 10px;
-  white-space: nowrap;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
-}
-.zone-legend { display: flex; margin-top: 16px; }
-.zone-legend span { display: block; }
-/* Fragment Mono is wider than the sans at the same size, and these four labels
-   sit in fixed-percentage columns — so the legend drops to --anno-sm and keeps a
-   gutter, otherwise "UNDER 0.8 — UNDERTRAINING" butts into the next cell. */
-.zone-legend .micro {
-  font-size: var(--anno-sm);
-  padding-right: var(--space-sm);
-  line-height: 1.5;
-}
-.zleg-low  { width: 30.77%; }
-.zleg-opt  { width: 38.46%; }
-.zleg-caut { width: 15.38%; }
-.zleg-dang { width: 15.39%; }
-.zone-foot {
+  margin-top: 8px;
   font-size: var(--text-label);
-  color: var(--color-text-3);
-  margin-top: 40px;
-  max-width: 38em;
+  color: var(--color-text-2);
+  max-width: 52em;
+}
+.zone-note { margin-top: 20px; }
+.zone-foot {
+  display: block;
+  margin-top: 16px;
+  max-width: 72ch;
 }
 
 /* ---------- stats band ---------- */
@@ -2517,6 +2552,254 @@ html:not(.motion) .scroll-cue { display: none; }
   color: var(--color-text-1);
 }
 .stat .micro { display: block; margin-top: 16px; }
+
+/* ---------- 03 · the system: the fanned spread ----------
+   The whole-product moment, and the only fan on the page. Light plates, not
+   dark bezels: three dark bezels fanned over stone read as three heavy slabs.
+   640px tall so the ±10° rotation does not clip the outer two. */
+.sys-head { text-align: center; }
+.sys-body {
+  max-width: 640px;
+  margin: 20px auto 0;
+  font-size: 18px;
+  color: var(--color-text-2);
+}
+.fan {
+  --p: 1;
+  position: relative;
+  height: 640px;
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+:where(html.motion) .fan { --p: 0; }
+.fan .plate {
+  position: absolute;
+  width: clamp(200px, 24vw, 250px);
+  will-change: transform;
+}
+.fan .fan-l { transform: rotate(calc(-10deg * var(--p))) translateX(calc(-240px * var(--p))); }
+.fan .fan-c { z-index: 2; }
+.fan .fan-r { transform: rotate(calc(10deg * var(--p))) translateX(calc(240px * var(--p))); }
+
+/* ---------- 04 · logging: a flat three-up row ----------
+   Deliberately not a second fan — two fanned sections back to back would read
+   as one repeated trick. */
+/* Tighter than the default .sec rhythm — three full-height plates plus their
+   captions need the section to stay inside one screenful. */
+.sec-logging { padding: 80px 0; }
+.logrow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 48px;
+  justify-items: center;
+}
+.logrow .plate { width: clamp(160px, 19vw, 250px); }
+.logrow > * { min-width: 0; }
+.logrow figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.logrow figcaption { text-align: center; }
+
+/* ---------- 06 · methodology ----------
+   Design and evidence only: the engine is not built. Status chips, the guess
+   labels and the rails block carry that, and they carry it in every locale. */
+.method-h2 { max-width: 900px; }
+.method-lede {
+  max-width: 700px;
+  margin-top: 24px;
+  font-size: var(--text-lede);
+  color: var(--color-text-2);
+}
+.method-intents {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.method-intents > * { min-width: 0; }
+.method-card { padding: 24px; }
+.method-card .micro { display: block; margin-bottom: 12px; }
+.method-card h3 {
+  font-size: 19px;
+  font-weight: var(--weight-label);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.method-card p { font-size: var(--text-label); color: var(--color-text-2); }
+.method-mech {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+  margin-top: 64px;
+}
+.method-mech > * { min-width: 0; }
+.method-mech .micro { display: block; margin-bottom: 16px; }
+.method-h3 {
+  font-size: 28px;
+  font-weight: var(--weight-label);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+.method-body {
+  margin-bottom: 24px;
+  font-size: var(--text-body);
+  color: var(--color-text-2);
+}
+.tree-card { padding: 24px; overflow-x: auto; }
+.method-foot { display: block; margin-top: 16px; max-width: 72ch; }
+.weights-card { padding: 28px; }
+.weights-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+/* The reading takes its metric's hue — sleep. Below 24px it must sit on a card
+   plane, and .card-el2 is one. */
+.weights-sum { color: var(--color-metric-sleep); }
+.weights-list { display: flex; flex-direction: column; gap: 20px; }
+.weight-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.weight-name { font-size: var(--text-label); }
+/* Series bars, not plane fill: the sleep hue is carrying data here. */
+.wbar {
+  height: 8px;
+  background: var(--color-well-top);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.wbar i {
+  display: block;
+  height: 100%;
+  background: var(--color-metric-sleep);
+  border-radius: var(--radius-pill);
+  transform-origin: left;
+}
+:where(html.motion) .wbar i {
+  transform: scaleX(0);
+  transition: transform 700ms var(--ease);
+}
+.in .wbar i { transform: scaleX(1); }
+.weights-note { display: block; margin-top: 24px; }
+.weights-prov { display: block; margin-top: 8px; color: var(--color-text-2); }
+.method-block { margin-top: 64px; }
+.method-block > .micro { display: block; margin-bottom: 16px; }
+.table-card { padding: 28px; overflow-x: auto; }
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-label);
+}
+.tbl th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: var(--anno-sm);
+  letter-spacing: var(--tracking-anno);
+  line-height: var(--leading-anno);
+  text-transform: uppercase;
+  color: var(--color-text-3);
+  font-weight: var(--weight-regular);
+  padding: 0 16px 12px 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+html[lang="zh"] .tbl th {
+  font-family: var(--font-cjk);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.tbl td {
+  padding: 16px 16px 16px 0;
+  border-bottom: 1px solid var(--color-divider);
+  vertical-align: top;
+  color: var(--color-text-2);
+}
+.tbl td:first-child { color: var(--color-text-1); font-weight: var(--weight-label); }
+.tbl tr:last-child td { border-bottom: 0; }
+/* Status is a machine key, not a coloured claim — the annotation register
+   carries it, so no zone or metric hue leaks onto an unproven statement. */
+.status-key { display: block; margin-bottom: 6px; color: var(--color-text-2); }
+.tbl-situations th:nth-child(1) { width: 20%; }
+.tbl-situations th:nth-child(2) { width: 26%; }
+.tbl-situations th:nth-child(3) { width: 26%; }
+.tbl-situations th:nth-child(4) { width: 28%; }
+.tbl-registry th:nth-child(1) { width: 8%; }
+.tbl-registry th:nth-child(2) { width: 34%; }
+.tbl-registry th:nth-child(3) { width: 18%; }
+.tbl-registry th:nth-child(4) { width: 40%; }
+.rails-card { margin-top: 48px; }
+.method-sources { margin-top: 32px; }
+.method-sources > .micro { display: block; margin-bottom: 12px; }
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 32px;
+  font-size: 13px;
+  color: var(--color-text-2);
+}
+.sources-grid > * { min-width: 0; }
+.sources-grid b { color: var(--color-text-1); font-weight: var(--weight-label); }
+
+/* ---------- ghost numerals + the quote ---------- */
+.ghost-band {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0;
+}
+.ghost-num {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-1);
+  opacity: 0.05;
+  font-size: 200px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+}
+.ghost-num.g1 { top: -40px; left: 2%; }
+.ghost-num.g2 { bottom: -60px; right: 4%; font-size: 160px; }
+.ghost-num.g3 { top: 30%; right: 28%; font-size: 110px; }
+.ghost-band-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 820px;
+}
+.ghost-band blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 450;
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.25;
+  color: var(--color-text-1);
+}
+
+/* ---------- 07 · privacy and the close ---------- */
+.privacy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.privacy-grid > * { min-width: 0; }
+.privacy-lede { margin-bottom: 24px; }
+.privacy-plate { justify-self: center; width: clamp(220px, 26vw, 300px); }
 
 /* ---------- recovery pull quote ---------- */
 .quote { max-width: 820px; }
@@ -2671,6 +2954,20 @@ html:not(.motion) .scroll-cue { display: none; }
 
 /* ---------- home responsive ---------- */
 @media (max-width: 880px) {
+  .method-intents,
+  .method-mech,
+  .logrow,
+  .sources-grid,
+  .privacy-grid { grid-template-columns: 1fr; }
+  .method-mech { gap: 48px; }
+  .privacy-grid { gap: 40px; }
+  .fan { height: 420px; }
+  .fan .fan-l,
+  .fan .fan-r { display: none; }
+  .ghost-num { font-size: 120px; }
+  .ghost-num.g2 { font-size: 100px; }
+  .ghost-num.g3 { display: none; }
+  .show-note { margin-top: 24px; }
   .show-grid { grid-template-columns: 1fr; gap: 32px; }
   :where(html.motion) .show-steps { min-height: 168px; }
   :where(html.motion) .step {
@@ -2686,24 +2983,23 @@ html:not(.motion) .scroll-cue { display: none; }
 }
 
 @media (max-width: 720px) {
-  .hero-h1 { font-size: clamp(38px, 10.5vw, 52px); }
-  .hero-sticky { padding-top: 128px; }
-  :where(html.motion) .hero-sticky {
-    height: auto;
-    min-height: 100svh;
-    overflow: visible;
-    padding: 112px 0 48px;
-    justify-content: flex-start;
-  }
+  .hero-h1 { font-size: clamp(38px, 10.5vw, 52px); max-width: none; }
+  /* The reading stops hiding behind the headline and leads the section. */
   .hero-score {
     position: static;
     display: block;
-    margin-bottom: 24px;
+    text-align: left;
+    margin-bottom: 32px;
   }
+  .hero-score .micro { text-align: left; }
   .hero-score .hero-score-n { font-size: clamp(96px, 24vw, 140px); }
-  .score-rail { width: min(240px, 64vw); margin-top: 16px; }
+  .score-rail { width: min(240px, 64vw); margin-left: 0; margin-top: 16px; }
+  .rail-ends { width: min(240px, 64vw); }
   .hero-copy p.lead { font-size: 16px; }
-  .hero-copy p.sub { font-size: 15px; }
+  .method-h3 { font-size: 22px; }
+  .table-card,
+  .weights-card,
+  .zone-card { padding: 20px; }
   .sec-body { gap: 40px; }
   .spread [data-fan="l"] { transform: translateX(calc(var(--p) * -24%)) rotate(calc(var(--p) * -3deg)); }
   .spread [data-fan="r"] { transform: translateX(calc(var(--p) * 24%)) rotate(calc(var(--p) * 3deg)); }
@@ -2728,25 +3024,13 @@ html:not(.motion) .scroll-cue { display: none; }
 
 /* ---------- home reduced motion: collapse pins, show finals. Last so it wins. ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .mq-track { animation: none; }
-  .mq-pause { display: none; }
   [data-reveal] { opacity: 1; transform: none; transition: none; }
   .line-mask > span { transform: none; transition: none; }
-  .spread { --p: 1; }
-  .ghost { transform: none !important; }
+  .spread, .fan { --p: 1; }
+  .ghost, .ghost-num { transform: none !important; }
   .quote-rule { transform: scaleX(1); transition: none; }
-  .hero-cta { opacity: 1; transform: none; transition: none; }
-  .scroll-cue { display: none; }
-  .hero-wrap, .show-wrap, .zone-wrap { height: auto; }
-  .hero-sticky {
-    position: static;
-    height: auto;
-    min-height: 0;
-    display: block;
-    overflow: visible;
-    padding: clamp(144px, 16vw, 200px) 0 clamp(96px, 12vw, 128px);
-  }
-  .hero-copy { margin-top: 48px; }
+  .wbar i { transform: scaleX(1); transition: none; }
+  .show-wrap, .zone-wrap { height: auto; }
   .show-sticky, .zone-sticky {
     position: static;
     height: auto;
@@ -2758,7 +3042,7 @@ html:not(.motion) .scroll-cue { display: none; }
     position: static;
     opacity: 1;
     transform: none;
-    padding: 20px 0;
+    padding: 0;
     transition: none;
   }
   .show-steps { min-height: 0; }

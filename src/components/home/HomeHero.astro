@@ -1,0 +1,59 @@
+---
+// Hero — the locked demo composition (.design-explorations/website-v2-demo,
+// compare.html row 01). The readiness numeral sits behind and right of the
+// headline in its metric hue; the tick-rail needle is the accent live-state
+// mark and rises WITH the count-up (700ms, same cubic ease) rather than
+// sitting at 82% from the first frame.
+//
+// Not a scrub any more. The demo unpinned the hero — only 01 Today and
+// 02 Training load stay pinned — so the reading animates once on load and the
+// section is an ordinary block. Final values (82 / left:82%) are baked into
+// the markup, so no-JS and reduced motion land on the finished state.
+import { APP_STORE_URL } from '../../config';
+import { useHomeTranslations, useTranslations, type Locale } from '../../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale).heroScrub;
+const tc = useTranslations(locale);
+---
+<section class="sec hero-wrap" id="top" aria-label={t.sectionAria}>
+  <div class="wrap hero-grid">
+    <div class="hero-score" aria-label={t.scoreAria}>
+      <span class="hero-score-n num" id="heroScore">82</span>
+      <span class="micro">{t.scoreCaption}</span>
+      <div class="score-rail" id="heroRail" aria-hidden="true">
+        <span class="rail-needle" id="heroNeedle" style="left:82%"></span>
+      </div>
+      <div class="rail-ends" aria-hidden="true">
+        <span class="micro num">0</span>
+        <span class="micro num">100</span>
+      </div>
+    </div>
+
+    <p class="micro hero-strap">{t.strapline}</p>
+    <h1 class="hero-h1 lines" id="heroLines">
+      {t.lines.map((line) => (
+        <span class="line-mask"><span>{line}</span></span>
+      ))}
+    </h1>
+    <div class="hero-copy">
+      <p class="lead">{t.lead}</p>
+      <p class="micro hero-sub">{t.sub}</p>
+      <div class="hero-cta">
+        <a
+          class="app-store-badge"
+          href={APP_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={tc.featureCTA.badgeAriaLabel}
+        >
+          <img src="/badges/app-store-badge.svg" alt={t.cta} height="44" width="132" />
+        </a>
+        <span class="micro">{t.ctaNote}</span>
+      </div>
+    </div>
+  </div>
+</section>

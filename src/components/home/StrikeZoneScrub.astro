@@ -1,12 +1,11 @@
 ---
-// Section 02 · training load (demo-d): pinned ACWR strike-zone bar scrub
-// (0.40 → 1.45) with live zone-label rewrite and value chip, then the
-// dashboard plate + needle-sweep Lottie well. Final values (1.45, needle at
-// 80.8%, zone label 2) are baked in markup for no-JS/reduced-motion.
-// Copy comes from the per-locale home module (defaults to EN for index.astro).
-// data-zones carries the four live zone labels for homeMotion.ts.
-import { Image } from 'astro:assets';
-import dashboardShot from '../../assets/screens-v16/dashboard.png';
+// 02 · Training load — the pinned strike-zone scrub (demo row 03).
+// The demo collapses the scene into ONE card on a surface band and drops the
+// phone, so the bar itself is the subject. Needle, fill, value chip and the
+// written zone label all scrub from a single rAF loop (0.40 → 1.45 ACWR).
+//
+// Bar axis runs 0.0–2.0 (the demo's scale), so the band widths are
+// 40% / 25% / 10% / 25% for undertraining / strike zone / caution / danger.
 import { useHomeTranslations, type Locale } from '../../i18n/utils';
 
 interface Props {
@@ -15,52 +14,55 @@ interface Props {
 const { locale = 'en' } = Astro.props;
 const t = useHomeTranslations(locale).zoneScrub;
 const legendClasses = ['zleg-low', 'zleg-opt', 'zleg-caut', 'zleg-dang'];
+const axisTicks = ['0.0', '0.8', '1.3', '1.5', '2.0'];
 ---
-<section class="sec sec-alt bt">
-  <div class="ghost ghost-left num" data-ghost aria-hidden="true">02</div>
-  <div class="wrap">
-    <div class="sec-head" style="margin-left:auto">
-      <span class="micro" data-reveal>{t.kicker}</span>
-      <h2 data-reveal>{t.heading}</h2>
-      <p data-reveal>{t.body}</p>
-    </div>
-  </div>
+<section id="zone" class="sec-alt bt bb">
   <div class="zone-wrap" id="zoneWrap">
     <div class="zone-sticky">
       <div class="wrap">
-        <div class="zone-head">
-          <span class="micro">{t.barMicro}</span>
-          <h3 class="zone-label zl2 num" id="zoneLabel" data-zones={JSON.stringify(t.zoneLabels)}>{t.zoneLabels[2]}</h3>
+        <span class="micro show-kicker">{t.kicker}</span>
+        <h2 class="home-h2">{t.heading}</h2>
+        <p class="zone-lede">{t.body}</p>
+
+        <div class="card zone-card" data-anno-reveal>
+          <div class="zone-card-head">
+            <span class="micro">{t.barMicro}</span>
+            <span class="micro num" id="zoneChip" data-now={t.barNow}>{t.barNow} 1.23</span>
+          </div>
+
+          <div class="zone-bar" id="zoneBar">
+            <div class="zone-track" aria-hidden="true">
+              <div class="zseg zseg-low"></div>
+              <div class="zseg zseg-opt"></div>
+              <div class="zseg zseg-caut"></div>
+              <div class="zseg zseg-dang"></div>
+            </div>
+            <div class="zone-fill" id="zoneFill" style="transform:scaleX(0.615)"></div>
+            <div class="zone-needle" id="zoneNeedle" style="left:61.5%"></div>
+            <div class="zone-axis" aria-hidden="true">
+              {axisTicks.map((tick) => <span class="micro anno-sm num">{tick}</span>)}
+            </div>
+          </div>
+
+          <div class="zone-legend" aria-hidden="true">
+            {t.legend.map((item, i) => (
+              <span class={legendClasses[i]}><span class="micro">{item}</span></span>
+            ))}
+          </div>
+
+          <p class="zone-label zl1 num" id="zoneLabel" data-zones={JSON.stringify(t.zoneLabels)}>{t.zoneLabels[1]}</p>
           <p class="zone-copy">{t.zoneCopy}</p>
         </div>
-        <div class="zone-bar" id="zoneBar">
-          <div class="zseg zseg-low"></div>
-          <div class="zseg zseg-opt"></div>
-          <div class="zseg zseg-caut"></div>
-          <div class="zseg zseg-dang"></div>
-          <div class="zone-fill" id="zoneFill" style="transform:scaleX(0.808)"></div>
-          <div class="zone-needle" id="zoneNeedle" style="left:80.8%">
-            <span class="zone-chip num" id="zoneChip">1.45</span>
+
+        <div class="show-note zone-note">
+          <div class="lottie-mini"><div data-lottie="/lottie/needle-sweep.json" aria-label={t.lottieAria}></div></div>
+          <div>
+            <span class="micro">{t.lottieCaption}</span>
+            <p>{t.aside}</p>
           </div>
         </div>
-        <div class="zone-legend" aria-hidden="true">
-          {t.legend.map((item, i) => (
-            <span class={legendClasses[i]}><span class="micro">{item}</span></span>
-          ))}
-        </div>
-        <p class="zone-foot">{t.foot}</p>
-      </div>
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="sec-body">
-      <div class="spread" data-spread>
-        <div class="plate" data-fan="c"><Image src={dashboardShot} alt={t.dashboardAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
-      </div>
-      <div class="aside" data-reveal>
-        <div class="lottie-plate"><div data-lottie="/lottie/needle-sweep.json" aria-label={t.lottieAria}></div></div>
-        <span class="micro lottie-cap">{t.lottieCaption}</span>
-        <p style="margin-top:16px">{t.aside}</p>
+
+        <p class="micro zone-foot">{t.foot}</p>
       </div>
     </div>
   </div>

@@ -6,7 +6,10 @@ type WidenStrings<T> = T extends string
 
 const home = {
   // ------------------------------------------------------------------
-  // Pavilion homepage (demo-d) — consumed by src/components/home/*.
+  // Field Notes homepage (Session X — the Astro port of the locked
+  // .design-explorations/website-v2-demo). Section order and numbering:
+  // hero → 01 today → 02 training load → 03 the system → 04 logging →
+  // stats → 05 recovery → 06 methodology → ghost band → 07 privacy.
   // Numbers, motion targets, and assets are identical across locales;
   // only the strings below translate.
   // ------------------------------------------------------------------
@@ -18,19 +21,13 @@ const home = {
     sectionAria: 'Tuwa — your plan, made safe and optimal',
     scoreAria: 'Readiness score 82',
     scoreCaption: 'readiness today',
+    // Annotation voice, so it stays a phrase and never a sentence.
+    strapline: 'Tuwa // the sports-science back room',
     lines: ['Your plan.', 'Made safe', 'and optimal.'],
     lead: "Tuwa is the sports-science back room for self-coached athletes. It reads your body — HRV, sleep, resting heart rate, training history — and modulates the plan you authored: today's numbers, a go / modify / hold verdict, and where your load is trending. It never writes your program.",
-    sub: 'Built for athletes who train sport skill and strength in parallel.',
+    sub: 'Built for athletes who train sport skill and strength in parallel',
     cta: 'Download on the App Store',
     ctaNote: 'iOS 17+ · iPhone',
-    scrollCue: 'scroll',
-  },
-  marquee: {
-    sectionAria: 'Product vocabulary',
-    srText: 'Strike zone, microdose, match tier, readiness, one fatigue budget, go / modify / hold.',
-    terms: ['strike zone', 'microdose', 'match tier', 'readiness', 'one fatigue budget', 'go / modify / hold'],
-    pauseLabel: 'pause',
-    playLabel: 'play',
   },
   showcase: {
     kicker: '01 · today',
@@ -62,6 +59,7 @@ const home = {
     heading: 'One fatigue budget',
     body: 'Sport skill, strength, and conditioning drain the same tank. Tuwa tracks them as one load — acute against chronic — and keeps the ratio inside the strike zone. When the trend points at overreach, you see it while there is still time to modify.',
     barMicro: 'acute : chronic workload ratio',
+    barNow: 'now',
     zoneLabels: [
       'Undertraining — room to build',
       'In the strike zone',
@@ -76,36 +74,195 @@ const home = {
     lottieCaption: 'readiness, measured',
     aside: 'The needle is fed by your history, not a population average. Same input, same answer — the engine is deterministic.',
   },
-  statsBand: {
-    sectionAria: 'Key numbers',
-    labels: ['exercises in the movement bank', 'readiness, scored every morning', 'days of load behind every ratio'],
-  },
-  recovery: {
-    kicker: '03 · recovery',
-    heading: 'Readiness you can read',
-    body: "Overnight HRV, sleep, and resting heart rate are scored against your own rolling baselines — not population norms — and compressed into one number with plain-language reasons. You don't get a dashboard to interpret. You get a score and the why.",
-    shotAlt: 'Tuwa recovery screen: HRV and sleep trends against personal baselines',
-    quote: 'The back room of a pro team — plan, physiology, and a decision — for athletes who coach themselves.',
-    // Annotation layer for the self-drawing baseline chart (Field Notes v6).
-    // Written lowercase; the .micro/.anno rule uppercases Latin locales.
-    spark: {
-      caption: 'Every metric is scored against your own rolling baseline, not population norms. This is 28 days of HRV, drawn the way the app draws it.',
-      label: 'hrv · 28 days',
-      reading: '62 ms +4 · at baseline',
-      axis: ['d-28', 'd-21', 'd-14', 'd-7', 'today'],
-      chartAlt: 'HRV trend over 28 days, currently 62 milliseconds, at baseline',
-    },
+  system: {
+    kicker: '03 · the system',
+    heading: 'The whole system, one gesture',
+    body: "Recovery, today's decision, and the set you are in the middle of — one canvas each, no dashboard to assemble.",
+    recoveryAlt: 'Tuwa recovery screen: HRV and sleep trends against personal baselines',
+    dashboardAlt: 'Tuwa dashboard: hero readiness card scoring 82 with metrics',
+    activeWorkoutAlt: 'Tuwa active workout: live set logging',
   },
   logging: {
     kicker: '04 · logging',
     heading: 'Log fast, between sets',
     body: 'A 1,324-exercise movement bank behind a search-first picker. Weight, reps, done — logging built for chalk-covered thumbs, so the record keeps up with the session instead of slowing it down.',
+    // Annotation captions under each plate. The middle screen is session
+    // setup, not set entry — the caption says so rather than overclaiming.
+    captions: ['01 · find the movement', '02 · start the session', '03 · the record keeps itself'],
     movementBankAlt: 'Tuwa movement bank: searchable 1,324-exercise catalog',
     activeWorkoutAlt: 'Tuwa active workout: live set logging',
     workoutLogAlt: 'Tuwa workout log: session history',
   },
+  statsBand: {
+    sectionAria: 'Key numbers',
+    labels: ['exercises in the movement bank', 'readiness, scored every morning', 'days of load behind every ratio'],
+  },
+  recovery: {
+    kicker: '05 · recovery',
+    heading: 'Your baselines, drawn daily',
+    body: "Overnight HRV, sleep, and resting heart rate are scored against your own rolling baselines — not population norms — and compressed into one number with plain-language reasons. You don't get a dashboard to interpret. You get a score and the why.",
+    // Annotation layer for the self-drawing baseline chart (Field Notes v6).
+    // Written lowercase; the .micro/.anno rule uppercases Latin locales.
+    spark: {
+      label: 'hrv · 28 days',
+      reading: '62 ms +4 · at baseline',
+      axis: ['d-28', 'd-21', 'd-14', 'd-7', 'today'],
+      chartAlt: 'HRV trend over 28 days, currently 62 milliseconds, at baseline',
+      foot: 'every metric is scored against your own rolling baseline, not population norms',
+    },
+  },
+  // ------------------------------------------------------------------
+  // 06 · METHODOLOGY — the sleep-score v2 design, presented under the
+  // §10 claim ladder. THE ENGINE IS NOT BUILT. Every string here must
+  // keep its hedge in translation: "design, not in the shipping app",
+  // "no performance or accuracy claim", "a guess", "nothing here is
+  // proven", "not a medical device". No claim may be strengthened.
+  // ------------------------------------------------------------------
+  methodology: {
+    kicker: '06 · methodology · in development',
+    headingLines: ['Here is what we believe,', 'and what would prove us wrong'],
+    lede: 'Tuwa scores your sleep against a fixed target today. We are building one that adapts to the state you went to bed in. It is not finished — so here is the whole design, the weights, and the parts we are least sure of.',
+    chips: ['status: design · not in the shipping app', 'no performance or accuracy claim is made here'],
+    intents: [
+      {
+        kicker: '01 · design intent',
+        title: 'The target is yours, and you can see it',
+        body: 'Your sleep target is learned from your own nights, not taken from a population average. And the weights behind the score are printed below — not a trade secret.',
+      },
+      {
+        kicker: '02 · design intent',
+        title: 'The score knows what the night had to do',
+        body: 'Seven hours after an eighteen-hour day, after a match, and after a quiet Tuesday are three different nights. Same maths each time — the parts are just weighted differently.',
+      },
+      {
+        kicker: '03 · shipping today',
+        title: 'It never leaves the phone',
+        body: 'Your raw sleep, HRV and heart-rate readings stay in HealthKit on your device. Only the finished scores sync. This one is not a plan — it is how the app already works.',
+      },
+    ],
+    mechanism: {
+      kicker: 'the mechanism',
+      heading: 'One set of weights, nudged — not a second algorithm',
+      body: 'Every morning the app looks at what it already knows about yesterday — how long you were up, how hard you trained, how steady your sleep has been. That picks out which situations apply, and each one nudges the weights below. Every night stores what it saw and what it decided, so any score can be taken apart later.',
+      tree: [
+        ['what it reads', 'wake · load · regularity · debt · naps'],
+        ['what it matches', 'any situations that apply, or none'],
+        ['what it nudges', 'the weights, within fixed limits'],
+        ['what it keeps', 'all of the above, every night'],
+      ],
+      foot: 'simple arithmetic on your phone · no network · no new sensor',
+    },
+    weights: {
+      label: 'base weights · tier a',
+      sum: 'sum 1.00',
+      // Values are the series data — they never translate. Only the names do.
+      rows: [
+        { name: 'Duration', value: '0.50' },
+        { name: 'Continuity', value: '0.15' },
+        { name: 'Regularity', value: '0.15' },
+        { name: 'Deep sleep', value: '0.10' },
+        { name: 'REM sleep', value: '0.10' },
+      ],
+      note: 'hours slept carries half the score — it is the best-evidenced part · deep and rem count for little, because a wrist only half-agrees with a sleep lab',
+      provenance: 'we argued these numbers out — we did not fit them to data · logged as h-01',
+    },
+    situations: {
+      kicker: 'the situations · three of six',
+      heading: 'What changes, and how sure we are',
+      columns: ['situation', 'when it applies', 'what changes', 'how sure we are'],
+      rows: [
+        {
+          name: 'You were up too long',
+          when: 'You had been awake far longer than usual before going to bed.',
+          change: 'Hours and deep sleep matter more. Your target goes up, by 45 minutes at most.',
+          status: 'backed · the size is our guess (h-02)',
+          confidence: "Sleep pressure builds the longer you are awake — that much is settled. How much extra sleep it earns is our number, not the research's.",
+        },
+        {
+          name: 'You trained hard',
+          when: 'Yesterday was well above your normal for the last month.',
+          change: 'Hours and deep sleep matter slightly more. Your target goes up by half an hour at most.',
+          status: 'a guess (h-03)',
+          confidence: 'The only study we found that tested this directly found nothing. We kept it, wrote down what would make us delete it, and said so here.',
+        },
+        {
+          name: 'Your rhythm just broke',
+          when: 'You went to bed more than two hours off your usual time — the flight, the late game.',
+          change: 'Being off-schedule counts for less, staying asleep counts for more, and deep and REM are trusted only half as much.',
+          status: 'backed · the response is our guess (h-05)',
+          confidence: 'The first disrupted night really is the worst one. Easing off the schedule penalty is our answer to that, not a finding.',
+        },
+      ],
+      foot: 'situations only shift the weights — they never add a new ingredient to the score',
+    },
+    registry: {
+      kicker: 'the list of guesses · 4 of 10',
+      heading: 'Every guess, written down with the test that kills it',
+      body: 'Anything in the score that no study backs goes on this list, next to the result that would make us change it. Nothing gets into the app without a line here — and if we cannot say what would prove a guess wrong, it does not go in at all.',
+      columns: ['no.', 'what we are guessing', 'where it stands', 'what would change our mind'],
+      rows: [
+        {
+          id: 'H-01',
+          claim: 'The weights above are roughly right.',
+          status: 'a guess · argued, not measured',
+          test: 'Check each part against how people actually feel the next day, then re-fit once we have enough nights from enough athletes.',
+        },
+        {
+          id: 'H-03',
+          claim: 'A hard training day means you need up to half an hour more sleep.',
+          status: 'a guess · the one test found nothing',
+          test: 'If hard days and easy days show no difference, this comes out — from the situation and from the target.',
+        },
+        {
+          id: 'H-07',
+          claim: 'When you are well behind on sleep, hours matter more than sleep stages.',
+          status: 'a guess · but well supported',
+          test: 'Check whether deep and REM still tell us anything once you are in real deficit.',
+        },
+        {
+          id: 'H-10',
+          claim: 'Seeing your target move, and why, helps more than it worries you.',
+          status: 'a guess · no study, just our call',
+          test: 'Our own use, and what people tell us. If it reads as alarming, the whole layer goes quiet.',
+        },
+      ],
+    },
+    // The claim rails. These carry the same meaning in every locale.
+    rails: [
+      'tuwa is a training tool, not a medical device',
+      'it does not diagnose, treat, or prevent injury',
+      'sleep stages come from your watch, compared only to your own history',
+      'nothing here is finished, and nothing here is proven',
+      'the sources below say what each paper found — nothing more',
+    ],
+    sources: {
+      kicker: 'what we read, and what we took from it',
+      items: [
+        {
+          finding: 'Sleep pressure builds while you are awake.',
+          cite: 'Borbély, Daan, Wirz-Justice & Deboer (2016), Journal of Sleep Research 25(2). We took the shape of it. We did not take any numbers.',
+        },
+        {
+          finding: 'Training shifts sleep, but only slightly.',
+          cite: 'Kredlow et al. (2015), Journal of Behavioral Medicine 38. Small effects across 66 studies — which is why this one stays a guess.',
+        },
+        {
+          finding: 'Regularity is the middle of your night, not its start.',
+          cite: 'Wittmann & Roenneberg (2006), Chronobiology International 23(1–2). That is the number we track.',
+        },
+        {
+          finding: 'Lost sleep adds up, and hours are what repay it.',
+          cite: 'Van Dongen et al. (2003). The reason hours outrank sleep stages when you are behind.',
+        },
+      ],
+    },
+  },
+  ghostBand: {
+    sectionAria: 'What Tuwa is',
+    quote: 'The back room of a pro team — plan, physiology, and a decision — for athletes who coach themselves.',
+  },
   privacyClose: {
-    kicker: '05 · privacy',
+    kicker: '07 · privacy',
     heading: 'Your data stays on your phone',
     body: 'Tuwa reads HealthKit — it never writes to it — and raw health data never leaves the device. Only composite scores sync.',
     bullets: [
@@ -114,6 +271,7 @@ const home = {
       'Only composite scores sync to your account',
       'Requires iOS 17 or later',
     ],
+    shotAlt: 'Tuwa recovery screen: HRV and sleep trends against personal baselines',
     cta: 'Download on the App Store',
     ctaNote: 'your plan, made safe and optimal',
   },

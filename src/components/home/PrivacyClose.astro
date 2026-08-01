@@ -1,35 +1,54 @@
 ---
-// Section 05 · privacy + closing CTA (demo-d): debossed privacy well and the
-// closing ink pill. The nav pill hides while this CTA is on screen
-// (nav CTA discipline in homeMotion.ts).
-// Copy comes from the per-locale home module (defaults to EN for index.astro).
+// 07 · Privacy and the close (demo row 10).
+// Identical copy to the live site, tighter frame: the four reasons are set as
+// ├─ / └─ marginalia rather than a bulleted list, paired with the recovery
+// screen at full plate width. The close is the App Store badge, so the nav
+// keeps the page's single ink pill.
+import { Image } from 'astro:assets';
+import recoveryShot from '../../assets/screens-v16/recovery.png';
 import { APP_STORE_URL } from '../../config';
-import { useHomeTranslations, type Locale } from '../../i18n/utils';
+import { useHomeTranslations, useTranslations, type Locale } from '../../i18n/utils';
 
 interface Props {
   locale?: Locale;
 }
 const { locale = 'en' } = Astro.props;
 const t = useHomeTranslations(locale).privacyClose;
+const tc = useTranslations(locale);
+const branch = (i: number, len: number) => (i === len - 1 ? '└─' : '├─');
 ---
-<section class="sec bt" id="get">
-  <div class="ghost num" data-ghost aria-hidden="true">05</div>
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="micro" data-reveal>{t.kicker}</span>
-      <h2 data-reveal>{t.heading}</h2>
-      <p data-reveal>{t.body}</p>
-    </div>
-    <div class="privacy-well" data-reveal>
-      <ul>
-        {t.bullets.map((bullet) => (
-          <li>{bullet}</li>
+<section class="sec sec-alt bt" id="get">
+  <div class="wrap privacy-grid">
+    <div data-reveal data-anno-reveal>
+      <span class="micro show-kicker">{t.kicker}</span>
+      <h2 class="home-h2">{t.heading}</h2>
+      <p class="sec-lede privacy-lede">{t.body}</p>
+
+      <div class="tree">
+        {t.bullets.map((bullet, i) => (
+          <div class="tree-row">
+            <span class="tree-branch" aria-hidden="true">{branch(i, t.bullets.length)}</span>
+            <span class="tree-rail">{bullet}</span>
+          </div>
         ))}
-      </ul>
+      </div>
+
+      <div class="closing-cta">
+        <a
+          class="app-store-badge"
+          href={APP_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={tc.featureCTA.badgeAriaLabel}
+        >
+          <img src="/badges/app-store-badge.svg" alt={t.cta} height="44" width="132" loading="lazy" />
+        </a>
+        <span class="micro">{t.ctaNote}</span>
+      </div>
     </div>
-    <div class="closing-cta" data-reveal>
-      <a class="pill-ink" id="closeCta" href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">{t.cta}</a>
-      <span class="micro">{t.ctaNote}</span>
+
+    <div class="plate privacy-plate" data-reveal>
+      <Image src={recoveryShot} alt={t.shotAlt} width={640} format="webp" loading="lazy" decoding="async" />
     </div>
   </div>
 </section>

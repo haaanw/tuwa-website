@@ -1,13 +1,17 @@
 ---
+// Homepage (fr) — mirrors src/pages/index.astro. Section order comes from the
+// locked Session W demo; every string routes through the fr locale module.
 import { useHomeTranslations } from '../../i18n/utils';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import HeroScrub from '../../components/home/HeroScrub.astro';
-import VocabMarquee from '../../components/home/VocabMarquee.astro';
+import HomeHero from '../../components/home/HomeHero.astro';
 import StickyShowcase from '../../components/home/StickyShowcase.astro';
 import StrikeZoneScrub from '../../components/home/StrikeZoneScrub.astro';
+import SystemFan from '../../components/home/SystemFan.astro';
+import LoggingRow from '../../components/home/LoggingRow.astro';
 import StatsBand from '../../components/home/StatsBand.astro';
-import RecoveryQuote from '../../components/home/RecoveryQuote.astro';
-import LoggingFan from '../../components/home/LoggingFan.astro';
+import RecoverySpark from '../../components/home/RecoverySpark.astro';
+import MethodologySection from '../../components/home/MethodologySection.astro';
+import GhostQuote from '../../components/home/GhostQuote.astro';
 import PrivacyClose from '../../components/home/PrivacyClose.astro';
 import { softwareApplicationSchema, organizationSchema } from '../../seo/schema';
 
@@ -20,13 +24,15 @@ const structuredData = [softwareApplicationSchema(t.meta.description), organizat
   structuredData={structuredData}
   locale="fr"
 >
-  <HeroScrub locale="fr" />
-  <VocabMarquee locale="fr" />
+  <HomeHero locale="fr" />
   <StickyShowcase locale="fr" />
   <StrikeZoneScrub locale="fr" />
+  <SystemFan locale="fr" />
+  <LoggingRow locale="fr" />
   <StatsBand locale="fr" />
-  <RecoveryQuote locale="fr" />
-  <LoggingFan locale="fr" />
+  <RecoverySpark locale="fr" />
+  <MethodologySection locale="fr" />
+  <GhostQuote locale="fr" />
   <PrivacyClose locale="fr" />
 
   <!-- Self-hosted Lottie runtime (classic script: executes before the deferred

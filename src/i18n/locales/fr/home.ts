@@ -1,8 +1,11 @@
 import type { Home } from '../en/home';
 
 const home: Home = {
-  // Page d'accueil Pavilion (nouvelle structure). Chiffres, animations et
-  // visuels identiques à la version EN ; seules les chaînes sont traduites.
+  // Page d'accueil Field Notes (Session X · portage Astro). Même ordre de
+  // sections que la version EN : hero → 01 aujourd'hui → 02 charge → 03 le
+  // système → 04 journal → chiffres → 05 récupération → 06 méthodologie →
+  // bande fantôme → 07 confidentialité. Chiffres, animations et visuels
+  // identiques à la version EN ; seules les chaînes sont traduites.
   meta: {
     title: 'Reste dans ta strike zone',
     description: "Tuwa est le staff sports-science des basketteurs qui se coachent seuls et s'entraînent sérieusement en force.",
@@ -11,19 +14,12 @@ const home: Home = {
     sectionAria: 'Tuwa — ton plan, rendu sûr et optimal',
     scoreAria: 'Score de forme 82',
     scoreCaption: 'forme du jour',
+    strapline: 'Tuwa // le staff sports-science',
     lines: ['Ton plan.', 'Rendu sûr', 'et optimal.'],
     lead: "Tuwa est le staff sports-science des athlètes qui se coachent seuls. Il lit ton corps — VFC, sommeil, fréquence cardiaque au repos, historique d'entraînement — et module le plan que tu as écrit : les chiffres du jour, un verdict go / modify / hold, et la tendance de ta charge. Il n'écrit jamais ton programme.",
-    sub: 'Conçu pour les athlètes qui travaillent leur sport et leur force en parallèle.',
+    sub: 'Conçu pour les athlètes qui travaillent leur sport et leur force en parallèle',
     cta: "Télécharger sur l'App Store",
     ctaNote: 'iOS 17+ · iPhone',
-    scrollCue: 'défiler',
-  },
-  marquee: {
-    sectionAria: 'Vocabulaire produit',
-    srText: 'Strike zone, microdose, niveau de match, forme, un seul budget de fatigue, go / modify / hold.',
-    terms: ['strike zone', 'microdose', 'niveau de match', 'forme', 'un seul budget de fatigue', 'go / modify / hold'],
-    pauseLabel: 'pause',
-    playLabel: 'lecture',
   },
   showcase: {
     kicker: "01 · aujourd'hui",
@@ -55,6 +51,7 @@ const home: Home = {
     heading: 'Un seul budget de fatigue',
     body: 'Le sport, la force et le cardio puisent dans le même réservoir. Tuwa les suit comme une seule charge — aiguë contre chronique — et garde le ratio dans la strike zone. Quand la tendance pointe vers le surmenage, tu le vois quand il est encore temps de modifier.',
     barMicro: 'ratio de charge aiguë : chronique',
+    barNow: 'maintenant',
     zoneLabels: [
       'Sous-entraînement — de la marge pour construire',
       'Dans la strike zone',
@@ -69,36 +66,192 @@ const home: Home = {
     lottieCaption: 'la forme, mesurée',
     aside: "L'aiguille est alimentée par ton historique, pas par une moyenne de population. Même entrée, même réponse — le moteur est déterministe.",
   },
-  statsBand: {
-    sectionAria: 'Chiffres clés',
-    labels: ['exercices dans la banque de mouvements', 'forme, notée chaque matin', 'jours de charge derrière chaque ratio'],
-  },
-  recovery: {
-    kicker: '03 · récupération',
-    heading: 'Une forme que tu peux lire',
-    body: "VFC nocturne, sommeil et fréquence cardiaque au repos sont notés contre tes propres références glissantes — pas des normes de population — puis condensés en un seul chiffre avec des raisons en langage clair. Tu ne reçois pas un tableau de bord à interpréter. Tu reçois un score et le pourquoi.",
-    shotAlt: 'Écran de récupération Tuwa : tendances VFC et sommeil contre les références personnelles',
-    quote: "Le staff d'une équipe pro — plan, physiologie et une décision — pour les athlètes qui se coachent eux-mêmes.",
-    // Couche d'annotation du graphe qui se dessine (Field Notes v6).
-    // Écrit en minuscules ; la règle .micro/.anno met en capitales pour le latin.
-    spark: {
-      caption: "Chaque métrique est notée contre ta propre référence glissante, pas des normes de population. Voici 28 jours de VFC, tracés comme l'app les trace.",
-      label: 'vfc · 28 jours',
-      reading: '62 ms +4 · à la référence',
-      axis: ['j-28', 'j-21', 'j-14', 'j-7', "aujourd'hui"],
-      chartAlt: 'Tendance de la VFC sur 28 jours, actuellement 62 millisecondes, à la référence',
-    },
+  system: {
+    kicker: '03 · le système',
+    heading: 'Tout le système, en un geste',
+    body: "La récupération, la décision du jour, et la série que tu es en train de faire — une toile pour chacune, aucun tableau de bord à assembler.",
+    recoveryAlt: 'Écran de récupération Tuwa : tendances VFC et sommeil contre les références personnelles',
+    dashboardAlt: 'Tableau de bord Tuwa : carte de forme affichant 82 avec les métriques',
+    activeWorkoutAlt: 'Séance en cours dans Tuwa : saisie des séries en direct',
   },
   logging: {
     kicker: '04 · journal',
     heading: 'Note vite, entre les séries',
     body: "Une banque de 1 324 mouvements derrière un sélecteur pensé recherche d'abord. Charge, répétitions, validé — un journal fait pour des pouces couverts de magnésie, qui suit la séance au lieu de la ralentir.",
+    captions: ['01 · trouve le mouvement', '02 · lance la séance', '03 · le journal se tient tout seul'],
     movementBankAlt: 'Banque de mouvements Tuwa : catalogue de 1 324 exercices avec recherche',
     activeWorkoutAlt: 'Séance en cours dans Tuwa : saisie des séries en direct',
     workoutLogAlt: "Journal d'entraînement Tuwa : historique des séances",
   },
+  statsBand: {
+    sectionAria: 'Chiffres clés',
+    labels: ['exercices dans la banque de mouvements', 'forme, notée chaque matin', 'jours de charge derrière chaque ratio'],
+  },
+  recovery: {
+    kicker: '05 · récupération',
+    heading: 'Tes références, tracées chaque jour',
+    body: "VFC nocturne, sommeil et fréquence cardiaque au repos sont notés contre tes propres références glissantes — pas des normes de population — puis condensés en un seul chiffre avec des raisons en langage clair. Tu ne reçois pas un tableau de bord à interpréter. Tu reçois un score et le pourquoi.",
+    // Couche d'annotation du graphe qui se dessine (Field Notes v6).
+    // Écrit en minuscules ; la règle .micro/.anno met en capitales pour le latin.
+    spark: {
+      label: 'vfc · 28 jours',
+      reading: '62 ms +4 · à la référence',
+      axis: ['j-28', 'j-21', 'j-14', 'j-7', "aujourd'hui"],
+      chartAlt: 'Tendance de la VFC sur 28 jours, actuellement 62 millisecondes, à la référence',
+      foot: 'chaque métrique est notée contre ta propre référence glissante, pas des normes de population',
+    },
+  },
+  // ------------------------------------------------------------------
+  // 06 · MÉTHODOLOGIE — le score de sommeil v2 est une CONCEPTION, pas
+  // une fonction publiée. Chaque réserve doit survivre à la traduction :
+  // « conception, pas dans l'app publiée », « aucune promesse », « une
+  // supposition », « rien n'est prouvé », « pas un dispositif médical ».
+  // Aucune affirmation ne doit être renforcée.
+  // ------------------------------------------------------------------
+  methodology: {
+    kicker: '06 · méthodologie · en développement',
+    headingLines: ['Voici ce que nous croyons,', 'et ce qui nous donnerait tort'],
+    lede: "Aujourd'hui, Tuwa note ton sommeil contre une cible fixe. Nous en construisons une qui s'adapte à l'état dans lequel tu t'es couché. Ce n'est pas terminé — voici donc toute la conception, les poids, et les parties dont nous sommes le moins sûrs.",
+    chips: ["statut : conception · pas dans l'app publiée", "aucune promesse de performance ni de précision n'est faite ici"],
+    intents: [
+      {
+        kicker: '01 · intention de conception',
+        title: 'La cible est la tienne, et tu peux la voir',
+        body: "Ta cible de sommeil est apprise sur tes propres nuits, pas prise sur une moyenne de population. Et les poids derrière le score sont imprimés ci-dessous — ce n'est pas un secret industriel.",
+      },
+      {
+        kicker: '02 · intention de conception',
+        title: 'Le score sait ce que la nuit avait à faire',
+        body: "Sept heures après une journée de dix-huit heures, après un match, et après un mardi tranquille : trois nuits différentes. Le même calcul à chaque fois — seuls les poids des parties changent.",
+      },
+      {
+        kicker: "03 · déjà dans l'app",
+        title: 'Rien ne quitte le téléphone',
+        body: "Tes mesures brutes de sommeil, de VFC et de fréquence cardiaque restent dans HealthKit, sur ton appareil. Seuls les scores finis se synchronisent. Celle-ci n'est pas un projet — c'est déjà le fonctionnement de l'app.",
+      },
+    ],
+    mechanism: {
+      kicker: 'le mécanisme',
+      heading: 'Un seul jeu de poids, ajusté — pas un second algorithme',
+      body: "Chaque matin, l'app regarde ce qu'elle sait déjà d'hier — combien de temps tu es resté debout, à quel point tu t'es entraîné dur, la régularité de ton sommeil. Cela désigne les situations qui s'appliquent, et chacune ajuste les poids ci-dessous. Chaque nuit garde ce qu'elle a vu et ce qu'elle a décidé, pour que tout score puisse être démonté plus tard.",
+      tree: [
+        ['ce qu’elle lit', 'éveil · charge · régularité · dette · siestes'],
+        ['ce qu’elle reconnaît', "toutes les situations qui s'appliquent, ou aucune"],
+        ['ce qu’elle ajuste', 'les poids, dans des limites fixes'],
+        ['ce qu’elle garde', 'tout ce qui précède, chaque nuit'],
+      ],
+      foot: 'calcul simple sur ton téléphone · aucun réseau · aucun nouveau capteur',
+    },
+    weights: {
+      label: 'poids de base · palier a',
+      sum: 'somme 1,00',
+      rows: [
+        { name: 'Durée', value: '0.50' },
+        { name: 'Continuité', value: '0.15' },
+        { name: 'Régularité', value: '0.15' },
+        { name: 'Sommeil profond', value: '0.10' },
+        { name: 'Sommeil paradoxal', value: '0.10' },
+      ],
+      note: "les heures dormies portent la moitié du score — c'est la partie la mieux étayée · le profond et le paradoxal comptent peu, car un poignet n'est qu'à moitié d'accord avec un laboratoire du sommeil",
+      provenance: "nous avons débattu ces chiffres — nous ne les avons pas ajustés sur des données · consigné en h-01",
+    },
+    situations: {
+      kicker: 'les situations · trois sur six',
+      heading: 'Ce qui change, et à quel point nous en sommes sûrs',
+      columns: ['situation', "quand elle s'applique", 'ce qui change', 'à quel point nous en sommes sûrs'],
+      rows: [
+        {
+          name: 'Tu es resté debout trop longtemps',
+          when: "Tu étais éveillé bien plus longtemps que d'habitude avant de te coucher.",
+          change: 'Les heures et le sommeil profond comptent plus. Ta cible monte, de 45 minutes au maximum.',
+          status: 'étayé · la valeur est notre supposition (h-02)',
+          confidence: "La pression de sommeil monte avec le temps d'éveil : cela, c'est acquis. Combien de sommeil en plus cela vaut est notre chiffre, pas celui de la recherche.",
+        },
+        {
+          name: "Tu t'es entraîné dur",
+          when: 'Hier était bien au-dessus de ta normale du dernier mois.',
+          change: 'Les heures et le sommeil profond comptent un peu plus. Ta cible monte de trente minutes au maximum.',
+          status: 'une supposition (h-03)',
+          confidence: "La seule étude que nous avons trouvée à tester cela directement n'a rien trouvé. Nous l'avons gardée, avons écrit ce qui nous la ferait supprimer, et le disons ici.",
+        },
+        {
+          name: 'Ton rythme vient de casser',
+          when: "Tu t'es couché plus de deux heures à côté de ton heure habituelle — le vol, le match tardif.",
+          change: "Être décalé compte moins, rester endormi compte plus, et le profond comme le paradoxal ne sont crus qu'à moitié.",
+          status: 'étayé · la réponse est notre supposition (h-05)',
+          confidence: "La première nuit perturbée est bien la pire. Alléger la pénalité de décalage est notre réponse à cela, pas un résultat d'étude.",
+        },
+      ],
+      foot: 'les situations ne déplacent que les poids — elles n’ajoutent jamais un nouvel ingrédient au score',
+    },
+    registry: {
+      kicker: 'la liste des suppositions · 4 sur 10',
+      heading: 'Chaque supposition, écrite avec le test qui la tue',
+      body: "Tout ce qui, dans le score, n'est appuyé par aucune étude figure sur cette liste, à côté du résultat qui nous ferait changer d'avis. Rien n'entre dans l'app sans une ligne ici — et si nous ne pouvons pas dire ce qui prouverait qu'une supposition est fausse, elle n'entre pas du tout.",
+      columns: ['n°', 'ce que nous supposons', 'où cela en est', "ce qui nous ferait changer d'avis"],
+      rows: [
+        {
+          id: 'H-01',
+          claim: 'Les poids ci-dessus sont à peu près justes.',
+          status: 'une supposition · débattue, pas mesurée',
+          test: "Comparer chaque partie à ce que les gens ressentent réellement le lendemain, puis réajuster une fois que nous aurons assez de nuits chez assez d'athlètes.",
+        },
+        {
+          id: 'H-03',
+          claim: "Une journée d'entraînement dure veut dire jusqu'à trente minutes de sommeil en plus.",
+          status: "une supposition · le seul test n'a rien trouvé",
+          test: "Si les journées dures et faciles ne montrent aucune différence, cela sort — de la situation comme de la cible.",
+        },
+        {
+          id: 'H-07',
+          claim: 'Quand tu es bien en retard sur ton sommeil, les heures comptent plus que les stades.',
+          status: 'une supposition · mais bien appuyée',
+          test: 'Vérifier si le profond et le paradoxal nous disent encore quelque chose une fois en déficit réel.',
+        },
+        {
+          id: 'H-10',
+          claim: "Voir ta cible bouger, et pourquoi, aide plus que cela n'inquiète.",
+          status: 'une supposition · aucune étude, juste notre avis',
+          test: "Notre propre usage, et ce que les gens nous disent. Si cela se lit comme une alarme, toute la couche se tait.",
+        },
+      ],
+    },
+    // Les garde-fous. Ils portent le même sens dans chaque langue.
+    rails: [
+      "tuwa est un outil d'entraînement, pas un dispositif médical",
+      'il ne diagnostique pas, ne traite pas et ne prévient pas les blessures',
+      "les stades de sommeil viennent de ta montre, comparés seulement à ton propre historique",
+      "rien ici n'est terminé, et rien ici n'est prouvé",
+      'les sources ci-dessous disent ce que chaque article a trouvé — rien de plus',
+    ],
+    sources: {
+      kicker: 'ce que nous avons lu, et ce que nous en avons tiré',
+      items: [
+        {
+          finding: "La pression de sommeil monte pendant l'éveil.",
+          cite: "Borbély, Daan, Wirz-Justice & Deboer (2016), Journal of Sleep Research 25(2). Nous en avons pris la forme. Nous n'en avons pris aucun chiffre.",
+        },
+        {
+          finding: "L'entraînement déplace le sommeil, mais faiblement.",
+          cite: "Kredlow et al. (2015), Journal of Behavioral Medicine 38. De petits effets sur 66 études — c'est pourquoi celle-ci reste une supposition.",
+        },
+        {
+          finding: 'La régularité, c’est le milieu de ta nuit, pas son début.',
+          cite: "Wittmann & Roenneberg (2006), Chronobiology International 23(1–2). C'est le chiffre que nous suivons.",
+        },
+        {
+          finding: 'Le sommeil perdu s’accumule, et ce sont les heures qui le remboursent.',
+          cite: 'Van Dongen et al. (2003). La raison pour laquelle les heures passent devant les stades quand tu es en retard.',
+        },
+      ],
+    },
+  },
+  ghostBand: {
+    sectionAria: 'Ce qu’est Tuwa',
+    quote: "Le staff d'une équipe pro — plan, physiologie et une décision — pour les athlètes qui se coachent eux-mêmes.",
+  },
   privacyClose: {
-    kicker: '05 · confidentialité',
+    kicker: '07 · confidentialité',
     heading: 'Tes données restent sur ton téléphone',
     body: "Tuwa lit HealthKit — il n'y écrit jamais — et les données de santé brutes ne quittent jamais l'appareil. Seuls des scores composites se synchronisent.",
     bullets: [
@@ -107,6 +260,7 @@ const home: Home = {
       'Seuls des scores composites se synchronisent avec ton compte',
       'Nécessite iOS 17 ou plus récent',
     ],
+    shotAlt: 'Écran de récupération Tuwa : tendances VFC et sommeil contre les références personnelles',
     cta: "Télécharger sur l'App Store",
     ctaNote: 'ton plan, rendu sûr et optimal',
   },
