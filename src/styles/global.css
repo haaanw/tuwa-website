@@ -3086,6 +3086,28 @@ html[lang="zh"] .tbl th {
   color: var(--color-text-1);
   text-decoration: none;
 }
+/* Homepage-only anchor nav (demo header, HAN 2026-08-01). Hidden below 900px —
+   the drawer covers narrow screens, exactly as the demo hid its links. */
+.nav-anchors {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.nav-anchor {
+  font-size: var(--text-label);
+  color: var(--color-text-2);
+  text-decoration: none;
+  transition: color 160ms ease-out;
+}
+.nav-anchor:hover,
+.nav-anchor:focus-visible {
+  color: var(--color-text-1);
+}
+@media (max-width: 900px) {
+  .nav-anchors {
+    display: none;
+  }
+}
 .pill-ink-sm {
   padding: 8px 24px;
   font-size: var(--text-label);

@@ -3,6 +3,13 @@ import type { Common } from '../en/common';
 const common: Common = {
   nav: {
     features: '功能',
+    anchors: [
+      { href: '#today', label: '功能' },
+      { href: '#zone', label: '训练负荷' },
+      { href: '#logging', label: '记录' },
+      { href: '#method', label: '方法论' },
+      { href: '#get', label: '隐私' },
+    ],
     support: '支持',
     blog: '博客',
     getApp: '下载应用',

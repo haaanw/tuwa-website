@@ -15,6 +15,11 @@ interface Props {
 }
 const { locale = 'en' } = Astro.props;
 const t = useTranslations(locale as 'en' | 'zh' | 'fr');
+
+// Homepage-only anchor nav (HAN, 2026-08-01): the demo's section links, shown
+// ONLY where the sections exist. Every other page keeps wordmark + Menu + pill.
+const homePaths = ['/', '/zh', '/zh/', '/fr', '/fr/'];
+const isHome = homePaths.includes(Astro.url.pathname);
 ---
 <header class="site-nav">
   <nav class="site-nav-inner" aria-label="Main">
@@ -30,6 +35,13 @@ const t = useTranslations(locale as 'en' | 'zh' | 'fr');
         {t.nav.menu}
       </button>
     </div>
+    {isHome && (
+      <div class="nav-anchors" aria-label="Sections">
+        {t.nav.anchors.map((a) => (
+          <a class="nav-anchor" href={a.href}>{a.label}</a>
+        ))}
+      </div>
+    )}
     <a
       class="pill-ink pill-ink-sm"
       id="navCta"

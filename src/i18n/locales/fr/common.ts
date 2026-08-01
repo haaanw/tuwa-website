@@ -3,6 +3,13 @@ import type { Common } from '../en/common';
 const common: Common = {
   nav: {
     features: 'Fonctionnalités',
+    anchors: [
+      { href: '#today', label: 'Fonctionnalités' },
+      { href: '#zone', label: "Charge d'entraînement" },
+      { href: '#logging', label: 'Journal' },
+      { href: '#method', label: 'Méthodologie' },
+      { href: '#get', label: 'Confidentialité' },
+    ],
     support: 'Assistance',
     blog: 'Blog',
     getApp: "Télécharger l'app",

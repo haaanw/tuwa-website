@@ -9,6 +9,13 @@ type WidenStrings<T> = T extends string
 const common = {
   nav: {
     features: 'Features',
+    anchors: [
+      { href: '#today', label: 'Features' },
+      { href: '#zone', label: 'Training load' },
+      { href: '#logging', label: 'Logging' },
+      { href: '#method', label: 'Methodology' },
+      { href: '#get', label: 'Privacy' },
+    ],
     support: 'Support',
     blog: 'Blog',
     getApp: 'Get the App',
