@@ -50,7 +50,7 @@ const home = {
       },
       {
         title: 'The load trend',
-        body: 'One fatigue budget across sport skill, strength and conditioning — and where it is heading over the coming weeks.',
+        body: 'One fatigue budget across sport skill, strength and conditioning — and how it is trending, week by week.',
       },
     ],
     verdictAlt: 'Tuwa verdict screen: go / modify / hold with concrete number adjustments',
@@ -60,7 +60,7 @@ const home = {
   zoneScrub: {
     kicker: '02 · training load',
     heading: 'One fatigue budget',
-    body: 'Sport skill, strength, and conditioning drain the same tank. Tuwa tracks them as one load — acute against chronic — and keeps the ratio inside the strike zone. When the trend points at overreach, you see it days before you feel it.',
+    body: 'Sport skill, strength, and conditioning drain the same tank. Tuwa tracks them as one load — acute against chronic — and keeps the ratio inside the strike zone. When the trend points at overreach, you see it while there is still time to modify.',
     barMicro: 'acute : chronic workload ratio',
     zoneLabels: [
       'Undertraining — room to build',
@@ -78,7 +78,7 @@ const home = {
   },
   statsBand: {
     sectionAria: 'Key numbers',
-    labels: ['exercises in the movement bank', 'readiness, scored every morning', 'days of load forecast'],
+    labels: ['exercises in the movement bank', 'readiness, scored every morning', 'days of load behind every ratio'],
   },
   recovery: {
     kicker: '03 · recovery',

@@ -12,7 +12,7 @@ const home: Home = {
     scoreAria: 'Score de forme 82',
     scoreCaption: 'forme du jour',
     lines: ['Ton plan.', 'Rendu sûr', 'et optimal.'],
-    lead: "Tuwa est le staff sports-science des athlètes qui se coachent seuls. Il lit ton corps — VFC, sommeil, fréquence cardiaque au repos, historique d'entraînement — et module le plan que tu as écrit : les chiffres du jour, un verdict go / modify / hold, et la direction que prend ta charge. Il n'écrit jamais ton programme.",
+    lead: "Tuwa est le staff sports-science des athlètes qui se coachent seuls. Il lit ton corps — VFC, sommeil, fréquence cardiaque au repos, historique d'entraînement — et module le plan que tu as écrit : les chiffres du jour, un verdict go / modify / hold, et la tendance de ta charge. Il n'écrit jamais ton programme.",
     sub: 'Conçu pour les athlètes qui travaillent leur sport et leur force en parallèle.',
     cta: "Télécharger sur l'App Store",
     ctaNote: 'iOS 17+ · iPhone',
@@ -43,7 +43,7 @@ const home: Home = {
       },
       {
         title: 'La tendance de charge',
-        body: 'Un seul budget de fatigue pour le sport, la force et le cardio — et sa trajectoire sur les semaines à venir.',
+        body: 'Un seul budget de fatigue pour le sport, la force et le cardio — et sa tendance, semaine après semaine.',
       },
     ],
     verdictAlt: 'Écran de verdict Tuwa : go / modify / hold avec ajustements chiffrés',
@@ -53,7 +53,7 @@ const home: Home = {
   zoneScrub: {
     kicker: "02 · charge d'entraînement",
     heading: 'Un seul budget de fatigue',
-    body: 'Le sport, la force et le cardio puisent dans le même réservoir. Tuwa les suit comme une seule charge — aiguë contre chronique — et garde le ratio dans la strike zone. Quand la tendance pointe vers le surmenage, tu le vois des jours avant de le sentir.',
+    body: 'Le sport, la force et le cardio puisent dans le même réservoir. Tuwa les suit comme une seule charge — aiguë contre chronique — et garde le ratio dans la strike zone. Quand la tendance pointe vers le surmenage, tu le vois quand il est encore temps de modifier.',
     barMicro: 'ratio de charge aiguë : chronique',
     zoneLabels: [
       'Sous-entraînement — de la marge pour construire',
@@ -71,7 +71,7 @@ const home: Home = {
   },
   statsBand: {
     sectionAria: 'Chiffres clés',
-    labels: ['exercices dans la banque de mouvements', 'forme, notée chaque matin', 'jours de prévision de charge'],
+    labels: ['exercices dans la banque de mouvements', 'forme, notée chaque matin', 'jours de charge derrière chaque ratio'],
   },
   recovery: {
     kicker: '03 · récupération',
