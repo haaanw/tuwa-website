@@ -18,12 +18,12 @@ const t = useHomeTranslations(locale).statsBand;
         <span class="n num" data-count="1324" data-comma="1">1,324</span>
         <span class="micro">{t.labels[0]}</span>
       </div>
-      <!-- 1, not 82: the label counts a thing ("readiness, scored every
-           morning"), so the figure has to be a count and not a sample score.
-           28, not 7: the label states the chronic history window the ratio is
-           built from (WorkloadCalculator ctlLambda = 1/28). Neither figure
-           claims a forecast — the app has none and is fenced against implying
-           one (ADR-0002). -->
+      {/* 1, not 82: the label counts a thing ("readiness, scored every
+          morning"), so the figure has to be a count and not a sample score.
+          28, not 7: the label states the chronic history window the ratio is
+          built from (WorkloadCalculator ctlLambda = 1/28). Neither figure
+          claims a forecast — the app has none and is fenced against implying
+          one (ADR-0002). */}
       <div class="stat" data-reveal>
         <span class="n num" data-count="1">1</span>
         <span class="micro">{t.labels[1]}</span>
