@@ -59,7 +59,7 @@ const content: TopicPageContent = {
         "href": "/methodology"
       },
       {
-        "label": "准备状态评分",
+        "label": "准备度评分",
         "href": "/readiness-score"
       }
     ]

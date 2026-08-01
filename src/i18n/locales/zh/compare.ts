@@ -37,7 +37,7 @@ const content: TopicPageContent = {
         rows: [
           {
             label: 'Whoop / Bevel 这类分数',
-            generic: '身体信号和综合准备状态，但不知道你今天计划的力量训练。',
+            generic: '身体信号和综合准备度，但不知道你今天计划的力量训练。',
             tuwa: '你的计划力量训练，加上生理状态、训练历史、酸痛和比赛背景。',
           },
           {

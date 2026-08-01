@@ -11,8 +11,8 @@ const home: Home = {
   },
   heroScrub: {
     sectionAria: 'Tuwa——你的计划，变得更安全、更优',
-    scoreAria: '准备状态评分 82',
-    scoreCaption: '今日准备状态',
+    scoreAria: '准备度评分 82',
+    scoreCaption: '今日准备度',
     strapline: 'Tuwa // 运动科学后方团队',
     lines: ['你的计划。', '更安全，', '也更优。'],
     lead: 'Tuwa 是自我训练运动员的运动科学后方团队。它读取你的身体信号——心率变异、睡眠、静息心率、训练历史——再据此调整你自己写的计划：今天的具体数字、一个 go / modify / hold 判定，以及负荷的趋势。它从不替你写课表。',
@@ -30,7 +30,7 @@ const home: Home = {
     steps: [
       {
         title: '判定',
-        body: 'go、modify 还是 hold——附上今天训练的确切数字调整，由你的准备状态和你在计划中的位置算出。',
+        body: 'go、modify 还是 hold——附上今天训练的确切数字调整，由你的准备度和你在计划中的位置算出。',
       },
       {
         title: 'Strike zone',
@@ -60,9 +60,9 @@ const home: Home = {
     zoneCopy: '这个比值把最近 7 天的负荷和最近 4 周做对比。Tuwa 的职责就是把它稳在 strike zone 里。',
     legend: ['低于 0.8——训练不足', '0.8–1.3——strike zone', '1.3–1.5——注意', '高于 1.5——危险'],
     foot: '区间名称永远写成文字——颜色只是辅助，从不是信息本身。',
-    dashboardAlt: 'Tuwa 主界面：准备状态卡片显示 82 分与各项指标',
-    lottieAria: '动画：准备状态表盘，石灰华色指针扫过刻度弧线',
-    lottieCaption: '测量出来的准备状态',
+    dashboardAlt: 'Tuwa 主界面：准备度卡片显示 82 分与各项指标',
+    lottieAria: '动画：准备度表盘，石灰华色指针扫过刻度弧线',
+    lottieCaption: '测量出来的准备度',
     aside: '指针由你自己的历史驱动，而不是人群平均值。同样的输入，同样的答案——引擎是确定性的。',
   },
   system: {
@@ -70,7 +70,7 @@ const home: Home = {
     heading: '整个系统，一个手势',
     body: '恢复、今天的决定，以及你正做到一半的那一组——各自一块完整画布，不用自己拼仪表盘。',
     recoveryAlt: 'Tuwa 恢复界面：心率变异与睡眠趋势对照个人基线',
-    dashboardAlt: 'Tuwa 主界面：准备状态卡片显示 82 分与各项指标',
+    dashboardAlt: 'Tuwa 主界面：准备度卡片显示 82 分与各项指标',
     activeWorkoutAlt: 'Tuwa 进行中训练：实时记录每一组',
   },
   logging: {
@@ -84,7 +84,9 @@ const home: Home = {
   },
   statsBand: {
     sectionAria: '关键数字',
-    labels: ['个动作收录在动作库中', '分准备状态，每天早晨评出', '天负荷历史，支撑每个比值'],
+    // 量词要与新的数字对齐：中间一项的数字由 82 改为 1，所以量词从「分」
+    // 改为「个……评分」——「1 分准备度」不成立，「1 个准备度评分」才对。
+    labels: ['个动作收录在动作库中', '个准备度评分，每天早晨给出', '天负荷历史，支撑每个比值'],
   },
   recovery: {
     kicker: '05 · 恢复',
@@ -268,7 +270,7 @@ const home: Home = {
     subtitle: 'Tuwa 是给认真打比赛、也认真力量训练的自我训练篮球运动员准备的运动科学后方团队。你输入自己的计划、记录比赛强度，Tuwa 每天给出 go、modify 或 hold 建议、调整后的顶组数字，以及一句原因。',
     loopSteps: ['计划', '检查', '调整', '复盘'],
     loopAriaLabel: 'Tuwa 训练闭环',
-    deviceAlt: 'Tuwa 今日界面显示准备状态建议、计划力量训练调整、恢复信号和训练负荷。',
+    deviceAlt: 'Tuwa 今日界面显示准备度建议、计划力量训练调整、恢复信号和训练负荷。',
     badgeAlt: '在 App Store 下载',
     badgeAriaLabel: '在 App Store 下载 Tuwa',
   },

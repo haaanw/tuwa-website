@@ -1,5 +1,5 @@
 ---
-// 恢复评分——对照个人基线的准备状态（Pavilion 重建，zh）。结构与 EN 版逐节对应。
+// 恢复评分——对照个人基线的准备度（Pavilion 重建，zh）。结构与 EN 版逐节对应。
 import { Image } from 'astro:assets';
 import CJKLayout from '../../../layouts/CJKLayout.astro';
 import FeatureFaq from '../../../components/features/FeatureFaq.astro';
@@ -7,9 +7,9 @@ import FeatureClosing from '../../../components/features/FeatureClosing.astro';
 import { faqPageSchema } from '../../../seo/schema';
 import recoveryShot from '../../../assets/screens-v16/recovery.png';
 
-const title = '恢复评分：看得懂的准备状态';
+const title = '恢复评分：看得懂的准备度';
 const description =
-  '夜间 HRV、睡眠和静息心率对照你自己的滚动基线打分——不是人群标准——再压缩成一个准备状态数字，配上直白的原因。';
+  '夜间 HRV、睡眠和静息心率对照你自己的滚动基线打分——不是人群标准——再压缩成一个准备度数字，配上直白的原因。';
 
 const faqs = [
   {
@@ -48,7 +48,7 @@ const structuredData = [faqPageSchema(faqs)];
     <div class="wrap">
       <div class="sec-head">
         <span class="micro" data-animate>恢复</span>
-        <h1 class="feat-h1" data-animate data-animate-delay="60">看得懂的准备状态</h1>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">看得懂的准备度</h1>
         <p class="feat-lead" data-animate data-animate-delay="120">
           夜间 HRV、睡眠和静息心率会对照你自己的滚动基线打分——不是人群标准——再压缩成一个数字，配上直白的原因。你拿到的不是一块要自己解读的仪表盘，而是一个分数和它背后的为什么。
         </p>
@@ -64,7 +64,7 @@ const structuredData = [faqPageSchema(faqs)];
         <h2 data-animate>你的基线，不是人群的</h2>
         <p data-animate>
           每天早晨，Tuwa 从 Apple HealthKit 拉取夜间生理数据，再结合一次简短的身体状态自评，产出一个
-          0 到 100 之间的准备状态数字。各项输入的权重并不相同，也没有任何一项会被拿去和人群标准比较——每个信号都对照你自己的近期趋势。
+          0 到 100 之间的准备度数字。各项输入的权重并不相同，也没有任何一项会被拿去和人群标准比较——每个信号都对照你自己的近期趋势。
         </p>
         <p data-animate data-animate-delay="80">
           HRV 数字因人而异。真正重要的是你的信号高于还是低于自己的近期趋势，以及这个趋势如何影响今天计划中的力量训练。
@@ -130,7 +130,7 @@ const structuredData = [faqPageSchema(faqs)];
       { label: '每日建议', href: '/zh/features/verdict' },
       { label: '训练负荷', href: '/zh/features/workload-tracking' },
       { label: '即刻开始', href: '/zh/features/cold-start' },
-      { label: '准备状态评分', href: '/zh/readiness-score' },
+      { label: '准备度评分', href: '/zh/readiness-score' },
       { label: '方法论', href: '/zh/methodology' },
     ]}
   />
