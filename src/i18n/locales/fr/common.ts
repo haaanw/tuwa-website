@@ -45,6 +45,7 @@ const common: Common = {
     trainingLoad: "Charge d'entraînement",
     recoveryScore: 'Score de récupération',
     logging: 'Journal et modèles',
+    voiceLogging: 'Saisie vocale',
     startingOut: 'Démarrage immédiat',
     methodology: 'Méthodologie',
     readinessScore: 'Score de forme',

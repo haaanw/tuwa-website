@@ -32,6 +32,14 @@ const support: Support = {
       a: 'Les abonnements sont gérés via Apple. Va dans Réglages > Identifiant Apple > Abonnements sur ton appareil pour consulter, modifier ou annuler ton abonnement Tuwa. L\'annulation prend effet à la fin de ta période de facturation en cours.',
     },
     {
+      q: 'Comment supprimer mon compte ?',
+      a: 'Déconnecte-toi dans l\'application via Profil > Se déconnecter, puis écris-nous à support@tuwa.app pour demander la suppression complète de ton compte et de tes données de nos serveurs. La suppression est définitive : journaux d\'entraînement, scores de récupération, instantanés de charge et records personnels sont supprimés.',
+    },
+    {
+      q: 'Que devient une séance décrite en mots ?',
+      a: 'La parole est convertie en texte sur ton téléphone, puis ce texte part vers notre service d\'analyse — traité par un modèle de langue tiers — pour revenir sous forme de brouillon de séries et de répétitions. Aucune donnée HealthKit et aucun enregistrement audio n\'est envoyé, uniquement le texte. Rien n\'est enregistré dans ton journal avant que tu confirmes le brouillon, et la saisie manuelle fait le même travail si tu préfères ne pas l\'utiliser. Le détail complet est dans la politique de confidentialité.',
+    },
+    {
       q: 'Qu\'est-ce que l\'ACWR et pourquoi est-ce important ?',
       a: 'L\'ACWR est le ratio de charge aiguë sur chronique (Acute:Chronic Workload Ratio). Il compare ta charge d\'entraînement récente à une moyenne de plus long terme. Tuwa le traite comme du contexte de charge, pas comme une prédiction de blessure : la charge récente et les signaux de pic sont affichés avant l\'entraînement, pour que tu puisses revoir le volume, l\'intensité ou le timing avec les dernières données enregistrées en tête.',
     },

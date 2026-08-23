@@ -2,8 +2,13 @@
 // allowing zh/fr locale files to satisfy the Common shape with translated values.
 type WidenStrings<T> = T extends string
   ? string
+  // `readonly` is load-bearing: `common` below is `as const`, so every array in
+  // it is a readonly tuple. Widening to a MUTABLE array made `enCommon`
+  // unassignable to `Common` and put one error on `astro check` at
+  // src/i18n/utils.ts:68. A mutable zh/fr array still satisfies a readonly one,
+  // so the locale files need no change.
   : T extends readonly (infer U)[]
-  ? WidenStrings<U>[]
+  ? readonly WidenStrings<U>[]
   : { [K in keyof T]: WidenStrings<T[K]> };
 
 const common = {
@@ -51,6 +56,7 @@ const common = {
     trainingLoad: 'Training load',
     recoveryScore: 'Recovery score',
     logging: 'Logging & templates',
+    voiceLogging: 'Voice logging',
     startingOut: 'Starting out',
     methodology: 'Methodology',
     readinessScore: 'Readiness score',

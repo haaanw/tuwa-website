@@ -70,6 +70,11 @@ const content: TopicPageContent = {
         "tuwa": "HealthKit brut sur l’appareil ; seuls les scores composites se synchronisent"
       },
       {
+        "label": "Saisie de la séance",
+        "generic": "Séries tapées écran par écran",
+        "tuwa": "Dis la séance en une phrase — ou tape-la, ou dicte-la — puis confirme le brouillon"
+      },
+      {
         "label": "Délai avant utilité",
         "generic": "Variable ; parfois des semaines",
         "tuwa": "Utile dès le premier jour, puis se personnalise"

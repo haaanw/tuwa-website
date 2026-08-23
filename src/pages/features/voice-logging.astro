@@ -1,0 +1,198 @@
+---
+// Voice logging — say the session (shipped in app v1.7.2).
+// Follows the Pavilion feature-page pattern: hero → sections → FAQ → closing.
+//
+// Claim discipline: voice logging is SHIPPED and free on every tier, so present
+// tense is correct here. The language model is a PARSER — it turns one sentence
+// into a draft the athlete confirms. It is never a chat, an assistant, or a
+// coach you talk to, and no string on this page may imply otherwise.
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FeatureFaq from '../../components/features/FeatureFaq.astro';
+import FeatureClosing from '../../components/features/FeatureClosing.astro';
+import { faqPageSchema } from '../../seo/schema';
+import logCaptureShot from '../../assets/screens-v16/log-capture.png';
+import activeWorkoutShot from '../../assets/screens-v16/active-workout.png';
+
+const title = 'Voice Logging: Say the Session';
+const description =
+  'Speak your workout, type it, or use the keyboard dictation mic. Tuwa parses the sentence into an editable draft you confirm — nothing saves itself, manual entry never goes away, and it is free on every tier.';
+
+const faqs = [
+  {
+    q: 'What do I actually say?',
+    a: 'A plain sentence, the way you would tell a training partner: "back squat, three sets of five at 130, last one felt heavy. Then bench, four by eight at eighty." Tuwa reads exercise, sets, reps and load out of it and fills the draft in. You do not learn a command syntax, and there is nothing to phrase correctly.',
+  },
+  {
+    q: 'Do I have to speak out loud?',
+    a: 'No. Three doors lead to the same pipeline: record it in the app, type the same sentence, or press the dictation mic on the iOS keyboard. Whichever you use, the text is what gets parsed, so a noisy gym or a quiet train are both fine.',
+  },
+  {
+    q: 'Can it save something I did not do?',
+    a: 'No. The parse produces a draft in the normal set-entry screen with every set laid out. Nothing is written to your log until you confirm it, and every number stays editable by hand until you do.',
+  },
+  {
+    q: 'Does this replace manual entry?',
+    a: 'It sits beside it. The weight scale, the rep stepper, templates and the movement bank are unchanged — manual entry is still how you correct anything, and it is still the fastest route for a single set between rounds.',
+  },
+  {
+    q: 'Does it work mid-session, one set at a time?',
+    a: 'Yes. Inside a running workout you can speak one set as you finish it and it lands in the open exercise without covering the set list.',
+  },
+  {
+    q: 'Where is the sentence processed?',
+    a: 'The text you submit is sent to Tuwa\'s parsing service and processed by a third-party language model to produce the draft. Requests are tied to your signed-in account and capped by a daily quota. Your raw HealthKit data — HRV, sleep, heart rate — is never part of this and never leaves your device.',
+  },
+  {
+    q: 'Does it cost anything?',
+    a: 'No. Voice logging is free on every tier, including the free one.',
+  },
+] as const;
+
+const structuredData = [faqPageSchema(faqs)];
+---
+<BaseLayout title={title} description={description} structuredData={structuredData}>
+  <!-- Hero -->
+  <section class="sec feat-hero">
+    <div class="ghost num" data-ghost aria-hidden="true">03</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>voice logging</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">Say the session</h1>
+        <p class="feat-lead" data-animate data-animate-delay="120">
+          Describe the workout the way you would say it out loud. Tuwa turns the
+          sentence into an editable draft with every set filled in, and nothing
+          reaches your log until you confirm it. Free on every tier.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three doors -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>how it works</span>
+        <h2 data-animate>Three doors, one pipeline</h2>
+        <p data-animate>
+          Record the session in the app, type the same sentence, or press the
+          dictation mic on the iOS keyboard. All three produce text, and the text
+          is what Tuwa parses — so the loud gym, the changing room, and the train
+          home are all the same door.
+        </p>
+        <p data-animate data-animate-delay="80">
+          There is no command syntax to learn and nothing to phrase correctly.
+          "Back squat, three sets of five at 130, last one felt heavy" is a
+          complete instruction.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread" data-spread>
+          <div class="plate" data-fan="c"><Image src={logCaptureShot} alt="Tuwa log capture: a spoken session written out as a sentence, ready to parse" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+        <div class="aside quote" data-animate data-quote>
+          <div class="quote-rule"></div>
+          <blockquote>
+            Back squat, three sets of five at 130, last one felt heavy. Then
+            bench, four by eight at eighty.
+          </blockquote>
+          <p style="margin-top:16px">One sentence. Seven sets, laid out and waiting for your eye.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Draft, then confirm -->
+  <section class="sec bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>the draft</span>
+        <h2 data-animate>Nothing saves itself</h2>
+        <p data-animate>
+          The parse does not write to your log. It opens the normal set-entry
+          screen with the sets already in place, and every one of them is yours to
+          correct: the weight scale shows its full range with your last set and
+          today's target marked on the rule, and the rep stepper is where it
+          always was.
+        </p>
+        <p data-animate data-animate-delay="80">
+          This is the same discipline the daily verdict follows. Tuwa proposes,
+          you confirm — and if the parse read "eighty" as the wrong lift, fixing
+          it is one tap, not a re-recording.
+        </p>
+      </div>
+      <div class="sec-body">
+        <div class="spread" data-spread>
+          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Tuwa set entry: the weight scale with target and last markers on the rule" width={640} format="webp" loading="lazy" decoding="async" /></div>
+        </div>
+        <div class="aside quote" data-animate data-quote>
+          <div class="quote-rule"></div>
+          <blockquote>
+            Manual entry never goes away. It is how you fix anything, and it is
+            still the fastest route for one set between rounds.
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mid-session -->
+  <section class="sec sec-alt bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>mid-session</span>
+        <h2 data-animate>One set at a time, without leaving the list</h2>
+        <p data-animate>
+          Inside a running workout you can speak a single set as you finish it.
+          The capture stays inline — the set list never disappears behind a
+          sheet — and the set lands in the exercise you have open.
+        </p>
+        <p data-animate data-animate-delay="80">
+          Nothing about the rest of logging changes. Templates carry forward,
+          personal records are still detected, and the 1,324-movement bank is
+          still one search away.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What leaves the phone -->
+  <section class="sec bt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>what leaves your phone</span>
+        <h2 data-animate>The sentence is processed on a server. Your physiology is not.</h2>
+        <p data-animate>
+          Turning a sentence into structured sets is not arithmetic a phone can do
+          alone, so the workout text you submit is sent to Tuwa's parsing service
+          and processed by a third-party language model. Requests are tied to your
+          signed-in account and capped by a daily quota.
+        </p>
+        <p data-animate data-animate-delay="80">
+          That path carries the workout description and nothing else. Raw
+          HealthKit data — HRV, resting heart rate, sleep — is read on your device
+          and never leaves it, before this feature and after it. The full account
+          is on the <a href="/privacy">privacy policy</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <FeatureFaq heading="Common questions" faqs={faqs} />
+
+  <FeatureClosing
+    heading="Say it once, check it, keep training"
+    body="Download Tuwa to log by voice, by text, or by hand — and get today's verdict on the plan you already wrote."
+    ctaNote="iOS 17+ · iPhone"
+    related={[
+      { label: 'Logging & templates', href: '/features/smart-templates' },
+      { label: 'The daily verdict', href: '/features/verdict' },
+      { label: 'Recovery scoring', href: '/features/recovery-scoring' },
+      { label: 'Privacy policy', href: '/privacy' },
+    ]}
+  />
+
+  <script>
+    import '../../scripts/featureMotion.ts';
+  </script>
+</BaseLayout>

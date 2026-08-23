@@ -1,7 +1,7 @@
 ---
 import LegalPageLayout from '../layouts/LegalPageLayout.astro';
 ---
-<LegalPageLayout title="Privacy Policy" lastUpdated="March 27, 2026">
+<LegalPageLayout title="Privacy Policy" lastUpdated="August 24, 2026">
   <p>Tuwa ("the app") is developed by Hanwen Ma. This policy explains what data the app collects, how it is used, and your rights.</p>
 
   <h2>What Data We Collect</h2>
@@ -11,6 +11,7 @@ import LegalPageLayout from '../layouts/LegalPageLayout.astro';
     <li><strong>Account information:</strong> Email address and display name (used for authentication)</li>
     <li><strong>Workout logs:</strong> Exercises, sets, reps, weights, RPE, session duration, and notes you enter</li>
     <li><strong>Wellness check-ins:</strong> Self-reported sleep quality, soreness, energy, and stress ratings</li>
+    <li><strong>Workout descriptions:</strong> The sentence you speak, type, or dictate when you log a session in words (see Workout Text Parsing below)</li>
   </ul>
 
   <h3>Data from HealthKit (read-only)</h3>
@@ -35,10 +36,25 @@ import LegalPageLayout from '../layouts/LegalPageLayout.astro';
     <li><strong>Raw HealthKit data is never uploaded.</strong> Only computed scores derived from HealthKit data are synced.</li>
   </ul>
 
+  <h2>Workout Text Parsing</h2>
+  <p>When you log a session by describing it — spoken in the app, typed, or dictated with the keyboard microphone — speech is converted to text on your device, and that text is sent to our parsing service so it can be turned into a draft of sets, reps, and weights for you to review.</p>
+  <p>The text is processed by a third-party language model provider (DeepSeek) on our behalf. Requests require a signed-in account and are limited by a daily quota per user.</p>
+  <ul>
+    <li><strong>What is sent:</strong> Only the workout description you submitted, and the units you train in.</li>
+    <li><strong>What is never sent:</strong> No HealthKit data of any kind, no recovery or readiness scores, no email address, and no audio recording — only text.</li>
+    <li><strong>It is optional:</strong> Manual entry does the same job. If you never describe a session in words, nothing is ever sent to the parsing service.</li>
+  </ul>
+  <p>The parsed result is returned to your device as a draft. Nothing is saved to your log until you confirm it.</p>
+  <p>This is separate from the HealthKit rule above, which is unchanged: <strong>raw HealthKit data is never uploaded</strong>, to this service or to any other.</p>
+
+  <h2>Data Sharing</h2>
+  <p>Tuwa does not share your training or recovery data with coaches, other users, advertisers, or data brokers. If future sharing features are added, they will require your explicit consent.</p>
+
   <h2>Third-Party Services</h2>
   <ul>
     <li><strong>Supabase</strong> (authentication and cloud sync): <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">supabase.com/privacy</a></li>
     <li><strong>RevenueCat</strong> (subscription management): <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer">revenuecat.com/privacy</a></li>
+    <li><strong>DeepSeek</strong> (language model that parses workout descriptions into sets — text only): <a href="https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html" target="_blank" rel="noopener noreferrer">deepseek.com privacy policy</a></li>
   </ul>
   <p>We do not use any advertising networks, analytics trackers, or third-party data brokers.</p>
 

@@ -48,6 +48,20 @@ const t = usePrivacyTranslations('zh');
     ))}
   </ul>
 
+  <h2>{t.voiceParsing.heading}</h2>
+  <p>{t.voiceParsing.p1}</p>
+  <p>{t.voiceParsing.p2}</p>
+  <ul>
+    {t.voiceParsing.items.map((item) => (
+      <li><strong>{item.label}：</strong>{item.description}</li>
+    ))}
+  </ul>
+  <p>{t.voiceParsing.p3}</p>
+  <p>{t.voiceParsing.healthKitReminder}</p>
+
+  <h2>{t.dataSharing.heading}</h2>
+  <p>{t.dataSharing.p1}</p>
+
   <h2>{t.thirdPartyServices.heading}</h2>
   <ul>
     {t.thirdPartyServices.services.map((service) => (

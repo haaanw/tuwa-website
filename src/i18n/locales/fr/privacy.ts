@@ -3,7 +3,7 @@ import type { Privacy } from '../en/privacy';
 const privacy: Privacy = {
   meta: {
     title: 'Politique de confidentialité',
-    lastUpdated: '27 mars 2026',
+    lastUpdated: '24 août 2026',
     description: 'Politique de confidentialité de Tuwa — application de gestion de la charge d\'entraînement et de la récupération.',
   },
   disclaimer: {
@@ -28,6 +28,10 @@ const privacy: Privacy = {
         {
           label: 'Bilans de forme',
           description: 'Auto-évaluations de la qualité du sommeil, des courbatures, de l\'énergie et du stress',
+        },
+        {
+          label: 'Descriptions de séance',
+          description: 'La phrase que tu dis, tapes ou dictes lorsque tu notes une séance en mots (voir « Analyse du texte de séance » ci-dessous)',
         },
       ],
     },
@@ -66,6 +70,35 @@ const privacy: Privacy = {
       },
     ],
   },
+  // Ajouté pour l'app v1.7.2 (saisie vocale et texte). Seule la description de
+  // séance soumise par l'athlète emprunte ce chemin ; la règle HealthKit
+  // ci-dessus est inchangée et redite ici pour que les deux ne se confondent pas.
+  voiceParsing: {
+    heading: 'Analyse du texte de séance',
+    p1: "Quand tu notes une séance en la décrivant — dictée dans l'application, tapée, ou dictée avec le micro du clavier — la parole est convertie en texte sur ton téléphone, puis ce texte est envoyé à notre service d'analyse pour être transformé en un brouillon de séries, répétitions et charges que tu vérifies.",
+    p2: "Le texte est traité pour notre compte par un fournisseur tiers de modèle de langue (DeepSeek). Les requêtes exigent un compte connecté et sont plafonnées par un quota quotidien par utilisateur.",
+    items: [
+      {
+        label: 'Ce qui est envoyé',
+        description: "Uniquement la description de séance que tu as soumise, et les unités dans lesquelles tu t'entraînes.",
+      },
+      {
+        label: "Ce qui n'est jamais envoyé",
+        description: "Aucune donnée HealthKit, aucun score de récupération ou de forme, aucune adresse e-mail, aucun enregistrement audio — du texte, et rien d'autre.",
+      },
+      {
+        label: "C'est facultatif",
+        description: "La saisie manuelle fait le même travail. Si tu ne décris jamais une séance en mots, rien n'est jamais envoyé au service d'analyse.",
+      },
+    ],
+    p3: "Le résultat revient sur ton téléphone sous forme de brouillon. Rien n'est enregistré dans ton journal tant que tu n'as pas confirmé.",
+    healthKitReminder: "C'est distinct de la règle HealthKit ci-dessus, qui est inchangée : les données HealthKit brutes ne sont jamais téléchargées, ni vers ce service ni vers aucun autre.",
+    healthKitReminderStrong: 'les données HealthKit brutes ne sont jamais téléchargées',
+  },
+  dataSharing: {
+    heading: 'Partage des données',
+    p1: "Tuwa ne partage pas tes données d'entraînement ou de récupération avec des coachs, d'autres utilisateurs, des annonceurs ou des courtiers en données. Si des fonctionnalités de partage sont ajoutées à l'avenir, elles nécessiteront ton consentement explicite.",
+  },
   thirdPartyServices: {
     heading: 'Services tiers',
     services: [
@@ -80,6 +113,12 @@ const privacy: Privacy = {
         description: '(gestion des abonnements)',
         url: 'https://www.revenuecat.com/privacy',
         urlDisplay: 'revenuecat.com/privacy',
+      },
+      {
+        label: 'DeepSeek',
+        description: '(modèle de langue qui transforme les descriptions de séance en séries — texte uniquement)',
+        url: 'https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html',
+        urlDisplay: 'politique de confidentialité deepseek.com',
       },
     ],
     outro: 'Nous n\'utilisons aucun réseau publicitaire, aucun tracker analytique, ni aucun courtier de données tiers.',

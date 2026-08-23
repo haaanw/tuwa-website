@@ -74,13 +74,20 @@ const home: Home = {
     dashboardAlt: 'Tableau de bord Tuwa : carte de forme affichant 82 avec les métriques',
     activeWorkoutAlt: 'Séance en cours dans Tuwa : saisie des séries en direct',
   },
+  // 1.7.2 — saisie vocale. Le modèle de langue est un ANALYSEUR : il transforme
+  // une phrase en brouillon. Jamais un chat, un assistant ou un coach à qui on
+  // parle. La fonction est livrée et gratuite sur toutes les formules.
   logging: {
     kicker: '04 · journal',
-    heading: 'Note vite, entre les séries',
-    body: "Une banque de 1 324 mouvements derrière un sélecteur pensé recherche d'abord. Charge, répétitions, validé — un journal fait pour des pouces couverts de magnésie, qui suit la séance au lieu de la ralentir.",
-    captions: ['01 · trouve le mouvement', '02 · lance la séance', '03 · le journal se tient tout seul'],
-    movementBankAlt: 'Banque de mouvements Tuwa : catalogue de 1 324 exercices avec recherche',
-    activeWorkoutAlt: 'Séance en cours dans Tuwa : saisie des séries en direct',
+    heading: 'Dis la séance, ou règle-la sur la réglette',
+    body: "Décris la séance à voix haute, tape la même phrase, ou utilise le micro de dictée du clavier — trois portes, un seul traitement. Tuwa en fait un brouillon modifiable, chaque série déjà remplie. Rien n'est enregistré tant que tu n'as pas confirmé, et chaque chiffre reste corrigeable à la main.",
+    doors: ['parle', 'tape', 'dicte'],
+    manual: "La saisie manuelle ne disparaît jamais. Une banque de 1 324 mouvements reste derrière un sélecteur pensé recherche d'abord, et la réglette de charge s'affiche en entier avant que tu la touches — ta dernière série et la cible du jour marquées dessus.",
+    captions: ['01 · dis-le, tape-le ou dicte-le', '02 · vérifie le brouillon, corrige une série', '03 · confirmé, puis inscrit'],
+    foot: "gratuit sur toutes les formules · rien ne s'enregistre sans ta confirmation",
+    moreLink: 'Comment fonctionne la saisie vocale',
+    logCaptureAlt: 'Saisie de séance Tuwa : une séance dictée, écrite en une phrase, prête à être analysée',
+    activeWorkoutAlt: 'Saisie des séries dans Tuwa : la réglette de charge avec les repères cible et dernière série',
     workoutLogAlt: "Journal d'entraînement Tuwa : historique des séances",
   },
   statsBand: {

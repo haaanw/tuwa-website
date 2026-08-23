@@ -1,10 +1,17 @@
 ---
-// 04 · Logging — restored as its own section (demo row 05).
+// 04 · Logging — restored as its own section (demo row 05), rewritten for the
+// 1.7.2 voice-logging release.
 // Deliberately NOT a second fan: two fanned sections back to back read as one
 // repeated trick. This is a flat three-up row on a surface band, each screen
 // captioned in the annotation voice.
+//
+// The three plates trace ONE pipeline: say it → check the draft → it is in the
+// record. The middle plate is the shipped set-entry surface, so the always-
+// visible scrub scale with its TARGET and LAST markers is what the reader sees.
+// The LLM is a parser, never a chat partner — no string here may frame it as a
+// coach, an assistant, or a conversation (CONTEXT.md anti-positioning).
 import { Image } from 'astro:assets';
-import movementBankShot from '../../assets/screens-v16/movement-bank.png';
+import logCaptureShot from '../../assets/screens-v16/log-capture.png';
 import activeWorkoutShot from '../../assets/screens-v16/active-workout.png';
 import workoutLogShot from '../../assets/screens-v16/workout-log.png';
 import { useHomeTranslations, type Locale } from '../../i18n/utils';
@@ -14,8 +21,9 @@ interface Props {
 }
 const { locale = 'en' } = Astro.props;
 const t = useHomeTranslations(locale).logging;
+const prefix = locale === 'en' ? '' : `/${locale}`;
 const shots = [
-  { src: movementBankShot, alt: t.movementBankAlt },
+  { src: logCaptureShot, alt: t.logCaptureAlt },
   { src: activeWorkoutShot, alt: t.activeWorkoutAlt },
   { src: workoutLogShot, alt: t.workoutLogAlt },
 ];
@@ -26,6 +34,12 @@ const shots = [
     <h2 class="home-h2">{t.heading}</h2>
     <p class="sec-lede">{t.body}</p>
 
+    <ul class="log-doors" data-anno-reveal>
+      {t.doors.map((door) => <li class="micro">{door}</li>)}
+    </ul>
+
+    <p class="sec-lede log-manual">{t.manual}</p>
+
     <div class="logrow" data-anno-reveal>
       {shots.map((shot, i) => (
         <figure>
@@ -34,5 +48,48 @@ const shots = [
         </figure>
       ))}
     </div>
+
+    <p class="micro log-foot">{t.foot}</p>
+    <p class="log-more"><a href={`${prefix}/features/voice-logging`}>{t.moreLink}</a></p>
   </div>
 </section>
+
+<style>
+  /* Scoped to this section so the homepage-only rules stay out of global.css,
+     which ~18 feature pages and [...seoGeo] share. */
+  .log-doors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .log-doors li {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .log-doors li::before {
+    content: '';
+    width: 8px;
+    height: 1px;
+    background: var(--color-divider-strong);
+  }
+  .log-manual {
+    margin-top: 24px;
+  }
+  .log-foot {
+    display: block;
+    margin-top: 32px;
+  }
+  .log-more {
+    margin-top: 8px;
+  }
+  .log-more a {
+    color: var(--color-text-1);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+</style>

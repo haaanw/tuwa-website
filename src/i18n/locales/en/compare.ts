@@ -58,6 +58,21 @@ const content: TopicPageContent = {
             tuwa: 'Match tier and lift context: last night\'s game hammered your legs; bench may still be fine.',
           },
           {
+            // Verified 2026-08-23 against each product's shipped state, not its
+            // marketing: Whoop's 2026 release notes (voice/text journaling;
+            // Strength Trainer builds routines from a text prompt or a
+            // screenshot) plus an open July 2026 community request to capture a
+            // workout by voice; Bevel's Strength Builder keyboard, with
+            // automatic strength logging still on its feature-request board;
+            // TrainingPeaks' 2026 feature-update page (no voice, dictation or
+            // natural-language parsing); Fitbod and JuggernautAI both taking
+            // typed weight/reps/RPE. Do not widen this to "nobody does it" —
+            // dedicated voice-logging apps exist; none of these tools is one.
+            label: 'Logging by voice',
+            generic: 'Sets are typed in. Whoop takes voice for journal entries and parses a prompt or a screenshot into a routine to follow; Bevel, TrainingPeaks and the AI-coach apps all ask you to enter each set by hand.',
+            tuwa: 'Say the session in one sentence — or type it, or dictate it. Tuwa parses it into an editable draft you confirm; nothing saves itself, and it is free on every tier.',
+          },
+          {
             label: 'Decision owner',
             generic: 'Either the tool owns the plan or the tool stops before the decision.',
             tuwa: 'The athlete owns the plan and confirms the suggested adjustment.',

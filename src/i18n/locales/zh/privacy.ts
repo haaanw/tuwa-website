@@ -3,7 +3,7 @@ import type { Privacy } from '../en/privacy';
 const privacy: Privacy = {
   meta: {
     title: '隐私政策',
-    lastUpdated: '2026年3月27日',
+    lastUpdated: '2026年8月24日',
     description: 'Tuwa——训练负荷与恢复管理应用的隐私政策。',
   },
   disclaimer: {
@@ -28,6 +28,10 @@ const privacy: Privacy = {
         {
           label: '身体状态自评',
           description: '您自主填写的睡眠质量、疲劳感、精力水平及压力评分',
+        },
+        {
+          label: '训练描述',
+          description: '当您用一句话记录训练时，所说、所打或所听写的那段文字（详见下方"训练文本解析"）',
         },
       ],
     },
@@ -66,6 +70,34 @@ const privacy: Privacy = {
       },
     ],
   },
+  // 为 app v1.7.2（语音与文字记录）新增。走这条通路的只有运动员提交的训练描述；
+  // 上文的 HealthKit 条款没有任何改变，此处再次声明，避免二者被混淆。
+  voiceParsing: {
+    heading: '训练文本解析',
+    p1: '当您通过描述来记录一次训练时——在应用中口述、直接打字，或用键盘麦克风听写——语音会在您的设备上转换为文字，随后这段文字会发送到我们的解析服务，生成一份组数、次数与重量的草稿供您核对。',
+    p2: '这段文字由第三方语言模型服务商（DeepSeek）代表我们处理。请求需要已登录的账户，并按用户设有每日额度上限。',
+    items: [
+      {
+        label: '会发送什么',
+        description: '仅有您提交的训练描述，以及您使用的单位。',
+      },
+      {
+        label: '绝不会发送什么',
+        description: '不含任何 HealthKit 数据，不含恢复或准备度评分，不含电子邮件地址，也不含任何录音——只有文字。',
+      },
+      {
+        label: '这是可选的',
+        description: '手动录入可以完成同样的事。如果您从不使用文字描述训练，就不会有任何内容发送到解析服务。',
+      },
+    ],
+    p3: '解析结果会作为草稿返回到您的设备。在您确认之前，不会有任何内容保存到训练记录中。',
+    healthKitReminder: '这与上文的 HealthKit 条款相互独立，而该条款没有改变：原始 HealthKit 数据从不上传，无论是上传到本服务还是任何其他服务。',
+    healthKitReminderStrong: '原始 HealthKit 数据从不上传',
+  },
+  dataSharing: {
+    heading: '数据共享',
+    p1: 'Tuwa 不会将您的训练或恢复数据共享给教练、其他用户、广告商或数据经纪商。若日后新增共享功能，将需要您的明确同意。',
+  },
   thirdPartyServices: {
     heading: '第三方服务',
     services: [
@@ -80,6 +112,12 @@ const privacy: Privacy = {
         description: '（订阅管理）',
         url: 'https://www.revenuecat.com/privacy',
         urlDisplay: 'revenuecat.com/privacy',
+      },
+      {
+        label: 'DeepSeek',
+        description: '（将训练描述解析为组数的语言模型——仅文字）',
+        url: 'https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html',
+        urlDisplay: 'deepseek.com 隐私政策',
       },
     ],
     outro: '我们不使用任何广告网络、数据分析追踪器或第三方数据中介。',

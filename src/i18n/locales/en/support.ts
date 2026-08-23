@@ -36,6 +36,14 @@ const support = {
       a: 'Subscriptions are managed through Apple. Go to Settings > Apple ID > Subscriptions on your device to view, change, or cancel your Tuwa subscription. Cancellation takes effect at the end of your current billing period.',
     },
     {
+      q: 'How do I delete my account?',
+      a: 'Sign out in the app via Profile > Sign Out, then email us at support@tuwa.app to request full deletion of your account and data from our servers. Deletion is permanent and removes your workout logs, recovery scores, training load snapshots, and personal records.',
+    },
+    {
+      q: 'What happens to a workout I describe in words?',
+      a: 'Speech is turned into text on your device, and that text is sent to our parsing service — processed by a third-party language model — so it can come back as a draft of sets and reps. No HealthKit data and no audio recording is ever sent, only the text. Nothing is saved to your log until you confirm the draft, and manual entry does the same job if you would rather not use it. The full account is in the privacy policy.',
+    },
+    {
       q: 'What is ACWR and why does it matter?',
       a: 'ACWR stands for Acute:Chronic Workload Ratio. It compares your recent training load against a longer-term average. Tuwa treats it as workload context, not injury prediction: recent workload and spike flags are shown before training so you can review volume, intensity, or timing with the latest saved data in mind.',
     },

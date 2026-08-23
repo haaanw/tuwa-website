@@ -7,7 +7,7 @@ type WidenStrings<T> = T extends string
 const privacy = {
   meta: {
     title: 'Privacy Policy',
-    lastUpdated: 'March 27, 2026',
+    lastUpdated: 'August 24, 2026',
     description: 'Privacy policy for Tuwa — Training Load & Recovery app.',
   },
   disclaimer: {
@@ -32,6 +32,10 @@ const privacy = {
         {
           label: 'Wellness check-ins',
           description: 'Self-reported sleep quality, soreness, energy, and stress ratings',
+        },
+        {
+          label: 'Workout descriptions',
+          description: 'The sentence you speak, type, or dictate when you log a session in words (see Workout Text Parsing below)',
         },
       ] as const,
     },
@@ -70,6 +74,35 @@ const privacy = {
       },
     ] as const,
   },
+  // Added for app v1.7.2 (voice and text logging). The workout narrative the
+  // athlete submits is the ONLY thing that takes this path; the HealthKit claim
+  // above is unchanged and is restated here so the two cannot be confused.
+  voiceParsing: {
+    heading: 'Workout Text Parsing',
+    p1: 'When you log a session by describing it — spoken in the app, typed, or dictated with the keyboard microphone — speech is converted to text on your device, and that text is sent to our parsing service so it can be turned into a draft of sets, reps, and weights for you to review.',
+    p2: 'The text is processed by a third-party language model provider (DeepSeek) on our behalf. Requests require a signed-in account and are limited by a daily quota per user.',
+    items: [
+      {
+        label: 'What is sent',
+        description: 'Only the workout description you submitted, and the units you train in.',
+      },
+      {
+        label: 'What is never sent',
+        description: 'No HealthKit data of any kind, no recovery or readiness scores, no email address, and no audio recording — only text.',
+      },
+      {
+        label: 'It is optional',
+        description: 'Manual entry does the same job. If you never describe a session in words, nothing is ever sent to the parsing service.',
+      },
+    ] as const,
+    p3: 'The parsed result is returned to your device as a draft. Nothing is saved to your log until you confirm it.',
+    healthKitReminder: 'This is separate from the HealthKit rule above, which is unchanged: raw HealthKit data is never uploaded, to this service or to any other.',
+    healthKitReminderStrong: 'raw HealthKit data is never uploaded',
+  },
+  dataSharing: {
+    heading: 'Data Sharing',
+    p1: 'Tuwa does not share your training or recovery data with coaches, other users, advertisers, or data brokers. If future sharing features are added, they will require your explicit consent.',
+  },
   thirdPartyServices: {
     heading: 'Third-Party Services',
     services: [
@@ -84,6 +117,12 @@ const privacy = {
         description: '(subscription management)',
         url: 'https://www.revenuecat.com/privacy',
         urlDisplay: 'revenuecat.com/privacy',
+      },
+      {
+        label: 'DeepSeek',
+        description: '(language model that parses workout descriptions into sets — text only)',
+        url: 'https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html',
+        urlDisplay: 'deepseek.com privacy policy',
       },
     ] as const,
     outro: 'We do not use any advertising networks, analytics trackers, or third-party data brokers.',
