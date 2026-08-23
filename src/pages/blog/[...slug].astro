@@ -21,6 +21,9 @@ const minutesRead = remarkPluginFrontmatter.minutesRead;
   description={post.data.description}
   ogImage={post.data.coverImage ?? '/og-default.png'}
   date={post.data.date}
+  updated={post.data.updated}
+  slug={post.id}
+  faq={post.data.faq}
   minutesRead={minutesRead}
 >
   <Content />

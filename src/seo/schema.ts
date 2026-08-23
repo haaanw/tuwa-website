@@ -71,6 +71,8 @@ export function articleSchema(page: {
   description: string;
   url: string;
   dateModified: string;
+  /** Publication date, when it differs from the last revision. Defaults to `dateModified`. */
+  datePublished?: string;
   image?: string;
 }): Record<string, unknown> {
   return {
@@ -79,7 +81,7 @@ export function articleSchema(page: {
     headline: page.title,
     description: page.description,
     image: page.image ?? DEFAULT_IMAGE,
-    datePublished: page.dateModified,
+    datePublished: page.datePublished ?? page.dateModified,
     dateModified: page.dateModified,
     mainEntityOfPage: page.url,
     author: {

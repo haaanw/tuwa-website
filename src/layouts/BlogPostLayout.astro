@@ -2,19 +2,39 @@
 import BaseLayout from './BaseLayout.astro';
 import { formatDate } from '../i18n/format';
 import type { Locale } from '../i18n/utils';
+import { articleSchema, faqPageSchema } from '../seo/schema';
 
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
   date: Date;
+  updated?: Date;
+  slug?: string;
+  faq?: ReadonlyArray<{ q: string; a: string }>;
   minutesRead?: string;
 }
 
-const { title, description, ogImage, date, minutesRead } = Astro.props;
+const { title, description, ogImage, date, updated, slug, faq, minutesRead } = Astro.props;
 const locale = (Astro.currentLocale ?? 'en') as Locale;
+
+// GEO: answer engines quote structured data verbatim, so every article carries an
+// Article anchor and — where the post asks question-shaped headings — a FAQPage.
+// `date` is publication; `updated` is the last substantive revision.
+const canonicalUrl = slug ? `https://tuwa.app/blog/${slug}/` : 'https://tuwa.app/blog/';
+const structuredData = [
+  articleSchema({
+    title,
+    description,
+    url: canonicalUrl,
+    datePublished: date.toISOString(),
+    dateModified: (updated ?? date).toISOString(),
+    image: ogImage,
+  }),
+  ...(faq && faq.length > 0 ? [faqPageSchema(faq)] : []),
+];
 ---
-<BaseLayout title={title} description={description} ogImage={ogImage} type="article" locale={locale} hreflangAlternates={[]}>
+<BaseLayout title={title} description={description} ogImage={ogImage} type="article" locale={locale} hreflangAlternates={[]} structuredData={structuredData}>
 
   <div style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
     <div class="mx-auto px-6" style="max-width: 680px;">

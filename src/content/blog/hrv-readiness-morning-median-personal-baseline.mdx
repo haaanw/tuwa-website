@@ -1,0 +1,100 @@
+---
+title: "HRV readiness: why Tuwa uses your morning median against your own baseline"
+date: 2026-08-24
+description: "A single heart rate variability reading is mostly noise. Tuwa takes the median of your morning readings, compares it to a rolling average of your own prior days, and refuses to score a day that has no morning measurement. Here is why each of those three decisions exists."
+tags: ["HRV", "readiness", "recovery score", "baselines", "how Tuwa works"]
+draft: false
+faq:
+  - q: "Is one HRV reading enough to decide how hard to train?"
+    a: "No. Day-to-day heart rate variability in a healthy athlete swings widely for reasons that have nothing to do with training — measurement timing, body position, breathing rate, alcohol, illness onset, a late meal. The athlete-monitoring literature since Plews and colleagues in 2013 has recommended comparing a smoothed weekly value against an individual baseline rather than reacting to any single morning number."
+  - q: "Why does Tuwa only count HRV measured in the morning?"
+    a: "Heart rate variability is a momentary measurement, so when it was taken changes what it means. A reading captured mid-afternoon after coffee and a commute is not comparable with one captured on waking. Tuwa counts only samples timestamped before 11am local time and takes their median for the day. A day with no morning sample has no HRV value at all — it is never filled in from the afternoon or carried over from yesterday."
+  - q: "Why is resting heart rate treated differently from HRV in Tuwa?"
+    a: "Apple Watch computes resting heart rate as a daily aggregate refined across the whole day, so its timestamp does not mark a morning reading. Filtering it by hour would include or exclude it essentially at random. Tuwa therefore takes resting heart rate as an all-day per-day value while HRV keeps the morning window. It is the one place the two signals are deliberately handled differently."
+  - q: "What baseline does Tuwa compare today's HRV against?"
+    a: "The average of the athlete's own most recent seven prior days that carried a morning reading, drawn from a 30-day history. Today is never part of the baseline it is measured against. There is no population norm anywhere in the calculation — a value that is low for you may be high for someone else, and only the first comparison is meaningful."
+---
+
+A single heart rate variability reading tells you very little. It moves with when you measured, how you were lying, how fast you were breathing, what you drank last night, and whether you are getting ill — often more than it moves with training. Tuwa therefore does three things: it counts only morning readings, takes their **median** for the day, and compares that against a rolling average of the athlete's **own** prior days, never a population norm. A day without a morning reading gets no HRV score at all rather than a substituted one. Those three decisions are the whole of Tuwa's HRV logic, and each one exists because of a specific failure mode.
+
+## What does HRV actually measure?
+
+Heart rate variability is the variation in time between consecutive heartbeats. The standard reference for how it is measured and what the measures mean is still the [1996 Task Force report](https://pubmed.ncbi.nlm.nih.gov/8598068/) published jointly in *Circulation* and the *European Heart Journal*, which defined the time-domain and frequency-domain indices that everything since has used.
+
+Two of those indices matter here. **RMSSD** — the root mean square of successive differences — reflects short-term, beat-to-beat variation and is dominated by parasympathetic (vagal) activity. **SDNN** — the standard deviation of normal-to-normal intervals — captures total variability across the recording, including slower rhythms.
+
+Tuwa reads whatever Apple Health provides, and Apple provides **SDNN**. This is worth stating plainly, because most of the athlete-monitoring literature discussed below uses RMSSD or its natural logarithm, which is the better-behaved index over short recordings ([Esco and Flatt 2014](https://pubmed.ncbi.nlm.nih.gov/25177179/)). Findings established with RMSSD do not automatically transfer to SDNN. What survives the substitution is the *methodological* lesson — smooth it, compare it to yourself, standardise the conditions — rather than any specific numeric threshold.
+
+## Why a single reading is not enough
+
+The foundational argument for smoothing comes from Daniel Plews and colleagues. Their [2012 case comparison of elite triathletes](https://pubmed.ncbi.nlm.nih.gov/22367011/) reported that the athlete who performed well showed a stable weekly HRV average, while the athlete who performed poorly showed larger swings around a similar mean — the *variation in the variability* carried the signal. Their [2013 review in *Sports Medicine*](https://pubmed.ncbi.nlm.nih.gov/23852425/) turned that into the practical recommendation the field still uses: track a weekly rolling average against the individual's own baseline rather than reacting to daily values.
+
+They also answered the compliance question directly. [Plews and colleagues (2014)](https://pubmed.ncbi.nlm.nih.gov/24334285/) tested how many recordings per week are needed for a valid weekly assessment and reported that three to four morning measurements were sufficient to approximate a seven-day average. That result is why an athlete who wears a watch only on some nights still gets something usable.
+
+The wider picture is more sober. [Bellenger and colleagues (2016)](https://pubmed.ncbi.nlm.nih.gov/26888648/) systematically reviewed autonomic heart rate measures against training status and found the relationship real but modest and direction-dependent, with functional overreaching and genuine adaptation not always separable by HRV alone. HRV is one signal. It is not a readiness verdict on its own, and Tuwa does not use it as one.
+
+## Why the morning, and why the median
+
+[Altini and Plews (2021)](https://pubmed.ncbi.nlm.nih.gov/34883936/) analysed a large set of longitudinal free-living measurements and reported how strongly resting heart rate and HRV respond to ordinary non-training influences — alcohol, illness, travel, sleep disruption. Anything that changes across a day changes the reading, which is why measurement standardisation is the first requirement in every protocol paper on the subject, including [Plews and colleagues (2017)](https://pubmed.ncbi.nlm.nih.gov/28290720/) on recording methods.
+
+Tuwa cannot force a standardised protocol — it reads passive watch data, it does not ask anyone to lie still for five minutes. What it can do is refuse readings that are not comparable. So:
+
+- Only samples timestamped before **11:00 local time** count toward the day's HRV.
+- The day's value is the **median** of those samples, not the mean. Overnight and early-morning wearable readings arrive in bursts of variable quality, and a median is not dragged around by one artefact.
+- A day with no morning sample carries **no HRV value**. It is not filled from the afternoon and not carried over.
+
+Resting heart rate is handled differently on purpose. Apple Watch computes resting heart rate as a **daily aggregate**, refined through the day, so the timestamp on that value does not mark a morning reading. Applying an hour filter to it would keep or drop it more or less at random. Tuwa therefore takes resting heart rate as an all-day per-day value and leaves the morning window to HRV. Two signals, two reductions, for a stated reason.
+
+## What "your own baseline" means precisely
+
+Tuwa fetches a 30-day history and reduces it to one value per day. The baseline is the arithmetic mean of the **most recent seven prior days that carried a reading** — which, for an athlete with gaps in wear, can span more than seven calendar days.
+
+Today is never part of the baseline it is compared against. That sounds obvious and it was not always true: an earlier version fetched a seven-day history that included today's own stored row, so a second run of the pipeline on the same day — opening the dashboard again, filing a wellness check-in — folded today's reading into the average it was about to be measured against. The deviation shrank and the score moved with no new physiology behind it. The same rule now governs the score's own trend term.
+
+The comparison itself is a ratio. Today's morning median over the baseline, mapped onto points: a ratio of 1.0 scores 70, 1.2 or above scores 100, 0.7 scores 20, and the result is clamped to the 0–100 range. Resting heart rate runs the same curve mirrored, since lower is better there.
+
+That linear mapping is a stated convention, not a validated dose-response curve, and it is the part of this system I would most like to replace. A robust estimator — median and median-absolute-deviation based, with outlier clipping — exists in the codebase and runs **shadow-only**: it computes alongside the live score, writes to local rows, and drives nothing an athlete sees. It is an open question under evaluation, not a shipped feature, and no accuracy claim is made for it here.
+
+## How HRV enters the recovery score
+
+The recovery score fuses four components: HRV against baseline at 30%, resting heart rate against baseline at 20%, sleep duration at 25%, and the subjective wellness check-in at 25%. When a component is missing the remaining weights are renormalised over what is present — and the app says how many signals contributed, because a score of 68 built from three signals is not the same object as a 68 built from four, and a change in *coverage* must never read as a change in *physiology*.
+
+A modifier of up to ±10 points is then applied from the three-day slope of the athlete's own recent scores, damped through a hyperbolic tangent so that a steep run cannot swing the number wildly. A 70 falling from 85 is a different situation from a 70 climbing from 55.
+
+With no data at all, the score is 50 — a stated neutral, not an inference.
+
+## Does HRV-guided training actually work?
+
+This is the question that matters, and the honest answer is: there is a real but narrow evidence base, and it does not cover the athlete Tuwa is built for.
+
+[Kiviniemi and colleagues (2007)](https://pubmed.ncbi.nlm.nih.gov/17849143/) ran the first controlled test, assigning moderately fit participants to endurance training guided by daily HRV or to a predetermined programme, and reported greater improvement in the HRV-guided group. [Vesterinen and colleagues (2016)](https://pubmed.ncbi.nlm.nih.gov/26909534/) reproduced the pattern in recreational endurance runners. [Javaloyes and colleagues](https://pubmed.ncbi.nlm.nih.gov/29809080/) reported similar findings in trained cyclists in 2019, and again against block periodization in 2020. [Nuuttila and colleagues (2017)](https://pubmed.ncbi.nlm.nih.gov/28950399/) found HRV-guided training compared favourably with predetermined block training on performance outcomes.
+
+Note what these studies share. They are **endurance** studies — running and cycling — with modest sample sizes, in adults, over training blocks of a few weeks to a few months. The intervention is usually "swap a hard session for an easy one when the smoothed HRV falls below an individually determined range."
+
+None of them studied an amateur athlete who plays a court sport twice a week and lifts three times. There is no published trial telling us how much to reduce a top set when a basketball player's morning HRV is down. Work like [Flatt and Esco (2016)](https://pubmed.ncbi.nlm.nih.gov/26200192/) in a collegiate female soccer team shows the monitoring approach applies outside endurance sport, but that is a monitoring study, not a prescription trial.
+
+So Tuwa uses HRV the way the evidence supports — as one smoothed, individually referenced input to a decision — and does not pretend the adjustment sizes are validated. The app states its confidence, names the signals behind a verdict, and the athlete overrides it in one tap.
+
+To see how the score is presented in the app, read [the readiness score](/readiness-score/).
+
+## Sources
+
+- Task Force of the European Society of Cardiology and the North American Society of Pacing and Electrophysiology. Heart rate variability: standards of measurement, physiological interpretation and clinical use. *Circulation.* 1996;93(5):1043–1065. [PMID 8598068](https://pubmed.ncbi.nlm.nih.gov/8598068/)
+- Plews DJ, Laursen PB, Kilding AE, Buchheit M. Heart rate variability in elite triathletes, is variation in variability the key to effective training? A case comparison. *Eur J Appl Physiol.* 2012;112(11):3729–3741. [PMID 22367011](https://pubmed.ncbi.nlm.nih.gov/22367011/)
+- Plews DJ, Laursen PB, Stanley J, Kilding AE, Buchheit M. Training adaptation and heart rate variability in elite endurance athletes: opening the door to effective monitoring. *Sports Med.* 2013;43(9):773–781. [PMID 23852425](https://pubmed.ncbi.nlm.nih.gov/23852425/)
+- Plews DJ, Laursen PB, Kilding AE, Buchheit M. Monitoring training with heart rate-variability: how much compliance is needed for valid assessment? *Int J Sports Physiol Perform.* 2014;9(5):783–790. [PMID 24334285](https://pubmed.ncbi.nlm.nih.gov/24334285/)
+- Plews DJ, Laursen PB, Kilding AE, Buchheit M. Heart-rate variability and training-intensity distribution in elite rowers. *Int J Sports Physiol Perform.* 2014;9(6):1026–1032. [PMID 24700160](https://pubmed.ncbi.nlm.nih.gov/24700160/)
+- Plews DJ, Scott B, Altini M, Wood M, Kilding AE, Laursen PB. Comparison of heart-rate-variability recording with smartphone photoplethysmography, Polar H7 chest strap, and electrocardiography. *Int J Sports Physiol Perform.* 2017;12(10):1324–1328. [PMID 28290720](https://pubmed.ncbi.nlm.nih.gov/28290720/)
+- Esco MR, Flatt AA. Ultra-short-term heart rate variability indexes at rest and post-exercise in athletes: evaluating the agreement with accepted recommendations. *J Sports Sci Med.* 2014;13(3):535–541. [PMID 25177179](https://pubmed.ncbi.nlm.nih.gov/25177179/)
+- Bellenger CR, Fuller JT, Thomson RL, Davison K, Robertson EY, Buckley JD. Monitoring athletic training status through autonomic heart rate regulation: a systematic review and meta-analysis. *Sports Med.* 2016;46(10):1461–1486. [PMID 26888648](https://pubmed.ncbi.nlm.nih.gov/26888648/)
+- Kiviniemi AM, Hautala AJ, Kinnunen H, Tulppo MP. Endurance training guided individually by daily heart rate variability measurements. *Eur J Appl Physiol.* 2007;101(6):743–751. [PMID 17849143](https://pubmed.ncbi.nlm.nih.gov/17849143/)
+- Vesterinen V, Nummela A, Heikura I, et al. Individual endurance training prescription with heart rate variability. *Med Sci Sports Exerc.* 2016;48(7):1347–1354. [PMID 26909534](https://pubmed.ncbi.nlm.nih.gov/26909534/)
+- Nuuttila OP, Nikander A, Polomoshnov D, Laukkanen JA, Häkkinen K. Effects of HRV-guided vs. predetermined block training on performance, HRV and serum hormones. *Int J Sports Med.* 2017;38(12):909–920. [PMID 28950399](https://pubmed.ncbi.nlm.nih.gov/28950399/)
+- Javaloyes A, Sarabia JM, Lamberts RP, Moya-Ramon M. Training prescription guided by heart-rate variability in cycling. *Int J Sports Physiol Perform.* 2019;14(1):23–32. [PMID 29809080](https://pubmed.ncbi.nlm.nih.gov/29809080/)
+- Javaloyes A, Sarabia JM, Lamberts RP, Plews D, Moya-Ramon M. Training prescription guided by heart rate variability vs. block periodization in well-trained cyclists. *J Strength Cond Res.* 2020;34(6):1511–1518. [PMID 31490431](https://pubmed.ncbi.nlm.nih.gov/31490431/)
+- Flatt AA, Esco MR. Evaluating individual training adaptation with smartphone-derived heart rate variability in a collegiate female soccer team. *J Strength Cond Res.* 2016;30(2):378–385. [PMID 26200192](https://pubmed.ncbi.nlm.nih.gov/26200192/)
+- Altini M, Plews D. What is behind changes in resting heart rate and heart rate variability? A large-scale analysis of longitudinal measurements acquired in free-living. *Sensors (Basel).* 2021;21(23):7932. [PMID 34883936](https://pubmed.ncbi.nlm.nih.gov/34883936/)
+
+## Not medical advice
+
+Heart rate variability, resting heart rate, sleep and subjective wellness are training-planning signals. They do not diagnose illness, injury or overtraining, and they do not establish readiness to return to sport. Tuwa is a training tool, not a medical device. Persistent unexplained changes in resting heart rate or HRV, and any symptom that concerns you, belong with a clinician rather than an app.
