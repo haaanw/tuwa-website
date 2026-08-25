@@ -1,13 +1,25 @@
 # X long-form edition — paste source
 
-**Do not publish from this repo.** Paste-source for X's long-form article composer. The
-canonical edition is the tuwa.app blog post of the same slug, and it publishes FIRST.
-Attach images natively in X at the marked slots.
+**Do not publish from this repo.** This is a paste-source for X's **Article**
+composer. HAN confirmed direct Article access 2026-08-25, so this is written for
+the Article surface, not for a plain long-form post: real headings, inline images
+placed where they belong, and a piece that lives on its own profile tab instead of
+scrolling away.
+
+The canonical edition is the tuwa.app blog post of the same slug, and it publishes
+FIRST.
 
 - Canonical URL (must be live before this posts): `https://tuwa.app/blog/hrv-readiness-morning-median-personal-baseline/`
-- Evidence core: identical to the site edition. Every citation intact and verified.
-- Claim rails: SDNN-vs-RMSSD limitation stated; the robust estimator is shadow-only and
-  must never be described as shipped; no medical claim.
+- Evidence core: identical to the site edition. Every citation is intact and verified.
+- Claim rails bind in this voice too: no injury prediction, no forecasting, no medical claim.
+- **Strategy (see `.planning/v173/X-LONGFORM-RESEARCH.md`):** X penalises outbound
+  links and rewards on-platform dwell, and the site does not need X clicks — its job
+  is search and answer-engine citation, which the canonical URL does by existing. So
+  this edition is written to be **sufficient on its own**. A reader who never leaves
+  X gets the whole argument and every citation by name. The site link is a citations
+  appendix near the end, not the payoff.
+- **Figures:** export each named figure as PNG from the live article and attach it
+  inline at the marked point. They are the same diagrams the site edition uses.
 
 ---
 
@@ -17,17 +29,15 @@ Your HRV number is mostly noise. Here is the code I wrote to stop believing it.
 
 ## ARTICLE BODY
 
-I am a designer who vibe-codes. Tuwa gets built by describing what I want to an AI and then arguing with it about details for hours. I also train the way it is built for — basketball plus lifting, self-coached, no back-room staff.
+For a long time my app scored your recovery against whatever HRV reading Apple Health had written most recently. If you wear an Apple Watch, that is often a reading taken standing in a queue at 2pm.
 
-For a long time my app did something I now think was close to dishonest. It took whatever HRV reading Apple Health had written most recently and scored my day against it.
+I now think that was close to dishonest. Here is what I replaced it with.
 
-If you wear an Apple Watch, that is often a reading taken standing in a queue at 2pm.
+I'm a designer who vibe-codes. Tuwa gets built by describing what I want to an AI and then arguing with it about details for hours, and I train the way it is built for — basketball plus lifting, self-coached, no back-room staff.
 
-Here is what I replaced it with, and the research that says why.
+[APP SCREENSHOT 1 — the readiness card with the HRV row visible]
 
-[IMAGE SLOT 1 — the readiness card with the HRV row visible]
-
-**First, what the number even is**
+## First, what the number even is
 
 HRV is the variation in time between heartbeats. The reference for how it's measured is still the 1996 Task Force report in *Circulation* — that's where RMSSD and SDNN come from.
 
@@ -37,7 +47,9 @@ Apple gives you SDNN. Nearly all of the athlete-monitoring research I'm about to
 
 I want to be upfront about that gap. What transfers is the method — smooth it, compare it to yourself, standardise conditions. What does not transfer is any specific number from those papers. I don't get to borrow their thresholds.
 
-**Second, one reading tells you almost nothing**
+[FIGURE — morning-median — one artefact drags the mean and leaves the median]
+
+## Second, one reading tells you almost nothing
 
 Daniel Plews' group did the work here.
 
@@ -51,7 +63,9 @@ The sober counterweight: Bellenger et al. (*Sports Med* 2016) reviewed autonomic
 
 HRV is one signal. It is not a verdict.
 
-**What I actually changed in the app**
+[FIGURE — score-composition — the four weights, and what renormalising does]
+
+## What I actually changed in the app
 
 Three rules.
 
@@ -63,7 +77,7 @@ A day with no morning reading gets no HRV score. Not filled in from the afternoo
 
 That last one was the hardest to accept, because it means the app sometimes admits it knows less than it did yesterday. I think that's the correct behaviour and most apps in this category won't do it.
 
-**The one place I deliberately treat two signals differently**
+## The one place I deliberately treat two signals differently
 
 Resting heart rate does NOT get the morning filter.
 
@@ -71,9 +85,11 @@ Apple Watch computes RHR as a daily aggregate and refines it through the day, so
 
 So: HRV gets a morning window, RHR gets an all-day daily value. Two signals, two reductions, and I only know that because two independent reviewers flagged it when I had it wrong.
 
-[IMAGE SLOT 2 — the HRV detail chart with the "Morning" label]
+[APP SCREENSHOT 2 — the HRV detail chart with the "Morning" label]
 
-**The baseline is you, and today isn't in it**
+[FIGURE — own-baseline — seven readings spanning more than seven calendar days]
+
+## The baseline is you, and today isn't in it
 
 30 days of history, reduced to one value per day. The baseline is the mean of your most recent seven prior days that actually had a reading — which can span more than seven calendar days if you don't wear the watch every night.
 
@@ -85,7 +101,9 @@ Then the ratio maps to points: 1.0 scores 70, 1.2+ scores 100, 0.7 scores 20, cl
 
 That mapping is a stated convention. It is not a validated dose-response curve, and it is the part of this system I most want to replace. There is a robust estimator in the codebase — median and median-absolute-deviation, outlier clipping — but it runs shadow-only. It computes alongside the live score, writes to local rows, and drives nothing you see. It is an open question I'm evaluating, not a feature, and I'm making no accuracy claim for it.
 
-**Does HRV-guided training actually work?**
+[FIGURE — evidence-coverage — every trial sits in endurance sport]
+
+## Does HRV-guided training actually work?
 
 Real evidence, narrow evidence.
 
@@ -99,7 +117,7 @@ There is no published trial that tells me how much to cut a top set when a baske
 
 So I use HRV the way the evidence supports — one smoothed, individually referenced input to a decision — and I don't pretend my adjustment sizes are validated. The app names the signals behind a verdict, states how many contributed, and you override it in one tap.
 
-**Not medical advice**
+## Not medical advice
 
 HRV, RHR, sleep and wellness are training-planning signals. Tuwa is a training tool, not a medical device. It does not diagnose, treat or prevent anything. Persistent unexplained changes in your resting heart rate or HRV belong with a clinician, not an app.
 
@@ -111,7 +129,11 @@ https://apps.apple.com/us/app/tuwa/id6761185505
 
 ---
 
-## TEASER THREAD (2–3 tweets, links the article)
+## TEASER THREAD (2–3 tweets)
+
+**Link the X ARTICLE, not tuwa.app.** An on-platform link
+carries no distribution penalty and feeds the dwell-time signal; the canonical URL
+already sits inside the Article for anyone who wants the citations.
 
 **Tweet 1**
 My app used to score your day against whatever HRV reading Apple Health wrote most recently.
@@ -132,4 +154,4 @@ That last one means the app sometimes admits it knows less than yesterday.
 **Tweet 3**
 Also in there: why resting heart rate deliberately does NOT get the morning filter, the baseline bug where today was folded into the average today got compared to, and the awkward fact that every HRV-guided training trial is in endurance athletes.
 
-https://tuwa.app/blog/hrv-readiness-morning-median-personal-baseline/
+[LINK THE X ARTICLE HERE]

@@ -22,11 +22,13 @@ interface Props {
   seriesNo?: number;
   /** Counted from the article's own source list at build time, never authored. */
   sourceCount?: number;
+  /** Named cover mark. Each article gets its own; a wrong mark is worse than none. */
+  coverMarkName?: string;
 }
 
 const {
   title, description, ogImage, date, updated, slug, faq, minutesRead,
-  deck, articleClass, seriesNo, sourceCount,
+  deck, articleClass, seriesNo, sourceCount, coverMarkName,
 } = Astro.props;
 const locale = (Astro.currentLocale ?? 'en') as Locale;
 
@@ -48,19 +50,24 @@ const structuredData = [
 ];
 
 const L = {
-  en: { series: 'Tuwa · training science', read: 'min read', sources: 'sources',
-        updated: 'Updated', decay: "DECAY OF ONE SESSION'S WEIGHT · 1/7 PER DAY" },
-  zh: { series: 'Tuwa · 训练科学', read: '分钟阅读', sources: '条参考文献',
-        updated: '更新于', decay: '单次训练权重的衰减 · 每天 1/7' },
-  fr: { series: 'Tuwa · science de l’entraînement', read: 'min de lecture', sources: 'sources',
-        updated: 'Mis à jour', decay: "DÉCROISSANCE DU POIDS D'UNE SÉANCE · 1/7 PAR JOUR" },
-}[locale] ?? { series: 'Tuwa · training science', read: 'min read', sources: 'sources',
-               updated: 'Updated', decay: "DECAY OF ONE SESSION'S WEIGHT · 1/7 PER DAY" };
+  en: { series: 'Tuwa · training science', read: 'min read', sources: 'sources', updated: 'Updated' },
+  zh: { series: 'Tuwa · 训练科学', read: '分钟阅读', sources: '条参考文献', updated: '更新于' },
+  fr: { series: 'Tuwa · science de l’entraînement', read: 'min de lecture', sources: 'sources', updated: 'Mis à jour' },
+}[locale] ?? { series: 'Tuwa · training science', read: 'min read', sources: 'sources', updated: 'Updated' };
 
 // `minutesRead` arrives from the remark plugin as e.g. "12 min read"; the byline
 // sets its own label, so take the leading number and drop the plugin's wording.
 const minutes = minutesRead ? minutesRead.replace(/[^\d]/g, '') : null;
 const seriesLabel = seriesNo != null ? `No. ${String(seriesNo).padStart(2, '0')}` : null;
+const cover = coverMark(coverMarkName);
+// Each mark says what it is. An unlabelled abstract plate is decoration.
+const COVER_CAPTIONS: Record<string, Record<string, string>> = {
+  decay:    { en: "DECAY OF ONE SESSION'S WEIGHT · 1/7 PER DAY", zh: '单次训练权重的衰减 · 每天 1/7', fr: "DÉCROISSANCE DU POIDS D'UNE SÉANCE · 1/7 PAR JOUR" },
+  baseline: { en: 'DAILY READINGS AND THE BASELINE DRAWN THROUGH THEM', zh: '每日读数与穿过它们的基线', fr: 'RELEVÉS QUOTIDIENS ET LA LIGNE DE BASE' },
+  night:    { en: 'ONE NIGHT, BY DEPTH — THINNING TOWARD WAKING', zh: '一夜睡眠的深度 · 临近清醒时变浅', fr: 'UNE NUIT, PAR PROFONDEUR — S’ALLÉGEANT VERS LE RÉVEIL' },
+  fork:     { en: 'ONE READING, CORROBORATED, FORKING INTO GO / MODIFY / HOLD', zh: '一个读数经过佐证后分为 继续 / 调整 / 暂停', fr: 'UN RELEVÉ, CORROBORÉ, MENANT À CONTINUER / MODIFIER / SUSPENDRE' },
+};
+const coverCaption = coverMarkName ? (COVER_CAPTIONS[coverMarkName]?.[locale] ?? COVER_CAPTIONS[coverMarkName]?.en) : null;
 ---
 <BaseLayout
   title={title}
@@ -89,10 +96,12 @@ const seriesLabel = seriesNo != null ? `No. ${String(seriesNo).padStart(2, '0')}
         </span>
       </div>
 
-      <div class="article-cover-art">
-        <div set:html={coverMark()} />
-        <div class="anno-caption">{L.decay}</div>
-      </div>
+      {cover && (
+        <div class="article-cover-art">
+          <div set:html={cover} />
+          {coverCaption && <div class="anno-caption">{coverCaption}</div>}
+        </div>
+      )}
 
       <h1>{title}</h1>
       <p class="article-deck">{deck ?? description}</p>

@@ -1,14 +1,25 @@
 # X long-form edition — paste source
 
-**Do not publish from this repo.** Paste-source for X's long-form article composer. The
-canonical edition is the tuwa.app blog post of the same slug, and it publishes FIRST.
-Attach images natively in X at the marked slots.
+**Do not publish from this repo.** This is a paste-source for X's **Article**
+composer. HAN confirmed direct Article access 2026-08-25, so this is written for
+the Article surface, not for a plain long-form post: real headings, inline images
+placed where they belong, and a piece that lives on its own profile tab instead of
+scrolling away.
+
+The canonical edition is the tuwa.app blog post of the same slug, and it publishes
+FIRST.
 
 - Canonical URL (must be live before this posts): `https://tuwa.app/blog/sleep-and-next-day-training-capacity/`
-- Evidence core: identical to the site edition. Every citation intact and verified.
-- Claim rails: the context-conditional sleep engine is SHADOW-ONLY. It must never be
-  described as a shipping feature, and no accuracy claim may be attached to it in any
-  voice. No medical claim anywhere.
+- Evidence core: identical to the site edition. Every citation is intact and verified.
+- Claim rails bind in this voice too: no injury prediction, no forecasting, no medical claim.
+- **Strategy (see `.planning/v173/X-LONGFORM-RESEARCH.md`):** X penalises outbound
+  links and rewards on-platform dwell, and the site does not need X clicks — its job
+  is search and answer-engine citation, which the canonical URL does by existing. So
+  this edition is written to be **sufficient on its own**. A reader who never leaves
+  X gets the whole argument and every citation by name. The site link is a citations
+  appendix near the end, not the payoff.
+- **Figures:** export each named figure as PNG from the live article and attach it
+  inline at the marked point. They are the same diagrams the site edition uses.
 
 ---
 
@@ -18,15 +29,17 @@ I read the sleep literature to build a better recovery score. It mostly told me 
 
 ## ARTICLE BODY
 
-I am a designer who vibe-codes. Tuwa gets built by describing what I want to an AI and then arguing with it for hours about the details. I train the way it's built for — basketball plus lifting, self-coached, no back-room staff.
+I went into the sleep literature wanting a better recovery score. I came out with a shorter list of things my app is allowed to say.
 
-I went into the sleep literature wanting a better recovery score. I came out with a shorter list of things I'm allowed to say.
+The most-quoted sleep study in sport has eleven participants and no control group. The stage percentages on your wrist are the least reliable number the device produces.
 
-Here's what's actually established, what isn't, and what I shipped.
+I'm a designer who vibe-codes. Tuwa gets built by describing what I want to an AI and then arguing with it for hours about the details, and I train the way it's built for — basketball plus lifting, self-coached, no back-room staff. Here's what's actually established, what isn't, and what I shipped.
 
-[IMAGE SLOT 1 — the sleep detail screen with the 7.5 h target rule visible]
+[APP SCREENSHOT 1 — the sleep detail screen with the 7.5 h target rule visible]
 
-**What one bad night actually costs**
+[FIGURE — sleep-task-order — which tasks degrade first, ordering only]
+
+## What one bad night actually costs
 
 The best synthesis available is Craven et al. (*Sports Medicine* 2022) — a systematic review and meta-analysis of acute sleep loss and physical performance. Sleep loss does impair performance. The size depends on the task, and effects showed up more consistently in afternoon and evening testing than morning testing.
 
@@ -42,7 +55,9 @@ Knowles et al. (*J Sci Med Sport* 2018) reviewed sleep and muscle strength speci
 
 For a lifter that's the most useful sentence in the whole literature: **one bad night probably won't move your top single. A bad week will show up in your volume.**
 
-**The famous study, and why I quote it with caveats every time**
+[FIGURE — feels-harder-first — effort rises before output falls, schematic]
+
+## The famous study, and why I quote it with caveats every time
 
 Mah et al. (*Sleep* 2011) had collegiate basketball players extend time in bed to 10 hours for 5–7 weeks. Faster sprints, better free-throw and three-point accuracy, better reaction time and mood.
 
@@ -54,7 +69,7 @@ The result is consistent with a real sleep-extension effect. It is also consiste
 
 The related idea with better support is **sleep banking** — Rupp et al. (*Sleep* 2009) extended sleep for a week before a restriction protocol and the extended group held alertness better during restriction and recovered faster. If you know a bad week is coming, going in with sleep in hand is one of the few genuinely evidence-supported preparations available.
 
-**"How much sleep do I need" has no population answer**
+## "How much sleep do I need" has no population answer
 
 The National Sleep Foundation's 7–9 hours is a range for general adult health, not a training target.
 
@@ -68,15 +83,17 @@ Which means a fixed hours-per-night target is a population convenience. The hone
 
 Also worth knowing: Roberts et al. (*BJSM* 2019) meta-analysed how training and competition affect elite athletes' sleep. Intensified training and night competition disturb it. The periods where recovery matters most are exactly the periods where sleep degrades.
 
-[IMAGE SLOT 2 — the per-night sleep breakdown screen]
+[APP SCREENSHOT 2 — the per-night sleep breakdown screen]
 
-**The sleep-injury claim, handled honestly**
+## The sleep-injury claim, handled honestly
 
 Milewski et al. (*J Pediatr Orthop* 2014) surveyed adolescent athletes and found those averaging under 8 hours had substantially higher odds of injury. A 2019 meta-analysis in the same journal (Gao et al.) found the association held.
 
 Both observational. Adolescents who sleep least may simply be doing the most of everything — training volume, school load, travel. Consistent association, worth acting on cautiously. Not evidence that adding sleep prevents injury. Nobody has tested that directly.
 
-**The part almost every training app ignores**
+[FIGURE — wearable-trust — what a wrist can and cannot carry a decision on]
+
+## The part almost every training app ignores
 
 Your sleep stages are the least reliable number on your wrist.
 
@@ -86,7 +103,9 @@ So when an app tells you to train lighter because your deep sleep was low, that 
 
 Duration and timing from a modern wearable: usable. Stage percentages on a single night: not a foundation for a training decision.
 
-**Where the evidence runs out**
+[FIGURE — sleep-evidence-grades — the whole review, graded]
+
+## Where the evidence runs out
 
 Three gaps that bound what any product here can honestly claim.
 
@@ -96,7 +115,7 @@ Chronic partial restriction is under-studied compared to acute loss. The dramati
 
 Almost none of this is in amateur multi-sport athletes. The subjects are collegiate teams, elite endurance athletes, or lab volunteers. The person who plays twice a week, lifts three times, and has a job is not in this literature.
 
-**What I actually shipped, including what I didn't**
+## What I actually shipped, including what I didn't
 
 Sleep is 25% of Tuwa's recovery score, and that contribution is **duration only**, against a fixed 7.5-hour target. Below 5 hours scores 10; the curve rises through 40 at 6 hours and 70 at 7.5, hitting 100 at 9. Sleep is attributed to the day you *woke*, not the day the app happened to run, and the night is identified by clustering raw HealthKit samples so an afternoon nap can't be mistaken for last night.
 
@@ -104,7 +123,7 @@ That is deliberately cruder than the evidence above. No continuity term, no regu
 
 There is a context-conditional sleep engine in the codebase — stage-aware, personalised need, explicit night profiles. It runs **shadow-only**. It computes every night on real data, writes to local rows, and drives nothing you see. It is design in development, not a shipping feature, and I'm making no performance or accuracy claim for it. It becomes a product claim the day it's wired to the score, and not one day earlier.
 
-**Not medical advice**
+## Not medical advice
 
 This is training and education content. Sleep duration and recovery scores are training-planning signals; they diagnose and treat nothing. Tuwa is a training tool, not a medical device. Persistent insomnia, or loud snoring with daytime sleepiness, belongs with a clinician — some of these have treatable medical causes no app can detect.
 
@@ -116,7 +135,11 @@ https://apps.apple.com/us/app/tuwa/id6761185505
 
 ---
 
-## TEASER THREAD (2–3 tweets, links the article)
+## TEASER THREAD (2–3 tweets)
+
+**Link the X ARTICLE, not tuwa.app.** An on-platform link
+carries no distribution penalty and feeds the dwell-time signal; the canonical URL
+already sits inside the Article for anyone who wants the citations.
 
 **Tweet 1**
 The most-cited sleep study in sports has 11 participants, no control group, and unblinded outcomes.
@@ -137,4 +160,4 @@ And the part training apps skip: consumer trackers measure duration reasonably a
 
 So "train light, your deep sleep was low" is advice built on the worst number your watch produced.
 
-https://tuwa.app/blog/sleep-and-next-day-training-capacity/
+[LINK THE X ARTICLE HERE]

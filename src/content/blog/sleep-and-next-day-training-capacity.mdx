@@ -5,6 +5,9 @@ description: "A frontier review of what sleep loss does to physical performance 
 tags: ["sleep", "recovery", "performance", "frontier review", "wearables"]
 draft: false
 seriesNo: 3
+coverMark: "night"
+leadFigure: "sleep-evidence-grades"
+deck: "Sleep loss measurably impairs next-day performance — but the effect is smaller and more selective than the folklore, and the strongest claims in circulation rest on the weakest studies."
 articleClass: "Frontier review"
 faq:
   - q: "How much does one bad night of sleep affect training the next day?"
@@ -16,6 +19,8 @@ faq:
   - q: "How much sleep does an athlete need?"
     a: "There is no single number, and the honest position is that individual need varies systematically between people. Van Dongen and colleagues showed that vulnerability to sleep restriction is trait-like and stable within individuals, so population guidance — the National Sleep Foundation’s 7 to 9 hours for adults — describes a range rather than a personal target. The 2021 expert consensus on sleep and the athlete stresses individualised assessment for this reason."
 ---
+
+import Figure from '../../components/blog/Figure.astro';
 
 Sleep loss measurably impairs next-day physical performance, but the effect is smaller and more selective than athlete folklore suggests, and the strongest claims in circulation rest on the weakest studies. The best current synthesis — a 2022 meta-analysis in *Sports Medicine* — finds real impairment across a range of physical tests, varying by task type and time of day. Maximal single efforts hold up comparatively well; sustained, repeated and skill-dependent work suffers more. Meanwhile the sleep-stage numbers on most wrists are the least trustworthy figures those devices produce. This is a review of where the evidence is solid, where it is thin, and where it simply runs out.
 
@@ -29,11 +34,23 @@ Underneath the meta-analysis sit older experiments that give the effect texture.
 
 [Reilly and Piercy (1994)](https://pubmed.ncbi.nlm.nih.gov/8112265/) partially restricted sleep in eight participants and tested weightlifting. Submaximal lifts degraded before maximal ones, and subjective effort rose before objective output fell. That dissociation — it feels harder before it *is* worse — recurs across this literature.
 
+<Figure
+  n={2}
+  name="feels-harder-first"
+  caption="The dissociation, schematically. Perceived effort rises before measured output falls — which is exactly why a subjective check-in is a useful input and a poor verdict on its own."
+/>
+
 [Skein and colleagues (2011)](https://pubmed.ncbi.nlm.nih.gov/21200339/) took 30 hours of total sleep deprivation into an intermittent-sprint protocol and found reduced sprint performance and pacing changes alongside altered muscle glycogen. Thirty hours awake is not a training scenario, but it establishes that the effect is not purely motivational.
 
 [Knowles and colleagues (2018)](https://pubmed.ncbi.nlm.nih.gov/29422383/) reviewed inadequate sleep and muscle strength specifically, and concluded that a single night of restriction has limited effect on maximal strength, while repeated restriction and multi-set work show clearer decrements. For a lifter, this is the most directly applicable finding available: one bad night is unlikely to move your top single much; a bad week will show up in your volume.
 
 The broader narrative reviews — [Fullagar and colleagues (2015)](https://pubmed.ncbi.nlm.nih.gov/25315456/) in *Sports Medicine*, and the [2021 expert consensus led by Walsh and colleagues](https://pubmed.ncbi.nlm.nih.gov/33144349/) in the *British Journal of Sports Medicine* — agree on the shape: cognitive and skill-dependent performance is affected earlier and more reliably than raw force production, and perceived exertion rises before measurable output falls.
+
+<Figure
+  n={1}
+  name="sleep-task-order"
+  caption="Ordered by how reliably the literature finds an effect, not by how large it is. Maximal single efforts hold up comparatively well; skill-dependent and sustained work suffers earlier. The axis is deliberately unnumbered — the underlying experiments are small, acute and mostly laboratory."
+/>
 
 **Evidence grade:** moderate. The meta-analysis is recent and well-conducted, but the underlying experiments are mostly small, mostly laboratory, and mostly acute. Chronic partial restriction — the actual pattern in most athletes' lives — is far less studied than one dramatic night.
 
@@ -79,6 +96,12 @@ This is the part most training advice ignores.
 
 The implication is direct. If an app tells you to train lighter because your deep sleep was low, that recommendation is built on the least reliable figure the device produced. Sleep *duration* and *timing* from a modern wearable are usable. Stage percentages, at the individual-night level, are not a foundation for a training decision.
 
+<Figure
+  n={3}
+  name="wearable-trust"
+  caption="What a consumer wearable can carry a training decision on. Total sleep time and timing performed reasonably against laboratory polysomnography; stage classification did not, with meaningful bias reproduced under home conditions."
+/>
+
 ## Where the evidence runs out
 
 Three gaps are worth naming, because they bound what any product in this space can honestly claim.
@@ -100,6 +123,12 @@ That is deliberately cruder than this article's evidence. It is duration against
 **What does not ship.** A context-conditional sleep engine — stage-aware, with personalised need and explicit night profiles — exists in the codebase and runs **shadow-only**. It computes every night on real data, writes to local rows, and drives nothing an athlete sees. It is design in development, not a shipping feature, and no performance or accuracy claim is made for it here. It becomes a product claim on the day it is wired to the score, and not before.
 
 To see how recovery signals are combined in the shipped app, read [the readiness score](/readiness-score/).
+
+<Figure
+  n={4}
+  name="sleep-evidence-grades"
+  caption="The review in one plate. Each grade is our own assessment of the named work — not a re-analysis, and not an effect size. Two rows carry no evidence at all: no trial has tested whether adding sleep prevents injury, and consumer stage classification is contradicted rather than merely unproven."
+/>
 
 <div class="article-sources">
 

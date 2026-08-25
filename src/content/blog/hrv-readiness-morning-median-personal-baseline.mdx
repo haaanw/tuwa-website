@@ -5,6 +5,9 @@ description: "A single heart rate variability reading is mostly noise. Tuwa take
 tags: ["HRV", "readiness", "recovery score", "baselines", "how Tuwa works"]
 draft: false
 seriesNo: 2
+coverMark: "baseline"
+leadFigure: "own-baseline"
+deck: "A single reading is mostly noise. Tuwa counts only morning samples, takes their median, and compares that against a rolling average of your own prior days — never a population norm."
 articleClass: "How Tuwa works"
 faq:
   - q: "Is one HRV reading enough to decide how hard to train?"
@@ -16,6 +19,8 @@ faq:
   - q: "What baseline does Tuwa compare today’s HRV against?"
     a: "The average of the athlete’s own most recent seven prior days that carried a morning reading, drawn from a 30-day history. Today is never part of the baseline it is measured against. There is no population norm anywhere in the calculation — a value that is low for you may be high for someone else, and only the first comparison is meaningful."
 ---
+
+import Figure from '../../components/blog/Figure.astro';
 
 A single heart rate variability reading tells you very little. It moves with when you measured, how you were lying, how fast you were breathing, what you drank last night, and whether you are getting ill — often more than it moves with training. Tuwa therefore does three things: it counts only morning readings, takes their **median** for the day, and compares that against a rolling average of the athlete's **own** prior days, never a population norm. A day without a morning reading gets no HRV score at all rather than a substituted one. Those three decisions are the whole of Tuwa's HRV logic, and each one exists because of a specific failure mode.
 
@@ -45,6 +50,12 @@ Tuwa cannot force a standardised protocol — it reads passive watch data, it do
 - The day's value is the **median** of those samples, not the mean. Overnight and early-morning wearable readings arrive in bursts of variable quality, and a median is not dragged around by one artefact.
 - A day with no morning sample carries **no HRV value**. It is not filled from the afternoon and not carried over.
 
+<Figure
+  n={1}
+  name="morning-median"
+  caption="Why the median, not the mean. Overnight and early-morning wearable readings arrive in bursts of variable quality; a single artefact drags a mean and leaves a median where it was. Samples after 11:00 do not count toward the day at all."
+/>
+
 Resting heart rate is handled differently on purpose. Apple Watch computes resting heart rate as a **daily aggregate**, refined through the day, so the timestamp on that value does not mark a morning reading. Applying an hour filter to it would keep or drop it more or less at random. Tuwa therefore takes resting heart rate as an all-day per-day value and leaves the morning window to HRV. Two signals, two reductions, for a stated reason.
 
 ## What "your own baseline" means precisely
@@ -52,6 +63,12 @@ Resting heart rate is handled differently on purpose. Apple Watch computes resti
 Tuwa fetches a 30-day history and reduces it to one value per day. The baseline is the arithmetic mean of the **most recent seven prior days that carried a reading** — which, for an athlete with gaps in wear, can span more than seven calendar days.
 
 Today is never part of the baseline it is compared against. That sounds obvious and it was not always true: an earlier version fetched a seven-day history that included today's own stored row, so a second run of the pipeline on the same day — opening the dashboard again, filing a wellness check-in — folded today's reading into the average it was about to be measured against. The deviation shrank and the score moved with no new physiology behind it. The same rule now governs the score's own trend term.
+
+<Figure
+  n={2}
+  name="own-baseline"
+  caption="The baseline is the seven most recent prior days that carried a reading — which, on a real wear pattern, spans more than seven calendar days. Today is never part of the window it is measured against."
+/>
 
 The comparison itself is a ratio. Today's morning median over the baseline, mapped onto points: a ratio of 1.0 scores 70, 1.2 or above scores 100, 0.7 scores 20, and the result is clamped to the 0–100 range. Resting heart rate runs the same curve mirrored, since lower is better there.
 
@@ -65,6 +82,12 @@ A modifier of up to ±10 points is then applied from the three-day slope of the 
 
 With no data at all, the score is 50 — a stated neutral, not an inference.
 
+<Figure
+  n={3}
+  name="score-composition"
+  caption="The four components and their weights. When a signal is missing the remaining weights renormalise over what is present, and the app states the coverage — a score built from three signals is not the same object as one built from four."
+/>
+
 ## Does HRV-guided training actually work?
 
 This is the question that matters, and the honest answer is: there is a real but narrow evidence base, and it does not cover the athlete Tuwa is built for.
@@ -74,6 +97,12 @@ This is the question that matters, and the honest answer is: there is a real but
 Note what these studies share. They are **endurance** studies — running and cycling — with modest sample sizes, in adults, over training blocks of a few weeks to a few months. The intervention is usually "swap a hard session for an easy one when the smoothed HRV falls below an individually determined range."
 
 None of them studied an amateur athlete who plays a court sport twice a week and lifts three times. There is no published trial telling us how much to reduce a top set when a basketball player's morning HRV is down. Work like [Flatt and Esco (2016)](https://pubmed.ncbi.nlm.nih.gov/26200192/) in a collegiate female soccer team shows the monitoring approach applies outside endurance sport, but that is a monitoring study, not a prescription trial.
+
+<Figure
+  n={4}
+  name="evidence-coverage"
+  caption="Every controlled trial of HRV-guided training sits in endurance sport, at modest sample sizes, over blocks of weeks to months. No trial has tested how much to reduce a top set when a court-sport athlete who also lifts wakes with low HRV."
+/>
 
 So Tuwa uses HRV the way the evidence supports — as one smoothed, individually referenced input to a decision — and does not pretend the adjustment sizes are validated. The app states its confidence, names the signals behind a verdict, and the athlete overrides it in one tap.
 

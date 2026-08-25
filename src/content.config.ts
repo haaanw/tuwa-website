@@ -33,6 +33,9 @@ const blog = defineCollection({
     // Which figure carries the listing card. Must be a key in
     // components/blog/figures.ts; an unknown key fails the build.
     leadFigure: z.string().optional(),
+    // Which abstract cover mark heads the article. Each article names its own —
+    // one shared mark repeated across the series is decoration, not a diagram.
+    coverMark: z.string().optional(),
   }),
 });
 

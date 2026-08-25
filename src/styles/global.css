@@ -3475,14 +3475,37 @@ html[lang="zh"] .tbl th {
 }
 :root { font-optical-sizing: auto; }
 
-/* zh-Hans has no serif: the CJK cascade wins for the whole article. */
+/* ---- The zh long-form reading voice (decided 2026-08-25) ----------------
+   zh-Hans articles DO get a serif, and not merely for symmetry with English:
+   宋体 / Song is the conventional long-form reading face in Chinese publishing —
+   books and newspapers set body text in it — while 黑体 / sans reads as signage
+   and UI. Setting a long article in sans is the same register error in Chinese
+   that it was in English, so the serif is the correct call on its own terms.
+
+   Implementation is a SYSTEM stack, deliberately. @fontsource/noto-serif-sc
+   ships 1,632 subset files and 105 KB of @font-face CSS per weight; adding that
+   to every article page today would buy zero rendered glyphs, because the blog
+   collection is English-only and no zh article route exists yet. Songti SC
+   (macOS/iOS) and SimSun (Windows) already give the right register at zero
+   bytes. When the first zh article ships, self-host Noto Serif SC and import
+   `@fontsource/noto-serif-sc/400.css` on that route ONLY — never globally.
+
+   Chrome, navigation and non-article zh pages keep Noto Sans SC, exactly as
+   the Latin serif never leaves an article. */
+:root {
+  --font-read-cjk: 'Noto Serif SC', 'Songti SC', 'SimSun', 'Source Han Serif SC', serif;
+}
 html[lang="zh"] .article-cover h1,
 html[lang="zh"] .article-deck,
 html[lang="zh"] .article-body,
 html[lang="zh"] .article-body p,
 html[lang="zh"] .article-body h2,
-html[lang="zh"] .article-body h3,
 html[lang="zh"] .article-body blockquote p,
+html[lang="zh"] .article-sources li,
+html[lang="zh"] .article-fig-cap { font-family: var(--font-read-cjk); }
+
+/* Sans stays where sans belongs: the mono-derived h3, and the index chrome. */
+html[lang="zh"] .article-body h3,
 html[lang="zh"] .blogindex-lead h2 a,
 html[lang="zh"] .blogindex-row h3 { font-family: var(--font-cjk); }
 
