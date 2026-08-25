@@ -1,0 +1,137 @@
+---
+/**
+ * The series index, shared by /blog, /zh/blog and /fr/blog.
+ *
+ * Replaces a date/bold-line/grey-line list — which read as a forum index — with
+ * a masthead, a lead article carrying its own figure, and a ledger where each
+ * row is a record rather than a post.
+ *
+ * Every number here is computed. Reading time comes from the same remark plugin
+ * the article page uses, so the index can never disagree with the article it
+ * links to, and source counts are parsed from each article's reference list.
+ */
+import { getCollection, render } from 'astro:content';
+import { formatDate } from '../../i18n/format';
+import type { Locale } from '../../i18n/utils';
+import { useBlogTranslations } from '../../i18n/utils';
+import { countSources, } from './sources';
+import { FIGURES } from './figures';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useBlogTranslations(locale);
+
+// Article links are ALWAYS the /blog/ route, in every locale.
+//
+// This fixes a live defect rather than introducing an inconsistency: the blog
+// collection has no locale dimension — there is exactly one MDX file per article
+// and it is English — and `src/pages/{zh,fr}/blog/` contain only an index page.
+// The previous localized indexes linked to `/zh/blog/<slug>` and `/fr/blog/<slug>`,
+// which are routes that have never been generated, so every article link on both
+// localized indexes was a 404 in production.
+//
+// Chrome (nav, footer, index copy) stays localized; the article itself is honestly
+// presented as English. When a translated article exists, give it its own route and
+// this is where the branch goes.
+const articleHref = (id: string) => `/blog/${id}`;
+
+const posts = (await getCollection('blog', ({ data }) =>
+  !import.meta.env.PROD || !data.draft
+)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const entries = await Promise.all(posts.map(async post => {
+  const { remarkPluginFrontmatter } = await render(post);
+  const minutes = String(remarkPluginFrontmatter.minutesRead ?? '').replace(/[^\d]/g, '');
+  return {
+    post,
+    minutes: minutes || null,
+    sources: countSources(post.body),
+  };
+}));
+
+// Newest article leads; the rest form the ledger.
+const [lead, ...rest] = entries;
+
+const totalSources = entries.reduce((sum, e) => sum + e.sources, 0);
+const latest = entries.length ? entries[0].post.data.date : null;
+
+const leadFigureName = lead?.post.data.leadFigure;
+const leadFigure = leadFigureName ? FIGURES[leadFigureName] : undefined;
+if (leadFigureName && !leadFigure) {
+  throw new Error(
+    `Post "${lead.post.id}" sets leadFigure "${leadFigureName}", which is not a known figure. ` +
+    `Known: ${Object.keys(FIGURES).join(', ')}`
+  );
+}
+
+const seriesLabel = (n?: number) => (n != null ? `No. ${String(n).padStart(2, '0')}` : null);
+---
+<div class="mx-auto px-6" style="max-width: 1240px;">
+
+  <div class="blogindex-masthead">
+    <span class="kicker">{t.index.kicker}</span>
+    <h1>{t.index.heading}</h1>
+    <p class="blogindex-blurb">{t.index.blurb}</p>
+    <div class="blogindex-stats">
+      <div><span class="sk">{t.index.statArticles}</span><span class="sv">{entries.length}</span></div>
+      {totalSources > 0 && (
+        <div><span class="sk">{t.index.statSources}</span><span class="sv">{totalSources}</span></div>
+      )}
+      <div><span class="sk">{t.index.statCadence}</span><span class="sv">{t.index.statCadenceValue}</span></div>
+      {latest && (
+        <div><span class="sk">{t.index.statLatest}</span><span class="sv">{formatDate(latest, locale)}</span></div>
+      )}
+    </div>
+  </div>
+
+  {entries.length === 0 ? (
+    <p style="color: var(--color-text-2); margin-top: var(--space-2xl);">{t.page.emptyState}</p>
+  ) : (
+    <>
+      <div class="blogindex-lead">
+        {leadFigure && <div class="art" set:html={leadFigure()} />}
+        <div class="lead-text">
+          <span class="rail">
+            {[seriesLabel(lead.post.data.seriesNo), lead.post.data.articleClass]
+              .filter(Boolean).join(' · ')}
+          </span>
+          <h2><a href={articleHref(lead.post.id)}>{lead.post.data.title}</a></h2>
+          <p>{lead.post.data.description}</p>
+          <div class="stamp">
+            {lead.minutes && <span>{lead.minutes} {t.index.readSuffix}</span>}
+            {lead.sources > 0 && <span>{lead.sources} {t.index.colSources}</span>}
+            <time datetime={lead.post.data.date.toISOString()}>
+              {formatDate(lead.post.data.date, locale)}
+            </time>
+          </div>
+        </div>
+      </div>
+
+      {rest.length > 0 && (
+        <div class="blogindex-ledger">
+          <div class="hd">
+            <span>{t.index.colNo}</span>
+            <span>{t.index.colArticle}</span>
+            <span>{t.index.colClass}</span>
+            <span>{t.index.colSources}</span>
+            <span>{t.index.colRead}</span>
+          </div>
+          {rest.map(({ post, minutes, sources }) => (
+            <a class="blogindex-row" href={articleHref(post.id)}>
+              <span class="n">{post.data.seriesNo != null ? String(post.data.seriesNo).padStart(2, '0') : '—'}</span>
+              <div>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+              </div>
+              <span class="cls">{post.data.articleClass ?? ''}</span>
+              <span class="num">{sources > 0 ? sources : '—'}</span>
+              <span class="num">{minutes ? `${minutes} ${t.index.readSuffix}` : '—'}</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </>
+  )}
+</div>

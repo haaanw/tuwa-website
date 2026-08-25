@@ -1,0 +1,43 @@
+---
+/**
+ * A numbered figure inside an article. Mounted from MDX:
+ *
+ *   import Figure from '../../components/blog/Figure.astro';
+ *   <Figure n={2} name="cliff-edge" caption="The cliff edge, drawn. …" />
+ *
+ * The figure number is explicit rather than auto-incremented: MDX gives no
+ * reliable render order across islands, and a caption that cites "Fig. 2" in
+ * prose must not silently renumber when a figure is inserted above it.
+ *
+ * Renders at build time. No client JavaScript.
+ */
+import { FIGURES } from './figures';
+
+interface Props {
+  /** Figure number as cited in the prose. */
+  n: number;
+  /** Key in FIGURES. An unknown key fails the build rather than rendering blank. */
+  name: string;
+  /** Sentence-case caption. Carries the claim rail where one applies. */
+  caption: string;
+  /** Set false for a figure that repeats one already numbered (e.g. a cover). */
+  numbered?: boolean;
+}
+
+const { n, name, caption, numbered = true } = Astro.props;
+
+const render = FIGURES[name];
+if (!render) {
+  throw new Error(
+    `Unknown figure "${name}". Known figures: ${Object.keys(FIGURES).join(', ')}`
+  );
+}
+const markup = render();
+---
+<figure class="article-fig">
+  <div class="article-fig-plate" set:html={markup} />
+  <figcaption>
+    {numbered && <span class="article-fig-num">Fig.&nbsp;{n}</span>}
+    <p class="article-fig-cap">{caption}</p>
+  </figcaption>
+</figure>

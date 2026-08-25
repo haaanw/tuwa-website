@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import { formatDate } from '../i18n/format';
 import type { Locale } from '../i18n/utils';
 import { articleSchema, faqPageSchema } from '../seo/schema';
+import { coverMark } from '../components/blog/figures';
 
 interface Props {
   title: string;
@@ -13,14 +14,26 @@ interface Props {
   slug?: string;
   faq?: ReadonlyArray<{ q: string; a: string }>;
   minutesRead?: string;
+  /** Standfirst. Falls back to `description`, which is what the old layout showed. */
+  deck?: string;
+  /** Kicker — the article's class per SCIENCE-SERIES.md rule 0. */
+  articleClass?: string;
+  /** Position in the series, e.g. 1 renders "No. 01". */
+  seriesNo?: number;
+  /** Counted from the article's own source list at build time, never authored. */
+  sourceCount?: number;
 }
 
-const { title, description, ogImage, date, updated, slug, faq, minutesRead } = Astro.props;
+const {
+  title, description, ogImage, date, updated, slug, faq, minutesRead,
+  deck, articleClass, seriesNo, sourceCount,
+} = Astro.props;
 const locale = (Astro.currentLocale ?? 'en') as Locale;
 
 // GEO: answer engines quote structured data verbatim, so every article carries an
 // Article anchor and — where the post asks question-shaped headings — a FAQPage.
 // `date` is publication; `updated` is the last substantive revision.
+// UNCHANGED from the previous layout: this port moves presentation only.
 const canonicalUrl = slug ? `https://tuwa.app/blog/${slug}/` : 'https://tuwa.app/blog/';
 const structuredData = [
   articleSchema({
@@ -33,65 +46,71 @@ const structuredData = [
   }),
   ...(faq && faq.length > 0 ? [faqPageSchema(faq)] : []),
 ];
----
-<BaseLayout title={title} description={description} ogImage={ogImage} type="article" locale={locale} hreflangAlternates={[]} structuredData={structuredData}>
 
-  <div style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
-    <div class="mx-auto px-6" style="max-width: 680px;">
-      <a
-        href="/blog"
-        style="
-          color: var(--color-text-2);
-          font-size: var(--text-label);
-          text-decoration: none;
-          letter-spacing: var(--tracking-label);
-          text-transform: uppercase;
-        "
-      >
-        &larr; Blog
-      </a>
-      <h1
-        style="
-          font-size: var(--text-heading);
-          font-weight: var(--weight-heading);
-          line-height: var(--leading-heading);
-          letter-spacing: var(--tracking-heading);
-          color: var(--color-text-1);
-          margin-top: var(--space-lg);
-        "
-      >
-        {title}
-      </h1>
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          gap: var(--space-sm);
-          margin-top: var(--space-sm);
-          font-size: var(--text-label);
-          color: var(--color-text-3);
-        "
-      >
-        <time datetime={date.toISOString()}>
-          {formatDate(date, locale)}
-        </time>
-        {minutesRead && (
-          <>
-            <span aria-hidden="true">&middot;</span>
-            <span>{minutesRead}</span>
-          </>
+const L = {
+  en: { series: 'Tuwa · training science', read: 'min read', sources: 'sources',
+        updated: 'Updated', decay: "DECAY OF ONE SESSION'S WEIGHT · 1/7 PER DAY" },
+  zh: { series: 'Tuwa · 训练科学', read: '分钟阅读', sources: '条参考文献',
+        updated: '更新于', decay: '单次训练权重的衰减 · 每天 1/7' },
+  fr: { series: 'Tuwa · science de l’entraînement', read: 'min de lecture', sources: 'sources',
+        updated: 'Mis à jour', decay: "DÉCROISSANCE DU POIDS D'UNE SÉANCE · 1/7 PAR JOUR" },
+}[locale] ?? { series: 'Tuwa · training science', read: 'min read', sources: 'sources',
+               updated: 'Updated', decay: "DECAY OF ONE SESSION'S WEIGHT · 1/7 PER DAY" };
+
+// `minutesRead` arrives from the remark plugin as e.g. "12 min read"; the byline
+// sets its own label, so take the leading number and drop the plugin's wording.
+const minutes = minutesRead ? minutesRead.replace(/[^\d]/g, '') : null;
+const seriesLabel = seriesNo != null ? `No. ${String(seriesNo).padStart(2, '0')}` : null;
+---
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={ogImage}
+  type="article"
+  locale={locale}
+  hreflangAlternates={[]}
+  structuredData={structuredData}
+>
+  {/* The reading voice is ~268 KB across two files and is used on articles ONLY,
+      so it preloads here rather than in BaseLayout — no other page pays for it. */}
+  <Fragment slot="head">
+    <link rel="preload" href="/fonts/Newsreader.woff2" as="font" type="font/woff2" crossorigin />
+  </Fragment>
+
+  <div class="article-cover">
+    <div class="article-cover-inner">
+      <div class="article-cover-rail">
+        <span class="series">
+          {L.series}{seriesLabel ? ` · ${seriesLabel}` : ''}
+        </span>
+        <span>
+          {articleClass ? `${articleClass} · ` : ''}
+          <time datetime={date.toISOString()}>{formatDate(date, locale)}</time>
+        </span>
+      </div>
+
+      <div class="article-cover-art">
+        <div set:html={coverMark()} />
+        <div class="anno-caption">{L.decay}</div>
+      </div>
+
+      <h1>{title}</h1>
+      <p class="article-deck">{deck ?? description}</p>
+
+      <div class="article-byline">
+        <span>Tuwa</span>
+        {minutes && <span>{minutes} {L.read}</span>}
+        {sourceCount ? <span>{sourceCount} {L.sources}</span> : null}
+        {updated && (
+          <span>{L.updated} <time datetime={updated.toISOString()}>{formatDate(updated, locale)}</time></span>
         )}
       </div>
-      <hr
-        style="
-          border: none;
-          border-top: 1px solid var(--color-divider);
-          margin: var(--space-2xl) 0;
-        "
-      />
-      <div class="prose prose-neutral max-w-none">
-        <slot />
-      </div>
     </div>
+  </div>
+
+  <div class="article-wrap">
+    <article class="article-body">
+      <slot />
+    </article>
   </div>
 </BaseLayout>

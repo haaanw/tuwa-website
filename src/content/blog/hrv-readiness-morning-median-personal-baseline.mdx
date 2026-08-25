@@ -4,6 +4,8 @@ date: 2026-08-24
 description: "A single heart rate variability reading is mostly noise. Tuwa takes the median of your morning readings, compares it to a rolling average of your own prior days, and refuses to score a day that has no morning measurement. Here is why each of those three decisions exists."
 tags: ["HRV", "readiness", "recovery score", "baselines", "how Tuwa works"]
 draft: false
+seriesNo: 2
+articleClass: "How Tuwa works"
 faq:
   - q: "Is one HRV reading enough to decide how hard to train?"
     a: "No. Day-to-day heart rate variability in a healthy athlete swings widely for reasons that have nothing to do with training — measurement timing, body position, breathing rate, alcohol, illness onset, a late meal. The athlete-monitoring literature since Plews and colleagues in 2013 has recommended comparing a smoothed weekly value against an individual baseline rather than reacting to any single morning number."
@@ -11,8 +13,8 @@ faq:
     a: "Heart rate variability is a momentary measurement, so when it was taken changes what it means. A reading captured mid-afternoon after coffee and a commute is not comparable with one captured on waking. Tuwa counts only samples timestamped before 11am local time and takes their median for the day. A day with no morning sample has no HRV value at all — it is never filled in from the afternoon or carried over from yesterday."
   - q: "Why is resting heart rate treated differently from HRV in Tuwa?"
     a: "Apple Watch computes resting heart rate as a daily aggregate refined across the whole day, so its timestamp does not mark a morning reading. Filtering it by hour would include or exclude it essentially at random. Tuwa therefore takes resting heart rate as an all-day per-day value while HRV keeps the morning window. It is the one place the two signals are deliberately handled differently."
-  - q: "What baseline does Tuwa compare today's HRV against?"
-    a: "The average of the athlete's own most recent seven prior days that carried a morning reading, drawn from a 30-day history. Today is never part of the baseline it is measured against. There is no population norm anywhere in the calculation — a value that is low for you may be high for someone else, and only the first comparison is meaningful."
+  - q: "What baseline does Tuwa compare today’s HRV against?"
+    a: "The average of the athlete’s own most recent seven prior days that carried a morning reading, drawn from a 30-day history. Today is never part of the baseline it is measured against. There is no population norm anywhere in the calculation — a value that is low for you may be high for someone else, and only the first comparison is meaningful."
 ---
 
 A single heart rate variability reading tells you very little. It moves with when you measured, how you were lying, how fast you were breathing, what you drank last night, and whether you are getting ill — often more than it moves with training. Tuwa therefore does three things: it counts only morning readings, takes their **median** for the day, and compares that against a rolling average of the athlete's **own** prior days, never a population norm. A day without a morning reading gets no HRV score at all rather than a substituted one. Those three decisions are the whole of Tuwa's HRV logic, and each one exists because of a specific failure mode.
@@ -77,6 +79,8 @@ So Tuwa uses HRV the way the evidence supports — as one smoothed, individually
 
 To see how the score is presented in the app, read [the readiness score](/readiness-score/).
 
+<div class="article-sources">
+
 ## Sources
 
 - Task Force of the European Society of Cardiology and the North American Society of Pacing and Electrophysiology. Heart rate variability: standards of measurement, physiological interpretation and clinical use. *Circulation.* 1996;93(5):1043–1065. [PMID 8598068](https://pubmed.ncbi.nlm.nih.gov/8598068/)
@@ -98,3 +102,5 @@ To see how the score is presented in the app, read [the readiness score](/readin
 ## Not medical advice
 
 Heart rate variability, resting heart rate, sleep and subjective wellness are training-planning signals. They do not diagnose illness, injury or overtraining, and they do not establish readiness to return to sport. Tuwa is a training tool, not a medical device. Persistent unexplained changes in resting heart rate or HRV, and any symptom that concerns you, belong with a clinician rather than an app.
+
+</div>

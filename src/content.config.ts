@@ -19,6 +19,20 @@ const blog = defineCollection({
     faq: z
       .array(z.object({ q: z.string(), a: z.string() }))
       .optional(),
+    // ---- Presentation, added with the magazine layout (HAN ruling 2026-08-25).
+    // All optional: the one pre-existing post validates unchanged and renders
+    // with sensible fallbacks.
+    //
+    // Standfirst. Falls back to `description`, which is what the old layout
+    // displayed, so omitting it changes nothing.
+    deck: z.string().optional(),
+    // The article's class under SCIENCE-SERIES.md rule 0 — shown as the kicker.
+    articleClass: z.string().optional(),
+    // Position in the series. Renders as "No. 01".
+    seriesNo: z.number().int().positive().optional(),
+    // Which figure carries the listing card. Must be a key in
+    // components/blog/figures.ts; an unknown key fails the build.
+    leadFigure: z.string().optional(),
   }),
 });
 
