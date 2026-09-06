@@ -72,7 +72,8 @@ const common: Common = {
   },
   meta: {
     title: 'Tuwa',
-    description: "Le staff sports-science des basketteurs qui se coachent seuls et s'entraînent sérieusement en force.",
+    description:
+      "Tuwa est le staff sports-science des athlètes qui se coachent seuls. Tu écris le plan ; Tuwa te renvoie la dose du jour : go, modify ou hold. Il n'écrit jamais ton programme.",
   },
   featureCTA: {
     headline: 'Commence à te coacher avec confiance',

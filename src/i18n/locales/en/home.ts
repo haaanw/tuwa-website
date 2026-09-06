@@ -15,7 +15,8 @@ const home = {
   // ------------------------------------------------------------------
   meta: {
     title: 'Stay in Your Strike Zone',
-    description: 'Tuwa is the sports-science back room for self-coached basketball players who strength-train seriously.',
+    description:
+      'Tuwa is the sports-science back room for self-coached athletes. You write the plan; Tuwa returns today’s dose: go, modify, or hold. It never writes your program.',
   },
   heroScrub: {
     sectionAria: 'Tuwa — your plan, made safe and optimal',

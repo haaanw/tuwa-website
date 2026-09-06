@@ -8,7 +8,8 @@ const home: Home = {
   // identiques à la version EN ; seules les chaînes sont traduites.
   meta: {
     title: 'Reste dans ta strike zone',
-    description: "Tuwa est le staff sports-science des basketteurs qui se coachent seuls et s'entraînent sérieusement en force.",
+    description:
+      "Tuwa est le staff sports-science des athlètes qui se coachent seuls. Tu écris le plan ; Tuwa te renvoie la dose du jour : go, modify ou hold. Il n'écrit jamais ton programme.",
   },
   heroScrub: {
     sectionAria: 'Tuwa — ton plan, rendu sûr et optimal',

@@ -72,7 +72,8 @@ const common: Common = {
   },
   meta: {
     title: 'Tuwa',
-    description: '给认真打篮球、也认真力量训练的自我训练运动员准备的运动科学后方团队。',
+    description:
+      'Tuwa 是自我训练运动员的运动科学后方团队。计划由你来写；Tuwa 给出今天的剂量：go、modify 还是 hold。它从不替你写课表。',
   },
   featureCTA: {
     headline: '留在你的 strike zone',

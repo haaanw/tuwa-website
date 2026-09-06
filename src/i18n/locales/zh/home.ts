@@ -7,7 +7,8 @@ const home: Home = {
   // 完全一致，只翻译文字。
   meta: {
     title: '每一次训练都留在你的 strike zone',
-    description: 'Tuwa 是给认真力量训练的自我训练篮球运动员准备的运动科学后方团队。',
+    description:
+      'Tuwa 是自我训练运动员的运动科学后方团队。计划由你来写；Tuwa 给出今天的剂量：go、modify 还是 hold。它从不替你写课表。',
   },
   heroScrub: {
     sectionAria: 'Tuwa——你的计划，变得更安全、更优',
