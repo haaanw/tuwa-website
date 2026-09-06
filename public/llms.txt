@@ -1,14 +1,13 @@
 # Tuwa
 
-> Tuwa is an iOS app for self-coached athletes who train a sport and strength in parallel. The athlete authors their own training plan; Tuwa fuses that plan with HealthKit physiology, training history, soreness, match tier, and match proximity to suggest a daily go, modify, or hold verdict with an adjusted top-set number and a one-line reason. Tuwa does not write the program and is not a chat coach. Amateur competitive basketball is the first vertical Tuwa was tuned for.
+> Tuwa is an iOS app for self-coached athletes who train sport skill and strength or conditioning in parallel. The athlete authors their own training plan; Tuwa fuses that plan with HealthKit physiology, training history, and soreness to suggest a daily go, modify, or hold verdict with an adjusted top-set number and a one-line reason. Tuwa does not write the program and is not a chat coach.
 
 ## Core concepts
-- Strike zone: the daily training-intensity band that moves with physiology, training history, soreness, and sport context — match tier and match proximity.
+- Strike zone: the daily training-intensity band that moves with physiology, training history, soreness, and sport context.
 - Daily verdict: a practical go, modify, or hold suggestion for the athlete's planned strength session.
-- Microdose: trimming the athlete's own planned lift to one or two capped top sets near match day.
-- Match proximity: when a match is within 48 hours — a basketball game, for example — Tuwa protects freshness with capped top sets and skipped back-off work.
 - ACWR (acute:chronic workload ratio): compares recent training load against a longer baseline. Tuwa treats it as workload context, not injury prediction.
 - On-device privacy: raw HealthKit data stays on-device.
+- Example vertical — basketball: match tier and match proximity (game within 48 hours → capped top sets / microdose, skipped back-off). Same dose logic applies to other dual sport+lift athletes.
 
 ## Features
 - [The Daily Verdict](https://tuwa.app/features/verdict): go, modify, or hold suggestion with an adjusted top-set number and a one-line reason.

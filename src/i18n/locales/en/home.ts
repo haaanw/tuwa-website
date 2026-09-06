@@ -292,7 +292,8 @@ const home = {
   // ------------------------------------------------------------------
   hero: {
     headline: 'Stay in your strike zone — every workout.',
-    subtitle: 'Tuwa is the sports-science back room for self-coached basketball players who lift seriously. Enter your plan, log the match tier, and get a daily go, modify, or hold suggestion with an adjusted top-set number and a one-line reason.',
+    subtitle:
+      'Tuwa is the sports-science back room for self-coached athletes who train sport skill and strength in parallel. Enter your plan, log the match tier, and get a daily go, modify, or hold suggestion with an adjusted top-set number and a one-line reason.',
     loopSteps: ['Plan', 'Check', 'Modify', 'Review'],
     loopAriaLabel: 'Tuwa training loop',
     deviceAlt: 'Tuwa Today screen showing a readiness verdict, planned strength session adjustment, recovery signals, and training load.',
