@@ -1,15 +1,18 @@
 ---
-// 04 · Logging — restored as its own section (demo row 05), rewritten for the
-// 1.7.2 voice-logging release.
+// 04 · Logging — restored as its own section (demo row 05), originally written
+// for the 1.7.2 voice-logging release; updated 2026-09-24 for v1.7.4, which
+// REMOVED workout voice logging (HAN ruling). Logging is typed description or
+// direct entry now.
 // Deliberately NOT a second fan: two fanned sections back to back read as one
 // repeated trick. This is a flat three-up row on a surface band, each screen
 // captioned in the annotation voice.
 //
-// The three plates trace ONE pipeline: say it → check the draft → it is in the
-// record. The middle plate is the shipped set-entry surface, so the always-
-// visible scrub scale with its TARGET and LAST markers is what the reader sees.
-// The LLM is a parser, never a chat partner — no string here may frame it as a
-// coach, an assistant, or a conversation (CONTEXT.md anti-positioning).
+// The three plates trace ONE pipeline: type it → check the draft → it is in
+// the record. The middle plate is the shipped set-entry surface, so the
+// always-visible scrub scale with its TARGET and LAST markers is what the
+// reader sees. The LLM is a parser, never a chat partner — no string here may
+// frame it as a coach, an assistant, or a conversation (CONTEXT.md
+// anti-positioning).
 import { Image } from 'astro:assets';
 import logCaptureShot from '../../assets/screens-v16/log-capture.png';
 import activeWorkoutShot from '../../assets/screens-v16/active-workout.png';
@@ -50,7 +53,7 @@ const shots = [
     </div>
 
     <p class="micro log-foot">{t.foot}</p>
-    <p class="log-more"><a href={`${prefix}/features/voice-logging`}>{t.moreLink}</a></p>
+    <p class="log-more"><a href={`${prefix}/features/text-logging`}>{t.moreLink}</a></p>
   </div>
 </section>
 

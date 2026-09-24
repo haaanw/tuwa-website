@@ -15,3 +15,12 @@
 /zh/features/coaching/    /zh/training-load     301
 /fr/features/coaching     /fr/training-load     301
 /fr/features/coaching/    /fr/training-load     301
+
+# Voice logging renamed to text logging in v1.7.4 (workout voice logging
+# removed; the page now describes typed/natural-language logging)
+/features/voice-logging       /features/text-logging       301
+/features/voice-logging/      /features/text-logging       301
+/zh/features/voice-logging    /zh/features/text-logging    301
+/zh/features/voice-logging/   /zh/features/text-logging    301
+/fr/features/voice-logging    /fr/features/text-logging    301
+/fr/features/voice-logging/   /fr/features/text-logging    301

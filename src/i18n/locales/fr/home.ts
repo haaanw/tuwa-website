@@ -75,19 +75,23 @@ const home: Home = {
     dashboardAlt: 'Tableau de bord Tuwa : carte de forme affichant 82 avec les métriques',
     activeWorkoutAlt: 'Séance en cours dans Tuwa : saisie des séries en direct',
   },
-  // 1.7.2 — saisie vocale. Le modèle de langue est un ANALYSEUR : il transforme
-  // une phrase en brouillon. Jamais un chat, un assistant ou un coach à qui on
-  // parle. La fonction est livrée et gratuite sur toutes les formules.
+  // v1.7.4 — la saisie vocale de la séance a été RETIRÉE (décision de HAN,
+  // 2026-09-24). Le journal se fait au clavier ou en direct sur la réglette ;
+  // l'importation d'un programme se fait aussi en collant du texte ou en
+  // important un PDF/une photo, à la place de la voix — plus de micro nulle
+  // part dans l'app. Le modèle de langue est un ANALYSEUR : il transforme du
+  // texte tapé en brouillon. Jamais un chat, un assistant ou un coach à qui
+  // on parle.
   logging: {
     kicker: '04 · journal',
-    heading: 'Dis la séance, ou règle-la sur la réglette',
-    body: "Décris la séance à voix haute, tape la même phrase, ou utilise le micro de dictée du clavier — trois portes, un seul traitement. Tuwa en fait un brouillon modifiable, chaque série déjà remplie. Rien n'est enregistré tant que tu n'as pas confirmé, et chaque chiffre reste corrigeable à la main.",
-    doors: ['parle', 'tape', 'dicte'],
+    heading: 'Tape la séance, ou règle-la sur la réglette',
+    body: "Tape la séance comme tu la dirais à voix haute, ou enregistre les séries directement sur la réglette — deux portes, un seul journal. Tuwa transforme la description tapée en brouillon modifiable, chaque série déjà remplie. Rien n'est enregistré tant que tu n'as pas confirmé, et chaque chiffre reste corrigeable à la main.",
+    doors: ['tape-la', 'règle-la'],
     manual: "La saisie manuelle ne disparaît jamais. Une banque de 1 324 mouvements reste derrière un sélecteur pensé recherche d'abord, et la réglette de charge s'affiche en entier avant que tu la touches — ta dernière série et la cible du jour marquées dessus.",
-    captions: ['01 · dis-le, tape-le ou dicte-le', '02 · vérifie le brouillon, corrige une série', '03 · confirmé, puis inscrit'],
+    captions: ['01 · tape-la', '02 · vérifie le brouillon, corrige une série', '03 · confirmé, puis inscrit'],
     foot: "gratuit sur toutes les formules · rien ne s'enregistre sans ta confirmation",
-    moreLink: 'Comment fonctionne la saisie vocale',
-    logCaptureAlt: 'Saisie de séance Tuwa : une séance dictée, écrite en une phrase, prête à être analysée',
+    moreLink: 'Comment fonctionne la saisie de texte',
+    logCaptureAlt: 'Saisie de séance Tuwa : une séance tapée, écrite en une phrase, prête à être analysée',
     activeWorkoutAlt: 'Saisie des séries dans Tuwa : la réglette de charge avec les repères cible et dernière série',
     workoutLogAlt: "Journal d'entraînement Tuwa : historique des séances",
   },

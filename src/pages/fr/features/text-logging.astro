@@ -1,12 +1,19 @@
 ---
-// Saisie vocale — dis la séance (livré dans l'app v1.7.2).
+// Saisie de texte — tape la séance.
 // Structure calquée section par section sur la version EN.
 //
-// Discipline de revendication : la saisie vocale est LIVRÉE et gratuite sur
-// toutes les formules, donc le présent est correct ici. Le modèle de langue est
-// un ANALYSEUR — il transforme une phrase en brouillon que l'athlète confirme.
-// Ce n'est jamais un chat, un assistant ou un coach à qui on parle, et aucune
-// phrase de cette page ne doit le laisser entendre.
+// v1.7.4 (décision de HAN, 2026-09-24) : LA SAISIE VOCALE DE LA SÉANCE A ÉTÉ
+// RETIRÉE. Il n'y a plus de micro nulle part dans l'app désormais — ni dans
+// le journal d'entraînement (séance guidée, saisie en liste, ou onglet
+// Journal), ni dans l'importation d'un programme. L'athlète peut toujours
+// taper une description, qui est analysée comme cette page l'a toujours
+// décrit ; la saisie manuelle (réglette, sélecteur de répétitions, banque de
+// mouvements) est inchangée. L'importation d'un programme (fonction séparée)
+// se fait désormais en collant du texte ou en important un PDF/une photo, à
+// la place de la voix. Le modèle de langue est un ANALYSEUR — il transforme
+// du texte tapé en brouillon que l'athlète confirme. Ce n'est jamais un chat,
+// un assistant ou un coach à qui on parle, et aucune phrase de cette page ne
+// doit le laisser entendre.
 import { Image } from 'astro:assets';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import FeatureFaq from '../../../components/features/FeatureFaq.astro';
@@ -15,18 +22,18 @@ import { faqPageSchema } from '../../../seo/schema';
 import logCaptureShot from '../../../assets/screens-v16/log-capture.png';
 import activeWorkoutShot from '../../../assets/screens-v16/active-workout.png';
 
-const title = 'Saisie vocale : dis la séance';
+const title = 'Saisie de texte : tape la séance';
 const description =
-  "Dis ta séance, tape-la, ou utilise le micro de dictée du clavier. Tuwa transforme la phrase en brouillon modifiable que tu confirmes — rien ne s'enregistre tout seul, la saisie manuelle ne disparaît jamais, et c'est gratuit sur toutes les formules.";
+  "Tape la séance comme tu la dirais à voix haute. Tuwa transforme la phrase en brouillon modifiable que tu confirmes — rien ne s'enregistre tout seul, la saisie manuelle ne disparaît jamais, et c'est gratuit sur toutes les formules.";
 
 const faqs = [
   {
-    q: "Qu'est-ce que je dis exactement ?",
+    q: "Qu'est-ce que je tape exactement ?",
     a: "Une phrase normale, comme à un partenaire d'entraînement : « squat, trois séries de cinq à 130, la dernière était lourde. Puis développé couché, quatre fois huit à quatre-vingts. » Tuwa y lit l'exercice, les séries, les répétitions et la charge, et remplit le brouillon. Aucune syntaxe à apprendre, aucune formulation à réussir.",
   },
   {
-    q: 'Faut-il parler à voix haute ?',
-    a: "Non. Trois portes mènent au même traitement : enregistrer dans l'app, taper la même phrase, ou appuyer sur le micro de dictée du clavier iOS. Dans tous les cas c'est le texte qui est analysé — une salle bruyante et un train silencieux conviennent donc aussi bien l'un que l'autre.",
+    q: 'La saisie vocale existe-t-elle encore ?',
+    a: "Non. Depuis la v1.7.4, plus rien dans l'app n'utilise le micro — ni le journal d'entraînement, ni l'importation de programme. La saisie se fait au clavier ou en direct ; importer un programme se fait en collant du texte ou en important un PDF ou une photo.",
   },
   {
     q: "Peut-elle enregistrer une séance que je n'ai pas faite ?",
@@ -38,15 +45,15 @@ const faqs = [
   },
   {
     q: 'Est-ce que ça marche en pleine séance, série par série ?',
-    a: "Oui. Dans une séance en cours, tu peux dire une série dès que tu la termines : elle arrive dans l'exercice ouvert, sans masquer la liste des séries.",
+    a: "Oui. Dans une séance en cours, tu peux taper une série dès que tu la termines, ou l'enregistrer directement sur la réglette : elle arrive dans l'exercice ouvert, sans masquer la liste des séries.",
   },
   {
     q: 'Où la phrase est-elle traitée ?',
-    a: "Le texte que tu envoies part vers le service d'analyse de Tuwa et est traité par un modèle de langue tiers pour produire le brouillon. Les requêtes sont liées à ton compte connecté et plafonnées par un quota quotidien. Tes données HealthKit brutes — VFC, sommeil, fréquence cardiaque — n'y participent pas et ne quittent jamais ton téléphone.",
+    a: "Le texte que tu tapes part vers le service d'analyse de Tuwa et est traité par un modèle de langue tiers pour produire le brouillon. Les requêtes sont liées à ton compte connecté et plafonnées par un quota quotidien. Tes données HealthKit brutes — VFC, sommeil, fréquence cardiaque — n'y participent pas et ne quittent jamais ton téléphone.",
   },
   {
     q: 'Est-ce que cela coûte quelque chose ?',
-    a: 'Non. La saisie vocale est gratuite sur toutes les formules, y compris la formule gratuite.',
+    a: 'Non. La saisie de texte est gratuite sur toutes les formules, y compris la formule gratuite.',
   },
 ] as const;
 
@@ -58,38 +65,37 @@ const structuredData = [faqPageSchema(faqs)];
     <div class="ghost num" data-ghost aria-hidden="true">03</div>
     <div class="wrap">
       <div class="sec-head">
-        <span class="micro" data-animate>saisie vocale</span>
-        <h1 class="feat-h1" data-animate data-animate-delay="60">Dis la séance</h1>
+        <span class="micro" data-animate>saisie de texte</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">Tape la séance</h1>
         <p class="feat-lead" data-animate data-animate-delay="120">
-          Décris la séance comme tu la dirais à voix haute. Tuwa transforme la
-          phrase en brouillon modifiable, chaque série remplie, et rien n'atteint
-          ton journal avant que tu confirmes. Gratuit sur toutes les formules.
+          Tape la séance comme tu la dirais à un partenaire d'entraînement. Tuwa
+          transforme la phrase en brouillon modifiable, chaque série remplie, et
+          rien n'atteint ton journal avant que tu confirmes. Gratuit sur toutes
+          les formules.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Three doors -->
+  <!-- One line, one pipeline -->
   <section class="sec sec-alt bt">
     <div class="wrap">
       <div class="sec-head">
         <span class="micro" data-animate>comment ça marche</span>
-        <h2 data-animate>Trois portes, un seul traitement</h2>
+        <h2 data-animate>Une phrase, un seul traitement</h2>
         <p data-animate>
-          Enregistre la séance dans l'app, tape la même phrase, ou appuie sur le
-          micro de dictée du clavier iOS. Les trois produisent du texte, et c'est
-          le texte que Tuwa analyse — la salle bruyante, le vestiaire et le train
-          du retour sont donc la même porte.
+          Tape la séance comme tu la dirais à voix haute, ou enregistre chaque
+          série directement sur la réglette. Dans tous les cas, aucune syntaxe à
+          apprendre, aucune formulation à réussir.
         </p>
         <p data-animate data-animate-delay="80">
-          Aucune syntaxe à apprendre, aucune formulation à réussir. « Squat, trois
-          séries de cinq à 130, la dernière était lourde » est une instruction
-          complète.
+          « Squat, trois séries de cinq à 130, la dernière était lourde » est une
+          instruction complète.
         </p>
       </div>
       <div class="sec-body">
         <div class="spread" data-spread>
-          <div class="plate" data-fan="c"><Image src={logCaptureShot} alt="Saisie de séance Tuwa : une séance dictée, écrite en une phrase, prête à être analysée" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={logCaptureShot} alt="Saisie de séance Tuwa : une séance tapée, écrite en une phrase, prête à être analysée" width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
         <div class="aside quote" data-animate data-quote>
           <div class="quote-rule"></div>
@@ -119,7 +125,7 @@ const structuredData = [faqPageSchema(faqs)];
         <p data-animate data-animate-delay="80">
           C'est la discipline que suit déjà le verdict quotidien. Tuwa propose, tu
           confirmes — et si l'analyse a lu « quatre-vingts » sur le mauvais
-          mouvement, corriger prend une touche, pas un nouvel enregistrement.
+          mouvement, corriger prend une touche, pas une phrase à retaper.
         </p>
       </div>
       <div class="sec-body">
@@ -144,9 +150,10 @@ const structuredData = [faqPageSchema(faqs)];
         <span class="micro" data-animate>en pleine séance</span>
         <h2 data-animate>Une série à la fois, sans quitter la liste</h2>
         <p data-animate>
-          Dans une séance en cours, tu peux dire une série dès que tu la termines.
-          La capture reste dans la page — la liste des séries ne disparaît jamais
-          derrière un panneau — et la série arrive dans l'exercice ouvert.
+          Dans une séance en cours, tu peux taper une série dès que tu la
+          termines. La capture reste dans la page — la liste des séries ne
+          disparaît jamais derrière un panneau — et la série arrive dans
+          l'exercice ouvert.
         </p>
         <p data-animate data-animate-delay="80">
           Rien d'autre ne change dans le journal. Les modèles reportent les
@@ -165,7 +172,7 @@ const structuredData = [faqPageSchema(faqs)];
         <h2 data-animate>La phrase est traitée sur un serveur. Ta physiologie, non.</h2>
         <p data-animate>
           Transformer une phrase en séries structurées n'est pas un calcul qu'un
-          téléphone fait seul : le texte de séance que tu envoies part donc vers
+          téléphone fait seul : le texte de séance que tu tapes part donc vers
           le service d'analyse de Tuwa et est traité par un modèle de langue
           tiers. Les requêtes sont liées à ton compte connecté et plafonnées par
           un quota quotidien.
@@ -184,8 +191,8 @@ const structuredData = [faqPageSchema(faqs)];
   <FeatureFaq heading="Questions fréquentes" faqs={faqs} />
 
   <FeatureClosing
-    heading="Dis-le une fois, vérifie, continue"
-    body="Télécharge Tuwa pour noter à la voix, au clavier ou à la main — et obtenir le verdict du jour sur le plan que tu as écrit."
+    heading="Tape-la une fois, vérifie, continue"
+    body="Télécharge Tuwa pour noter au clavier ou à la main — et obtenir le verdict du jour sur le plan que tu as écrit."
     ctaNote="iOS 17+ · iPhone"
     ctaLabel="Télécharger sur l'App Store"
     relatedAriaLabel="Pages liées"

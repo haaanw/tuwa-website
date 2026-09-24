@@ -7,7 +7,7 @@ type WidenStrings<T> = T extends string
 const privacy = {
   meta: {
     title: 'Privacy Policy',
-    lastUpdated: 'August 24, 2026',
+    lastUpdated: 'September 24, 2026',
     description: 'Privacy policy for Tuwa — Training Load & Recovery app.',
   },
   disclaimer: {
@@ -35,7 +35,7 @@ const privacy = {
         },
         {
           label: 'Workout descriptions',
-          description: 'The sentence you speak, type, or dictate when you log a session in words (see Workout Text Parsing below)',
+          description: 'The sentence you type when you log a session in words (see Workout Text Parsing below)',
         },
       ] as const,
     },
@@ -74,30 +74,53 @@ const privacy = {
       },
     ] as const,
   },
-  // Added for app v1.7.2 (voice and text logging). The workout narrative the
-  // athlete submits is the ONLY thing that takes this path; the HealthKit claim
-  // above is unchanged and is restated here so the two cannot be confused.
+  // Updated 2026-09-24 for app v1.7.4: WORKOUT VOICE LOGGING WAS REMOVED (HAN
+  // ruling). Only a typed workout description takes this path now. The
+  // HealthKit claim above is unchanged and is restated here so the two cannot
+  // be confused.
   voiceParsing: {
     heading: 'Workout Text Parsing',
-    p1: 'When you log a session by describing it — spoken in the app, typed, or dictated with the keyboard microphone — speech is converted to text on your device, and that text is sent to our parsing service so it can be turned into a draft of sets, reps, and weights for you to review.',
+    p1: 'When you log a session by typing a description of it, that text is sent to our parsing service so it can be turned into a draft of sets, reps, and weights for you to review.',
     p2: 'The text is processed by a third-party language model provider (DeepSeek) on our behalf. Requests require a signed-in account and are limited by a daily quota per user.',
     items: [
       {
         label: 'What is sent',
-        description: 'Only the workout description you submitted, and the units you train in.',
+        description: 'Only the workout description you typed, and the units you train in.',
       },
       {
         label: 'What is never sent',
-        description: 'No HealthKit data of any kind, no recovery or readiness scores, no email address, and no audio recording — only text.',
+        description: 'No HealthKit data of any kind, no recovery or readiness scores, and no email address — only the text you typed.',
       },
       {
         label: 'It is optional',
-        description: 'Manual entry does the same job. If you never describe a session in words, nothing is ever sent to the parsing service.',
+        description: 'Manual entry does the same job. If you never type a description, nothing is ever sent to the parsing service.',
       },
     ] as const,
     p3: 'The parsed result is returned to your device as a draft. Nothing is saved to your log until you confirm it.',
     healthKitReminder: 'This is separate from the HealthKit rule above, which is unchanged: raw HealthKit data is never uploaded, to this service or to any other.',
     healthKitReminderStrong: 'raw HealthKit data is never uploaded',
+  },
+  // Added 2026-09-24 for app v1.7.4. Program import is a SEPARATE feature from
+  // workout logging above. As of v1.7.4 the app no longer uses the microphone
+  // or speech recognition anywhere: a program is brought in as pasted text or
+  // a PDF/photo, with the text extracted on the device.
+  programImport: {
+    heading: 'Program Import',
+    p1: 'You can bring a training program into Tuwa by pasting text, or by importing a PDF or photo of it — the text is extracted on your device.',
+    items: [
+      {
+        label: 'What is sent',
+        description: 'The program text you paste, or the text extracted from your PDF or photo on your device — text only. No audio, no HealthKit data, and no scores are sent.',
+      },
+      {
+        label: 'Who processes it',
+        description: 'A third-party language model provider (OpenAI) processes the text on our behalf to turn it into a structured program.',
+      },
+      {
+        label: 'What you get back',
+        description: 'A draft program is returned to your device for you to review. Nothing is saved until you confirm it.',
+      },
+    ] as const,
   },
   dataSharing: {
     heading: 'Data Sharing',
@@ -124,18 +147,22 @@ const privacy = {
         url: 'https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html',
         urlDisplay: 'deepseek.com privacy policy',
       },
+      {
+        label: 'OpenAI',
+        description: '(language model that parses imported training programs — text only)',
+        url: 'https://openai.com/policies/privacy-policy/',
+        urlDisplay: 'openai.com privacy policy',
+      },
     ] as const,
     outro: 'We do not use any advertising networks, analytics trackers, or third-party data brokers.',
   },
   dataRetention: {
     heading: 'Data Retention and Deletion',
-    intro: 'Your data is retained as long as your account exists. To delete all your data:',
+    intro: 'Your data is retained as long as your account exists. To delete your account and all its data:',
     steps: [
-      'Go to Profile → Sign Out in the app',
-      'Contact us at the email below to request full account and data deletion from our servers',
+      'Go to Profile → Delete account in the app',
     ] as const,
-    stepOneStrong: 'Profile → Sign Out',
-    outro: 'Upon deletion, all your data — including workout logs and scores — is permanently removed from our servers.',
+    outro: 'This deletes your account and its data — including workout logs and scores — from our database. For any other privacy request, contact us at the email below.',
   },
   yourRights: {
     heading: 'Your Rights',

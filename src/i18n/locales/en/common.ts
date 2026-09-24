@@ -56,7 +56,7 @@ const common = {
     trainingLoad: 'Training load',
     recoveryScore: 'Recovery score',
     logging: 'Logging & templates',
-    voiceLogging: 'Voice logging',
+    textLogging: 'Text logging',
     startingOut: 'Starting out',
     methodology: 'Methodology',
     readinessScore: 'Readiness score',

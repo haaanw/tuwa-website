@@ -53,6 +53,14 @@ const t = usePrivacyTranslations('fr');
   <p>{t.voiceParsing.p3}</p>
   <p>{t.voiceParsing.healthKitReminder}</p>
 
+  <h2>{t.programImport.heading}</h2>
+  <p>{t.programImport.p1}</p>
+  <ul>
+    {t.programImport.items.map((item) => (
+      <li><strong>{item.label} :</strong> {item.description}</li>
+    ))}
+  </ul>
+
   <h2>{t.dataSharing.heading}</h2>
   <p>{t.dataSharing.p1}</p>
 

@@ -7,7 +7,7 @@ type WidenStrings<T> = T extends string
 const terms = {
   meta: {
     title: 'Terms of Service',
-    lastUpdated: 'July 26, 2026',
+    lastUpdated: 'September 24, 2026',
     description: 'Terms of Service for Tuwa — Training Load & Recovery app.',
   },
   disclaimer: {
@@ -80,7 +80,7 @@ const terms = {
   },
   termination: {
     heading: '9. Termination',
-    p1: 'We may suspend or terminate your account if you violate these Terms. You may delete your account at any time by contacting us.',
+    p1: 'We may suspend or terminate your account if you violate these Terms. You may delete your account at any time from Profile → Delete account in the app, or by contacting us.',
   },
   changes: {
     heading: '10. Changes to These Terms',

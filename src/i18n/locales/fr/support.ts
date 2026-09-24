@@ -33,11 +33,11 @@ const support: Support = {
     },
     {
       q: 'Comment supprimer mon compte ?',
-      a: 'Déconnecte-toi dans l\'application via Profil > Se déconnecter, puis écris-nous à support@tuwa.app pour demander la suppression complète de ton compte et de tes données de nos serveurs. La suppression est définitive : journaux d\'entraînement, scores de récupération, instantanés de charge et records personnels sont supprimés.',
+      a: 'Dans l\'application, va dans Profil > Supprimer le compte. Cela supprime ton compte et ses données de notre base de données. La suppression est définitive : journaux d\'entraînement, scores de récupération, instantanés de charge et records personnels sont supprimés.',
     },
     {
       q: 'Que devient une séance décrite en mots ?',
-      a: 'La parole est convertie en texte sur ton téléphone, puis ce texte part vers notre service d\'analyse — traité par un modèle de langue tiers — pour revenir sous forme de brouillon de séries et de répétitions. Aucune donnée HealthKit et aucun enregistrement audio n\'est envoyé, uniquement le texte. Rien n\'est enregistré dans ton journal avant que tu confirmes le brouillon, et la saisie manuelle fait le même travail si tu préfères ne pas l\'utiliser. Le détail complet est dans la politique de confidentialité.',
+      a: 'Tu tapes une description, et ce texte part vers notre service d\'analyse — traité par un modèle de langue tiers — pour revenir sous forme de brouillon de séries et de répétitions. Aucune donnée HealthKit n\'est envoyée, uniquement le texte que tu as tapé. Rien n\'est enregistré dans ton journal avant que tu confirmes le brouillon, et la saisie manuelle fait le même travail si tu préfères ne pas l\'utiliser. Le détail complet est dans la politique de confidentialité.',
     },
     {
       q: 'Qu\'est-ce que l\'ACWR et pourquoi est-ce important ?',

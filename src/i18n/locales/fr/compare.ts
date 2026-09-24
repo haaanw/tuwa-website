@@ -72,7 +72,7 @@ const content: TopicPageContent = {
       {
         "label": "Saisie de la séance",
         "generic": "Séries tapées écran par écran",
-        "tuwa": "Dis la séance en une phrase — ou tape-la, ou dicte-la — puis confirme le brouillon"
+        "tuwa": "Tape la séance en une phrase, ou enregistre chaque série directement — puis confirme le brouillon"
       },
       {
         "label": "Délai avant utilité",

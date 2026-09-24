@@ -3,7 +3,7 @@ import type { Privacy } from '../en/privacy';
 const privacy: Privacy = {
   meta: {
     title: 'Politique de confidentialité',
-    lastUpdated: '24 août 2026',
+    lastUpdated: '24 septembre 2026',
     description: 'Politique de confidentialité de Tuwa — application de gestion de la charge d\'entraînement et de la récupération.',
   },
   disclaimer: {
@@ -31,7 +31,7 @@ const privacy: Privacy = {
         },
         {
           label: 'Descriptions de séance',
-          description: 'La phrase que tu dis, tapes ou dictes lorsque tu notes une séance en mots (voir « Analyse du texte de séance » ci-dessous)',
+          description: 'La phrase que tu tapes lorsque tu notes une séance en mots (voir « Analyse du texte de séance » ci-dessous)',
         },
       ],
     },
@@ -70,30 +70,54 @@ const privacy: Privacy = {
       },
     ],
   },
-  // Ajouté pour l'app v1.7.2 (saisie vocale et texte). Seule la description de
-  // séance soumise par l'athlète emprunte ce chemin ; la règle HealthKit
-  // ci-dessus est inchangée et redite ici pour que les deux ne se confondent pas.
+  // Mis à jour le 2026-09-24 pour l'app v1.7.4 : LA SAISIE VOCALE DE LA SÉANCE A
+  // ÉTÉ RETIRÉE (décision de HAN). Seule une description de séance tapée
+  // emprunte encore ce chemin ; la règle HealthKit ci-dessus est inchangée et
+  // redite ici pour que les deux ne se confondent pas.
   voiceParsing: {
     heading: 'Analyse du texte de séance',
-    p1: "Quand tu notes une séance en la décrivant — dictée dans l'application, tapée, ou dictée avec le micro du clavier — la parole est convertie en texte sur ton téléphone, puis ce texte est envoyé à notre service d'analyse pour être transformé en un brouillon de séries, répétitions et charges que tu vérifies.",
+    p1: "Quand tu notes une séance en tapant une description, ce texte est envoyé à notre service d'analyse pour être transformé en un brouillon de séries, répétitions et charges que tu vérifies.",
     p2: "Le texte est traité pour notre compte par un fournisseur tiers de modèle de langue (DeepSeek). Les requêtes exigent un compte connecté et sont plafonnées par un quota quotidien par utilisateur.",
     items: [
       {
         label: 'Ce qui est envoyé',
-        description: "Uniquement la description de séance que tu as soumise, et les unités dans lesquelles tu t'entraînes.",
+        description: "Uniquement la description de séance que tu as tapée, et les unités dans lesquelles tu t'entraînes.",
       },
       {
         label: "Ce qui n'est jamais envoyé",
-        description: "Aucune donnée HealthKit, aucun score de récupération ou de forme, aucune adresse e-mail, aucun enregistrement audio — du texte, et rien d'autre.",
+        description: "Aucune donnée HealthKit, aucun score de récupération ou de forme, aucune adresse e-mail — seulement le texte que tu as tapé.",
       },
       {
         label: "C'est facultatif",
-        description: "La saisie manuelle fait le même travail. Si tu ne décris jamais une séance en mots, rien n'est jamais envoyé au service d'analyse.",
+        description: "La saisie manuelle fait le même travail. Si tu ne tapes jamais de description de séance, rien n'est jamais envoyé au service d'analyse.",
       },
     ],
     p3: "Le résultat revient sur ton téléphone sous forme de brouillon. Rien n'est enregistré dans ton journal tant que tu n'as pas confirmé.",
     healthKitReminder: "C'est distinct de la règle HealthKit ci-dessus, qui est inchangée : les données HealthKit brutes ne sont jamais téléchargées, ni vers ce service ni vers aucun autre.",
     healthKitReminderStrong: 'les données HealthKit brutes ne sont jamais téléchargées',
+  },
+  // Ajouté le 2026-09-24 pour l'app v1.7.4. L'importation d'un programme est
+  // une fonction SÉPARÉE de la saisie de séance ci-dessus. Depuis la v1.7.4,
+  // l'app n'utilise plus du tout le micro ni la reconnaissance vocale : un
+  // programme s'importe en collant du texte ou en important un PDF/une photo,
+  // dont le texte est extrait sur l'appareil.
+  programImport: {
+    heading: 'Importation de programme',
+    p1: "Tu peux importer un programme d'entraînement dans Tuwa en collant du texte, ou en important un PDF ou une photo — le texte en est extrait sur ton téléphone.",
+    items: [
+      {
+        label: 'Ce qui est envoyé',
+        description: "Le texte du programme que tu colles, ou le texte extrait de ton PDF ou de ta photo sur ton téléphone — du texte uniquement. Aucun audio, aucune donnée HealthKit, aucun score n'est envoyé.",
+      },
+      {
+        label: 'Qui le traite',
+        description: "Un fournisseur tiers de modèle de langue (OpenAI) traite le texte pour notre compte afin d'en faire un programme structuré.",
+      },
+      {
+        label: 'Ce que tu reçois',
+        description: "Un brouillon de programme revient sur ton téléphone pour que tu le vérifies. Rien n'est enregistré tant que tu n'as pas confirmé.",
+      },
+    ],
   },
   dataSharing: {
     heading: 'Partage des données',
@@ -120,18 +144,22 @@ const privacy: Privacy = {
         url: 'https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html',
         urlDisplay: 'politique de confidentialité deepseek.com',
       },
+      {
+        label: 'OpenAI',
+        description: '(modèle de langue qui analyse les programmes importés — texte uniquement)',
+        url: 'https://openai.com/policies/privacy-policy/',
+        urlDisplay: 'politique de confidentialité openai.com',
+      },
     ],
     outro: 'Nous n\'utilisons aucun réseau publicitaire, aucun tracker analytique, ni aucun courtier de données tiers.',
   },
   dataRetention: {
     heading: 'Conservation et suppression des données',
-    intro: 'Tes données sont conservées tant que ton compte existe. Pour supprimer toutes tes données :',
+    intro: 'Tes données sont conservées tant que ton compte existe. Pour supprimer ton compte et toutes tes données :',
     steps: [
-      'Va dans Profil → Se déconnecter dans l\'application',
-      'Contacte-nous à l\'adresse e-mail ci-dessous pour demander la suppression complète de ton compte et de tes données de nos serveurs',
+      'Va dans Profil → Supprimer le compte dans l\'application',
     ],
-    stepOneStrong: 'Profil → Se déconnecter',
-    outro: 'Après suppression, toutes tes données — journaux d\'entraînement et scores inclus — sont définitivement retirées de nos serveurs.',
+    outro: 'Cela supprime ton compte et ses données — journaux d\'entraînement et scores inclus — de notre base de données. Pour toute autre demande liée à la confidentialité, contacte-nous à l\'adresse e-mail ci-dessous.',
   },
   yourRights: {
     heading: 'Tes droits',

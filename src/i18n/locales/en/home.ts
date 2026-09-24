@@ -83,22 +83,23 @@ const home = {
     dashboardAlt: 'Tuwa dashboard: hero readiness card scoring 82 with metrics',
     activeWorkoutAlt: 'Tuwa active workout: live set logging',
   },
-  // 1.7.2 — voice logging. The LLM is a PARSER: it turns one sentence into a
-  // draft. Never write it as a chat, an assistant, or a coach you talk to.
-  // Voice logging is shipped and free on every tier, so present tense is
-  // sanctioned here (§10 claim rails).
+  // v1.7.4 — workout voice logging was REMOVED (HAN ruling 2026-09-24). Logging
+  // is typed description or direct entry now; program import takes pasted
+  // text or a PDF/photo instead of speech too — no microphone anywhere in the
+  // app. The LLM is a PARSER: it turns typed text into a draft. Never write
+  // it as a chat, an assistant, or a coach you talk to.
   logging: {
     kicker: '04 · logging',
-    heading: 'Say the session, or scrub it in',
-    body: "Describe the workout out loud, type the same sentence, or use the keyboard's dictation mic — three doors, one pipeline. Tuwa parses it into an editable draft with every set filled in. Nothing saves until you confirm it, and any number is still yours to correct by hand.",
-    doors: ['speak it', 'type it', 'dictate it'],
+    heading: 'Type the session, or scrub it in',
+    body: "Type the workout the way you'd say it out loud, or log sets directly on the scrub scale — two doors, one record. Tuwa parses a typed description into an editable draft with every set filled in. Nothing saves until you confirm it, and any number is still yours to correct by hand.",
+    doors: ['type it', 'scrub it in'],
     manual: 'Manual entry never goes away. A 1,324-exercise movement bank sits behind a search-first picker, and the weight scale shows its full range before you touch it — your last set and today\'s target marked on the rule.',
     // Annotation captions under each plate. They trace one pipeline, so each
     // caption must stay true of the screen above it.
-    captions: ['01 · say it, type it, or dictate it', '02 · check the draft, fix any set', '03 · confirmed, then in the record'],
+    captions: ['01 · type it', '02 · check the draft, fix any set', '03 · confirmed, then in the record'],
     foot: 'free on every tier · nothing saves until you confirm',
-    moreLink: 'How voice logging works',
-    logCaptureAlt: 'Tuwa log capture: a spoken session written out as a sentence, ready to parse',
+    moreLink: 'How text logging works',
+    logCaptureAlt: 'Tuwa log capture: a typed session written out as a sentence, ready to parse',
     activeWorkoutAlt: 'Tuwa set entry: the weight scale with target and last markers on the rule',
     workoutLogAlt: 'Tuwa workout log: session history',
   },

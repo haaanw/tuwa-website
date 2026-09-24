@@ -1,9 +1,13 @@
 ---
-// 语音记录——说一句，训练就记好了（app v1.7.2 已上线）。结构与 EN 版逐节对应。
+// 文字记录——打字记录训练。结构与 EN 版逐节对应。
 //
-// 声明纪律：语音记录已经上线，且所有版本免费，因此这里用现在时。
-// 语言模型只是解析器——把一句话变成草稿，由运动员确认。
-// 它不是聊天、不是助理、不是可以对话的教练，本页任何一句都不得暗示如此。
+// v1.7.4（HAN 裁定，2026-09-24）：训练语音记录已下线。现在整个应用都没有
+// 麦克风了——训练记录环节（进行中训练、列表记录、"记录"标签页）没有，导入
+// 训练计划也没有。运动员仍可打字描述训练，解析方式与本页一直描述的一致；
+// 手动录入（刻度尺、次数步进器、动作库）没有变化。导入训练计划（另一个独立
+// 功能）现在只能粘贴文字，或导入 PDF/照片，取代了原来的语音。语言模型只是
+// 解析器——把打出来的文字变成草稿，由运动员确认。它不是聊天、不是助理、
+// 不是可以对话的教练，本页任何一句都不得暗示如此。
 import { Image } from 'astro:assets';
 import CJKLayout from '../../../layouts/CJKLayout.astro';
 import FeatureFaq from '../../../components/features/FeatureFaq.astro';
@@ -12,18 +16,18 @@ import { faqPageSchema } from '../../../seo/schema';
 import logCaptureShot from '../../../assets/screens-v16/log-capture.png';
 import activeWorkoutShot from '../../../assets/screens-v16/active-workout.png';
 
-const title = '语音记录：说一句，训练就记好了';
+const title = '文字记录：打字记录训练';
 const description =
-  '开口说出训练，把它打出来，或者用键盘的听写键。Tuwa 把这句话解析成一份可编辑的草稿，由你确认——不确认就不保存，手动录入永远都在，而且所有版本免费。';
+  '把这次训练像说话一样打出来。Tuwa 把这句话解析成一份可编辑的草稿，由你确认——不确认就不保存，手动录入永远都在，而且所有版本免费。';
 
 const faqs = [
   {
-    q: '我到底该怎么说？',
+    q: '我到底该打些什么？',
     a: '就像跟训练搭档说话那样，一句普通的话：「深蹲三组五次，130 公斤，最后一组有点沉。然后卧推，四组八次，80 公斤。」Tuwa 会从中读出动作、组数、次数和重量，把草稿填好。你不需要学任何命令格式，也没有「正确说法」。',
   },
   {
-    q: '一定要开口说吗？',
-    a: '不用。三个入口通向同一条通路：在应用里录音、把同一句话打出来，或者按 iOS 键盘上的听写键。无论用哪一个，被解析的都是文字，所以吵闹的健身房和安静的地铁上都一样能用。',
+    q: '还能用语音记录训练吗？',
+    a: '不能了。自 v1.7.4 起，应用里任何地方都不再使用麦克风——训练记录不能，导入训练计划也不能。记录训练只能打字描述或直接录入；导入训练计划只能粘贴文字，或导入 PDF/照片。',
   },
   {
     q: '它会把我没做过的内容存进去吗？',
@@ -34,16 +38,16 @@ const faqs = [
     a: '不会，它在旁边。重量刻度尺、次数步进器、训练模板和动作库都没有变——改东西还是靠手动录入，组间只记一组时它也仍然最快。',
   },
   {
-    q: '训练当中能一组一组地说吗？',
-    a: '可以。在进行中的训练里，你可以做完一组就说一组，它会落进你正打开的那个动作，而且不会遮住组列表。',
+    q: '训练当中能一组一组地打字记录吗？',
+    a: '可以。在进行中的训练里，你可以做完一组就打一组，或者直接在刻度尺上记录，它会落进你正打开的那个动作，而且不会遮住组列表。',
   },
   {
-    q: '这句话在哪里被处理？',
-    a: '你提交的文字会发送到 Tuwa 的解析服务，由第三方语言模型处理，生成草稿。请求与你的登录账户绑定，并有每日额度上限。你的原始 HealthKit 数据——HRV、睡眠、心率——不参与这条通路，也从不离开你的设备。',
+    q: '这段文字在哪里被处理？',
+    a: '你打出来的文字会发送到 Tuwa 的解析服务，由第三方语言模型处理，生成草稿。请求与你的登录账户绑定，并有每日额度上限。你的原始 HealthKit 数据——HRV、睡眠、心率——不参与这条通路，也从不离开你的设备。',
   },
   {
     q: '要另外付费吗？',
-    a: '不要。语音记录对所有版本免费，包括免费版。',
+    a: '不要。文字记录对所有版本免费，包括免费版。',
   },
 ] as const;
 
@@ -55,31 +59,31 @@ const structuredData = [faqPageSchema(faqs)];
     <div class="ghost num" data-ghost aria-hidden="true">03</div>
     <div class="wrap">
       <div class="sec-head">
-        <span class="micro" data-animate>语音记录</span>
-        <h1 class="feat-h1" data-animate data-animate-delay="60">说一句，训练就记好了</h1>
+        <span class="micro" data-animate>文字记录</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">打字记录训练</h1>
         <p class="feat-lead" data-animate data-animate-delay="120">
-          用你会说出口的方式描述这次训练。Tuwa 把这句话变成一份可编辑的草稿，每一组都已填好；在你确认之前，什么都不会进入训练记录。所有版本免费。
+          用你会说出口的方式把训练打出来。Tuwa 把这句话变成一份可编辑的草稿，每一组都已填好；在你确认之前，什么都不会进入训练记录。所有版本免费。
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Three doors -->
+  <!-- One line, one pipeline -->
   <section class="sec sec-alt bt">
     <div class="wrap">
       <div class="sec-head">
         <span class="micro" data-animate>工作原理</span>
-        <h2 data-animate>三个入口，同一条通路</h2>
+        <h2 data-animate>一句话，一条通路</h2>
         <p data-animate>
-          在应用里录音，把同一句话打出来，或者按 iOS 键盘上的听写键。三种方式产出的都是文字，而 Tuwa 解析的正是文字——所以吵闹的健身房、更衣室和回家的地铁，其实是同一个入口。
+          把这次训练像说话一样打出来，或者直接在刻度尺上记录每一组。无论用哪一种，都没有命令格式要学，也没有「正确说法」。
         </p>
         <p data-animate data-animate-delay="80">
-          没有命令格式要学，也没有「正确说法」。「深蹲三组五次，130 公斤，最后一组有点沉」就是一条完整的指令。
+          「深蹲三组五次，130 公斤，最后一组有点沉」就是一条完整的指令。
         </p>
       </div>
       <div class="sec-body">
         <div class="spread" data-spread>
-          <div class="plate" data-fan="c"><Image src={logCaptureShot} alt="Tuwa 训练记录输入：口述的训练被写成一句话，等待解析" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={logCaptureShot} alt="Tuwa 训练记录输入：打出来的训练被写成一句话，等待解析" width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
         <div class="aside quote" data-animate data-quote>
           <div class="quote-rule"></div>
@@ -102,7 +106,7 @@ const structuredData = [faqPageSchema(faqs)];
           解析不会直接写进你的训练记录。它打开的是平常的组数录入界面，各组已经就位，而且每一组都可以改：重量刻度尺完整显示量程，上次的重量和今天的目标标在尺上，次数步进器也还在原来的位置。
         </p>
         <p data-animate data-animate-delay="80">
-          这和每日判定遵循的是同一条纪律：Tuwa 提议，你确认——万一解析把「八十」读成了别的动作，改它只需一次点击，不用重录。
+          这和每日判定遵循的是同一条纪律：Tuwa 提议，你确认——万一解析把「八十」读成了别的动作，改它只需一次点击，不用重新打字。
         </p>
       </div>
       <div class="sec-body">
@@ -124,9 +128,9 @@ const structuredData = [faqPageSchema(faqs)];
     <div class="wrap">
       <div class="sec-head">
         <span class="micro" data-animate>训练当中</span>
-        <h2 data-animate>一组一组地说，而且不离开列表</h2>
+        <h2 data-animate>一组一组地记，而且不离开列表</h2>
         <p data-animate>
-          在进行中的训练里，你可以做完一组就说一组。录入界面保持在页面内——组列表不会被弹层盖住——这一组会落进你正打开的那个动作。
+          在进行中的训练里，你可以做完一组就打一组。录入界面保持在页面内——组列表不会被弹层盖住——这一组会落进你正打开的那个动作。
         </p>
         <p data-animate data-animate-delay="80">
           记录的其他部分没有任何变化。模板会延续目标，个人纪录照常识别，1,324 个动作的动作库仍然只隔着一次搜索。
@@ -142,7 +146,7 @@ const structuredData = [faqPageSchema(faqs)];
         <span class="micro" data-animate>什么会离开你的手机</span>
         <h2 data-animate>这句话在服务器上处理，你的生理数据不会</h2>
         <p data-animate>
-          把一句话变成结构化的组数，不是手机自己能完成的算术，所以你提交的训练文字会发送到 Tuwa 的解析服务，由第三方语言模型处理。请求与你的登录账户绑定，并有每日额度上限。
+          把一句话变成结构化的组数，不是手机自己能完成的算术，所以你打出来的训练文字会发送到 Tuwa 的解析服务，由第三方语言模型处理。请求与你的登录账户绑定，并有每日额度上限。
         </p>
         <p data-animate data-animate-delay="80">
           这条通路只承载训练描述，没有别的。原始 HealthKit 数据——HRV、静息心率、睡眠——在你的设备上读取，从不离开设备；这个功能之前如此，之后也如此。完整说明见<a href="/zh/privacy">隐私政策</a>。
@@ -154,8 +158,8 @@ const structuredData = [faqPageSchema(faqs)];
   <FeatureFaq heading="常见问题" faqs={faqs} />
 
   <FeatureClosing
-    heading="说一次，核对一下，继续训练"
-    body="下载 Tuwa，用语音、文字或手动记录训练——并对你自己写的计划拿到今天的建议。"
+    heading="打一次，核对一下，继续训练"
+    body="下载 Tuwa，用文字或手动记录训练——并对你自己写的计划拿到今天的建议。"
     ctaNote="iOS 17+ · iPhone"
     ctaLabel="在 App Store 下载"
     relatedAriaLabel="相关页面"

@@ -45,7 +45,7 @@ const common: Common = {
     trainingLoad: '训练负荷',
     recoveryScore: '恢复评分',
     logging: '记录与模板',
-    voiceLogging: '语音记录',
+    textLogging: '文字记录',
     startingOut: '即刻开始',
     methodology: '方法论',
     readinessScore: '准备度评分',

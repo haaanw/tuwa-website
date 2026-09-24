@@ -3,7 +3,7 @@ import type { Privacy } from '../en/privacy';
 const privacy: Privacy = {
   meta: {
     title: '隐私政策',
-    lastUpdated: '2026年8月24日',
+    lastUpdated: '2026年9月24日',
     description: 'Tuwa——训练负荷与恢复管理应用的隐私政策。',
   },
   disclaimer: {
@@ -31,7 +31,7 @@ const privacy: Privacy = {
         },
         {
           label: '训练描述',
-          description: '当您用一句话记录训练时，所说、所打或所听写的那段文字（详见下方"训练文本解析"）',
+          description: '当您用一句话记录训练时，所打出的那段文字（详见下方"训练文本解析"）',
         },
       ],
     },
@@ -70,29 +70,51 @@ const privacy: Privacy = {
       },
     ],
   },
-  // 为 app v1.7.2（语音与文字记录）新增。走这条通路的只有运动员提交的训练描述；
-  // 上文的 HealthKit 条款没有任何改变，此处再次声明，避免二者被混淆。
+  // 2026-09-24 更新，对应 app v1.7.4：训练语音记录已下线（HAN 裁定）。现在走
+  // 这条通路的只有运动员打字提交的训练描述；上文的 HealthKit 条款没有任何
+  // 改变，此处再次声明，避免二者被混淆。
   voiceParsing: {
     heading: '训练文本解析',
-    p1: '当您通过描述来记录一次训练时——在应用中口述、直接打字，或用键盘麦克风听写——语音会在您的设备上转换为文字，随后这段文字会发送到我们的解析服务，生成一份组数、次数与重量的草稿供您核对。',
+    p1: '当您通过打字描述来记录一次训练时，这段文字会发送到我们的解析服务，生成一份组数、次数与重量的草稿供您核对。',
     p2: '这段文字由第三方语言模型服务商（DeepSeek）代表我们处理。请求需要已登录的账户，并按用户设有每日额度上限。',
     items: [
       {
         label: '会发送什么',
-        description: '仅有您提交的训练描述，以及您使用的单位。',
+        description: '仅有您打出的训练描述，以及您使用的单位。',
       },
       {
         label: '绝不会发送什么',
-        description: '不含任何 HealthKit 数据，不含恢复或准备度评分，不含电子邮件地址，也不含任何录音——只有文字。',
+        description: '不含任何 HealthKit 数据，不含恢复或准备度评分，也不含电子邮件地址——只有您打出的文字。',
       },
       {
         label: '这是可选的',
-        description: '手动录入可以完成同样的事。如果您从不使用文字描述训练，就不会有任何内容发送到解析服务。',
+        description: '手动录入可以完成同样的事。如果您从不打字描述训练，就不会有任何内容发送到解析服务。',
       },
     ],
     p3: '解析结果会作为草稿返回到您的设备。在您确认之前，不会有任何内容保存到训练记录中。',
     healthKitReminder: '这与上文的 HealthKit 条款相互独立，而该条款没有改变：原始 HealthKit 数据从不上传，无论是上传到本服务还是任何其他服务。',
     healthKitReminderStrong: '原始 HealthKit 数据从不上传',
+  },
+  // 2026-09-24 为 app v1.7.4 新增。导入训练计划是与上方训练记录完全独立的
+  // 功能。自 v1.7.4 起，应用不再使用麦克风或语音识别——导入训练计划只能粘贴
+  // 文字，或导入 PDF/照片，文字在设备上提取。
+  programImport: {
+    heading: '训练计划导入',
+    p1: '您可以通过粘贴文字，或导入 PDF 或照片（文字会在您的设备上提取），把训练计划导入 Tuwa。',
+    items: [
+      {
+        label: '会发送什么',
+        description: '您粘贴的计划文字，或者从您设备上的 PDF 或照片中提取的文字——仅有文字。不发送任何录音、HealthKit 数据或评分。',
+      },
+      {
+        label: '由谁处理',
+        description: '第三方语言模型服务商（OpenAI）代表我们处理这段文字，将其转换为结构化的训练计划。',
+      },
+      {
+        label: '您会得到什么',
+        description: '一份计划草稿会返回到您的设备供您核对。在您确认之前，不会保存任何内容。',
+      },
+    ],
   },
   dataSharing: {
     heading: '数据共享',
@@ -119,18 +141,22 @@ const privacy: Privacy = {
         url: 'https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html',
         urlDisplay: 'deepseek.com 隐私政策',
       },
+      {
+        label: 'OpenAI',
+        description: '（解析导入训练计划的语言模型——仅文字）',
+        url: 'https://openai.com/policies/privacy-policy/',
+        urlDisplay: 'openai.com 隐私政策',
+      },
     ],
     outro: '我们不使用任何广告网络、数据分析追踪器或第三方数据中介。',
   },
   dataRetention: {
     heading: '数据保留与删除',
-    intro: '只要您的账户存在，我们即保留您的数据。如需删除所有数据，请：',
+    intro: '只要您的账户存在，我们即保留您的数据。如需删除您的账户及全部数据，请：',
     steps: [
-      '在应用中前往"个人资料 → 退出登录"',
-      '通过以下邮件联系我们，申请从服务器完全删除您的账户和数据',
+      '在应用中前往"档案 → 删除账号"',
     ],
-    stepOneStrong: '个人资料 → 退出登录',
-    outro: '删除后，您的所有数据——包括训练记录及评分——将从我们的服务器上永久移除。',
+    outro: '此操作会从我们的数据库中删除您的账号及其数据——包括训练记录及评分。如有其他隐私相关请求，请通过下方邮箱联系我们。',
   },
   yourRights: {
     heading: '您的权利',

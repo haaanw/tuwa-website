@@ -59,6 +59,14 @@ const t = usePrivacyTranslations('zh');
   <p>{t.voiceParsing.p3}</p>
   <p>{t.voiceParsing.healthKitReminder}</p>
 
+  <h2>{t.programImport.heading}</h2>
+  <p>{t.programImport.p1}</p>
+  <ul>
+    {t.programImport.items.map((item) => (
+      <li><strong>{item.label}：</strong>{item.description}</li>
+    ))}
+  </ul>
+
   <h2>{t.dataSharing.heading}</h2>
   <p>{t.dataSharing.p1}</p>
 
@@ -73,8 +81,9 @@ const t = usePrivacyTranslations('zh');
   <h2>{t.dataRetention.heading}</h2>
   <p>{t.dataRetention.intro}</p>
   <ol>
-    <li>在应用中前往<strong>{t.dataRetention.stepOneStrong}</strong></li>
-    <li>{t.dataRetention.steps[1]}</li>
+    {t.dataRetention.steps.map((step) => (
+      <li>{step}</li>
+    ))}
   </ol>
   <p>{t.dataRetention.outro}</p>
 

@@ -3,7 +3,7 @@ import type { Terms } from '../en/terms';
 const terms: Terms = {
   meta: {
     title: '服务条款',
-    lastUpdated: '2026年7月26日',
+    lastUpdated: '2026年9月24日',
     description: 'Tuwa——训练负荷与恢复管理应用的服务条款。',
   },
   disclaimer: {
@@ -76,7 +76,7 @@ const terms: Terms = {
   },
   termination: {
     heading: '9. 终止',
-    p1: '如您违反本条款，我们可能暂停或终止您的账户。您可随时通过联系我们删除账户。',
+    p1: '如您违反本条款，我们可能暂停或终止您的账户。您可随时在应用中前往「个人资料 → 删除账户」，或通过联系我们删除账户。',
   },
   changes: {
     heading: '10. 条款变更',

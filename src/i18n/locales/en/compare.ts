@@ -68,9 +68,12 @@ const content: TopicPageContent = {
             // natural-language parsing); Fitbod and JuggernautAI both taking
             // typed weight/reps/RPE. Do not widen this to "nobody does it" —
             // dedicated voice-logging apps exist; none of these tools is one.
-            label: 'Logging by voice',
+            // Tuwa's cell updated 2026-09-24: workout voice logging was REMOVED
+            // in v1.7.4 (HAN ruling) — logging is typed description or direct
+            // entry now.
+            label: 'Natural-language logging',
             generic: 'Sets are typed in. Whoop takes voice for journal entries and parses a prompt or a screenshot into a routine to follow; Bevel, TrainingPeaks and the AI-coach apps all ask you to enter each set by hand.',
-            tuwa: 'Say the session in one sentence — or type it, or dictate it. Tuwa parses it into an editable draft you confirm; nothing saves itself, and it is free on every tier.',
+            tuwa: 'Type the session in one sentence, or log sets directly. Tuwa parses the typed description into an editable draft you confirm; nothing saves itself, and it is free on every tier.',
           },
           {
             label: 'Decision owner',

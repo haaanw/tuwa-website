@@ -3,7 +3,7 @@ import type { Terms } from '../en/terms';
 const terms: Terms = {
   meta: {
     title: 'Conditions d\'utilisation',
-    lastUpdated: '26 juillet 2026',
+    lastUpdated: '24 septembre 2026',
     description: 'Conditions d\'utilisation de Tuwa — application de gestion de la charge d\'entraînement et de la récupération.',
   },
   disclaimer: {
@@ -76,7 +76,7 @@ const terms: Terms = {
   },
   termination: {
     heading: '9. Résiliation',
-    p1: 'Nous pouvons suspendre ou résilier ton compte si tu violes ces Conditions. Tu peux supprimer ton compte à tout moment en nous contactant.',
+    p1: 'Nous pouvons suspendre ou résilier ton compte si tu violes ces Conditions. Tu peux supprimer ton compte à tout moment depuis Profil → Supprimer le compte dans l\'application, ou en nous contactant.',
   },
   changes: {
     heading: '10. Modifications des présentes Conditions',
