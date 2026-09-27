@@ -3,7 +3,7 @@ import type { Privacy } from '../en/privacy';
 const privacy: Privacy = {
   meta: {
     title: '隐私政策',
-    lastUpdated: '2026年9月24日',
+    lastUpdated: '2026年9月27日',
     description: 'Tuwa——训练负荷与恢复管理应用的隐私政策。',
   },
   disclaimer: {
@@ -73,10 +73,14 @@ const privacy: Privacy = {
   // 2026-09-24 更新，对应 app v1.7.4：训练语音记录已下线（HAN 裁定）。现在走
   // 这条通路的只有运动员打字提交的训练描述；上文的 HealthKit 条款没有任何
   // 改变，此处再次声明，避免二者被混淆。
+  // 2026-09-27 更新：解析服务现在经由 OpenRouter（一个 AI 网关）路由，默认
+  // 使用 OpenAI 的模型；这条通路中不再使用 DeepSeek。同意条款与应用内新增
+  // 的一次性"AI 处理"授权界面及"档案 › 法律信息 › AI 处理"撤回入口对齐
+  // （HAN 裁定；OpenRouter 切换的发布前置条件）。
   voiceParsing: {
     heading: '训练文本解析',
     p1: '当您通过打字描述来记录一次训练时，这段文字会发送到我们的解析服务，生成一份组数、次数与重量的草稿供您核对。',
-    p2: '这段文字由第三方语言模型服务商（DeepSeek）代表我们处理。请求需要已登录的账户，并按用户设有每日额度上限。',
+    p2: '这段文字会经由 OpenRouter（一个 AI 网关）转发给一个语言模型——默认为 OpenAI 的模型。请求会经过我们的后端，需要已登录的账户，并按用户设有每日额度上限。我们要求 OpenRouter 仅将请求路由至不会用您的内容训练模型的服务商。',
     items: [
       {
         label: '会发送什么',
@@ -88,7 +92,7 @@ const privacy: Privacy = {
       },
       {
         label: '这是可选的',
-        description: '手动录入可以完成同样的事。如果您从不打字描述训练，就不会有任何内容发送到解析服务。',
+        description: 'Tuwa 会在您首次使用本功能或下方的"训练计划导入"功能前，先征得您的同意。您可以随时在"档案 › 法律信息 › AI 处理"中撤回同意——未同意时不会发送任何内容，您仍可手动记录训练。',
       },
     ],
     p3: '解析结果会作为草稿返回到您的设备。在您确认之前，不会有任何内容保存到训练记录中。',
@@ -108,7 +112,7 @@ const privacy: Privacy = {
       },
       {
         label: '由谁处理',
-        description: '第三方语言模型服务商（OpenAI）代表我们处理这段文字，将其转换为结构化的训练计划。',
+        description: '这段文字会经由 OpenRouter（一个 AI 网关）转发给一个语言模型——默认为 OpenAI 的模型——将其转换为结构化的训练计划。',
       },
       {
         label: '您会得到什么',
@@ -136,14 +140,14 @@ const privacy: Privacy = {
         urlDisplay: 'revenuecat.com/privacy',
       },
       {
-        label: 'DeepSeek',
-        description: '（将训练描述解析为组数的语言模型——仅文字）',
-        url: 'https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html',
-        urlDisplay: 'deepseek.com 隐私政策',
+        label: 'OpenRouter',
+        description: '（将训练与训练计划文字路由至语言模型的 AI 网关——仅文字）',
+        url: 'https://openrouter.ai/privacy',
+        urlDisplay: 'openrouter.ai 隐私政策',
       },
       {
         label: 'OpenAI',
-        description: '（解析导入训练计划的语言模型——仅文字）',
+        description: '（OpenRouter 背后的默认语言模型——仅文字）',
         url: 'https://openai.com/policies/privacy-policy/',
         urlDisplay: 'openai.com 隐私政策',
       },

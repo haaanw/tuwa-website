@@ -7,7 +7,7 @@ type WidenStrings<T> = T extends string
 const privacy = {
   meta: {
     title: 'Privacy Policy',
-    lastUpdated: 'September 24, 2026',
+    lastUpdated: 'September 27, 2026',
     description: 'Privacy policy for Tuwa — Training Load & Recovery app.',
   },
   disclaimer: {
@@ -78,10 +78,15 @@ const privacy = {
   // ruling). Only a typed workout description takes this path now. The
   // HealthKit claim above is unchanged and is restated here so the two cannot
   // be confused.
+  // Updated 2026-09-27: the parser now routes through OpenRouter (an AI
+  // gateway) to OpenAI by default; DeepSeek is no longer used anywhere in
+  // this pipeline. Consent copy added to match the app's one-time AI
+  // processing permission screen and its Profile › Legal › AI processing
+  // withdraw path (HAN ruling; release gate for the OpenRouter switch).
   voiceParsing: {
     heading: 'Workout Text Parsing',
     p1: 'When you log a session by typing a description of it, that text is sent to our parsing service so it can be turned into a draft of sets, reps, and weights for you to review.',
-    p2: 'The text is processed by a third-party language model provider (DeepSeek) on our behalf. Requests require a signed-in account and are limited by a daily quota per user.',
+    p2: 'The text goes through OpenRouter, an AI gateway that routes it to a language model — by default an OpenAI model. Requests go through our backend, require a signed-in account, and are limited by a daily quota per user. We ask OpenRouter to route requests only to providers that do not store prompts for training.',
     items: [
       {
         label: 'What is sent',
@@ -93,7 +98,7 @@ const privacy = {
       },
       {
         label: 'It is optional',
-        description: 'Manual entry does the same job. If you never type a description, nothing is ever sent to the parsing service.',
+        description: 'Tuwa asks for your permission the first time you use either this feature or Program Import below, before it sends anything. You can withdraw permission at any time in Profile › Legal › AI processing — without it, nothing is sent, and you can still log by hand.',
       },
     ] as const,
     p3: 'The parsed result is returned to your device as a draft. Nothing is saved to your log until you confirm it.',
@@ -114,7 +119,7 @@ const privacy = {
       },
       {
         label: 'Who processes it',
-        description: 'A third-party language model provider (OpenAI) processes the text on our behalf to turn it into a structured program.',
+        description: 'The text is sent through OpenRouter, an AI gateway, which passes it to a language model — by default an OpenAI model — to turn it into a structured program.',
       },
       {
         label: 'What you get back',
@@ -142,14 +147,14 @@ const privacy = {
         urlDisplay: 'revenuecat.com/privacy',
       },
       {
-        label: 'DeepSeek',
-        description: '(language model that parses workout descriptions into sets — text only)',
-        url: 'https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html',
-        urlDisplay: 'deepseek.com privacy policy',
+        label: 'OpenRouter',
+        description: '(AI gateway that routes workout and program text to a language model — text only)',
+        url: 'https://openrouter.ai/privacy',
+        urlDisplay: 'openrouter.ai/privacy',
       },
       {
         label: 'OpenAI',
-        description: '(language model that parses imported training programs — text only)',
+        description: '(default language model behind OpenRouter — text only)',
         url: 'https://openai.com/policies/privacy-policy/',
         urlDisplay: 'openai.com privacy policy',
       },

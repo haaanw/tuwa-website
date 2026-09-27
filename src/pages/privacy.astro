@@ -1,7 +1,7 @@
 ---
 import LegalPageLayout from '../layouts/LegalPageLayout.astro';
 ---
-<LegalPageLayout title="Privacy Policy" lastUpdated="September 24, 2026">
+<LegalPageLayout title="Privacy Policy" lastUpdated="September 27, 2026">
   <p>Tuwa ("the app") is developed by Hanwen Ma. This policy explains what data the app collects, how it is used, and your rights.</p>
 
   <h2>What Data We Collect</h2>
@@ -38,11 +38,11 @@ import LegalPageLayout from '../layouts/LegalPageLayout.astro';
 
   <h2>Workout Text Parsing</h2>
   <p>When you log a session by typing a description of it, that text is sent to our parsing service so it can be turned into a draft of sets, reps, and weights for you to review.</p>
-  <p>The text is processed by a third-party language model provider (DeepSeek) on our behalf. Requests require a signed-in account and are limited by a daily quota per user.</p>
+  <p>The text goes through OpenRouter, an AI gateway that routes it to a language model — by default an OpenAI model. Requests go through our backend, require a signed-in account, and are limited by a daily quota per user. We ask OpenRouter to route requests only to providers that do not store prompts for training.</p>
   <ul>
     <li><strong>What is sent:</strong> Only the workout description you typed, and the units you train in.</li>
     <li><strong>What is never sent:</strong> No HealthKit data of any kind, no recovery or readiness scores, and no email address — only the text you typed.</li>
-    <li><strong>It is optional:</strong> Manual entry does the same job. If you never type a description, nothing is ever sent to the parsing service.</li>
+    <li><strong>It is optional:</strong> Tuwa asks for your permission the first time you use either this feature or Program Import below, before it sends anything. You can withdraw permission at any time in Profile › Legal › AI processing — without it, nothing is sent, and you can still log by hand.</li>
   </ul>
   <p>The parsed result is returned to your device as a draft. Nothing is saved to your log until you confirm it.</p>
   <p>This is separate from the HealthKit rule above, which is unchanged: <strong>raw HealthKit data is never uploaded</strong>, to this service or to any other.</p>
@@ -51,7 +51,7 @@ import LegalPageLayout from '../layouts/LegalPageLayout.astro';
   <p>You can bring a training program into Tuwa by pasting text, or by importing a PDF or photo of it — the text is extracted on your device.</p>
   <ul>
     <li><strong>What is sent:</strong> The program text you paste, or the text extracted from your PDF or photo on your device — text only. No audio, no HealthKit data, and no scores are sent.</li>
-    <li><strong>Who processes it:</strong> A third-party language model provider (OpenAI) processes the text on our behalf to turn it into a structured program.</li>
+    <li><strong>Who processes it:</strong> The text is sent through OpenRouter, an AI gateway, which passes it to a language model — by default an OpenAI model — to turn it into a structured program.</li>
     <li><strong>What you get back:</strong> A draft program is returned to your device for you to review. Nothing is saved until you confirm it.</li>
   </ul>
 
@@ -62,8 +62,8 @@ import LegalPageLayout from '../layouts/LegalPageLayout.astro';
   <ul>
     <li><strong>Supabase</strong> (authentication and cloud sync): <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">supabase.com/privacy</a></li>
     <li><strong>RevenueCat</strong> (subscription management): <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer">revenuecat.com/privacy</a></li>
-    <li><strong>DeepSeek</strong> (language model that parses workout descriptions into sets — text only): <a href="https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html" target="_blank" rel="noopener noreferrer">deepseek.com privacy policy</a></li>
-    <li><strong>OpenAI</strong> (language model that parses imported training programs — text only): <a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener noreferrer">openai.com privacy policy</a></li>
+    <li><strong>OpenRouter</strong> (AI gateway that routes workout and program text to a language model — text only): <a href="https://openrouter.ai/privacy" target="_blank" rel="noopener noreferrer">openrouter.ai/privacy</a></li>
+    <li><strong>OpenAI</strong> (default language model behind OpenRouter — text only): <a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener noreferrer">openai.com privacy policy</a></li>
   </ul>
   <p>We do not use any advertising networks, analytics trackers, or third-party data brokers.</p>
 

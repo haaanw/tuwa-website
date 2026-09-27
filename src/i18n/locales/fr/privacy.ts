@@ -3,7 +3,7 @@ import type { Privacy } from '../en/privacy';
 const privacy: Privacy = {
   meta: {
     title: 'Politique de confidentialité',
-    lastUpdated: '24 septembre 2026',
+    lastUpdated: '27 septembre 2026',
     description: 'Politique de confidentialité de Tuwa — application de gestion de la charge d\'entraînement et de la récupération.',
   },
   disclaimer: {
@@ -74,10 +74,16 @@ const privacy: Privacy = {
   // ÉTÉ RETIRÉE (décision de HAN). Seule une description de séance tapée
   // emprunte encore ce chemin ; la règle HealthKit ci-dessus est inchangée et
   // redite ici pour que les deux ne se confondent pas.
+  // Mis à jour le 2026-09-27 : le service d'analyse passe désormais par
+  // OpenRouter (une passerelle IA) vers un modèle OpenAI par défaut ;
+  // DeepSeek n'est plus utilisé dans ce pipeline. Le texte de permission
+  // reprend l'écran de consentement « Traitement IA » ponctuel de l'app et
+  // son chemin de retrait Profil › Mentions légales › Traitement IA
+  // (décision de HAN ; condition de sortie pour le passage à OpenRouter).
   voiceParsing: {
     heading: 'Analyse du texte de séance',
     p1: "Quand tu notes une séance en tapant une description, ce texte est envoyé à notre service d'analyse pour être transformé en un brouillon de séries, répétitions et charges que tu vérifies.",
-    p2: "Le texte est traité pour notre compte par un fournisseur tiers de modèle de langue (DeepSeek). Les requêtes exigent un compte connecté et sont plafonnées par un quota quotidien par utilisateur.",
+    p2: "Le texte passe par OpenRouter, une passerelle IA qui l'achemine vers un modèle de langue — par défaut, un modèle OpenAI. Les requêtes passent par notre serveur, exigent un compte connecté et sont plafonnées par un quota quotidien par utilisateur. Nous demandons à OpenRouter de n'acheminer les requêtes qu'à des fournisseurs qui ne conservent pas le contenu envoyé pour entraîner leurs modèles.",
     items: [
       {
         label: 'Ce qui est envoyé',
@@ -89,7 +95,7 @@ const privacy: Privacy = {
       },
       {
         label: "C'est facultatif",
-        description: "La saisie manuelle fait le même travail. Si tu ne tapes jamais de description de séance, rien n'est jamais envoyé au service d'analyse.",
+        description: "La première fois que tu utilises cette fonction ou l'importation de programme ci-dessous, Tuwa te demande ta permission avant d'envoyer quoi que ce soit. Tu peux la retirer à tout moment dans Profil › Mentions légales › Traitement IA — sans elle, rien n'est envoyé, et tu peux toujours noter tes séances à la main.",
       },
     ],
     p3: "Le résultat revient sur ton téléphone sous forme de brouillon. Rien n'est enregistré dans ton journal tant que tu n'as pas confirmé.",
@@ -111,7 +117,7 @@ const privacy: Privacy = {
       },
       {
         label: 'Qui le traite',
-        description: "Un fournisseur tiers de modèle de langue (OpenAI) traite le texte pour notre compte afin d'en faire un programme structuré.",
+        description: "Le texte est envoyé via OpenRouter, une passerelle IA, qui l'achemine vers un modèle de langue — par défaut, un modèle OpenAI — pour en faire un programme structuré.",
       },
       {
         label: 'Ce que tu reçois',
@@ -139,14 +145,14 @@ const privacy: Privacy = {
         urlDisplay: 'revenuecat.com/privacy',
       },
       {
-        label: 'DeepSeek',
-        description: '(modèle de langue qui transforme les descriptions de séance en séries — texte uniquement)',
-        url: 'https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html',
-        urlDisplay: 'politique de confidentialité deepseek.com',
+        label: 'OpenRouter',
+        description: '(passerelle IA qui achemine le texte de séance et de programme vers un modèle de langue — texte uniquement)',
+        url: 'https://openrouter.ai/privacy',
+        urlDisplay: 'openrouter.ai/privacy',
       },
       {
         label: 'OpenAI',
-        description: '(modèle de langue qui analyse les programmes importés — texte uniquement)',
+        description: '(modèle de langue par défaut derrière OpenRouter — texte uniquement)',
         url: 'https://openai.com/policies/privacy-policy/',
         urlDisplay: 'politique de confidentialité openai.com',
       },
