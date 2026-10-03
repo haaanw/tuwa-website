@@ -3,7 +3,7 @@ import type { Privacy } from '../en/privacy';
 const privacy: Privacy = {
   meta: {
     title: 'Politique de confidentialité',
-    lastUpdated: '27 septembre 2026',
+    lastUpdated: '3 octobre 2026',
     description: 'Politique de confidentialité de Tuwa — application de gestion de la charge d\'entraînement et de la récupération.',
   },
   disclaimer: {
@@ -48,6 +48,13 @@ const privacy: Privacy = {
     },
     healthKitNote: 'Tuwa n\'écrit jamais de données dans HealthKit. L\'accès à HealthKit est facultatif et nécessite ton autorisation explicite.',
     healthKitNoteStrong: 'n\'écrit jamais',
+    // Ajouté le 2026-10-03 pour l'app v1.7.5 : mesures adaptées au cycle
+    // (activation volontaire). Les données de cycle et la température du
+    // poignet pendant le sommeil ne servent que sur le téléphone.
+    cycleAware: {
+      label: 'Mesures adaptées au cycle (facultatif).',
+      text: "Si tu actives les mesures adaptées au cycle dans Profil, Tuwa demande à Apple Santé tes données de cycle et la température de ton poignet pendant le sommeil. Tuwa les utilise uniquement sur ton téléphone, pour lire ta HRV et ta fréquence cardiaque au repos par rapport à ta propre référence pour la même phase de ton cycle. Les données de cycle ne quittent jamais ton téléphone : elles ne sont ni synchronisées, ni envoyées à un service d'IA, ni partagées avec qui que ce soit. Désactiver la fonction arrête cette lecture ; tu peux aussi retirer l'accès dans Réglages iOS › Santé.",
+    },
     dataWeCompute: {
       heading: 'Données calculées',
       p1: 'Les scores de récupération, l\'ACWR (ratio charge aiguë/chronique), le stress d\'entraînement et les records personnels sont calculés sur ton appareil à partir des données ci-dessus.',
@@ -125,6 +132,37 @@ const privacy: Privacy = {
       },
     ],
   },
+  // Ajouté le 2026-10-03 pour l'app v1.7.5 : raisonnement IA facultatif (Pro).
+  // OpenAI est appelé DIRECTEMENT par le serveur de Tuwa (pas via OpenRouter).
+  // Conservation jusqu'à 30 jours pour surveiller les abus (décision de HAN du
+  // 2026-10-03 : pas de conservation nulle). Distinct de la permission
+  // « Traitement IA » ci-dessus.
+  aiReasoning: {
+    heading: 'Raisonnement IA (facultatif, Pro)',
+    p1: "Si tu es abonné à Tuwa Pro et que tu actives le raisonnement IA, Tuwa demande à un modèle d'IA quel ajustement convient à la séance du jour. Le serveur de Tuwa envoie la demande directement à OpenAI, qui la traite pour notre compte.",
+    items: [
+      {
+        label: 'Ce qui est envoyé',
+        description: "Ton programme d'entraînement, les séries que tu as enregistrées et tes mesures exprimées en mots — par exemple « forme élevée », « charge accrue », « match dans 2 jours ».",
+      },
+      {
+        label: "Ce qui n'est jamais envoyé",
+        description: "Aucune valeur issue d'Apple Santé (ni fréquence cardiaque, ni HRV, ni durée de sommeil, ni température, ni données du cycle menstruel), ni ton nom, ni ton adresse e-mail, ni ton identifiant de compte. OpenAI ne reçoit qu'un identifiant haché à sens unique, afin de détecter les abus.",
+      },
+      {
+        label: 'Pourquoi',
+        description: "Pour suggérer l'ajustement qui convient aujourd'hui, dans les limites fixées par le moteur de Tuwa. Tuwa vérifie chaque réponse par rapport à ces limites, et tu décides de chaque ajustement. Si le service ne répond pas, Tuwa affiche sa propre suggestion.",
+      },
+      {
+        label: 'Conservation',
+        description: "OpenAI peut conserver les demandes jusqu'à 30 jours pour surveiller les abus, puis les supprime. OpenAI ne les utilise pas pour entraîner ses modèles. Nous n'utilisons pas ces données à des fins publicitaires.",
+      },
+      {
+        label: 'Ton choix',
+        description: "Le raisonnement IA reste désactivé tant que tu ne l'autorises pas. Cette permission est distincte de la permission Traitement IA utilisée pour le texte de séance et l'importation de programme. Tu peux retirer ton accord à tout moment dans Profil › Mentions légales › Raisonnement IA. Après ce retrait, Tuwa cesse tout envoi et supprime ses données de raisonnement IA sur ton téléphone.",
+      },
+    ],
+  },
   dataSharing: {
     heading: 'Partage des données',
     p1: "Tuwa ne partage pas tes données d'entraînement ou de récupération avec des coachs, d'autres utilisateurs, des annonceurs ou des courtiers en données. Si des fonctionnalités de partage sont ajoutées à l'avenir, elles nécessiteront ton consentement explicite.",
@@ -152,7 +190,7 @@ const privacy: Privacy = {
       },
       {
         label: 'OpenAI',
-        description: '(modèle de langue par défaut derrière OpenRouter — texte uniquement)',
+        description: "(modèle de langue par défaut derrière OpenRouter pour le texte de séance et de programme, et appelé directement par le serveur de Tuwa pour le raisonnement IA facultatif — texte uniquement)",
         url: 'https://openai.com/policies/privacy-policy/',
         urlDisplay: 'politique de confidentialité openai.com',
       },

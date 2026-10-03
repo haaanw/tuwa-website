@@ -1,7 +1,7 @@
 ---
 import LegalPageLayout from '../layouts/LegalPageLayout.astro';
 ---
-<LegalPageLayout title="Privacy Policy" lastUpdated="September 27, 2026">
+<LegalPageLayout title="Privacy Policy" lastUpdated="October 3, 2026">
   <p>Tuwa ("the app") is developed by Hanwen Ma. This policy explains what data the app collects, how it is used, and your rights.</p>
 
   <h2>What Data We Collect</h2>
@@ -25,6 +25,8 @@ import LegalPageLayout from '../layouts/LegalPageLayout.astro';
   </ul>
 
   <p>Tuwa <strong>never writes</strong> data to HealthKit. HealthKit access is optional and requires your explicit permission.</p>
+
+  <p><strong>Cycle-aware readings (optional).</strong> If you turn on cycle-aware readings in Profile, Tuwa asks Apple Health for your cycle data and your sleeping wrist temperature. Tuwa uses them only on your phone, to read your HRV and resting heart rate against your own baseline for the same part of your cycle. Cycle data never leaves your phone: it is not synced, not sent to any AI service and not shared with anyone. Turning the feature off stops the reading; you can also remove access in iOS Settings › Health.</p>
 
   <h3>Data we compute</h3>
   <p>Recovery scores, ACWR (Acute:Chronic Workload Ratio), training stress, and personal records are calculated on your device from the data above.</p>
@@ -55,6 +57,16 @@ import LegalPageLayout from '../layouts/LegalPageLayout.astro';
     <li><strong>What you get back:</strong> A draft program is returned to your device for you to review. Nothing is saved until you confirm it.</li>
   </ul>
 
+  <h2>AI Reasoning (Optional, Pro)</h2>
+  <p>If you have Tuwa Pro and you turn on AI reasoning, Tuwa asks an AI model which change fits today's session. Tuwa's server sends the request directly to <strong>OpenAI</strong>, which processes it on our behalf.</p>
+  <ul>
+    <li><strong>What is sent:</strong> Your training plan, the sets you logged, and your readings expressed as words — for example "readiness high", "strain elevated", "match in 2 days".</li>
+    <li><strong>What is never sent:</strong> Any number from Apple Health (no heart rate, HRV, sleep time, temperature or menstrual cycle data), your name, your email address or your account ID. OpenAI receives only a one-way hashed identifier so that it can detect abuse.</li>
+    <li><strong>Why:</strong> To suggest which change fits today, inside limits that Tuwa's own engine sets. Tuwa checks every answer against those limits, and you decide on every change. If the service does not answer, Tuwa shows its own suggestion.</li>
+    <li><strong>Retention:</strong> OpenAI may keep requests for up to 30 days to monitor for abuse, then deletes them. OpenAI does not use them to train its models. We do not use this data for advertising.</li>
+    <li><strong>Your choice:</strong> AI reasoning is off until you allow it. This permission is separate from the AI processing permission for typed workouts and program import. You can withdraw at any time in Profile › Legal › AI reasoning. When you withdraw, Tuwa stops sending and deletes its AI-reasoning records on your phone.</li>
+  </ul>
+
   <h2>Data Sharing</h2>
   <p>Tuwa does not share your training or recovery data with coaches, other users, advertisers, or data brokers. If future sharing features are added, they will require your explicit consent.</p>
 
@@ -63,7 +75,7 @@ import LegalPageLayout from '../layouts/LegalPageLayout.astro';
     <li><strong>Supabase</strong> (authentication and cloud sync): <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">supabase.com/privacy</a></li>
     <li><strong>RevenueCat</strong> (subscription management): <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer">revenuecat.com/privacy</a></li>
     <li><strong>OpenRouter</strong> (AI gateway that routes workout and program text to a language model — text only): <a href="https://openrouter.ai/privacy" target="_blank" rel="noopener noreferrer">openrouter.ai/privacy</a></li>
-    <li><strong>OpenAI</strong> (default language model behind OpenRouter — text only): <a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener noreferrer">openai.com privacy policy</a></li>
+    <li><strong>OpenAI</strong> (default language model behind OpenRouter for workout and program text, and called directly by Tuwa's server for optional AI reasoning — text only): <a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener noreferrer">openai.com privacy policy</a></li>
   </ul>
   <p>We do not use any advertising networks, analytics trackers, or third-party data brokers.</p>
 

@@ -32,6 +32,8 @@ const t = usePrivacyTranslations('fr');
 
   <p>{t.whatWeCollect.healthKitNote}</p>
 
+  <p><strong>{t.whatWeCollect.cycleAware.label}</strong> {t.whatWeCollect.cycleAware.text}</p>
+
   <h3>{t.whatWeCollect.dataWeCompute.heading}</h3>
   <p>{t.whatWeCollect.dataWeCompute.p1}</p>
 
@@ -57,6 +59,14 @@ const t = usePrivacyTranslations('fr');
   <p>{t.programImport.p1}</p>
   <ul>
     {t.programImport.items.map((item) => (
+      <li><strong>{item.label} :</strong> {item.description}</li>
+    ))}
+  </ul>
+
+  <h2>{t.aiReasoning.heading}</h2>
+  <p>{t.aiReasoning.p1}</p>
+  <ul>
+    {t.aiReasoning.items.map((item) => (
       <li><strong>{item.label} :</strong> {item.description}</li>
     ))}
   </ul>

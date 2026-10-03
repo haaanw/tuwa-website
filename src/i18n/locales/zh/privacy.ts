@@ -3,7 +3,7 @@ import type { Privacy } from '../en/privacy';
 const privacy: Privacy = {
   meta: {
     title: '隐私政策',
-    lastUpdated: '2026年9月27日',
+    lastUpdated: '2026年10月3日',
     description: 'Tuwa——训练负荷与恢复管理应用的隐私政策。',
   },
   disclaimer: {
@@ -48,6 +48,12 @@ const privacy: Privacy = {
     },
     healthKitNote: 'Tuwa 从不向 HealthKit 写入数据。HealthKit 访问权限为可选项，需您明确授权。',
     healthKitNoteStrong: '从不写入',
+    // 2026-10-03 为 app v1.7.5 新增：周期感知读数（需主动开启）。周期数据与
+    // 睡眠期间的手腕温度只在手机上使用。
+    cycleAware: {
+      label: '周期感知读数（可选）。',
+      text: '如果您在"档案"中开启周期感知读数，Tuwa 会向 Apple 健康请求您的周期数据和睡眠期间的手腕温度。Tuwa 只在您的手机上使用这些数据：把您的 HRV 和静息心率，与您自己在周期同一阶段的基线相比。周期数据绝不会离开您的手机——不会同步，不会发送给任何 AI 服务，也不会与任何人共享。关闭该功能即停止读取；您也可以在 iOS 设置 › 健康 中移除访问权限。',
+    },
     dataWeCompute: {
       heading: '我们计算的数据',
       p1: '恢复评分、ACWR（急性与慢性训练负荷比）、训练压力指数及个人最佳成绩，均在您的设备上根据上述数据计算得出。',
@@ -120,6 +126,35 @@ const privacy: Privacy = {
       },
     ],
   },
+  // 2026-10-03 为 app v1.7.5 新增：可选的 AI 推理（Pro）。由 Tuwa 的服务器
+  // 直接调用 OpenAI（不经过 OpenRouter）。为检查滥用最多保留 30 天（HAN
+  // 2026-10-03：不申请零数据保留）。与上方的"AI 处理"授权相互独立。
+  aiReasoning: {
+    heading: 'AI 推理（可选，Pro）',
+    p1: '如果您订阅了 Tuwa Pro 并开启 AI 推理，Tuwa 会请一个 AI 模型判断哪种调整适合今天的训练。请求由 Tuwa 的服务器直接发送给 OpenAI，由 OpenAI 代表我们处理。',
+    items: [
+      {
+        label: '会发送什么',
+        description: '您的训练计划、您记录的训练组，以及用文字表述的读数——例如"准备度高"、"压力偏高"、"2 天后有比赛"。',
+      },
+      {
+        label: '绝不会发送什么',
+        description: '任何来自 Apple 健康的数值（没有心率、HRV、睡眠时长、体温或月经周期数据），也不发送您的姓名、邮箱或账号 ID。OpenAI 只会收到一个经过单向哈希处理的标识符，用于检查滥用。',
+      },
+      {
+        label: '用途',
+        description: '在 Tuwa 自身引擎设定的范围内，建议哪种调整适合今天。Tuwa 会按这些范围检查每一个回答，每一项调整都由您决定。如果服务没有回答，Tuwa 会显示它自己的建议。',
+      },
+      {
+        label: '保留期限',
+        description: 'OpenAI 可能将请求保留最多 30 天，用于检查滥用，之后删除。OpenAI 不会用这些请求训练模型。我们不会将这些数据用于广告。',
+      },
+      {
+        label: '您的选择',
+        description: '在您允许之前，AI 推理保持关闭。这项授权与上方用于训练文本解析和训练计划导入的"AI 处理"授权相互独立。您可以随时在"档案 › 法律信息 › AI 推理"中撤回。撤回后，Tuwa 停止发送，并删除您手机上的 AI 推理记录。',
+      },
+    ],
+  },
   dataSharing: {
     heading: '数据共享',
     p1: 'Tuwa 不会将您的训练或恢复数据共享给教练、其他用户、广告商或数据经纪商。若日后新增共享功能，将需要您的明确同意。',
@@ -147,7 +182,7 @@ const privacy: Privacy = {
       },
       {
         label: 'OpenAI',
-        description: '（OpenRouter 背后的默认语言模型——仅文字）',
+        description: '（OpenRouter 背后用于训练与训练计划文字的默认语言模型；可选的 AI 推理也由 Tuwa 的服务器直接调用它——仅文字）',
         url: 'https://openai.com/policies/privacy-policy/',
         urlDisplay: 'openai.com 隐私政策',
       },

@@ -7,7 +7,7 @@ type WidenStrings<T> = T extends string
 const privacy = {
   meta: {
     title: 'Privacy Policy',
-    lastUpdated: 'September 27, 2026',
+    lastUpdated: 'October 3, 2026',
     description: 'Privacy policy for Tuwa — Training Load & Recovery app.',
   },
   disclaimer: {
@@ -52,6 +52,12 @@ const privacy = {
     },
     healthKitNote: 'Tuwa never writes data to HealthKit. HealthKit access is optional and requires your explicit permission.',
     healthKitNoteStrong: 'never writes',
+    // Added 2026-10-03 for app v1.7.5: cycle-aware readings (opt-in). Cycle
+    // data and sleeping wrist temperature are used on the phone only.
+    cycleAware: {
+      label: 'Cycle-aware readings (optional).',
+      text: 'If you turn on cycle-aware readings in Profile, Tuwa asks Apple Health for your cycle data and your sleeping wrist temperature. Tuwa uses them only on your phone, to read your HRV and resting heart rate against your own baseline for the same part of your cycle. Cycle data never leaves your phone: it is not synced, not sent to any AI service and not shared with anyone. Turning the feature off stops the reading; you can also remove access in iOS Settings › Health.',
+    },
     dataWeCompute: {
       heading: 'Data we compute',
       p1: 'Recovery scores, ACWR (Acute:Chronic Workload Ratio), training stress, and personal records are calculated on your device from the data above.',
@@ -127,6 +133,36 @@ const privacy = {
       },
     ] as const,
   },
+  // Added 2026-10-03 for app v1.7.5: optional AI reasoning (Pro). OpenAI is
+  // called DIRECTLY from Tuwa's server (not through OpenRouter). Retention is
+  // up to 30 days for abuse monitoring (HAN 2026-10-03: no zero data
+  // retention). Separate from the AI processing permission above.
+  aiReasoning: {
+    heading: 'AI Reasoning (Optional, Pro)',
+    p1: "If you have Tuwa Pro and you turn on AI reasoning, Tuwa asks an AI model which change fits today's session. Tuwa's server sends the request directly to OpenAI, which processes it on our behalf.",
+    items: [
+      {
+        label: 'What is sent',
+        description: 'Your training plan, the sets you logged, and your readings expressed as words — for example "readiness high", "strain elevated", "match in 2 days".',
+      },
+      {
+        label: 'What is never sent',
+        description: 'Any number from Apple Health (no heart rate, HRV, sleep time, temperature or menstrual cycle data), your name, your email address or your account ID. OpenAI receives only a one-way hashed identifier so that it can detect abuse.',
+      },
+      {
+        label: 'Why',
+        description: "To suggest which change fits today, inside limits that Tuwa's own engine sets. Tuwa checks every answer against those limits, and you decide on every change. If the service does not answer, Tuwa shows its own suggestion.",
+      },
+      {
+        label: 'Retention',
+        description: 'OpenAI may keep requests for up to 30 days to monitor for abuse, then deletes them. OpenAI does not use them to train its models. We do not use this data for advertising.',
+      },
+      {
+        label: 'Your choice',
+        description: 'AI reasoning is off until you allow it. This permission is separate from the AI processing permission for typed workouts and program import. You can withdraw at any time in Profile › Legal › AI reasoning. When you withdraw, Tuwa stops sending and deletes its AI-reasoning records on your phone.',
+      },
+    ] as const,
+  },
   dataSharing: {
     heading: 'Data Sharing',
     p1: 'Tuwa does not share your training or recovery data with coaches, other users, advertisers, or data brokers. If future sharing features are added, they will require your explicit consent.',
@@ -154,7 +190,7 @@ const privacy = {
       },
       {
         label: 'OpenAI',
-        description: '(default language model behind OpenRouter — text only)',
+        description: "(default language model behind OpenRouter for workout and program text, and called directly by Tuwa's server for optional AI reasoning — text only)",
         url: 'https://openai.com/policies/privacy-policy/',
         urlDisplay: 'openai.com privacy policy',
       },
