@@ -5,3 +5,14 @@
 
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Universal links (app v1.7.5 referral): Apple fetches this file directly — JSON, no redirect.
+/.well-known/apple-app-site-association
+  Content-Type: application/json
+  Cache-Control: public, max-age=3600
+
+# Referral link fallback (shown only when the app is not installed) — never indexed.
+/r/*
+  X-Robots-Tag: noindex
+/friend-link/*
+  X-Robots-Tag: noindex

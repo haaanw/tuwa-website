@@ -24,3 +24,7 @@
 /zh/features/voice-logging/   /zh/features/text-logging    301
 /fr/features/voice-logging    /fr/features/text-logging    301
 /fr/features/voice-logging/   /fr/features/text-logging    301
+
+# App v1.7.5 "Give a month": every /r/<token> serves the one fallback page (status 200, the
+# token stays in the address bar). With the app installed, iOS opens the app instead.
+/r/*    /friend-link/    200

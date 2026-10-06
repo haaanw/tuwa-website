@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["9XTU7KMJ4J.com.tonus.app"],
+        "components": [
+          { "/": "/r/*", "comment": "Give a month: a friend's referral link opens the app" }
+        ]
+      }
+    ]
+  }
+}

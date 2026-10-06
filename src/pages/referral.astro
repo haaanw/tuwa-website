@@ -1,0 +1,70 @@
+---
+// App v1.7.5 "Give a month" referral terms (source: the app repo's .planning/v175/REFERRAL-TERMS.md).
+// The app links here (en) and to /zh/referral/ (zh-Hans).
+import LegalPageLayout from '../layouts/LegalPageLayout.astro';
+---
+<LegalPageLayout title="Give a month — referral terms" description="The terms of the Give a month referral in the Tuwa iOS app." lastUpdated="October 6, 2026">
+  <p>These terms cover the "Give a month" referral in the Tuwa iOS app. They add to the <a href="/terms">Tuwa Terms of Service</a>. Where they differ, these terms apply to the referral only.</p>
+
+  <h2>1. What each person gets</h2>
+  <ul>
+    <li><strong>Your friend</strong> gets one month of Tuwa Pro free on the annual plan. Apple gives the month through a one-time offer code. After the free month, the annual plan renews at the annual price unless your friend cancels in their Apple account settings before the month ends.</li>
+    <li><strong>You</strong> get one month of Tuwa Pro when your friend qualifies (section 3).
+      <ul>
+        <li>If you do not have Pro, the month starts at once.</li>
+        <li>If you already have Pro from an earlier referral month, the new month adds to its end.</li>
+        <li>If you have an App Store subscription, the month is an Apple promotional offer. You confirm it in Apple's sheet. The free month starts on your next billing date. After it, your subscription renews at its normal price.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>2. Who can take part</h2>
+  <ul>
+    <li>You need a Tuwa account and the Tuwa iOS app.</li>
+    <li>Your friend needs a <strong>new</strong> Tuwa account (created within the last 7 days) and an Apple ID that has not subscribed to Tuwa before. Apple decides who can redeem an offer code.</li>
+    <li>One friend link works for one friend. One account can use one friend link.</li>
+    <li>The referral is optional. Tuwa works the same with or without it.</li>
+  </ul>
+
+  <h2>3. When you get your month</h2>
+  <p>Your friend qualifies when all of these are true within 14 days of using your link:</p>
+  <ol>
+    <li>Your friend redeemed the offer code with their Apple ID.</li>
+    <li>Your friend finished setup in the app.</li>
+    <li>Your friend connected Apple Health, and Tuwa has a reading from it.</li>
+    <li>Your friend logged a first session.</li>
+  </ol>
+  <p>If these are not all true after 14 days, the link gives you no month. Your friend keeps their month from Apple.</p>
+
+  <h2>4. Limits</h2>
+  <ul>
+    <li>Up to 6 credited months per account in any 365 days.</li>
+    <li>Up to 3 open links at a time, and up to 10 new links in 30 days.</li>
+    <li>A link closes 30 days after you create it if no friend uses it.</li>
+    <li>Apple lets one promotional offer be active at a time. If you have more than one month waiting, the next one becomes available after the current one starts.</li>
+  </ul>
+
+  <h2>5. Fair use</h2>
+  <ul>
+    <li>You cannot refer yourself. Tuwa blocks a link used by the same account, or on an iPhone that created a referral link. Tuwa uses Apple's DeviceCheck for this; DeviceCheck stores two yes/no values per device at Apple and no personal data.</li>
+    <li>Tuwa also notes when a link is used from the same network as its creator within 24 hours. This note alone never blocks a referral.</li>
+    <li>Tuwa can refuse or remove a referral month that comes from fake accounts, bought or sold links, or other misuse, and can close the referral program. A month already given stays.</li>
+    <li>Referral months have no cash value and cannot be transferred.</li>
+  </ul>
+
+  <h2>6. Apple's role</h2>
+  <ul>
+    <li>Apple provides the offer code, decides if an Apple ID can redeem it, and handles billing, renewal and cancellation. Manage or cancel a subscription in your Apple account settings.</li>
+    <li>Apple is not a sponsor of this referral program.</li>
+  </ul>
+
+  <h2>7. How credit works (the record Tuwa keeps)</h2>
+  <ul>
+    <li>Tuwa records each link: who created it, which friend account used it, the dates of each step, and the result. It keeps a one-way hash of the network prefix — never the full IP address. You can see your own referral records in the app.</li>
+    <li>No health reading leaves your phone for the referral. Tuwa checks step 3 from the scores the app already syncs, not from raw Apple Health data.</li>
+    <li>Deleting your account deletes your referral records.</li>
+  </ul>
+
+  <h2>8. Changes</h2>
+  <p>Tuwa can change these terms. A change never removes a month already given. The date at the top shows the latest version.</p>
+</LegalPageLayout>

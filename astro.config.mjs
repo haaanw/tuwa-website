@@ -24,6 +24,8 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
+      // The referral fallback (/r/<token> → /friend-link/) is a utility page, never a search result.
+      filter: (page) => !page.includes('/friend-link/'),
       i18n: {
         defaultLocale: 'en',
         locales: {

@@ -1,0 +1,76 @@
+---
+// App v1.7.5「送一个月」推荐条款（中文）。英文版：/referral/。
+import '@fontsource/noto-sans-sc/400.css';
+import '@fontsource/noto-sans-sc/700.css';
+import LegalPageLayout from '../../layouts/LegalPageLayout.astro';
+---
+
+<style is:global>
+  html[lang="zh"] { --font-general-sans: 'General Sans', 'Noto Sans SC', system-ui, sans-serif; }
+</style>
+
+<LegalPageLayout title="送一个月 — 推荐条款" description="Tuwa iOS 应用中「送一个月」推荐活动的条款。" lastUpdated="2026年10月6日" locale="zh">
+  <p>本条款适用于 Tuwa iOS 应用中的「送一个月」推荐活动，是对 <a href="/zh/terms">Tuwa 服务条款</a>的补充。两者不一致时，本条款仅就推荐活动优先适用。</p>
+
+  <h2>1. 双方各得到什么</h2>
+  <ul>
+    <li><strong>您的朋友</strong>可在年付方案上免费使用一个月 Tuwa Pro。这一个月由 Apple 通过一次性优惠代码提供。免费月结束后，年付方案按年付价格自动续订，除非您的朋友在免费月结束前于 Apple 账户设置中取消。</li>
+    <li><strong>您</strong>将在朋友符合条件时（见第 3 条）获得一个月 Tuwa Pro。
+      <ul>
+        <li>如果您没有 Pro，这一个月立即开始。</li>
+        <li>如果您已有来自之前推荐的 Pro 月，新的一个月接在其后。</li>
+        <li>如果您有 App Store 订阅，这一个月是 Apple 推广优惠，需在 Apple 的确认界面中确认。免费月从您的下一个扣费日开始，之后按正常价格续订。</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>2. 谁可以参加</h2>
+  <ul>
+    <li>您需要一个 Tuwa 账户和 Tuwa iOS 应用。</li>
+    <li>您的朋友需要一个<strong>新的</strong> Tuwa 账户（7 天内创建），以及一个从未订阅过 Tuwa 的 Apple ID。能否兑换优惠代码由 Apple 决定。</li>
+    <li>一个朋友链接只能给一位朋友使用。一个账户只能使用一个朋友链接。</li>
+    <li>推荐活动是自愿的。无论是否参加，Tuwa 的功能都相同。</li>
+  </ul>
+
+  <h2>3. 您何时获得一个月</h2>
+  <p>在您的朋友使用您的链接后 14 天内，以下各项全部满足时，朋友即符合条件：</p>
+  <ol>
+    <li>朋友用其 Apple ID 兑换了优惠代码。</li>
+    <li>朋友在应用中完成了设置。</li>
+    <li>朋友连接了 Apple 健康，且 Tuwa 已从中获得读数。</li>
+    <li>朋友记录了第一次训练。</li>
+  </ol>
+  <p>如果 14 天后这些条件未全部满足，该链接不会为您带来一个月。您的朋友仍保留 Apple 提供的一个月。</p>
+
+  <h2>4. 限制</h2>
+  <ul>
+    <li>每个账户在任意 365 天内最多获得 6 个月。</li>
+    <li>同时最多 3 个未使用的链接，30 天内最多创建 10 个新链接。</li>
+    <li>链接创建 30 天后如无朋友使用，将自动关闭。</li>
+    <li>Apple 同一时间只允许一个推广优惠生效。如果您有多个月在等待，下一个月将在当前月开始后可用。</li>
+  </ul>
+
+  <h2>5. 公平使用</h2>
+  <ul>
+    <li>您不能推荐自己。Tuwa 会阻止同一账户或创建过推荐链接的同一部 iPhone 使用该链接。Tuwa 为此使用 Apple 的 DeviceCheck；DeviceCheck 在 Apple 处为每台设备保存两个是/否值，不含个人数据。</li>
+    <li>如果链接在创建后 24 小时内从与创建者相同的网络被使用，Tuwa 会记录这一情况。仅凭这一记录不会阻止推荐。</li>
+    <li>对于来自虚假账户、买卖链接或其他滥用行为的推荐月，Tuwa 可以拒绝或撤销，也可以关闭推荐活动。已发放的一个月不受影响。</li>
+    <li>推荐月没有现金价值，不可转让。</li>
+  </ul>
+
+  <h2>6. Apple 的角色</h2>
+  <ul>
+    <li>Apple 提供优惠代码，决定 Apple ID 能否兑换，并处理计费、续订和取消。请在 Apple 账户设置中管理或取消订阅。</li>
+    <li>Apple 不是本推荐活动的赞助方。</li>
+  </ul>
+
+  <h2>7. 记录方式（Tuwa 保存的记录）</h2>
+  <ul>
+    <li>Tuwa 记录每个链接：谁创建了它、哪个朋友账户使用了它、每一步的日期和结果。Tuwa 只保存网络前缀的单向哈希值，从不保存完整 IP 地址。您可以在应用中查看自己的推荐记录。</li>
+    <li>推荐活动不会让任何健康读数离开您的手机。第 3 条由应用已同步的分数核对，而不是原始 Apple 健康数据。</li>
+    <li>删除账户会同时删除您的推荐记录。</li>
+  </ul>
+
+  <h2>8. 变更</h2>
+  <p>Tuwa 可以修改本条款。任何修改都不会收回已发放的一个月。页面顶部的日期为最新版本日期。</p>
+</LegalPageLayout>

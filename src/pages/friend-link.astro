@@ -1,0 +1,51 @@
+---
+// App v1.7.5 "Give a month": the page a friend's referral link (tuwa.app/r/<token>) shows when
+// the Tuwa app is not installed. _redirects serves it (at /friend-link/) for every /r/* path with status 200, so
+// the token stays in the address bar. With the app installed, iOS opens the app instead
+// (public/.well-known/apple-app-site-association). Never indexed (_headers + sitemap filter).
+import '@fontsource/noto-sans-sc/400.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { APP_STORE_URL } from '../config';
+---
+<BaseLayout
+  title="A month of Tuwa Pro from a friend"
+  description="Install Tuwa, then open your friend's link again."
+  locale="en"
+>
+  <div style="padding-top: var(--space-3xl); padding-bottom: var(--space-3xl);">
+    <div class="mx-auto px-6" style="max-width: 560px; display: flex; flex-direction: column; gap: var(--space-xl);">
+      <section style="display: flex; flex-direction: column; gap: var(--space-md);">
+        <h1 style="font-size: var(--text-heading); font-weight: var(--weight-heading); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); color: var(--color-text-1);">
+          A friend sent you a month of Tuwa Pro
+        </h1>
+        <ol style="color: var(--color-text-2); line-height: var(--leading-body); padding-left: 1.25em; display: flex; flex-direction: column; gap: var(--space-sm);">
+          <li>Install Tuwa from the App Store.</li>
+          <li>Open this link again on the same iPhone. Tuwa opens and keeps the link for your new account.</li>
+          <li>Or, in Tuwa: Profile › Give a month › Got a link from a friend? Then paste this link.</li>
+        </ol>
+        <p>
+          <a href={APP_STORE_URL} style="display: inline-block; padding: 12px 24px; border-radius: 999px; background: var(--color-text-1); color: var(--color-bg, #F0EFEC); font-weight: 500; text-decoration: none;">Get Tuwa on the App Store</a>
+        </p>
+        <p style="font-size: var(--text-label); color: var(--color-text-3); line-height: var(--leading-body);">
+          The free month is for a new Tuwa account and an Apple ID that has not subscribed before. <a href="/referral/" style="color: inherit; text-decoration: underline;">Referral terms</a>
+        </p>
+      </section>
+
+      <hr style="border: none; border-top: 1px solid var(--color-divider);" />
+
+      <section lang="zh" style="display: flex; flex-direction: column; gap: var(--space-md); font-family: 'Instrument Sans', 'Noto Sans SC', system-ui, sans-serif;">
+        <h2 style="font-size: var(--text-subheading, 1.25rem); font-weight: var(--weight-heading); color: var(--color-text-1);">
+          朋友送了你一个月 Tuwa Pro
+        </h2>
+        <ol style="color: var(--color-text-2); line-height: var(--leading-body); padding-left: 1.25em; display: flex; flex-direction: column; gap: var(--space-sm);">
+          <li>从 App Store 安装 Tuwa。</li>
+          <li>在同一部 iPhone 上再次打开这个链接。Tuwa 会打开，并为你的新账户保留这个链接。</li>
+          <li>或者在 Tuwa 中：个人资料 › 送一个月 › 收到了朋友的链接？然后粘贴这个链接。</li>
+        </ol>
+        <p style="font-size: var(--text-label); color: var(--color-text-3); line-height: var(--leading-body);">
+          免费月仅限新的 Tuwa 账户，以及之前未订阅过的 Apple ID。<a href="/zh/referral/" style="color: inherit; text-decoration: underline;">推荐条款</a>
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
