@@ -3,7 +3,7 @@ import type { Terms } from '../en/terms';
 const terms: Terms = {
   meta: {
     title: '服务条款',
-    lastUpdated: '2026年9月24日',
+    lastUpdated: '2026年10月7日',
     description: 'Tuwa——训练负荷与恢复管理应用的服务条款。',
   },
   disclaimer: {
@@ -44,6 +44,14 @@ const terms: Terms = {
       {
         label: '价格变更',
         description: '我们可能会调整订阅价格。价格上涨前我们将提前通知您。',
+      },
+      {
+        label: '免费额度',
+        description: '部分功能有免费额度：每个账户可导入 3 次训练计划、保存 5 个自定义动作。Tuwa Pro 不受这些限制。所有账户均适用每日合理使用限制。',
+      },
+      {
+        label: '推荐活动',
+        description: '可选的「送一个月」推荐活动适用单独的推荐条款（tuwa.app/zh/referral/）。',
       },
     ],
   },

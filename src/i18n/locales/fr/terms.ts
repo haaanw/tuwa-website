@@ -3,7 +3,7 @@ import type { Terms } from '../en/terms';
 const terms: Terms = {
   meta: {
     title: 'Conditions d\'utilisation',
-    lastUpdated: '24 septembre 2026',
+    lastUpdated: '7 octobre 2026',
     description: 'Conditions d\'utilisation de Tuwa — application de gestion de la charge d\'entraînement et de la récupération.',
   },
   disclaimer: {
@@ -44,6 +44,14 @@ const terms: Terms = {
       {
         label: 'Modifications de prix',
         description: 'Nous pouvons modifier les prix des abonnements. Tu seras informé avant toute augmentation de prix.',
+      },
+      {
+        label: 'Quota gratuit',
+        description: 'Certaines fonctions ont un quota gratuit : 3 imports de programme et 5 exercices personnalisés par compte. Tuwa Pro lève ces limites. Des limites quotidiennes d\'usage raisonnable s\'appliquent à tous les comptes.',
+      },
+      {
+        label: 'Parrainage',
+        description: 'Le parrainage facultatif « Offre un mois » a ses propres conditions (tuwa.app/referral/, en anglais).',
       },
     ],
   },
