@@ -16,3 +16,13 @@
   X-Robots-Tag: noindex
 /friend-link/*
   X-Robots-Tag: noindex
+
+# MCP connector OAuth consent (Supabase OAuth server, authorization path /oauth/consent).
+# Never indexed, never framed (clickjacking on Allow), never cached, no referrer leak of the
+# authorization_id to Apple / Google during sign-in.
+/oauth/*
+  X-Robots-Tag: noindex, nofollow
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer

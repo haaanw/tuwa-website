@@ -24,8 +24,9 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      // The referral fallback (/r/<token> → /friend-link/) is a utility page, never a search result.
-      filter: (page) => !page.includes('/friend-link/'),
+      // The referral fallback (/r/<token> → /friend-link/) and the MCP connector's OAuth consent
+      // page (/oauth/consent/) are utility pages, never search results.
+      filter: (page) => !page.includes('/friend-link/') && !page.includes('/oauth/'),
       i18n: {
         defaultLocale: 'en',
         locales: {
