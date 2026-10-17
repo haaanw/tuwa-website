@@ -1,0 +1,65 @@
+---
+// The two ways a plan the athlete's AI wrote reaches Tuwa: paste it, or let the connector send
+// it as a draft. Equal-weight cells: the page never leans on one route.
+import type { Skills } from '../../i18n/locales/en/skills';
+
+interface Props {
+  t: Skills['shared']['routes'];
+}
+
+const { t } = Astro.props;
+const routes = [t.paste, t.connector];
+---
+<section class="skills-section" aria-labelledby="routes-heading">
+  <h2 id="routes-heading" class="skills-h2">{t.heading}</h2>
+  <div class="routes">
+    {routes.map((route) => (
+      <div class="route">
+        <span class="micro">{route.key}</span>
+        <h3 class="route-title">{route.title}</h3>
+        <p class="route-body">{route.body}</p>
+      </div>
+    ))}
+  </div>
+  <p class="skills-body">{t.after}</p>
+</section>
+
+<style>
+  .routes {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-surface-el);
+  }
+  .route {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+  }
+  .route + .route {
+    border-top: 1px solid var(--color-divider);
+  }
+  @media (min-width: 640px) {
+    .routes {
+      grid-template-columns: 1fr 1fr;
+    }
+    .route + .route {
+      border-top: none;
+      border-left: 1px solid var(--color-divider);
+    }
+  }
+  .route-title {
+    font-size: var(--text-body);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-label);
+    color: var(--color-text-1);
+  }
+  .route-body {
+    font-size: var(--text-label);
+    line-height: var(--leading-body);
+    color: var(--color-text-2);
+  }
+</style>

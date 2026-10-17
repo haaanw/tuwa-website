@@ -28,3 +28,6 @@
 # App v1.7.5 "Give a month": every /r/<token> serves the one fallback page (status 200, the
 # token stays in the address bar). With the app installed, iOS opens the app instead.
 /r/*    /friend-link/    200
+
+# App v1.7.6 plan-writing skill pages exist in en + zh only; French readers get the English page.
+/fr/skills/*    /skills/:splat    302

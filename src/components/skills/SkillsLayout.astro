@@ -1,0 +1,142 @@
+---
+// The frame for the hosted skill pages (/skills/design-program/ and its import-format page), en
+// and zh. Indexed. There is no fr version: hreflang names en + zh only, and _redirects sends
+// /fr/skills/* to the English page.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CJKFonts from '../CJKFonts.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: 'en' | 'zh';
+  /** The path without the locale prefix, with its trailing slash, e.g. /skills/design-program/. */
+  path: string;
+  /** A plain-text twin of the page for agents (rel="alternate"). */
+  markdownHref?: string;
+}
+
+const { title, description, locale, path, markdownHref } = Astro.props;
+const origin = 'https://tuwa.app';
+const canonical = locale === 'zh' ? `${origin}/zh${path}` : `${origin}${path}`;
+const hreflangAlternates = [
+  { hreflang: 'en', href: `${origin}${path}` },
+  { hreflang: 'zh-CN', href: `${origin}/zh${path}` },
+];
+---
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  hreflangAlternates={hreflangAlternates}
+  locale={locale}
+>
+  <Fragment slot="head">
+    {markdownHref && <link rel="alternate" type="text/markdown" href={markdownHref} />}
+  </Fragment>
+  {locale === 'zh' && <CJKFonts />}
+  <div class="skills-page">
+    <div class="skills-column">
+      <slot />
+    </div>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .skills-page {
+    padding: var(--space-3xl) var(--space-md);
+  }
+  .skills-column {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+  .skills-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .skills-h1 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-heading);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+    color: var(--color-text-1);
+  }
+  .skills-lede {
+    font-size: var(--text-lede);
+    line-height: var(--leading-body);
+    color: var(--color-text-2);
+  }
+  .skills-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .skills-h2 {
+    font-size: var(--text-subheading);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-subheading);
+    color: var(--color-text-1);
+  }
+  .skills-body {
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    color: var(--color-text-1);
+  }
+  .skills-quiet {
+    font-size: var(--text-label);
+    line-height: var(--leading-body);
+    color: var(--color-text-2);
+    overflow-wrap: anywhere;
+  }
+  .skills-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding-left: 1.25em;
+    list-style: decimal;
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    color: var(--color-text-1);
+  }
+  .skills-link {
+    color: var(--color-text-1);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+  .skills-link:hover {
+    color: var(--color-accent);
+  }
+  .skills-code {
+    font-family: var(--font-mono);
+    font-size: var(--anno);
+    color: var(--color-text-1);
+    overflow-wrap: anywhere;
+  }
+  .skills-rows {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-divider);
+  }
+  .skills-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .skills-row dd {
+    font-size: var(--text-label);
+    line-height: var(--leading-body);
+    color: var(--color-text-2);
+    overflow-wrap: anywhere;
+  }
+  .skills-note {
+    font-size: var(--text-small);
+    line-height: var(--leading-body);
+    color: var(--color-text-3);
+  }
+</style>

@@ -17,6 +17,9 @@
 - [Cold-Start Onboarding](https://tuwa.app/features/cold-start): honest setup from day one — workload builds from the first logged session, readiness stays conservative until real data exists.
 - [Back-Room Review](https://tuwa.app/training-load): workload, recovery, match proximity, and progress review.
 
+## For AI models
+- [Plan-writing skill](https://tuwa.app/skills/design-program): how an athlete's own AI writes a plan Tuwa imports — the skill text ([SKILL.md](https://tuwa.app/skills/design-program/SKILL.md)), the [import format](https://tuwa.app/skills/design-program/import-format.md) and the current [rulebook](https://tuwa.app/skills/design-program/program-rules.v0.json). Tuwa does not write the plan; the athlete confirms it in Tuwa.
+
 ## Topics
 - [Methodology](https://tuwa.app/methodology): the science behind Tuwa's readiness and load models.
 - [Training Load](https://tuwa.app/training-load): what training load is and how Tuwa measures it.

@@ -1,0 +1,97 @@
+---
+// tuwa.app/skills/design-program/import-format — Tuwa's plan import text format: one short
+// example, what each line means, the two routes back to Tuwa, and the full specification
+// (verbatim from src/skills/design-program/import-format.md) for the athlete's AI.
+import SkillsLayout from './SkillsLayout.astro';
+import CopyBlock from './CopyBlock.astro';
+import Routes from './Routes.astro';
+import formatText from '../../skills/design-program/import-format.md?raw';
+import type { Skills } from '../../i18n/locales/en/skills';
+
+interface Props {
+  t: Skills;
+  locale: 'en' | 'zh';
+}
+
+const { t, locale } = Astro.props;
+const f = t.format;
+const prefix = locale === 'zh' ? '/zh' : '';
+
+// Cut from the specification's own complete example (import-format.md §8). Format, not advice.
+const example = `Tuwa plan
+Name: Off-season base
+Goal: Get stronger while keeping two court sessions a week.
+Phase: 1 of 3
+Weeks: 2
+Start rule: Start on the next Monday.
+Athlete history band: under 6 months
+
+Week 1
+Day 1 — Lower strength
+Strength A (rest 2–3 min)
+- Back squat: 3 × 5 @ 40 kg · RIR 3
+  Cue: Brace, then sit between the heels.
+- Plank: 3 × 30 s
+Rule: Stop a set when the bar slows down.
+
+Day 2 — Court skill
+- Basketball practice: 1 × 90 min · RPE 6
+
+Week 2: same as Week 1`;
+---
+<SkillsLayout
+  title={f.meta.title}
+  description={f.meta.description}
+  locale={locale}
+  path="/skills/design-program/import-format/"
+  markdownHref="/skills/design-program/import-format.md"
+>
+  <header class="skills-head">
+    <a class="skills-quiet skills-link" href={`${prefix}/skills/design-program/`}>← {f.back}</a>
+    <span class="micro">{f.kicker}</span>
+    <h1 class="skills-h1">{f.heading}</h1>
+    <p class="skills-lede">{f.lede}</p>
+  </header>
+
+  <section class="skills-section" aria-labelledby="example-heading">
+    <h2 id="example-heading" class="skills-h2">{f.exampleHeading}</h2>
+    <p class="skills-quiet">{f.exampleNote}</p>
+    <CopyBlock
+      text={example}
+      label="plan.txt"
+      copy={t.shared.copy}
+      copied={t.shared.copied}
+      copyFailed={t.shared.copyFailed}
+    />
+  </section>
+
+  <section class="skills-section" aria-labelledby="lines-heading">
+    <h2 id="lines-heading" class="skills-h2">{f.linesHeading}</h2>
+    <dl class="skills-rows">
+      {f.lines.map((line) => (
+        <div class="skills-row">
+          <dt class="skills-code" lang="en">{line.code}</dt>
+          <dd>{line.text}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <Routes t={t.shared.routes} />
+
+  <section class="skills-section" aria-labelledby="spec-heading">
+    <h2 id="spec-heading" class="skills-h2">{f.specHeading}</h2>
+    <p class="skills-quiet">{f.specLede}</p>
+    <CopyBlock
+      text={formatText}
+      label="import-format.md"
+      copy={t.shared.copy}
+      copied={t.shared.copied}
+      copyFailed={t.shared.copyFailed}
+      rawHref="/skills/design-program/import-format.md"
+      rawLabel={t.shared.rawFile}
+    />
+  </section>
+
+  <p class="skills-quiet">{t.shared.ownership}</p>
+</SkillsLayout>

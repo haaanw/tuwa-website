@@ -1,0 +1,86 @@
+{
+  "id": "program-rules",
+  "version": "v0",
+  "published": "2026-10-13",
+  "ruling": "HAN 2026-10-09: rulebook v0 holds two rules only, the beginner floor and the week-to-week increase limit. Everything else arrives with the full research lane (PLAN-AUTHORING.md §10).",
+  "voice": "Readings and limits, in Tuwa's own words. The rulebook never diagnoses, never forecasts what may happen to the body and never prescribes a session. The athlete's agent writes the plan; Tuwa checks it against these limits.",
+  "history_bands": [
+    { "id": "none", "label": "None", "question": "How long have you trained with a written plan?" },
+    { "id": "under_6_months", "label": "Under 6 months" },
+    { "id": "6_months_to_2_years", "label": "6 months to 2 years" },
+    { "id": "over_2_years", "label": "Over 2 years" }
+  ],
+  "counting": {
+    "hard_set": "A working set of a resistance movement with a rep target. Warm-up sets, sets under a warm-up section, timed or distance doses, and jumps, throws, sprints and drills are not hard sets.",
+    "strength_session": "A training day that holds at least one hard set. Sport practice, conditioning and recovery days do not count.",
+    "muscle_group": "The movement's primary region: legs, chest, back, shoulders, arms or core. A movement Tuwa cannot place counts toward the weekly total only.",
+    "deload_week": "A week whose heading or phase name contains the word deload."
+  },
+  "rules": [
+    {
+      "id": "beginner_floor",
+      "title": "The beginner floor",
+      "severity": "block",
+      "applies_when": "The athlete's training-history band is none or under 6 months, or the plan header says phase 1 and names no history band.",
+      "summary": "A first plan starts at the low end of every range, a little below what the rules allow at most.",
+      "limits": {
+        "strength_sessions_per_week": {
+          "general_range": [2, 6],
+          "first_plan_start_max": 3,
+          "checked_on": "week 1"
+        },
+        "hard_sets_per_muscle_group_per_week": {
+          "general_range": [4, 20],
+          "first_plan_start_max": 10,
+          "checked_on": "week 1"
+        },
+        "effort": {
+          "general_range_rir": [0, 4],
+          "first_plan_min_rir": 2,
+          "first_plan_max_rpe": 8,
+          "checked_on": "every week of the plan"
+        }
+      },
+      "sources": ["nsca_essentials_4", "acsm_2009_progression", "schoenfeld_2017_volume", "who_2020", "helms_2016_rir"]
+    },
+    {
+      "id": "weekly_increase_limit",
+      "title": "The week-to-week increase limit",
+      "severity": "block",
+      "applies_when": "Every plan, every athlete.",
+      "summary": "From one week to the next, outside a deload, the planned load or volume of the same movement and the weekly hard-set total rise by no more than 10 %.",
+      "limits": {
+        "max_increase_pct": 10,
+        "weekly_hard_sets": "This week's hard sets are at most last week's total plus 10 %, rounded up to a whole set.",
+        "movement_load": "A movement's top load is at most last week's top load plus 10 %, or plus one 2.5 kg step when that is larger. A percentage of a max follows the same 10 %.",
+        "movement_volume": "A movement's sets × reps rise by at most 10 % (rounded up to a whole rep); adding one rep to each working set always fits.",
+        "timed_and_distance_doses": "A timed or distance dose that rises by more than 10 % is shown as a finding, not refused.",
+        "deload": "A deload week is skipped: the week after it is compared with the last week before it."
+      },
+      "load_step_kg": 2.5,
+      "sources": ["acsm_2009_progression", "nsca_essentials_4"]
+    }
+  ],
+  "sources": {
+    "nsca_essentials_4": {
+      "citation": "Haff GG, Triplett NT (eds). Essentials of Strength Training and Conditioning, 4th ed. NSCA / Human Kinetics, 2016.",
+      "supports": "The program-design frame: training frequency, volume and intensity set by training status; novices start with fewer sessions and progress gradually."
+    },
+    "acsm_2009_progression": {
+      "citation": "American College of Sports Medicine. Progression models in resistance training for healthy adults. Med Sci Sports Exerc. 2009;41(3):687-708.",
+      "supports": "Novice frequency of two to three sessions a week; load increases in small steps of a few percent once the target reps are met."
+    },
+    "schoenfeld_2017_volume": {
+      "citation": "Schoenfeld BJ, Ogborn D, Krieger JW. Dose-response relationship between weekly resistance training volume and increases in muscle mass. J Sports Sci. 2017;35(11):1073-1082.",
+      "supports": "Weekly hard sets per muscle group as the volume unit; gains rise with volume, and around ten weekly sets sits at the lower part of the useful range."
+    },
+    "who_2020": {
+      "citation": "Bull FC, et al. World Health Organization 2020 guidelines on physical activity and sedentary behaviour. Br J Sports Med. 2020;54(24):1451-1462.",
+      "supports": "The floor: muscle-strengthening work on at least two days a week."
+    },
+    "helms_2016_rir": {
+      "citation": "Helms ER, et al. Application of the repetitions in reserve-based rating of perceived exertion scale for resistance training. Strength Cond J. 2016;38(4):42-49.",
+      "supports": "Effort written as reps in reserve (RIR) and its link to RPE (RPE 8 = about 2 reps in reserve)."
+    }
+  }
+}

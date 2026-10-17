@@ -26,3 +26,18 @@
   Content-Security-Policy: frame-ancestors 'none'
   Cache-Control: no-store
   Referrer-Policy: no-referrer
+
+# App v1.7.6 plan-writing skill: the plain-text files the athlete's own AI fetches. UTF-8 (the
+# text uses × — ›), readable from any origin, short cache so a rulebook change reaches every AI.
+/skills/design-program/SKILL.md
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300
+/skills/design-program/import-format.md
+  Content-Type: text/markdown; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300
+/skills/design-program/program-rules.v0.json
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300

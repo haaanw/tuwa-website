@@ -1,0 +1,88 @@
+---
+// tuwa.app/skills/design-program — the page the app's "Build it with your AI" prompt links to
+// (PlanAuthoringPrompt.skillURL). The athlete's own AI reads the skill text here; the athlete
+// reads how the plan comes back to Tuwa. Source text: src/skills/design-program/ (verbatim from
+// the app repo's Supabase/functions/mcp/skills/design-program/).
+import SkillsLayout from './SkillsLayout.astro';
+import CopyBlock from './CopyBlock.astro';
+import Routes from './Routes.astro';
+import skillText from '../../skills/design-program/SKILL.md?raw';
+import type { Skills } from '../../i18n/locales/en/skills';
+
+interface Props {
+  t: Skills;
+  locale: 'en' | 'zh';
+}
+
+const { t, locale } = Astro.props;
+const s = t.skill;
+const prefix = locale === 'zh' ? '/zh' : '';
+const files = [
+  { label: s.files.skill, href: '/skills/design-program/SKILL.md' },
+  { label: s.files.format, href: '/skills/design-program/import-format.md' },
+  { label: s.files.rules, href: '/skills/design-program/program-rules.v0.json' },
+];
+---
+<SkillsLayout
+  title={s.meta.title}
+  description={s.meta.description}
+  locale={locale}
+  path="/skills/design-program/"
+  markdownHref="/skills/design-program/SKILL.md"
+>
+  <header class="skills-head">
+    <span class="micro">{s.kicker}</span>
+    <h1 class="skills-h1">{s.heading}</h1>
+    <p class="skills-lede">{s.lede}</p>
+    <p class="skills-note" lang="en">{s.forAI}</p>
+  </header>
+
+  <section class="skills-section" aria-labelledby="how-heading">
+    <h2 id="how-heading" class="skills-h2">{s.howHeading}</h2>
+    <ol class="skills-steps">
+      {s.steps.map((step) => <li>{step}</li>)}
+    </ol>
+  </section>
+
+  <Routes t={t.shared.routes} />
+
+  <section class="skills-section" aria-labelledby="skill-heading">
+    <h2 id="skill-heading" class="skills-h2">{s.skillHeading}</h2>
+    <p class="skills-quiet">{s.skillLede}</p>
+    <CopyBlock
+      text={skillText}
+      label="SKILL.md"
+      copy={t.shared.copy}
+      copied={t.shared.copied}
+      copyFailed={t.shared.copyFailed}
+      rawHref="/skills/design-program/SKILL.md"
+      rawLabel={t.shared.rawFile}
+    />
+  </section>
+
+  <section class="skills-section" aria-labelledby="rules-heading">
+    <h2 id="rules-heading" class="skills-h2">{s.rulesHeading}</h2>
+    <p class="skills-body">{s.rulesBody}</p>
+    <p><a class="skills-link skills-code" href="/skills/design-program/program-rules.v0.json">program-rules.v0.json</a></p>
+  </section>
+
+  <section class="skills-section" aria-labelledby="format-heading">
+    <h2 id="format-heading" class="skills-h2">{s.formatHeading}</h2>
+    <p class="skills-body">{s.formatBody}</p>
+    <p><a class="skills-link" href={`${prefix}/skills/design-program/import-format/`}>{s.formatLink}</a></p>
+  </section>
+
+  <section class="skills-section" aria-labelledby="files-heading">
+    <h2 id="files-heading" class="skills-h2">{s.filesHeading}</h2>
+    <dl class="skills-rows">
+      {files.map((file) => (
+        <div class="skills-row">
+          <dt class="micro">{file.label}</dt>
+          <dd><a class="skills-link skills-code" href={file.href}>{`https://tuwa.app${file.href}`}</a></dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <p class="skills-quiet">{t.shared.ownership}</p>
+</SkillsLayout>
