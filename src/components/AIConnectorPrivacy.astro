@@ -1,0 +1,14 @@
+---
+import { usePrivacyTranslations } from '../i18n/utils';
+interface Props { locale?: 'en' | 'zh' | 'fr'; }
+const { locale = 'en' } = Astro.props;
+const t = usePrivacyTranslations(locale).aiConnector;
+const connectorHref = locale === 'zh' ? '/zh/connector/' : '/connector/';
+---
+<section aria-labelledby="ai-connector">
+  <h2 id="ai-connector"><a href={connectorHref}>{t.heading}</a></h2>
+  <p>{t.p1}</p>
+  <ul>
+    {t.items.map((item) => <li><strong>{item.label}</strong>{item.description}</li>)}
+  </ul>
+</section>

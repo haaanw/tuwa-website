@@ -1,4 +1,5 @@
 ---
+import AIConnectorPrivacy from '../../components/AIConnectorPrivacy.astro';
 import { usePrivacyTranslations } from '../../i18n/utils';
 import LegalPageLayout from '../../layouts/LegalPageLayout.astro';
 
@@ -71,8 +72,11 @@ const t = usePrivacyTranslations('fr');
     ))}
   </ul>
 
+  <AIConnectorPrivacy locale="fr" />
+
   <h2>{t.dataSharing.heading}</h2>
   <p>{t.dataSharing.p1}</p>
+  <p>{t.dataSharing.connector}</p>
 
   <h2>{t.thirdPartyServices.heading}</h2>
   <ul>

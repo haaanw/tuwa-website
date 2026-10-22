@@ -42,7 +42,12 @@ const ENGLISH_ONLY_PATH_PREFIXES = [
 const isEnglishOnlyPath = ENGLISH_ONLY_PATH_PREFIXES.some((prefix) =>
   rawPath === prefix || rawPath.startsWith(prefix)
 );
-const availableLocales = isEnglishOnlyPath ? LOCALES.filter(({ code }) => code === 'en') : LOCALES;
+const isConnectorPath = pathWithoutLocale.replace(/\/$/, '') === '/connector';
+const availableLocales = isEnglishOnlyPath
+  ? LOCALES.filter(({ code }) => code === 'en')
+  : isConnectorPath ? LOCALES.filter(({ code }) => code !== 'fr') : LOCALES;
+const connectorLabel = locale === 'zh' ? 'AI 连接器' : locale === 'fr' ? 'Connecteur IA' : 'AI connector';
+const connectorHref = locale === 'zh' ? '/zh/connector/' : '/connector/';
 const showLanguageSwitcher = availableLocales.length > 1;
 
 ---
@@ -69,6 +74,7 @@ const showLanguageSwitcher = availableLocales.length > 1;
       <a href={getRelativeLocaleUrl(locale, '/blog')}>{t.nav.blog}</a>
       <a href={getRelativeLocaleUrl(locale, '/support')}>{t.nav.support}</a>
       <a href={getRelativeLocaleUrl(locale, '/privacy')}>{t.footer.privacy}</a>
+      <a href={connectorHref}>{connectorLabel}</a>
       <a href={getRelativeLocaleUrl(locale, '/terms')}>{t.footer.terms}</a>
       <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">{t.nav.getApp}</a>
     </nav>

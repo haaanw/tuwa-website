@@ -1,0 +1,108 @@
+---
+// Approved B8 copy, transcribed without smart punctuation substitutions.
+import ConnectorPageLayout from '../layouts/ConnectorPageLayout.astro';
+---
+<ConnectorPageLayout title={"Tuwa in Claude and ChatGPT"} description={"Add Tuwa to your own AI app and ask it about your training. It reads what Tuwa already knows — your readings, your sessions, your plan — and it can send a plan draft that you review in the app. Tuwa still makes the day's go, modify or hold decision in the app; your AI app shows it."} locale="en">
+<p>Add Tuwa to your own AI app and ask it about your training. It reads what Tuwa already knows —
+your readings, your sessions, your plan — and it can send a plan draft that you review in the
+app. Tuwa still makes the day's go, modify or hold decision in the app; your AI app shows it.</p>
+<h2>What you need</h2>
+<ul>
+<li>A Tuwa account and Tuwa 1.7.6 or later on your iPhone.</li>
+<li>Claude or ChatGPT on the web or on the desktop.</li>
+<li>Nothing else: the connector is free. A plan draft counts as one plan import when you activate
+it in Tuwa.</li>
+</ul>
+<h2>Turn it on</h2>
+<ol>
+<li><strong>In Tuwa:</strong> open Profile › Legal › AI connector and allow it. Until you do, Tuwa gives your AI
+app nothing.</li>
+<li><strong>In your AI app</strong>, add Tuwa as a connector:
+<ul>
+<li><strong>Claude:</strong> Customize › Connectors › Add › Add custom connector. Name: Tuwa. URL:
+<code>https://mcp.tuwa.app/mcp</code>. Choose Add, then Connect.</li>
+<li><strong>ChatGPT:</strong> add a custom connector (MCP server) in your plugin settings. Name: Tuwa. URL:
+<code>https://mcp.tuwa.app/mcp</code>. Sign-in: OAuth. Then connect it.</li>
+<li>When Tuwa is listed in your AI app's directory, you can add it from there instead.</li>
+</ul>
+</li>
+<li><strong>Sign in and allow:</strong> a Tuwa page opens. Sign in the way you sign in to the Tuwa app — Apple,
+Google, or your email with your password or a one-time code — then choose Allow.</li>
+</ol>
+<h2>What to ask</h2>
+<ul>
+<li>"What's on my plan today in Tuwa?" — shows the Today card: your recovery reading and the day's
+session.</li>
+<li>"How has my training load moved over the last two weeks?"</li>
+<li>"What did I log this week?"</li>
+<li>"Where am I in my plan?"</li>
+<li>"Check this plan against Tuwa's rules."</li>
+<li>"Help me build an off-season plan and send it to Tuwa."</li>
+</ul>
+<h2>What it reads, and what it never gets</h2>
+<ul>
+<li><strong>It can read:</strong> your recovery and sleep scores (composite scores only — raw Apple Health
+readings never leave your phone), the day's decision, your logged sessions and training load,
+your personal records, and your plan — its position and its text.</li>
+<li><strong>It can send:</strong> a plan draft. Tuwa checks it against its rulebook and reads it with the same AI
+reader as the plan import in the app (through OpenRouter). The draft stays a draft until you
+activate it in Tuwa.</li>
+<li><strong>It cannot:</strong> change your plan, log a workout or answer your check-in.</li>
+<li><strong>Never sent:</strong> no number from Apple Health — no heart rate, HRV, sleep time, temperature or
+cycle data.</li>
+<li><strong>Kept:</strong> Tuwa keeps the plan drafts your AI app sends and a count of its requests, with your
+account. Your AI provider keeps what it reads under its own terms. More in the
+<a href="/privacy/#ai-connector">Privacy Policy</a>.</li>
+</ul>
+<h2>The tools</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Today in Tuwa</td>
+<td>Your latest recovery and sleep scores, today's planned session, and today's decision once you made it in the app. Shows the Today card.</td>
+</tr>
+<tr>
+<td>Training load</td>
+<td>Your acute and chronic training load over the last 14 days.</td>
+</tr>
+<tr>
+<td>Recent sessions</td>
+<td>Your last logged sessions: type, length, effort, volume and movements.</td>
+</tr>
+<tr>
+<td>Plan position</td>
+<td>Your active plan: week N of M, phase, today's and the next session.</td>
+</tr>
+<tr>
+<td>Personal records</td>
+<td>Your personal records, newest first.</td>
+</tr>
+<tr>
+<td>Program rulebook</td>
+<td>Tuwa's current rules for a plan, with their numbers and sources.</td>
+</tr>
+<tr>
+<td>Check a plan</td>
+<td>Checks a plan against the rulebook and lists the findings. Writes nothing.</td>
+</tr>
+<tr>
+<td>Send a plan draft to Tuwa</td>
+<td>Sends a plan to Tuwa as a draft for you to review. Never activates a plan.</td>
+</tr>
+</tbody>
+</table>
+<p>Three ready prompts: <strong>Design my plan with Tuwa</strong>, <strong>Check my plan against Tuwa's rules</strong>,
+<strong>Adjust my plan</strong>.</p>
+<h2>Turn it off</h2>
+<ul>
+<li><strong>In your AI app:</strong> disconnect or remove Tuwa in its connector settings.</li>
+<li><strong>In Tuwa:</strong> turn off Profile › Legal › AI connector. Tuwa then gives your AI app nothing more.</li>
+</ul>
+<p>Questions: <a href="mailto:support@tuwa.app">support@tuwa.app</a>.</p>
+</ConnectorPageLayout>

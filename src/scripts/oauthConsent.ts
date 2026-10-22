@@ -2,7 +2,9 @@
 //
 // Supabase's OAuth 2.1 server (Authentication › OAuth Server, authorization path
 // /oauth/consent) sends the athlete here with ?authorization_id=…. The page:
-//   1. signs the athlete in (Apple, Google, or a one-time email code — never a sign-up),
+//   1. signs the athlete in (Apple, Google, email + password as in the app, or a one-time email
+//      code — never a sign-up; the password path also serves directory reviewers, who may not
+//      use codes or magic links),
 //   2. reads the request (getAuthorizationDetails) and shows what the AI app gets,
 //   3. sends Allow / Deny (approveAuthorization / denyAuthorization) and follows the
 //      redirect_url back to the AI app.
@@ -141,6 +143,26 @@ function signInErrorMessage(error: AuthError): string {
   return t.errors.signInFailed;
 }
 
+/** The password path's own mapping: a wrong pair never says which half was wrong. */
+function passwordErrorMessage(error: AuthError): string {
+  const code = error.code ?? '';
+  if (error.status === 429 || code.includes('rate_limit')) return t.errors.rateLimit;
+  if (code === 'email_not_confirmed') return t.errors.emailNotConfirmed;
+  if (code === 'invalid_credentials' || error.status === 400) return t.errors.badPassword;
+  return t.errors.signInFailed;
+}
+
+/** The reset's own mapping (ruling A1): no message says whether an account uses the email. */
+function resetErrorMessage(error: AuthError): string {
+  const code = error.code ?? '';
+  if (error.status === 429 || code.includes('rate_limit')) return t.errors.rateLimit;
+  if (code === 'otp_expired' || error.status === 403) return t.errors.badResetCode;
+  if (code === 'same_password') return t.errors.samePassword;
+  if (code === 'weak_password') return t.errors.weakPassword;
+  if (code === 'validation_failed' || code === 'email_address_invalid') return t.errors.badEmail;
+  return t.errors.signInFailed;
+}
+
 // MARK: - Flow
 
 async function loadRequest(supabase: SupabaseClient): Promise<void> {
@@ -208,8 +230,19 @@ function wireSignIn(supabase: SupabaseClient): void {
   const emailForm = element<HTMLFormElement>('email-form');
   const codeForm = element<HTMLFormElement>('code-form');
   const emailInput = element<HTMLInputElement>('email-input');
+  const passwordInput = element<HTMLInputElement>('password-input');
   const codeInput = element<HTMLInputElement>('code-input');
   let sentTo = '';
+
+  /** The trimmed email, or null after showing the note when it is not an email. */
+  const readEmail = (): string | null => {
+    const email = emailInput.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setNote('signin-note', t.errors.badEmail);
+      return null;
+    }
+    return email;
+  };
 
   const startProvider = async (provider: 'apple' | 'google') => {
     setNote('signin-note', null);
@@ -226,13 +259,33 @@ function wireSignIn(supabase: SupabaseClient): void {
   element('apple-button').addEventListener('click', () => void startProvider('apple'));
   element('google-button').addEventListener('click', () => void startProvider('google'));
 
+  // Email + password, as the app signs email accounts in. signInWithPassword never creates an
+  // account, so this page still signs in existing Tuwa accounts only.
   emailForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const email = emailInput.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setNote('signin-note', t.errors.badEmail);
+    const email = readEmail();
+    if (!email) return;
+    const password = passwordInput.value;
+    if (!password) {
+      setNote('signin-note', t.errors.noPassword);
+      passwordInput.focus();
       return;
     }
+    setNote('signin-note', null);
+    setBusy(true);
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setBusy(false);
+    passwordInput.value = '';
+    if (error) {
+      setNote('signin-note', passwordErrorMessage(error));
+      return;
+    }
+    await loadRequest(supabase);
+  });
+
+  element('send-code').addEventListener('click', async () => {
+    const email = readEmail();
+    if (!email) return;
     setNote('signin-note', null);
     setBusy(true);
     // shouldCreateUser: false — this page signs in existing Tuwa accounts only.
@@ -273,6 +326,118 @@ function wireSignIn(supabase: SupabaseClient): void {
   element('other-email').addEventListener('click', () => {
     codeInput.value = '';
     codeForm.hidden = true;
+    emailForm.hidden = false;
+    setNote('signin-note', null);
+    emailInput.focus();
+  });
+
+  wirePasswordReset(supabase, emailForm, emailInput, readEmail);
+}
+
+/**
+ * Forgot password (ruling A1, as in the app): the email → a 6-digit code → the code and a new
+ * password in one form → signed in. The new password is saved before the page reads the
+ * request, so the code alone never ends in a sign-in here, and no line says whether an
+ * account uses the email (Supabase sends nothing to an unknown address and answers the same).
+ */
+function wirePasswordReset(
+  supabase: SupabaseClient,
+  emailForm: HTMLFormElement,
+  emailInput: HTMLInputElement,
+  readEmail: () => string | null,
+): void {
+  const resetForm = element<HTMLFormElement>('reset-form');
+  const resetCodeInput = element<HTMLInputElement>('reset-code-input');
+  const newPasswordInput = element<HTMLInputElement>('new-password-input');
+  const resendButton = element<HTMLButtonElement>('reset-resend');
+  let resetEmail = '';
+  // True once the code checked out: the code is used up, so a failed save retries the save
+  // only, and leaving the form ends the recovery session the code opened.
+  let codeVerified = false;
+
+  const sendResetCode = async (email: string): Promise<boolean> => {
+    setBusy(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email);
+    setBusy(false);
+    if (error) {
+      setNote('signin-note', resetErrorMessage(error));
+      return false;
+    }
+    return true;
+  };
+
+  element('forgot-password').addEventListener('click', async () => {
+    const email = readEmail();
+    if (!email) return;
+    setNote('signin-note', null);
+    if (!(await sendResetCode(email))) return;
+    resetEmail = email;
+    codeVerified = false;
+    resetCodeInput.readOnly = false;
+    resendButton.hidden = false;
+    element('reset-sent').textContent = fill(t.signIn.resetSentTo, { email });
+    emailForm.hidden = true;
+    resetForm.hidden = false;
+    resetCodeInput.focus();
+  });
+
+  resendButton.addEventListener('click', async () => {
+    setNote('signin-note', null);
+    if (await sendResetCode(resetEmail)) {
+      element('reset-sent').textContent = t.signIn.resetResent;
+    }
+  });
+
+  resetForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const token = resetCodeInput.value.replace(/\s+/g, '');
+    const password = newPasswordInput.value;
+    if (!codeVerified && !/^\d{6,10}$/.test(token)) {
+      setNote('signin-note', t.errors.badResetCode);
+      resetCodeInput.focus();
+      return;
+    }
+    if (password.length < 8) {
+      setNote('signin-note', t.errors.shortPassword);
+      newPasswordInput.focus();
+      return;
+    }
+    setNote('signin-note', null);
+    setBusy(true);
+    if (!codeVerified) {
+      const { error } = await supabase.auth.verifyOtp({ email: resetEmail, token, type: 'recovery' });
+      if (error) {
+        setBusy(false);
+        setNote('signin-note', resetErrorMessage(error));
+        return;
+      }
+      codeVerified = true;
+      resetCodeInput.readOnly = true;
+      resendButton.hidden = true;
+    }
+    const { error } = await supabase.auth.updateUser({ password });
+    setBusy(false);
+    if (error) {
+      setNote('signin-note', resetErrorMessage(error));
+      return;
+    }
+    newPasswordInput.value = '';
+    await loadRequest(supabase);
+  });
+
+  element('reset-back').addEventListener('click', async () => {
+    if (codeVerified) {
+      // The checked code opened a recovery session; leaving the reset ends it.
+      setBusy(true);
+      await supabase.auth.signOut({ scope: 'local' });
+      setBusy(false);
+    }
+    codeVerified = false;
+    resetCodeInput.readOnly = false;
+    resetCodeInput.value = '';
+    newPasswordInput.value = '';
+    resendButton.hidden = false;
+    resetForm.hidden = true;
     emailForm.hidden = false;
     setNote('signin-note', null);
     emailInput.focus();

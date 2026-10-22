@@ -7,7 +7,7 @@ type WidenStrings<T> = T extends string
 const privacy = {
   meta: {
     title: 'Privacy Policy',
-    lastUpdated: 'October 3, 2026',
+    lastUpdated: 'October 22, 2026',
     description: 'Privacy policy for Tuwa — Training Load & Recovery app.',
   },
   disclaimer: {
@@ -168,9 +168,41 @@ const privacy = {
       },
     ] as const,
   },
+  // HAN-approved v1.7.6 C3 copy; punctuation belongs to each label.
+  aiConnector: {
+    "heading": "AI Connector (Optional)",
+    "p1": "You can add Tuwa to your own AI app — Claude or ChatGPT — as a connector. Your AI app then reads your Tuwa data when you ask it a question. This works only after you allow it twice: on the sign-in page tuwa.app/oauth/consent, and in the app under Profile › Legal › AI connector.",
+    "items": [
+      {
+        "label": "What your AI app can read:",
+        "description": " your recovery and sleep scores (composite scores only), the day's decision, your logged sessions and training load, your personal records, and your plan with its position and its text."
+      },
+      {
+        "label": "What it can send:",
+        "description": " a plan draft. Tuwa checks the draft against its rulebook and reads it with the same AI reader as the plan import in the app, through OpenRouter (see Program Import). The draft stays a draft until you activate it in Tuwa. Your AI app cannot change your plan, log a workout or answer your check-in."
+      },
+      {
+        "label": "What is never sent:",
+        "description": " any number from Apple Health (no heart rate, HRV, sleep time, temperature or menstrual cycle data). The connector's tools never send your name or email. When you sign in, your AI app receives the account details that the sign-in page lists, for example your email address."
+      },
+      {
+        "label": "Who receives it:",
+        "description": " your own AI app and its provider (for example Anthropic or OpenAI), on your request. Your AI provider is not Tuwa's processor; it handles what it reads under its own terms and privacy policy."
+      },
+      {
+        "label": "Retention:",
+        "description": " Tuwa keeps the plan drafts your AI app sends and a count of its requests (for rate limits), with your account. The day's decision syncs to your account so that the connector can show it. Deleting your account deletes them. Your AI provider keeps what it reads under its own terms."
+      },
+      {
+        "label": "Your choice:",
+        "description": " the connector is off until you allow it. You can turn it off at any time in Profile › Legal › AI connector; Tuwa then gives your AI app nothing more. To remove Tuwa from your AI app, disconnect it in that app's connector settings."
+      }
+    ]
+  },
   dataSharing: {
     heading: 'Data Sharing',
     p1: 'Tuwa does not share your training or recovery data with coaches, other users, advertisers, or data brokers. If future sharing features are added, they will require your explicit consent.',
+    connector: "The one exception is the AI connector (above): when you allow it, your own AI app reads your Tuwa data on your request.",
   },
   thirdPartyServices: {
     heading: 'Third-Party Services',

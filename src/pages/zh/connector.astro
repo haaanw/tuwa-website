@@ -1,0 +1,92 @@
+---
+// Approved B8 copy, transcribed without smart punctuation substitutions.
+import ConnectorPageLayout from '../../layouts/ConnectorPageLayout.astro';
+---
+<ConnectorPageLayout title={"在 Claude 和 ChatGPT 中使用 Tuwa"} description={"把 Tuwa 添加到您自己的 AI 应用中，就可以问它关于您训练的问题。它读取 Tuwa 已有的内容——您的读数、您的训练和您的计划——还可以发送一份计划草稿，由您在应用中查看。当天“照常 / 调整 / 暂缓”的决定仍由 Tuwa 在应用中做出；您的 AI 应用只是显示它。"} locale="zh">
+<p>把 Tuwa 添加到您自己的 AI 应用中，就可以问它关于您训练的问题。它读取 Tuwa 已有的内容——您的读数、您的训练和您的计划——还可以发送一份计划草稿，由您在应用中查看。当天“照常 / 调整 / 暂缓”的决定仍由 Tuwa 在应用中做出；您的 AI 应用只是显示它。</p>
+<h2>您需要</h2>
+<ul>
+<li>一个 Tuwa 账号，以及 iPhone 上 1.7.6 或更高版本的 Tuwa。</li>
+<li>网页版或桌面版的 Claude 或 ChatGPT。</li>
+<li>不需要其他东西：连接器免费。在 Tuwa 中启用一份计划草稿，计为一次计划导入。</li>
+</ul>
+<h2>开启方法</h2>
+<ol>
+<li><strong>在 Tuwa 中：</strong>打开“档案 › 法律信息 › AI 连接器”并允许。在您允许之前，Tuwa 不会向您的 AI 应用提供任何内容。</li>
+<li><strong>在您的 AI 应用中</strong>，把 Tuwa 添加为连接器：
+<ul>
+<li><strong>Claude：</strong>自定义 › 连接器 › 添加 › 添加自定义连接器。名称：Tuwa。URL：<code>https://mcp.tuwa.app/mcp</code>。选择“添加”，然后“连接”。</li>
+<li><strong>ChatGPT：</strong>在插件设置中添加自定义连接器（MCP 服务器）。名称：Tuwa。URL：<code>https://mcp.tuwa.app/mcp</code>。身份验证：OAuth。然后连接它。</li>
+<li>当 Tuwa 出现在您的 AI 应用的目录中后，您也可以直接从目录添加。</li>
+</ul>
+</li>
+<li><strong>登录并允许：</strong>会打开一个 Tuwa 页面。请用您登录 Tuwa 应用的方式登录——Apple、Google，或者您的邮箱加密码或一次性验证码——然后选择“允许”。</li>
+</ol>
+<h2>可以这样问</h2>
+<ul>
+<li>“Tuwa 里我今天的计划是什么？”——显示“今日”卡片：您的恢复读数和当天的训练。</li>
+<li>“过去两周我的训练负荷有什么变化？”</li>
+<li>“我这周记录了什么？”</li>
+<li>“我的计划进行到哪里了？”</li>
+<li>“按 Tuwa 的规则检查这份计划。”</li>
+<li>“帮我制定一份休赛期计划，并发送到 Tuwa。”</li>
+</ul>
+<h2>它读取什么，以及它永远拿不到什么</h2>
+<ul>
+<li><strong>可以读取：</strong>您的恢复评分和睡眠评分（仅综合评分——原始 Apple 健康读数从不离开您的手机）、当天的决定、您记录的训练和训练负荷、您的个人纪录，以及您的计划——它的进度位置和文本。</li>
+<li><strong>可以发送：</strong>一份计划草稿。Tuwa 会按其规则手册检查草稿，并用与应用内计划导入相同的 AI 读取方式读取它（通过 OpenRouter）。在您于 Tuwa 中启用之前，它一直是草稿。</li>
+<li><strong>不能：</strong>更改您的计划、记录训练或填写您的每日自评。</li>
+<li><strong>从不发送：</strong>不发送任何来自 Apple 健康的数值——没有心率、HRV、睡眠时长、体温或周期数据。</li>
+<li><strong>保存：</strong>Tuwa 会随您的账号保存您的 AI 应用发来的计划草稿和它的请求次数。您的 AI 服务商按其自身条款保留它读取的内容。详见<a href="/zh/privacy/#ai-connector">隐私政策</a>。</li>
+</ul>
+<h2>工具</h2>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Today in Tuwa（今日）</td>
+<td>您最新的恢复和睡眠评分、今天计划的训练，以及您在应用中做出的当天决定。显示“今日”卡片。</td>
+</tr>
+<tr>
+<td>Training load（训练负荷）</td>
+<td>过去 14 天的急性和慢性训练负荷。</td>
+</tr>
+<tr>
+<td>Recent sessions（最近训练）</td>
+<td>您最近记录的训练：类型、时长、用力程度、训练量和动作。</td>
+</tr>
+<tr>
+<td>Plan position（计划进度）</td>
+<td>您当前的计划：第 N / M 周、阶段、今天和下一次训练。</td>
+</tr>
+<tr>
+<td>Personal records（个人纪录）</td>
+<td>您的个人纪录，最新的在前。</td>
+</tr>
+<tr>
+<td>Program rulebook（规则手册）</td>
+<td>Tuwa 当前的计划规则，附数值和来源。</td>
+</tr>
+<tr>
+<td>Check a plan（检查计划）</td>
+<td>按规则手册检查一份计划并列出规则提示。不写入任何内容。</td>
+</tr>
+<tr>
+<td>Send a plan draft to Tuwa（发送计划草稿）</td>
+<td>把计划作为草稿发送到 Tuwa，由您查看。从不启用计划。</td>
+</tr>
+</tbody>
+</table>
+<p>三个现成的提示：<strong>Design my plan with Tuwa（和 Tuwa 一起制定计划）</strong>、<strong>Check my plan against Tuwa's rules（按 Tuwa 的规则检查计划）</strong>、<strong>Adjust my plan（调整计划）</strong>。</p>
+<h2>关闭方法</h2>
+<ul>
+<li><strong>在您的 AI 应用中：</strong>在连接器设置中断开或移除 Tuwa。</li>
+<li><strong>在 Tuwa 中：</strong>关闭“档案 › 法律信息 › AI 连接器”。之后 Tuwa 不再向您的 AI 应用提供任何内容。</li>
+</ul>
+<p>有问题请联系：<a href="mailto:support@tuwa.app">support@tuwa.app</a>。</p>
+</ConnectorPageLayout>

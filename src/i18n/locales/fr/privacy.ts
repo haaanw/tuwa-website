@@ -3,7 +3,7 @@ import type { Privacy } from '../en/privacy';
 const privacy: Privacy = {
   meta: {
     title: 'Politique de confidentialité',
-    lastUpdated: '3 octobre 2026',
+    lastUpdated: '22 octobre 2026',
     description: 'Politique de confidentialité de Tuwa — application de gestion de la charge d\'entraînement et de la récupération.',
   },
   disclaimer: {
@@ -168,9 +168,41 @@ const privacy: Privacy = {
       },
     ],
   },
+  // HAN-approved v1.7.6 C3 copy; punctuation belongs to each label.
+  aiConnector: {
+    "heading": "Connecteur IA (facultatif)",
+    "p1": "Tu peux ajouter Tuwa à ta propre app d'IA — Claude ou ChatGPT — comme connecteur. Ton app d'IA lit alors tes données Tuwa quand tu lui poses une question. Cela ne fonctionne qu'après deux autorisations : sur la page de connexion tuwa.app/oauth/consent, et dans l'app sous Profil › Mentions légales › Connecteur IA.",
+    "items": [
+      {
+        "label": "Ce que ton app d'IA peut lire :",
+        "description": " tes scores de récupération et de sommeil (scores composites uniquement), la décision du jour, tes séances enregistrées et ta charge d'entraînement, tes records personnels, ainsi que ton programme avec sa position et son texte."
+      },
+      {
+        "label": "Ce qu'elle peut envoyer :",
+        "description": " un brouillon de programme. Tuwa vérifie le brouillon selon son règlement et le lit avec le même lecteur IA que l'import de programme dans l'app, via OpenRouter (voir Importation de programme). Il reste un brouillon tant que tu ne l'actives pas dans Tuwa. Ton app d'IA ne peut pas modifier ton programme, enregistrer une séance ni répondre à ton bilan du jour."
+      },
+      {
+        "label": "Ce qui n'est jamais envoyé :",
+        "description": " aucune valeur issue d'Apple Santé (ni fréquence cardiaque, ni HRV, ni durée de sommeil, ni température, ni données du cycle menstruel). Les outils du connecteur n'envoient jamais ton nom ni ton adresse e-mail. À la connexion, ton app d'IA reçoit les informations de compte indiquées sur la page de connexion, par exemple ton adresse e-mail."
+      },
+      {
+        "label": "Destinataire :",
+        "description": " ta propre app d'IA et son fournisseur (par exemple Anthropic ou OpenAI), à ta demande. Ton fournisseur d'IA n'est pas un sous-traitant de Tuwa ; il traite ce qu'il lit selon ses propres conditions et sa politique de confidentialité."
+      },
+      {
+        "label": "Conservation :",
+        "description": " Tuwa conserve avec ton compte les brouillons de programme envoyés par ton app d'IA et un décompte de ses requêtes (pour les limites d'usage). La décision du jour est synchronisée avec ton compte pour que le connecteur puisse l'afficher. La suppression du compte les supprime. Ton fournisseur d'IA conserve ce qu'il lit selon ses propres conditions."
+      },
+      {
+        "label": "Ton choix :",
+        "description": " le connecteur reste désactivé tant que tu ne l'autorises pas. Tu peux le désactiver à tout moment dans Profil › Mentions légales › Connecteur IA ; Tuwa ne donne alors plus rien à ton app d'IA. Pour retirer Tuwa de ton app d'IA, déconnecte-le dans les réglages de connecteurs de cette app."
+      }
+    ]
+  },
   dataSharing: {
     heading: 'Partage des données',
     p1: "Tuwa ne partage pas tes données d'entraînement ou de récupération avec des coachs, d'autres utilisateurs, des annonceurs ou des courtiers en données. Si des fonctionnalités de partage sont ajoutées à l'avenir, elles nécessiteront ton consentement explicite.",
+    connector: "La seule exception est le connecteur IA (ci-dessus) : quand tu l'autorises, ta propre app d'IA lit tes données Tuwa à ta demande.",
   },
   thirdPartyServices: {
     heading: 'Services tiers',

@@ -54,11 +54,34 @@ import t from '../../i18n/locales/en/oauth-consent';
 
         <div class="consent-or" aria-hidden="true"><span class="micro" data-t="signIn.or">{t.signIn.or}</span></div>
 
+        <!-- Email + password (existing accounts only, as in the app), or a one-time code. -->
         <form class="consent-form" data-el="email-form" novalidate>
           <label class="consent-label" for="consent-email" data-t="signIn.emailLabel">{t.signIn.emailLabel}</label>
-          <input id="consent-email" class="consent-input" data-el="email-input" type="email" autocomplete="email" inputmode="email" required />
+          <input id="consent-email" class="consent-input" data-el="email-input" type="email" autocomplete="username" inputmode="email" required />
           <p class="consent-hint" data-t="signIn.emailHint">{t.signIn.emailHint}</p>
-          <button type="submit" class="consent-quiet-button" data-t="signIn.sendCode">{t.signIn.sendCode}</button>
+          <label class="consent-label" for="consent-password" data-t="signIn.passwordLabel">{t.signIn.passwordLabel}</label>
+          <input id="consent-password" class="consent-input" data-el="password-input" type="password" autocomplete="current-password" />
+          <p class="consent-hint" data-t="signIn.passwordHint">{t.signIn.passwordHint}</p>
+          <div class="consent-form-row">
+            <button type="submit" class="consent-quiet-button" data-t="signIn.passwordSubmit">{t.signIn.passwordSubmit}</button>
+            <button type="button" class="consent-link" data-el="send-code" data-t="signIn.sendCode">{t.signIn.sendCode}</button>
+          </div>
+          <button type="button" class="consent-link" data-el="forgot-password" data-t="signIn.forgotPassword">{t.signIn.forgotPassword}</button>
+        </form>
+
+        <!-- Forgot password (ruling A1): a 6-digit code + a new password, as in the app. -->
+        <form class="consent-form" data-el="reset-form" novalidate hidden>
+          <p class="consent-body" data-el="reset-sent"></p>
+          <label class="consent-label" for="consent-reset-code" data-t="signIn.codeLabel">{t.signIn.codeLabel}</label>
+          <input id="consent-reset-code" class="consent-input consent-input--code" data-el="reset-code-input" type="text" autocomplete="one-time-code" inputmode="numeric" maxlength="10" required />
+          <label class="consent-label" for="consent-new-password" data-t="signIn.newPasswordLabel">{t.signIn.newPasswordLabel}</label>
+          <input id="consent-new-password" class="consent-input" data-el="new-password-input" type="password" autocomplete="new-password" minlength="8" required />
+          <p class="consent-hint" data-t="signIn.newPasswordHint">{t.signIn.newPasswordHint}</p>
+          <div class="consent-form-row">
+            <button type="submit" class="consent-quiet-button" data-t="signIn.resetSubmit">{t.signIn.resetSubmit}</button>
+            <button type="button" class="consent-link" data-el="reset-resend" data-t="signIn.resetResend">{t.signIn.resetResend}</button>
+          </div>
+          <button type="button" class="consent-link" data-el="reset-back" data-t="signIn.otherEmail">{t.signIn.otherEmail}</button>
         </form>
 
         <form class="consent-form" data-el="code-form" novalidate hidden>
@@ -104,6 +127,10 @@ import t from '../../i18n/locales/en/oauth-consent';
           <div class="consent-row">
             <dt class="micro" data-t="consent.providerKey">{t.consent.providerKey}</dt>
             <dd data-t="consent.provider">{t.consent.provider}</dd>
+          </div>
+          <div class="consent-row">
+            <dt class="micro" data-t="consent.keptKey">{t.consent.keptKey}</dt>
+            <dd data-t="consent.kept">{t.consent.kept}</dd>
           </div>
         </dl>
 

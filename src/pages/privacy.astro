@@ -1,7 +1,10 @@
 ---
+import AIConnectorPrivacy from '../components/AIConnectorPrivacy.astro';
 import LegalPageLayout from '../layouts/LegalPageLayout.astro';
+import { usePrivacyTranslations } from '../i18n/utils';
+const t = usePrivacyTranslations('en');
 ---
-<LegalPageLayout title="Privacy Policy" lastUpdated="October 3, 2026">
+<LegalPageLayout title="Privacy Policy" lastUpdated="October 22, 2026">
   <p>Tuwa ("the app") is developed by Hanwen Ma. This policy explains what data the app collects, how it is used, and your rights.</p>
 
   <h2>What Data We Collect</h2>
@@ -72,8 +75,11 @@ import LegalPageLayout from '../layouts/LegalPageLayout.astro';
     <li><strong>Your choice:</strong> AI reasoning is off until you allow it. This permission is separate from the AI processing permission for typed workouts and program import. You can withdraw at any time in Profile › Legal › AI reasoning. When you withdraw, Tuwa stops sending and deletes its AI-reasoning records on your phone.</li>
   </ul>
 
+  <AIConnectorPrivacy />
+
   <h2>Data Sharing</h2>
   <p>Tuwa does not share your training or recovery data with coaches, other users, advertisers, or data brokers. If future sharing features are added, they will require your explicit consent.</p>
+  <p>{t.dataSharing.connector}</p>
 
   <h2>Third-Party Services</h2>
   <ul>

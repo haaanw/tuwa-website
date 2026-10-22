@@ -1,0 +1,72 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import CJKFonts from '../components/CJKFonts.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: 'en' | 'zh';
+}
+const { title, description, locale } = Astro.props;
+const hreflangAlternates = [
+  { hreflang: 'en', href: 'https://tuwa.app/connector/' },
+  { hreflang: 'zh-CN', href: 'https://tuwa.app/zh/connector/' },
+];
+---
+<BaseLayout title={title} description={description} locale={locale} hreflangAlternates={hreflangAlternates}>
+  {locale === 'zh' && <CJKFonts />}
+  <article class="connector-page wrap">
+    <h1>{title}</h1>
+    <div class="connector-copy prose prose-neutral max-w-none">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .connector-page {
+    max-width: 800px;
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
+  h1 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-heading);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+    margin-bottom: var(--space-xl);
+    text-wrap: balance;
+  }
+  .connector-copy :global(h2) {
+    border-top: 1px solid var(--color-divider);
+    padding-top: var(--space-xl);
+    margin-top: var(--space-2xl);
+  }
+  .connector-copy :global(h2),
+  .connector-copy :global(strong),
+  .connector-copy :global(th) {
+    font-weight: var(--weight-medium);
+  }
+  .connector-copy :global(table) {
+    width: 100%;
+    table-layout: fixed;
+  }
+  .connector-copy :global(th:first-child),
+  .connector-copy :global(td:first-child) {
+    width: 36%;
+    padding-right: var(--space-md);
+  }
+  .connector-copy :global(th),
+  .connector-copy :global(td) {
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+  .connector-copy :global(code) {
+    font: inherit;
+    overflow-wrap: anywhere;
+  }
+  .connector-copy :global(code::before),
+  .connector-copy :global(code::after) {
+    content: none;
+  }
+</style>

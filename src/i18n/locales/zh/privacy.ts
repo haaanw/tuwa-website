@@ -3,7 +3,7 @@ import type { Privacy } from '../en/privacy';
 const privacy: Privacy = {
   meta: {
     title: '隐私政策',
-    lastUpdated: '2026年10月3日',
+    lastUpdated: '2026年10月22日',
     description: 'Tuwa——训练负荷与恢复管理应用的隐私政策。',
   },
   disclaimer: {
@@ -160,9 +160,41 @@ const privacy: Privacy = {
       },
     ],
   },
+  // HAN-approved v1.7.6 C3 copy; punctuation belongs to each label.
+  aiConnector: {
+    "heading": "AI 连接器（可选）",
+    "p1": "您可以把 Tuwa 作为连接器添加到您自己的 AI 应用（Claude 或 ChatGPT）中。之后，当您向它提问时， 您的 AI 应用会读取您的 Tuwa 数据。只有在您两次允许之后它才会生效：在登录页面 tuwa.app/oauth/consent 上，以及在应用的“档案 › 法律信息 › AI 连接器”中。",
+    "items": [
+      {
+        "label": "可以读取什么：",
+        "description": "您的恢复评分和睡眠评分（仅综合评分）、当天的决定、您记录的训练和训练负荷、 您的个人纪录，以及您的计划及其进度位置和文本。"
+      },
+      {
+        "label": "可以发送什么：",
+        "description": "一份计划草稿。Tuwa 会按其规则手册检查草稿，并用与应用内计划导入相同的 AI 读取方式读取它（通过 OpenRouter，见“训练计划导入”）。在您于 Tuwa 中启用之前，它一直是草稿。您的 AI 应用不能更改您的计划、 记录训练或填写您的每日自评。"
+      },
+      {
+        "label": "绝不会发送什么：",
+        "description": "任何来自 Apple 健康的数值（没有心率、HRV、睡眠时长、体温或月经周期数据）。 连接器的工具从不发送您的姓名或邮箱。登录时，您的 AI 应用会收到登录页面列出的账号信息，例如您的邮箱地址。"
+      },
+      {
+        "label": "接收方：",
+        "description": "您自己的 AI 应用及其服务商（例如 Anthropic 或 OpenAI），应您的请求。您的 AI 服务商不是 Tuwa 的数据处理方；它按其自身条款和隐私政策处理它读取的内容。"
+      },
+      {
+        "label": "保留期限：",
+        "description": "Tuwa 会随您的账号保存您的 AI 应用发来的计划草稿和它的请求次数（用于频率限制）。 当天的决定会同步到您的账号，以便连接器显示。删除账号会一并删除这些数据。您的 AI 服务商按其自身条款 保留它读取的内容。"
+      },
+      {
+        "label": "您的选择：",
+        "description": "在您允许之前，连接器保持关闭。您可以随时在“档案 › 法律信息 › AI 连接器”中关闭它； 之后 Tuwa 不再向您的 AI 应用提供任何内容。要从您的 AI 应用中移除 Tuwa，请在该应用的连接器设置中断开连接。"
+      }
+    ]
+  },
   dataSharing: {
     heading: '数据共享',
     p1: 'Tuwa 不会将您的训练或恢复数据共享给教练、其他用户、广告商或数据经纪商。若日后新增共享功能，将需要您的明确同意。',
+    connector: "唯一的例外是上面的 AI 连接器：在您允许后，您自己的 AI 应用会应您的请求读取您的 Tuwa 数据。",
   },
   thirdPartyServices: {
     heading: '第三方服务',

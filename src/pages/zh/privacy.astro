@@ -1,4 +1,5 @@
 ---
+import AIConnectorPrivacy from '../../components/AIConnectorPrivacy.astro';
 import '@fontsource/noto-sans-sc/400.css';
 import '@fontsource/noto-sans-sc/700.css';
 import { usePrivacyTranslations } from '../../i18n/utils';
@@ -77,8 +78,11 @@ const t = usePrivacyTranslations('zh');
     ))}
   </ul>
 
+  <AIConnectorPrivacy locale="zh" />
+
   <h2>{t.dataSharing.heading}</h2>
   <p>{t.dataSharing.p1}</p>
+  <p>{t.dataSharing.connector}</p>
 
   <h2>{t.thirdPartyServices.heading}</h2>
   <ul>
