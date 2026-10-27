@@ -5,6 +5,15 @@
 # @astrojs/sitemap writes sitemap-index.xml; tools and crawlers still probe /sitemap.xml first.
 /sitemap.xml     /sitemap-index.xml    301
 
+# URLs Google reports as 404 that never were pages (Search Console, 2026-10-27).
+/home                              /                 301
+/blog/training-load-explained      /training-load/   301
+/blog/training-load-explained/     /training-load/   301
+
+# The connector page exists in en + zh only; its language switcher links /fr/connector/.
+/fr/connector     /connector/    302
+/fr/connector/    /connector/    302
+
 # Coach pages removed in the athlete-only repositioning (app v1.6)
 /for-coaches              /                     301
 /for-coaches/             /                     301
@@ -34,3 +43,10 @@
 
 # App v1.7.6 plan-writing skill pages exist in en + zh only; French readers get the English page.
 /fr/skills/*    /skills/:splat    302
+
+# Blog posts are English-only; each post's language switcher links /fr/ and /zh/ copies.
+# :slug needs a segment, so the /fr/blog/ and /zh/blog/ index pages are not matched.
+/fr/blog/:slug/    /blog/:slug/    302
+/fr/blog/:slug     /blog/:slug/    302
+/zh/blog/:slug/    /blog/:slug/    302
+/zh/blog/:slug     /blog/:slug/    302
