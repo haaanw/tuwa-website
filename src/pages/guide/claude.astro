@@ -1,0 +1,47 @@
+---
+// W5.2 — Connect Claude. The custom-connector path is the approved /connector/ copy (B8);
+// the directory path is added when Anthropic approves the listing (W4). App strings: 1.7.6 (24).
+import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
+---
+<GuidePageLayout title="Connect Claude" description="Add Tuwa to Claude as a connector: turn it on in Tuwa, add the URL in Claude, sign in, and disconnect at any time." locale="en" path="/guide/claude/">
+<p>With the connector, Claude can read your Tuwa readings, sessions and plan, show the day's card in the chat, and send you a plan draft to review. Tuwa still makes the day's go, modify or hold decision in the app. The connector is free and off until you turn it on.</p>
+
+<h2>What you need</h2>
+<ul>
+<li>A Tuwa account and Tuwa 1.7.6 or later on your iPhone.</li>
+<li>Claude on the web (claude.ai) or the Claude desktop app.</li>
+</ul>
+
+<h2>1. Turn it on in Tuwa</h2>
+<ol>
+<li>Open <strong>Profile</strong> › <strong>Legal</strong> › <strong>AI connector</strong>.</li>
+<li>Read <strong>What is sent</strong>, <strong>Never sent</strong> and <strong>Kept</strong>.</li>
+<li>Turn on <strong>Allow the AI connector</strong>. Until you do, Tuwa gives your AI app nothing.</li>
+</ol>
+
+<h2>2. Add Tuwa in Claude</h2>
+<ol>
+<li>In Claude, open Customize › Connectors › Add › <strong>Add custom connector</strong>.</li>
+<li>Name: <code>Tuwa</code>. URL: <code>https://mcp.tuwa.app/mcp</code></li>
+<li>Choose Add, then Connect.</li>
+</ol>
+<p>When Tuwa is listed in Claude's connector directory, you can add it from there instead.</p>
+
+<h2>3. Sign in and allow</h2>
+<p>A Tuwa page opens at tuwa.app. Sign in the way you sign in to the app — Apple, Google, or your email with your password or a one-time code — and choose <strong>Allow</strong>. Then ask Claude, for example: "What's on my plan today in Tuwa?"</p>
+
+<h2>What Claude can read, and what it never gets</h2>
+<ul>
+<li><strong>It can read:</strong> your recovery and sleep scores (composite scores only), the day's decision, your logged sessions and training load, your personal records, and your plan — its position and its text.</li>
+<li><strong>It can send:</strong> a plan draft. The draft waits for you: a row <strong>A plan arrived from your AI · Review</strong> appears on Today and Log. Open it, check the plan, then tap <strong>Activate this plan</strong> or <strong>Dismiss this draft</strong>. Tuwa never activates a draft by itself.</li>
+<li><strong>It cannot:</strong> change your plan, log a workout or answer your check-in.</li>
+<li><strong>Never sent:</strong> no number from Apple Health — no heart rate, HRV, sleep time, temperature or cycle data.</li>
+</ul>
+<p>The full list of tools is on the <a href="/connector/">connector page</a>; what is kept is in the <a href="/privacy/#ai-connector">Privacy Policy</a>.</p>
+
+<h2>Disconnect</h2>
+<ol>
+<li>In Tuwa: <strong>Profile</strong> › <strong>Legal</strong> › <strong>AI connector</strong>, turn off <strong>Allow the AI connector</strong>. From then on the connector gives your AI nothing more.</li>
+<li>In Claude: remove Tuwa in the connector settings.</li>
+</ol>
+</GuidePageLayout>

@@ -1,0 +1,45 @@
+---
+// W5.5 — Help. App strings: 1.7.6 (24), traced in the app source 2026-10-31.
+import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
+---
+<GuidePageLayout title="Help" description="Short answers: the morning check-in, a missed day, a rest day, units, language, a new program, sign out and account deletion." locale="en" path="/guide/help/">
+
+<h2>The morning check-in</h2>
+<p>Four 1–5 ratings: Sleep quality, Muscle soreness, Energy / mood and Stress level, with optional behaviour tags. They feed the day's reading. The sheet opens by itself the first time you open Tuwa on a day before noon, once a day. After noon it stays on Today as <strong>How are you feeling today?</strong> Cancel skips it.</p>
+
+<h2>I missed a day</h2>
+<p>Tuwa looks back six days. If today has no session of its own, the missed day becomes today's session: <strong>Start today</strong> or <strong>Skip it</strong>. If today has its own session, the missed day is skipped; tap <strong>Do it today</strong> to train it instead.</p>
+
+<h2>Today is a rest day</h2>
+<p>Today shows <strong>Rest day</strong> and names your next session. To train anyway, tap <strong>Start unplanned</strong>.</p>
+
+<h2>I want to log a session that is not in my plan</h2>
+<p>On Log, tap <strong>Start session</strong>: <strong>Blank session</strong>, <strong>Describe a workout in words</strong> (type it; Tuwa turns it into a draft that you check before it saves) or <strong>From a template</strong>.</p>
+
+<h2>Kilograms or pounds</h2>
+<p><strong>Profile</strong> › <strong>Preferences</strong> › <strong>Weight unit</strong>: kg or lbs.</p>
+
+<h2>Language</h2>
+<p><strong>Profile</strong> › <strong>Preferences</strong> › <strong>Language</strong>: English or 中文(简体). The change takes effect at once.</p>
+
+<h2>Move my week, or bring a new program</h2>
+<p>On Log, tap the Program row to open the program overview. <strong>Move my position</strong> then <strong>Move here</strong> moves you to another week or day. <strong>Bring a new program</strong> imports a new one.</p>
+
+<h2>Apple Health access</h2>
+<p>Tuwa only reads Apple Health. To change what it reads, open iOS Settings › Privacy &amp; Security › Health › Tuwa. Raw readings never leave your phone; only composite scores sync.</p>
+
+<h2>The AI connector</h2>
+<p>Off until you turn it on in <strong>Profile</strong> › <strong>Legal</strong> › <strong>AI connector</strong>. See <a href="/guide/claude/">Connect Claude</a> and <a href="/guide/chatgpt/">Connect ChatGPT</a>.</p>
+
+<h2>Sign out</h2>
+<p><strong>Profile</strong> › <strong>Account</strong> › <strong>Sign out</strong>. Signing out removes your Tuwa data from this phone; what has synced stays in your account. If some data has not synced yet, Tuwa warns you first.</p>
+
+<h2>Delete my account</h2>
+<p><strong>Profile</strong> › <strong>Account</strong> › <strong>Delete account</strong>. This permanently deletes your account and its data, and cannot be undone.</p>
+
+<h2>Subscription</h2>
+<p>Apple manages your subscription: iOS Settings › your name › Subscriptions.</p>
+
+<h2>Still stuck?</h2>
+<p>Write to <a href="mailto:support@tuwa.app">support@tuwa.app</a>.</p>
+</GuidePageLayout>

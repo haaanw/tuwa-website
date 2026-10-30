@@ -1,0 +1,73 @@
+---
+// W5.1 — every screen name and button below is the 1.7.6 (24) app's English string
+// (WorkloadApp/Resources/Localizable.xcstrings, traced 2026-10-31). If 1.7.7 opens Today on the
+// Day Card (.planning/v177/TODAY-FIRST.md), steps 6–8 change on that release day.
+import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
+---
+<GuidePageLayout title="Quick start" description="Set up Tuwa on your iPhone, bring your plan or build it with your own AI, and run your first session from the day card." locale="en" path="/guide/quick-start/">
+<p>You need an iPhone with iOS 17 or later. Apple Health data from a watch or ring is optional; Tuwa works on logged training alone and adds your readings when it has them.</p>
+
+<h2>1. Install and answer the first questions</h2>
+<p>Get Tuwa from the App Store and open it. The first screens ask what breaks your training, how your week splits and what happened the last time you trained through deep fatigue. Choose your answers and tap <strong>Continue</strong>. Already have an account? Tap <strong>Already have an account? Log in</strong>.</p>
+
+<h2>2. Connect Apple Health</h2>
+<p>The screen <strong>Read your last 90 days.</strong> asks to read heart rate variability, resting heart rate and sleep. Tap <strong>Read my data</strong> and allow access in the Apple Health sheet, or tap <strong>Skip for now</strong>.</p>
+<ul>
+<li>Tuwa only reads Apple Health; it never writes to it. Raw readings never leave your phone. Only composite scores sync to your account.</li>
+<li>With no history yet, the next screen says so and explains what happens next: your own baseline needs about 14 mornings of readings.</li>
+</ul>
+<p>The next screen, <strong>Your readiness.</strong>, shows your first reading.</p>
+
+<h2>3. Your plan</h2>
+<p>Tuwa reads your program and adjusts each day from your body. It never writes the program. Pick one:</p>
+<ul>
+<li><strong>I have a plan</strong> — a file, a photo or pasted text. It opens right after your account is made (step 5).</li>
+<li><strong>I don't have one yet</strong> — this opens <strong>Build it with your AI</strong>:
+<ol>
+<li>Tap <strong>Copy the prompt</strong>.</li>
+<li>Tap <strong>Open Claude</strong> or <strong>Open ChatGPT</strong> and paste the prompt. Your AI reads Tuwa's <a href="/skills/design-program/">plan-writing skill</a>, asks you about your training a few questions at a time, and writes the first phase in <a href="/skills/design-program/import-format/">Tuwa's import format</a>. Tuwa sends nothing to your AI on this route.</li>
+<li>Back in Tuwa, tap <strong>I have my plan now</strong>. You paste the plan after your account is made.</li>
+</ol>
+</li>
+</ul>
+<p>Then answer <strong>How long have you trained with a written plan?</strong> (None · Under 6 months · 6 months to 2 years · Over 2 years) and tap <strong>Continue</strong>. <strong>Later</strong> skips the plan for now.</p>
+
+<h2>4. Make your account</h2>
+<p>On <strong>Keep this. Make an account.</strong> choose Sign in with Apple, <strong>Continue with Google</strong> or <strong>Continue with email</strong> (name, email and a password of at least 8 characters, then <strong>Create account</strong>).</p>
+<p>Next comes the subscription screen. Subscribe, or tap <strong>Continue free</strong> — it is always there.</p>
+
+<h2>5. Bring your program</h2>
+<p>If you chose a plan in step 3, the sheet <strong>Bring your program</strong> opens now.</p>
+<ol>
+<li>Pick a door: <strong>Paste it</strong> (text), <strong>PDF</strong> (your coach's file) or <strong>Photo</strong> (a whiteboard or a page).</li>
+<li>Tap <strong>Read my program</strong>. The first time, Tuwa asks for <strong>AI processing</strong>: your program text is read by an AI service to turn it into weeks, days and sets. Tap <strong>Allow</strong>, or <strong>Not now</strong> to stop here. No Apple Health data is ever sent.</li>
+<li>Check what Tuwa read. If something needs a look, it says <strong>Check before import</strong>. Tap <strong>Import as read</strong>.</li>
+<li>If the file has no length, answer <strong>How long do you intend to run it?</strong></li>
+<li>Choose when week 1 starts: <strong>Starts next Monday</strong> (the default) or <strong>Starts today</strong>. On a Monday there is no choice.</li>
+</ol>
+<p>The tour <strong>One loop, every day.</strong> follows. Tap <strong>Start training</strong>.</p>
+
+<h2>6. Each morning: the check-in</h2>
+<p>The first time you open Tuwa on a day before noon, the <strong>Morning check-in</strong> opens by itself: four 1–5 ratings (Sleep quality, Muscle soreness, Energy / mood, Stress level). Tap Save, or Cancel to skip it. After noon it stays on Today as <strong>How are you feeling today?</strong></p>
+
+<h2>7. Today: read the day card</h2>
+<p>The <strong>Today</strong> tab opens on the day card. It names the kind of day (for example <strong>Strength day</strong>) and its dose in words — <strong>Volume</strong>, <strong>Effort</strong> and <strong>Length</strong> — against your plan. The numbers live in the brief.</p>
+<ol>
+<li>Tap <strong>Start today</strong>. The brief <strong>Today's session</strong> opens: <strong>What today looks like</strong> (your readings), <strong>So today</strong> (the day's suggestion and its reason) and your exercises, planned against today.</li>
+<li>If the brief suggests a change, it shows two equal choices: the adjustment (for example a lighter top set or fewer back-off sets) and <strong>Keep my plan</strong>. You choose. On a steady day there is nothing to choose.</li>
+<li>Tap <strong>Start</strong>. The session goes live on the <strong>Log</strong> tab.</li>
+</ol>
+
+<h2>8. Log: run the session on the Day Card</h2>
+<ol>
+<li>The Day Card shows <strong>Session live</strong>. Tap a movement to open its plate.</li>
+<li>Do the set and tap <strong>Log set</strong>. <strong>Skip move</strong> skips the movement.</li>
+<li>A drill with no weight logs in one tap (<strong>Tap to log as planned</strong>); tap again to undo.</li>
+<li>When you are done, tap <strong>Finish</strong>. <strong>How hard was this session?</strong> is optional; then tap <strong>Finish</strong> to save.</li>
+</ol>
+<p>The session appears under <strong>History</strong> on Log and <strong>Recent sessions</strong> on Today, and the day card shows <strong>Done today</strong>.</p>
+
+<h2>No plan yet?</h2>
+<p>Today shows <strong>Bring your program</strong> and <strong>Start unplanned</strong>. On Log, <strong>Start session</strong> offers a <strong>Blank session</strong>, <strong>Describe a workout in words</strong> (you type the session; Tuwa turns it into a draft you check) or <strong>From a template</strong>.</p>
+<p>Next: <a href="/guide/claude/">connect Claude</a>, <a href="/guide/chatgpt/">connect ChatGPT</a>, or read the <a href="/guide/help/">help</a>.</p>
+</GuidePageLayout>

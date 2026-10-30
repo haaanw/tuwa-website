@@ -1,0 +1,47 @@
+---
+// W5.3 — Connect ChatGPT. The custom-connector path is the approved /connector/ copy (B8);
+// the app path is added when OpenAI approves the listing (W4). App strings: 1.7.6 (24).
+import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
+---
+<GuidePageLayout title="Connect ChatGPT" description="Add Tuwa to ChatGPT as a connector: turn it on in Tuwa, add the URL in ChatGPT, sign in, and disconnect at any time." locale="en" path="/guide/chatgpt/">
+<p>With the connector, ChatGPT can read your Tuwa readings, sessions and plan, show the day's card in the chat, and send you a plan draft to review. Tuwa still makes the day's go, modify or hold decision in the app. The connector is free and off until you turn it on.</p>
+
+<h2>What you need</h2>
+<ul>
+<li>A Tuwa account and Tuwa 1.7.6 or later on your iPhone.</li>
+<li>ChatGPT on the web or the ChatGPT desktop app, with an account that lets you add a custom connector.</li>
+</ul>
+
+<h2>1. Turn it on in Tuwa</h2>
+<ol>
+<li>Open <strong>Profile</strong> › <strong>Legal</strong> › <strong>AI connector</strong>.</li>
+<li>Read <strong>What is sent</strong>, <strong>Never sent</strong> and <strong>Kept</strong>.</li>
+<li>Turn on <strong>Allow the AI connector</strong>. Until you do, Tuwa gives your AI app nothing.</li>
+</ol>
+
+<h2>2. Add Tuwa in ChatGPT</h2>
+<ol>
+<li>In ChatGPT, add a custom connector (MCP server) in your plugin settings.</li>
+<li>Name: <code>Tuwa</code>. URL: <code>https://mcp.tuwa.app/mcp</code>. Sign-in: OAuth.</li>
+<li>Connect it.</li>
+</ol>
+<p>When Tuwa is listed in ChatGPT's app directory, you can add it from there instead.</p>
+
+<h2>3. Sign in and allow</h2>
+<p>A Tuwa page opens at tuwa.app. Sign in the way you sign in to the app — Apple, Google, or your email with your password or a one-time code — and choose <strong>Allow</strong>. Then ask ChatGPT, for example: "Where am I in my plan?"</p>
+
+<h2>What ChatGPT can read, and what it never gets</h2>
+<ul>
+<li><strong>It can read:</strong> your recovery and sleep scores (composite scores only), the day's decision, your logged sessions and training load, your personal records, and your plan — its position and its text.</li>
+<li><strong>It can send:</strong> a plan draft. The draft waits for you: a row <strong>A plan arrived from your AI · Review</strong> appears on Today and Log. Open it, check the plan, then tap <strong>Activate this plan</strong> or <strong>Dismiss this draft</strong>. Tuwa never activates a draft by itself.</li>
+<li><strong>It cannot:</strong> change your plan, log a workout or answer your check-in.</li>
+<li><strong>Never sent:</strong> no number from Apple Health — no heart rate, HRV, sleep time, temperature or cycle data.</li>
+</ul>
+<p>The full list of tools is on the <a href="/connector/">connector page</a>; what is kept is in the <a href="/privacy/#ai-connector">Privacy Policy</a>.</p>
+
+<h2>Disconnect</h2>
+<ol>
+<li>In Tuwa: <strong>Profile</strong> › <strong>Legal</strong> › <strong>AI connector</strong>, turn off <strong>Allow the AI connector</strong>. From then on the connector gives your AI nothing more.</li>
+<li>In ChatGPT: remove or disconnect Tuwa in the connector settings.</li>
+</ol>
+</GuidePageLayout>

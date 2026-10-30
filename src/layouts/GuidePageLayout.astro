@@ -1,0 +1,126 @@
+---
+// The athlete manual (/guide/, W5): en + zh; fr redirects to en (public/_redirects), as for
+// /connector/. Every step names a real screen of the 1.7.6 app, traced in the app source
+// (Localizable.xcstrings), never in the store captures (seed data). Claim rails apply.
+import BaseLayout from './BaseLayout.astro';
+import CJKFonts from '../components/CJKFonts.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: 'en' | 'zh';
+  /** The page's path without the locale prefix, e.g. "/guide/claude/". */
+  path: string;
+}
+const { title, description, locale, path } = Astro.props;
+const hreflangAlternates = [
+  { hreflang: 'en', href: `https://tuwa.app${path}` },
+  { hreflang: 'zh-CN', href: `https://tuwa.app/zh${path}` },
+];
+const prefix = locale === 'zh' ? '/zh' : '';
+const NAV = locale === 'zh'
+  ? [
+      { href: '/guide/', label: '指南' },
+      { href: '/guide/quick-start/', label: '快速上手' },
+      { href: '/guide/claude/', label: '连接 Claude' },
+      { href: '/guide/chatgpt/', label: '连接 ChatGPT' },
+      { href: '/guide/help/', label: '常见问题' },
+    ]
+  : [
+      { href: '/guide/', label: 'Guide' },
+      { href: '/guide/quick-start/', label: 'Quick start' },
+      { href: '/guide/claude/', label: 'Connect Claude' },
+      { href: '/guide/chatgpt/', label: 'Connect ChatGPT' },
+      { href: '/guide/help/', label: 'Help' },
+    ];
+const navLabel = locale === 'zh' ? '指南目录' : 'Guide pages';
+const forVersion = locale === 'zh' ? '适用于 Tuwa 1.7.6 · iPhone' : 'For Tuwa 1.7.6 · iPhone';
+---
+<BaseLayout title={title} description={description} locale={locale} hreflangAlternates={hreflangAlternates}>
+  {locale === 'zh' && <CJKFonts slot="head" />}
+  <article class="guide-page wrap">
+    <nav class="guide-nav" aria-label={navLabel}>
+      {NAV.map(({ href, label }) => (
+        <a href={`${prefix}${href}`} aria-current={href === path ? 'page' : undefined}>{label}</a>
+      ))}
+    </nav>
+    <p class="guide-for micro">{forVersion}</p>
+    <h1>{title}</h1>
+    <div class="guide-copy prose prose-neutral max-w-none">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .guide-page {
+    max-width: 800px;
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-3xl);
+  }
+  .guide-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-md);
+    font-size: var(--text-small);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .guide-nav a {
+    color: var(--color-text-2);
+    text-decoration: none;
+  }
+  .guide-nav a:hover,
+  .guide-nav a:focus-visible { color: var(--color-text-1); }
+  .guide-nav a[aria-current='page'] {
+    color: var(--color-text-1);
+    font-weight: var(--weight-medium);
+  }
+  .guide-for {
+    color: var(--color-text-3);
+    margin-bottom: var(--space-sm);
+  }
+  h1 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-heading);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+    margin-bottom: var(--space-xl);
+    text-wrap: balance;
+  }
+  .guide-copy :global(h2) {
+    border-top: 1px solid var(--color-divider);
+    padding-top: var(--space-xl);
+    margin-top: var(--space-2xl);
+  }
+  .guide-copy :global(h2),
+  .guide-copy :global(h3),
+  .guide-copy :global(strong) {
+    font-weight: var(--weight-medium);
+  }
+  .guide-copy :global(code) {
+    font: inherit;
+    overflow-wrap: anywhere;
+  }
+  .guide-copy :global(code::before),
+  .guide-copy :global(code::after) {
+    content: none;
+  }
+  .guide-copy :global(.guide-cards) {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-md);
+  }
+  .guide-copy :global(.guide-cards li) {
+    padding: var(--space-md) var(--space-lg);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-card, 12px);
+    background: var(--color-surface-el);
+    margin: 0;
+  }
+  .guide-copy :global(.guide-cards a) {
+    font-weight: var(--weight-medium);
+  }
+</style>
