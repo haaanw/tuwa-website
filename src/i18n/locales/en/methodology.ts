@@ -43,7 +43,7 @@ const content: TopicPageContent = {
       "body": [
         "Tuwa is useful from day one because onboarding sets up your training profile and logged sessions immediately start building workload history. Readiness is more conservative: when personal recovery history is thin, Tuwa avoids pretending that a population baseline is your baseline. Over time it learns your own HRV, resting heart rate, sleep, wellness, and training patterns.",
         "No model built on consumer wearables is perfect. HRV is noisy — a glass of wine, an early alarm, or a poor night can move a single reading — which is exactly why Tuwa tracks trends rather than reacting to individual data points. The ACWR framework describes population-level workload associations, not individual guarantees or predictions; it informs decisions, it does not make them for you.",
-        "Tuwa is a training tool, not a medical device. It does not diagnose illness, injury, or any health condition, and nothing in the app is medical advice. If a metric concerns you or you feel unwell, consult a qualified professional."
+        "Tuwa is a training tool, not a medical device. It does not diagnose illness, injury, or any health condition, and nothing in the app is medical advice. If a metric concerns you or you feel unwell, consult a qualified professional." // claim-fence-allow: disclaimer / negation
       ]
     }
   ],

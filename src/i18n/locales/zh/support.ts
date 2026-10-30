@@ -41,7 +41,7 @@ const support: Support = {
     },
     {
       q: 'ACWR 是什么？为什么重要？',
-      a: 'ACWR 是急性与慢性训练负荷比（Acute:Chronic Workload Ratio），用于比较近期训练负荷与较长期平均水平。Tuwa 把它作为训练负荷背景，而不是伤病预测：应用会在训练前显示最近负荷和已保存训练产生的激增标记，帮助您结合当前数据复查训练量、强度或安排。',
+      a: 'ACWR 是急性与慢性训练负荷比（Acute:Chronic Workload Ratio），用于比较近期训练负荷与较长期平均水平。Tuwa 把它作为训练负荷背景，而不是伤病预测：应用会在训练前显示最近负荷和已保存训练产生的激增标记，帮助您结合当前数据复查训练量、强度或安排。', // claim-fence-allow: disclaimer / negation
     },
     {
       q: 'Tuwa 需要多久才能给出可靠的评分？',

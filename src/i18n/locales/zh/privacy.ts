@@ -3,7 +3,7 @@ import type { Privacy } from '../en/privacy';
 const privacy: Privacy = {
   meta: {
     title: '隐私政策',
-    lastUpdated: '2026年10月22日',
+    lastUpdated: '2026年10月31日',
     description: 'Tuwa——训练负荷与恢复管理应用的隐私政策。',
   },
   disclaimer: {
@@ -73,7 +73,7 @@ const privacy: Privacy = {
       },
       {
         label: '存储在云端',
-        description: '综合评分（恢复评分、训练负荷快照、身体状态评分、训练课概要及个人最佳成绩）会同步至 Supabase（托管于 AWS），以支持多设备访问。',
+        description: '综合评分（恢复评分、训练负荷快照、身体状态评分及个人最佳成绩）以及你记录的训练课——自 App 1.7.4 版起包括其中的动作和每一组——会同步至 Supabase（托管于 AWS），以支持多设备访问。',
       },
       {
         label: '原始 HealthKit 数据永不上传。',
@@ -222,6 +222,30 @@ const privacy: Privacy = {
         description: '（OpenRouter 背后用于训练与训练计划文字的默认语言模型；可选的 AI 推理也由 Tuwa 的服务器直接调用它——仅文字）',
         url: 'https://openai.com/policies/privacy-policy/',
         urlDisplay: 'openai.com 隐私政策',
+      },
+      {
+        label: 'Resend',
+        description: '（发送账户邮件：登录验证码和重置密码验证码，发往你的邮箱地址）',
+        url: 'https://resend.com/legal/privacy-policy',
+        urlDisplay: 'resend.com 隐私政策',
+      },
+      {
+        label: 'Cloudflare',
+        description: '（托管本网站和 AI 连接器地址 mcp.tuwa.app；为传送页面会处理你的 IP 地址）',
+        url: 'https://www.cloudflare.com/privacypolicy/',
+        urlDisplay: 'cloudflare.com/privacypolicy',
+      },
+      {
+        label: 'Apple',
+        description: '（通过 Apple 登录，如果你使用它；DeviceCheck 用于「送一个月」推荐活动的核验）',
+        url: 'https://www.apple.com/legal/privacy/',
+        urlDisplay: 'apple.com/legal/privacy',
+      },
+      {
+        label: 'Google',
+        description: '（通过 Google 登录，如果你使用它）',
+        url: 'https://policies.google.com/privacy',
+        urlDisplay: 'policies.google.com/privacy',
       },
     ],
     outro: '我们不使用任何广告网络、数据分析追踪器或第三方数据中介。',

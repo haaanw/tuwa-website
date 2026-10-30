@@ -7,7 +7,7 @@ const content: TopicPageContent = {
       'Tuwa 保留你的训练计划主导权，再结合生理状态、训练历史和比赛临近情况，建议今天的力量训练如何调整。',
   },
   hero: {
-    outcomeStatement: '你的计划，按今天变得更安全、更合适',
+    outcomeStatement: '你的计划，每天对照你的身体来读',
     hookLine:
       'Whoop 和 Bevel 给分数，但没有你的计划。AI 教练替你写计划。TrainingPeaks 保存计划，但不给每日决定。Tuwa 是后方团队。',
   },

@@ -309,10 +309,10 @@ interface LottieAnim {
       const nowLabel = nowRaw ? nowRaw + ' ' : '';
       /* zone labels come from the locale copy via data-zones (EN fallback) */
       let zoneTexts = [
-        'Undertraining — room to build',
-        'In the strike zone',
-        'Trending hot — time to modify',
-        'Overreach risk — hold'
+        'Load light — below your recent base',
+        'Load steady — close to your recent base',
+        'Load building — above your recent base',
+        'High load — well above your recent base'
       ];
       try {
         const parsed = JSON.parse(label.getAttribute('data-zones') || '');

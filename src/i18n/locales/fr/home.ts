@@ -12,11 +12,12 @@ const home: Home = {
       "Tuwa est le staff sports-science des athlètes qui se coachent seuls. Tu écris le plan ; Tuwa te renvoie la dose du jour : go, modify ou hold. Il n'écrit jamais ton programme.",
   },
   heroScrub: {
-    sectionAria: 'Tuwa — ton plan, rendu sûr et optimal',
+    sectionAria: 'Tuwa — ton plan, lu face à ton corps chaque jour',
     scoreAria: 'Score de forme 82',
     scoreCaption: 'forme du jour',
     strapline: 'Tuwa // le staff sports-science',
-    lines: ['Ton plan.', 'Rendu sûr', 'et optimal.'],
+    // W0 (2026-10-30) : une lecture remplace « rendu sûr et optimal » (LEGAL-AUDIT A1). Provisoire : D1 de HAN.
+    lines: ['Ton plan.', 'Lu face à', 'ton corps.'],
     lead: "Tuwa est le staff sports-science des athlètes qui se coachent seuls. Il lit ton corps — VFC, sommeil, fréquence cardiaque au repos, historique d'entraînement — et module le plan que tu as écrit : les chiffres du jour, un verdict go / modify / hold, et la tendance de ta charge. Il n'écrit jamais ton programme.",
     sub: 'Conçu pour les athlètes qui travaillent leur sport et leur force en parallèle',
     cta: "Télécharger sur l'App Store",
@@ -35,8 +36,8 @@ const home: Home = {
         body: 'Go, modify ou hold — avec les ajustements exacts pour la séance du jour, calculés à partir de ta forme et de ta position dans ton plan.',
       },
       {
-        title: 'La strike zone',
-        body: "Une vue en direct de ton ratio de charge aiguë sur chronique, maintenu dans la bande où l'adaptation dépasse le risque de blessure.",
+        title: 'Le ratio de charge',
+        body: "Ton ratio de charge aiguë sur chronique comme contexte : la charge des sept derniers jours face aux quatre dernières semaines, et le sens dans lequel il évolue.",
       },
       {
         title: 'La tendance de charge',
@@ -44,23 +45,23 @@ const home: Home = {
       },
     ],
     verdictAlt: 'Écran de verdict Tuwa : go / modify / hold avec ajustements chiffrés',
-    strikeZoneAlt: 'Barre strike zone de Tuwa montrant le ratio de charge aiguë sur chronique',
+    strikeZoneAlt: 'Barre de charge de Tuwa montrant le ratio de charge aiguë sur chronique',
     workloadAlt: "Graphique de charge d'entraînement Tuwa avec tendance ACWR",
   },
   zoneScrub: {
     kicker: "02 · charge d'entraînement",
     heading: 'Un seul budget de fatigue',
-    body: 'Le sport, la force et le cardio puisent dans le même réservoir. Tuwa les suit comme une seule charge — aiguë contre chronique — et garde le ratio dans la strike zone. Quand la tendance pointe vers le surmenage, tu le vois quand il est encore temps de modifier.',
+    body: "Le sport, la force et le cardio puisent dans le même réservoir. Tuwa les suit comme une seule charge — aiguë contre chronique — et affiche le ratio comme contexte : à quelle distance cette semaine se trouve de ta base récente, et dans quel sens elle évolue. La décision du jour vient de ta forme, pas de ce ratio.",
     barMicro: 'ratio de charge aiguë : chronique',
     barNow: 'maintenant',
     zoneLabels: [
-      'Sous-entraînement — de la marge pour construire',
-      'Dans la strike zone',
-      'Ça chauffe — le moment de modify',
-      'Risque de surmenage — hold',
+      'Charge légère — sous ta base récente',
+      'Charge stable — proche de ta base récente',
+      'Charge en hausse — au-dessus de ta base récente',
+      'Charge élevée — bien au-dessus de ta base récente',
     ],
-    zoneCopy: 'Le ratio compare la charge des sept derniers jours à celle des quatre dernières semaines. Le travail de Tuwa : le garder dans la strike zone.',
-    legend: ['sous 0.8 — sous-entraînement', '0.8–1.3 — strike zone', '1.3–1.5 — prudence', 'au-delà de 1.5 — danger'],
+    zoneCopy: "Le ratio compare la charge des sept derniers jours à celle des quatre dernières semaines. C'est une lecture de la tendance de ta charge, gardée comme contexte — il ne fixe jamais le verdict du jour.",
+    legend: ['sous 0.8 — légère', '0.8–1.3 — stable', '1.3–1.5 — en hausse', 'au-delà de 1.5 — élevée'],
     foot: "Les zones sont toujours écrites en toutes lettres — la couleur est un appui, jamais le message.",
     dashboardAlt: 'Tableau de bord Tuwa : carte de forme affichant 82 avec les métriques',
     lottieAria: "Animation : jauge de forme avec une aiguille travertin balayant l'arc gradué",
@@ -123,7 +124,7 @@ const home: Home = {
   methodology: {
     kicker: '06 · méthodologie · en développement',
     headingLines: ['Voici ce que nous croyons,', 'et ce qui nous donnerait tort'],
-    lede: "Aujourd'hui, Tuwa note ton sommeil contre une cible fixe. Nous en construisons une qui s'adapte à l'état dans lequel tu t'es couché. Ce n'est pas terminé — voici donc toute la conception, les poids, et les parties dont nous sommes le moins sûrs.",
+    lede: "Aujourd'hui, Tuwa note ton sommeil contre une cible fixe. Nous en construisons une qui s'adapte à l'état dans lequel tu t'es couché. Ce n'est pas terminé — voici donc toute la conception, les poids, et les parties dont nous sommes le moins certains.",
     chips: ["statut : conception · pas dans l'app publiée", "aucune promesse de performance ni de précision n'est faite ici"],
     intents: [
       {
@@ -169,8 +170,8 @@ const home: Home = {
     },
     situations: {
       kicker: 'les situations · trois sur six',
-      heading: 'Ce qui change, et à quel point nous en sommes sûrs',
-      columns: ['situation', "quand elle s'applique", 'ce qui change', 'à quel point nous en sommes sûrs'],
+      heading: 'Ce qui change, et à quel point nous en sommes certains',
+      columns: ['situation', "quand elle s'applique", 'ce qui change', 'à quel point nous en sommes certains'],
       rows: [
         {
           name: 'Tu es resté debout trop longtemps',
@@ -231,7 +232,7 @@ const home: Home = {
     // Les garde-fous. Ils portent le même sens dans chaque langue.
     rails: [
       "tuwa est un outil d'entraînement, pas un dispositif médical",
-      'il ne diagnostique pas, ne traite pas et ne prévient pas les blessures',
+      'il ne diagnostique pas, ne traite pas et ne prévient pas les blessures', // claim-fence-allow: disclaimer
       "les stades de sommeil viennent de ta montre, comparés seulement à ton propre historique",
       "rien ici n'est terminé, et rien ici n'est prouvé",
       'les sources ci-dessous disent ce que chaque article a trouvé — rien de plus',
@@ -274,7 +275,7 @@ const home: Home = {
     ],
     shotAlt: 'Écran de récupération Tuwa : tendances VFC et sommeil contre les références personnelles',
     cta: "Télécharger sur l'App Store",
-    ctaNote: 'ton plan, rendu sûr et optimal',
+    ctaNote: 'ton plan, lu face à ton corps',
   },
   // Sections héritées des anciens composants (Hero / FeatureGrid /
   // StatsCounter / LandingCTA) — plus utilisées ; à supprimer avec eux.

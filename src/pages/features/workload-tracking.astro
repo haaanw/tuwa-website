@@ -10,7 +10,7 @@ import dashboardShot from '../../assets/screens-v16/dashboard.png';
 
 const title = 'Workload Tracking: One Fatigue Budget';
 const description =
-  'Sport skill, strength, and conditioning drain the same tank. Tuwa tracks them as one load — acute against chronic — and keeps the ratio inside the ACWR strike zone.';
+  'Sport skill, strength, and conditioning drain the same tank. Tuwa tracks them as one load — acute against chronic — and shows the ratio as context for your load trend.';
 
 const faqs = [
   {
@@ -18,12 +18,12 @@ const faqs = [
     a: 'Every lift you log carries exercise, sets, reps, load, RPE, and reps in reserve. Basketball work gets its own context through match tier logging, so a casual pickup run does not count the same as a full match. Sport skill, strength, and conditioning are tracked as one load.',
   },
   {
-    q: 'What is the ACWR strike zone?',
-    a: "The acute:chronic workload ratio compares the last seven days of load to the last four weeks. Tuwa's job is to keep it inside the strike zone — roughly 0.8 to 1.3. Below the range, you may be doing much less than your recent base; above it, the current week may be asking for a bigger jump than your recent training supports.",
+    q: 'What does the acute:chronic ratio show?',
+    a: "The acute:chronic workload ratio compares the last seven days of load to the last four weeks. Tuwa shows it as context with conventional bands — roughly 0.8 to 1.3 reads as steady; it never sets the day's verdict. Below the range, you may be doing much less than your recent base; above it, the current week may be asking for a bigger jump than your recent training supports.",
   },
   {
-    q: 'Does the ratio predict injury?',
-    a: 'No. The ACWR framework describes population-level workload associations, not individual guarantees or predictions; it informs decisions, it does not make them for you. Tuwa treats the target range as planning context, not a universal safety rule.',
+    q: 'Does the ratio predict what happens next?',
+    a: 'No. The ACWR framework describes population-level workload associations, not individual guarantees or predictions. Tuwa treats the range as context, not as a rule, and the day’s verdict comes from your readiness, not from this ratio.',
   },
   {
     q: 'Why moving averages instead of weekly totals?',
@@ -52,9 +52,9 @@ const structuredData = [faqPageSchema(faqs)];
         <h1 class="feat-h1" data-animate data-animate-delay="60">One fatigue budget</h1>
         <p class="feat-lead" data-animate data-animate-delay="120">
           Sport skill, strength, and conditioning drain the same tank. Tuwa tracks
-          them as one load — acute against chronic — and keeps the ratio inside the
-          strike zone. When the trend points at overreach, you see it days before
-          you feel it.
+          them as one load — acute against chronic — and shows the ratio as
+          context: how far this week sits from your recent base, and which way it
+          is moving.
         </p>
       </div>
     </div>
@@ -96,15 +96,16 @@ const structuredData = [faqPageSchema(faqs)];
     </div>
   </section>
 
-  <!-- The strike zone -->
+  <!-- The load ratio (context only) -->
   <section class="sec bt">
     <div class="wrap">
       <div class="sec-head">
         <span class="micro" data-animate>acute : chronic workload ratio</span>
-        <h2 data-animate>The strike zone</h2>
+        <h2 data-animate>The load ratio</h2>
         <p data-animate>
           The ratio compares the last seven days of load to the last four weeks.
-          Tuwa's job is to keep it inside the strike zone. Below the range, you may
+          It is a reading of your load trend, carried as context; it never sets the
+          day's verdict. Below the range, you may
           be doing much less than your recent base. Above it, the current week may be
           asking for a bigger jump than your recent training supports.
         </p>
@@ -113,10 +114,10 @@ const structuredData = [faqPageSchema(faqs)];
         <div class="aside" data-animate>
           <div class="privacy-well" style="margin-top:0">
             <ul>
-              <li>Under 0.8 — undertraining, room to build</li>
-              <li>0.8–1.3 — in the strike zone</li>
-              <li>1.3–1.5 — caution, trending hot</li>
-              <li>Over 1.5 — danger, overreach risk</li>
+              <li>Under 0.8 — load light, below your recent base</li>
+              <li>0.8–1.3 — load steady, close to your recent base</li>
+              <li>1.3–1.5 — load building, above your recent base</li>
+              <li>Over 1.5 — high load, well above your recent base</li>
             </ul>
           </div>
           <p class="zone-foot" data-animate>
@@ -126,11 +127,10 @@ const structuredData = [faqPageSchema(faqs)];
         </div>
         <div class="aside" data-animate data-animate-delay="80">
           <p>
-            Tuwa treats the target range as planning context, not a universal safety
-            rule. The acute-to-chronic workload idea compares recent workload with a
-            longer baseline; the useful product lesson is not that one ratio predicts
-            an injury. It is that sudden changes deserve attention before you add
-            another hard lift.
+            Tuwa treats the range as context, not as a rule. The acute-to-chronic
+            workload idea compares recent workload with a longer baseline; the useful
+            product lesson is not that one ratio predicts what happens next. It is
+            that sudden changes are worth seeing before you add another hard lift.
           </p>
           <p style="margin-top:16px">
             One fatigue budget across sport skill, strength and conditioning — and
@@ -165,7 +165,7 @@ const structuredData = [faqPageSchema(faqs)];
   <FeatureFaq heading="Common questions" faqs={faqs} />
 
   <FeatureClosing
-    heading="Stay in your strike zone"
+    heading="See your load, then decide"
     body="Download Tuwa to bring your own plan, check today's verdict, and adjust the top set before you train."
     ctaNote="iOS 17+ · iPhone"
     related={[

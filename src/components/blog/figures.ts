@@ -228,7 +228,7 @@ function zoneStrip(): string {
     <text x="${xOf(reading)}" y="${trackY - 38}" text-anchor="middle" fill="var(--color-text-1)"
           style="font-family:'Fragment Mono',monospace;font-size:12px">1.36</text>
     <text x="${padL}" y="${H - 12}" fill="var(--color-text-2)" style="${SANS}">
-      Conventional bands, carried as labels. Not calibrated risk boundaries for any individual.
+      Conventional bands, carried as labels. Not calibrated boundaries for any individual.
     </text>
   `);
 }
@@ -749,8 +749,8 @@ function sleepEvidenceGrades(): string {
     { claim: 'Acute sleep loss impairs next-day performance', g: 'MODERATE', lvl: 3, src: 'CRAVEN 2022 META-ANALYSIS' },
     { claim: 'Sleep banking before a known bad week helps', g: 'MODERATE', lvl: 3, src: 'RUPP 2009' },
     { claim: 'Sleep extension improves athletic performance', g: 'LOW–MODERATE', lvl: 2, src: 'MAH 2011 · n=11, NO CONTROL' },
-    { claim: 'Short sleep is associated with injury', g: 'MODERATE', lvl: 3, src: 'MILEWSKI 2014 · ADOLESCENTS' },
-    { claim: 'Adding sleep prevents injury', g: 'NOT TESTED', lvl: 0, src: 'NO TRIAL EXISTS' },
+    { claim: 'Short sleep is associated with injury', g: 'MODERATE', lvl: 3, src: 'MILEWSKI 2014 · ADOLESCENTS' }, // claim-fence-allow: evidence grade of a cited paper
+    { claim: 'Adding sleep prevents injury', g: 'NOT TESTED', lvl: 0, src: 'NO TRIAL EXISTS' }, // claim-fence-allow: evidence grade (no trial exists)
     { claim: 'Consumer sleep STAGES are decision-grade', g: 'CONTRADICTED', lvl: 0, src: 'CHINOY 2021 · 2022' },
   ];
 

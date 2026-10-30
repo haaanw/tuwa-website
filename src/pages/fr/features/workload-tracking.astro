@@ -13,7 +13,7 @@ import dashboardShot from '../../../assets/screens-v16/dashboard.png';
 
 const title = 'Charge d’entraînement : un seul budget de fatigue';
 const description =
-  'Le sport, la force et le cardio puisent dans le même réservoir. Tuwa les suit comme une seule charge — aiguë contre chronique — et garde le ratio dans la strike zone ACWR.';
+  'Le sport, la force et le cardio puisent dans le même réservoir. Tuwa les suit comme une seule charge — aiguë contre chronique — et affiche le ratio comme contexte de la tendance de ta charge.';
 
 const faqs = [
   {
@@ -21,12 +21,12 @@ const faqs = [
     a: 'Chaque séance de force notée porte exercice, séries, répétitions, charge, RPE et répétitions en réserve. Le basket a son propre contexte grâce au niveau de match : un pickup tranquille ne compte pas comme un vrai match. Sport, force et cardio sont suivis comme une seule charge.',
   },
   {
-    q: 'C’est quoi, la strike zone ACWR ?',
-    a: 'Le ratio de charge aiguë sur chronique compare la charge des sept derniers jours à celle des quatre dernières semaines. Le travail de Tuwa : le garder dans la strike zone — environ 0.8 à 1.3. Sous la bande, tu fais peut-être bien moins que ta base récente ; au-dessus, la semaine en cours demande peut-être un saut plus grand que ce que ton entraînement récent supporte.',
+    q: 'Que montre le ratio aigu sur chronique ?',
+    a: 'Le ratio de charge aiguë sur chronique compare la charge des sept derniers jours à celle des quatre dernières semaines. Tuwa l’affiche comme contexte avec des bandes conventionnelles — environ 0.8 à 1.3 se lit comme stable ; il ne fixe jamais le verdict du jour. Sous la bande, tu fais peut-être bien moins que ta base récente ; au-dessus, la semaine en cours demande peut-être un saut plus grand que ce que ton entraînement récent supporte.',
   },
   {
-    q: 'Le ratio prédit-il les blessures ?',
-    a: 'Non. Le cadre ACWR décrit des associations de charge au niveau de populations, pas des garanties ou des prédictions individuelles ; il éclaire les décisions, il ne les prend pas à ta place. Tuwa traite la bande cible comme un contexte de planification, pas comme une règle de sécurité universelle.',
+    q: 'Le ratio prédit-il ce qui va arriver ?',
+    a: 'Non. Le cadre ACWR décrit des associations de charge au niveau de populations, pas des garanties ou des prédictions individuelles. Tuwa traite la bande comme un contexte, pas comme une règle, et le verdict du jour vient de ta forme, pas de ce ratio.',
   },
   {
     q: 'Pourquoi des moyennes mobiles plutôt que des totaux hebdomadaires ?',
@@ -56,9 +56,9 @@ const structuredData = [faqPageSchema(faqs)];
         <h1 class="feat-h1" data-animate data-animate-delay="60">Un seul budget de fatigue</h1>
         <p class="feat-lead" data-animate data-animate-delay="120">
           Le sport, la force et le cardio puisent dans le même réservoir. Tuwa les
-          suit comme une seule charge — aiguë contre chronique — et garde le ratio
-          dans la strike zone. Quand la tendance pointe vers le surmenage, tu le
-          vois des jours avant de le sentir.
+          suit comme une seule charge — aiguë contre chronique — et affiche le
+          ratio comme contexte : à quelle distance cette semaine se trouve de ta
+          base récente, et dans quel sens elle évolue.
         </p>
       </div>
     </div>
@@ -100,15 +100,16 @@ const structuredData = [faqPageSchema(faqs)];
     </div>
   </section>
 
-  <!-- The strike zone -->
+  <!-- The load ratio (context only) -->
   <section class="sec bt">
     <div class="wrap">
       <div class="sec-head">
         <span class="micro" data-animate>ratio de charge aiguë : chronique</span>
-        <h2 data-animate>La strike zone</h2>
+        <h2 data-animate>Le ratio de charge</h2>
         <p data-animate>
           Le ratio compare la charge des sept derniers jours à celle des quatre
-          dernières semaines. Le travail de Tuwa : le garder dans la strike zone.
+          dernières semaines. C'est une lecture de la tendance de ta charge, gardée
+          comme contexte ; il ne fixe jamais le verdict du jour.
           Sous la bande, tu fais peut-être bien moins que ta base récente.
           Au-dessus, la semaine en cours demande peut-être un saut plus grand que ce
           que ton entraînement récent supporte.
@@ -118,10 +119,10 @@ const structuredData = [faqPageSchema(faqs)];
         <div class="aside" data-animate>
           <div class="privacy-well" style="margin-top:0">
             <ul>
-              <li>Sous 0.8 — sous-entraînement, de la marge pour construire</li>
-              <li>0.8–1.3 — dans la strike zone</li>
-              <li>1.3–1.5 — prudence, ça chauffe</li>
-              <li>Au-delà de 1.5 — danger, risque de surmenage</li>
+              <li>Sous 0.8 — charge légère, sous ta base récente</li>
+              <li>0.8–1.3 — charge stable, proche de ta base récente</li>
+              <li>1.3–1.5 — charge en hausse, au-dessus de ta base récente</li>
+              <li>Au-delà de 1.5 — charge élevée, bien au-dessus de ta base récente</li>
             </ul>
           </div>
           <p class="zone-foot" data-animate>
@@ -131,12 +132,11 @@ const structuredData = [faqPageSchema(faqs)];
         </div>
         <div class="aside" data-animate data-animate-delay="80">
           <p>
-            Tuwa traite la bande cible comme un contexte de planification, pas comme
-            une règle de sécurité universelle. L'idée de charge aiguë sur chronique
-            compare la charge récente à une référence plus longue ; la vraie leçon
-            produit n'est pas qu'un ratio prédit une blessure. C'est que les
-            changements brusques méritent de l'attention avant d'ajouter une autre
-            grosse séance.
+            Tuwa traite la bande comme un contexte, pas comme une règle. L'idée de
+            charge aiguë sur chronique compare la charge récente à une référence plus
+            longue ; la vraie leçon produit n'est pas qu'un ratio prédit ce qui va
+            arriver. C'est que les changements brusques méritent d'être vus avant
+            d'ajouter une autre grosse séance.
           </p>
           <p style="margin-top:16px">
             Un seul budget de fatigue pour le sport, la force et le cardio — et sa
@@ -173,7 +173,7 @@ const structuredData = [faqPageSchema(faqs)];
   <FeatureFaq heading="Questions fréquentes" faqs={faqs} />
 
   <FeatureClosing
-    heading="Reste dans ta strike zone"
+    heading="Vois ta charge, puis décide"
     body="Télécharge Tuwa pour apporter ton propre plan, vérifier le verdict du jour et ajuster la série lourde avant de t'entraîner."
     ctaNote="iOS 17+ · iPhone"
     ctaLabel="Télécharger sur l'App Store"

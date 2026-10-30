@@ -7,7 +7,7 @@ const content: TopicPageContent = {
       'Tuwa keeps your own plan in charge, then uses physiology, training history, and match proximity to suggest today\'s strength adjustment.',
   },
   hero: {
-    outcomeStatement: 'Your plan, made safe and optimal',
+    outcomeStatement: 'Your plan, read against your body each day',
     hookLine:
       'Whoop and Bevel give scores without your plan. AI coaches replace your plan. TrainingPeaks stores the plan without a daily decision. Tuwa sits in the back room.',
   },

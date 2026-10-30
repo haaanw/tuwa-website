@@ -30,9 +30,9 @@ const workloadTracking = {
   },
   scienceSection: {
     heading: 'The science behind it',
-    p1: "The acute-to-chronic workload idea compares recent workload with a longer baseline. The useful product lesson is not that one ratio predicts an injury. It is that sudden changes deserve attention before you add another hard lift.",
+    p1: "The acute-to-chronic workload idea compares recent workload with a longer baseline. The useful product lesson is not that one ratio predicts what happens next. It is that sudden changes are worth seeing before you add another hard lift.",
     p2: "Tuwa uses exponentially weighted moving averages so recent sessions matter more than older ones. That keeps the load model responsive to a week with two games and a heavy lower-body day instead of anchoring the verdict to stale work.",
-    p3: 'Tuwa treats the target range as planning context, not a universal safety rule. Below the range, you may be doing much less than your recent base. Above it, the current week may be asking for a bigger jump than your recent training supports. The chart below shows how the ratio evolves across a representative training cycle.',
+    p3: 'Tuwa treats the range as context, not as a rule, and the day’s verdict never comes from it. Below the range, you may be doing much less than your recent base. Above it, the current week may be asking for a bigger jump than your recent training supports. The chart below shows how the ratio evolves across a representative training cycle.',
   },
 } as const;
 

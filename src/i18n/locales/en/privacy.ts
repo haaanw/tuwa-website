@@ -7,7 +7,7 @@ type WidenStrings<T> = T extends string
 const privacy = {
   meta: {
     title: 'Privacy Policy',
-    lastUpdated: 'October 22, 2026',
+    lastUpdated: 'October 31, 2026',
     description: 'Privacy policy for Tuwa — Training Load & Recovery app.',
   },
   disclaimer: {
@@ -77,7 +77,7 @@ const privacy = {
       },
       {
         label: 'In the cloud',
-        description: 'Composite scores (recovery score, workload snapshots, wellness ratings, workout session headers, and personal records) sync to Supabase (hosted on AWS) for multi-device access.',
+        description: 'Composite scores (recovery score, workload snapshots, wellness ratings, and personal records) and your logged sessions — with their exercises and sets, since app version 1.7.4 — sync to Supabase (hosted on AWS) for multi-device access.',
       },
       {
         label: 'Raw HealthKit data is never uploaded.',
@@ -230,6 +230,30 @@ const privacy = {
         description: "(default language model behind OpenRouter for workout and program text, and called directly by Tuwa's server for optional AI reasoning — text only)",
         url: 'https://openai.com/policies/privacy-policy/',
         urlDisplay: 'openai.com privacy policy',
+      },
+      {
+        label: 'Resend',
+        description: '(sends the account emails: sign-in and password-reset codes, to your email address)',
+        url: 'https://resend.com/legal/privacy-policy',
+        urlDisplay: 'resend.com privacy policy',
+      },
+      {
+        label: 'Cloudflare',
+        description: '(hosts this website and the AI connector address mcp.tuwa.app; it processes your IP address to deliver the pages)',
+        url: 'https://www.cloudflare.com/privacypolicy/',
+        urlDisplay: 'cloudflare.com/privacypolicy',
+      },
+      {
+        label: 'Apple',
+        description: '(Sign in with Apple, if you use it; DeviceCheck for the "Give a month" referral checks)',
+        url: 'https://www.apple.com/legal/privacy/',
+        urlDisplay: 'apple.com/legal/privacy',
+      },
+      {
+        label: 'Google',
+        description: '(Sign in with Google, if you use it)',
+        url: 'https://policies.google.com/privacy',
+        urlDisplay: 'policies.google.com/privacy',
       },
     ] as const,
     outro: 'We do not use any advertising networks, analytics trackers, or third-party data brokers.',

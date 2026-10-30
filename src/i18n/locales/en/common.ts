@@ -36,7 +36,7 @@ const common = {
       recoveryScoringTitle: 'Recovery scoring',
       recoveryScoringDesc: 'HRV, sleep, and resting heart rate vs your baselines',
       workloadTrackingTitle: 'Workload tracking',
-      workloadTrackingDesc: 'One fatigue budget, ACWR strike zone',
+      workloadTrackingDesc: 'One fatigue budget, load ratio as context',
       smartTemplatesTitle: 'Logging & movement bank',
       smartTemplatesDesc: 'Fast logging, templates, 1,324 exercises',
       coldStartTitle: 'Starting out',

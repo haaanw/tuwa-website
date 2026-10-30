@@ -7,9 +7,11 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && cp dist/zh/404/index.html dist/zh/404.html && cp dist/fr/404/index.html dist/fr/404.html",
+    "build": "node scripts/claim-fence.mjs && astro build && cp dist/zh/404/index.html dist/zh/404.html && cp dist/fr/404/index.html dist/fr/404.html",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "fence": "node scripts/claim-fence.mjs",
+    "test": "node --test scripts/*.test.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",

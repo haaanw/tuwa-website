@@ -41,7 +41,7 @@ const support: Support = {
     },
     {
       q: 'Qu\'est-ce que l\'ACWR et pourquoi est-ce important ?',
-      a: 'L\'ACWR est le ratio de charge aiguë sur chronique (Acute:Chronic Workload Ratio). Il compare ta charge d\'entraînement récente à une moyenne de plus long terme. Tuwa le traite comme du contexte de charge, pas comme une prédiction de blessure : la charge récente et les signaux de pic sont affichés avant l\'entraînement, pour que tu puisses revoir le volume, l\'intensité ou le timing avec les dernières données enregistrées en tête.',
+      a: 'L\'ACWR est le ratio de charge aiguë sur chronique (Acute:Chronic Workload Ratio). Il compare ta charge d\'entraînement récente à une moyenne de plus long terme. Tuwa le traite comme du contexte de charge, pas comme une prédiction de blessure : la charge récente et les signaux de pic sont affichés avant l\'entraînement, pour que tu puisses revoir le volume, l\'intensité ou le timing avec les dernières données enregistrées en tête.', // claim-fence-allow: disclaimer / negation
     },
     {
       q: 'Combien de temps avant que Tuwa ait assez de données pour donner des scores fiables ?',

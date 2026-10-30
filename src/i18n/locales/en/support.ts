@@ -45,7 +45,7 @@ const support = {
     },
     {
       q: 'What is ACWR and why does it matter?',
-      a: 'ACWR stands for Acute:Chronic Workload Ratio. It compares your recent training load against a longer-term average. Tuwa treats it as workload context, not injury prediction: recent workload and spike flags are shown before training so you can review volume, intensity, or timing with the latest saved data in mind.',
+      a: 'ACWR stands for Acute:Chronic Workload Ratio. It compares your recent training load against a longer-term average. Tuwa treats it as workload context, not injury prediction: recent workload and spike flags are shown before training so you can review volume, intensity, or timing with the latest saved data in mind.', // claim-fence-allow: disclaimer / negation
     },
     {
       q: 'How long until Tuwa has enough data to give reliable scores?',

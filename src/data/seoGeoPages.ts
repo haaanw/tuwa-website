@@ -197,12 +197,12 @@ function comparisonPage(config: {
     keyTakeaways: [
       `${config.competitor} may be the better choice for athletes who primarily want its broader app experience.`,
       'Tuwa is narrower: it is built around adjusting strength and hybrid sessions from recovery, workload, soreness, RPE, and workout history.',
-      'This comparison avoids injury-prediction claims and should be refreshed when either product changes.',
+      'This comparison avoids injury-prediction claims and should be refreshed when either product changes.', // claim-fence-allow: negation
     ],
     decisionRules: [
       { if: `You already rely on ${config.competitor} and only need a broad recovery dashboard.`, then: `Keep using ${config.competitor}; changing tools may add friction without improving the training decision.` },
       { if: 'You are logging sets, reps, weight, RPE, and soreness but still decide volume by feel.', then: 'Try Tuwa or the free calculator to turn those signals into a session adjustment.' },
-      { if: 'You need medical guidance, injury diagnosis, or return-to-play clearance.', then: 'Use a qualified clinician; neither app should replace medical advice.' },
+      { if: 'You need medical guidance, injury diagnosis, or return-to-play clearance.', then: 'Use a qualified clinician; neither app should replace medical advice.' }, // claim-fence-allow: negation
     ],
     sections: [
       {
@@ -232,8 +232,8 @@ function comparisonPage(config: {
         a: `No. This page is about fit. ${config.competitor} can be useful, especially if you want its broader ecosystem. Tuwa focuses on strength and hybrid session adjustments from Apple Watch recovery, workload, soreness, RPE, and workout history.`,
       },
       {
-        q: 'Does Tuwa predict injuries?',
-        a: 'No. Tuwa uses workload and recovery signals as training context. It does not diagnose, treat, or predict injuries.',
+        q: 'Does Tuwa predict injuries?', // claim-fence-allow: negation
+        a: 'No. Tuwa uses workload and recovery signals as training context. It does not diagnose, treat, or predict injuries.', // claim-fence-allow: negation
       },
       {
         q: 'What should I compare first?',
@@ -311,7 +311,7 @@ export const seoGeoPages: SeoGeoPage[] = [
         a: 'Not always. A low result usually means you should adjust the session. Reducing accessory volume, capping RPE, or swapping intensity can preserve practice while lowering strain.',
       },
       {
-        q: 'Can this calculator diagnose overtraining or injury risk?',
+        q: 'Can this calculator diagnose overtraining or injury risk?', // claim-fence-allow: negation
         a: 'No. It is not a medical or diagnostic tool. It is a training-planning prompt that combines recovery and workload context.',
       },
       {
@@ -507,7 +507,7 @@ export const seoGeoPages: SeoGeoPage[] = [
     keyTakeaways: [
       'A recovery score should lead to a specific action.',
       'Strength training needs set, rep, load, and RPE context.',
-      'Do not use recovery scores as medical advice or injury prediction.',
+      'Do not use recovery scores as medical advice or injury prediction.', // claim-fence-allow: negation
     ],
     decisionRules: [
       { if: 'Score is low but soreness is low and session is technical.', then: 'Maintain with conservative RPE caps.' },
@@ -538,7 +538,7 @@ export const seoGeoPages: SeoGeoPage[] = [
       {
         heading: 'Limitations',
         body: [
-          'No score sees everything. Pain, illness, life stress, poor technique, and competitive context require human judgment. Tuwa keeps the score tied to the training decision and avoids claiming to predict injury.',
+          'No score sees everything. Pain, illness, life stress, poor technique, and competitive context require human judgment. Tuwa keeps the score tied to the training decision and avoids claiming to predict injury.', // claim-fence-allow: negation
         ],
       },
     ],
@@ -559,7 +559,7 @@ export const seoGeoPages: SeoGeoPage[] = [
     description: 'The difference between training load and recovery, and how strength athletes should use both to adjust today\'s workout.',
     h1: 'Training Load vs Recovery',
     primaryQuery: 'training load vs recovery',
-    directAnswer: 'Training load describes the work you have done; recovery describes how ready your body appears to absorb more work. Strength athletes need both. A normal recovery score can still be risky if workload is spiking, and a high workload can be manageable if today\'s session is adjusted intelligently.',
+    directAnswer: 'Training load describes the work you have done; recovery describes how ready your body appears to absorb more work. Strength athletes need both. A normal recovery score can sit beside a load spike, and a high workload reads differently once today\'s session is adjusted.',
     keyTakeaways: [
       'Load is the demand; recovery is the current capacity signal.',
       'The session decision sits between the two.',
@@ -602,8 +602,8 @@ export const seoGeoPages: SeoGeoPage[] = [
         a: 'Neither is enough alone. Training load describes accumulated work, while recovery describes the current readiness signal. The session adjustment should use both.',
       },
       {
-        q: 'Can training load predict injury?',
-        a: 'No simple load metric should be treated as injury prediction. Use load as context for progressing training and managing spikes.',
+        q: 'Can training load predict injury?', // claim-fence-allow: negation
+        a: 'No simple load metric should be treated as injury prediction. Use load as context for progressing training and managing spikes.', // claim-fence-allow: negation
       },
     ],
     sources: [sources.appleTrainingLoad, sources.hrvStrength, sources.acwrReview, sources.acwrLimitations],
@@ -653,7 +653,7 @@ export const seoGeoPages: SeoGeoPage[] = [
     faqs: [
       {
         q: 'Is it bad to train on a red recovery day?',
-        a: 'Not automatically. It depends on why the day is red and what the planned session demands. The safest app-based advice is to adjust the session, not ignore the signal.',
+        a: 'Not automatically. It depends on why the day is red and what the planned session demands. A reading-based app suggests an adjusted session; it does not ask you to ignore the signal.',
       },
       {
         q: 'What should I do instead of resting completely?',
@@ -667,7 +667,7 @@ export const seoGeoPages: SeoGeoPage[] = [
     description: 'A simple framework for reducing strength training volume when recovery, soreness, RPE, or workload suggest fatigue.',
     h1: 'How Much Volume Should I Cut When Tired?',
     primaryQuery: 'how much volume should I cut when tired',
-    directAnswer: 'When you are tired but still able to train, start by cutting 20-40% of accessory or back-off volume before removing the whole session. Keep technical main work if warmups are safe, cap RPE, and avoid making up the lost volume later unless the weekly plan still supports it.',
+    directAnswer: 'When you are tired but still able to train, start by cutting 20-40% of accessory or back-off volume before removing the whole session. Keep technical main work if warmups feel normal, cap RPE, and avoid making up the lost volume later unless the weekly plan still supports it.',
     keyTakeaways: [
       'Cut optional volume before cutting the whole workout.',
       'Use RPE and warmups to decide whether main work stays.',
@@ -718,14 +718,14 @@ export const seoGeoPages: SeoGeoPage[] = [
   guidePage({
     slug: 'guides/acwr-explained',
     title: 'ACWR Explained for Strength and Hybrid Training',
-    description: 'A plain-English guide to acute:chronic workload ratio, how it can help, and why Tuwa treats it as context rather than injury prediction.',
+    description: 'A plain-English guide to acute:chronic workload ratio, how it can help, and why Tuwa treats it as context rather than injury prediction.', // claim-fence-allow: negation
     h1: 'ACWR Explained for Strength and Hybrid Training',
     primaryQuery: 'ACWR explained',
-    directAnswer: 'ACWR, or acute:chronic workload ratio, compares recent training load with a longer baseline. It can help athletes notice workload spikes, but it should not be treated as injury prediction. For strength and hybrid training, ACWR is most useful when combined with recovery, soreness, RPE, and the next planned session.',
+    directAnswer: 'ACWR, or acute:chronic workload ratio, compares recent training load with a longer baseline. It can help athletes notice workload spikes, but it should not be treated as injury prediction. For strength and hybrid training, ACWR is most useful when combined with recovery, soreness, RPE, and the next planned session.', // claim-fence-allow: negation
     keyTakeaways: [
       'ACWR compares recent work with the work you have been prepared for.',
       'It is a workload context tool, not a crystal ball.',
-      'Tuwa avoids overconfident injury-prediction claims from ACWR.',
+      'Tuwa avoids overconfident injury-prediction claims from ACWR.', // claim-fence-allow: negation
     ],
     decisionRules: [
       { if: 'Acute load is far above chronic load.', then: 'Avoid adding optional volume and watch recovery signals.' },
@@ -742,7 +742,7 @@ export const seoGeoPages: SeoGeoPage[] = [
       {
         heading: 'Why Tuwa is careful with ACWR',
         body: [
-          'ACWR research includes useful ideas and real debate. The safest product use is to flag workload context and support training decisions, not to promise injury prediction or universal safe zones.',
+          'ACWR research includes useful ideas and real debate. A careful product use is to flag workload context and support training decisions, not to promise prediction or universal zones.',
         ],
       },
       {
@@ -758,8 +758,8 @@ export const seoGeoPages: SeoGeoPage[] = [
         a: 'ACWR stands for acute:chronic workload ratio. It compares recent training load with a longer workload baseline.',
       },
       {
-        q: 'Does ACWR predict injuries?',
-        a: 'Tuwa does not use ACWR as injury prediction. It is treated as one workload context signal among recovery, soreness, RPE, and session history.',
+        q: 'Does ACWR predict injuries?', // claim-fence-allow: negation
+        a: 'Tuwa does not use ACWR as injury prediction. It is treated as one workload context signal among recovery, soreness, RPE, and session history.', // claim-fence-allow: negation
       },
     ],
     sources: [sources.acwrReview, sources.acwrLimitations, sources.appleTrainingLoad],

@@ -15,8 +15,10 @@ faq:
     a: "Usually no. A single low heart rate variability reading moves with measurement timing, breathing, alcohol, illness and travel at least as much as with training, so on its own it is weak evidence. The useful question is not whether the reading is low but whether anything else agrees with it — sleep, resting heart rate, soreness, recent workload, and how the warm-up moves. If nothing else agrees, keep the plan and keep RPE honest."
   - q: "What should I change first when readiness is down?"
     a: "Volume, before intensity and before the whole session. For a lifter the cheapest stress to remove is accessory and back-off work: keep the main lift technical, drop a back-off set, cut one or two accessories. That preserves the skill practice while lowering the total cost of the day. Knowles and colleagues reviewed inadequate sleep and muscle strength in 2018 and found a single night of restriction has limited effect on maximal strength while repeated restriction and multi-set work show clearer decrements — which is the same shape."
+  # claim-fence-allow-start: negation (no injury prediction)
   - q: "Does Tuwa decide this for me?"
     a: "No. Tuwa produces a go, modify or hold verdict with a concrete adjustment attached and a reason line naming the signals behind it. The athlete overrides it in one tap and the app does not argue. It never blocks a session and it makes no injury prediction."
+  # claim-fence-allow-end
 ---
 
 import Figure from '../../components/blog/Figure.astro';
@@ -47,6 +49,7 @@ So the top single is the last thing to go, and the volume around it is the first
 
 Tuwa produces a go, modify or hold verdict from recovery signals, workload, and the session you actually planned, with a concrete adjustment attached — an adjusted top set, a capped RPE, trimmed back-offs, a delayed hard part — and a reason line naming the signals behind it.
 
+{/* claim-fence-allow: negation */}
 It never blocks a session, and it makes no injury prediction. There is no published trial telling anyone how much to reduce a top set when an amateur court-sport athlete wakes with low HRV; the controlled evidence for HRV-guided training sits almost entirely in endurance sport. Tuwa states its confidence, names its inputs, and gets out of the way. The reasoning behind that restraint is set out in [how Tuwa computes training load](/blog/how-tuwa-computes-training-load-ewma-acwr/) and [why HRV is a morning median against your own baseline](/blog/hrv-readiness-morning-median-personal-baseline/).
 
 Try the free [strength readiness calculator](/strength-readiness-calculator/), or read the longer guide on [how to adjust training when HRV is low](/guides/how-to-adjust-training-when-hrv-is-low/).

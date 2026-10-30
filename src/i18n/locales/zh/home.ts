@@ -11,11 +11,12 @@ const home: Home = {
       'Tuwa 是自我训练运动员的运动科学后方团队。计划由你来写；Tuwa 给出今天的剂量：go、modify 还是 hold。它从不替你写课表。',
   },
   heroScrub: {
-    sectionAria: 'Tuwa——你的计划，变得更安全、更优',
+    sectionAria: 'Tuwa——你的计划，每天对照你的身体来读',
     scoreAria: '准备度评分 82',
     scoreCaption: '今日准备度',
     strapline: 'Tuwa // 运动科学后方团队',
-    lines: ['你的计划。', '更安全，', '也更优。'],
+    // W0（2026-10-30）：用读数式表述替换“更安全、更优”（LEGAL-AUDIT A1）。暂定，等 HAN 的 D1。
+    lines: ['你的计划。', '对照', '你的身体。'],
     lead: 'Tuwa 是自我训练运动员的运动科学后方团队。它读取你的身体信号——心率变异、睡眠、静息心率、训练历史——再据此调整你自己写的计划：今天的具体数字、一个 go / modify / hold 判定，以及负荷的趋势。它从不替你写课表。',
     sub: '为同时练专项技术和力量的运动员而设计',
     cta: '在 App Store 下载',
@@ -34,8 +35,8 @@ const home: Home = {
         body: 'go、modify 还是 hold——附上今天训练的确切数字调整，由你的准备度和你在计划中的位置算出。',
       },
       {
-        title: 'Strike zone',
-        body: '实时查看急性与慢性负荷比值，把它稳在适应快过受伤风险的那条区间里。',
+        title: '负荷比值',
+        body: '急性与慢性负荷比值作为背景：最近 7 天的负荷对照最近 4 周，以及它正在往哪个方向走。',
       },
       {
         title: '负荷趋势',
@@ -43,23 +44,23 @@ const home: Home = {
       },
     ],
     verdictAlt: 'Tuwa 判定界面：go / modify / hold 与具体数字调整',
-    strikeZoneAlt: 'Tuwa strike zone 条显示急性与慢性负荷比值',
+    strikeZoneAlt: 'Tuwa 负荷条显示急性与慢性负荷比值',
     workloadAlt: 'Tuwa 训练负荷图表与 ACWR 趋势',
   },
   zoneScrub: {
     kicker: '02 · 训练负荷',
     heading: '一个疲劳预算',
-    body: '专项技术、力量、体能消耗的是同一个油箱。Tuwa 把它们记成同一份负荷——急性对慢性——并把比值保持在 strike zone 内。当趋势指向超负荷，你会在还来得及调整时就看到。',
+    body: '专项技术、力量、体能消耗的是同一个油箱。Tuwa 把它们记成同一份负荷——急性对慢性——并把比值作为背景显示：这一周离你近期的基础有多远，正往哪个方向走。当天的决定来自你的准备度，而不是这个比值。',
     barMicro: '急性 : 慢性负荷比值',
     barNow: '当前',
     zoneLabels: [
-      '训练不足——还有加量空间',
-      '正处在 strike zone',
-      '偏热——该 modify 了',
-      '超负荷风险——hold',
+      '负荷偏轻——低于你近期的基础',
+      '负荷平稳——接近你近期的基础',
+      '负荷上升——高于你近期的基础',
+      '负荷偏高——明显高于你近期的基础',
     ],
-    zoneCopy: '这个比值把最近 7 天的负荷和最近 4 周做对比。Tuwa 的职责就是把它稳在 strike zone 里。',
-    legend: ['低于 0.8——训练不足', '0.8–1.3——strike zone', '1.3–1.5——注意', '高于 1.5——危险'],
+    zoneCopy: '这个比值把最近 7 天的负荷和最近 4 周做对比。它是你负荷趋势的读数，只作背景——从不决定当天的判定。',
+    legend: ['低于 0.8——偏轻', '0.8–1.3——平稳', '1.3–1.5——上升', '高于 1.5——偏高'],
     foot: '区间名称永远写成文字——颜色只是辅助，从不是信息本身。',
     dashboardAlt: 'Tuwa 主界面：准备度卡片显示 82 分与各项指标',
     lottieAria: '动画：准备度表盘，石灰华色指针扫过刻度弧线',
@@ -270,7 +271,7 @@ const home: Home = {
     ],
     shotAlt: 'Tuwa 恢复界面：心率变异与睡眠趋势对照个人基线',
     cta: '在 App Store 下载',
-    ctaNote: '你的计划，变得更安全、更优',
+    ctaNote: '你的计划，对照你的身体来读',
   },
   // 以下为旧版组件（Hero / FeatureGrid / StatsCounter / LandingCTA）遗留文案，
   // 已无页面使用，删除旧组件时一并清理。
@@ -300,7 +301,7 @@ const home: Home = {
   },
   cta: {
     headline: '保留你的计划，调整今天。',
-    body: 'Tuwa 不替你写课表，也不是聊天教练。你决定训练计划；Tuwa 让今天这堂力量训练更安全、更精确。',
+    body: 'Tuwa 不替你写课表，也不是聊天教练。你决定训练计划；Tuwa 用今天的身体读数来对照它。',
   },
   featureGrid: {
     heading: '你的计划，按今天的身体状态变得更稳',

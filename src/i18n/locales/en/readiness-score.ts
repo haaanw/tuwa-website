@@ -79,7 +79,7 @@ const content: TopicPageContent = {
         "url": "https://pubmed.ncbi.nlm.nih.gov/23852425/"
       },
       {
-        "label": "Gabbett — The training-injury prevention paradox (acute:chronic workload)",
+        "label": "Gabbett — The training-injury prevention paradox (acute:chronic workload)", // claim-fence-allow: citation title
         "url": "https://bjsm.bmj.com/content/50/5/273"
       },
       {

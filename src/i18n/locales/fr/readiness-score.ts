@@ -37,7 +37,7 @@ const content: TopicPageContent = {
       "heading": "Comment agir selon ton score : pousser, maintenir ou lever le pied",
       "body": [
         "Un score n'est utile que s'il change ce que tu fais. Tuwa associe la forme à trois zones aux implications concrètes pour l'entraînement. Le vert signifie pleine capacité — réalise ta séance telle que prévue. Le jaune signifie récupération modérée — entraîne-toi, mais réduis le volume total d'environ 10 à 20 % et plafonne l'intensité ressentie de chaque série (ton RPE, l'effort perçu sur une échelle de 1 à 10). Le rouge signifie que ton corps envoie un vrai signal de besoin de récupération — mouvement léger, mobilité ou repos.",
-        "La forme devient bien plus puissante associée à la charge d'entraînement. Un score vert un jour où ta charge aiguë est déjà en train de grimper n'est pas une invitation à en ajouter — c'est la permission d'exécuter une séance intense prévue sans en rajouter. Un score rouge pendant un bloc chargé, c'est l'alerte précoce qui te permet de décharger avant qu'une blessure n'impose la conversation. La récupération te dit combien tu peux dépenser aujourd'hui ; la charge te dit combien tu as déjà dépensé.",
+        "La forme devient bien plus puissante associée à la charge d'entraînement. Un score vert un jour où ta charge aiguë est déjà en train de grimper n'est pas une invitation à en ajouter — c'est la permission d'exécuter une séance intense prévue sans en rajouter. Un score rouge pendant un bloc chargé t'invite à réduire, remplacer ou récupérer avant que la semaine ne t'échappe. La récupération te dit combien tu peux dépenser aujourd'hui ; la charge te dit combien tu as déjà dépensé.",
         "Le but n'est pas de courir après un chiffre parfait chaque matin. C'est d'arrêter d'avoir le même débat de volonté avec toi-même à 6 h. Quand les données disent de lever le pied, tu lèves le pied sans culpabilité ; quand elles disent d'y aller, tu t'engages sans hésiter. Au fil des semaines, cette régularité — pousser quand tu es prêt, maintenir quand tu ne l'es pas — est ce qui se transforme en adaptation plutôt qu'en effondrement."
       ]
     },
@@ -75,7 +75,7 @@ const content: TopicPageContent = {
         "url": "https://pubmed.ncbi.nlm.nih.gov/23852425/"
       },
       {
-        "label": "Gabbett — Le paradoxe prévention-blessure (charge aiguë:chronique)",
+        "label": "Gabbett — Le paradoxe prévention-blessure (charge aiguë:chronique)", // claim-fence-allow: citation title
         "url": "https://bjsm.bmj.com/content/50/5/273"
       },
       {

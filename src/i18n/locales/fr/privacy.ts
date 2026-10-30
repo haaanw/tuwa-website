@@ -3,7 +3,7 @@ import type { Privacy } from '../en/privacy';
 const privacy: Privacy = {
   meta: {
     title: 'Politique de confidentialité',
-    lastUpdated: '22 octobre 2026',
+    lastUpdated: '31 octobre 2026',
     description: 'Politique de confidentialité de Tuwa — application de gestion de la charge d\'entraînement et de la récupération.',
   },
   disclaimer: {
@@ -74,7 +74,7 @@ const privacy: Privacy = {
       },
       {
         label: 'Dans le cloud',
-        description: 'Les scores composites (score de récupération, instantanés de charge, bilans de forme, en-têtes de séance et records personnels) se synchronisent sur Supabase (hébergé sur AWS) pour l\'accès multi-appareils.',
+        description: 'Les scores composites (score de récupération, instantanés de charge, bilans de forme et records personnels) et tes séances enregistrées — avec leurs exercices et leurs séries, depuis la version 1.7.4 de l\'app — se synchronisent sur Supabase (hébergé sur AWS) pour l\'accès multi-appareils.',
       },
       {
         label: 'Les données HealthKit brutes ne sont jamais téléchargées.',
@@ -230,6 +230,30 @@ const privacy: Privacy = {
         description: "(modèle de langue par défaut derrière OpenRouter pour le texte de séance et de programme, et appelé directement par le serveur de Tuwa pour le raisonnement IA facultatif — texte uniquement)",
         url: 'https://openai.com/policies/privacy-policy/',
         urlDisplay: 'politique de confidentialité openai.com',
+      },
+      {
+        label: 'Resend',
+        description: '(envoie les e-mails du compte : codes de connexion et de réinitialisation du mot de passe, à ton adresse e-mail)',
+        url: 'https://resend.com/legal/privacy-policy',
+        urlDisplay: 'politique de confidentialité resend.com',
+      },
+      {
+        label: 'Cloudflare',
+        description: '(héberge ce site et l\'adresse du connecteur IA mcp.tuwa.app ; traite ton adresse IP pour livrer les pages)',
+        url: 'https://www.cloudflare.com/privacypolicy/',
+        urlDisplay: 'cloudflare.com/privacypolicy',
+      },
+      {
+        label: 'Apple',
+        description: '(Se connecter avec Apple, si tu l\'utilises ; DeviceCheck pour les vérifications du parrainage « Offre un mois »)',
+        url: 'https://www.apple.com/legal/privacy/',
+        urlDisplay: 'apple.com/legal/privacy',
+      },
+      {
+        label: 'Google',
+        description: '(Se connecter avec Google, si tu l\'utilises)',
+        url: 'https://policies.google.com/privacy',
+        urlDisplay: 'policies.google.com/privacy',
       },
     ],
     outro: 'Nous n\'utilisons aucun réseau publicitaire, aucun tracker analytique, ni aucun courtier de données tiers.',

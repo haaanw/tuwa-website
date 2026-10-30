@@ -19,12 +19,14 @@ const home = {
       'Tuwa is the sports-science back room for self-coached athletes. You write the plan; Tuwa returns today’s dose: go, modify, or hold. It never writes your program.',
   },
   heroScrub: {
-    sectionAria: 'Tuwa — your plan, made safe and optimal',
+    sectionAria: 'Tuwa — your plan, read against your body each day',
     scoreAria: 'Readiness score 82',
     scoreCaption: 'readiness today',
     // Annotation voice, so it stays a phrase and never a sentence.
     strapline: 'Tuwa // the sports-science back room',
-    lines: ['Your plan.', 'Made safe', 'and optimal.'],
+    // W0 (2026-10-30): a reading claim replaces "Made safe and optimal" (LEGAL-AUDIT A1).
+    // Provisional: HAN's D1 names the 1.7.7 lead message.
+    lines: ['Your plan.', 'Read against', 'your body.'],
     lead: "Tuwa is the sports-science back room for self-coached athletes. It reads your body — HRV, sleep, resting heart rate, training history — and modulates the plan you authored: today's numbers, a go / modify / hold verdict, and where your load is trending. It never writes your program.",
     sub: 'Built for athletes who train sport skill and strength in parallel',
     cta: 'Download on the App Store',
@@ -43,8 +45,8 @@ const home = {
         body: "Go, modify or hold — with the exact number changes for today's session, computed from your readiness and where you sit in your plan.",
       },
       {
-        title: 'The strike zone',
-        body: 'A live view of your acute-to-chronic workload ratio, held inside the band where adaptation outpaces injury risk.',
+        title: 'The load ratio',
+        body: 'Your acute-to-chronic workload ratio as context: the last seven days of load against the last four weeks, and the direction it is moving.',
       },
       {
         title: 'The load trend',
@@ -52,23 +54,23 @@ const home = {
       },
     ],
     verdictAlt: 'Tuwa verdict screen: go / modify / hold with concrete number adjustments',
-    strikeZoneAlt: 'Tuwa strike-zone bar showing acute-to-chronic workload ratio',
+    strikeZoneAlt: 'Tuwa load bar showing the acute-to-chronic workload ratio',
     workloadAlt: 'Tuwa training load chart with ACWR trend',
   },
   zoneScrub: {
     kicker: '02 · training load',
     heading: 'One fatigue budget',
-    body: 'Sport skill, strength, and conditioning drain the same tank. Tuwa tracks them as one load — acute against chronic — and keeps the ratio inside the strike zone. When the trend points at overreach, you see it while there is still time to modify.',
+    body: 'Sport skill, strength, and conditioning drain the same tank. Tuwa tracks them as one load — acute against chronic — and shows the ratio as context: how far this week sits from your recent base, and which way it is moving. The day’s decision comes from your readiness, not from this ratio.',
     barMicro: 'acute : chronic workload ratio',
     barNow: 'now',
     zoneLabels: [
-      'Undertraining — room to build',
-      'In the strike zone',
-      'Trending hot — time to modify',
-      'Overreach risk — hold',
+      'Load light — below your recent base',
+      'Load steady — close to your recent base',
+      'Load building — above your recent base',
+      'High load — well above your recent base',
     ],
-    zoneCopy: "The ratio compares the last seven days of load to the last four weeks. Tuwa's job is to keep it inside the strike zone.",
-    legend: ['under 0.8 — undertraining', '0.8–1.3 — strike zone', '1.3–1.5 — caution', 'over 1.5 — danger'],
+    zoneCopy: 'The ratio compares the last seven days of load to the last four weeks. It is a reading of your load trend, carried as context — it never sets the day’s verdict.',
+    legend: ['under 0.8 — light', '0.8–1.3 — steady', '1.3–1.5 — building', 'over 1.5 — high'],
     foot: 'Zone names are always written out — colour is supplementary, never the message.',
     dashboardAlt: 'Tuwa dashboard: hero readiness card scoring 82 with metrics',
     lottieAria: 'Animated readiness gauge with a travertine needle sweeping the tick arc',
@@ -240,7 +242,7 @@ const home = {
     // The claim rails. These carry the same meaning in every locale.
     rails: [
       'tuwa is a training tool, not a medical device',
-      'it does not diagnose, treat, or prevent injury',
+      'it does not diagnose, treat, or prevent injury', // claim-fence-allow: disclaimer
       'sleep stages come from your watch, compared only to your own history',
       'nothing here is finished, and nothing here is proven',
       'the sources below say what each paper found — nothing more',
@@ -283,7 +285,7 @@ const home = {
     ],
     shotAlt: 'Tuwa recovery screen: HRV and sleep trends against personal baselines',
     cta: 'Download on the App Store',
-    ctaNote: 'your plan, made safe and optimal',
+    ctaNote: 'your plan, read against your body',
   },
   // ------------------------------------------------------------------
   // Legacy sections below feed the retired pre-Pavilion components
@@ -318,10 +320,10 @@ const home = {
   },
   cta: {
     headline: 'Keep your plan. Adjust the day.',
-    body: 'Tuwa does not write your program or act like a chat coach. You author the plan; Tuwa makes today\'s lift safer and more precise.',
+    body: 'Tuwa does not write your program or act like a chat coach. You author the plan; Tuwa reads today\'s body against it.',
   },
   featureGrid: {
-    heading: 'Your plan, made safe and optimal for today',
+    heading: 'Your plan, read against today',
     features: [
       {
         title: 'Your Plan Input',
