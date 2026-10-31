@@ -7,8 +7,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import FeatureFaq from '../../../components/features/FeatureFaq.astro';
 import FeatureClosing from '../../../components/features/FeatureClosing.astro';
 import { faqPageSchema } from '../../../seo/schema';
-import verdictShot from '../../../assets/screens-v16/verdict.png';
-import strikeZoneShot from '../../../assets/screens-v16/strike-zone.png';
+import verdictShot from '../../../assets/screens-v176/en/01-today.png';
+import briefShot from '../../../assets/screens-v176/en/02-brief.png';
 
 const title = 'Le verdict du jour : go, modify ou hold';
 const description =
@@ -54,10 +54,11 @@ const structuredData = [faqPageSchema(faqs)];
           <span class="micro" data-animate>le verdict du jour</span>
           <h1 class="feat-h1" data-animate data-animate-delay="60">Go, modify ou hold — avec le pourquoi</h1>
           <p class="feat-lead" data-animate data-animate-delay="120">
-            Chaque séance commence par un verdict : go, modify ou hold. Tuwa transforme
-            la physiologie du matin et la charge d'hier en ajustements concrets — baisse
-            la série lourde de cinq pour cent, plafonne le travail cardio, ou prends
-            l'option microdose pour garder le schéma moteur sans en payer le prix.
+            Chaque séance commence par un verdict : go, modify ou hold. Tuwa lit la
+            physiologie du matin face à ton plan et dit la journée : son type et sa dose
+            en mots. Le brief porte les chiffres — un jour de modify, une série lourde
+            plus légère ou moins de back-offs ; près d'un match, la microdose qui garde
+            le schéma moteur sans en payer le prix.
           </p>
         </div>
         <div class="aside" data-animate data-animate-delay="180">
@@ -117,22 +118,21 @@ const structuredData = [faqPageSchema(faqs)];
 
   <!-- Concrete numbers -->
   <section class="sec bt">
-    <div class="ghost num" data-ghost aria-hidden="true">-5%</div>
     <div class="wrap">
       <div class="sec-head">
-        <span class="micro" data-animate>des chiffres concrets</span>
-        <h2 data-animate>Une série lourde ajustée, pas un sermon</h2>
+        <span class="micro" data-animate>la dose du jour</span>
+        <h2 data-animate>La dose en mots, puis les chiffres</h2>
         <p data-animate>
-          La sortie est volontairement pratique : go, modify ou hold, plus une série
-          lourde ajustée et une raison en une ligne. Par exemple : « Match samedi —
-          plafonne la série lourde, saute les back-offs. » Tu vois la suggestion avant
-          l'échauffement, quand la séance peut encore changer.
+          La carte du jour nomme le type de journée et sa dose en mots — volume, effort
+          et durée — face à ton plan. Le brief porte les chiffres, prévus face à
+          aujourd'hui, mouvement par mouvement, avec une raison en une ligne. Tu les
+          vois avant l'échauffement, quand la séance peut encore changer.
         </p>
       </div>
       <div class="sec-body">
         <div class="spread" data-spread>
-          <div class="plate" data-fan="l"><Image src={strikeZoneShot} alt="Barre strike zone de Tuwa montrant le ratio de charge aiguë sur chronique" width={640} format="webp" loading="lazy" decoding="async" /></div>
-          <div class="plate" data-fan="c"><Image src={verdictShot} alt="Écran de verdict Tuwa : go / modify / hold avec ajustements chiffrés" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="l"><Image src={briefShot} alt="Brief Tuwa : les lectures du jour, l'ajustement proposé à côté de « garder mon plan », et chaque mouvement prévu face à aujourd'hui" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={verdictShot} alt="Tuwa Aujourd'hui : la carte du jour nomme le type de journée et sa dose — volume, effort, durée — face à ton plan" width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
         <div class="aside" data-animate>
           <div class="privacy-well" style="margin-top:0">
@@ -140,6 +140,13 @@ const structuredData = [faqPageSchema(faqs)];
               <li>Go — la dose prévue convient encore à la journée.</li>
               <li>Modify — garde la séance mais réduis la dose : plafonne le RPE, baisse la charge, ou passe en microdose à l'approche d'un match.</li>
               <li>Hold — assez de contexte de fatigue pour suggérer de reporter la partie dure.</li>
+            </ul>
+          </div>
+          <div class="privacy-well">
+            <ul>
+              <li>Volume — la part du travail prévu qui reste : mouvements, séries, back-offs.</li>
+              <li>Effort — le plafond d'effort face au RPE du plan.</li>
+              <li>Durée — la durée écrite dans le plan, sinon ton temps habituel pour ce jour.</li>
             </ul>
           </div>
         </div>

@@ -1,0 +1,79 @@
+---
+// W1.5（中文）——你的计划（1.7.6，D1 = A）。Tuwa 从不替你写计划。
+import FeatureStory from '../../../components/features/FeatureStory.astro';
+import program from '../../../assets/screens-v176/zh/09-program.png';
+import dayCard from '../../../assets/screens-v176/zh/03-daycard.png';
+import connector from '../../../assets/screens-v176/zh/10-connector.png';
+---
+<FeatureStory
+  locale="zh"
+  path="/features/your-plan/"
+  title="带来你的计划，或用你自己的 AI 来写"
+  description="导入你已有的训练计划，或让你自己的 Claude 或 ChatGPT 写一份给 Tuwa 读。Tuwa 从不替你写计划。"
+  kicker="你的计划"
+  heading="带来你的计划，或用你自己的 AI 来写"
+  lead="Tuwa 读取你本来就在练的计划，并根据你的身体状态调整每一天。它从不替你写计划。还没有计划时，你自己的 AI 可以按 Tuwa 能读取的格式写一份。"
+  sections={[
+    {
+      kicker: '我有计划',
+      heading: '粘贴文字，或带来 PDF、照片',
+      paras: [
+        '把你的计划以粘贴文字、教练的 PDF 或白板照片的方式带进来。Tuwa 读出周、天、组和目标——你写好的组数保持原样。',
+        '在任何内容生效之前，你都会看到 Tuwa 的读取结果。有需要留意的地方，它会写明；它从不阻止你自己的计划。然后选择第 1 周何时开始：下周一，或今天。',
+      ],
+      shots: [{ src: program, alt: 'Tuwa 计划总览：所有周和阶段在一张表里，并显示每周的主要动作' }],
+      bullets: [
+        '读取计划会用到一个 AI 服务，并且先征得你的同意——只发送计划文字，从不发送 Apple 健康的读数。',
+        '计划总览把每一周和每个阶段排在一张表里。',
+      ],
+    },
+    {
+      kicker: '我还没有计划',
+      heading: '用你自己的 Claude 或 ChatGPT 来写',
+      paras: [
+        '从 Tuwa 复制一段提示词到你自己的 Claude 或 ChatGPT。你的 AI 会读取 Tuwa 公开的计划写作技能，每次问你几个关于训练的问题，然后按 Tuwa 的导入格式写出第一阶段。你再把它粘贴回 Tuwa。',
+        '走这条路时，Tuwa 不向你的 AI 发送任何内容；Tuwa 仍然不写计划——写计划的是你和你的 AI。',
+      ],
+      links: [
+        { label: '计划写作技能', href: '/zh/skills/design-program/' },
+        { label: '导入格式', href: '/zh/skills/design-program/import-format/' },
+      ],
+    },
+    {
+      kicker: '或让你的 AI 发送',
+      heading: '你的 AI 发来的草稿会等你处理',
+      paras: [
+        '打开 AI 连接器后，你的 AI 应用可以把计划作为草稿发送给 Tuwa。它会出现在“今天”和“日志”上：“你的 AI 发来了一份计划 · 查看”；你审阅后选择“启用这份计划”或“忽略这份草稿”。Tuwa 从不自行启用草稿。',
+      ],
+      shots: [{ src: connector, alt: 'Tuwa AI 连接器页面：发送内容、不会发送的内容和保留期限' }],
+      links: [
+        { label: '连接器如何运作', href: '/zh/connector/' },
+        { label: '分步连接 Claude', href: '/zh/guide/claude/' },
+      ],
+    },
+    {
+      kicker: '然后每一天',
+      heading: '你的计划，对照你的身体来读',
+      paras: [
+        '每天早上，Tuwa 对照计划读取你的读数，并说明这一天：它的类型和用文字写明的剂量。一整天都在“日志”的训练日卡上。',
+      ],
+      shots: [{ src: dayCard, alt: 'Tuwa 训练日卡：整个计划日在一张卡上，训练直接在卡片里进行' }],
+    },
+  ]}
+  faqs={[
+    { q: 'Tuwa 会替我写计划吗？', a: '不会。计划由你带来，或由你自己的 AI 和你一起写。Tuwa 读取它，并对照你的身体给出每一天的剂量建议；由你决定。' },
+    { q: '可以导入哪些格式？', a: '粘贴的文字、PDF 或照片。对于你的 AI 写的计划，Tuwa 的导入格式公开在 tuwa.app/zh/skills/design-program/import-format/。' },
+    { q: '第 1 周什么时候开始？', a: '默认下周一，也可以选择今天。如果今天是周一，就从今天开始。' },
+    { q: '以后可以改计划吗？', a: '可以。在“日志”中，计划那一行打开总览：移动你的位置，或导入新计划。' },
+  ]}
+  closing={{
+    heading: '带来你的计划',
+    body: '下载 Tuwa，带来你正在练的计划——或用你自己的 AI 来写——每天对照你的身体来读。',
+    related: [
+      { label: '训练日卡', href: '/zh/features/day-card' },
+      { label: '每日建议', href: '/zh/features/verdict' },
+      { label: 'AI 连接器', href: '/zh/connector/' },
+      { label: '指南：快速上手', href: '/zh/guide/quick-start/' },
+    ],
+  }}
+/>

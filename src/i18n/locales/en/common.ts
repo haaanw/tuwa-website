@@ -15,9 +15,10 @@ const common = {
   nav: {
     features: 'Features',
     anchors: [
-      { href: '#today', label: 'Features' },
-      { href: '#zone', label: 'Training load' },
-      { href: '#logging', label: 'Logging' },
+      { href: '#your-plan', label: 'Your plan' },
+      { href: '#today', label: 'Today' },
+      { href: '#day-card', label: 'Day Card' },
+      { href: '#connector', label: 'Your AI' },
       { href: '#method', label: 'Methodology' },
       { href: '#get', label: 'Privacy' },
     ],
@@ -38,7 +39,7 @@ const common = {
       workloadTrackingTitle: 'Workload tracking',
       workloadTrackingDesc: 'One fatigue budget, load ratio as context',
       smartTemplatesTitle: 'Logging & movement bank',
-      smartTemplatesDesc: 'Fast logging, templates, 1,324 exercises',
+      smartTemplatesDesc: 'Fast logging, templates, 1,328 exercises',
       coldStartTitle: 'Starting out',
       coldStartDesc: 'Useful before long personal baselines',
       backRoomTitle: 'Back-Room Review',
@@ -47,6 +48,8 @@ const common = {
     menu: 'Menu',
   },
   drawer: {
+    yourPlan: 'Your plan',
+    dayCard: 'The Day Card',
     ariaLabel: 'Site navigation',
     close: 'Close menu',
     product: 'Product',

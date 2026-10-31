@@ -1,0 +1,57 @@
+---
+// 05 · Your own AI (W1): the AI connector. Source: 1.7.6 What's New ("AI connector … Off until you
+// turn it on: Profile › Legal › AI connector"). The directory listings are not approved yet, so
+// no "Available in Claude / ChatGPT" badge (W4).
+import { Image } from 'astro:assets';
+import { useHomeTranslations, type Locale } from '../../i18n/utils';
+import { screensFor } from './screens';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale).connector;
+const shots = screensFor(locale);
+// The connector page and the guide exist in en + zh; fr links to the English pages.
+const prefix = locale === 'zh' ? '/zh' : '';
+const branch = (i: number, len: number) => (i === len - 1 ? '└─' : '├─');
+---
+<section class="sec sec-alt bt" id="connector">
+  <div class="wrap privacy-grid">
+    <div class="plate privacy-plate" data-reveal>
+      <Image src={shots.connector} alt={t.shotAlt} width={640} format="webp" loading="lazy" decoding="async" />
+    </div>
+    <div data-reveal data-anno-reveal>
+      <span class="micro show-kicker">{t.kicker}</span>
+      <h2 class="home-h2">{t.heading}</h2>
+      <p class="sec-lede">{t.body}</p>
+      <div class="tree">
+        {t.bullets.map((bullet, i) => (
+          <div class="tree-row">
+            <span class="tree-branch" aria-hidden="true">{branch(i, t.bullets.length)}</span>
+            <span class="tree-rail">{bullet}</span>
+          </div>
+        ))}
+      </div>
+      <p class="conn-links">
+        <a href={`${prefix}/connector/`}>{t.connectorLink}</a>
+        <a href={`${prefix}/guide/claude/`}>{t.guideLink}</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .conn-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    margin-top: 24px;
+  }
+  .conn-links a {
+    color: var(--color-text-1);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+</style>

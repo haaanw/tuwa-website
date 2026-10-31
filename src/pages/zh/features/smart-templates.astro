@@ -5,18 +5,18 @@ import CJKLayout from '../../../layouts/CJKLayout.astro';
 import FeatureFaq from '../../../components/features/FeatureFaq.astro';
 import FeatureClosing from '../../../components/features/FeatureClosing.astro';
 import { faqPageSchema } from '../../../seo/schema';
-import workoutLogShot from '../../../assets/screens-v16/workout-log.png';
-import activeWorkoutShot from '../../../assets/screens-v16/active-workout.png';
-import movementBankShot from '../../../assets/screens-v16/movement-bank.png';
+import workoutLogShot from '../../../assets/screens-v176/zh/03-daycard.png';
+import activeWorkoutShot from '../../../assets/screens-v176/zh/04-plate.png';
+import movementBankShot from '../../../assets/screens-v176/zh/09-program.png';
 
 const title = '记录、模板与动作库';
 const description =
-  '面向力量房的快速记录、承载你自己计划的模板，以及 1,324 个动作的搜索优先动作库——让记录跟上训练。';
+  '面向力量房的快速记录、承载你自己计划的模板，以及 1,328 个动作的搜索优先动作库——让记录跟上训练。';
 
 const faqs = [
   {
     q: '动作库有多大？',
-    a: '1,324 个动作的动作库，放在一个搜索优先的选择器后面。找到动作、记下这一组，回到杠铃旁。',
+    a: '1,328 个动作的动作库，放在一个搜索优先的选择器后面。找到动作、记下这一组，回到杠铃旁。',
   },
   {
     q: '模板可以承载什么？',
@@ -46,13 +46,13 @@ const structuredData = [faqPageSchema(faqs)];
 >
   <!-- Hero -->
   <section class="sec feat-hero">
-    <div class="ghost num" data-ghost aria-hidden="true">1,324</div>
+    <div class="ghost num" data-ghost aria-hidden="true">1,328</div>
     <div class="wrap">
       <div class="sec-head">
         <span class="micro" data-animate>记录</span>
         <h1 class="feat-h1" data-animate data-animate-delay="60">组间快速记录</h1>
         <p class="feat-lead" data-animate data-animate-delay="120">
-          1,324 个动作的动作库，放在一个搜索优先的选择器后面。重量、次数、完成——为沾满镁粉的拇指设计的记录方式，让记录跟上训练，而不是拖慢它。
+          1,328 个动作的动作库，放在一个搜索优先的选择器后面。重量、次数、完成——为沾满镁粉的拇指设计的记录方式，让记录跟上训练，而不是拖慢它。
         </p>
       </div>
     </div>
@@ -75,9 +75,9 @@ const structuredData = [faqPageSchema(faqs)];
       </div>
       <div class="sec-body">
         <div class="spread spread-3" data-spread>
-          <div class="plate" data-fan="l"><Image src={movementBankShot} alt="Tuwa 动作库：可搜索的 1,324 个动作目录" width={640} format="webp" loading="lazy" decoding="async" /></div>
-          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Tuwa 进行中训练：实时记录每一组" width={640} format="webp" loading="lazy" decoding="async" /></div>
-          <div class="plate" data-fan="r"><Image src={workoutLogShot} alt="Tuwa 训练日志：历史训练记录" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="l"><Image src={movementBankShot} alt="Tuwa 计划总览：所有周和阶段在一张表里，并显示每周的主要动作" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Tuwa 动作页：一个动作、它的各组，以及“记录本组”按钮" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="r"><Image src={workoutLogShot} alt="Tuwa 训练日卡：整个计划日在一张卡上，训练直接在卡片里进行" width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 ---
-// 03 · The system — the fanned spread (demo row 04).
+// 04 · Trends — the fanned spread (demo row 04). W1: HRV detail · Trends fatigue · sleep detail
+// (1.7.6: "Trends you can read").
 // The fan is the whole-product moment and nothing else: recovery, today's
 // decision, and the set you are in the middle of. Logging has its own section
 // (04) so this one no longer carries the movement-bank sentence.
@@ -9,16 +10,15 @@
 // holding three screens. The spread opens on scroll via --p (set by
 // homeMotion.ts); no-JS and reduced motion render it fully open.
 import { Image } from 'astro:assets';
-import recoveryShot from '../../assets/screens-v16/recovery.png';
-import dashboardShot from '../../assets/screens-v16/dashboard.png';
-import activeWorkoutShot from '../../assets/screens-v16/active-workout.png';
+import { screensFor } from './screens';
 import { useHomeTranslations, type Locale } from '../../i18n/utils';
 
 interface Props {
   locale?: Locale;
 }
 const { locale = 'en' } = Astro.props;
-const t = useHomeTranslations(locale).system;
+const t = useHomeTranslations(locale).trends;
+const shots = screensFor(locale);
 ---
 <section class="sec" id="system">
   <div class="wrap sys-head">
@@ -27,8 +27,8 @@ const t = useHomeTranslations(locale).system;
     <p class="sys-body">{t.body}</p>
   </div>
   <div class="fan" data-spread>
-    <div class="plate fan-l"><Image src={recoveryShot} alt={t.recoveryAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
-    <div class="plate fan-c"><Image src={dashboardShot} alt={t.dashboardAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
-    <div class="plate fan-r"><Image src={activeWorkoutShot} alt={t.activeWorkoutAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
+    <div class="plate fan-l"><Image src={shots.hrv} alt={t.hrvAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
+    <div class="plate fan-c"><Image src={shots.fatigue} alt={t.fatigueAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
+    <div class="plate fan-r"><Image src={shots.sleep} alt={t.sleepAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
   </div>
 </section>

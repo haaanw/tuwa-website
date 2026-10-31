@@ -1,0 +1,93 @@
+---
+// 01 · Your plan (W1, D1 = A): bring the plan you have, or build it with your own AI. Tuwa never
+// writes the program — the AI route is the athlete's own Claude / ChatGPT with Tuwa's public
+// plan-writing skill. Source: 1.7.6 What's New ("Bring your plan, or build one with your own AI").
+import { Image } from 'astro:assets';
+import { useHomeTranslations, type Locale } from '../../i18n/utils';
+import { screensFor } from './screens';
+
+interface Props {
+  locale?: Locale;
+}
+const { locale = 'en' } = Astro.props;
+const t = useHomeTranslations(locale).yourPlan;
+const shots = screensFor(locale);
+const prefix = locale === 'zh' ? '/zh' : '';
+const branch = (i: number, len: number) => (i === len - 1 ? '└─' : '├─');
+---
+<section class="sec" id="your-plan">
+  <div class="wrap privacy-grid">
+    <div data-reveal data-anno-reveal>
+      <span class="micro show-kicker">{t.kicker}</span>
+      <h2 class="home-h2">{t.heading}</h2>
+      <p class="sec-lede">{t.body}</p>
+      <ol class="plan-doors">
+        {t.doors.map((door) => (
+          <li>
+            <h3>{door.title}</h3>
+            <p>{door.body}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="tree plan-links">
+        <div class="tree-row">
+          <span class="tree-branch" aria-hidden="true">{branch(0, 2)}</span>
+          <a class="tree-rail" href={`${prefix}/skills/design-program/`}>{t.skillLink}</a>
+        </div>
+        <div class="tree-row">
+          <span class="tree-branch" aria-hidden="true">{branch(1, 2)}</span>
+          <a class="tree-rail" href={`${prefix}/skills/design-program/import-format/`}>{t.formatLink}</a>
+        </div>
+      </div>
+      <p class="plan-aside">{t.aside}</p>
+      <p class="plan-more"><a href={`${prefix}/features/your-plan/`}>{t.moreLink}</a></p>
+    </div>
+    <div class="plate privacy-plate" data-reveal>
+      <Image src={shots.program} alt={t.shotAlt} width={640} format="webp" loading="lazy" decoding="async" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .plan-doors {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+  }
+  .plan-doors li {
+    padding: 16px 24px;
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-card, 12px);
+    background: var(--color-surface-el);
+  }
+  .plan-doors h3 {
+    margin: 0 0 8px;
+    font-size: var(--text-label);
+    font-weight: var(--weight-label, 500);
+    color: var(--color-text-1);
+  }
+  .plan-doors p {
+    margin: 0;
+    font-size: var(--text-small);
+    line-height: 1.55;
+    color: var(--color-text-2);
+  }
+  .plan-links {
+    margin-top: 24px;
+  }
+  .plan-links a {
+    color: var(--color-text-1);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .plan-more { margin-top: 8px; }
+  .plan-more a { color: var(--color-text-1); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  .plan-aside {
+    margin-top: 24px;
+    font-size: var(--text-small);
+    color: var(--color-text-2);
+  }
+</style>

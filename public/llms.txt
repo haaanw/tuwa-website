@@ -10,10 +10,14 @@
 - Example vertical — basketball: match tier and match proximity (game within 48 hours → capped top sets / microdose, skipped back-off). Same dose logic applies to other dual sport+lift athletes.
 
 ## Features
+- [Your Plan](https://tuwa.app/features/your-plan/): bring the plan you have (text, PDF or photo), or build one with your own Claude or ChatGPT in Tuwa's import format. Tuwa never writes the program.
+- [The Day Card](https://tuwa.app/features/day-card/): the whole program day on one card on the Log tab; the session runs in the card.
+- [The AI Connector](https://tuwa.app/connector/): your own AI app reads composite readings, sessions, load, plan and PRs, and can send a plan draft that waits for the athlete to activate it. URL https://mcp.tuwa.app/mcp; off until the athlete turns it on.
+- [The Guide](https://tuwa.app/guide/): quick start, connecting Claude or ChatGPT, and help.
 - [The Daily Verdict](https://tuwa.app/features/verdict): go, modify, or hold suggestion with an adjusted top-set number and a one-line reason.
 - [Workload Tracking](https://tuwa.app/features/workload-tracking): one fatigue budget across sport skill, strength, and conditioning, with the acute:chronic load ratio shown as context (it never sets the verdict).
 - [Recovery Scoring](https://tuwa.app/features/recovery-scoring): HRV, sleep, and resting heart rate scored against personal baselines, with plain-language reasons.
-- [Logging, Templates & the Movement Bank](https://tuwa.app/features/smart-templates): fast in-gym logging, templates with targets and RPE caps, and a 1,324-exercise search-first movement bank.
+- [Logging, Templates & the Movement Bank](https://tuwa.app/features/smart-templates): fast in-gym logging, templates with targets and RPE caps, and a 1,328-exercise search-first movement bank.
 - [Cold-Start Onboarding](https://tuwa.app/features/cold-start): honest setup from day one — workload builds from the first logged session, readiness stays conservative until real data exists.
 - [Back-Room Review](https://tuwa.app/training-load): workload, recovery, match proximity, and progress review.
 

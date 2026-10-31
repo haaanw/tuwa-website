@@ -48,7 +48,9 @@ const showLanguageSwitcher = availableLocales.length > 1;
 // all three locales (footer convention: locale-prefixed).
 type DrawerLink = { label: string; href: string; external?: boolean };
 const productLinks: DrawerLink[] = [
+  { label: t.drawer.yourPlan, href: getRelativeLocaleUrl(locale, '/features/your-plan') },
   { label: t.drawer.verdict, href: getRelativeLocaleUrl(locale, '/features/verdict') },
+  { label: t.drawer.dayCard, href: getRelativeLocaleUrl(locale, '/features/day-card') },
   { label: t.drawer.trainingLoad, href: getRelativeLocaleUrl(locale, '/features/workload-tracking') },
   { label: t.drawer.recoveryScore, href: getRelativeLocaleUrl(locale, '/features/recovery-scoring') },
   { label: t.drawer.logging, href: getRelativeLocaleUrl(locale, '/features/smart-templates') },

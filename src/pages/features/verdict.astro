@@ -6,8 +6,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FeatureFaq from '../../components/features/FeatureFaq.astro';
 import FeatureClosing from '../../components/features/FeatureClosing.astro';
 import { faqPageSchema } from '../../seo/schema';
-import verdictShot from '../../assets/screens-v16/verdict.png';
-import strikeZoneShot from '../../assets/screens-v16/strike-zone.png';
+import verdictShot from '../../assets/screens-v176/en/01-today.png';
+import briefShot from '../../assets/screens-v176/en/02-brief.png';
 
 const title = 'The Daily Verdict: Go, Modify, or Hold';
 const description =
@@ -52,10 +52,11 @@ const structuredData = [faqPageSchema(faqs)];
           <span class="micro" data-animate>the daily verdict</span>
           <h1 class="feat-h1" data-animate data-animate-delay="60">Go, modify, or hold — with the why</h1>
           <p class="feat-lead" data-animate data-animate-delay="120">
-            Every session starts with a verdict: go, modify, or hold. Tuwa turns this
-            morning's physiology and yesterday's load into concrete number adjustments —
-            drop the top set five percent, cap the conditioning piece, or take the
-            microdose option and keep the pattern without the cost.
+            Every session starts with a verdict: go, modify, or hold. Tuwa reads this
+            morning's physiology against your plan and states the day: its kind and its
+            dose in words. The brief holds the numbers — on a modify day, a lighter top
+            set or fewer back-off sets; near a match, the microdose that keeps the
+            pattern without the cost.
           </p>
         </div>
         <div class="aside" data-animate data-animate-delay="180">
@@ -113,22 +114,22 @@ const structuredData = [faqPageSchema(faqs)];
 
   <!-- Concrete numbers -->
   <section class="sec bt">
-    <div class="ghost num" data-ghost aria-hidden="true">-5%</div>
     <div class="wrap">
       <div class="sec-head">
-        <span class="micro" data-animate>concrete numbers</span>
-        <h2 data-animate>An adjusted top set, not a lecture</h2>
+        <span class="micro" data-animate>the day's dose</span>
+        <h2 data-animate>The dose in words, then the numbers</h2>
         <p data-animate>
-          The output is intentionally practical: go, modify, or hold, plus an adjusted
-          top-set number and a one-line reason. For example: "Match Saturday — cap the
-          top set, skip back-offs." You see the suggestion before warmups, while the
-          session can still change.
+          Today's card names the kind of day and its dose in words — Volume, Effort
+          and Length — against your plan: for example "1 of 3 lifts up to 7% lighter,
+          fewer back-off sets" or "Up to RPE 7 · from RPE 8". The brief holds the
+          numbers, planned against today, lift by lift, with a one-line reason. You
+          see it before warmups, while the session can still change.
         </p>
       </div>
       <div class="sec-body">
         <div class="spread" data-spread>
-          <div class="plate" data-fan="l"><Image src={strikeZoneShot} alt="Tuwa strike-zone bar showing acute-to-chronic workload ratio" width={640} format="webp" loading="lazy" decoding="async" /></div>
-          <div class="plate" data-fan="c"><Image src={verdictShot} alt="Tuwa verdict screen: go / modify / hold with concrete number adjustments" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="l"><Image src={briefShot} alt="Tuwa brief: today's readings, the suggested adjustment beside Keep my plan, and each lift planned against today" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={verdictShot} alt="Tuwa Today: the day card names the kind of day and its dose — Volume, Effort, Length — against your plan" width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
         <div class="aside" data-animate>
           <div class="privacy-well" style="margin-top:0">
@@ -136,6 +137,13 @@ const structuredData = [faqPageSchema(faqs)];
               <li>Go — the planned dose still fits the day.</li>
               <li>Modify — keep the session but trim the dose: cap RPE, reduce load, or microdose near a game.</li>
               <li>Hold — enough fatigue context to suggest delaying the hard part.</li>
+            </ul>
+          </div>
+          <div class="privacy-well">
+            <ul>
+              <li>Volume — how much of the planned work stays: lifts, sets, back-off sets.</li>
+              <li>Effort — the effort ceiling against the plan's own RPE.</li>
+              <li>Length — the plan's written length, else your own usual time for that day.</li>
             </ul>
           </div>
         </div>

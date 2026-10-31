@@ -1,12 +1,13 @@
 ---
 // Homepage — the Astro port of the locked Session W demo
 // (.design-explorations/website-v2-demo; compare.html rows 01–11).
-// Section order: hero → 01 today → 02 training load → 03 the system →
-// 04 logging → stats → 05 recovery → 06 methodology → ghost band → 07 privacy.
+// Section order (W1, 1.7.6): hero → 01 your plan → 02 today → 03 the day card → stats →
+// 04 trends → 05 your own AI → 06 recovery → 07 methodology → ghost band → 08 privacy.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeHero from '../components/home/HomeHero.astro';
+import PlanSection from '../components/home/PlanSection.astro';
 import StickyShowcase from '../components/home/StickyShowcase.astro';
-import StrikeZoneScrub from '../components/home/StrikeZoneScrub.astro';
+import ConnectorSection from '../components/home/ConnectorSection.astro';
 import SystemFan from '../components/home/SystemFan.astro';
 import LoggingRow from '../components/home/LoggingRow.astro';
 import StatsBand from '../components/home/StatsBand.astro';
@@ -16,20 +17,24 @@ import GhostQuote from '../components/home/GhostQuote.astro';
 import PrivacyClose from '../components/home/PrivacyClose.astro';
 import { softwareApplicationSchema, organizationSchema } from '../seo/schema';
 
-const description = "Tuwa is the sports-science back room for self-coached athletes. You write the plan; Tuwa returns today’s dose: go, modify, or hold. It never writes your program.";
+import { useHomeTranslations } from '../i18n/utils';
+
+const t = useHomeTranslations('en');
+const description = t.meta.description;
 const structuredData = [softwareApplicationSchema(description), organizationSchema()];
 ---
 <BaseLayout
-  title="Stay in Your Strike Zone"
+  title={t.meta.title}
   description={description}
   structuredData={structuredData}
 >
   <HomeHero />
+  <PlanSection />
   <StickyShowcase />
-  <StrikeZoneScrub />
-  <SystemFan />
   <LoggingRow />
   <StatsBand />
+  <SystemFan />
+  <ConnectorSection />
   <RecoverySpark />
   <MethodologySection />
   <GhostQuote />

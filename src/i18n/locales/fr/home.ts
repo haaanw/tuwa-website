@@ -7,101 +7,110 @@ const home: Home = {
   // bande fantôme → 07 confidentialité. Chiffres, animations et visuels
   // identiques à la version EN ; seules les chaînes sont traduites.
   meta: {
-    title: 'Reste dans ta strike zone',
+    // D1 = A (HAN 2026-10-31).
+    title: 'Apporte ton plan — ou écris-le avec ta propre IA',
     description:
-      "Tuwa est le staff sports-science des athlètes qui se coachent seuls. Tu écris le plan ; Tuwa te renvoie la dose du jour : go, modify ou hold. Il n'écrit jamais ton programme.",
+      "Tuwa est le staff sports-science des athlètes qui se coachent seuls. Apporte ton plan, ou écris-le avec ton propre Claude ou ChatGPT ; Tuwa le lit chaque jour face à ton corps et dit la dose du jour. Il n'écrit jamais ton programme.",
   },
   heroScrub: {
-    sectionAria: 'Tuwa — ton plan, lu face à ton corps chaque jour',
+    sectionAria: 'Tuwa — apporte ton plan, ou écris-le avec ta propre IA',
     scoreAria: 'Score de forme 82',
     scoreCaption: 'forme du jour',
     strapline: 'Tuwa // le staff sports-science',
-    // W0 (2026-10-30) : une lecture remplace « rendu sûr et optimal » (LEGAL-AUDIT A1). Provisoire : D1 de HAN.
-    lines: ['Ton plan.', 'Lu face à', 'ton corps.'],
-    lead: "Tuwa est le staff sports-science des athlètes qui se coachent seuls. Il lit ton corps — VFC, sommeil, fréquence cardiaque au repos, historique d'entraînement — et module le plan que tu as écrit : les chiffres du jour, un verdict go / modify / hold, et la tendance de ta charge. Il n'écrit jamais ton programme.",
+    // D1 = A (HAN 2026-10-31).
+    lines: ['Apporte ton plan.', 'Ou écris-le avec', 'ta propre IA.'],
+    lead: "Tuwa est le staff sports-science des athlètes qui se coachent seuls. Importe le plan que tu suis, ou laisse ton propre Claude ou ChatGPT en écrire un que Tuwa saura lire. Chaque matin, Tuwa lit ton corps — VFC, sommeil, fréquence cardiaque au repos, historique d'entraînement — face à ce plan et dit la journée : sa dose en mots, et une suggestion go, modify ou hold que tu décides. Il n'écrit jamais ton programme.",
     sub: 'Conçu pour les athlètes qui travaillent leur sport et leur force en parallèle',
     cta: "Télécharger sur l'App Store",
     ctaNote: 'iOS 17+ · iPhone',
   },
-  showcase: {
-    kicker: "01 · aujourd'hui",
-    heading: 'Une décision par jour',
-    body: "Chaque séance commence par un verdict : go, modify ou hold. Tuwa transforme la physiologie du matin et la charge d'hier en ajustements concrets — baisse la série lourde de cinq pour cent, plafonne le travail cardio, ou prends l'option microdose pour garder le schéma moteur sans en payer le prix.",
-    lottieAria: 'Animation : coche de verdict avec un anneau de pulsation calme',
-    lottieCaption: 'le verdict, tracé calmement',
-    aside: "Pas de chat, pas de données à interpréter toi-même. Un verdict, les chiffres derrière, et la séance que tu comptais vraiment faire.",
-    steps: [
+  // W1 (mise à jour 1.7.6). Ordre : hero → 01 ton plan → 02 aujourd'hui → 03 la Day Card →
+  // chiffres → 04 tendances → 05 ta propre IA → 06 récupération → 07 méthodologie → 08 confidentialité.
+  yourPlan: {
+    kicker: '01 · ton plan',
+    heading: 'Apporte ton plan, ou écris-le avec ta propre IA',
+    body: "Tuwa lit le programme que tu suis déjà et ajuste chaque journée selon ton corps. Il n'écrit jamais le programme.",
+    doors: [
       {
-        title: 'Le verdict',
-        body: 'Go, modify ou hold — avec les ajustements exacts pour la séance du jour, calculés à partir de ta forme et de ta position dans ton plan.',
+        title: "J'ai un plan",
+        body: "Colle-le, ou apporte un PDF ou une photo du tableau. Tuwa lit les semaines, les jours et les séries ; tu vérifies ce qu'il a lu, et la semaine 1 commence lundi prochain ou aujourd'hui.",
       },
       {
-        title: 'Le ratio de charge',
-        body: "Ton ratio de charge aiguë sur chronique comme contexte : la charge des sept derniers jours face aux quatre dernières semaines, et le sens dans lequel il évolue.",
+        title: "Je n'en ai pas encore",
+        body: "Copie un prompt dans ton propre Claude ou ChatGPT. Il lit la compétence d'écriture de plan de Tuwa, te pose des questions sur ton entraînement, et écrit la première phase au format d'import de Tuwa, que tu colles ensuite.",
+      },
+    ],
+    skillLink: "La compétence d'écriture de plan",
+    formatLink: "Le format d'import",
+    moreLink: 'Ton plan, en détail (en anglais)',
+    aside: "Ensuite, la vue d'ensemble : tes semaines et tes phases sur une grille, avec les mouvements de chaque semaine.",
+    shotAlt: "Vue d'ensemble du programme Tuwa : tes semaines et phases sur une grille, avec les mouvements de chaque semaine",
+  },
+  showcase: {
+    kicker: "02 · aujourd'hui",
+    heading: 'Aujourd’hui dit la journée',
+    body: "Chaque matin, la carte du jour nomme le type de journée et sa dose en mots — volume, effort et durée — face à ton plan. Les chiffres sont dans le brief, mouvement par mouvement, avec la raison. Tu choisis, puis tu commences.",
+    lottieAria: 'Animation : coche de verdict avec un anneau de pulsation calme',
+    lottieCaption: 'le verdict, tracé calmement',
+    aside: "Pas de chat, pas de données à interpréter toi-même. Tes lectures, une suggestion avec sa raison, et la séance que tu comptais faire.",
+    steps: [
+      {
+        title: 'La carte du jour',
+        body: 'Le type de journée et sa dose en mots : volume, effort et durée, face à ton plan.',
+      },
+      {
+        title: 'Le brief',
+        body: "Tes lectures, la suggestion du jour et sa raison, et chaque mouvement prévu face à aujourd'hui. L'ajustement et « garder mon plan » sont côte à côte ; tu choisis.",
       },
       {
         title: 'La tendance de charge',
-        body: 'Un seul budget de fatigue pour le sport, la force et le cardio — et sa tendance, semaine après semaine.',
+        body: 'Un seul budget de fatigue pour le sport, la force et le cardio, lu sur tes quatre bandes.',
       },
     ],
-    verdictAlt: 'Écran de verdict Tuwa : go / modify / hold avec ajustements chiffrés',
-    strikeZoneAlt: 'Barre de charge de Tuwa montrant le ratio de charge aiguë sur chronique',
-    workloadAlt: "Graphique de charge d'entraînement Tuwa avec tendance ACWR",
+    todayAlt: "Tuwa Aujourd'hui : la carte du jour nomme le type de journée et sa dose — volume, effort, durée — face à ton plan",
+    briefAlt: "Brief Tuwa : les lectures du jour, l'ajustement proposé à côté de « garder mon plan », et chaque mouvement prévu face à aujourd'hui",
+    loadAlt: 'Détail de charge Tuwa : charge aiguë face à la chronique, lue sur tes quatre bandes',
   },
-  zoneScrub: {
-    kicker: "02 · charge d'entraînement",
-    heading: 'Un seul budget de fatigue',
-    body: "Le sport, la force et le cardio puisent dans le même réservoir. Tuwa les suit comme une seule charge — aiguë contre chronique — et affiche le ratio comme contexte : à quelle distance cette semaine se trouve de ta base récente, et dans quel sens elle évolue. La décision du jour vient de ta forme, pas de ce ratio.",
-    barMicro: 'ratio de charge aiguë : chronique',
-    barNow: 'maintenant',
-    zoneLabels: [
-      'Charge légère — sous ta base récente',
-      'Charge stable — proche de ta base récente',
-      'Charge en hausse — au-dessus de ta base récente',
-      'Charge élevée — bien au-dessus de ta base récente',
+  dayCard: {
+    kicker: '03 · la day card',
+    heading: 'Toute la journée sur une carte',
+    body: "Dans Log, toute la journée du programme tient sur une carte : ses sections, ses consignes et la règle du jour. Lance la séance, et elle se déroule dans la carte — touche un mouvement, note la série, termine.",
+    doors: ['sur la carte', 'ou en mots'],
+    manual: "Une séance hors plan ? Tape-la comme tu la dirais ; Tuwa en fait un brouillon que tu vérifies avant l'enregistrement. Une banque de 1 328 mouvements se cache derrière un sélecteur par recherche.",
+    captions: ['01 · la journée sur une carte', '02 · touche un mouvement, note la série'],
+    foot: "exercices sans charge · un toucher les note comme prévu, un second l'annule",
+    cardLink: 'La Day Card, en détail (en anglais)',
+    moreLink: "Comment marche l'enregistrement par texte",
+    dayCardAlt: "Day Card de Tuwa : toute la journée du programme sur une carte, la séance s'y déroule",
+    plateAlt: 'Plaque de mouvement Tuwa : un mouvement, ses séries et le bouton Log set',
+  },
+  trends: {
+    kicker: '04 · tendances',
+    heading: 'Des tendances lisibles',
+    body: 'La fatigue décomposée en ses parties, la charge lue sur tes quatre bandes, et chaque signal du corps sur son propre écran, face à ta propre référence.',
+    hrvAlt: 'Détail VFC de Tuwa : la mesure du matin face à ta propre référence',
+    fatigueAlt: 'Tendances Tuwa : la fatigue décomposée en ses parties',
+    sleepAlt: 'Détail du sommeil Tuwa : la nuit dernière face à tes propres nuits',
+  },
+  connector: {
+    kicker: '05 · ta propre IA',
+    heading: 'Interroge ta propre IA sur ton entraînement',
+    body: "Active le connecteur IA, et ton propre Claude ou ChatGPT peut lire tes lectures, tes séances et ton plan Tuwa, afficher la carte du jour dans la conversation et t'envoyer un brouillon de plan à vérifier. Tuwa prend toujours la décision du jour dans l'app.",
+    bullets: [
+      "désactivé tant que tu ne l'actives pas · profile › legal › ai connector (l'app est en anglais)",
+      'scores composites uniquement · jamais un chiffre apple santé',
+      "un brouillon de plan attend que tu l'actives",
     ],
-    zoneCopy: "Le ratio compare la charge des sept derniers jours à celle des quatre dernières semaines. C'est une lecture de la tendance de ta charge, gardée comme contexte — il ne fixe jamais le verdict du jour.",
-    legend: ['sous 0.8 — légère', '0.8–1.3 — stable', '1.3–1.5 — en hausse', 'au-delà de 1.5 — élevée'],
-    foot: "Les zones sont toujours écrites en toutes lettres — la couleur est un appui, jamais le message.",
-    dashboardAlt: 'Tableau de bord Tuwa : carte de forme affichant 82 avec les métriques',
-    lottieAria: "Animation : jauge de forme avec une aiguille travertin balayant l'arc gradué",
-    lottieCaption: 'la forme, mesurée',
-    aside: "L'aiguille est alimentée par ton historique, pas par une moyenne de population. Même entrée, même réponse — le moteur est déterministe.",
-  },
-  system: {
-    kicker: '03 · le système',
-    heading: 'Tout le système, en un geste',
-    body: "La récupération, la décision du jour, et la série que tu es en train de faire — une toile pour chacune, aucun tableau de bord à assembler.",
-    recoveryAlt: 'Écran de récupération Tuwa : tendances VFC et sommeil contre les références personnelles',
-    dashboardAlt: 'Tableau de bord Tuwa : carte de forme affichant 82 avec les métriques',
-    activeWorkoutAlt: 'Séance en cours dans Tuwa : saisie des séries en direct',
-  },
-  // v1.7.4 — la saisie vocale de la séance a été RETIRÉE (décision de HAN,
-  // 2026-09-24). Le journal se fait au clavier ou en direct sur la réglette ;
-  // l'importation d'un programme se fait aussi en collant du texte ou en
-  // important un PDF/une photo, à la place de la voix — plus de micro nulle
-  // part dans l'app. Le modèle de langue est un ANALYSEUR : il transforme du
-  // texte tapé en brouillon. Jamais un chat, un assistant ou un coach à qui
-  // on parle.
-  logging: {
-    kicker: '04 · journal',
-    heading: 'Tape la séance, ou règle-la sur la réglette',
-    body: "Tape la séance comme tu la dirais à voix haute, ou enregistre les séries directement sur la réglette — deux portes, un seul journal. Tuwa transforme la description tapée en brouillon modifiable, chaque série déjà remplie. Rien n'est enregistré tant que tu n'as pas confirmé, et chaque chiffre reste corrigeable à la main.",
-    doors: ['tape-la', 'règle-la'],
-    manual: "La saisie manuelle ne disparaît jamais. Une banque de 1 324 mouvements reste derrière un sélecteur pensé recherche d'abord, et la réglette de charge s'affiche en entier avant que tu la touches — ta dernière série et la cible du jour marquées dessus.",
-    captions: ['01 · tape-la', '02 · vérifie le brouillon, corrige une série', '03 · confirmé, puis inscrit'],
-    foot: "gratuit sur toutes les formules · rien ne s'enregistre sans ta confirmation",
-    moreLink: 'Comment fonctionne la saisie de texte',
-    logCaptureAlt: 'Saisie de séance Tuwa : une séance tapée, écrite en une phrase, prête à être analysée',
-    activeWorkoutAlt: 'Saisie des séries dans Tuwa : la réglette de charge avec les repères cible et dernière série',
-    workoutLogAlt: "Journal d'entraînement Tuwa : historique des séances",
+    connectorLink: 'Comment marche le connecteur',
+    guideLink: 'Connecter Claude ou ChatGPT, pas à pas (en anglais)',
+    shotAlt: 'Écran du connecteur IA de Tuwa : ce qui est envoyé, ce qui ne l’est jamais, et ce qui est gardé',
   },
   statsBand: {
     sectionAria: 'Chiffres clés',
     labels: ['exercices dans la banque de mouvements', 'forme, notée chaque matin', 'jours de charge derrière chaque ratio'],
   },
   recovery: {
-    kicker: '05 · récupération',
+    kicker: '06 · récupération',
     heading: 'Tes références, tracées chaque jour',
     body: "VFC nocturne, sommeil et fréquence cardiaque au repos sont notés contre tes propres références glissantes — pas des normes de population — puis condensés en un seul chiffre avec des raisons en langage clair. Tu ne reçois pas un tableau de bord à interpréter. Tu reçois un score et le pourquoi.",
     // Couche d'annotation du graphe qui se dessine (Field Notes v6).
@@ -122,7 +131,7 @@ const home: Home = {
   // Aucune affirmation ne doit être renforcée.
   // ------------------------------------------------------------------
   methodology: {
-    kicker: '06 · méthodologie · en développement',
+    kicker: '07 · méthodologie · en développement',
     headingLines: ['Voici ce que nous croyons,', 'et ce qui nous donnerait tort'],
     lede: "Aujourd'hui, Tuwa note ton sommeil contre une cible fixe. Nous en construisons une qui s'adapte à l'état dans lequel tu t'es couché. Ce n'est pas terminé — voici donc toute la conception, les poids, et les parties dont nous sommes le moins certains.",
     chips: ["statut : conception · pas dans l'app publiée", "aucune promesse de performance ni de précision n'est faite ici"],
@@ -264,7 +273,7 @@ const home: Home = {
     quote: "Le staff d'une équipe pro — plan, physiologie et une décision — pour les athlètes qui se coachent eux-mêmes.",
   },
   privacyClose: {
-    kicker: '07 · confidentialité',
+    kicker: '08 · confidentialité',
     heading: 'Tes données restent sur ton téléphone',
     body: "Tuwa lit HealthKit — il n'y écrit jamais — et les données de santé brutes ne quittent jamais l'appareil. Seuls des scores composites se synchronisent.",
     bullets: [
@@ -273,9 +282,9 @@ const home: Home = {
       'Seuls des scores composites se synchronisent avec ton compte',
       'Nécessite iOS 17 ou plus récent',
     ],
-    shotAlt: 'Écran de récupération Tuwa : tendances VFC et sommeil contre les références personnelles',
+    shotAlt: 'Détail VFC de Tuwa : la mesure du matin face à ta propre référence',
     cta: "Télécharger sur l'App Store",
-    ctaNote: 'ton plan, lu face à ton corps',
+    ctaNote: 'apporte ton plan, ou écris-le avec ta propre IA',
   },
   // Sections héritées des anciens composants (Hero / FeatureGrid /
   // StatsCounter / LandingCTA) — plus utilisées ; à supprimer avec eux.

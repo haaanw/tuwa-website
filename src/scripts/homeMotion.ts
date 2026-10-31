@@ -10,10 +10,8 @@
  * - The vocabulary marquee is gone (HAN dropped it), and with it the pause
  *   control and the nav-pill auto-hide: hero and close now use App Store
  *   badges, so the nav pill is the page's only ink pill and never competes.
- * - The strike-zone bar runs on the demo's 0.0–2.0 axis (pos = acwr / 2).
  *
- * Still here: the pinned 3-step showcase, the pinned zone scrub, the fanned
- * spread, ghost drift, the self-drawing baseline chart, the 40ms annotation
+ * Still here: the pinned 3-step showcase, the fanned spread, ghost drift, the self-drawing baseline chart, the 40ms annotation
  * stagger, and the self-hosted Lottie pair (paused off-screen).
  *
  * Reduced motion: the markup already carries every final value, so we only
@@ -266,7 +264,7 @@ interface LottieAnim {
       return clamp01(-r.top / span);
     }
 
-    /* scene: pinned 3-step showcase — verdict → strike zone → load */
+    /* scene: pinned 3-step showcase — the day card → the brief → load */
     (function () {
       const wrap = document.getElementById('showWrap');
       if (!wrap) return;
@@ -286,58 +284,6 @@ interface LottieAnim {
           steps.forEach((st, i) => {
             st.classList.toggle('active', i === idx);
           });
-        }
-      } });
-    })();
-
-    /* scene: pinned strike-zone bar — ACWR 0.40→1.45 on a 0.0–2.0 axis */
-    (function () {
-      const wrap = document.getElementById('zoneWrap');
-      const bar = document.getElementById('zoneBar');
-      const fill = document.getElementById('zoneFill');
-      const needle = document.getElementById('zoneNeedle');
-      const chip = document.getElementById('zoneChip');
-      const label = document.getElementById('zoneLabel');
-      if (!wrap || !bar || !fill || !needle || !chip || !label) return;
-      let barW = bar.getBoundingClientRect().width || 1;
-      window.addEventListener('resize', () => {
-        barW = bar.getBoundingClientRect().width || 1;
-      });
-      needle.style.left = '0';
-      /* "now" prefix on the live reading, from the locale copy */
-      const nowRaw = chip.getAttribute('data-now') || '';
-      const nowLabel = nowRaw ? nowRaw + ' ' : '';
-      /* zone labels come from the locale copy via data-zones (EN fallback) */
-      let zoneTexts = [
-        'Load light — below your recent base',
-        'Load steady — close to your recent base',
-        'Load building — above your recent base',
-        'High load — well above your recent base'
-      ];
-      try {
-        const parsed = JSON.parse(label.getAttribute('data-zones') || '');
-        if (Array.isArray(parsed) && parsed.length === 4 && parsed.every((z) => typeof z === 'string')) {
-          zoneTexts = parsed;
-        }
-      } catch (e) { /* noop — keep EN fallback */ }
-      const zones = [
-        { txt: zoneTexts[0], cls: 'zl0' },
-        { txt: zoneTexts[1], cls: 'zl1' },
-        { txt: zoneTexts[2], cls: 'zl2' },
-        { txt: zoneTexts[3], cls: 'zl3' }
-      ];
-      let curZ = -1;
-      scenes.push({ el: wrap, p: -1, fn: (p) => {
-        const ac = 0.4 + 1.05 * p;   /* 0.40 → 1.45 */
-        const pos = ac / 2;          /* the bar axis runs 0.0–2.0 */
-        fill.style.transform = 'scaleX(' + pos.toFixed(4) + ')';
-        needle.style.transform = 'translateX(' + (pos * barW).toFixed(1) + 'px)';
-        chip.textContent = nowLabel + ac.toFixed(2);
-        const z = ac < 0.8 ? 0 : ac <= 1.3 ? 1 : ac <= 1.5 ? 2 : 3;
-        if (z !== curZ) {
-          curZ = z;
-          label.textContent = zones[z].txt;
-          label.className = 'zone-label num ' + zones[z].cls;
         }
       } });
     })();

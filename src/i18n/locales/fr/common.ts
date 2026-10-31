@@ -4,9 +4,10 @@ const common: Common = {
   nav: {
     features: 'Fonctionnalités',
     anchors: [
-      { href: '#today', label: 'Fonctionnalités' },
-      { href: '#zone', label: "Charge d'entraînement" },
-      { href: '#logging', label: 'Journal' },
+      { href: '#your-plan', label: 'Ton plan' },
+      { href: '#today', label: "Aujourd'hui" },
+      { href: '#day-card', label: 'Day Card' },
+      { href: '#connector', label: 'Ton IA' },
       { href: '#method', label: 'Méthodologie' },
       { href: '#get', label: 'Confidentialité' },
     ],
@@ -36,6 +37,8 @@ const common: Common = {
     menu: 'Menu',
   },
   drawer: {
+    yourPlan: 'Ton plan (en anglais)',
+    dayCard: 'La Day Card (en anglais)',
     ariaLabel: 'Navigation du site',
     close: 'Fermer le menu',
     product: 'Produit',

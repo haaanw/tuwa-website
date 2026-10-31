@@ -1,37 +1,25 @@
 ---
-// 04 · Logging — restored as its own section (demo row 05), originally written
-// for the 1.7.2 voice-logging release; updated 2026-09-24 for v1.7.4, which
-// REMOVED workout voice logging (HAN ruling). Logging is typed description or
-// direct entry now.
-// Deliberately NOT a second fan: two fanned sections back to back read as one
-// repeated trick. This is a flat three-up row on a surface band, each screen
-// captioned in the annotation voice.
-//
-// The three plates trace ONE pipeline: type it → check the draft → it is in
-// the record. The middle plate is the shipped set-entry surface, so the
-// always-visible scrub scale with its TARGET and LAST markers is what the
-// reader sees. The LLM is a parser, never a chat partner — no string here may
-// frame it as a coach, an assistant, or a conversation (CONTEXT.md
-// anti-positioning).
+// 03 · The Day Card (W1; this was 04 · Logging). 1.7.6: "On Log, the whole program day sits on
+// one card … Start, and the session runs right in the card. Drills with no weight log in one
+// tap." Typed logging stays as the second door (text only — no microphone since v1.7.4); the
+// LLM is a parser, never a chat partner. Two plates: the Day Card and the move plate.
 import { Image } from 'astro:assets';
-import logCaptureShot from '../../assets/screens-v16/log-capture.png';
-import activeWorkoutShot from '../../assets/screens-v16/active-workout.png';
-import workoutLogShot from '../../assets/screens-v16/workout-log.png';
+import { screensFor } from './screens';
 import { useHomeTranslations, type Locale } from '../../i18n/utils';
 
 interface Props {
   locale?: Locale;
 }
 const { locale = 'en' } = Astro.props;
-const t = useHomeTranslations(locale).logging;
+const t = useHomeTranslations(locale).dayCard;
+const shots = screensFor(locale);
 const prefix = locale === 'en' ? '' : `/${locale}`;
-const shots = [
-  { src: logCaptureShot, alt: t.logCaptureAlt },
-  { src: activeWorkoutShot, alt: t.activeWorkoutAlt },
-  { src: workoutLogShot, alt: t.workoutLogAlt },
+const plates = [
+  { src: shots.dayCard, alt: t.dayCardAlt },
+  { src: shots.plate, alt: t.plateAlt },
 ];
 ---
-<section class="sec sec-logging sec-alt bt bb" id="logging">
+<section class="sec sec-logging sec-alt bt bb" id="day-card">
   <div class="wrap">
     <span class="micro show-kicker">{t.kicker}</span>
     <h2 class="home-h2">{t.heading}</h2>
@@ -43,8 +31,8 @@ const shots = [
 
     <p class="sec-lede log-manual">{t.manual}</p>
 
-    <div class="logrow" data-anno-reveal>
-      {shots.map((shot, i) => (
+    <div class="logrow logrow--two" data-anno-reveal>
+      {plates.map((shot, i) => (
         <figure>
           <div class="plate"><Image src={shot.src} alt={shot.alt} width={640} format="webp" loading="lazy" decoding="async" /></div>
           <figcaption class="micro">{t.captions[i]}</figcaption>
@@ -53,6 +41,7 @@ const shots = [
     </div>
 
     <p class="micro log-foot">{t.foot}</p>
+    <p class="log-more"><a href={`${locale === 'zh' ? '/zh' : ''}/features/day-card/`}>{t.cardLink}</a></p>
     <p class="log-more"><a href={`${prefix}/features/text-logging`}>{t.moreLink}</a></p>
   </div>
 </section>

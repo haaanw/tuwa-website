@@ -8,8 +8,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import FeatureFaq from '../../../components/features/FeatureFaq.astro';
 import FeatureClosing from '../../../components/features/FeatureClosing.astro';
 import { faqPageSchema } from '../../../seo/schema';
-import workloadShot from '../../../assets/screens-v16/workload.png';
-import dashboardShot from '../../../assets/screens-v16/dashboard.png';
+import workloadShot from '../../../assets/screens-v176/en/07-load.png';
+import dashboardShot from '../../../assets/screens-v176/en/06-fatigue.png';
 
 const title = 'Charge d’entraînement : un seul budget de fatigue';
 const description =
@@ -85,8 +85,8 @@ const structuredData = [faqPageSchema(faqs)];
       </div>
       <div class="sec-body">
         <div class="spread" data-spread>
-          <div class="plate" data-fan="l"><Image src={dashboardShot} alt="Tableau de bord Tuwa : carte de forme affichant 82 avec les métriques" width={640} format="webp" loading="lazy" decoding="async" /></div>
-          <div class="plate" data-fan="c"><Image src={workloadShot} alt="Graphique de charge d'entraînement Tuwa avec tendance ACWR" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="l"><Image src={dashboardShot} alt="Tendances Tuwa : la fatigue décomposée en ses parties" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={workloadShot} alt="Détail de charge Tuwa : charge aiguë face à la chronique, lue sur tes quatre bandes" width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
         <div class="aside" data-animate>
           <div class="lottie-well"><div data-lottie="/lottie/needle-sweep.json" aria-label="Animation : jauge de forme avec une aiguille travertin balayant l'arc gradué"></div></div>

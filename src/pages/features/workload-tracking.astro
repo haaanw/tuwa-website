@@ -5,8 +5,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FeatureFaq from '../../components/features/FeatureFaq.astro';
 import FeatureClosing from '../../components/features/FeatureClosing.astro';
 import { faqPageSchema } from '../../seo/schema';
-import workloadShot from '../../assets/screens-v16/workload.png';
-import dashboardShot from '../../assets/screens-v16/dashboard.png';
+import workloadShot from '../../assets/screens-v176/en/07-load.png';
+import dashboardShot from '../../assets/screens-v176/en/06-fatigue.png';
 
 const title = 'Workload Tracking: One Fatigue Budget';
 const description =
@@ -81,8 +81,8 @@ const structuredData = [faqPageSchema(faqs)];
       </div>
       <div class="sec-body">
         <div class="spread" data-spread>
-          <div class="plate" data-fan="l"><Image src={dashboardShot} alt="Tuwa dashboard: hero readiness card scoring 82 with metrics" width={640} format="webp" loading="lazy" decoding="async" /></div>
-          <div class="plate" data-fan="c"><Image src={workloadShot} alt="Tuwa training load chart with ACWR trend" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="l"><Image src={dashboardShot} alt="Tuwa Trends: fatigue split into its parts" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={workloadShot} alt="Tuwa load detail: acute against chronic load, read against your own four bands" width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
         <div class="aside" data-animate>
           <div class="lottie-well"><div data-lottie="/lottie/needle-sweep.json" aria-label="Animated readiness gauge with a travertine needle sweeping the tick arc"></div></div>

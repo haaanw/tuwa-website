@@ -4,9 +4,10 @@ const common: Common = {
   nav: {
     features: '功能',
     anchors: [
-      { href: '#today', label: '功能' },
-      { href: '#zone', label: '训练负荷' },
-      { href: '#logging', label: '记录' },
+      { href: '#your-plan', label: '你的计划' },
+      { href: '#today', label: '今天' },
+      { href: '#day-card', label: '训练日卡' },
+      { href: '#connector', label: '你的 AI' },
       { href: '#method', label: '方法论' },
       { href: '#get', label: '隐私' },
     ],
@@ -36,6 +37,8 @@ const common: Common = {
     menu: '菜单',
   },
   drawer: {
+    yourPlan: '你的计划',
+    dayCard: '训练日卡',
     ariaLabel: '网站导航',
     close: '关闭菜单',
     product: '产品',

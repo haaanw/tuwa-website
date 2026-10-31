@@ -1,0 +1,68 @@
+---
+// W1.5（中文）——训练日卡（1.7.6）。依据：1.7.6 更新说明与应用的运行记录。
+import FeatureStory from '../../../components/features/FeatureStory.astro';
+import dayCard from '../../../assets/screens-v176/zh/03-daycard.png';
+import plate from '../../../assets/screens-v176/zh/04-plate.png';
+import brief from '../../../assets/screens-v176/zh/02-brief.png';
+import program from '../../../assets/screens-v176/zh/09-program.png';
+---
+<FeatureStory
+  locale="zh"
+  path="/features/day-card/"
+  title="训练日卡：一整天的训练，一张卡"
+  description="在 Tuwa 的“日志”中，整个计划日都在一张卡上——分段、提示和当天的规则——训练直接在卡片里进行。"
+  kicker="训练日卡"
+  heading="一整天的训练，一张卡"
+  lead="在“日志”中，整个计划日都在一张卡上：分段、提示和当天的规则，和你的计划写的一样。点开始，训练直接在卡片里进行。不负重的练习一点即可记录。"
+  sections={[
+    {
+      kicker: '卡片',
+      heading: '你的计划，今天这一页',
+      paras: [
+        '卡片跟着你的计划走：顶部是周和天的选择条，然后是写明重点的当天标题，再往下是每个分段及其说明，每个动作及其处方和提示——组数 × 次数 @ 重量 · 强度。',
+        '计划里当天的规则也在卡片上，计划附带的参考页从标签打开。其他日子一点即到：过去的日子、下一次训练、休息日。',
+      ],
+      shots: [{ src: dayCard, alt: 'Tuwa 训练日卡：整个计划日在一张卡上，训练直接在卡片里进行' }],
+    },
+    {
+      kicker: '训练',
+      heading: '点开始，就在卡片里练',
+      paras: [
+        '开始之前先经过训练简报：你的读数、当天的建议和原因，旁边是“保留我的计划”。然后卡片进入训练状态。',
+        '点一个动作打开它的动作页，完成这一组，点“记录本组”。一个动作在最后一组记录后结束，或在你跳过时结束。“完成”保存这次训练；强度评分是可选的。',
+      ],
+      shots: [
+        { src: plate, alt: 'Tuwa 动作页：一个动作、它的各组，以及“记录本组”按钮' },
+        { src: brief, alt: 'Tuwa 训练简报：今天的读数、建议的调整与“保留我的计划”并列，以及每个动作的计划与今天对照' },
+      ],
+      bullets: [
+        '不负重的练习：点一下按计划记录，再点一下撤销。',
+        '负重动作要等训练简报里的“开始”。',
+        '进行中的训练也显示在锁定屏幕上——那里从不显示身体数字。',
+      ],
+    },
+    {
+      kicker: '计划',
+      heading: '整个周期，一点即到',
+      paras: [
+        '计划那一行打开总览：所有周和阶段排在一张表里，并显示每周的主要动作。在那里可以移动你的位置，或导入新计划。',
+      ],
+      shots: [{ src: program, alt: 'Tuwa 计划总览：所有周和阶段在一张表里，并显示每周的主要动作' }],
+    },
+  ]}
+  faqs={[
+    { q: '使用训练日卡需要计划吗？', a: '需要。训练日卡显示的是你的计划日。没有计划时，“日志”提供“开始训练”：空白训练、模板，或用文字描述一次训练。' },
+    { q: '训练日卡会修改我的计划吗？', a: '不会。它按计划原样显示。在 modify 的日子，训练简报会建议调整，由你选择采用或保留计划。' },
+    { q: '可以记录不在卡片上的训练吗？', a: '可以：日志 › 开始训练。错过的训练日可以今天练，也可以跳过。' },
+  ]}
+  closing={{
+    heading: '一天，一张卡',
+    body: '下载 Tuwa，带来你的计划，在一张卡上完成今天的训练。',
+    related: [
+      { label: '你的计划', href: '/zh/features/your-plan' },
+      { label: '每日建议', href: '/zh/features/verdict' },
+      { label: '文字记录', href: '/zh/features/text-logging' },
+      { label: '指南：快速上手', href: '/zh/guide/quick-start/' },
+    ],
+  }}
+/>

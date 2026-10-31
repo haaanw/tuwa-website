@@ -2422,108 +2422,7 @@ html[lang="zh"] .tree {
 .shot.active { opacity: 1; transform: none; }
 .shot.prev { opacity: 0; transform: translateY(-28px) scale(0.98); }
 
-/* ---------- pinned strike-zone scrub (02 · training load) ----------
-   The demo collapses this into ONE card on a surface band and drops the phone,
-   so the bar is the subject. The axis runs 0.0–2.0, which is what makes the
-   band widths 40 / 25 / 10 / 25. */
-.zone-wrap { position: relative; z-index: 1; }
-:where(html.motion) .zone-wrap { height: 220vh; }
-.zone-sticky { padding: clamp(72px, 9vw, 112px) 0; }
-:where(html.motion) .zone-sticky {
-  position: sticky;
-  top: 0;
-  min-height: 100vh;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 96px 0 48px;
-}
-.zone-lede {
-  margin: 20px 0 40px;
-  max-width: 640px;
-  font-size: var(--text-body);
-  color: var(--color-text-2);
-}
-.zone-card { padding: 28px; }
-.zone-card-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-}
-.zone-bar {
-  position: relative;
-  height: 40px;
-  margin-top: 16px;
-}
-.zone-track {
-  position: absolute;
-  inset: 14px 0;
-  display: flex;
-  background: linear-gradient(180deg, var(--color-well-top), var(--color-well-bottom));
-}
-/* Band tints derive from the zone tokens instead of hardcoded rgba, so the v6
-   retune reaches them. Tints only — the message is the written zone name. */
-.zseg { height: 100%; }
-.zseg-low  { width: 40%; background: var(--color-well-top); }
-.zseg-opt  { width: 25%; background: color-mix(in srgb, var(--color-zone-optimal) 18%, transparent); }
-.zseg-caut { width: 10%; background: color-mix(in srgb, var(--color-zone-caution) 18%, transparent); }
-.zseg-dang { flex: 1;    background: color-mix(in srgb, var(--color-zone-danger) 14%, transparent); }
-.zone-fill {
-  position: absolute;
-  inset: 14px 0;
-  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
-  transform-origin: left;
-  will-change: transform;
-  pointer-events: none;
-}
-.zone-needle {
-  position: absolute;
-  top: 6px;
-  height: 28px;
-  width: 1.5px;
-  background: var(--color-accent);
-  will-change: transform;
-  pointer-events: none;
-}
-.zone-axis {
-  position: absolute;
-  bottom: -8px;
-  left: 0; right: 0;
-  display: flex;
-  justify-content: space-between;
-}
-.zone-legend {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  margin-top: 36px;
-}
-.zone-legend > span { display: block; }
-.zleg-opt  .micro { color: var(--color-zone-optimal); }
-.zleg-caut .micro { color: var(--color-zone-caution); }
-.zleg-dang .micro { color: var(--color-zone-danger); }
-/* The live zone reading. It is a status line inside the card, not a heading —
-   the section's heading is "One fatigue budget" above it. Always written out;
-   colour is supplementary. */
-.zone-label {
-  margin-top: 20px;
-  font-size: 17px;
-  font-weight: var(--weight-label);
-  min-height: 1.4em;
-}
-.zl0 { color: var(--color-zone-low); }
-.zl1 { color: var(--color-zone-optimal); }
-.zl2 { color: var(--color-zone-caution); }
-.zl3 { color: var(--color-zone-danger); }
-.zone-copy {
-  margin-top: 8px;
-  font-size: var(--text-label);
-  color: var(--color-text-2);
-  max-width: 52em;
-}
-.zone-note { margin-top: 20px; }
+/* The load pages' zone footnote (the strike-zone bar it sat under was removed in W1). */
 .zone-foot {
   display: block;
   margin-top: 16px;
@@ -2597,6 +2496,7 @@ html[lang="zh"] .tree {
   justify-items: center;
 }
 .logrow .plate { width: clamp(160px, 19vw, 250px); }
+.logrow--two { grid-template-columns: repeat(2, 1fr); max-width: 640px; margin-inline: auto; }
 .logrow > * { min-width: 0; }
 .logrow figure {
   margin: 0;

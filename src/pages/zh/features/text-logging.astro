@@ -13,8 +13,7 @@ import CJKLayout from '../../../layouts/CJKLayout.astro';
 import FeatureFaq from '../../../components/features/FeatureFaq.astro';
 import FeatureClosing from '../../../components/features/FeatureClosing.astro';
 import { faqPageSchema } from '../../../seo/schema';
-import logCaptureShot from '../../../assets/screens-v16/log-capture.png';
-import activeWorkoutShot from '../../../assets/screens-v16/active-workout.png';
+import activeWorkoutShot from '../../../assets/screens-v176/zh/04-plate.png';
 
 const title = '文字记录：打字记录训练';
 const description =
@@ -82,9 +81,6 @@ const structuredData = [faqPageSchema(faqs)];
         </p>
       </div>
       <div class="sec-body">
-        <div class="spread" data-spread>
-          <div class="plate" data-fan="c"><Image src={logCaptureShot} alt="Tuwa 训练记录输入：打出来的训练被写成一句话，等待解析" width={640} format="webp" loading="lazy" decoding="async" /></div>
-        </div>
         <div class="aside quote" data-animate data-quote>
           <div class="quote-rule"></div>
           <blockquote>
@@ -111,7 +107,7 @@ const structuredData = [faqPageSchema(faqs)];
       </div>
       <div class="sec-body">
         <div class="spread" data-spread>
-          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Tuwa 组数录入：重量刻度尺上标有目标与上次的位置" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Tuwa 动作页：一个动作、它的各组，以及“记录本组”按钮" width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
         <div class="aside quote" data-animate data-quote>
           <div class="quote-rule"></div>
@@ -133,7 +129,7 @@ const structuredData = [faqPageSchema(faqs)];
           在进行中的训练里，你可以做完一组就打一组。录入界面保持在页面内——组列表不会被弹层盖住——这一组会落进你正打开的那个动作。
         </p>
         <p data-animate data-animate-delay="80">
-          记录的其他部分没有任何变化。模板会延续目标，个人纪录照常识别，1,324 个动作的动作库仍然只隔着一次搜索。
+          记录的其他部分没有任何变化。模板会延续目标，个人纪录照常识别，1,328 个动作的动作库仍然只隔着一次搜索。
         </p>
       </div>
     </div>

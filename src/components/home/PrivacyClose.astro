@@ -1,11 +1,11 @@
 ---
-// 07 · Privacy and the close (demo row 10).
+// 08 · Privacy and the close (demo row 10). W1: the plate is the 1.7.6 HRV detail.
 // Identical copy to the live site, tighter frame: the four reasons are set as
 // ├─ / └─ marginalia rather than a bulleted list, paired with the recovery
 // screen at full plate width. The close is the App Store badge, so the nav
 // keeps the page's single ink pill.
 import { Image } from 'astro:assets';
-import recoveryShot from '../../assets/screens-v16/recovery.png';
+import { screensFor } from './screens';
 import { APP_STORE_URL } from '../../config';
 import { useHomeTranslations, useTranslations, type Locale } from '../../i18n/utils';
 
@@ -14,6 +14,7 @@ interface Props {
 }
 const { locale = 'en' } = Astro.props;
 const t = useHomeTranslations(locale).privacyClose;
+const shots = screensFor(locale);
 const tc = useTranslations(locale);
 const branch = (i: number, len: number) => (i === len - 1 ? '└─' : '├─');
 ---
@@ -48,7 +49,7 @@ const branch = (i: number, len: number) => (i === len - 1 ? '└─' : '├─')
     </div>
 
     <div class="plate privacy-plate" data-reveal>
-      <Image src={recoveryShot} alt={t.shotAlt} width={640} format="webp" loading="lazy" decoding="async" />
+      <Image src={shots.hrv} alt={t.shotAlt} width={640} format="webp" loading="lazy" decoding="async" />
     </div>
   </div>
 </section>

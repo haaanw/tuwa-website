@@ -1,0 +1,123 @@
+---
+// A feature page from data (W1.5: /features/day-card/ and /features/your-plan/, en + zh; fr
+// redirects to en in public/_redirects). Same building blocks as the Pavilion feature pages:
+// the editorial hero, sections with a fanned spread of 1.7.6 captures, the FAQ, the closing.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CJKFonts from '../CJKFonts.astro';
+import FeatureFaq from './FeatureFaq.astro';
+import FeatureClosing from './FeatureClosing.astro';
+import { faqPageSchema } from '../../seo/schema';
+
+interface Shot {
+  src: ImageMetadata;
+  alt: string;
+}
+interface Section {
+  kicker: string;
+  heading: string;
+  paras: string[];
+  shots?: Shot[];
+  bullets?: string[];
+  links?: { label: string; href: string }[];
+}
+interface Props {
+  locale: 'en' | 'zh';
+  /** Path without the locale prefix, e.g. "/features/day-card/". */
+  path: string;
+  title: string;
+  description: string;
+  kicker: string;
+  heading: string;
+  lead: string;
+  sections: Section[];
+  faqs: ReadonlyArray<{ q: string; a: string }>;
+  closing: { heading: string; body: string; related: ReadonlyArray<{ label: string; href: string }> };
+}
+const { locale, path, title, description, kicker, heading, lead, sections, faqs, closing } = Astro.props;
+const zh = locale === 'zh';
+const hreflangAlternates = [
+  { hreflang: 'en', href: `https://tuwa.app${path}` },
+  { hreflang: 'zh-CN', href: `https://tuwa.app/zh${path}` },
+];
+const fanSlots = ['c', 'l', 'r'];
+---
+<BaseLayout title={title} description={description} locale={locale} ogImage="/og-default.png" hreflangAlternates={hreflangAlternates} structuredData={[faqPageSchema(faqs)]}>
+  {zh && <CJKFonts slot="head" />}
+  <section class="sec feat-hero">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro" data-animate>{kicker}</span>
+        <h1 class="feat-h1" data-animate data-animate-delay="60">{heading}</h1>
+        <p class="feat-lead" data-animate data-animate-delay="120">{lead}</p>
+      </div>
+    </div>
+  </section>
+
+  {sections.map((section, i) => (
+    <section class:list={['sec', 'bt', { 'sec-alt': i % 2 === 0 }]}>
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="micro" data-animate>{section.kicker}</span>
+          <h2 data-animate>{section.heading}</h2>
+          {section.paras.map((p, j) => <p data-animate data-animate-delay={String(j * 80)}>{p}</p>)}
+          {section.links && (
+            <p class="story-links" data-animate>
+              {section.links.map((link) => <a href={link.href}>{link.label}</a>)}
+            </p>
+          )}
+        </div>
+        {(section.shots || section.bullets) && (
+          <div class="sec-body">
+            {section.shots && (
+              <div class="spread" data-spread>
+                {section.shots.map((shot, k) => (
+                  <div class="plate" data-fan={fanSlots[k] ?? 'c'}>
+                    <Image src={shot.src} alt={shot.alt} width={640} format="webp" loading="lazy" decoding="async" />
+                  </div>
+                ))}
+              </div>
+            )}
+            {section.bullets && (
+              <div class="aside" data-animate>
+                <div class="privacy-well" style="margin-top:0">
+                  <ul>{section.bullets.map((b) => <li>{b}</li>)}</ul>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
+  ))}
+
+  <FeatureFaq heading={zh ? '常见问题' : 'Common questions'} faqs={faqs} />
+
+  <FeatureClosing
+    heading={closing.heading}
+    body={closing.body}
+    ctaNote="iOS 17+ · iPhone"
+    ctaLabel={zh ? '在 App Store 下载' : undefined}
+    relatedAriaLabel={zh ? '相关页面' : undefined}
+    related={closing.related}
+  />
+
+  <script>
+    import '../../scripts/featureMotion.ts';
+  </script>
+</BaseLayout>
+
+<style>
+  .story-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+  }
+  .story-links a {
+    color: var(--color-text-1);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+</style>

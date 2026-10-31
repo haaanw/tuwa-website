@@ -14,103 +14,112 @@ const home = {
   // only the strings below translate.
   // ------------------------------------------------------------------
   meta: {
-    title: 'Stay in Your Strike Zone',
+    // D1 = A (HAN 2026-10-31): the lead message is "Bring your plan — or build it with your own AI".
+    title: 'Bring Your Plan — or Build It With Your Own AI',
     description:
-      'Tuwa is the sports-science back room for self-coached athletes. You write the plan; Tuwa returns today’s dose: go, modify, or hold. It never writes your program.',
+      'Tuwa is the sports-science back room for self-coached athletes. Bring your plan, or build one with your own Claude or ChatGPT; Tuwa reads it against your body each day and states the day’s dose. It never writes your program.',
   },
   heroScrub: {
-    sectionAria: 'Tuwa — your plan, read against your body each day',
+    sectionAria: 'Tuwa — bring your plan, or build it with your own AI',
     scoreAria: 'Readiness score 82',
     scoreCaption: 'readiness today',
     // Annotation voice, so it stays a phrase and never a sentence.
     strapline: 'Tuwa // the sports-science back room',
-    // W0 (2026-10-30): a reading claim replaces "Made safe and optimal" (LEGAL-AUDIT A1).
-    // Provisional: HAN's D1 names the 1.7.7 lead message.
-    lines: ['Your plan.', 'Read against', 'your body.'],
-    lead: "Tuwa is the sports-science back room for self-coached athletes. It reads your body — HRV, sleep, resting heart rate, training history — and modulates the plan you authored: today's numbers, a go / modify / hold verdict, and where your load is trending. It never writes your program.",
+    // D1 = A (HAN 2026-10-31).
+    lines: ['Bring your plan.', 'Or build it with', 'your own AI.'],
+    lead: "Tuwa is the sports-science back room for self-coached athletes. Import the plan you train from, or let your own Claude or ChatGPT write one for Tuwa to read. Each morning Tuwa reads your body — HRV, sleep, resting heart rate, training history — against that plan and states the day: its dose in words, and a go, modify or hold suggestion you decide on. It never writes your program.",
     sub: 'Built for athletes who train sport skill and strength in parallel',
     cta: 'Download on the App Store',
     ctaNote: 'iOS 17+ · iPhone',
   },
-  showcase: {
-    kicker: '01 · today',
-    heading: 'One decision, every day',
-    body: "Every session starts with a verdict: go, modify, or hold. Tuwa turns this morning's physiology and yesterday's load into concrete number adjustments — drop the top set five percent, cap the conditioning piece, or take the microdose option and keep the pattern without the cost.",
-    lottieAria: 'Animated verdict check mark with a calm pulse ring',
-    lottieCaption: 'the verdict, drawn calm',
-    aside: 'No chat, no interpretation homework. A verdict, the numbers behind it, and the session you actually meant to do.',
-    steps: [
+  // W1 (1.7.6 truth pass). Section order: hero → 01 your plan → 02 today → 03 the day card →
+  // stats → 04 trends → 05 your own AI → 06 recovery → 07 methodology → ghost → 08 privacy.
+  // Every feature claim is in the 1.7.6 What's New (app repo .planning/asc/v176-draft/).
+  yourPlan: {
+    kicker: '01 · your plan',
+    heading: 'Bring your plan, or build it with your own AI',
+    body: 'Tuwa reads the program you already train from and adjusts each day from your body. It never writes the program.',
+    doors: [
       {
-        title: 'The verdict',
-        body: "Go, modify or hold — with the exact number changes for today's session, computed from your readiness and where you sit in your plan.",
+        title: 'I have a plan',
+        body: 'Paste it, or bring a PDF or a photo of the whiteboard. Tuwa reads the weeks, days and sets; you check what it read, and week 1 starts next Monday or today.',
       },
       {
-        title: 'The load ratio',
-        body: 'Your acute-to-chronic workload ratio as context: the last seven days of load against the last four weeks, and the direction it is moving.',
+        title: "I don't have one yet",
+        body: "Copy one prompt into your own Claude or ChatGPT. It reads Tuwa's plan-writing skill, asks about your training, and writes the first phase in Tuwa's import format for you to paste back.",
+      },
+    ],
+    skillLink: 'The plan-writing skill',
+    formatLink: 'The import format',
+    moreLink: 'Your plan, in detail',
+    aside: 'Then the program overview: your weeks and phases on one grid, with the lifts of each week.',
+    shotAlt: "Tuwa program overview: your weeks and phases on one grid, with the lifts of each week",
+  },
+  showcase: {
+    kicker: '02 · today',
+    heading: 'Today states the day',
+    body: 'Each morning the day card names the kind of day and its dose in words — Volume, Effort and Length — against your plan. The numbers live in the brief, lift by lift, with the reason. You choose, then you start.',
+    lottieAria: 'Animated verdict check mark with a calm pulse ring',
+    lottieCaption: 'the verdict, drawn calm',
+    aside: 'No chat, no interpretation homework. Your readings, a suggestion with its reason, and the session you meant to do.',
+    steps: [
+      {
+        title: 'The day card',
+        body: 'The kind of day and its dose in words: Volume, Effort and Length, against your plan.',
+      },
+      {
+        title: 'The brief',
+        body: "Your readings, the day's suggestion and its reason, and each lift planned against today. The adjustment and Keep my plan sit side by side; you choose.",
       },
       {
         title: 'The load trend',
-        body: 'One fatigue budget across sport skill, strength and conditioning — and how it is trending, week by week.',
+        body: 'One fatigue budget across sport skill, strength and conditioning, read against your own four bands.',
       },
     ],
-    verdictAlt: 'Tuwa verdict screen: go / modify / hold with concrete number adjustments',
-    strikeZoneAlt: 'Tuwa load bar showing the acute-to-chronic workload ratio',
-    workloadAlt: 'Tuwa training load chart with ACWR trend',
+    todayAlt: 'Tuwa Today: the day card names the kind of day and its dose — Volume, Effort, Length — against your plan',
+    briefAlt: "Tuwa brief: today's readings, the suggested adjustment beside Keep my plan, and each lift planned against today",
+    loadAlt: 'Tuwa load detail: acute against chronic load, read against your own four bands',
   },
-  zoneScrub: {
-    kicker: '02 · training load',
-    heading: 'One fatigue budget',
-    body: 'Sport skill, strength, and conditioning drain the same tank. Tuwa tracks them as one load — acute against chronic — and shows the ratio as context: how far this week sits from your recent base, and which way it is moving. The day’s decision comes from your readiness, not from this ratio.',
-    barMicro: 'acute : chronic workload ratio',
-    barNow: 'now',
-    zoneLabels: [
-      'Load light — below your recent base',
-      'Load steady — close to your recent base',
-      'Load building — above your recent base',
-      'High load — well above your recent base',
-    ],
-    zoneCopy: 'The ratio compares the last seven days of load to the last four weeks. It is a reading of your load trend, carried as context — it never sets the day’s verdict.',
-    legend: ['under 0.8 — light', '0.8–1.3 — steady', '1.3–1.5 — building', 'over 1.5 — high'],
-    foot: 'Zone names are always written out — colour is supplementary, never the message.',
-    dashboardAlt: 'Tuwa dashboard: hero readiness card scoring 82 with metrics',
-    lottieAria: 'Animated readiness gauge with a travertine needle sweeping the tick arc',
-    lottieCaption: 'readiness, measured',
-    aside: 'The needle is fed by your history, not a population average. Same input, same answer — the engine is deterministic.',
-  },
-  system: {
-    kicker: '03 · the system',
-    heading: 'The whole system, one gesture',
-    body: "Recovery, today's decision, and the set you are in the middle of — one canvas each, no dashboard to assemble.",
-    recoveryAlt: 'Tuwa recovery screen: HRV and sleep trends against personal baselines',
-    dashboardAlt: 'Tuwa dashboard: hero readiness card scoring 82 with metrics',
-    activeWorkoutAlt: 'Tuwa active workout: live set logging',
-  },
-  // v1.7.4 — workout voice logging was REMOVED (HAN ruling 2026-09-24). Logging
-  // is typed description or direct entry now; program import takes pasted
-  // text or a PDF/photo instead of speech too — no microphone anywhere in the
-  // app. The LLM is a PARSER: it turns typed text into a draft. Never write
-  // it as a chat, an assistant, or a coach you talk to.
-  logging: {
-    kicker: '04 · logging',
-    heading: 'Type the session, or scrub it in',
-    body: "Type the workout the way you'd say it out loud, or log sets directly on the scrub scale — two doors, one record. Tuwa parses a typed description into an editable draft with every set filled in. Nothing saves until you confirm it, and any number is still yours to correct by hand.",
-    doors: ['type it', 'scrub it in'],
-    manual: 'Manual entry never goes away. A 1,324-exercise movement bank sits behind a search-first picker, and the weight scale shows its full range before you touch it — your last set and today\'s target marked on the rule.',
-    // Annotation captions under each plate. They trace one pipeline, so each
-    // caption must stay true of the screen above it.
-    captions: ['01 · type it', '02 · check the draft, fix any set', '03 · confirmed, then in the record'],
-    foot: 'free on every tier · nothing saves until you confirm',
+  dayCard: {
+    kicker: '03 · the day card',
+    heading: 'The whole day on one card',
+    body: "On Log, the whole program day sits on one card: its sections, cues and the day's rule. Start, and the session runs right in the card — tap a move, log the set, finish.",
+    doors: ['run it on the card', 'or type it in words'],
+    manual: "Training off the plan? Type the session the way you would say it; Tuwa turns it into a draft you check before it saves. A 1,328-exercise movement bank sits behind a search-first picker.",
+    captions: ['01 · the day on one card', '02 · tap a move, log the set'],
+    foot: 'drills with no weight · one tap logs them as planned, a second tap undoes it',
+    cardLink: 'The Day Card, in detail',
     moreLink: 'How text logging works',
-    logCaptureAlt: 'Tuwa log capture: a typed session written out as a sentence, ready to parse',
-    activeWorkoutAlt: 'Tuwa set entry: the weight scale with target and last markers on the rule',
-    workoutLogAlt: 'Tuwa workout log: session history',
+    dayCardAlt: 'Tuwa Day Card: the whole program day on one card, with the session running in it',
+    plateAlt: 'Tuwa move plate: one movement, its sets and the Log set button',
+  },
+  trends: {
+    kicker: '04 · trends',
+    heading: 'Trends you can read',
+    body: 'Fatigue split into its parts, load against your own four bands, and each body signal on its own screen against your own baseline.',
+    hrvAlt: "Tuwa HRV detail: this morning's reading against your own baseline",
+    fatigueAlt: 'Tuwa Trends: fatigue split into its parts',
+    sleepAlt: 'Tuwa sleep detail: last night against your own nights',
+  },
+  connector: {
+    kicker: '05 · your own AI',
+    heading: 'Ask your own AI about your training',
+    body: "Turn on the AI connector, and your own Claude or ChatGPT can read your Tuwa readings, sessions and plan, show the day's card in the chat, and send you a plan draft to review. Tuwa still makes the day's decision in the app.",
+    bullets: [
+      'off until you turn it on · profile › legal › ai connector',
+      'composite scores only · never an apple health number',
+      'a plan draft waits until you activate it',
+    ],
+    connectorLink: 'How the connector works',
+    guideLink: 'Connect Claude or ChatGPT, step by step',
+    shotAlt: 'Tuwa AI connector screen: what is sent, what is never sent, and what is kept',
   },
   statsBand: {
     sectionAria: 'Key numbers',
     labels: ['exercises in the movement bank', 'readiness, scored every morning', 'days of load behind every ratio'],
   },
   recovery: {
-    kicker: '05 · recovery',
+    kicker: '06 · recovery',
     heading: 'Your baselines, drawn daily',
     body: "Overnight HRV, sleep, and resting heart rate are scored against your own rolling baselines — not population norms — and compressed into one number with plain-language reasons. You don't get a dashboard to interpret. You get a score and the why.",
     // Annotation layer for the self-drawing baseline chart (Field Notes v6).
@@ -131,7 +140,7 @@ const home = {
   // proven", "not a medical device". No claim may be strengthened.
   // ------------------------------------------------------------------
   methodology: {
-    kicker: '06 · methodology · in development',
+    kicker: '07 · methodology · in development',
     headingLines: ['Here is what we believe,', 'and what would prove us wrong'],
     lede: 'Tuwa scores your sleep against a fixed target today. We are building one that adapts to the state you went to bed in. It is not finished — so here is the whole design, the weights, and the parts we are least sure of.',
     chips: ['status: design · not in the shipping app', 'no performance or accuracy claim is made here'],
@@ -274,7 +283,7 @@ const home = {
     quote: 'The back room of a pro team — plan, physiology, and a decision — for athletes who coach themselves.',
   },
   privacyClose: {
-    kicker: '07 · privacy',
+    kicker: '08 · privacy',
     heading: 'Your data stays on your phone',
     body: 'Tuwa reads HealthKit — it never writes to it — and raw health data never leaves the device. Only composite scores sync.',
     bullets: [
@@ -283,9 +292,9 @@ const home = {
       'Only composite scores sync to your account',
       'Requires iOS 17 or later',
     ],
-    shotAlt: 'Tuwa recovery screen: HRV and sleep trends against personal baselines',
+    shotAlt: "Tuwa HRV detail: this morning's reading against your own baseline",
     cta: 'Download on the App Store',
-    ctaNote: 'your plan, read against your body',
+    ctaNote: 'bring your plan, or build it with your own AI',
   },
   // ------------------------------------------------------------------
   // Legacy sections below feed the retired pre-Pavilion components

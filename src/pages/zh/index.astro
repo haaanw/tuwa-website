@@ -6,8 +6,9 @@
 import { useHomeTranslations } from '../../i18n/utils';
 import CJKLayout from '../../layouts/CJKLayout.astro';
 import HomeHero from '../../components/home/HomeHero.astro';
+import PlanSection from '../../components/home/PlanSection.astro';
 import StickyShowcase from '../../components/home/StickyShowcase.astro';
-import StrikeZoneScrub from '../../components/home/StrikeZoneScrub.astro';
+import ConnectorSection from '../../components/home/ConnectorSection.astro';
 import SystemFan from '../../components/home/SystemFan.astro';
 import LoggingRow from '../../components/home/LoggingRow.astro';
 import StatsBand from '../../components/home/StatsBand.astro';
@@ -26,11 +27,12 @@ const structuredData = [softwareApplicationSchema(t.meta.description), organizat
   structuredData={structuredData}
 >
   <HomeHero locale="zh" />
+  <PlanSection locale="zh" />
   <StickyShowcase locale="zh" />
-  <StrikeZoneScrub locale="zh" />
-  <SystemFan locale="zh" />
   <LoggingRow locale="zh" />
   <StatsBand locale="zh" />
+  <SystemFan locale="zh" />
+  <ConnectorSection locale="zh" />
   <RecoverySpark locale="zh" />
   <MethodologySection locale="zh" />
   <GhostQuote locale="zh" />

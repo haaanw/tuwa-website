@@ -19,8 +19,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import FeatureFaq from '../../../components/features/FeatureFaq.astro';
 import FeatureClosing from '../../../components/features/FeatureClosing.astro';
 import { faqPageSchema } from '../../../seo/schema';
-import logCaptureShot from '../../../assets/screens-v16/log-capture.png';
-import activeWorkoutShot from '../../../assets/screens-v16/active-workout.png';
+import activeWorkoutShot from '../../../assets/screens-v176/en/04-plate.png';
 
 const title = 'Saisie de texte : tape la séance';
 const description =
@@ -94,9 +93,6 @@ const structuredData = [faqPageSchema(faqs)];
         </p>
       </div>
       <div class="sec-body">
-        <div class="spread" data-spread>
-          <div class="plate" data-fan="c"><Image src={logCaptureShot} alt="Saisie de séance Tuwa : une séance tapée, écrite en une phrase, prête à être analysée" width={640} format="webp" loading="lazy" decoding="async" /></div>
-        </div>
         <div class="aside quote" data-animate data-quote>
           <div class="quote-rule"></div>
           <blockquote>
@@ -130,7 +126,7 @@ const structuredData = [faqPageSchema(faqs)];
       </div>
       <div class="sec-body">
         <div class="spread" data-spread>
-          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Saisie des séries dans Tuwa : la réglette de charge avec les repères cible et dernière série" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Plaque de mouvement Tuwa : un mouvement, ses séries et le bouton Log set" width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
         <div class="aside quote" data-animate data-quote>
           <div class="quote-rule"></div>
@@ -158,7 +154,7 @@ const structuredData = [faqPageSchema(faqs)];
         <p data-animate data-animate-delay="80">
           Rien d'autre ne change dans le journal. Les modèles reportent les
           cibles, les records personnels sont toujours détectés, et la banque de
-          1 324 mouvements reste à une recherche.
+          1 328 mouvements reste à une recherche.
         </p>
       </div>
     </div>

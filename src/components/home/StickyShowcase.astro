@@ -1,12 +1,11 @@
 ---
-// 01 · Today — the pinned three-step showcase (demo row 02).
+// 02 · Today — the pinned three-step showcase (demo row 02). W1: the day card → the brief → load,
+// all 1.7.6 captures (the strike-zone bar was deleted from the app on 2026-10-20).
 // The demo keeps the kicker, heading, body and all three steps on screen for
 // the whole pin, with the plate column beside them and the verdict Lottie
 // under the steps. The rail fills and the plates swap on scroll progress.
 import { Image } from 'astro:assets';
-import verdictShot from '../../assets/screens-v16/verdict.png';
-import strikeZoneShot from '../../assets/screens-v16/strike-zone.png';
-import workloadShot from '../../assets/screens-v16/workload.png';
+import { screensFor } from './screens';
 import { useHomeTranslations, type Locale } from '../../i18n/utils';
 
 interface Props {
@@ -14,6 +13,7 @@ interface Props {
 }
 const { locale = 'en' } = Astro.props;
 const t = useHomeTranslations(locale).showcase;
+const shots = screensFor(locale);
 ---
 <section id="today">
   <div class="show-wrap" id="showWrap">
@@ -46,9 +46,9 @@ const t = useHomeTranslations(locale).showcase;
         </div>
 
         <div class="show-stage" id="showStage">
-          <div class="plate shot active"><Image src={verdictShot} alt={t.verdictAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
-          <div class="plate shot"><Image src={strikeZoneShot} alt={t.strikeZoneAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
-          <div class="plate shot"><Image src={workloadShot} alt={t.workloadAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate shot active"><Image src={shots.today} alt={t.todayAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate shot"><Image src={shots.brief} alt={t.briefAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate shot"><Image src={shots.load} alt={t.loadAlt} width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
       </div>
     </div>

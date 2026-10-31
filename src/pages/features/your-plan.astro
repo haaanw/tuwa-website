@@ -1,0 +1,81 @@
+---
+// W1.5 — Your plan (1.7.6, D1 = A). Claims: the 1.7.6 What's New ("Bring your plan, or build one
+// with your own AI. New in onboarding: import the plan you have, or copy a prompt that helps your
+// AI app write one for Tuwa to read.") + the app's import flow. Tuwa never writes the program.
+import FeatureStory from '../../components/features/FeatureStory.astro';
+import program from '../../assets/screens-v176/en/09-program.png';
+import dayCard from '../../assets/screens-v176/en/03-daycard.png';
+import connector from '../../assets/screens-v176/en/10-connector.png';
+---
+<FeatureStory
+  locale="en"
+  path="/features/your-plan/"
+  title="Bring Your Plan — or Build It With Your Own AI"
+  description="Import the training plan you already have, or let your own Claude or ChatGPT write one for Tuwa to read. Tuwa never writes the program."
+  kicker="your plan"
+  heading="Bring your plan — or build it with your own AI"
+  lead="Tuwa reads the program you already train from and adjusts each day from your body. It never writes the program. With no plan yet, your own AI can write one in a format Tuwa reads."
+  sections={[
+    {
+      kicker: 'i have a plan',
+      heading: 'Paste it, or bring a PDF or a photo',
+      paras: [
+        "Bring your program as pasted text, your coach's PDF, or a photo of the whiteboard. Tuwa reads the weeks, the days, the sets and the targets — your authored set counts stay as written.",
+        'You see what Tuwa read before anything goes live. Where something needs a look, it says so; it never blocks your own plan. Then choose when week 1 starts: next Monday, or today.',
+      ],
+      shots: [{ src: program, alt: 'Tuwa program overview: your weeks and phases on one grid, with the lifts of each week' }],
+      bullets: [
+        'Reading a program uses an AI service, with your permission first — only the program text is sent, never an Apple Health reading.',
+        'The program overview shows every week and phase on one grid.',
+      ],
+    },
+    {
+      kicker: "i don't have one yet",
+      heading: 'Build it with your own Claude or ChatGPT',
+      paras: [
+        "Copy one prompt from Tuwa into your own Claude or ChatGPT. Your AI reads Tuwa's public plan-writing skill, asks you about your training a few questions at a time, and writes the first phase in Tuwa's import format. You paste it back into Tuwa.",
+        'Tuwa sends nothing to your AI on this route, and Tuwa still does not write the program — you and your AI do.',
+      ],
+      links: [
+        { label: 'The plan-writing skill', href: '/skills/design-program/' },
+        { label: 'The import format', href: '/skills/design-program/import-format/' },
+      ],
+    },
+    {
+      kicker: 'or let your ai send it',
+      heading: 'A draft from your AI waits for you',
+      paras: [
+        "With the AI connector turned on, your AI app can send the plan to Tuwa as a draft. It lands on Today and Log as \"A plan arrived from your AI\"; you review it and choose Activate this plan or Dismiss this draft. Tuwa never activates a draft by itself.",
+      ],
+      shots: [{ src: connector, alt: 'Tuwa AI connector screen: what is sent, what is never sent, and what is kept' }],
+      links: [
+        { label: 'How the connector works', href: '/connector/' },
+        { label: 'Connect Claude, step by step', href: '/guide/claude/' },
+      ],
+    },
+    {
+      kicker: 'then each day',
+      heading: 'Your plan, read against your body',
+      paras: [
+        "Each morning Tuwa reads your readings against the plan and states the day: its kind and its dose in words. The whole day sits on the Day Card on Log.",
+      ],
+      shots: [{ src: dayCard, alt: 'Tuwa Day Card: the whole program day on one card, with the session running in it' }],
+    },
+  ]}
+  faqs={[
+    { q: 'Does Tuwa write my program?', a: "No. You bring the plan, or your own AI writes it with you. Tuwa reads it and suggests each day's dose against your body; you decide." },
+    { q: 'What formats can I import?', a: "Pasted text, a PDF, or a photo. For a plan your AI writes, Tuwa's import format is public at tuwa.app/skills/design-program/import-format/." },
+    { q: 'When does week 1 start?', a: 'Next Monday by default, or today if you choose. On a Monday it starts that day.' },
+    { q: 'Can I change the plan later?', a: 'Yes. On Log, the Program row opens the overview: move your position, or bring a new program.' },
+  ]}
+  closing={{
+    heading: 'Bring your plan',
+    body: 'Download Tuwa, bring the plan you train from — or build it with your own AI — and read it against your body each day.',
+    related: [
+      { label: 'The Day Card', href: '/features/day-card' },
+      { label: 'The daily verdict', href: '/features/verdict' },
+      { label: 'The AI connector', href: '/connector/' },
+      { label: 'The guide: quick start', href: '/guide/quick-start/' },
+    ],
+  }}
+/>

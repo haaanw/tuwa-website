@@ -17,8 +17,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FeatureFaq from '../../components/features/FeatureFaq.astro';
 import FeatureClosing from '../../components/features/FeatureClosing.astro';
 import { faqPageSchema } from '../../seo/schema';
-import logCaptureShot from '../../assets/screens-v16/log-capture.png';
-import activeWorkoutShot from '../../assets/screens-v16/active-workout.png';
+import activeWorkoutShot from '../../assets/screens-v176/en/04-plate.png';
 
 const title = 'Text Logging: Describe the Session';
 const description =
@@ -91,9 +90,6 @@ const structuredData = [faqPageSchema(faqs)];
         </p>
       </div>
       <div class="sec-body">
-        <div class="spread" data-spread>
-          <div class="plate" data-fan="c"><Image src={logCaptureShot} alt="Tuwa log capture: a typed session written out as a sentence, ready to parse" width={640} format="webp" loading="lazy" decoding="async" /></div>
-        </div>
         <div class="aside quote" data-animate data-quote>
           <div class="quote-rule"></div>
           <blockquote>
@@ -127,7 +123,7 @@ const structuredData = [faqPageSchema(faqs)];
       </div>
       <div class="sec-body">
         <div class="spread" data-spread>
-          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Tuwa set entry: the weight scale with target and last markers on the rule" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Tuwa move plate: one movement, its sets and the Log set button" width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
         <div class="aside quote" data-animate data-quote>
           <div class="quote-rule"></div>
@@ -153,7 +149,7 @@ const structuredData = [faqPageSchema(faqs)];
         </p>
         <p data-animate data-animate-delay="80">
           Nothing about the rest of logging changes. Templates carry forward,
-          personal records are still detected, and the 1,324-movement bank is
+          personal records are still detected, and the 1,328-movement bank is
           still one search away.
         </p>
       </div>

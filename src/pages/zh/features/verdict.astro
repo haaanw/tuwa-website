@@ -6,8 +6,8 @@ import CJKLayout from '../../../layouts/CJKLayout.astro';
 import FeatureFaq from '../../../components/features/FeatureFaq.astro';
 import FeatureClosing from '../../../components/features/FeatureClosing.astro';
 import { faqPageSchema } from '../../../seo/schema';
-import verdictShot from '../../../assets/screens-v16/verdict.png';
-import strikeZoneShot from '../../../assets/screens-v16/strike-zone.png';
+import verdictShot from '../../../assets/screens-v176/zh/01-today.png';
+import briefShot from '../../../assets/screens-v176/zh/02-brief.png';
 
 const title = '每日建议：go、modify 或 hold';
 const description =
@@ -52,8 +52,7 @@ const structuredData = [faqPageSchema(faqs)];
           <span class="micro" data-animate>每日建议</span>
           <h1 class="feat-h1" data-animate data-animate-delay="60">go、modify 或 hold——并告诉你为什么</h1>
           <p class="feat-lead" data-animate data-animate-delay="120">
-            每次训练从一个判定开始：go、modify 还是 hold。Tuwa 把今晨的生理状态和昨天的负荷变成具体的数字调整——顶组降
-            5%、给体能部分设上限，或者选 microdose 方案，保住动作模式、省下代价。
+            每次训练从一个判定开始：go、modify 还是 hold。Tuwa 对照你的计划读取今晨的生理状态，说明这一天：它的类型和用文字写明的剂量。具体数字在训练简报里——modify 的日子，顶组更轻或回退组更少；比赛临近时，用 microdose 保住动作模式、省下代价。
           </p>
         </div>
         <div class="aside" data-animate data-animate-delay="180">
@@ -102,19 +101,18 @@ const structuredData = [faqPageSchema(faqs)];
 
   <!-- Concrete numbers -->
   <section class="sec bt">
-    <div class="ghost num" data-ghost aria-hidden="true">-5%</div>
     <div class="wrap">
       <div class="sec-head">
-        <span class="micro" data-animate>具体数字</span>
-        <h2 data-animate>给你调整后的顶组，而不是说教</h2>
+        <span class="micro" data-animate>当天的剂量</span>
+        <h2 data-animate>先用文字说剂量，再给数字</h2>
         <p data-animate>
-          输出刻意保持实用：go、modify 或 hold，加上调整后的顶组数字和一句原因。例如："周六比赛——限制顶组，跳过回退组。"你会在热身前看到建议，那时训练仍然可以调整。
+          今天的卡片写明这一天的类型和剂量：训练量、强度和时长，并与你的计划对照。训练简报里是具体数字：逐个动作列出计划与今天的对照，并附一句原因。你会在热身前看到它，那时训练仍然可以调整。
         </p>
       </div>
       <div class="sec-body">
         <div class="spread" data-spread>
-          <div class="plate" data-fan="l"><Image src={strikeZoneShot} alt="Tuwa strike zone 条显示急性与慢性负荷比值" width={640} format="webp" loading="lazy" decoding="async" /></div>
-          <div class="plate" data-fan="c"><Image src={verdictShot} alt="Tuwa 判定界面：go / modify / hold 与具体数字调整" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="l"><Image src={briefShot} alt="Tuwa 训练简报：今天的读数、建议的调整与“保留我的计划”并列，以及每个动作的计划与今天对照" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={verdictShot} alt="Tuwa“今天”：今天的卡片写明这一天的类型和剂量——训练量、强度、时长——并与你的计划对照" width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
         <div class="aside" data-animate>
           <div class="privacy-well" style="margin-top:0">
@@ -122,6 +120,13 @@ const structuredData = [faqPageSchema(faqs)];
               <li>Go——原计划剂量仍适合今天。</li>
               <li>Modify——保留训练结构，但减少剂量：限制 RPE、降低重量，或在比赛临近时改成 microdose。</li>
               <li>Hold——疲劳背景足够多，建议推迟最硬的部分。</li>
+            </ul>
+          </div>
+          <div class="privacy-well">
+            <ul>
+              <li>训练量——计划中的训练保留多少：动作、组数、回退组。</li>
+              <li>强度——对照计划自己的 RPE 的强度上限。</li>
+              <li>时长——计划写明的时长，否则是你自己这一天通常用的时间。</li>
             </ul>
           </div>
         </div>

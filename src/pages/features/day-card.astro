@@ -1,0 +1,70 @@
+---
+// W1.5 — The Day Card (1.7.6). Claims: the 1.7.6 What's New ("On Log, the whole program day sits
+// on one card: sections, cues and the day's rule. Start, and the session runs right in the card.
+// Drills with no weight log in one tap.") + the app's How-it-operates record. en + zh.
+import FeatureStory from '../../components/features/FeatureStory.astro';
+import dayCard from '../../assets/screens-v176/en/03-daycard.png';
+import plate from '../../assets/screens-v176/en/04-plate.png';
+import brief from '../../assets/screens-v176/en/02-brief.png';
+import program from '../../assets/screens-v176/en/09-program.png';
+---
+<FeatureStory
+  locale="en"
+  path="/features/day-card/"
+  title="The Day Card: the Whole Training Day on One Card"
+  description="On Tuwa's Log tab, the whole program day sits on one card — sections, cues and the day's rule — and the session runs right in the card."
+  kicker="the day card"
+  heading="The whole training day on one card"
+  lead="On Log, the whole program day sits on one card: its sections, its cues and the day's rule, exactly as your plan wrote them. Start, and the session runs right in the card. Drills with no weight log in one tap."
+  sections={[
+    {
+      kicker: 'the card',
+      heading: 'Your plan, as written, for today',
+      paras: [
+        'The card follows your program: a week rail and a day rail at the top, the day header with its focus, then each section with its note and each movement with its prescription and cue — sets × reps @ load · effort.',
+        "The day's rule from your plan sits on the card too, and reference pages your plan carries open from a chip. Other days are one tap away: past days, the next session, a rest day.",
+      ],
+      shots: [{ src: dayCard, alt: 'Tuwa Day Card: the whole program day on one card, with the session running in it' }],
+    },
+    {
+      kicker: 'the session',
+      heading: 'Start, and it runs in the card',
+      paras: [
+        "Start goes through the brief first: your readings, the day's suggestion and its reason, and Keep my plan beside it. Then the card goes live.",
+        'Tap a movement to open its plate, do the set, tap Log set. A movement ends when its last planned set is logged, or when you skip it. Finish saves the session; the effort rating is optional.',
+      ],
+      shots: [
+        { src: plate, alt: 'Tuwa move plate: one movement, its sets and the Log set button' },
+        { src: brief, alt: "Tuwa brief: today's readings, the suggested adjustment beside Keep my plan, and each lift planned against today" },
+      ],
+      bullets: [
+        'Drills with no weight: one tap logs them as planned, a second tap undoes it.',
+        'Weighted movements wait for the brief’s Start.',
+        'The live session shows on the Lock Screen too — never a body number there.',
+      ],
+    },
+    {
+      kicker: 'the program',
+      heading: 'The whole block, one tap away',
+      paras: [
+        'The Program row opens the overview: your weeks and phases on one grid, with the lifts of each week. Move your position, or bring a new program, from there.',
+      ],
+      shots: [{ src: program, alt: 'Tuwa program overview: your weeks and phases on one grid, with the lifts of each week' }],
+    },
+  ]}
+  faqs={[
+    { q: 'Do I need a program to use the Day Card?', a: 'Yes. The Day Card shows your program day. Without a program, Log offers Start session: a blank session, a template, or a workout you describe in words.' },
+    { q: 'Does the Day Card change my plan?', a: 'No. It shows the plan as written. On a modify day, the brief suggests the change and you choose it or keep your plan.' },
+    { q: 'Can I log a session that is not on the card?', a: 'Yes: Log › Start session. A missed day can be trained today or skipped.' },
+  ]}
+  closing={{
+    heading: 'The day on one card',
+    body: 'Download Tuwa, bring your plan, and run today’s session from one card.',
+    related: [
+      { label: 'Your plan', href: '/features/your-plan' },
+      { label: 'The daily verdict', href: '/features/verdict' },
+      { label: 'Text logging', href: '/features/text-logging' },
+      { label: 'The guide: quick start', href: '/guide/quick-start/' },
+    ],
+  }}
+/>

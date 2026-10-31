@@ -8,18 +8,18 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import FeatureFaq from '../../../components/features/FeatureFaq.astro';
 import FeatureClosing from '../../../components/features/FeatureClosing.astro';
 import { faqPageSchema } from '../../../seo/schema';
-import workoutLogShot from '../../../assets/screens-v16/workout-log.png';
-import activeWorkoutShot from '../../../assets/screens-v16/active-workout.png';
-import movementBankShot from '../../../assets/screens-v16/movement-bank.png';
+import workoutLogShot from '../../../assets/screens-v176/en/03-daycard.png';
+import activeWorkoutShot from '../../../assets/screens-v176/en/04-plate.png';
+import movementBankShot from '../../../assets/screens-v176/en/09-program.png';
 
 const title = 'Journal, modèles et banque de mouvements';
 const description =
-  'Un journal rapide en salle, des modèles qui portent ton propre plan, et une banque de 1 324 mouvements pensée recherche d’abord — pour que la trace suive la séance.';
+  'Un journal rapide en salle, des modèles qui portent ton propre plan, et une banque de 1 328 mouvements pensée recherche d’abord — pour que la trace suive la séance.';
 
 const faqs = [
   {
     q: 'Quelle est la taille de la banque de mouvements ?',
-    a: 'Une banque de 1 324 mouvements derrière un sélecteur pensé recherche d’abord. Trouve le mouvement, note la série, retourne à la barre.',
+    a: 'Une banque de 1 328 mouvements derrière un sélecteur pensé recherche d’abord. Trouve le mouvement, note la série, retourne à la barre.',
   },
   {
     q: 'Que peut porter un modèle ?',
@@ -50,13 +50,13 @@ const structuredData = [faqPageSchema(faqs)];
 >
   <!-- Hero -->
   <section class="sec feat-hero">
-    <div class="ghost num" data-ghost aria-hidden="true">1 324</div>
+    <div class="ghost num" data-ghost aria-hidden="true">1 328</div>
     <div class="wrap">
       <div class="sec-head">
         <span class="micro" data-animate>journal</span>
         <h1 class="feat-h1" data-animate data-animate-delay="60">Note vite, entre les séries</h1>
         <p class="feat-lead" data-animate data-animate-delay="120">
-          Une banque de 1 324 mouvements derrière un sélecteur pensé recherche
+          Une banque de 1 328 mouvements derrière un sélecteur pensé recherche
           d'abord. Charge, répétitions, validé — un journal fait pour des pouces
           couverts de magnésie, qui suit la séance au lieu de la ralentir.
         </p>
@@ -87,9 +87,9 @@ const structuredData = [faqPageSchema(faqs)];
       </div>
       <div class="sec-body">
         <div class="spread spread-3" data-spread>
-          <div class="plate" data-fan="l"><Image src={movementBankShot} alt="Banque de mouvements Tuwa : catalogue de 1 324 exercices avec recherche" width={640} format="webp" loading="lazy" decoding="async" /></div>
-          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Séance en cours dans Tuwa : saisie des séries en direct" width={640} format="webp" loading="lazy" decoding="async" /></div>
-          <div class="plate" data-fan="r"><Image src={workoutLogShot} alt="Journal d'entraînement Tuwa : historique des séances" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="l"><Image src={movementBankShot} alt="Vue d'ensemble du programme Tuwa : tes semaines et phases sur une grille, avec les mouvements de chaque semaine" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="c"><Image src={activeWorkoutShot} alt="Plaque de mouvement Tuwa : un mouvement, ses séries et le bouton Log set" width={640} format="webp" loading="lazy" decoding="async" /></div>
+          <div class="plate" data-fan="r"><Image src={workoutLogShot} alt="Day Card de Tuwa : toute la journée du programme sur une carte, la séance s'y déroule" width={640} format="webp" loading="lazy" decoding="async" /></div>
         </div>
       </div>
     </div>
