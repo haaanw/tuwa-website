@@ -92,6 +92,17 @@ const home: Home = {
     fatigueAlt: 'Tendances Tuwa : la fatigue décomposée en ses parties',
     sleepAlt: 'Détail du sommeil Tuwa : la nuit dernière face à tes propres nuits',
   },
+  getStarted: {
+    kicker: 'pour commencer',
+    heading: 'De l’installation à ta propre IA, en trois étapes',
+    allLink: 'Lire le guide complet (en anglais)',
+    heroLink: 'Nouveau ici ? Pour commencer (en anglais)',
+    steps: [
+      { n: '1', title: 'Installe Tuwa', body: 'Installe l’app, connecte Apple Santé si tu portes une montre ou une bague, et crée ton compte.', links: [{ label: 'Démarrage rapide (en anglais)', path: 'quick-start/' }] },
+      { n: '2', title: 'Apporte ton plan', body: 'Colle-le, ajoute un PDF ou une photo, ou écris-le avec ta propre IA. Tuwa n’écrit jamais le programme.', links: [{ label: 'Ton plan, pas à pas (en anglais)', path: 'quick-start/#your-plan' }] },
+      { n: '3', title: 'Ajoute Tuwa à ton IA', body: 'Active le connecteur dans l’app, puis ajoute une URL à ton IA. Elle lit des scores composites, jamais une valeur d’Apple Santé.', links: [{ label: 'Claude', path: 'claude/' }, { label: 'ChatGPT', path: 'chatgpt/' }, { label: 'Agents de code', path: 'coding-agents/' }] },
+    ],
+  },
   connector: {
     kicker: '05 · ta propre IA',
     heading: 'Interroge ta propre IA sur ton entraînement',
@@ -102,7 +113,7 @@ const home: Home = {
       "un brouillon de plan attend que tu l'actives",
     ],
     connectorLink: 'Comment marche le connecteur',
-    guideLink: 'Connecter Claude ou ChatGPT, pas à pas (en anglais)',
+    guideLink: 'Ajouter Tuwa à Claude, ChatGPT ou un agent de code, pas à pas (en anglais)',
     shotAlt: 'Écran du connecteur IA de Tuwa : ce qui est envoyé, ce qui ne l’est jamais, et ce qui est gardé',
   },
   statsBand: {

@@ -1,12 +1,24 @@
 ---
 import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
 ---
-<GuidePageLayout title="The Tuwa guide" description="How to start with Tuwa, connect your own AI app, and find the answers athletes ask most." locale="en" path="/guide/">
-<p>Short, exact steps for the Tuwa iPhone app. Each step uses the words you see on the screen.</p>
+<GuidePageLayout title="The Tuwa guide" description="How to start with Tuwa, add Tuwa to your own AI (Claude, ChatGPT or a coding agent), and find the answers athletes ask most." locale="en" path="/guide/">
+<p>Short, exact steps for the Tuwa iPhone app, with a picture for each step. Each step uses the words you see on the screen.</p>
+
+<h2>Start here</h2>
 <ul class="guide-cards">
 <li><a href="/guide/quick-start/">Quick start</a><br />From the App Store to your first logged session: Apple Health, your plan, the day card, the brief and the Day Card.</li>
-<li><a href="/guide/claude/">Connect Claude</a><br />Let Claude read your Tuwa readings, sessions and plan, and send you a plan draft to review.</li>
-<li><a href="/guide/chatgpt/">Connect ChatGPT</a><br />The same connector, added in ChatGPT.</li>
+</ul>
+
+<h2 id="add-to-your-ai">Add Tuwa to your AI</h2>
+<p>Your own AI can read your Tuwa readings, sessions and plan, and send you a plan draft to review. Pick your app.</p>
+<ul class="guide-cards">
+<li><a href="/guide/claude/">Connect Claude</a><br />Add Tuwa as a custom connector on claude.ai.</li>
+<li><a href="/guide/chatgpt/">Connect ChatGPT</a><br />Add Tuwa as a custom MCP server on the ChatGPT web app. Check the plan limits first.</li>
+<li><a href="/guide/coding-agents/">Connect a coding agent</a><br />One command for Claude Code or Codex.</li>
+</ul>
+
+<h2>Answers</h2>
+<ul class="guide-cards">
 <li><a href="/guide/help/">Help</a><br />The morning check-in, a missed day, a rest day, units, language, sign out and account deletion.</li>
 </ul>
 <p>Tuwa reads your plan and your body signals and suggests the day's dose. You decide. It never writes your program. Questions: <a href="mailto:support@tuwa.app">support@tuwa.app</a>.</p>

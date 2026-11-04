@@ -6,6 +6,7 @@
 import { useHomeTranslations } from '../../i18n/utils';
 import CJKLayout from '../../layouts/CJKLayout.astro';
 import HomeHero from '../../components/home/HomeHero.astro';
+import GetStarted from '../../components/home/GetStarted.astro';
 import PlanSection from '../../components/home/PlanSection.astro';
 import StickyShowcase from '../../components/home/StickyShowcase.astro';
 import ConnectorSection from '../../components/home/ConnectorSection.astro';
@@ -27,6 +28,7 @@ const structuredData = [softwareApplicationSchema(t.meta.description), organizat
   structuredData={structuredData}
 >
   <HomeHero locale="zh" />
+  <GetStarted locale="zh" />
   <PlanSection locale="zh" />
   <StickyShowcase locale="zh" />
   <LoggingRow locale="zh" />

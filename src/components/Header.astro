@@ -20,6 +20,8 @@ const t = useTranslations(locale as 'en' | 'zh' | 'fr');
 // ONLY where the sections exist. Every other page keeps wordmark + Menu + pill.
 const homePaths = ['/', '/zh', '/zh/', '/fr', '/fr/'];
 const isHome = homePaths.includes(Astro.url.pathname);
+// The guide exists in en + zh; fr readers get the English pages.
+const guideHref = locale === 'zh' ? '/zh/guide/' : '/guide/';
 ---
 <header class="site-nav">
   <nav class="site-nav-inner" aria-label="Main">
@@ -34,6 +36,7 @@ const isHome = homePaths.includes(Astro.url.pathname);
       >
         {t.nav.menu}
       </button>
+      <a class="nav-guide" href={guideHref}>{t.nav.guide}</a>
     </div>
     {isHome && (
       <div class="nav-anchors" aria-label="Sections">

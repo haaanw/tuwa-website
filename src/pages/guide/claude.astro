@@ -1,15 +1,30 @@
 ---
 // W5.2 — Connect Claude. The custom-connector path is the approved /connector/ copy (B8);
-// the directory path is added when Anthropic approves the listing (W4). App strings: 1.7.6 (24).
+// the directory path is added only if Anthropic approves a listing (W4). App strings: 1.7.6 (24).
+// Vendor paths checked 2026-11-04. Claude: support.claude.com/en/articles/11175166 (plans, path, + › Connectors,
+// Remove). ChatGPT: help.openai.com/en/articles/12584461 and developers.openai.com/api/docs/guides/custom-mcp-server
+// (Plugins › + › Add custom MCP server, plans, "No - web only" on mobile, @ in the prompt box).
+// Tuwa is in no directory on this date: OpenAI declined the listing on 2026-11-03 and no Anthropic approval exists.
 import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
+import GuideFigure from '../../components/guide/GuideFigure.astro';
+import GuideShots from '../../components/guide/GuideShots.astro';
+import ConnectPlates from '../../components/guide/ConnectPlates.astro';
+import DrawnPhone from '../../components/guide/DrawnPhone.astro';
+import ConnectFix from '../../components/guide/ConnectFix.astro';
+import { screensFor } from '../../components/home/screens';
+const shots = screensFor('en');
 ---
 <GuidePageLayout title="Connect Claude" description="Add Tuwa to Claude as a connector: turn it on in Tuwa, add the URL in Claude, sign in, and disconnect at any time." locale="en" path="/guide/claude/">
 <p>With the connector, Claude can read your Tuwa readings, sessions and plan, show the day's card in the chat, and send you a plan draft to review. Tuwa still makes the day's go, modify or hold decision in the app. The connector is free and off until you turn it on.</p>
 
+<p>The Claude pictures on this page are drawings, not screenshots. Claude can change its screens, so follow the words in bold.</p>
+
 <h2>What you need</h2>
 <ul>
 <li>A Tuwa account and Tuwa 1.7.6 or later on your iPhone.</li>
-<li>Claude on the web (claude.ai) or the Claude desktop app.</li>
+<li>A browser on a computer, for <code>claude.ai</code>. After you add Tuwa there, Anthropic says the connector also works in Claude Desktop and the Claude mobile apps.</li>
+<li>Any Claude plan. Anthropic limits the Free plan to one custom connector.</li>
+<li>On Team or Enterprise, an Owner adds Tuwa first, in Organization settings › Connectors › Add › Custom › Web. Then you find Tuwa in Customize › Connectors and choose Connect.</li>
 </ul>
 
 <h2>1. Turn it on in Tuwa</h2>
@@ -18,17 +33,27 @@ import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
 <li>Read <strong>What is sent</strong>, <strong>Never sent</strong> and <strong>Kept</strong>.</li>
 <li>Turn on <strong>Allow the AI connector</strong>. Until you do, Tuwa gives your AI app nothing.</li>
 </ol>
+<GuideShots caption="Profile › Legal › AI connector, in the Tuwa app (demo account)." shots={[{ src: shots.connector, alt: 'Tuwa AI connector screen: what is sent, what is never sent and what is kept' }]} />
 
 <h2>2. Add Tuwa in Claude</h2>
 <ol>
-<li>In Claude, open Customize › Connectors › Add › <strong>Add custom connector</strong>.</li>
-<li>Name: <code>Tuwa</code>. URL: <code>https://mcp.tuwa.app/mcp</code></li>
-<li>Choose Add, then Connect.</li>
+<li>On <code>claude.ai</code>, open <strong>Customize</strong> › <strong>Connectors</strong>. Choose <strong>+ Add</strong>, then <strong>Add custom connector</strong>.</li>
 </ol>
-<p>When Tuwa is listed in Claude's connector directory, you can add it from there instead.</p>
+<GuideFigure caption="Customize › Connectors › + Add › Add custom connector."><ConnectPlates plate="claude-path" /></GuideFigure>
+<ol start="2">
+<li>Name: <code>Tuwa</code>. Remote MCP server URL: <code>https://mcp.tuwa.app/mcp</code></li>
+<li>Choose <strong>Add</strong>, then <strong>Connect</strong>.</li>
+</ol>
+<GuideFigure caption="Type the URL exactly. Leave the other settings empty."><ConnectPlates plate="claude-form" /></GuideFigure>
+<p>Tuwa is not in Claude's connector directory today, so add it by this URL.</p>
 
 <h2>3. Sign in and allow</h2>
-<p>A Tuwa page opens at tuwa.app. Sign in the way you sign in to the app — Apple, Google, or your email with your password or a one-time code — and choose <strong>Allow</strong>. Then ask Claude, for example: "What's on my plan today in Tuwa?"</p>
+<p>A Tuwa page opens at tuwa.app. Sign in the way you sign in to the app — Apple, Google, or your email with your password or a one-time code — and choose <strong>Allow</strong>.</p>
+<GuideFigure caption="Sign in on tuwa.app, then choose Allow."><ConnectPlates plate="signin" /><ConnectPlates plate="allow" client="Claude" /></GuideFigure>
+
+<h2>4. Ask Claude</h2>
+<p>In a chat, choose <strong>+</strong> › <strong>Connectors</strong> and check that Tuwa is on. Then ask, for example: "What's on my plan today in Tuwa?"</p>
+<GuideFigure caption="Turn Tuwa on for the chat with + › Connectors, then ask."><ConnectPlates plate="claude-chat" /></GuideFigure>
 
 <h2>What Claude can read, and what it never gets</h2>
 <ul>
@@ -37,11 +62,17 @@ import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
 <li><strong>It cannot:</strong> change your plan, log a workout or answer your check-in.</li>
 <li><strong>Never sent:</strong> no number from Apple Health — no heart rate, HRV, sleep time, temperature or cycle data.</li>
 </ul>
+<GuideFigure caption="A draft from your AI waits on Today and Log until you open it." kind="phones">
+<DrawnPhone title="Today" options={[{ label: 'A plan arrived from your AI · Review', hot: true }]} />
+<DrawnPhone title="From your AI" sub="Your AI sent this plan as a draft. Nothing changes until you activate it." options={[{ label: 'Activate this plan', hot: true }, { label: 'Dismiss this draft' }]} />
+</GuideFigure>
 <p>The full list of tools is on the <a href="/connector/">connector page</a>; what is kept is in the <a href="/privacy/#ai-connector">Privacy Policy</a>.</p>
 
 <h2>Disconnect</h2>
 <ol>
 <li>In Tuwa: <strong>Profile</strong> › <strong>Legal</strong> › <strong>AI connector</strong>, turn off <strong>Allow the AI connector</strong>. From then on the connector gives your AI nothing more.</li>
-<li>In Claude: remove Tuwa in the connector settings.</li>
+<li>In Claude: open <strong>Customize</strong> › <strong>Connectors</strong>, then choose <strong>Remove</strong> or the three dots next to Tuwa.</li>
 </ol>
+
+<ConnectFix locale="en" client="claude" />
 </GuidePageLayout>

@@ -290,7 +290,7 @@ export const seoGeoPages: SeoGeoPage[] = [
           rows: [
             ['Push', 'Signals support the plan and recent load is manageable.', 'Keep the plan; add load only if warmups move well.'],
             ['Maintain', 'Signals are mixed but not clearly poor.', 'Run the plan with normal rest and honest RPE caps.'],
-            ['Reduce', 'Recovery or soreness suggests less total work.', 'Cut 20-40% of accessory volume or back-off sets.'],
+            ['Reduce', 'Recovery or soreness suggests less total work.', 'Trim accessory volume or back-off sets first.'],
             ['Swap', 'Intensity is the issue more than movement.', 'Keep skill practice; swap heavy work for technique or tempo.'],
             ['Recover', 'Multiple red flags stack together.', 'Choose mobility, easy aerobic work, or full rest.'],
           ],
@@ -531,7 +531,7 @@ export const seoGeoPages: SeoGeoPage[] = [
           rows: [
             ['Ready', 'Green day.', 'Push if warmups confirm and recent load is not spiking.'],
             ['Mixed', 'Yellow day.', 'Maintain, cap RPE, and avoid optional volume.'],
-            ['Poor', 'Red day.', 'Reduce 20-40%, swap intensity, or recover based on signal stack.'],
+            ['Poor', 'Red day.', 'Trim optional volume, swap intensity, or recover based on the signal stack.'],
           ],
         },
       },
@@ -640,7 +640,7 @@ export const seoGeoPages: SeoGeoPage[] = [
       {
         heading: 'If you train anyway',
         body: [
-          'Choose the smallest change that respects the signal. For example, keep the main lift but remove optional back-off sets, reduce load by 5-10%, or replace hard conditioning with easy aerobic work.',
+          'Choose the smallest change that respects the signal. For example, keep the main lift but remove optional back-off sets, reduce load a little, or replace hard conditioning with easy aerobic work.',
         ],
       },
       {
@@ -664,28 +664,28 @@ export const seoGeoPages: SeoGeoPage[] = [
   guidePage({
     slug: 'guides/how-much-volume-to-cut-when-tired',
     title: 'How Much Volume Should I Cut When Tired?',
-    description: 'A simple framework for reducing strength training volume when recovery, soreness, RPE, or workload suggest fatigue.',
+    description: 'A simple way to think about reducing strength training volume when recovery, soreness, RPE, or workload suggest fatigue.',
     h1: 'How Much Volume Should I Cut When Tired?',
     primaryQuery: 'how much volume should I cut when tired',
-    directAnswer: 'When you are tired but still able to train, start by cutting 20-40% of accessory or back-off volume before removing the whole session. Keep technical main work if warmups feel normal, cap RPE, and avoid making up the lost volume later unless the weekly plan still supports it.',
+    directAnswer: 'When you are tired but still able to train, no single percentage fits everyone. A common starting point is to trim accessory or back-off volume before removing the whole session. Keep technical main work if warmups feel normal, cap RPE, and avoid making up the lost volume later unless the weekly plan still supports it.',
     keyTakeaways: [
       'Cut optional volume before cutting the whole workout.',
       'Use RPE and warmups to decide whether main work stays.',
       'Do not automatically make up skipped sets later in the week.',
     ],
     decisionRules: [
-      { if: 'Mild fatigue and normal warmups.', then: 'Cut 0-20% and cap RPE.' },
-      { if: 'Moderate fatigue, high soreness, or poor sleep.', then: 'Cut 20-40% from accessories and back-off sets.' },
+      { if: 'Mild fatigue and normal warmups.', then: 'Consider dropping an optional movement and capping RPE.' },
+      { if: 'Moderate fatigue, high soreness, or poor sleep.', then: 'Consider trimming accessories and back-off sets first.' },
       { if: 'Severe fatigue, pain, or illness signals.', then: 'Recover or get qualified help rather than forcing volume.' },
     ],
     sections: [
       {
-        heading: 'Volume cut ranges',
+        heading: 'Examples by fatigue level',
         table: {
           columns: ['Fatigue level', 'What to cut', 'Example'],
           rows: [
             ['Low', 'Optional accessories only', 'Skip curls or one isolation movement.'],
-            ['Moderate', '20-40% of accessories or back-off sets', 'Three back-off sets become two; four accessories become two.'],
+            ['Moderate', 'Some accessories or back-off sets', 'Three back-off sets become two; four accessories become two.'],
             ['High', 'Most hard volume', 'Technique singles and mobility only, or rest.'],
           ],
         },

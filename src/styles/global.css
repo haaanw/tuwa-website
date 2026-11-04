@@ -3170,6 +3170,25 @@ html[lang="zh"] .tbl th {
   align-items: center;
   gap: 24px;
 }
+.nav-guide {
+  font-size: var(--text-label);
+  font-weight: var(--weight-label);
+  line-height: var(--leading-label);
+  color: var(--color-text-2);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-guide:hover,
+.nav-guide:focus-visible { color: var(--color-text-1); }
+@media (max-width: 400px) {
+  .site-nav-left { gap: 16px; }
+  .site-nav-inner .pill-ink-sm { padding: 8px 16px; }
+  /* The French pill is long; the drawer still carries the guide links. */
+  html[lang='fr'] .nav-guide { display: none; }
+}
+@media (max-width: 340px) {
+  .nav-guide { display: none; }
+}
 
 .nav-drawer-backdrop {
   position: fixed;

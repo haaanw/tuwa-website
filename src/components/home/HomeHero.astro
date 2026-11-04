@@ -18,6 +18,7 @@ interface Props {
 const { locale = 'en' } = Astro.props;
 const t = useHomeTranslations(locale).heroScrub;
 const tc = useTranslations(locale);
+const tStart = useHomeTranslations(locale).getStarted;
 ---
 <section class="sec hero-wrap" id="top" aria-label={t.sectionAria}>
   <div class="wrap hero-grid">
@@ -54,6 +55,20 @@ const tc = useTranslations(locale);
         </a>
         <span class="micro">{t.ctaNote}</span>
       </div>
+      <p class="hero-start"><a href="#get-started">{tStart.heroLink}</a></p>
     </div>
   </div>
 </section>
+
+<style>
+  .hero-start {
+    margin-top: 16px;
+    font-size: var(--text-small);
+  }
+  .hero-start a {
+    color: var(--color-text-1);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+</style>

@@ -24,6 +24,7 @@ const NAV = locale === 'zh'
       { href: '/guide/quick-start/', label: '快速上手' },
       { href: '/guide/claude/', label: '连接 Claude' },
       { href: '/guide/chatgpt/', label: '连接 ChatGPT' },
+      { href: '/guide/coding-agents/', label: '编程代理' },
       { href: '/guide/help/', label: '常见问题' },
     ]
   : [
@@ -31,6 +32,7 @@ const NAV = locale === 'zh'
       { href: '/guide/quick-start/', label: 'Quick start' },
       { href: '/guide/claude/', label: 'Connect Claude' },
       { href: '/guide/chatgpt/', label: 'Connect ChatGPT' },
+      { href: '/guide/coding-agents/', label: 'Coding agents' },
       { href: '/guide/help/', label: 'Help' },
     ];
 const navLabel = locale === 'zh' ? '指南目录' : 'Guide pages';
@@ -106,6 +108,18 @@ const forVersion = locale === 'zh' ? '适用于 Tuwa 1.7.6 · iPhone' : 'For Tuw
   .guide-copy :global(code::before),
   .guide-copy :global(code::after) {
     content: none;
+  }
+  .guide-copy :global(pre) {
+    margin: 8px 0 16px;
+    padding: 8px 16px;
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-el);
+    color: var(--color-text-1);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    white-space: pre;
+    overflow-x: auto;
   }
   .guide-copy :global(.guide-cards) {
     list-style: none;

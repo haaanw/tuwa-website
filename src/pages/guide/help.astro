@@ -1,6 +1,7 @@
 ---
 // W5.5 — Help. App strings: 1.7.6 (24), traced in the app source 2026-10-31.
 import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
+import ConnectFix from '../../components/guide/ConnectFix.astro';
 ---
 <GuidePageLayout title="Help" description="Short answers: the morning check-in, a missed day, a rest day, units, language, a new program, sign out and account deletion." locale="en" path="/guide/help/">
 
@@ -29,7 +30,9 @@ import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
 <p>Tuwa only reads Apple Health. To change what it reads, open iOS Settings › Privacy &amp; Security › Health › Tuwa. Raw readings never leave your phone; only composite scores sync.</p>
 
 <h2>The AI connector</h2>
-<p>Off until you turn it on in <strong>Profile</strong> › <strong>Legal</strong> › <strong>AI connector</strong>. See <a href="/guide/claude/">Connect Claude</a> and <a href="/guide/chatgpt/">Connect ChatGPT</a>.</p>
+<p>Off until you turn it on in <strong>Profile</strong> › <strong>Legal</strong> › <strong>AI connector</strong>. See <a href="/guide/claude/">Connect Claude</a>, <a href="/guide/chatgpt/">Connect ChatGPT</a> and <a href="/guide/coding-agents/">Connect a coding agent</a>.</p>
+
+<ConnectFix locale="en" />
 
 <h2>Sign out</h2>
 <p><strong>Profile</strong> › <strong>Account</strong> › <strong>Sign out</strong>. Signing out removes your Tuwa data from this phone; what has synced stays in your account. If some data has not synced yet, Tuwa warns you first.</p>

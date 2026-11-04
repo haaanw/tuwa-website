@@ -1,0 +1,49 @@
+---
+// "If it does not connect". Each cause was seen on the connector or read in its source:
+// the permission answer is CONSENT_REQUIRED_MESSAGE (Supabase/functions/mcp/handler.ts), the sync
+// delay and the trailing dot are in .planning/v176/MCP-DEPLOY.md §3a, and on 2026-11-04 a request to
+// https://mcp.tuwa.app/mcp. answered 404. The chat step per client follows the docs named on each page.
+interface Props {
+  locale: 'en' | 'zh';
+  client?: 'claude' | 'chatgpt' | 'agents';
+}
+const { locale, client } = Astro.props;
+const URL = 'https://mcp.tuwa.app/mcp';
+
+const CHAT_STEP = {
+  en: {
+    claude: "In a chat, choose + › Connectors and turn Tuwa on.",
+    chatgpt: 'Type @ and select Tuwa. ChatGPT applies your choice to that one message, so type it again when you ask for new data.',
+    agents: 'Run /mcp and check that tuwa shows as connected.',
+  },
+  zh: {
+    claude: '在对话中选择 + › Connectors，然后打开 Tuwa。',
+    chatgpt: '输入 @ 并选择 Tuwa。ChatGPT 只对这一条消息应用你的选择，所以需要新数据时请再次输入。',
+    agents: '运行 /mcp，确认 tuwa 显示为已连接。',
+  },
+};
+const chatStep = client ? CHAT_STEP[locale][client] : null;
+---
+{locale === 'zh' ? (
+  <>
+    <h2 id="if-it-does-not-connect">如果连接不上</h2>
+    <ul>
+      <li><strong>AI 回复 “Tuwa needs your permission first”。</strong>打开 Tuwa，进入<strong>档案</strong> › <strong>法律信息</strong> › <strong>AI 连接器</strong>，打开<strong>允许 AI 连接器</strong>。然后在<strong>今天</strong>页面下拉刷新，让这项权限同步到你的账号，再试一次。</li>
+      <li><strong>AI 报告无法注册登录服务，或显示 404。</strong>检查 URL。它必须完全是 <code>{URL}</code>，末尾不能有句点。末尾多一个句点会返回 404。</li>
+      <li><strong>无法登录。</strong>使用你登录 Tuwa 应用的同一种方式：Apple、Google 或同一个邮箱。如果忘记密码，选择<strong>忘记密码？</strong>。如果页面没有返回你的 AI 应用，请重新开始连接。</li>
+      {chatStep && <li><strong>已连接，但 AI 没有使用 Tuwa。</strong>{chatStep}</li>}
+      <li><strong>还是不行？</strong>写信到 <a href="mailto:support@tuwa.app">support@tuwa.app</a>，并告诉我们你用的 AI 应用和它显示的文字。</li>
+    </ul>
+  </>
+) : (
+  <>
+    <h2 id="if-it-does-not-connect">If it does not connect</h2>
+    <ul>
+      <li><strong>Your AI says "Tuwa needs your permission first".</strong> In Tuwa, open <strong>Profile</strong> › <strong>Legal</strong> › <strong>AI connector</strong> and turn on <strong>Allow the AI connector</strong>. Then pull down on <strong>Today</strong> so the permission syncs to your account, and try again.</li>
+      <li><strong>Your AI cannot register with the sign-in service, or shows a 404.</strong> Check the URL. It must be exactly <code>{URL}</code>, with no period at the end. A period at the end gives a 404.</li>
+      <li><strong>You cannot sign in.</strong> Use the method you use in the Tuwa app: Apple, Google or the same email. If you lost your password, choose <strong>Forgot your password?</strong> If the page does not return you to your AI app, start the connection again.</li>
+      {chatStep && <li><strong>It connected, but your AI does not use Tuwa.</strong> {chatStep}</li>}
+      <li><strong>Still stuck?</strong> Write to <a href="mailto:support@tuwa.app">support@tuwa.app</a>. Tell us which AI app you use and the words it shows.</li>
+    </ul>
+  </>
+)}

@@ -91,6 +91,17 @@ const home: Home = {
     fatigueAlt: 'Tuwa 趋势：疲劳按组成部分拆开显示',
     sleepAlt: 'Tuwa 睡眠详情：昨晚对照你自己的夜晚',
   },
+  getStarted: {
+    kicker: '开始使用',
+    heading: '从安装到连接你自己的 AI，三步',
+    allLink: '阅读完整指南',
+    heroLink: '第一次使用？从这里开始',
+    steps: [
+      { n: '1', title: '安装 Tuwa', body: '安装应用；如果你戴手表或戒指，连接 Apple 健康；然后创建账号。', links: [{ label: '快速上手', path: 'quick-start/' }] },
+      { n: '2', title: '带来你的计划', body: '粘贴文本，添加 PDF 或照片，或用你自己的 AI 来写。Tuwa 从不替你写计划。', links: [{ label: '你的计划，分步说明', path: 'quick-start/#your-plan' }] },
+      { n: '3', title: '把 Tuwa 添加到你的 AI', body: '在应用中打开连接器，然后把一个 URL 添加到你的 AI。它读取综合评分，从不读取 Apple 健康的数值。', links: [{ label: 'Claude', path: 'claude/' }, { label: 'ChatGPT', path: 'chatgpt/' }, { label: '编程代理', path: 'coding-agents/' }] },
+    ],
+  },
   connector: {
     kicker: '05 · 你自己的 AI',
     heading: '问问你自己的 AI，关于你的训练',
@@ -101,7 +112,7 @@ const home: Home = {
       '计划草稿会等你启用',
     ],
     connectorLink: '连接器如何运作',
-    guideLink: '分步连接 Claude 或 ChatGPT',
+    guideLink: '把 Tuwa 添加到 Claude、ChatGPT 或编程代理，分步说明',
     shotAlt: 'Tuwa AI 连接器页面：发送内容、不会发送的内容和保留期限',
   },
   statsBand: {

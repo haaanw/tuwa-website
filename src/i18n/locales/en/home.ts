@@ -101,6 +101,17 @@ const home = {
     fatigueAlt: 'Tuwa Trends: fatigue split into its parts',
     sleepAlt: 'Tuwa sleep detail: last night against your own nights',
   },
+  getStarted: {
+    kicker: 'get started',
+    heading: 'From install to your own AI, in three steps',
+    allLink: 'Read the full guide',
+    heroLink: 'New here? Get started',
+    steps: [
+      { n: '1', title: 'Get Tuwa', body: 'Install the app, connect Apple Health if you wear a watch or ring, and make your account.', links: [{ label: 'Quick start', path: 'quick-start/' }] },
+      { n: '2', title: 'Bring your plan', body: 'Paste it, add a PDF or a photo, or build it with your own AI. Tuwa never writes the program.', links: [{ label: 'Your plan, step by step', path: 'quick-start/#your-plan' }] },
+      { n: '3', title: 'Add Tuwa to your AI', body: 'Turn on the connector in the app, then add one URL to your AI. It reads composite scores, never an Apple Health number.', links: [{ label: 'Claude', path: 'claude/' }, { label: 'ChatGPT', path: 'chatgpt/' }, { label: 'Coding agents', path: 'coding-agents/' }] },
+    ],
+  },
   connector: {
     kicker: '05 · your own AI',
     heading: 'Ask your own AI about your training',
@@ -111,7 +122,7 @@ const home = {
       'a plan draft waits until you activate it',
     ],
     connectorLink: 'How the connector works',
-    guideLink: 'Connect Claude or ChatGPT, step by step',
+    guideLink: 'Add Tuwa to Claude, ChatGPT or a coding agent, step by step',
     shotAlt: 'Tuwa AI connector screen: what is sent, what is never sent, and what is kept',
   },
   statsBand: {

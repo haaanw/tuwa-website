@@ -47,6 +47,15 @@ const showLanguageSwitcher = availableLocales.length > 1;
 // Sections. Product feature pages — including /features/verdict — exist in
 // all three locales (footer convention: locale-prefixed).
 type DrawerLink = { label: string; href: string; external?: boolean };
+// The guide exists in en + zh; fr links go straight to the English pages.
+const guidePrefix = locale === 'zh' ? '/zh/guide' : '/guide';
+const startLinks: DrawerLink[] = [
+  { label: t.drawer.quickStart, href: `${guidePrefix}/quick-start/` },
+  { label: t.drawer.connectClaude, href: `${guidePrefix}/claude/` },
+  { label: t.drawer.connectChatgpt, href: `${guidePrefix}/chatgpt/` },
+  { label: t.drawer.connectAgent, href: `${guidePrefix}/coding-agents/` },
+  { label: t.drawer.guideHelp, href: `${guidePrefix}/help/` },
+];
 const productLinks: DrawerLink[] = [
   { label: t.drawer.yourPlan, href: getRelativeLocaleUrl(locale, '/features/your-plan') },
   { label: t.drawer.verdict, href: getRelativeLocaleUrl(locale, '/features/verdict') },
@@ -71,6 +80,7 @@ const companyLinks: DrawerLink[] = [
   { label: t.drawer.terms, href: getRelativeLocaleUrl(locale, '/terms') },
 ];
 const sections = [
+  { label: t.drawer.getStarted, links: startLinks },
   { label: t.drawer.product, links: productLinks },
   { label: t.drawer.science, links: scienceLinks },
   { label: t.drawer.company, links: companyLinks },

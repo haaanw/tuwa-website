@@ -24,6 +24,7 @@ const common = {
     ],
     support: 'Support',
     blog: 'Blog',
+    guide: 'Guide',
     getApp: 'Get the App',
     method: 'Method',
     languageSwitcher: {
@@ -48,6 +49,12 @@ const common = {
     menu: 'Menu',
   },
   drawer: {
+    getStarted: 'Get started',
+    quickStart: 'Quick start',
+    connectClaude: 'Connect Claude',
+    connectChatgpt: 'Connect ChatGPT',
+    connectAgent: 'Connect a coding agent',
+    guideHelp: 'Help',
     yourPlan: 'Your plan',
     dayCard: 'The Day Card',
     ariaLabel: 'Site navigation',

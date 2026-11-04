@@ -13,7 +13,7 @@
 - [Your Plan](https://tuwa.app/features/your-plan/): bring the plan you have (text, PDF or photo), or build one with your own Claude or ChatGPT in Tuwa's import format. Tuwa never writes the program.
 - [The Day Card](https://tuwa.app/features/day-card/): the whole program day on one card on the Log tab; the session runs in the card.
 - [The AI Connector](https://tuwa.app/connector/): your own AI app reads composite readings, sessions, load, plan and PRs, and can send a plan draft that waits for the athlete to activate it. URL https://mcp.tuwa.app/mcp; off until the athlete turns it on.
-- [The Guide](https://tuwa.app/guide/): quick start, connecting Claude or ChatGPT, and help.
+- [The Guide](https://tuwa.app/guide/): quick start, connecting Claude, ChatGPT or a coding agent (Claude Code, Codex), and help.
 - [The Daily Verdict](https://tuwa.app/features/verdict): go, modify, or hold suggestion with an adjusted top-set number and a one-line reason.
 - [Workload Tracking](https://tuwa.app/features/workload-tracking): one fatigue budget across sport skill, strength, and conditioning, with the acute:chronic load ratio shown as context (it never sets the verdict).
 - [Recovery Scoring](https://tuwa.app/features/recovery-scoring): HRV, sleep, and resting heart rate scored against personal baselines, with plain-language reasons.

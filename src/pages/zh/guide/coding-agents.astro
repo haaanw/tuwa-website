@@ -1,0 +1,54 @@
+---
+// Claude Code 与 Codex。核对于 2026-11-04（来源和测试范围见英文版页面注释）。
+import GuidePageLayout from '../../../layouts/GuidePageLayout.astro';
+import GuideFigure from '../../../components/guide/GuideFigure.astro';
+import GuideShots from '../../../components/guide/GuideShots.astro';
+import ConnectPlates from '../../../components/guide/ConnectPlates.astro';
+import ConnectFix from '../../../components/guide/ConnectFix.astro';
+import { screensFor } from '../../../components/home/screens';
+const shots = screensFor('zh');
+---
+<GuidePageLayout title="连接编程代理" description="用一条命令把 Tuwa 添加到 Claude Code 或 Codex：在 Tuwa 中打开，添加 URL，在浏览器中登录。" locale="zh" path="/guide/coding-agents/">
+<p>编程代理使用与 Claude 和 ChatGPT 应用相同的连接器和 URL。它们以文本形式读取你的 Tuwa 数据，不会显示今天的卡片。</p>
+
+<h2>1. 在 Tuwa 中打开</h2>
+<ol>
+<li>打开<strong>档案</strong> › <strong>法律信息</strong> › <strong>AI 连接器</strong>。</li>
+<li>阅读<strong>发送内容</strong>、<strong>不会发送</strong>和<strong>保留期限</strong>。</li>
+<li>打开<strong>允许 AI 连接器</strong>。在你打开之前，Tuwa 不会向你的代理提供任何内容。</li>
+</ol>
+<GuideShots caption="Tuwa 应用中的 档案 › 法律信息 › AI 连接器（演示账号）。" shots={[{ src: shots.connector, alt: 'Tuwa AI 连接器页面：发送内容、不会发送的内容和保留期限' }]} />
+
+<h2>2. 把 Tuwa 添加到你的代理</h2>
+<h3>Claude Code</h3>
+<p>在终端中运行这条命令。<code>--scope user</code> 让 Tuwa 在你的所有项目中可用。</p>
+<pre><code>claude mcp add --transport http --scope user tuwa https://mcp.tuwa.app/mcp</code></pre>
+<p>然后启动 Claude Code，运行 <code>/mcp</code>，选择 <code>tuwa</code> 并选择验证。浏览器会打开。</p>
+<GuideFigure caption="添加服务器。登录之前，claude mcp list 会显示 Needs authentication。"><ConnectPlates plate="terminal-claude" locale="zh" /></GuideFigure>
+
+<h3>Codex</h3>
+<p>在终端中运行这条命令。浏览器会自动打开。</p>
+<pre><code>codex mcp add tuwa --url https://mcp.tuwa.app/mcp</code></pre>
+<p>如果浏览器没有打开，或者你之后退出了登录，请运行：</p>
+<pre><code>codex mcp login tuwa</code></pre>
+<GuideFigure caption="添加服务器，然后在 Codex 中用 /mcp 检查。ChatGPT 桌面应用、Codex CLI 和 IDE 扩展共用这项设置。"><ConnectPlates plate="terminal-codex" locale="zh" /></GuideFigure>
+
+<h2>3. 登录并允许</h2>
+<p>会打开一个 tuwa.app 上的 Tuwa 页面。用你登录 Tuwa 应用的方式登录——Apple、Google，或者你的邮箱加密码或一次性验证码——然后选择<strong>允许</strong>。</p>
+<GuideFigure caption="在 tuwa.app 上登录，然后选择“允许”。页面会显示你的代理名称。"><ConnectPlates plate="signin" locale="zh" /><ConnectPlates plate="allow" locale="zh" client="Claude Code" /></GuideFigure>
+
+<h2>4. 问你的代理</h2>
+<p>可以问，例如：“Tuwa 里我今天的计划是什么？”</p>
+<p>代理能读取什么、能发送什么、永远拿不到什么，都与 <a href="/zh/guide/claude/">Claude</a> 相同。计划草稿会留在应用中，直到你启用它。</p>
+
+<h2>断开连接</h2>
+<ol>
+<li>在 Tuwa 中：<strong>档案</strong> › <strong>法律信息</strong> › <strong>AI 连接器</strong>，关闭<strong>允许 AI 连接器</strong>。从那时起，连接器不再向你的代理提供任何内容。</li>
+<li>在你的代理中，运行以下命令之一：</li>
+</ol>
+<pre><code>claude mcp remove --scope user tuwa</code></pre>
+<pre><code>codex mcp logout tuwa
+codex mcp remove tuwa</code></pre>
+
+<ConnectFix locale="zh" client="agents" />
+</GuidePageLayout>

@@ -1,0 +1,58 @@
+---
+// Claude Code and Codex. Checked 2026-11-04 against code.claude.com/docs/en/mcp (claude mcp add, /mcp),
+// learn.chatgpt.com/docs/extend/mcp (codex mcp add / login, /mcp), the installed CLIs (Claude Code 2.1.263,
+// codex-cli 0.144.1) and https://mcp.tuwa.app/mcp. Claude Code: `claude mcp list` reports "Needs
+// authentication" (the 401 challenge and discovery work); the /mcp sign-in itself was not run. Codex:
+// `codex mcp add` registered through DCR, opened the browser by itself and finished OAuth.
+import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
+import GuideFigure from '../../components/guide/GuideFigure.astro';
+import GuideShots from '../../components/guide/GuideShots.astro';
+import ConnectPlates from '../../components/guide/ConnectPlates.astro';
+import ConnectFix from '../../components/guide/ConnectFix.astro';
+import { screensFor } from '../../components/home/screens';
+const shots = screensFor('en');
+---
+<GuidePageLayout title="Connect a coding agent" description="Add Tuwa to Claude Code or Codex with one command: turn it on in Tuwa, add the URL, sign in in your browser." locale="en" path="/guide/coding-agents/">
+<p>Coding agents use the same connector and the same URL as the Claude and ChatGPT apps. They read your Tuwa data as text. They do not show the day's card.</p>
+
+<h2>1. Turn it on in Tuwa</h2>
+<ol>
+<li>Open <strong>Profile</strong> › <strong>Legal</strong> › <strong>AI connector</strong>.</li>
+<li>Read <strong>What is sent</strong>, <strong>Never sent</strong> and <strong>Kept</strong>.</li>
+<li>Turn on <strong>Allow the AI connector</strong>. Until you do, Tuwa gives your agent nothing.</li>
+</ol>
+<GuideShots caption="Profile › Legal › AI connector, in the Tuwa app (demo account)." shots={[{ src: shots.connector, alt: 'Tuwa AI connector screen: what is sent, what is never sent and what is kept' }]} />
+
+<h2>2. Add Tuwa to your agent</h2>
+<h3>Claude Code</h3>
+<p>Run this in your terminal. <code>--scope user</code> makes Tuwa available in all your projects.</p>
+<pre><code>claude mcp add --transport http --scope user tuwa https://mcp.tuwa.app/mcp</code></pre>
+<p>Then start Claude Code, run <code>/mcp</code>, select <code>tuwa</code> and choose to authenticate. Your browser opens.</p>
+<GuideFigure caption="Add the server. Until you sign in, claude mcp list shows Needs authentication."><ConnectPlates plate="terminal-claude" /></GuideFigure>
+
+<h3>Codex</h3>
+<p>Run this in your terminal. Your browser opens by itself.</p>
+<pre><code>codex mcp add tuwa --url https://mcp.tuwa.app/mcp</code></pre>
+<p>If the browser does not open, or you signed out later, run:</p>
+<pre><code>codex mcp login tuwa</code></pre>
+<GuideFigure caption="Add the server, then check it with /mcp inside Codex. The ChatGPT desktop app, the Codex CLI and the IDE extension share this setting."><ConnectPlates plate="terminal-codex" /></GuideFigure>
+
+<h2>3. Sign in and allow</h2>
+<p>A Tuwa page opens at tuwa.app. Sign in the way you sign in to the app — Apple, Google, or your email with your password or a one-time code — and choose <strong>Allow</strong>.</p>
+<GuideFigure caption="Sign in on tuwa.app, then choose Allow. The page names your agent."><ConnectPlates plate="signin" /><ConnectPlates plate="allow" client="Claude Code" /></GuideFigure>
+
+<h2>4. Ask your agent</h2>
+<p>Ask, for example: "What's on my plan today in Tuwa?"</p>
+<p>What the agent can read, what it can send and what it never gets are the same as for <a href="/guide/claude/">Claude</a>. A plan draft waits in the app until you activate it.</p>
+
+<h2>Disconnect</h2>
+<ol>
+<li>In Tuwa: <strong>Profile</strong> › <strong>Legal</strong> › <strong>AI connector</strong>, turn off <strong>Allow the AI connector</strong>. From then on the connector gives your agent nothing more.</li>
+<li>In your agent, run one of these:</li>
+</ol>
+<pre><code>claude mcp remove --scope user tuwa</code></pre>
+<pre><code>codex mcp logout tuwa
+codex mcp remove tuwa</code></pre>
+
+<ConnectFix locale="en" client="agents" />
+</GuidePageLayout>

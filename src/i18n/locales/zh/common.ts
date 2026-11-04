@@ -13,6 +13,7 @@ const common: Common = {
     ],
     support: '支持',
     blog: '博客',
+    guide: '指南',
     getApp: '下载应用',
     method: '方法论',
     languageSwitcher: {
@@ -37,6 +38,12 @@ const common: Common = {
     menu: '菜单',
   },
   drawer: {
+    getStarted: '开始使用',
+    quickStart: '快速上手',
+    connectClaude: '连接 Claude',
+    connectChatgpt: '连接 ChatGPT',
+    connectAgent: '连接编程代理',
+    guideHelp: '常见问题',
     yourPlan: '你的计划',
     dayCard: '训练日卡',
     ariaLabel: '网站导航',

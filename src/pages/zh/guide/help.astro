@@ -1,6 +1,7 @@
 ---
 // W5.5（中文）——应用字符串：1.7.6 (24)，2026-10-31 在应用源码中核对。
 import GuidePageLayout from '../../../layouts/GuidePageLayout.astro';
+import ConnectFix from '../../../components/guide/ConnectFix.astro';
 ---
 <GuidePageLayout title="常见问题" description="简短回答：晨间自评、错过的训练日、休息日、单位、语言、新计划、退出登录和删除账号。" locale="zh" path="/guide/help/">
 
@@ -30,7 +31,9 @@ import GuidePageLayout from '../../../layouts/GuidePageLayout.astro';
 <p>Tuwa 只读取 Apple 健康。要更改它读取的内容，打开 iOS 设置 › 隐私与安全性 › 健康 › Tuwa。原始读数永远不会离开你的手机，只有综合评分会同步。</p>
 
 <h2>AI 连接器</h2>
-<p>在你打开之前一直关闭：<strong>档案</strong> › <strong>法律信息</strong> › <strong>AI 连接器</strong>。参见<a href="/zh/guide/claude/">连接 Claude</a>和<a href="/zh/guide/chatgpt/">连接 ChatGPT</a>。</p>
+<p>在你打开之前一直关闭：<strong>档案</strong> › <strong>法律信息</strong> › <strong>AI 连接器</strong>。参见<a href="/zh/guide/claude/">连接 Claude</a>、<a href="/zh/guide/chatgpt/">连接 ChatGPT</a>和<a href="/zh/guide/coding-agents/">连接编程代理</a>。</p>
+
+<ConnectFix locale="zh" />
 
 <h2>退出登录</h2>
 <p><strong>档案</strong> › <strong>账户</strong> › <strong>退出登录</strong>。退出登录会从这部手机上移除你的 Tuwa 数据；已同步的内容会保留在你的账户中。如果有数据还没同步，Tuwa 会先提醒你。</p>

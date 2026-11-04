@@ -1,10 +1,11 @@
 ---
 // Homepage — the Astro port of the locked Session W demo
 // (.design-explorations/website-v2-demo; compare.html rows 01–11).
-// Section order (W1, 1.7.6): hero → 01 your plan → 02 today → 03 the day card → stats →
+// Section order (W1, 1.7.6): hero → get started → 01 your plan → 02 today → 03 the day card → stats →
 // 04 trends → 05 your own AI → 06 recovery → 07 methodology → ghost band → 08 privacy.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeHero from '../components/home/HomeHero.astro';
+import GetStarted from '../components/home/GetStarted.astro';
 import PlanSection from '../components/home/PlanSection.astro';
 import StickyShowcase from '../components/home/StickyShowcase.astro';
 import ConnectorSection from '../components/home/ConnectorSection.astro';
@@ -29,6 +30,7 @@ const structuredData = [softwareApplicationSchema(description), organizationSche
   structuredData={structuredData}
 >
   <HomeHero />
+  <GetStarted />
   <PlanSection />
   <StickyShowcase />
   <LoggingRow />

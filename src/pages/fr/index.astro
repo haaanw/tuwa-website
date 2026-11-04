@@ -4,6 +4,7 @@
 import { useHomeTranslations } from '../../i18n/utils';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HomeHero from '../../components/home/HomeHero.astro';
+import GetStarted from '../../components/home/GetStarted.astro';
 import PlanSection from '../../components/home/PlanSection.astro';
 import StickyShowcase from '../../components/home/StickyShowcase.astro';
 import ConnectorSection from '../../components/home/ConnectorSection.astro';
@@ -26,6 +27,7 @@ const structuredData = [softwareApplicationSchema(t.meta.description), organizat
   locale="fr"
 >
   <HomeHero locale="fr" />
+  <GetStarted locale="fr" />
   <PlanSection locale="fr" />
   <StickyShowcase locale="fr" />
   <LoggingRow locale="fr" />

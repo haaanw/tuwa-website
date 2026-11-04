@@ -13,6 +13,7 @@ const common: Common = {
     ],
     support: 'Assistance',
     blog: 'Blog',
+    guide: 'Guide',
     getApp: "Télécharger l'app",
     method: 'Méthode',
     languageSwitcher: {
@@ -37,6 +38,12 @@ const common: Common = {
     menu: 'Menu',
   },
   drawer: {
+    getStarted: 'Pour commencer',
+    quickStart: 'Démarrage rapide (en anglais)',
+    connectClaude: 'Connecter Claude (en anglais)',
+    connectChatgpt: 'Connecter ChatGPT (en anglais)',
+    connectAgent: 'Connecter un agent de code (en anglais)',
+    guideHelp: 'Aide (en anglais)',
     yourPlan: 'Ton plan (en anglais)',
     dayCard: 'La Day Card (en anglais)',
     ariaLabel: 'Navigation du site',

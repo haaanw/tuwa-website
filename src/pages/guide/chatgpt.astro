@@ -1,15 +1,35 @@
 ---
 // W5.3 — Connect ChatGPT. The custom-connector path is the approved /connector/ copy (B8);
 // the app path is added when OpenAI approves the listing (W4). App strings: 1.7.6 (24).
+// Vendor paths checked 2026-11-04. Claude: support.claude.com/en/articles/11175166 (plans, path, + › Connectors,
+// Remove). ChatGPT: help.openai.com/en/articles/12584461 and developers.openai.com/api/docs/guides/custom-mcp-server
+// (Plugins › + › Add custom MCP server, plans, "No - web only" on mobile, @ in the prompt box).
+// Tuwa is in no directory on this date: OpenAI declined the listing on 2026-11-03 and no Anthropic approval exists.
 import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
+import GuideFigure from '../../components/guide/GuideFigure.astro';
+import GuideShots from '../../components/guide/GuideShots.astro';
+import ConnectPlates from '../../components/guide/ConnectPlates.astro';
+import DrawnPhone from '../../components/guide/DrawnPhone.astro';
+import ConnectFix from '../../components/guide/ConnectFix.astro';
+import { screensFor } from '../../components/home/screens';
+const shots = screensFor('en');
 ---
 <GuidePageLayout title="Connect ChatGPT" description="Add Tuwa to ChatGPT as a connector: turn it on in Tuwa, add the URL in ChatGPT, sign in, and disconnect at any time." locale="en" path="/guide/chatgpt/">
 <p>With the connector, ChatGPT can read your Tuwa readings, sessions and plan, show the day's card in the chat, and send you a plan draft to review. Tuwa still makes the day's go, modify or hold decision in the app. The connector is free and off until you turn it on.</p>
 
+<p>The ChatGPT pictures on this page are drawings, not screenshots. ChatGPT can change its screens, so follow the words in bold.</p>
+
 <h2>What you need</h2>
 <ul>
 <li>A Tuwa account and Tuwa 1.7.6 or later on your iPhone.</li>
-<li>ChatGPT on the web or the ChatGPT desktop app, with an account that lets you add a custom connector.</li>
+<li>ChatGPT on the web. OpenAI's help page says you cannot connect a custom MCP server on mobile.</li>
+<li>A plan that allows it. OpenAI's help page names three cases:
+<ul>
+<li><strong>Pro:</strong> read and fetch permissions only, so ChatGPT may not be able to send you a plan draft.</li>
+<li><strong>Business:</strong> only admins and owners can add a server.</li>
+<li><strong>Enterprise and Edu:</strong> admins and owners, and members an admin permits.</li>
+</ul>
+That page does not name Free or Plus. If your account cannot add a server, use <a href="/guide/claude/">Claude</a> or the <strong>Copy the prompt</strong> route in the <a href="/guide/quick-start/">quick start</a>.</li>
 </ul>
 
 <h2>1. Turn it on in Tuwa</h2>
@@ -18,17 +38,28 @@ import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
 <li>Read <strong>What is sent</strong>, <strong>Never sent</strong> and <strong>Kept</strong>.</li>
 <li>Turn on <strong>Allow the AI connector</strong>. Until you do, Tuwa gives your AI app nothing.</li>
 </ol>
+<GuideShots caption="Profile › Legal › AI connector, in the Tuwa app (demo account)." shots={[{ src: shots.connector, alt: 'Tuwa AI connector screen: what is sent, what is never sent and what is kept' }]} />
 
 <h2>2. Add Tuwa in ChatGPT</h2>
 <ol>
-<li>In ChatGPT, add a custom connector (MCP server) in your plugin settings.</li>
-<li>Name: <code>Tuwa</code>. URL: <code>https://mcp.tuwa.app/mcp</code>. Sign-in: OAuth.</li>
-<li>Connect it.</li>
+<li>Open <code>chatgpt.com/plugins</code>. Select the plus button, then <strong>Add custom MCP server</strong>. You do not need to turn on Developer Mode first.</li>
 </ol>
-<p>When Tuwa is listed in ChatGPT's app directory, you can add it from there instead.</p>
+<GuideFigure caption="Plugins › + › Add custom MCP server."><ConnectPlates plate="chatgpt-path" /></GuideFigure>
+<ol start="2">
+<li>Name: <code>Tuwa</code>. Connection: <code>https://mcp.tuwa.app/mcp</code>. Authentication: <strong>OAuth</strong>.</li>
+<li>ChatGPT shows a warning for each custom server. Read it and select <strong>I understand and want to continue</strong>.</li>
+<li>Select <strong>Create as a plugin</strong>, check the tools it found, then install the plugin.</li>
+</ol>
+<GuideFigure caption="Type the URL exactly and choose OAuth."><ConnectPlates plate="chatgpt-form" /></GuideFigure>
+<p>Tuwa is not in ChatGPT's plugin directory today, so add it by this URL.</p>
 
 <h2>3. Sign in and allow</h2>
-<p>A Tuwa page opens at tuwa.app. Sign in the way you sign in to the app — Apple, Google, or your email with your password or a one-time code — and choose <strong>Allow</strong>. Then ask ChatGPT, for example: "Where am I in my plan?"</p>
+<p>A Tuwa page opens at tuwa.app. Sign in the way you sign in to the app — Apple, Google, or your email with your password or a one-time code — and choose <strong>Allow</strong>.</p>
+<GuideFigure caption="Sign in on tuwa.app, then choose Allow."><ConnectPlates plate="signin" /><ConnectPlates plate="allow" client="ChatGPT" /></GuideFigure>
+
+<h2>4. Ask ChatGPT</h2>
+<p>Start a new chat. Type <code>@</code> in the prompt box, select Tuwa, and ask, for example: "Where am I in my plan?" Your choice applies to that message, so type <code>@</code> again when a later question needs new data.</p>
+<GuideFigure caption="Type @, select Tuwa, then ask."><ConnectPlates plate="chatgpt-chat" /></GuideFigure>
 
 <h2>What ChatGPT can read, and what it never gets</h2>
 <ul>
@@ -37,11 +68,17 @@ import GuidePageLayout from '../../layouts/GuidePageLayout.astro';
 <li><strong>It cannot:</strong> change your plan, log a workout or answer your check-in.</li>
 <li><strong>Never sent:</strong> no number from Apple Health — no heart rate, HRV, sleep time, temperature or cycle data.</li>
 </ul>
+<GuideFigure caption="A draft from your AI waits on Today and Log until you open it." kind="phones">
+<DrawnPhone title="Today" options={[{ label: 'A plan arrived from your AI · Review', hot: true }]} />
+<DrawnPhone title="From your AI" sub="Your AI sent this plan as a draft. Nothing changes until you activate it." options={[{ label: 'Activate this plan', hot: true }, { label: 'Dismiss this draft' }]} />
+</GuideFigure>
 <p>The full list of tools is on the <a href="/connector/">connector page</a>; what is kept is in the <a href="/privacy/#ai-connector">Privacy Policy</a>.</p>
 
 <h2>Disconnect</h2>
 <ol>
 <li>In Tuwa: <strong>Profile</strong> › <strong>Legal</strong> › <strong>AI connector</strong>, turn off <strong>Allow the AI connector</strong>. From then on the connector gives your AI nothing more.</li>
-<li>In ChatGPT: remove or disconnect Tuwa in the connector settings.</li>
+<li>In ChatGPT: open <strong>Plugins</strong> and remove or disconnect Tuwa.</li>
 </ol>
+
+<ConnectFix locale="en" client="chatgpt" />
 </GuidePageLayout>

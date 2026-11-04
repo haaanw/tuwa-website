@@ -3,12 +3,20 @@
 // （WorkloadApp/Resources/Localizable.xcstrings，2026-10-31 核对）。若 1.7.7 让“今天”直接打开训练日卡
 // （.planning/v177/TODAY-FIRST.md），第 6–8 步在那次发布当天随之更新。
 import GuidePageLayout from '../../../layouts/GuidePageLayout.astro';
+import GuideFigure from '../../../components/guide/GuideFigure.astro';
+import GuideShots from '../../../components/guide/GuideShots.astro';
+import DrawnPhone from '../../../components/guide/DrawnPhone.astro';
+import { screensFor } from '../../../components/home/screens';
+const shots = screensFor('zh');
 ---
 <GuidePageLayout title="快速上手" description="在 iPhone 上设置 Tuwa，导入你的计划或用你自己的 AI 来写，然后从今天的卡片开始第一次训练。" locale="zh" path="/guide/quick-start/">
 <p>你需要一部 iOS 17 或更高版本的 iPhone。手表或戒指的 Apple 健康数据是可选的；只靠记录的训练，Tuwa 也能工作，有了读数后会把它们加进来。</p>
 
+<p>示意图沿用应用中的文字。标有“演示账号”的图片是真实应用的截图，使用演示数据。</p>
+
 <h2>1. 安装并回答开头的问题</h2>
 <p>从 App Store 下载 Tuwa 并打开。开头几屏会问：是什么打断了你的训练、你的一周实际怎么分配、上次带着深度疲劳硬练后发生了什么。选好答案，点<strong>继续</strong>。已有账号？点<strong>已有账号？登录</strong>。</p>
+<GuideFigure caption="开头的问题。选择你的答案，然后点继续。" kind="phones"><DrawnPhone title="是什么打断了你的训练？" sub="选一个真实发生过的。" options={[{ label: '总是疲惫，却说不清原因', hot: true }, { label: '进步停滞好几周' }, { label: '今天练多重全靠猜' }]} pill="继续" /></GuideFigure>
 
 <h2>2. 连接 Apple 健康</h2>
 <p>在<strong>读取你过去 90 天的数据。</strong>这一屏，Tuwa 请求读取心率变异性、静息心率和睡眠。点<strong>读取我的数据</strong>并在 Apple 健康的弹窗中允许访问，或者点<strong>暂时跳过</strong>。</p>
@@ -17,8 +25,9 @@ import GuidePageLayout from '../../../layouts/GuidePageLayout.astro';
 <li>如果还没有历史数据，下一屏会说明这一点和接下来会发生什么：建立你自己的基线大约需要 14 个早晨的读数。</li>
 </ul>
 <p>下一屏<strong>你的准备度。</strong>会显示你的第一个读数。</p>
+<GuideFigure caption="“读取我的数据”会打开 Apple 健康窗口。“暂时跳过”一直可选。" kind="phones"><DrawnPhone title="读取你过去 90 天的数据。" rows={['心率变异性', '静息心率', '睡眠']} sub="原始数据永远不会离开你的手机。只有综合评分会同步。" pill="读取我的数据" quiet="暂时跳过" /></GuideFigure>
 
-<h2>3. 你的计划</h2>
+<h2 id="your-plan">3. 你的计划</h2>
 <p>Tuwa 读取你的训练计划，并根据你的身体状态调整每一天。它从不替你编写计划。选一个：</p>
 <ul>
 <li><strong>我有计划</strong>——文件、照片或粘贴的文本。账号创建后会马上打开（第 5 步）。</li>
@@ -31,10 +40,12 @@ import GuidePageLayout from '../../../layouts/GuidePageLayout.astro';
 </li>
 </ul>
 <p>然后回答<strong>你按书面计划训练多久了？</strong>（无 · 不到 6 个月 · 6 个月到 2 年 · 超过 2 年），点<strong>继续</strong>。<strong>稍后</strong>可以先跳过计划。</p>
+<GuideFigure caption="选一条路。还没有计划时，由你自己的 Claude 或 ChatGPT 来写。" kind="phones"><DrawnPhone title="你的计划" options={[{ label: '我有计划', sub: '文件、照片或粘贴的文本。' }, { label: '我还没有计划', sub: '用你自己的 Claude 或 ChatGPT 来制定。', hot: true }]} pill="继续" quiet="稍后" /><DrawnPhone title="用你的 AI 来制定" options={[{ label: '复制提示词', hot: true }, { label: '打开 Claude' }, { label: '打开 ChatGPT' }, { label: '我的计划已经写好了', sub: '账号创建后把它粘贴进来。' }]} /></GuideFigure>
 
 <h2>4. 创建账号</h2>
 <p>在<strong>留住这一切。创建账号。</strong>这一屏，选择通过 Apple 登录、<strong>通过 Google 继续</strong>或<strong>通过邮箱继续</strong>（姓名、邮箱和至少 8 位的密码，然后点<strong>注册账号</strong>）。</p>
 <p>接下来是订阅页面。你可以订阅，也可以点<strong>继续使用免费版</strong>——这个选项一直都在。</p>
+<GuideFigure caption="选择一种登录方式。之后连接 AI 应用时也用同一种方式。" kind="phones"><DrawnPhone title="留住这一切。创建账号。" sub="你的基线、历史和计划都会同步到你的账号。" options={[{ label: '通过 Apple 登录' }, { label: '通过 Google 继续' }, { label: '通过邮箱继续' }]} /></GuideFigure>
 
 <h2>5. 导入训练计划</h2>
 <p>如果你在第 3 步选了计划，现在会打开<strong>导入训练计划</strong>。</p>
@@ -46,9 +57,11 @@ import GuidePageLayout from '../../../layouts/GuidePageLayout.astro';
 <li>选择第 1 周何时开始：<strong>下周一开始</strong>（默认）或<strong>今天开始</strong>。如果今天是周一，就不需要选。</li>
 </ol>
 <p>之后是介绍页<strong>每天，就这一个循环。</strong>点<strong>开始训练</strong>。</p>
+<GuideShots caption="导入后，你的计划出现在“日志”页面（演示账号）。" shots={[{ src: shots.program, alt: 'Tuwa 计划总览，显示周和当前位置' }]} />
 
 <h2>6. 每天早上：晨间自评</h2>
 <p>每天中午前第一次打开 Tuwa 时，晨间自评会自动打开（弹窗标题为<strong>晨间检查</strong>）：四项 1–5 分的评分（睡眠质量、肌肉酸痛、精力/心情、压力水平）。点保存，或点取消跳过。中午之后，它会作为<strong>今天感觉如何?</strong>留在“今天”页面上。</p>
+<GuideFigure caption="四项评分，每天一次。" kind="phones"><DrawnPhone title="晨间检查" rows={['睡眠质量', '肌肉酸痛', '精力/心情', '压力水平']} pill="保存" quiet="取消" /></GuideFigure>
 
 <h2>7. 今天：看懂今天的卡片</h2>
 <p><strong>今天</strong>标签页打开时显示今天的卡片。它写明这一天的类型（例如<strong>力量日</strong>）和剂量：<strong>训练量</strong>、<strong>强度</strong>和<strong>时长</strong>，并与你的计划对照。具体数字在训练简报里。</p>
@@ -57,6 +70,7 @@ import GuidePageLayout from '../../../layouts/GuidePageLayout.astro';
 <li>如果简报建议调整，会显示两个同等的选项：调整（例如减轻顶组或减少组数）和<strong>保留我的计划</strong>。由你选择。稳定的日子没有需要选的。</li>
 <li>点<strong>开始</strong>。训练会在<strong>日志</strong>标签页中开始进行。</li>
 </ol>
+<GuideShots caption="今天的卡片，以及“开始今天的训练”之后的简报（演示账号）。" shots={[{ src: shots.today, alt: 'Tuwa 今天页面，显示今天的卡片和用文字表述的剂量' }, { src: shots.brief, alt: '今天的训练简报，显示读数、建议和动作' }]} />
 
 <h2>8. 日志：在训练日卡上完成训练</h2>
 <ol>
@@ -66,8 +80,9 @@ import GuidePageLayout from '../../../layouts/GuidePageLayout.astro';
 <li>练完后点<strong>完成</strong>。<strong>这次训练有多累？</strong>是可选的；然后点<strong>完成</strong>保存。</li>
 </ol>
 <p>这次训练会出现在“日志”的<strong>历史记录</strong>和“今天”的<strong>最近训练</strong>中，今天的卡片会显示<strong>今日已完成</strong>。</p>
+<GuideShots caption="“日志”页面上的训练日卡，以及带“记录本组”的动作页（演示账号）。" shots={[{ src: shots.dayCard, alt: '训练日卡，显示进行中的训练和动作' }, { src: shots.plate, alt: '动作页，显示这组的数值和记录按钮' }]} />
 
 <h2>还没有计划？</h2>
 <p>“今天”会显示<strong>导入你的训练计划</strong>和<strong>开始计划外训练</strong>。在“日志”中，<strong>开始训练</strong>提供<strong>空白训练</strong>、<strong>用文字描述一次训练</strong>（你打字描述，Tuwa 把它变成草稿，由你检查）或<strong>从模板开始</strong>。</p>
-<p>下一步：<a href="/zh/guide/claude/">连接 Claude</a>、<a href="/zh/guide/chatgpt/">连接 ChatGPT</a>，或查看<a href="/zh/guide/help/">常见问题</a>。</p>
+<p>下一步：把 Tuwa 添加到你的 AI——<a href="/zh/guide/claude/">Claude</a>、<a href="/zh/guide/chatgpt/">ChatGPT</a> 或<a href="/zh/guide/coding-agents/">编程代理</a>——或查看<a href="/zh/guide/help/">常见问题</a>。</p>
 </GuidePageLayout>

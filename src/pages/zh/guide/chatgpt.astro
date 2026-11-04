@@ -1,14 +1,31 @@
 ---
 // W5.3（中文）——添加步骤沿用已批准的 /zh/connector/ 文案（B8）；OpenAI 批准应用收录后补充应用路径（W4）。
+// 厂商路径核对于 2026-11-04（来源见英文版页面注释）。这一天 Tuwa 不在任何目录中。
 import GuidePageLayout from '../../../layouts/GuidePageLayout.astro';
+import GuideFigure from '../../../components/guide/GuideFigure.astro';
+import GuideShots from '../../../components/guide/GuideShots.astro';
+import ConnectPlates from '../../../components/guide/ConnectPlates.astro';
+import DrawnPhone from '../../../components/guide/DrawnPhone.astro';
+import ConnectFix from '../../../components/guide/ConnectFix.astro';
+import { screensFor } from '../../../components/home/screens';
+const shots = screensFor('zh');
 ---
 <GuidePageLayout title="连接 ChatGPT" description="把 Tuwa 作为连接器添加到 ChatGPT：在 Tuwa 中打开，在 ChatGPT 中添加 URL，登录，并可随时断开。" locale="zh" path="/guide/chatgpt/">
 <p>有了连接器，ChatGPT 可以读取你在 Tuwa 的读数、训练和计划，在对话中显示今天的卡片，并给你发送一份计划草稿供你审阅。当天“照常 / 调整 / 暂缓”的决定仍由 Tuwa 在应用中做出。连接器免费，在你打开之前一直关闭。</p>
 
+<p>本页中 ChatGPT 的图片是示意图，不是截图。ChatGPT 可能更改界面，请按粗体文字操作。按钮文字沿用 ChatGPT 的英文界面；如果你的界面是中文，文字可能不同。</p>
+
 <h2>你需要</h2>
 <ul>
 <li>一个 Tuwa 账号，并在 iPhone 上安装 Tuwa 1.7.6 或更高版本。</li>
-<li>网页版 ChatGPT 或 ChatGPT 桌面应用，并且你的账户可以添加自定义连接器。</li>
+<li>网页版 ChatGPT。OpenAI 的帮助页面说明，不能在移动端连接自定义 MCP 服务器。</li>
+<li>允许添加的套餐。OpenAI 的帮助页面列出三种情况：
+<ul>
+<li><strong>Pro：</strong>只有读取和获取权限，所以 ChatGPT 可能无法给你发送计划草稿。</li>
+<li><strong>Business：</strong>只有管理员和所有者可以添加服务器。</li>
+<li><strong>Enterprise 和 Edu：</strong>管理员、所有者，以及管理员授权的成员。</li>
+</ul>
+该页面没有提到 Free 或 Plus。如果你的账户无法添加服务器，请使用 <a href="/zh/guide/claude/">Claude</a>，或<a href="/zh/guide/quick-start/">快速上手</a>中的<strong>复制提示词</strong>路线。</li>
 </ul>
 
 <h2>1. 在 Tuwa 中打开</h2>
@@ -17,17 +34,28 @@ import GuidePageLayout from '../../../layouts/GuidePageLayout.astro';
 <li>阅读<strong>发送内容</strong>、<strong>不会发送</strong>和<strong>保留期限</strong>。</li>
 <li>打开<strong>允许 AI 连接器</strong>。在你打开之前，Tuwa 不会向你的 AI 应用提供任何内容。</li>
 </ol>
+<GuideShots caption="Tuwa 应用中的 档案 › 法律信息 › AI 连接器（演示账号）。" shots={[{ src: shots.connector, alt: 'Tuwa AI 连接器页面：发送内容、不会发送的内容和保留期限' }]} />
 
 <h2>2. 在 ChatGPT 中添加 Tuwa</h2>
 <ol>
-<li>在 ChatGPT 的插件设置中添加一个自定义连接器（MCP 服务器）。</li>
-<li>名称：<code>Tuwa</code>。URL：<code>https://mcp.tuwa.app/mcp</code>。登录方式：OAuth。</li>
-<li>连接它。</li>
+<li>打开 <code>chatgpt.com/plugins</code>。选择加号按钮，然后选择 <strong>Add custom MCP server</strong>。不需要先打开 Developer Mode。</li>
 </ol>
-<p>当 Tuwa 出现在 ChatGPT 的应用目录中后，你也可以直接从目录添加。</p>
+<GuideFigure caption="Plugins › + › Add custom MCP server。"><ConnectPlates plate="chatgpt-path" locale="zh" /></GuideFigure>
+<ol start="2">
+<li>名称：<code>Tuwa</code>。Connection：<code>https://mcp.tuwa.app/mcp</code>。Authentication：<strong>OAuth</strong>。</li>
+<li>ChatGPT 会为每个自定义服务器显示一条警告。阅读后选择 <strong>I understand and want to continue</strong>。</li>
+<li>选择 <strong>Create as a plugin</strong>，检查它发现的工具，然后安装这个插件。</li>
+</ol>
+<GuideFigure caption="准确输入 URL，并选择 OAuth。"><ConnectPlates plate="chatgpt-form" locale="zh" /></GuideFigure>
+<p>Tuwa 目前不在 ChatGPT 的插件目录中，所以请通过这个 URL 添加。</p>
 
 <h2>3. 登录并允许</h2>
-<p>会打开一个 tuwa.app 上的 Tuwa 页面。用你登录 Tuwa 应用的方式登录——Apple、Google，或者你的邮箱加密码或一次性验证码——然后选择<strong>允许</strong>。然后可以问 ChatGPT，例如：“我现在在计划的哪个位置？”</p>
+<p>会打开一个 tuwa.app 上的 Tuwa 页面。用你登录 Tuwa 应用的方式登录——Apple、Google，或者你的邮箱加密码或一次性验证码——然后选择<strong>允许</strong>。</p>
+<GuideFigure caption="在 tuwa.app 上登录，然后选择“允许”。"><ConnectPlates plate="signin" locale="zh" /><ConnectPlates plate="allow" locale="zh" client="ChatGPT" /></GuideFigure>
+
+<h2>4. 问 ChatGPT</h2>
+<p>开始一个新对话。在输入框中输入 <code>@</code>，选择 Tuwa，然后提问，例如：“我的计划进行到哪里了？”你的选择只对这一条消息有效，之后需要新数据时请再次输入 <code>@</code>。</p>
+<GuideFigure caption="输入 @，选择 Tuwa，然后提问。"><ConnectPlates plate="chatgpt-chat" locale="zh" /></GuideFigure>
 
 <h2>ChatGPT 能读取什么，永远拿不到什么</h2>
 <ul>
@@ -36,11 +64,17 @@ import GuidePageLayout from '../../../layouts/GuidePageLayout.astro';
 <li><strong>它不能：</strong>修改你的计划、记录训练或替你完成晨间自评。</li>
 <li><strong>不会发送：</strong>任何来自 Apple 健康的数字——没有心率、心率变异性、睡眠时长、体温或周期数据。</li>
 </ul>
+<GuideFigure caption="AI 发来的草稿会留在“今天”和“日志”页面，等你打开。" kind="phones">
+<DrawnPhone title="今天" options={[{ label: '你的 AI 发来了一份计划 · 查看', hot: true }]} />
+<DrawnPhone title="来自你的 AI" sub="你的 AI 以草稿形式发来了这份计划。在你启用之前，什么都不会改变。" options={[{ label: '启用这份计划', hot: true }, { label: '忽略这份草稿' }]} />
+</GuideFigure>
 <p>完整的工具列表见<a href="/zh/connector/">连接器页面</a>；保留哪些内容见<a href="/zh/privacy/#ai-connector">隐私政策</a>。</p>
 
 <h2>断开连接</h2>
 <ol>
 <li>在 Tuwa 中：<strong>档案</strong> › <strong>法律信息</strong> › <strong>AI 连接器</strong>，关闭<strong>允许 AI 连接器</strong>。此后连接器不再向你的 AI 提供任何新内容。</li>
-<li>在 ChatGPT 中：在连接器设置里移除或断开 Tuwa。</li>
+<li>在 ChatGPT 中：打开 <strong>Plugins</strong>，然后移除或断开 Tuwa。</li>
 </ol>
+
+<ConnectFix locale="zh" client="chatgpt" />
 </GuidePageLayout>

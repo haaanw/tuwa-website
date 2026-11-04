@@ -1,0 +1,316 @@
+---
+// Drawn plates for the connector steps. No vendor logo, no vendor colour and no screenshot: a plain
+// window that repeats the words of the path, with the control to choose marked. The vendor words
+// follow the docs checked on 2026-11-04 (see the page comments); the Tuwa consent words come from
+// src/i18n/locales/*/oauth-consent.ts. Screen readers skip the drawing: the step text says it all.
+import en from '../../i18n/locales/en/oauth-consent';
+import zh from '../../i18n/locales/zh/oauth-consent';
+
+type Plate =
+  | 'claude-path'
+  | 'claude-form'
+  | 'claude-chat'
+  | 'chatgpt-path'
+  | 'chatgpt-form'
+  | 'chatgpt-chat'
+  | 'signin'
+  | 'allow'
+  | 'terminal-claude'
+  | 'terminal-codex';
+
+interface Props {
+  plate: Plate;
+  locale?: 'en' | 'zh';
+  /** The AI app the consent page names. */
+  client?: string;
+}
+const { plate, locale = 'en', client = 'Claude' } = Astro.props;
+const consent = locale === 'zh' ? zh : en;
+const URL = 'https://mcp.tuwa.app/mcp';
+const ADDRESS: Record<Plate, string> = {
+  'claude-path': 'claude.ai',
+  'claude-form': 'claude.ai',
+  'claude-chat': 'claude.ai',
+  'chatgpt-path': 'chatgpt.com/plugins',
+  'chatgpt-form': 'chatgpt.com/plugins',
+  'chatgpt-chat': 'chatgpt.com',
+  signin: 'tuwa.app/oauth/consent',
+  allow: 'tuwa.app/oauth/consent',
+  'terminal-claude': 'terminal',
+  'terminal-codex': 'terminal',
+};
+---
+<div class="dwin" aria-hidden="true">
+  <div class="dwin-bar"><span class="dwin-address">{ADDRESS[plate]}</span></div>
+  <div class="dwin-body">
+    {plate === 'claude-path' && (
+      <div class="dwin-split">
+        <div class="dwin-side">
+          <span class="on">Customize</span>
+          <span class="on sel">Connectors</span>
+        </div>
+        <div class="dwin-main">
+          <div class="dwin-head"><strong>Connectors</strong><span class="btn hot">+ Add</span></div>
+          <div class="menu"><span class="hot">Add custom connector</span></div>
+        </div>
+      </div>
+    )}
+    {plate === 'claude-form' && (
+      <div class="form">
+        <strong>Add custom connector</strong>
+        <label>Name<span class="field hot">Tuwa</span></label>
+        <label>Remote MCP server URL<span class="field hot">{URL}</span></label>
+        <div class="actions"><span class="btn">Cancel</span><span class="btn ink hot">Add</span></div>
+      </div>
+    )}
+    {plate === 'claude-chat' && (
+      <div class="chat">
+        <div class="menu">
+          <span>Connectors</span>
+          <span class="toggle-row">Tuwa<i class="toggle hot" /></span>
+        </div>
+        <div class="prompt"><span class="btn hot">+</span><span>What's on my plan today in Tuwa?</span></div>
+      </div>
+    )}
+    {plate === 'chatgpt-path' && (
+      <div class="dwin-main">
+        <div class="dwin-head"><strong>Plugins</strong><span class="btn hot">+</span></div>
+        <div class="menu"><span class="hot">Add custom MCP server</span></div>
+      </div>
+    )}
+    {plate === 'chatgpt-form' && (
+      <div class="form">
+        <strong>Add custom MCP server</strong>
+        <label>Name<span class="field hot">Tuwa</span></label>
+        <label>Connection<span class="field hot">{URL}</span></label>
+        <label>Authentication<span class="field hot">OAuth</span></label>
+        <span class="check hot"><i />I understand and want to continue</span>
+        <div class="actions"><span class="btn ink hot">Create as a plugin</span></div>
+      </div>
+    )}
+    {plate === 'chatgpt-chat' && (
+      <div class="chat">
+        <div class="menu"><span class="hot">Tuwa</span></div>
+        <div class="prompt"><span>@</span><span>Where am I in my plan?</span></div>
+      </div>
+    )}
+    {plate === 'signin' && (
+      <div class="form">
+        <strong>{consent.signIn.heading}</strong>
+        <span class="field">{consent.signIn.apple}</span>
+        <span class="field">{consent.signIn.google}</span>
+        <label>{consent.signIn.emailLabel}<span class="field">&nbsp;</span></label>
+        <div class="actions"><span class="btn ink hot">{consent.signIn.passwordSubmit}</span></div>
+      </div>
+    )}
+    {plate === 'allow' && (
+      <div class="form">
+        <strong>{consent.consent.heading.replace('{client}', client)}</strong>
+        <span class="key">{consent.consent.readsKey}</span>
+        <span class="line" />
+        <span class="line short" />
+        <span class="key">{consent.consent.neverKey}</span>
+        <span class="line short" />
+        <div class="actions"><span class="btn">{consent.consent.deny}</span><span class="btn ink hot">{consent.consent.allow}</span></div>
+      </div>
+    )}
+    {plate === 'terminal-claude' && (
+      <div class="term">
+        <span class="hot-line">claude mcp add --transport http --scope user tuwa {URL}</span>
+        <span class="out">claude mcp list</span>
+        <span class="out">tuwa: {URL} (HTTP) - ! Needs authentication</span>
+        <span class="hot-line">/mcp</span>
+      </div>
+    )}
+    {plate === 'terminal-codex' && (
+      <div class="term">
+        <span class="hot-line">codex mcp add tuwa --url {URL}</span>
+        <span class="out">codex mcp list</span>
+        <span class="out">tuwa  {URL}  enabled  OAuth</span>
+        <span class="hot-line">/mcp</span>
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .dwin {
+    border: 1px solid var(--color-divider-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-el);
+    overflow: hidden;
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--color-text-1);
+  }
+  .dwin-bar {
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--color-divider);
+    background: var(--color-surface);
+  }
+  .dwin-address {
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    color: var(--color-text-3);
+    overflow-wrap: anywhere;
+  }
+  .dwin-body {
+    padding: 16px;
+  }
+  .dwin-split {
+    display: grid;
+    grid-template-columns: minmax(88px, 30%) 1fr;
+    gap: 16px;
+  }
+  .dwin-side {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--color-text-2);
+  }
+  .dwin-side .sel {
+    color: var(--color-text-1);
+    font-weight: var(--weight-medium);
+  }
+  .dwin-main,
+  .form,
+  .chat,
+  .term {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+  .dwin-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  strong {
+    font-weight: var(--weight-medium);
+  }
+  .btn {
+    display: inline-block;
+    padding: 4px 16px;
+    border: 1px solid var(--color-divider-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-el-2);
+    white-space: nowrap;
+  }
+  .btn.ink {
+    background: var(--color-text-1);
+    border-color: var(--color-text-1);
+    color: var(--color-surface-el);
+  }
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-self: flex-end;
+    padding: 8px;
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-el-2);
+  }
+  .menu span {
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: var(--color-text-2);
+    font-size: 12px;
+  }
+  .field {
+    padding: 4px 8px;
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-el-2);
+    color: var(--color-text-1);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px;
+    border-radius: 4px;
+  }
+  .check i {
+    flex: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--color-text-2);
+    border-radius: 2px;
+    background: var(--color-accent);
+  }
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .toggle {
+    width: 24px;
+    height: 12px;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+  }
+  .chat .menu {
+    align-self: flex-start;
+  }
+  .prompt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid var(--color-divider-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-el-2);
+  }
+  .prompt .btn {
+    padding: 0 8px;
+  }
+  .key {
+    margin-top: 4px;
+    font-size: 11px;
+    color: var(--color-text-3);
+  }
+  .line {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--color-divider);
+  }
+  .line.short {
+    width: 60%;
+  }
+  .term {
+    font-family: var(--font-mono, monospace);
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+  .term .out {
+    color: var(--color-text-3);
+  }
+  .term .hot-line {
+    padding: 4px 8px;
+    border-radius: 4px;
+    outline: 2px solid var(--color-accent);
+    outline-offset: -1px;
+  }
+  .hot {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 1px;
+  }
+</style>

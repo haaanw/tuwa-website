@@ -1,0 +1,36 @@
+---
+// One picture (or a pair) under a guide step. A drawing or a real capture goes in the slot; the
+// caption says what to do. `not-prose` keeps the page's long-form styles out of the drawing.
+interface Props {
+  caption: string;
+  /** "phones" keeps phone-sized plates narrow and side by side. */
+  kind?: 'phones' | 'windows';
+}
+const { caption, kind = 'windows' } = Astro.props;
+---
+<figure class:list={['gfig', 'not-prose', `gfig--${kind}`]}>
+  <div class="gfig-row"><slot /></div>
+  <figcaption class="gfig-cap">{caption}</figcaption>
+</figure>
+
+<style>
+  .gfig {
+    margin: 24px 0 32px;
+  }
+  .gfig-row {
+    display: grid;
+    gap: 16px;
+    align-items: start;
+  }
+  .gfig--phones .gfig-row {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 240px));
+  }
+  .gfig--windows .gfig-row {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  }
+  .gfig-cap {
+    margin-top: 8px;
+    font-size: var(--text-small);
+    color: var(--color-text-2);
+  }
+</style>
